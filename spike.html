@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <title>いろいろ試すサンプル</title>
+    <style type="text/css">
+        .container {
+            display: flex;
+            height: 100%;
+            text-align: center;
+        }
+
+        .item1 {
+            /* 水平垂直方向にリサイズ可能 */
+            resize: horizontal;
+            /* resizeを指定するため 'visible'以外を指定 */
+            overflow: hidden;
+            width: 30%;
+            background-color: burlywood;
+        }
+
+        .item2 {
+            flex-grow: 1;
+            background-color: green;
+        }
+
+        .slide_bar {
+            width: 8px;
+            background-color: white;
+            cursor: move;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id='leftPain' class="item1">Item 1</div>
+        <div id='slideBar' class="slide_bar"></div>
+        <div class="item2">Item 2</div>
+    </div>
+    <script>
+        function toggleCompactLeftPain() {
+            const leftPain = document.getElementById('leftPain');
+            leftPain.style.display = leftPain.style.display === 'none' ? 'inline' : 'none';
+        }
+
+        const slideBar = document.getElementById('slideBar');
+        slideBar.addEventListener('dblclick', toggleCompactLeftPain, false);
+    </script>
+</body>
+
+</html>
