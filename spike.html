@@ -2,6 +2,13 @@
 
 <head>
     <title>いろいろ試すサンプル</title>
+    <!-- Bootstrap CSS and JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="http://jonmiles.github.io/bootstrap-treeview/js/bootstrap-treeview.js"></script>
+    <link rel="stylesheet"
+        href="http://jonmiles.github.io/bootstrap-treeview/bower_components/bootstrap/dist/css/bootstrap.css">
     <style type="text/css">
         .container {
             display: flex;
@@ -14,7 +21,7 @@
             /* resizeを指定するため 'visible'以外を指定 */
             overflow: hidden;
             width: 30%;
-            background-color: burlywood;
+            overflow: auto;
         }
 
         .item2 {
@@ -24,8 +31,14 @@
 
         .slide_bar {
             width: 8px;
-            background-color: white;
+            background-color: gray;
             cursor: move;
+        }
+
+        /* treeview */
+        .treeview {
+            white-space: nowrap;
+            word-break: keep-all;
         }
     </style>
 </head>
@@ -33,6 +46,7 @@
 <body>
     <div class="container">
         <div id='leftPain' class="item1">
+            <div id="treeView" class=""></div>
         </div>
         <div id='slideBar' class="slide_bar"></div>
         <div class="item2">Item 2</div>
@@ -45,6 +59,69 @@
 
         const slideBar = document.getElementById('slideBar');
         slideBar.addEventListener('dblclick', toggleCompactLeftPain, false);
+
+        // TreeView
+        const defaultData = [
+            {
+                text: 'Parent 1',
+                href: '#parent1',
+                tags: ['4'],
+                nodes: [
+                    {
+                        text: 'Child 1',
+                        href: '#child1',
+                        tags: ['2'],
+                        nodes: [
+                            {
+                                text: 'Grandchild 1',
+                                href: '#grandchild1',
+                                tags: ['0']
+                            },
+                            {
+                                text: 'Grandchild 2',
+                                href: '#grandchild2',
+                                tags: ['0']
+                            }
+                        ]
+                    },
+                    {
+                        text: 'Child 2',
+                        href: '#child2',
+                        tags: ['0']
+                    }
+                ]
+            },
+            {
+                text: 'Parent 2',
+                href: '#parent2',
+                tags: ['0']
+            },
+            {
+                text: 'Parent 3',
+                href: '#parent3',
+                tags: ['0']
+            },
+            {
+                text: 'Parent 4',
+                href: '#parent4',
+                tags: ['0']
+            },
+            {
+                text: 'Parent 5',
+                href: '#parent5',
+                tags: ['0']
+            }
+        ];
+        $('#treeView').treeview({
+            color: "#428bca",
+            showBorder: false,
+            data: defaultData,
+            onNodeSelected: clickTreeViewNode
+        });
+        function clickTreeViewNode(event, data) {
+            if (data.nodes) return;
+            alert('text:' + data.text)
+        }
     </script>
 </body>
 
