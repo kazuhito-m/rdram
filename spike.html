@@ -53,7 +53,7 @@
             <!-- タブ・メニュー -->
             <ul class="nav nav-tabs" id='tabs'>
                 <li class="tab-head" id="tabhead-template" style='display: none;'>
-                    <a href="#tabid-sample" data-toggle="tab">
+                    <a href="#tabid-sample" data-toggle="tab" onclick='onActiveTabChange(this)'>
                         <span class='tab-caption'>これが表示されたら間違い</span>
                         <button type="button" class="close" aria-label="Close" title="タブを閉じる" onclick="closeTab(this)"
                             data-tabid="tabid-sample">
@@ -87,11 +87,13 @@
                 text: 'Parent 1',
                 href: '#parent1',
                 tags: ['4'],
+                selectable: false,
                 nodes: [
                     {
                         text: 'Child 1',
                         href: '#child1',
                         tags: ['2'],
+                        selectable: false,
                         nodes: [
                             {
                                 text: 'Grandchild 1',
@@ -144,12 +146,20 @@
             color: "#428bca",
             showBorder: false,
             data: defaultData,
-            onNodeSelected: clickTreeViewNode
+            onNodeSelected: onClickTreeViewNode
         });
-        function clickTreeViewNode(event, data) {
-            if (data.nodes) return;
-            const dataId = data.dataId;
 
+        let innerClickTreeViewNodeEvent = false;  // eventの無限ループ防止。
+
+        function onClickTreeViewNode(event, data) {
+            if (innerClickTreeViewNodeEvent) return;
+            innerClickTreeViewNodeEvent = true;
+            if (!data.nodes) createTab(data.dataId, data.text);
+            innerClickTreeViewNodeEvent = false;
+        }
+
+        // tab
+        function createTab(dataId, dataText) {
             const tabHeadId = 'tabhead-' + dataId;
             if (changeActiveTab(tabHeadId)) return;
 
@@ -162,7 +172,7 @@
                 const tabHeadAncher = element;
                 tabHeadAncher.href = '#' + dataId;
                 tabHeadAncher.childNodes.forEach(function (element) {
-                    if (element.tagName === 'SPAN') element.innerText = data.text;
+                    if (element.tagName === 'SPAN') element.innerText = dataText;
                     if (element.tagName === 'BUTTON') element.setAttribute('data-tabid', dataId);
                 });
             });
@@ -176,10 +186,10 @@
             const tabContents = document.getElementById('tab-contents');
             tabContents.appendChild(newTabContent);
             const tabs = document.getElementById('tabs');
-            tabs.appendChild(newTabHead);
+            tabs.appendChild(newTabHead); 5
             changeActiveTab(tabHeadId);
         }
-        // tab
+
         function closeTab(closeButton) {
             const tabId = closeButton.getAttribute('data-tabid');
             const tabHeadId = 'tabhead-' + tabId;
@@ -194,13 +204,31 @@
             const existTabHead = document.getElementById(tabHeadId);
             if (!existTabHead) return false;
             existTabHead.childNodes.forEach(function (element) {
-                if (element.tagName === 'A')  {
+                if (element.tagName === 'A') {
                     element.click();
                 }
             });
             return true;
         }
 
+        function onActiveTabChange(tabAncher) {
+            if (innerClickTreeViewNodeEvent) return;
+
+            const tabId = tabAncher.href.replace(/.*#/, '');
+
+            // tab側のidの割り出し
+            const treeView = $('#treeView');
+            const elements = document.getElementsByClassName('list-group-item');
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                const nodeId = element.getAttribute('data-nodeid');
+                const data = treeView.treeview('getNode', nodeId);
+                if (data.dataId === tabId) {
+                    treeView.treeview('selectNode', [data, { silent: true }]);
+                    break;
+                }
+            }
+        }
     </script>
 </body>
 
