@@ -6,6 +6,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="http://jonmiles.github.io/bootstrap-treeview/js/bootstrap-treeview.js"></script>
     <link rel="stylesheet"
         href="http://jonmiles.github.io/bootstrap-treeview/bower_components/bootstrap/dist/css/bootstrap.css">
@@ -26,7 +27,6 @@
 
         .item2 {
             flex-grow: 1;
-            background-color: green;
         }
 
         .slide_bar {
@@ -49,7 +49,28 @@
             <div id="treeView" class=""></div>
         </div>
         <div id='slideBar' class="slide_bar"></div>
-        <div class="item2">Item 2</div>
+        <div class="item2">
+            <!-- タブ・メニュー -->
+            <ul class="nav nav-tabs" id='tabs'>
+                <li class="tab-head" id="tabhead-template" style='display: none;'>
+                    <a href="#tabid-sample" data-toggle="tab">
+                        <span class='tab-caption'>これが表示されたら間違い</span>
+                        <button type="button" class="close" aria-label="Close" title="タブを閉じる" onclick="closeTab(this)"
+                            data-tabid="tabid-sample">
+                            <span aria-hidden="true">&#215;</span>
+                            <span class="sr-only">タブを閉じる</span>
+                        </button>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- タブ内容 -->
+            <div class="tab-content" id='tab-contents'>
+                <div class="tab-pane tab-content-template" id="tabcontent-template" style='display: none;'>
+                    <p>この内容出てきたら間違い。</p>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
         function toggleCompactLeftPain() {
@@ -75,41 +96,48 @@
                             {
                                 text: 'Grandchild 1',
                                 href: '#grandchild1',
-                                tags: ['0']
+                                tags: ['0'],
+                                dataId: '1'
                             },
                             {
                                 text: 'Grandchild 2',
                                 href: '#grandchild2',
-                                tags: ['0']
+                                tags: ['0'],
+                                dataId: '2'
                             }
                         ]
                     },
                     {
                         text: 'Child 2',
                         href: '#child2',
-                        tags: ['0']
+                        tags: ['0'],
+                        dataId: '3'
                     }
                 ]
             },
             {
                 text: 'Parent 2',
                 href: '#parent2',
-                tags: ['0']
+                tags: ['0'],
+                dataId: '4'
             },
             {
                 text: 'Parent 3',
                 href: '#parent3',
-                tags: ['0']
+                tags: ['0'],
+                dataId: '5'
             },
             {
                 text: 'Parent 4',
                 href: '#parent4',
-                tags: ['0']
+                tags: ['0'],
+                dataId: '6'
             },
             {
                 text: 'Parent 5',
                 href: '#parent5',
-                tags: ['0']
+                tags: ['0'],
+                dataId: '7'
             }
         ];
         $('#treeView').treeview({
@@ -120,8 +148,59 @@
         });
         function clickTreeViewNode(event, data) {
             if (data.nodes) return;
-            alert('text:' + data.text)
+            const dataId = data.dataId;
+
+            const tabHeadId = 'tabhead-' + dataId;
+            if (changeActiveTab(tabHeadId)) return;
+
+            const tabHeadTemplate = document.getElementById('tabhead-template');
+            const newTabHead = tabHeadTemplate.cloneNode(true);
+            newTabHead.id = 'tabhead-' + dataId;
+            newTabHead.style.display = '';
+            newTabHead.childNodes.forEach(function (element) {
+                if (element.tagName !== 'A') return;
+                const tabHeadAncher = element;
+                tabHeadAncher.href = '#' + dataId;
+                tabHeadAncher.childNodes.forEach(function (element) {
+                    if (element.tagName === 'SPAN') element.innerText = data.text;
+                    if (element.tagName === 'BUTTON') element.setAttribute('data-tabid', dataId);
+                });
+            });
+
+            const tabContentTemplate = document.getElementById('tabcontent-template');
+            const newTabContent = tabContentTemplate.cloneNode(true);
+            newTabContent.id = dataId;
+            newTabContent.style.display = '';
+            newTabContent.innerText = 'id:' + dataId + ', Created: ' + Date.now();
+
+            const tabContents = document.getElementById('tab-contents');
+            tabContents.appendChild(newTabContent);
+            const tabs = document.getElementById('tabs');
+            tabs.appendChild(newTabHead);
+            changeActiveTab(tabHeadId);
         }
+        // tab
+        function closeTab(closeButton) {
+            const tabId = closeButton.getAttribute('data-tabid');
+            const tabHeadId = 'tabhead-' + tabId;
+            const tabHead = document.getElementById(tabHeadId);
+            tabHead.remove();
+            const tabContent = document.getElementById(tabId);
+            tabContent.remove();
+            return false;
+        }
+
+        function changeActiveTab(tabHeadId) {
+            const existTabHead = document.getElementById(tabHeadId);
+            if (!existTabHead) return false;
+            existTabHead.childNodes.forEach(function (element) {
+                if (element.tagName === 'A')  {
+                    element.click();
+                }
+            });
+            return true;
+        }
+
     </script>
 </body>
 
