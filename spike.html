@@ -60,7 +60,7 @@
                 <li class="tab-head" id="tabhead-template" style='display: none;'>
                     <a href="#tabid-sample" data-toggle="tab" onclick='onActiveTabChange(this)'>
                         <span class='tab-caption'>これが表示されたら間違い</span>
-                        <button type="button" class="close" aria-label="Close" title="タブを閉じる" onclick="closeTab(this)"
+                        <button type="button" class="close" aria-label="Close" title="タブを閉じる" onclick="onCloseTab(this)"
                             data-tabid="tabid-sample">
                             <span aria-hidden="true">&#215;</span>
                             <span class="sr-only">タブを閉じる</span>
@@ -195,14 +195,41 @@
             changeActiveTab(tabHeadId);
         }
 
+        function onCloseTab(closeButton) {
+            closeTab(closeButton);
+        }
+
         function closeTab(closeButton) {
             const tabId = closeButton.getAttribute('data-tabid');
             const tabHeadId = 'tabhead-' + tabId;
             const tabHead = document.getElementById(tabHeadId);
+            if (tabHead.classList.contains('active')) {
+                const nextActiveTabHeadId = nextActiveTabHeadIdWhenDeleted(tabHeadId);
+                console.log('nextActiveTabHeadId:' + nextActiveTabHeadId);
+                changeActiveTab(nextActiveTabHeadId);
+            }
             tabHead.remove();
             const tabContent = document.getElementById(tabId);
             tabContent.remove();
             return false;
+        }
+
+        function nextActiveTabHeadIdWhenDeleted(deleteTargetTabHeadId) {
+            let resultTabHeadId = undefined;
+            let foundTabHead = false;
+            const tabHeads = document.getElementsByClassName('tab-head');
+            for (let i = 0; i < tabHeads.length; i++) {
+                const tabHead = tabHeads[i];
+                currentTabHeadId = tabHead.id;
+                if (currentTabHeadId === 'tabhead-template') continue;
+                if (foundTabHead) return currentTabHeadId;
+                if (currentTabHeadId === deleteTargetTabHeadId) {
+                    foundTabHead = true;
+                    continue;
+                }
+                resultTabHeadId = currentTabHeadId;
+            }
+            return resultTabHeadId;
         }
 
         function changeActiveTab(tabHeadId) {
@@ -220,6 +247,11 @@
             if (innerClickTreeViewNodeEvent) return;
 
             const tabId = tabAncher.href.replace(/.*#/, '');
+
+            // イベントの都合上「すでに削除されている」場合があるので判定。
+            const tabHeadId = 'tabhead-' + tabId;
+            const tabHead = document.getElementById(tabHeadId);
+            if (!tabHead) return;
 
             // tab側のidの割り出し
             const treeView = $('#treeView');
