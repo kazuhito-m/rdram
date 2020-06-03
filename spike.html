@@ -71,7 +71,7 @@
 
             <!-- タブ内容 -->
             <div class="tab-content" id='tab-contents'>
-                <div class="tab-pane tab-content-template" id="tabcontent-template" style='display: none;'>
+                <div class="tab-pane" id="tabcontent-template" style='display: none;'>
                     <p>この内容出てきたら間違い。</p>
                 </div>
             </div>
@@ -205,7 +205,6 @@
             const tabHead = document.getElementById(tabHeadId);
             if (tabHead.classList.contains('active')) {
                 const nextActiveTabHeadId = nextActiveTabHeadIdWhenDeleted(tabHeadId);
-                console.log('nextActiveTabHeadId:' + nextActiveTabHeadId);
                 changeActiveTab(nextActiveTabHeadId);
             }
             tabHead.remove();
@@ -233,6 +232,10 @@
         }
 
         function changeActiveTab(tabHeadId) {
+            if (!tabHeadId) { // undifindが来たら「何もアクティブな状態にしない」という命令と見なす。
+                allInactive();
+                return false;
+            }
             const existTabHead = document.getElementById(tabHeadId);
             if (!existTabHead) return false;
             existTabHead.childNodes.forEach(function (element) {
@@ -243,7 +246,29 @@
             return true;
         }
 
+        function allInactive() {
+            const elements = document.getElementsByClassName('active');
+            for (let i = 0; i < elements.length; i++) elements[i].classList.remove('active');
+
+            const treeView = $('#treeView');
+            const treeNodes = document.getElementsByClassName('list-group-item');
+            for (let i = 0; i < treeNodes.length; i++) {
+                const treeNode = treeNodes[i];
+                const nodeId = treeNode.getAttribute('data-nodeid');
+                const data = treeView.treeview('getNode', nodeId);
+                if (!data.dataId) continue;
+                treeView.treeview('unselectNode', [data, { silent: true }]);
+            }
+        }
+
         function onActiveTabChange(tabAncher) {
+            const tabHeads = document.getElementsByClassName('tab-head');
+            for (let i = 0; i < tabHeads.length; i++) {
+                const tabHead = tabHeads[i];
+                const currentTabHeadId = tabHead.id;
+                if (currentTabHeadId === 'tabhead-template') continue;
+            }
+
             if (innerClickTreeViewNodeEvent) return;
 
             const tabId = tabAncher.href.replace(/.*#/, '');
