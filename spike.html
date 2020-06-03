@@ -58,7 +58,7 @@
             <!-- タブ・メニュー -->
             <ul class="nav nav-tabs" id='tabs'>
                 <li class="tab-head" id="tabhead-template" style='display: none;'>
-                    <a href="#tabid-sample" data-toggle="tab" onclick='onActiveTabChange(this)'>
+                    <a href="#tabid-sample" data-toggle="tab" onclick='onActiveTabChange(this); return true;'>
                         <span class='tab-caption'>これが表示されたら間違い</span>
                         <button type="button" class="close" aria-label="Close" title="タブを閉じる" onclick="onCloseTab(this)"
                             data-tabid="tabid-sample">
