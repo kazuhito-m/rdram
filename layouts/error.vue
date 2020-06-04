@@ -13,22 +13,25 @@
 </template>
 
 <script lang="ts">
-export default {
-  layout: 'empty',
-  props: {
-    error: {
-      type: Object,
-      default: null
-    }
-  },
-  data () {
-    return {
-      pageNotFound: '404 Not Found',
-      otherError: 'An error occurred'
-    }
-  },
-  head () {
-    const title =
+import {
+  Component,
+  Vue
+} from "nuxt-property-decorator";
+
+@Component
+export default class extends Vue {
+  private readonly layout = 'empty';
+  private readonly pageNotFound = '404 Not Found';
+  private readonly otherError = 'An error occurred';
+
+  private readonly error = {
+    type: Object,
+    default: null,
+    statusCode: 0
+  };
+
+  head() {
+    const title: string =
       this.error.statusCode === 404 ? this.pageNotFound : this.otherError
     return {
       title
