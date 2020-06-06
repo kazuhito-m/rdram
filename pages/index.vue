@@ -85,13 +85,19 @@
 </template>
 
 <script lang="ts">
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import {
+  Component,
+  Vue
+} from "nuxt-property-decorator";
+import VuetifyLogo from "@/components/VuetifyLogo.vue";
+import Logo from '@/components/Logo.vue';
 
-export default {
+@Component({
   components: {
+    VuetifyLogo,
     Logo,
-    VuetifyLogo
   }
+})
+export default class extends Vue {
 }
 </script>
