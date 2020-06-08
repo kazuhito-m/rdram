@@ -1,0 +1,297 @@
+<html>
+
+<head>
+    <title>いろいろ試すサンプル</title>
+    <!-- Bootstrap CSS and JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="http://jonmiles.github.io/bootstrap-treeview/js/bootstrap-treeview.js"></script>
+    <link rel="stylesheet"
+        href="http://jonmiles.github.io/bootstrap-treeview/bower_components/bootstrap/dist/css/bootstrap.css">
+    <style type="text/css">
+        .container {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            padding-right: 0px;
+            padding-left: 0px;
+            margin-right: unset;
+            margin-left: unset;
+        }
+
+        .item1 {
+            /* 水平垂直方向にリサイズ可能 */
+            resize: horizontal;
+            /* resizeを指定するため 'visible'以外を指定 */
+            overflow: hidden;
+            width: 30%;
+            overflow: auto;
+        }
+
+        .item2 {
+            flex-grow: 1;
+        }
+
+        .slide_bar {
+            width: 8px;
+            background-color: gray;
+            cursor: move;
+        }
+
+        /* treeview */
+        .treeview {
+            white-space: nowrap;
+            word-break: keep-all;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id='leftPain' class="item1">
+            <div id="treeView" class=""></div>
+        </div>
+        <div id='slideBar' class="slide_bar"></div>
+        <div class="item2">
+            <!-- タブ・メニュー -->
+            <ul class="nav nav-tabs" id='tabs'>
+                <li class="tab-head" id="tabhead-template" style='display: none;'>
+                    <a href="#tabid-sample" data-toggle="tab" onclick='onActiveTabChange(this); return true;'>
+                        <span class='tab-caption'>これが表示されたら間違い</span>
+                        <button type="button" class="close" aria-label="Close" title="タブを閉じる" onclick="onCloseTab(this)"
+                            data-tabid="tabid-sample">
+                            <span aria-hidden="true">&#215;</span>
+                            <span class="sr-only">タブを閉じる</span>
+                        </button>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- タブ内容 -->
+            <div class="tab-content" id='tab-contents'>
+                <div class="tab-pane" id="tabcontent-template" style='display: none;'>
+                    <p>この内容出てきたら間違い。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleCompactLeftPain() {
+            const leftPain = document.getElementById('leftPain');
+            leftPain.style.display = leftPain.style.display === 'none' ? 'inline' : 'none';
+        }
+
+        const slideBar = document.getElementById('slideBar');
+        slideBar.addEventListener('dblclick', toggleCompactLeftPain, false);
+
+        // TreeView
+        const defaultData = [
+            {
+                text: 'Parent 1',
+                href: '#parent1',
+                tags: ['4'],
+                selectable: false,
+                nodes: [
+                    {
+                        text: 'Child 1',
+                        href: '#child1',
+                        tags: ['2'],
+                        selectable: false,
+                        nodes: [
+                            {
+                                text: 'Grandchild 1',
+                                href: '#grandchild1',
+                                tags: ['0'],
+                                dataId: '1'
+                            },
+                            {
+                                text: 'Grandchild 2',
+                                href: '#grandchild2',
+                                tags: ['0'],
+                                dataId: '2'
+                            }
+                        ]
+                    },
+                    {
+                        text: 'Child 2',
+                        href: '#child2',
+                        tags: ['0'],
+                        dataId: '3'
+                    }
+                ]
+            },
+            {
+                text: 'Parent 2',
+                href: '#parent2',
+                tags: ['0'],
+                dataId: '4'
+            },
+            {
+                text: 'Parent 3',
+                href: '#parent3',
+                tags: ['0'],
+                dataId: '5'
+            },
+            {
+                text: 'Parent 4',
+                href: '#parent4',
+                tags: ['0'],
+                dataId: '6'
+            },
+            {
+                text: 'Parent 5',
+                href: '#parent5',
+                tags: ['0'],
+                dataId: '7'
+            }
+        ];
+        $('#treeView').treeview({
+            color: "#428bca",
+            showBorder: false,
+            data: defaultData,
+            onNodeSelected: onClickTreeViewNode
+        });
+
+        let innerClickTreeViewNodeEvent = false;  // eventの無限ループ防止。
+
+        function onClickTreeViewNode(event, data) {
+            if (innerClickTreeViewNodeEvent) return;
+            innerClickTreeViewNodeEvent = true;
+            if (!data.nodes) createTab(data.dataId, data.text);
+            innerClickTreeViewNodeEvent = false;
+        }
+
+        // tab
+        function createTab(dataId, dataText) {
+            const tabHeadId = 'tabhead-' + dataId;
+            if (changeActiveTab(tabHeadId)) return;
+
+            const tabHeadTemplate = document.getElementById('tabhead-template');
+            const newTabHead = tabHeadTemplate.cloneNode(true);
+            newTabHead.id = 'tabhead-' + dataId;
+            newTabHead.style.display = '';
+            newTabHead.childNodes.forEach(function (element) {
+                if (element.tagName !== 'A') return;
+                const tabHeadAncher = element;
+                tabHeadAncher.href = '#' + dataId;
+                tabHeadAncher.childNodes.forEach(function (element) {
+                    if (element.tagName === 'SPAN') element.innerText = dataText;
+                    if (element.tagName === 'BUTTON') element.setAttribute('data-tabid', dataId);
+                });
+            });
+
+            const tabContentTemplate = document.getElementById('tabcontent-template');
+            const newTabContent = tabContentTemplate.cloneNode(true);
+            newTabContent.id = dataId;
+            newTabContent.style.display = '';
+            newTabContent.innerText = 'id:' + dataId + ', Created: ' + Date.now();
+
+            const tabContents = document.getElementById('tab-contents');
+            tabContents.appendChild(newTabContent);
+            const tabs = document.getElementById('tabs');
+            tabs.appendChild(newTabHead); 5
+            changeActiveTab(tabHeadId);
+        }
+
+        function onCloseTab(closeButton) {
+            closeTab(closeButton);
+        }
+
+        function closeTab(closeButton) {
+            const tabId = closeButton.getAttribute('data-tabid');
+            const tabHeadId = 'tabhead-' + tabId;
+            const tabHead = document.getElementById(tabHeadId);
+            if (tabHead.classList.contains('active')) {
+                const nextActiveTabHeadId = nextActiveTabHeadIdWhenDeleted(tabHeadId);
+                changeActiveTab(nextActiveTabHeadId);
+            }
+            tabHead.remove();
+            const tabContent = document.getElementById(tabId);
+            tabContent.remove();
+            return false;
+        }
+
+        function nextActiveTabHeadIdWhenDeleted(deleteTargetTabHeadId) {
+            let resultTabHeadId = undefined;
+            let foundTabHead = false;
+            const tabHeads = document.getElementsByClassName('tab-head');
+            for (let i = 0; i < tabHeads.length; i++) {
+                const tabHead = tabHeads[i];
+                currentTabHeadId = tabHead.id;
+                if (currentTabHeadId === 'tabhead-template') continue;
+                if (foundTabHead) return currentTabHeadId;
+                if (currentTabHeadId === deleteTargetTabHeadId) {
+                    foundTabHead = true;
+                    continue;
+                }
+                resultTabHeadId = currentTabHeadId;
+            }
+            return resultTabHeadId;
+        }
+
+        function changeActiveTab(tabHeadId) {
+            if (!tabHeadId) { // undifindが来たら「何もアクティブな状態にしない」という命令と見なす。
+                allInactive();
+                return false;
+            }
+            const existTabHead = document.getElementById(tabHeadId);
+            if (!existTabHead) return false;
+            existTabHead.childNodes.forEach(function (element) {
+                if (element.tagName === 'A') {
+                    element.click();
+                }
+            });
+            return true;
+        }
+
+        function allInactive() {
+            const elements = document.getElementsByClassName('active');
+            for (let i = 0; i < elements.length; i++) elements[i].classList.remove('active');
+
+            const treeView = $('#treeView');
+            const treeNodes = document.getElementsByClassName('list-group-item');
+            for (let i = 0; i < treeNodes.length; i++) {
+                const treeNode = treeNodes[i];
+                const nodeId = treeNode.getAttribute('data-nodeid');
+                const data = treeView.treeview('getNode', nodeId);
+                if (!data.dataId) continue;
+                treeView.treeview('unselectNode', [data, { silent: true }]);
+            }
+        }
+
+        function onActiveTabChange(tabAncher) {
+            const tabHeads = document.getElementsByClassName('tab-head');
+            for (let i = 0; i < tabHeads.length; i++) {
+                const tabHead = tabHeads[i];
+                const currentTabHeadId = tabHead.id;
+                if (currentTabHeadId === 'tabhead-template') continue;
+            }
+
+            if (innerClickTreeViewNodeEvent) return;
+
+            const tabId = tabAncher.href.replace(/.*#/, '');
+
+            // イベントの都合上「すでに削除されている」場合があるので判定。
+            const tabHeadId = 'tabhead-' + tabId;
+            const tabHead = document.getElementById(tabHeadId);
+            if (!tabHead) return;
+
+            // tab側のidの割り出し
+            const treeView = $('#treeView');
+            const elements = document.getElementsByClassName('list-group-item');
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                const nodeId = element.getAttribute('data-nodeid');
+                const data = treeView.treeview('getNode', nodeId);
+                if (data.dataId === tabId) {
+                    treeView.treeview('selectNode', [data, { silent: true }]);
+                    break;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
