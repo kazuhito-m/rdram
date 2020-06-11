@@ -116,7 +116,26 @@ export default class extends Vue {
       icon: "mdi-apps",
       title: "ダイアグラム一覧",
       to: "/diagrams"
+    },
+     {
+      icon: "mdi-apps",
+      title: "レイアウトのテスト",
+      to: "/layouttest"
     }
   ];
 }
 </script>
+
+<style scoped>
+.container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    max-width: initial;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: unset;
+    margin-left: unset;
+    position: absolute;
+}
+</style>
