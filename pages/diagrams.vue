@@ -24,7 +24,7 @@ import { Component, Vue, Prop } from "nuxt-property-decorator";
 
 @Component
 export default class extends Vue {
-  private readonly EMPTY_ITEMS = [{ id: 0, name: "(空)" }];
+  private readonly EMPTY_ITEMS = [{ id: 0, name: "(空)", disabled: true }];
 
   private items = [
     { id: 1000001, name: "ビジネスコンテキスト図", children: this.EMPTY_ITEMS },
@@ -37,10 +37,9 @@ export default class extends Vue {
     { id: 1000008, name: "バリエーション", children: this.EMPTY_ITEMS }
   ];
 
-  public onClickTreeItem(item: any, item2: any): void {
+  public onClickTreeItem(item: any): void {
     alert("ここまできたよ！");
     alert(item);
-    alert(item2);
   }
 }
 </script>
