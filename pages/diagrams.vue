@@ -3,13 +3,15 @@
     <v-flex class="text-center">
       <div class="pain-container">
         <div id="leftPain" class="leftpain">
-          <v-treeview
-            :items="items"
-            :activatable="true"
-            :open-on-click="true"
-            transition
-            @update:active="onClickTreeItem"
-          ></v-treeview>
+          <div class="treeview-container">
+            <v-treeview
+              :items="items"
+              :activatable="true"
+              :open-on-click="true"
+              transition
+              @update:active="onClickTreeItem"
+            ></v-treeview>
+          </div>
         </div>
         <div id="slideBar" class="slidebar"></div>
         <div class="rightpain">b</div>
@@ -76,7 +78,7 @@ export default class extends Vue {
   cursor: move;
 }
 
-.v-treeview {
+.treeview-container {
   min-height: 0%;
   height: 100%;
   overflow:auto;
