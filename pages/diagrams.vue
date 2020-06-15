@@ -5,12 +5,39 @@
         <div id="leftPain" class="leftpain">
           <div class="treeview-container">
             <v-treeview
-              :items="items"
+              :items="DIAGRAM_FOLDERS"
               :activatable="true"
               :open-on-click="true"
               transition
+              item-key="name"
               @update:active="onClickTreeItem"
-            ></v-treeview>
+            >
+              <template v-slot:label="{item}">
+                <div class="right-click-area"
+                  @click.right.prevent="onRightClickTreeItem"
+                  v-bind:data-item-id="item.id"
+                >
+                 {{item.name}}
+                </div>
+              </template>
+            </v-treeview>
+
+            <v-menu
+                :value="enableRightClickMenu"
+                :close-on-click="true"
+                :close-on-content-click="true"
+                :offset-x="true"
+                :rounded="true"
+                :position-x="menuPositionX"
+                :position-y="menuPositionY"
+            >
+              <v-list>
+                <v-list-item link>
+                  <v-list-item-title @click="onClickMenu">ダイアグラムを追加する...</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+
           </div>
         </div>
         <div id="slideBar" class="slidebar"></div>
@@ -28,7 +55,7 @@ import { Component, Vue, Prop } from "nuxt-property-decorator";
 export default class extends Vue {
   private readonly EMPTY_ITEMS = [{ id: 0, name: "(空)", disabled: true }];
 
-  private items = [
+  private DIAGRAM_FOLDERS = [
     { id: 1000001, name: "ビジネスコンテキスト図", children: this.EMPTY_ITEMS },
     { id: 1000002, name: "システムコンテキスト図", children: this.EMPTY_ITEMS },
     { id: 1000003, name: "要求モデル図", children: this.EMPTY_ITEMS },
@@ -39,9 +66,34 @@ export default class extends Vue {
     { id: 1000008, name: "バリエーション", children: this.EMPTY_ITEMS }
   ];
 
+  private enableRightClickMenu = false;
+  private menuTargetTreeItemId:number = 0;
+  private menuPositionX = 0;
+  private menuPositionY = 0
+
   public onClickTreeItem(item: any): void {
     alert("ここまできたよ！");
     alert(item);
+  }
+
+  public onRightClickTreeItem(event: any) {
+    const treeItemId = parseInt(event.srcElement.getAttribute('data-item-id'), 10);
+    if (treeItemId <= 1000000) return;
+    this.menuTargetTreeItemId = treeItemId;
+
+    this.enableRightClickMenu = false;
+    this.menuPositionX = event.clientX;
+    this.menuPositionY = event.clientY;
+    this.$nextTick(() => {
+      this.enableRightClickMenu = true
+    });
+  }
+
+  public onClickMenu() {
+    const item = this.DIAGRAM_FOLDERS
+      .find(item => item.id === this.menuTargetTreeItemId);
+    if (!item) return;
+    alert(item.name + ' を追加します。');
   }
 }
 </script>
@@ -82,5 +134,9 @@ export default class extends Vue {
   min-height: 0%;
   height: 100%;
   overflow:auto;
+}
+
+.right-click-area {
+  user-select: none
 }
 </style>
