@@ -41,7 +41,37 @@
           </div>
         </div>
         <div id="slideBar" class="slidebar"></div>
-        <div class="rightpain">b</div>
+        <div class="rightpain">
+          <div class="tabview-container">
+
+            <v-tabs
+              v-model="currentTab"
+              background-color="primary"
+              dark
+            >
+              <v-tab
+                v-for="item in openTabs"
+                :key="item.id"
+              >
+                {{ item.name }}
+              </v-tab>
+            </v-tabs>
+
+            <v-tabs-items v-model="currentTab" class="dialog-editor-container">
+              <v-tab-item
+                v-for="item in openTabs"
+                :key="item.id"
+              >
+                <v-card
+                  color="basil"
+                  flat
+                >
+                    {{ item.name }}
+                </v-card>
+              </v-tab-item>
+            </v-tabs-items>
+          </div>
+        </div>
       </div>
     </v-flex>
   </v-layout>
@@ -70,6 +100,13 @@ export default class extends Vue {
   private menuTargetTreeItemId:number = 0;
   private menuPositionX = 0;
   private menuPositionY = 0
+
+  private currentTab = null;
+  private openTabs = [
+    { id: 1, name: 'Tab 1 Content' },
+    { id: 2, name: 'Tab 2 Content' },
+    { id: 3, name: '日本語でめちゃくちゃながーいやつを、タイトルにした場合はどうしたらいいのかなっと' }
+  ];
 
   public onClickTreeItem(item: any): void {
     alert("ここまできたよ！");
@@ -133,10 +170,24 @@ export default class extends Vue {
 .treeview-container {
   min-height: 0%;
   height: 100%;
+  width: 100%;
   overflow:auto;
+}
+
+.tabview-container {
+  min-height: 0%;
+  height: 100%;
 }
 
 .right-click-area {
   user-select: none
+}
+
+.dialog-editor-container {
+  position: relative;
+  width: 100%;
+  height: 95%; /* 苦肉の策。 TODO スクロールバーの出方が不安定なので、根本解決が必要。 */
+  background-color: gray;
+  overflow: auto;
 }
 </style>
