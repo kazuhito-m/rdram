@@ -85,11 +85,25 @@
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
+
+    <v-dialog v-model="visibleApplicationInitializationDialog" persistent max-width="290">
+      <v-card>
+        <v-card-title class="headline">LocalStrageが初期化されていません。</v-card-title>
+        <v-card-text>このWebアプリケーションは、ブラウザ固有のストレージ(LocalStarage)を使用します。<br>LocalStrageを初期化し、データを保存してよろしいですか。</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text @click="onAcceptUseLocalStrage">許可する</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </v-app>
+
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
+import Repository from "@/infrastructure/Repository";
 
 @Component
 export default class extends Vue {
@@ -99,9 +113,9 @@ export default class extends Vue {
   miniVariant = false;
   right = true;
   rightDrawer = false;
-  title = "Vuetify.js";
+  title = "RDRA-M";
 
-  items = [
+  private readonly items = [
     {
       icon: "mdi-apps",
       title: "Welcome",
@@ -123,6 +137,21 @@ export default class extends Vue {
       to: "/layouttest"
     }
   ];
+
+  private readonly repository = new Repository();
+
+  private static readonly STRAGE_ID = "rdram-strage";
+  private visibleApplicationInitializationDialog = false;
+
+  public created() {
+    if (this.repository.isInitialized()) return;
+    this.visibleApplicationInitializationDialog = true;
+  }
+
+  public onAcceptUseLocalStrage() {
+    this.repository.initialize();
+    this.visibleApplicationInitializationDialog = false;
+  }
 }
 </script>
 
