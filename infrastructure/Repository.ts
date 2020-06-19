@@ -1,4 +1,4 @@
-import LocalStrage from "./strage/LocalStrage";
+import LocalStrage from "@/domain/strage/LocalStrage";
 
 export default class Repository {
     private static readonly STRAGE_ID = 'rdram-strage';
