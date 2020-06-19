@@ -152,7 +152,7 @@ export default class extends Vue {
   /* 水平垂直方向にリサイズ可能 */
   resize: horizontal;
   /* resizeを指定するため 'visible'以外を指定 */
-  width: 30%;
+  width: 20%;
   overflow: auto;
   text-align: left;
 }

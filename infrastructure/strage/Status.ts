@@ -1,3 +1,3 @@
 export default interface Status {
-    currentReportId: string;
+    currentProductId: string;
 }

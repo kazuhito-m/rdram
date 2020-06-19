@@ -97,6 +97,17 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog v-model="visibleProductSelectorDialog" persistent max-width="290">
+      <v-card>
+        <v-card-title class="headline">プロダクトを選択してください。</v-card-title>
+        <v-card-text>編集対象となるプロダクトを選択してください。</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text @click="onOpenProduct">プロダクトを開く</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </v-app>
 
 </template>
@@ -140,17 +151,34 @@ export default class extends Vue {
 
   private readonly repository = new Repository();
 
-  private static readonly STRAGE_ID = "rdram-strage";
+  public created() {
+    if (this.showApplicationInitialization()) return;
+    this.showProductSelectorWhenNotSelected();
+  }
   private visibleApplicationInitializationDialog = false;
 
-  public created() {
-    if (this.repository.isInitialized()) return;
-    this.visibleApplicationInitializationDialog = true;
+  private showApplicationInitialization(): boolean {
+    if (this.repository.isInitialized()) return false;
+    this.visibleApplicationInitializationDialog = true;    
+    return true;
   }
 
   public onAcceptUseLocalStrage() {
     this.repository.initialize();
     this.visibleApplicationInitializationDialog = false;
+    this.showProductSelectorWhenNotSelected();
+  }
+
+  private visibleProductSelectorDialog = false;
+
+  public showProductSelectorWhenNotSelected() {
+    const strage = this.repository.get();
+    if (!strage || strage.status.currentProductId) return;
+    this.visibleProductSelectorDialog = true;
+  }
+
+  public onOpenProduct() {
+    this.visibleProductSelectorDialog = false;
   }
 }
 </script>

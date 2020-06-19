@@ -4,7 +4,7 @@ export default class Repository {
     private static readonly STRAGE_ID = 'rdram-strage';
 
     public isInitialized(): boolean {
-        this.clearStarge();
+        this.clear();
         const data = this.get();
         console.log(data);
         if (data) return true;
@@ -13,15 +13,15 @@ export default class Repository {
 
     public initialize(): void {
         const initialData = this.defaultStructure();
-        localStorage.setItem(Repository.STRAGE_ID, JSON.stringify(initialData));
+        this.register(initialData);
     }
 
     private defaultStructure(): LocalStrage {
         return {
             status: {
-                currentReportId: ''
+                currentProductId: ''
             },
-            reports: []
+            products: []
         };
     }
 
@@ -31,7 +31,11 @@ export default class Repository {
         return JSON.parse(textData);
     }
 
-    public clearStarge() {
+    public register(strage: LocalStrage): void {
+        localStorage.setItem(Repository.STRAGE_ID, JSON.stringify(strage));
+    }
+
+    public clear() {
         localStorage.removeItem(Repository.STRAGE_ID);
     }
 }

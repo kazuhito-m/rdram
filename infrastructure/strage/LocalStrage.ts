@@ -1,7 +1,7 @@
 import Status from "./Status";
-import Report from "@/domain/report/Report";
+import Product from "@/domain/product/Product";
 
 export default interface LocalStrage {
     status: Status;
-    reports: Report[];
+    products: Product[];
 }
