@@ -1,4 +1,6 @@
 export default class DiagramType {
+    private static readonly vs: DiagramType[] = [];
+
     static ビジネスコンテキスト図 = new DiagramType(1, 'ビジネスコンテキスト図');
     static システムコンテキスト図 = new DiagramType(2, 'システムコンテキスト図');
     static 要求モデル図 = new DiagramType(3, '要求モデル図');
@@ -8,6 +10,7 @@ export default class DiagramType {
     static ユースケース複合図 = new DiagramType(7, 'ユースケース複合図');
     static バリエーション = new DiagramType(8, 'バリエーション');
 
+
     private constructor(
         public readonly id: number,
         public readonly name: string
@@ -15,16 +18,14 @@ export default class DiagramType {
         DiagramType.vs.push(this);
     }
 
-    private static vs: DiagramType[] = [];
-
     public static values(): DiagramType[] {
         return DiagramType.vs;
     }
 
-    public static ofId(id:number): DiagramType {
+    public static ofId(id:number): DiagramType | null {
         const found = this.vs
             .find(item => item.id === id);
-        if (!found) new DiagramType(0, '');
+        if (!found) return null;
         return found as DiagramType;
     }
 }
