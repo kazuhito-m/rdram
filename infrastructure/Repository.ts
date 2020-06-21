@@ -4,7 +4,7 @@ export default class Repository {
     private static readonly STRAGE_ID = 'rdram-strage';
 
     public isInitialized(): boolean {
-        this.clear();
+        // this.clear();
         const data = this.get();
         console.log(data);
         if (data) return true;
