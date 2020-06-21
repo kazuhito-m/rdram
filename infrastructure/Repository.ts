@@ -28,6 +28,7 @@ export default class Repository {
     public get(): LocalStrage | undefined {
         const textData = localStorage.getItem(Repository.STRAGE_ID);
         if (!textData) return undefined;
+        console.log(textData);
         return JSON.parse(textData);
     }
 

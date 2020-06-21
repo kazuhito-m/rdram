@@ -86,7 +86,7 @@
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
 
-    <v-dialog v-model="visibleApplicationInitializationDialog" persistent max-width="290">
+    <v-dialog v-model="visibleApplicationInitializationDialog" persistent max-width="500">
       <v-card>
         <v-card-title class="headline">LocalStrageが初期化されていません。</v-card-title>
         <v-card-text>このWebアプリケーションは、ブラウザ固有のストレージ(LocalStarage)を使用します。<br>LocalStrageを初期化し、データを保存してよろしいですか。</v-card-text>
@@ -97,13 +97,32 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="visibleProductSelectorDialog" persistent max-width="290">
+    <v-dialog v-model="visibleProductSelectorDialog" persistent max-width="600">
       <v-card>
         <v-card-title class="headline">プロダクトを選択してください。</v-card-title>
         <v-card-text>編集対象となるプロダクトを選択してください。</v-card-text>
+
+        <v-card-actions>
+          <v-select
+            v-model="selectedProduct"
+            :items="products"
+            item-text="name"
+            label="Product"
+            return-object
+          >
+          </v-select>
+          <v-btn text color="primary" @click="onClickAddProduct">追加</v-btn>
+        </v-card-actions>
+
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" text @click="onOpenProduct">プロダクトを開く</v-btn>
+          <v-btn text 
+            :disabled="!selectedProduct"
+            color="green darken-1" 
+            @click="onOpenProduct"
+          >
+            プロダクトを開く
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -115,6 +134,8 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import Repository from "@/infrastructure/Repository";
+import Product from "@/domain/product/Product";
+import ProductIdentifier from "@/domain/product/ProductIdentifier";
 
 @Component
 export default class extends Vue {
@@ -170,15 +191,57 @@ export default class extends Vue {
   }
 
   private visibleProductSelectorDialog = false;
+  private products: Product[] = [];
+  private selectedProduct: Product | null = null;
 
   public showProductSelectorWhenNotSelected() {
     const strage = this.repository.get();
     if (!strage || strage.status.currentProductId) return;
+    this.products = strage.products;
     this.visibleProductSelectorDialog = true;
   }
 
   public onOpenProduct() {
+    this.saveCurrentProduct();
     this.visibleProductSelectorDialog = false;
+  }
+
+  public onClickAddProduct() {
+    const name = prompt("追加するプロダクトの名前を入力してください。");
+    if (!name) return;
+    if (!this.validateProductName(name)) return;
+    const product = ProductIdentifier.prototypeProductOf(name);
+    this.products.push(product);
+    this.saveProducts();
+  }
+
+  private validateProductName(productName: string): boolean {
+    if (productName.length > 255) {
+      alert('プロダクト名は255文字以内で入力してください。');
+      return false;
+    }
+    const exists = this.products
+      .some(product => product.name === productName);
+    if (exists) {
+      alert('既に同一のプロダクト名が在ります。');
+      return false;
+    }
+    return true;
+  }
+
+  private saveProducts(): void {
+    const strage = this.repository.get();
+    if (!strage) return;
+    strage.products = this.products;
+    this.repository.register(strage);
+  }
+
+  private saveCurrentProduct(): void {
+    const strage = this.repository.get();
+    if (!strage) return;
+    if (!this.selectedProduct) return;
+    strage.status.currentProductId = this.selectedProduct.id;
+    this.repository.register(strage);
   }
 }
 </script>

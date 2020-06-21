@@ -29,7 +29,7 @@ export default class ProductIdentifier {
         return this.value;
     }
 
-    public prototypeProductOf(newName: string): Product {
+    public static prototypeProductOf(newName: string): Product {
         return {
             id: ProductIdentifier.ganerate().toString(),
             name: newName,
