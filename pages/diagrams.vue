@@ -5,7 +5,7 @@
         <div id="leftPain" class="leftpain">
           <div class="treeview-container">
             <v-treeview
-              :items="DIAGRAM_FOLDERS"
+              :items="treeItems"
               :activatable="true"
               :open-on-click="true"
               transition
@@ -80,10 +80,12 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
+import DiagramType from "@/domain/diagram/DiagramType"
 
 @Component
 export default class extends Vue {
-  private readonly EMPTY_ITEMS = [{ id: 0, name: "(空)", disabled: true }];
+  private readonly EMPTY_ITEMS: TreeItem = { id: 0, name: "(空)", children: [], disabled: true};
+  private readonly DIAGRAM_ID_MASK: number = 1000000;
 
   private DIAGRAM_FOLDERS = [
     { id: 1000001, name: "ビジネスコンテキスト図", children: this.EMPTY_ITEMS },
@@ -95,6 +97,8 @@ export default class extends Vue {
     { id: 1000007, name: "ユースケース複合図", children: this.EMPTY_ITEMS },
     { id: 1000008, name: "バリエーション", children: this.EMPTY_ITEMS }
   ];
+
+  private treeItems:TreeItem[] = [];
 
   private enableRightClickMenu = false;
   private menuTargetTreeItemId:number = 0;
@@ -108,6 +112,18 @@ export default class extends Vue {
     { id: 3, name: '日本語でめちゃくちゃながーいやつを、タイトルにした場合はどうしたらいいのかなっと' }
   ];
 
+  public created():void {
+    const items = this.treeItems;
+    DiagramType.values()
+      .map(type => {
+        return { id: type.id + this.DIAGRAM_ID_MASK,name: type.name , children: [] as TreeItem[] } as TreeItem;
+      })
+      .forEach(item => items.push(item));
+    items.forEach(item => {
+      if (item.children.length === 0) item.children.push(this.EMPTY_ITEMS)
+    });
+  }
+
   public onClickTreeItem(item: any): void {
     alert("ここまできたよ！");
     alert(item);
@@ -115,7 +131,7 @@ export default class extends Vue {
 
   public onRightClickTreeItem(event: any) {
     const treeItemId = parseInt(event.srcElement.getAttribute('data-item-id'), 10);
-    if (treeItemId <= 1000000) return;
+    if (treeItemId <= this.DIAGRAM_ID_MASK) return;
     this.menuTargetTreeItemId = treeItemId;
 
     this.enableRightClickMenu = false;
@@ -127,11 +143,18 @@ export default class extends Vue {
   }
 
   public onClickMenu() {
-    const item = this.DIAGRAM_FOLDERS
+    const item = this.treeItems
       .find(item => item.id === this.menuTargetTreeItemId);
     if (!item) return;
     alert(item.name + ' を追加します。');
   }
+}
+
+interface TreeItem {
+  id: number;
+  name: string;
+  children: TreeItem[];
+  disabled: boolean | undefined;
 }
 </script>
 

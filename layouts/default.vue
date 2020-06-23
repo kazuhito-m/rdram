@@ -204,6 +204,7 @@ export default class extends Vue {
   public onOpenProduct() {
     this.saveCurrentProduct();
     this.visibleProductSelectorDialog = false;
+    location.reload();  // FIXME コレしか無かった…が、きっとPage側のメソッド(呼びたいのはcreated())呼べるはず。
   }
 
   public onClickAddProduct() {
