@@ -87,17 +87,6 @@ export default class extends Vue {
   private readonly EMPTY_ITEMS: TreeItem = { id: 0, name: "(空)", children: [], disabled: true};
   private readonly DIAGRAM_ID_MASK: number = 1000000;
 
-  private DIAGRAM_FOLDERS = [
-    { id: 1000001, name: "ビジネスコンテキスト図", children: this.EMPTY_ITEMS },
-    { id: 1000002, name: "システムコンテキスト図", children: this.EMPTY_ITEMS },
-    { id: 1000003, name: "要求モデル図", children: this.EMPTY_ITEMS },
-    { id: 1000004, name: "ビジネスユースケース図", children: this.EMPTY_ITEMS },
-    { id: 1000005, name: "情報モデル図", children: this.EMPTY_ITEMS },
-    { id: 1000006, name: "状態モデル", children: this.EMPTY_ITEMS },
-    { id: 1000007, name: "ユースケース複合図", children: this.EMPTY_ITEMS },
-    { id: 1000008, name: "バリエーション", children: this.EMPTY_ITEMS }
-  ];
-
   private treeItems:TreeItem[] = [];
 
   private enableRightClickMenu = false;
@@ -116,7 +105,11 @@ export default class extends Vue {
     const items = this.treeItems;
     DiagramType.values()
       .map(type => {
-        return { id: type.id + this.DIAGRAM_ID_MASK,name: type.name , children: [] as TreeItem[] } as TreeItem;
+        return {
+          id: type.id + this.DIAGRAM_ID_MASK,
+          name: type.name,
+          children: [] as TreeItem[]
+        } as TreeItem;
       })
       .forEach(item => items.push(item));
     items.forEach(item => {
