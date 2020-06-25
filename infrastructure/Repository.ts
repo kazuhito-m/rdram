@@ -1,5 +1,8 @@
 import LocalStrage from "@/domain/strage/LocalStrage";
 import Product from "@/domain/product/Product";
+import ProductIdentifier from "@/domain/product/ProductIdentifier";
+import DiagramType from "@/domain/diagram/DiagramType";
+import Diagram from "@/domain/diagram/Diagram";
 
 export default class Repository {
     private static readonly STRAGE_ID = 'rdram-strage';
@@ -18,11 +21,20 @@ export default class Repository {
     }
 
     private defaultStructure(): LocalStrage {
+        // TODO デバッグ用。あとで消す。
+        const product = ProductIdentifier.prototypeProductOf("デバッグ用プロダクト");
+        const diagram: Diagram = {
+            name: 'テスト用ビジネスコンテキスト図サンプル',
+            id: 1,
+            typeId: DiagramType.ビジネスコンテキスト図.id
+        };
+        product.diagrams.push(diagram);
+
         return {
             status: {
                 currentProductId: ''
             },
-            products: []
+            products: [ product ]
         };
     }
 
