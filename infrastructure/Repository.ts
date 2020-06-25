@@ -1,4 +1,5 @@
 import LocalStrage from "@/domain/strage/LocalStrage";
+import Product from "@/domain/product/Product";
 
 export default class Repository {
     private static readonly STRAGE_ID = 'rdram-strage';
@@ -34,6 +35,22 @@ export default class Repository {
 
     public register(strage: LocalStrage): void {
         localStorage.setItem(Repository.STRAGE_ID, JSON.stringify(strage));
+    }
+
+    public getCurrentProduct(): Product | null{
+        const strage = this.get();
+        const currentProductId = strage?.status.currentProductId;
+        const currentProduct = strage?.products
+            .find(product => product.id === currentProductId);
+        if (currentProduct) return currentProduct;
+        return null;
+    }
+
+    public registerCurrentProduct(product: Product): void {
+        const strage = this.get();
+        if (!strage) return;
+        strage.status.currentProductId = product.id;
+        this.register(strage);
     }
 
     public clear() {

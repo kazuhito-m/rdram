@@ -1,4 +1,5 @@
 export default interface Diagram {
-    id: string;
+    id: number;
+    typeId: number;
     name: string;
 }

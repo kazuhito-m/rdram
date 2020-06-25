@@ -77,15 +77,19 @@
   </v-layout>
 </template>
 
-
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 import DiagramType from "@/domain/diagram/DiagramType"
+import Repository from "@/infrastructure/Repository";
+import Product from "@/domain/product/Product";
+import Diagram from "@/domain/diagram/Diagram";
 
 @Component
 export default class extends Vue {
   private readonly EMPTY_ITEMS: TreeItem = { id: 0, name: "(空)", children: [], disabled: true};
   private readonly DIAGRAM_ID_MASK: number = 1000000;
+
+  private readonly repository = new Repository();
 
   private treeItems:TreeItem[] = [];
 
@@ -103,18 +107,41 @@ export default class extends Vue {
 
   public created():void {
     const items = this.treeItems;
+    const currentProductDiagrams = this.currentProductDiagrams();
     DiagramType.values()
       .map(type => {
+        const diagramsByType = this.filterDiagramType(type, currentProductDiagrams);
+        const treeItemsByType = this.createDiagramTreeItems(diagramsByType);
         return {
           id: type.id + this.DIAGRAM_ID_MASK,
           name: type.name,
-          children: [] as TreeItem[]
+          children: treeItemsByType
         } as TreeItem;
       })
       .forEach(item => items.push(item));
     items.forEach(item => {
       if (item.children.length === 0) item.children.push(this.EMPTY_ITEMS)
     });
+  }
+
+  private currentProductDiagrams(): Diagram[] {
+    const currentProduct = this.repository.getCurrentProduct();
+    if (!currentProduct) return [];
+    return currentProduct.diagrams;
+  }
+
+  private createDiagramTreeItems(diagrams: Diagram[]): TreeItem[] {
+    return diagrams.map(diagram => {
+        return {
+          id: diagram.id,
+          name: diagram.name,
+          children: [] as TreeItem[],
+        } as TreeItem;
+    });
+  }
+
+  private filterDiagramType(diagramType: DiagramType, daigrams: Diagram[]): Diagram[] {
+    return daigrams.filter(diagram => diagram.typeId === diagramType.id);
   }
 
   public onClickTreeItem(item: any): void {
