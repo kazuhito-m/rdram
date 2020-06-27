@@ -23,12 +23,21 @@ export default class Repository {
     private defaultStructure(): LocalStrage {
         // TODO デバッグ用。あとで消す。
         const product = ProductIdentifier.prototypeProductOf("デバッグ用プロダクト");
-        const diagram: Diagram = {
+        product.diagrams.push({
             name: 'テスト用ビジネスコンテキスト図サンプル',
             id: 1,
             typeId: DiagramType.ビジネスコンテキスト図.id
-        };
-        product.diagrams.push(diagram);
+        });
+        product.diagrams.push({
+            name: 'テスト用BC図サンプル2',
+            id: 2,
+            typeId: DiagramType.ビジネスコンテキスト図.id
+        });
+        product.diagrams.push({
+            name: 'テスト用バリエーションサンプル',
+            id: 3,
+            typeId: DiagramType.バリエーション.id
+        });
 
         return {
             status: {

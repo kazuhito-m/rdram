@@ -9,7 +9,6 @@
               :activatable="true"
               :open-on-click="true"
               transition
-              item-key="name"
               @update:active="onClickTreeItem"
             >
               <template v-slot:label="{item}">
@@ -45,7 +44,7 @@
           <div class="tabview-container">
 
             <v-tabs
-              v-model="currentTab"
+              v-model="currentTabIndex"
               background-color="primary"
               dark
             >
@@ -57,7 +56,7 @@
               </v-tab>
             </v-tabs>
 
-            <v-tabs-items v-model="currentTab" class="dialog-editor-container">
+            <v-tabs-items v-model="currentTabIndex" class="dialog-editor-container">
               <v-tab-item
                 v-for="item in openTabs"
                 :key="item.id"
@@ -98,12 +97,8 @@ export default class extends Vue {
   private menuPositionX = 0;
   private menuPositionY = 0
 
-  private currentTab = null;
-  private openTabs = [
-    { id: 1, name: 'Tab 1 Content' },
-    { id: 2, name: 'Tab 2 Content' },
-    { id: 3, name: '日本語でめちゃくちゃながーいやつを、タイトルにした場合はどうしたらいいのかなっと' }
-  ];
+  private currentTabIndex: number | null = null;
+  private openTabs:TreeItem[] = [];
 
   public created():void {
     const items = this.treeItems;
@@ -144,9 +139,30 @@ export default class extends Vue {
     return daigrams.filter(diagram => diagram.typeId === diagramType.id);
   }
 
-  public onClickTreeItem(item: any): void {
-    alert("ここまできたよ！");
-    alert(item);
+  public onClickTreeItem(treeItemIdText: string): void {
+    if (treeItemIdText === '') return;
+    const treeItemId = parseInt(treeItemIdText, 10);
+
+    const exists = this.openTabs
+      .some(tab => tab.id === treeItemId);
+    if (!exists) {
+      const clickedItem = this.findTreeItemById(treeItemId, this.treeItems);
+      if (!clickedItem) return;
+      this.openTabs.push(clickedItem);
+    }
+
+    const newTabIndex = this.openTabs
+      .findIndex(tabItem => tabItem.id === treeItemId);
+    this.currentTabIndex = newTabIndex;
+  }
+
+  private findTreeItemById(treeItemId: number, treeItems: TreeItem[]): TreeItem | null {
+    for (let item of treeItems) {
+      if (item.id === treeItemId) return item;
+      const child = this.findTreeItemById(treeItemId, item.children);
+      if (child) return child;
+    }
+    return null;
   }
 
   public onRightClickTreeItem(event: any) {
