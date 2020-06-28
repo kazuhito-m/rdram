@@ -6,9 +6,12 @@
           <div class="treeview-container">
             <v-treeview
               :items="treeItems"
-              :activatable="true"
-              :open-on-click="true"
+              activatable="true"
+              open-on-click="true"
+              :active.sync="treeActiveItemIds"
+              :open.sync="treeOpenItemIds"
               transition
+              dark
               @update:active="onClickTreeItem"
             >
               <template v-slot:label="{item}">
@@ -47,6 +50,7 @@
               v-model="currentTabIndex"
               background-color="primary"
               dark
+              @change="onChangeActiveTab"
             >
               <v-tab
                 v-for="item in openTabs"
@@ -91,6 +95,8 @@ export default class extends Vue {
   private readonly repository = new Repository();
 
   private treeItems:TreeItem[] = [];
+  private treeActiveItemIds: number[] = [];
+  private treeOpenItemIds: number[] = [];
 
   private enableRightClickMenu = false;
   private menuTargetTreeItemId:number = 0;
@@ -183,6 +189,23 @@ export default class extends Vue {
       .find(item => item.id === this.menuTargetTreeItemId);
     if (!item) return;
     alert(item.name + ' を追加します。');
+  }
+
+  public onChangeActiveTab(newTabIndex: number) {
+    const currentTabItem = this.openTabs[newTabIndex];
+    // TreeにActiveを設定
+    this.treeActiveItemIds.length = 0;
+    this.treeActiveItemIds.push(currentTabItem.id);
+    // 親がOpenしてなければ、強制的に開ける
+    const parentTreeItem = this.treeItems
+      .find(folderItem => 
+        folderItem.children.some(item => item.id === currentTabItem.id));
+    if (!parentTreeItem) return;
+    const parentTreeItemId = parentTreeItem.id;
+    const openIds = this.treeOpenItemIds;
+    if (openIds.some(id => id === parentTreeItemId))
+      openIds.splice(openIds.indexOf(parentTreeItemId), 1);
+    openIds.push(parentTreeItemId);
   }
 }
 
