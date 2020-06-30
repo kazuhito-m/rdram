@@ -6,8 +6,8 @@
           <div class="treeview-container">
             <v-treeview
               :items="treeItems"
-              activatable="true"
-              open-on-click="true"
+              activatable
+              open-on-click
               :active.sync="treeActiveItemIds"
               :open.sync="treeOpenItemIds"
               transition
@@ -35,7 +35,7 @@
             >
               <v-list>
                 <v-list-item link>
-                  <v-list-item-title @click="onClickMenu">ダイアグラムを追加する...</v-list-item-title>
+                  <v-list-item-title @click="onClickMenuAddDiagram">ダイアグラムを追加する...</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -108,10 +108,10 @@ export default class extends Vue {
 
   public created():void {
     const items = this.treeItems;
-    const currentProductDiagrams = this.currentProductDiagrams();
+    const productDiagrams = this.productDiagrams();
     DiagramType.values()
       .map(type => {
-        const diagramsByType = this.filterDiagramType(type, currentProductDiagrams);
+        const diagramsByType = this.filterDiagramType(type, productDiagrams);
         const treeItemsByType = this.createDiagramTreeItems(diagramsByType);
         return {
           id: type.id + this.DIAGRAM_ID_MASK,
@@ -125,10 +125,10 @@ export default class extends Vue {
     });
   }
 
-  private currentProductDiagrams(): Diagram[] {
-    const currentProduct = this.repository.getCurrentProduct();
-    if (!currentProduct) return [];
-    return currentProduct.diagrams;
+  private productDiagrams(): Diagram[] {
+    const product = this.repository.getCurrentProduct();
+    if (!product) return [];
+    return product.diagrams;
   }
 
   private createDiagramTreeItems(diagrams: Diagram[]): TreeItem[] {
@@ -184,11 +184,54 @@ export default class extends Vue {
     });
   }
 
-  public onClickMenu() {
+  public onClickMenuAddDiagram() {
     const item = this.treeItems
       .find(item => item.id === this.menuTargetTreeItemId);
     if (!item) return;
-    alert(item.name + ' を追加します。');
+    const diagramType = DiagramType.ofId(item.id - this.DIAGRAM_ID_MASK);
+    if (!diagramType) return;
+
+    const name = prompt(`追加する ${diagramType.name} の名前を入力してください。`);
+    if (!name) return;
+
+    const product = this.repository.getCurrentProduct();
+    if (!product) return;
+
+    const diagrams = product.diagrams;
+    if (!this.validateDiagramName(name, diagrams)) return;
+    const newDiagramId = diagrams.map(d => d.id)
+      .reduce((l,r) => Math.max(l,r), 0) + 1;
+    const diagram = diagramType.prototypeOf(newDiagramId, name);
+    diagrams.push(diagram);
+
+    this.repository.registerCurrentProduct(product);
+
+    const newTreeItem = this.diagramToTreeItem(diagram);
+    item.children.push(newTreeItem);
+    this.treeActiveItemIds.push(newTreeItem.id);
+  }
+
+  private validateDiagramName(diagramName: string, diagrams: Diagram[]): boolean {
+    if (diagramName.length > 255) {
+      alert('ダイアグラム名は255文字以内で入力してください。');
+      return false;
+    }
+    const exists = diagrams
+      .some(diagram => diagram.name === diagramName);
+    if (exists) {
+      alert('既に同一のダイアグラム名が在ります。');
+      return false;
+    }
+    return true;
+  }
+
+  private diagramToTreeItem(diagram: Diagram):TreeItem {
+    return {
+      id: diagram.id,
+      name: diagram.name,
+      children: [],
+      disabled:false
+    };
   }
 
   public onChangeActiveTab(newTabIndex: number) {

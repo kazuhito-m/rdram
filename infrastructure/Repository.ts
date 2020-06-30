@@ -43,7 +43,7 @@ export default class Repository {
             status: {
                 currentProductId: ''
             },
-            products: [ product ]
+            products: [product]
         };
     }
 
@@ -55,10 +55,12 @@ export default class Repository {
     }
 
     public register(strage: LocalStrage): void {
-        localStorage.setItem(Repository.STRAGE_ID, JSON.stringify(strage));
+        const jsonText = JSON.stringify(strage);
+        console.log('register: ' + jsonText)
+        localStorage.setItem(Repository.STRAGE_ID, jsonText);
     }
 
-    public getCurrentProduct(): Product | null{
+    public getCurrentProduct(): Product | null {
         const strage = this.get();
         const currentProductId = strage?.status.currentProductId;
         const currentProduct = strage?.products
@@ -70,7 +72,19 @@ export default class Repository {
     public registerCurrentProduct(product: Product): void {
         const strage = this.get();
         if (!strage) return;
+
         strage.status.currentProductId = product.id;
+
+        const products = strage.products;
+        for (let i = 0; i < products.length; i++) {
+            const p = products[i];
+            if (p.id === strage.status.currentProductId) {
+                products.splice(i, 1);
+                break;
+            }
+        }
+        products.push(product);
+
         this.register(strage);
     }
 

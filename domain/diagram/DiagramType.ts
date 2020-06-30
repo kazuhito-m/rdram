@@ -1,3 +1,5 @@
+import Diagram from "./Diagram";
+
 export default class DiagramType {
     private static readonly vs: DiagramType[] = [];
 
@@ -10,7 +12,6 @@ export default class DiagramType {
     static ユースケース複合図 = new DiagramType(7, 'ユースケース複合図');
     static バリエーション = new DiagramType(8, 'バリエーション');
 
-
     private constructor(
         public readonly id: number,
         public readonly name: string
@@ -22,10 +23,17 @@ export default class DiagramType {
         return DiagramType.vs;
     }
 
-    public static ofId(id:number): DiagramType | null {
+    public static ofId(id: number): DiagramType | null {
         const found = this.vs
             .find(item => item.id === id);
-        if (!found) return null;
-        return found as DiagramType;
+        return found ? found : null;
+    }
+
+    public prototypeOf(newId: number, newName: string): Diagram {
+        return {
+            id: newId,
+            typeId: this.id,
+            name: newName
+        };
     }
 }
