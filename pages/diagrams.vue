@@ -108,21 +108,20 @@ export default class extends Vue {
 
   public created():void {
     const items = this.treeItems;
-    const productDiagrams = this.productDiagrams();
     DiagramType.values()
       .map(type => {
-        const diagramsByType = this.filterDiagramType(type, productDiagrams);
-        const treeItemsByType = this.createDiagramTreeItems(diagramsByType);
         return {
           id: type.id + this.DIAGRAM_ID_MASK,
           name: type.name,
-          children: treeItemsByType
+          children: [this.EMPTY_ITEMS]
         } as TreeItem;
       })
       .forEach(item => items.push(item));
-    items.forEach(item => {
-      if (item.children.length === 0) item.children.push(this.EMPTY_ITEMS)
-    });
+    // const diagramsByType = this.filterDiagramType(type, productDiagrams);
+    // const treeItemsByType = this.createDiagramTreeItems(diagramsByType);
+
+    this.productDiagrams()
+      .forEach(product => this.addDiagramTreeItem(product));
   }
 
   private productDiagrams(): Diagram[] {
@@ -223,6 +222,20 @@ export default class extends Vue {
       return false;
     }
     return true;
+  }
+
+  private addDiagramTreeItem(diagram: Diagram): void {
+    const maskedDialogTypeId = diagram.typeId + this.DIAGRAM_ID_MASK;
+    const folderItem = this.treeItems
+      .find(item => item.id === maskedDialogTypeId);
+    if (!folderItem) return;
+    const children = folderItem.children;
+
+    if (children.length === 1 && children[0] === this.EMPTY_ITEMS)
+      children.length = 0;
+
+    const diagramTreeItem = this.diagramToTreeItem(diagram);
+    children.push(diagramTreeItem);
   }
 
   private diagramToTreeItem(diagram: Diagram):TreeItem {
