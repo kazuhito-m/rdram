@@ -117,8 +117,6 @@ export default class extends Vue {
         } as TreeItem;
       })
       .forEach(item => items.push(item));
-    // const diagramsByType = this.filterDiagramType(type, productDiagrams);
-    // const treeItemsByType = this.createDiagramTreeItems(diagramsByType);
 
     this.productDiagrams()
       .forEach(product => this.addDiagramTreeItem(product));
@@ -128,20 +126,6 @@ export default class extends Vue {
     const product = this.repository.getCurrentProduct();
     if (!product) return [];
     return product.diagrams;
-  }
-
-  private createDiagramTreeItems(diagrams: Diagram[]): TreeItem[] {
-    return diagrams.map(diagram => {
-        return {
-          id: diagram.id,
-          name: diagram.name,
-          children: [] as TreeItem[],
-        } as TreeItem;
-    });
-  }
-
-  private filterDiagramType(diagramType: DiagramType, daigrams: Diagram[]): Diagram[] {
-    return daigrams.filter(diagram => diagram.typeId === diagramType.id);
   }
 
   public onClickTreeItem(treeItemIdText: string): void {
