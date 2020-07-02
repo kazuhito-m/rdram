@@ -57,6 +57,9 @@
                 :key="item.id"
               >
                 {{ item.name }}
+                <v-btn dark small icon @click="onClickCloseTab" v-bind:data-item-id="item.id">
+                  <v-icon dark v-bind:data-item-id="item.id">mdi-close-box</v-icon>
+                </v-btn>
               </v-tab>
             </v-tabs>
 
@@ -154,8 +157,12 @@ export default class extends Vue {
     return null;
   }
 
-  public onRightClickTreeItem(event: any) {
-    const treeItemId = parseInt(event.srcElement.getAttribute('data-item-id'), 10);
+  public onRightClickTreeItem(event: MouseEvent) {
+    if (!event.target) return;
+    const element = event.target as HTMLElement;
+    const data = element.getAttribute('data-item-id');
+    if (!data) return;
+    const treeItemId = parseInt(data, 10);
     if (treeItemId <= this.DIAGRAM_ID_MASK) return;
     this.menuTargetTreeItemId = treeItemId;
 
@@ -165,6 +172,20 @@ export default class extends Vue {
     this.$nextTick(() => {
       this.enableRightClickMenu = true
     });
+  }
+
+  public onClickCloseTab(event: MouseEvent) {
+    if (!event.target) return;
+    const element = event.target as HTMLElement;
+    const data = element.getAttribute('data-item-id');
+    if (!data) return;
+    const tabItemId = parseInt(data, 10);
+
+    const tabs = this.openTabs;
+    const tabIndex = tabs.findIndex(tabItem => tabItem.id === tabItemId);
+    tabs.splice(tabIndex, 1);
+
+    if (tabs.length === 0) this.treeActiveItemIds.splice(0, 1);
   }
 
   public onClickMenuAddDiagram() {
@@ -237,7 +258,9 @@ export default class extends Vue {
   }
 
   public onChangeActiveTab(newTabIndex: number) {
+    if (newTabIndex === undefined) return;
     const currentTabItem = this.openTabs[newTabIndex];
+    if (!currentTabItem) return;
     this.activeTreeItemOf(currentTabItem.id);
     this.openParentTreeItem(currentTabItem.id);
   }
