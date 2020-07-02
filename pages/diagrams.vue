@@ -189,9 +189,9 @@ export default class extends Vue {
 
     this.repository.registerCurrentProduct(product);
 
-    const newTreeItem = this.diagramToTreeItem(diagram);
-    item.children.push(newTreeItem);
-    this.treeActiveItemIds.push(newTreeItem.id);
+    this.addDiagramTreeItem(diagram);
+    this.activeTreeItemOf(diagram.id);
+    this.openParentTreeItem(diagram.id);
   }
 
   private validateDiagramName(diagramName: string, diagrams: Diagram[]): boolean {
@@ -231,15 +231,21 @@ export default class extends Vue {
     };
   }
 
+  private activeTreeItemOf(treeItemId: number): void {
+    this.treeActiveItemIds.length = 0;
+    this.treeActiveItemIds.push(treeItemId);
+  }
+
   public onChangeActiveTab(newTabIndex: number) {
     const currentTabItem = this.openTabs[newTabIndex];
-    // TreeにActiveを設定
-    this.treeActiveItemIds.length = 0;
-    this.treeActiveItemIds.push(currentTabItem.id);
-    // 親がOpenしてなければ、強制的に開ける
-    const parentTreeItem = this.treeItems
+    this.activeTreeItemOf(currentTabItem.id);
+    this.openParentTreeItem(currentTabItem.id);
+  }
+
+  private openParentTreeItem(treeItemId: number):void {
+     const parentTreeItem = this.treeItems
       .find(folderItem => 
-        folderItem.children.some(item => item.id === currentTabItem.id));
+        folderItem.children.some(item => item.id === treeItemId));
     if (!parentTreeItem) return;
     const parentTreeItemId = parentTreeItem.id;
     const openIds = this.treeOpenItemIds;
