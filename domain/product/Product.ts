@@ -1,4 +1,4 @@
-import Diagram from '~/domain/diagram/Diagram';
+import Diagram from '@/domain/diagram/Diagram';
 
 export default interface Product {
     id: string;

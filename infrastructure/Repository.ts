@@ -1,8 +1,5 @@
 import LocalStrage from "@/domain/strage/LocalStrage";
 import Product from "@/domain/product/Product";
-import ProductIdentifier from "@/domain/product/ProductIdentifier";
-import DiagramType from "@/domain/diagram/DiagramType";
-import Diagram from "@/domain/diagram/Diagram";
 
 export default class Repository {
     private static readonly STRAGE_ID = 'rdram-strage';
