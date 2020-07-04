@@ -68,12 +68,7 @@
                 v-for="item in openTabs"
                 :key="item.id"
               >
-                <v-card
-                  color="basil"
-                  flat
-                >
-                    {{ item.name }}
-                </v-card>
+                <DiagramEditorContainer :diagram-id="item.id" />
               </v-tab-item>
             </v-tabs-items>
           </div>
@@ -85,12 +80,17 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
-import DiagramType from "@/domain/diagram/DiagramType"
+import DiagramEditorContainer from "@/components/DiagramEditorContainer.vue";
 import Repository from "@/infrastructure/Repository";
+import DiagramType from "@/domain/diagram/DiagramType";
 import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
 
-@Component
+@Component({
+  components: {
+    DiagramEditorContainer,
+  }
+})
 export default class extends Vue {
   private readonly EMPTY_ITEMS: TreeItem = { id: 0, name: "(空)", children: [], disabled: true};
   private readonly DIAGRAM_ID_MASK: number = 1000000;
