@@ -132,7 +132,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Provide } from "nuxt-property-decorator";
 import Repository from "@/infrastructure/Repository";
 import Product from "@/domain/product/Product";
 import ProductIdentifier from "@/domain/product/ProductIdentifier";
@@ -170,6 +170,9 @@ export default class extends Vue {
     }
   ];
 
+  // DI difinitions.
+
+  @Provide()
   private readonly repository = new Repository();
 
   public created() {

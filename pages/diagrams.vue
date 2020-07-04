@@ -79,7 +79,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { Component, Vue, Prop, Inject } from "nuxt-property-decorator";
 import DiagramEditorContainer from "@/components/DiagramEditorContainer.vue";
 import Repository from "@/infrastructure/Repository";
 import DiagramType from "@/domain/diagram/DiagramType";
@@ -95,7 +95,8 @@ export default class extends Vue {
   private readonly EMPTY_ITEMS: TreeItem = { id: 0, name: "(空)", children: [], disabled: true};
   private readonly DIAGRAM_ID_MASK: number = 1000000;
 
-  private readonly repository = new Repository();
+  @Inject()
+  private readonly repository!: Repository;
 
   private treeItems:TreeItem[] = [];
   private treeActiveItemIds: number[] = [];
