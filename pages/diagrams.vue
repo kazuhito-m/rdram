@@ -80,7 +80,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Inject } from "nuxt-property-decorator";
-import DiagramEditorContainer from "@/components/DiagramEditorContainer.vue";
+import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import Repository from "@/infrastructure/Repository";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Product from "@/domain/product/Product";
