@@ -2,7 +2,7 @@
   <v-layout>
     <v-flex class="text-center">
       <div class="pain-container">
-        <div id="leftPain" class="leftpain">
+        <div id="leftPain" class="left-pain">
           <div class="treeview-container">
             <v-treeview
               :items="treeItems"
@@ -42,8 +42,8 @@
 
           </div>
         </div>
-        <div id="slideBar" class="slidebar"></div>
-        <div class="rightpain">
+        <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
+        <div class="right-pain">
           <div class="tabview-container">
 
             <v-tabs
@@ -216,6 +216,12 @@ export default class extends Vue {
     this.openParentTreeItem(diagram.id);
   }
 
+  public onDoubleClickSlideBar(): void {
+    const leftPain = document.getElementById('leftPain') as HTMLElement;
+    const style = leftPain.style;
+    style.display = style.display === 'none' ? 'inline' : 'none';
+  }
+
   private validateDiagramName(diagramName: string, diagrams: Diagram[]): boolean {
     if (diagramName.length > 255) {
       alert('ダイアグラム名は255文字以内で入力してください。');
@@ -300,7 +306,7 @@ interface TreeItem {
   margin-left: unset;
 }
 
-.leftpain {
+.left-pain {
   /* 水平垂直方向にリサイズ可能 */
   resize: horizontal;
   /* resizeを指定するため 'visible'以外を指定 */
@@ -309,7 +315,7 @@ interface TreeItem {
   text-align: left;
 }
 
-.rightpain {
+.right-pain {
   flex-grow: 1;
 }
 
@@ -338,8 +344,6 @@ interface TreeItem {
 .dialog-editor-container {
   position: relative;
   width: 100%;
-  height: 95%; /* 苦肉の策。 TODO スクロールバーの出方が不安定なので、根本解決が必要。 */
-  background-color: gray;
-  overflow: auto;
+  height: 97%;
 }
 </style>
