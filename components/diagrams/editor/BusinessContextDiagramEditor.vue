@@ -1,8 +1,8 @@
 <template>
   <div class="diagram-pain-container">
-    <div class="editor-pain" id="editorPain">abcd</div>
+    <div class="editor-pain" :id="editorPainId">abcd</div>
     <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
-    <div class="paret-pain" id="paretPain">efgh</div>
+    <div class="paret-pain" :id="paretPainId">efgh</div>
   </div>
 </template>
 
@@ -15,11 +15,19 @@ export default class BusinessContextDiagramEditor extends Vue {
   @Prop({ required: true })
   private readonly diagram!: Diagram;
 
+  private editorPainId!: string;
+  private paretPainId!: string;
+
   private paretPainWidth: string | null = null;
 
+  public created(): void {
+    this.editorPainId = "editorPain" + this.diagram.id;
+    this.paretPainId = "paretPain" + this.diagram.id;
+  }
+
   public onDoubleClickSlideBar() {
-    const style = this.styleOf('editorPain');
-    const paretStyle = this.styleOf('paretPain');
+    const style = this.styleOf(this.editorPainId);
+    const paretStyle = this.styleOf(this.paretPainId);
     if (this.paretPainWidth === null) {
       paretStyle.display = "none";
       this.paretPainWidth = style.width;
@@ -33,7 +41,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     }
   }
 
-  private styleOf(id : string): CSSStyleDeclaration {
+  private styleOf(id: string): CSSStyleDeclaration {
     const element = document.getElementById(id) as HTMLElement;
     return element.style;
   }
