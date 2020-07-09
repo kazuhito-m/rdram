@@ -1,5 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
+const webpack = require('webpack')
+
 export default {
   /*
   ** Nuxt rendering mode
@@ -88,5 +90,13 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        '$': 'jquery',
+        'jquery': 'jquery',
+        'window.jQuery': 'jquery',
+        'jQuery': 'jquery'
+      })
+    ]
   }
 }
