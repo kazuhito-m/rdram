@@ -1,0 +1,23 @@
+
+    <!--
+    <script type="text/javascript">
+      function load() {
+        console.log("読まれるたイミング。");
+
+        var canvas = new draw2d.Canvas("{{ canvasId }}");
+
+        console.log("canvas:" + canvas);
+
+        canvas.add(
+          new draw2d.shape.widget.Slider({ width: 90, height: 20 }),
+          50,
+          50
+        );
+      }
+      load();
+    </script>
+    -->
+
+<script src="/js/jquery.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/draw2d.js"></script>
