@@ -1,6 +1,8 @@
 <template>
   <div class="diagram-pain-container">
-    <div class="editor-pain" :id="editorPainId">abcd</div>
+    <div class="editor-pain" :id="editorPainId">
+      <div class="diagram-canvas" :id="canvasId"></div>
+    </div>
     <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
     <div class="paret-pain" :id="paretPainId">efgh</div>
   </div>
@@ -10,6 +12,12 @@
 import { Prop, Component, Vue } from "nuxt-property-decorator";
 import Diagram from "@/domain/diagram/Diagram";
 
+import 'jquery';
+import 'jquery-ui';
+import 'jquery-ui/ui/widgets/draggable';
+import 'jquery-ui/ui/widgets/droppable';
+import draw2d from "draw2d";
+
 @Component
 export default class BusinessContextDiagramEditor extends Vue {
   @Prop({ required: true })
@@ -17,12 +25,26 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private editorPainId!: string;
   private paretPainId!: string;
+  private canvasId!: string;
 
   private paretPainWidth: string | null = null;
 
   public created(): void {
-    this.editorPainId = "editorPain" + this.diagram.id;
-    this.paretPainId = "paretPain" + this.diagram.id;
+    const diagramId = this.diagram.id;
+    this.editorPainId = "editorPain" + diagramId;
+    this.paretPainId = "paretPain" + diagramId;
+    this.canvasId = "canvas" + diagramId;
+  }
+
+  public mounted() {
+    this.showCanvas();
+  }
+
+  private showCanvas(): void {
+    var canvas: any = new draw2d.Canvas(this.canvasId);
+
+    // @ts-ignore`
+    canvas.add(new draw2d.shape.widget.Slider({ width: 90, height: 20 }),50,50);
   }
 
   public onDoubleClickSlideBar() {
@@ -73,5 +95,11 @@ export default class BusinessContextDiagramEditor extends Vue {
   width: 8px;
   background-color: gray;
   cursor: move;
+}
+
+.diagram-canvas {
+  width: 3000px;
+  height: 3000px;
+  /* background-color: white; */
 }
 </style>
