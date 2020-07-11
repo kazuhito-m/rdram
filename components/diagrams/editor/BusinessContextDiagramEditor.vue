@@ -12,10 +12,10 @@
 import { Prop, Component, Vue } from "nuxt-property-decorator";
 import Diagram from "@/domain/diagram/Diagram";
 
-import 'jquery';
-import 'jquery-ui';
-import 'jquery-ui/ui/widgets/draggable';
-import 'jquery-ui/ui/widgets/droppable';
+import "jquery";
+import "jquery-ui";
+import "jquery-ui/ui/widgets/draggable";
+import "jquery-ui/ui/widgets/droppable";
 import draw2d from "draw2d";
 
 @Component
@@ -38,13 +38,26 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   public mounted() {
     this.showCanvas();
+    this.fixCanvasPosition();
   }
 
   private showCanvas(): void {
-    var canvas: any = new draw2d.Canvas(this.canvasId);
+    const canvas: any = new draw2d.Canvas(this.canvasId);
 
-    // @ts-ignore`
-    canvas.add(new draw2d.shape.widget.Slider({ width: 90, height: 20 }),50,50);
+    canvas.add(
+      new draw2d.shape.widget.Slider({ width: 90, height: 20 }),
+      50,
+      50
+    );
+  }
+
+  /**
+   * どーしても、draw2dがsvg作るときに”position: absolute"をしてしまうので、削除する。
+   */
+  private fixCanvasPosition(): void {
+    const svg = document.getElementById(this.canvasId)
+      ?.firstChild as SVGElement;
+    svg.style.removeProperty("position");
   }
 
   public onDoubleClickSlideBar() {
@@ -83,7 +96,6 @@ export default class BusinessContextDiagramEditor extends Vue {
   width: 80%;
   min-width: 0px;
   overflow: auto;
-  text-align: left;
 }
 
 .paret-pain {
@@ -98,8 +110,14 @@ export default class BusinessContextDiagramEditor extends Vue {
 }
 
 .diagram-canvas {
-  width: 3000px;
-  height: 3000px;
-  /* background-color: white; */
+  width: 1000px;
+  height: 1000px;
+  background-color: white;
+  margin: 0px;
+
+  border-radius: 5px;
+  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.6));
+
+  position: relative;
 }
 </style>
