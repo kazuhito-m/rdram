@@ -15,7 +15,38 @@
             <span class="omit-long-text">会社・企業等</span>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <span class="omit-long-text">長い文字列があったら、結局ここでも同じことなってたかな？</span>
+
+            <v-list dark dence>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="chip-container">
+                    <v-chip
+                      outlined
+                      dark=""
+                    >
+                      <v-icon left>mdi-server-plus</v-icon>
+                      Server Status
+                    </v-chip>
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="chip-container">
+                    <v-chip
+                      outlined
+                      dark
+                    >
+                      <v-icon left>mdi-server-plus</v-icon>
+                      タグダケ見てると、これでいけるようだけど…本当に？
+                    </v-chip>
+
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+
           </v-expansion-panel-content>
         </v-expansion-panel>
 
@@ -155,7 +186,13 @@ export default class BusinessContextDiagramEditor extends Vue {
 }
 
 div[class*="-expansion-panel-content__wrap"] {
-  padding: 0 5px 16px;
-  flex: inherit;
+  padding: 0 0px 0px;
+  flex: auto;
+}
+
+.chip-container {
+  position: absolute;
+  text-align: left;
+  width: 100%;
 }
 </style>
