@@ -110,8 +110,8 @@ export default class BusinessContextDiagramEditor extends Vue {
 }
 
 .diagram-canvas {
-  width: 1000px;
-  height: 1000px;
+  width: 1024px;
+  height: 768px;
   background-color: white;
   margin: 0px;
 
