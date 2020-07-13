@@ -12,6 +12,7 @@
               :open.sync="treeOpenItemIds"
               transition
               dark
+              dense
               @update:active="onClickTreeItem"
             >
               <template v-slot:label="{item}">

@@ -4,7 +4,23 @@
       <div class="diagram-canvas" :id="canvasId"></div>
     </div>
     <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
-    <div class="paret-pain" :id="paretPainId">efgh</div>
+    <div class="paret-pain" :id="paretPainId">
+      <v-expansion-panels class="paret-panel"
+        multiple
+        focusable
+        dark
+      >
+        <v-expansion-panel class="paret-panel">
+          <v-expansion-panel-header>
+            <span class="omit-long-text">会社・企業等</span>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <span class="omit-long-text">長い文字列があったら、結局ここでも同じことなってたかな？</span>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+
+      </v-expansion-panels>
+    </div>
   </div>
 </template>
 
@@ -83,7 +99,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 }
 </script>
 
-<style>
+<style type="sass">
 .diagram-pain-container {
   display: flex;
   position: absolute;
@@ -101,6 +117,8 @@ export default class BusinessContextDiagramEditor extends Vue {
 .paret-pain {
   flex-grow: 1;
   min-width: 0px;
+
+  background-color: aqua;
 }
 
 .slidebar {
@@ -119,5 +137,25 @@ export default class BusinessContextDiagramEditor extends Vue {
   filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.6));
 
   position: relative;
+}
+
+.paret-panel {
+  position:sticky;
+  width: 100%;
+}
+
+.omit-long-text {
+  position: absolute;
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  white-space: nowrap;
+  width: 100%;
+  padding: 0px;
+}
+
+div[class*="-expansion-panel-content__wrap"] {
+  padding: 0 5px 16px;
+  flex: inherit;
 }
 </style>
