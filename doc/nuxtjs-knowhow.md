@@ -1,5 +1,14 @@
 ## Nust.js(Vue.js)ノウハウ
 
+## Drag And Dropのサポートしている道具を使う(VueDraggable)
+
+- 本家サイト(サンプルも置いてある)
+  - https://github.com/SortableJS/Vue.Draggable#events
+- Vue.jsでドラッグアンドドロップによる要素の並べ替えと移動を実装する
+  - https://www.ritolab.com/entry/173
+- drag-n-drop in Vuetify — Part II
+  - https://medium.com/vuetify/drag-n-drop-in-vuetify-part-ii-2b07b4b27684
+
 ## DIをデコレータのみでやる
 
 過去はいろいろあったようなのだが、最新では「Nuxt.jsでプロジェクト作った時点で、@Probide/@Injectが使えるし、どこかに一言的にnewするソース置いとく」のが定石みたい。
