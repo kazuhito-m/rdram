@@ -20,7 +20,7 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
-                      <v-chip dark outlined="">
+                      <v-chip dark outlined draggable>
                         <v-icon left>mdi-server-plus</v-icon>
                         (追加)
                       </v-chip>
@@ -109,6 +109,8 @@ export default class BusinessContextDiagramEditor extends Vue {
     const svg = document.getElementById(this.canvasId)
       ?.firstChild as SVGElement;
     svg.style.removeProperty("position");
+    svg.addEventListener('drop', this.onDropCanvas);
+    svg.addEventListener('dragover', this.onDropOverCanvas);
   }
 
   public onDoubleClickSlideBar() {
@@ -125,6 +127,14 @@ export default class BusinessContextDiagramEditor extends Vue {
       style.width = this.paretPainWidth;
       this.paretPainWidth = null;
     }
+  }
+
+  public onDropCanvas(event: DragEvent) {
+    console.log(event);
+  }
+
+  public onDropOverCanvas(event: DragEvent) {
+    event.preventDefault();
   }
 
   private styleOf(id: string): CSSStyleDeclaration {
