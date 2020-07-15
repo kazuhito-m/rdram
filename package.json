@@ -18,7 +18,8 @@
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
     "nuxt": "^2.14.0",
-    "nuxt-property-decorator": "^2.7.2"
+    "nuxt-property-decorator": "^2.7.2",
+    "vuedraggable": "^2.24.0"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.0",
