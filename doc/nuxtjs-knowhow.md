@@ -8,6 +8,8 @@
   - https://www.ritolab.com/entry/173
 - drag-n-drop in Vuetify — Part II
   - https://medium.com/vuetify/drag-n-drop-in-vuetify-part-ii-2b07b4b27684
+- Vuetify2系で SortableJS つかって v-simple-table を ドラッグ&ドロップさせる
+  - https://qiita.com/mykysyk@github/items/a6c1282cf6507724da35
 
 ## DIをデコレータのみでやる
 
