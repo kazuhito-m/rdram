@@ -21,3 +21,30 @@
 <script src="/js/jquery.js"></script>
 <script src="/js/jquery-ui.js"></script>
 <script src="/js/draw2d.js"></script>
+
+
+
+        <v-expansion-panel>
+          <v-expansion-panel-header>組織</v-expansion-panel-header>
+          <v-expansion-panel-content>ここに要素を</v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header>アクター</v-expansion-panel-header>
+          <v-expansion-panel-content>ここに要素を</v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header>業務</v-expansion-panel-header>
+          <v-expansion-panel-content>ここに要素を</v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header>会社・企業等</v-expansion-panel-header>
+          <v-expansion-panel-content>ここに要素を</v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header>使用済</v-expansion-panel-header>
+          <v-expansion-panel-content>ここに要素を</v-expansion-panel-content>
+        </v-expansion-panel>/*  */
