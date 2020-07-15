@@ -33,7 +33,8 @@ export default class ProductIdentifier {
         return {
             id: ProductIdentifier.ganerate().toString(),
             name: newName,
-            diagrams: []
+            diagrams: [],
+            companies: []
         };
     }
 }
