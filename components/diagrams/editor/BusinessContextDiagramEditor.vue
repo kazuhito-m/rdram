@@ -20,12 +20,10 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
-                    <draggable>
                       <v-chip dark outlined="">
                         <v-icon left>mdi-server-plus</v-icon>
                         (追加)
                       </v-chip>
-                    </draggable>
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
@@ -33,12 +31,10 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
-                    <draggable>
                       <v-chip dark>
                         <v-icon left>mdi-server-plus</v-icon>
                         図書館
                       </v-chip>
-                    </draggable>
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
@@ -46,12 +42,10 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
-                    <draggable>
                       <v-chip dark>
                         <v-icon left>mdi-server-plus</v-icon>
                         東京特許許可局(修正修理中かつ特許申請中)
                       </v-chip>
-                    </draggable>
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
@@ -67,7 +61,6 @@
 
 <script lang="ts">
 import { Prop, Component, Vue } from "nuxt-property-decorator";
-import draggable from "vuedraggable";
 import Diagram from "@/domain/diagram/Diagram";
 
 import "jquery";
@@ -76,11 +69,7 @@ import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
 import draw2d from "draw2d";
 
-@Component({
-  components: {
-    draggable,
-  }
-})
+@Component
 export default class BusinessContextDiagramEditor extends Vue {
   @Prop({ required: true })
   private readonly diagram!: Diagram;
