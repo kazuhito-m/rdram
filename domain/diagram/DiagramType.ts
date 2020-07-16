@@ -1,4 +1,6 @@
 import Diagram from "./Diagram";
+import BusinessContextDiagram from "./businesscontext/BusinessContextDiagram";
+import ResourceType from "@/domain/resource/ResourceType";
 
 export default class DiagramType {
     private static readonly vs: DiagramType[] = [];
@@ -30,6 +32,18 @@ export default class DiagramType {
     }
 
     public prototypeOf(newId: number, newName: string): Diagram {
+        if (this=== DiagramType.ビジネスコンテキスト図) {
+            const dg1: BusinessContextDiagram = {
+                id: newId,
+                typeId: this.id,
+                name: newName,
+                placementObjects: [],
+                availableResourceTypeIds: [ResourceType.事業体].map(type => type.id)
+            };
+            return dg1;
+        }
+
+        // 上記以外…は「本来無い」ので、以下は未実装部分のための仮実装
         return {
             id: newId,
             typeId: this.id,

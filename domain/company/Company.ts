@@ -1,6 +1,4 @@
+import Resource from "@/domain/resource/Resource";
 
-export default interface Company {
-    id: string;
-    name: string;
-    description: string;
+export default interface Company extends Resource {
 }

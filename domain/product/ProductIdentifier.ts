@@ -34,7 +34,8 @@ export default class ProductIdentifier {
             id: ProductIdentifier.ganerate().toString(),
             name: newName,
             diagrams: [],
-            companies: []
+            companies: [],
+            resourceIdSequence: 0
         };
     }
 }
