@@ -20,7 +20,7 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
-                      <v-chip dark outlined draggable>
+                      <v-chip dark outlined draggable @dragstart="onDragStartNewCompany">
                         <v-icon left>mdi-server-plus</v-icon>
                         (追加)
                       </v-chip>
@@ -73,6 +73,7 @@ import draw2d from "draw2d";
 export default class BusinessContextDiagramEditor extends Vue {
   @Prop({ required: true })
   private readonly diagram!: Diagram;
+  private canvas!: draw2d.Canvas;
 
   private editorPainId!: string;
   private paretPainId!: string;
@@ -93,21 +94,16 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private showCanvas(): void {
-    const canvas: any = new draw2d.Canvas(this.canvasId);
+    const canvas = new draw2d.Canvas(this.canvasId);
 
-    canvas.add(
-      new draw2d.shape.widget.Slider({ width: 90, height: 20 }),
-      50,
-      50
-    );
+    this.canvas = canvas;
   }
 
   /**
    * どーしても、draw2dがsvg作るときに”position: absolute"をしてしまうので、削除する。
    */
   private fixCanvasPosition(): void {
-    const svg = document.getElementById(this.canvasId)
-      ?.firstChild as SVGElement;
+    const svg = document.getElementById(this.canvasId)?.firstChild as SVGElement;
     svg.style.removeProperty("position");
     svg.addEventListener('drop', this.onDropCanvas);
     svg.addEventListener('dragover', this.onDropOverCanvas);
@@ -129,17 +125,29 @@ export default class BusinessContextDiagramEditor extends Vue {
     }
   }
 
+  private styleOf(id: string): CSSStyleDeclaration {
+    const element = document.getElementById(id) as HTMLElement;
+    return element.style;
+  }
   public onDropCanvas(event: DragEvent) {
-    console.log(event);
+    event.preventDefault();
+
+    const x = event.offsetX;
+    const y = event.offsetY;
+
+    this.canvas.add(
+      new draw2d.shape.widget.Slider({ width: 90, height: 20 }),
+      x,
+      y
+    );
   }
 
   public onDropOverCanvas(event: DragEvent) {
     event.preventDefault();
   }
 
-  private styleOf(id: string): CSSStyleDeclaration {
-    const element = document.getElementById(id) as HTMLElement;
-    return element.style;
+  public onDragStartNewCompany(event: DragEvent) {
+    event.dataTransfer?.setData('text', '結局、Stringifyデモしない限り、どこまでいってもテキストデータの入れ物に過ぎないわけか…。');
   }
 }
 </script>
