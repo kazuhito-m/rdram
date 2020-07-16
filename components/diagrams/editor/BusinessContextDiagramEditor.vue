@@ -6,6 +6,7 @@
     <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
     <div class="paret-pain" :id="paretPainId">
       <v-expansion-panels class="paret-panel"
+        v-model="paretsOpen"
         multiple
         focusable
         dark
@@ -80,6 +81,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   private canvasId!: string;
 
   private paretPainWidth: string | null = null;
+  private readonly paretsOpen = [0];
 
   public created(): void {
     const diagramId = this.diagram.id;
@@ -170,7 +172,8 @@ export default class BusinessContextDiagramEditor extends Vue {
 .paret-pain {
   flex-grow: 1;
   min-width: 0px;
-
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: aqua;
 }
 
