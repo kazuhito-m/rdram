@@ -74,6 +74,7 @@ import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import BusinessContextDiagram from "@/domain/diagram/businesscontext/BusinessContextDiagram";
 import ResourceType from "../../../domain/resource/ResourceType";
+import Resource from "../../../domain/resource/Resource";
 
 @Component
 export default class BusinessContextDiagramEditor extends Vue {
@@ -92,6 +93,8 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private paretPainWidth: string | null = null;
   private readonly paretsOpen = [0];
+  private readonly parets: Paret[] = [];
+  private readonly usedResource: Resource[] = [];
 
   public created(): void {
     this.product = this.getCurrentProduct();
@@ -103,6 +106,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   public mounted() {
+    this.resyncParets();
     this.showCanvas();
     this.fixCanvasPosition();
   }
@@ -202,6 +206,44 @@ export default class BusinessContextDiagramEditor extends Vue {
   private createNewCompany(x: number , y: number) {
     alert(`createNewCompany(${x}, ${y})`);
   }
+
+  private resyncParets(): void {
+    const diagram = this.diagram;
+    const product = this.product;
+
+    const usedResourceIds = diagram.placementObjects
+      .map(placement => placement.resourceId);
+
+    const parets: Paret[] = diagram.availableResourceTypeIds
+      .map(typeId => ResourceType.ofId(typeId) as ResourceType)
+      .map(type => {
+        const paret: Paret = {
+          resourceType: type,
+          resources: product.resources
+            .filter(resource => resource.resourceTypeId === type.id)
+            .filter(resource => usedResourceIds.every(id => id !== resource.resourceId)),
+        }
+        return paret;
+      });
+
+    const usedResources = product.resources
+      .filter(resource => usedResourceIds.some(id => id === resource.resourceId));
+
+    // reactiveに動く前提として、「配列自体の参照は残す」が「出来るだけ時間掛けない(低コスト)」にしたい。
+    // なので「材料は予め用意しておいて、移し替えだけ集中してやる」にする。
+    this.parets.length = 0;
+    for (let paret of parets) this.parets.push(paret);
+    this.usedResource.length = 0;
+    for (let resource of usedResources) this.usedResource.push(resource);
+
+    // DEBUG
+    console.log(`パレット:${this.usedResource.length}, 使用済み:${this.usedResource.length}`);
+  }
+}
+
+interface Paret {
+  resourceType: ResourceType;
+  resources: Resource[];
 }
 </script>
 

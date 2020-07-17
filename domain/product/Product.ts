@@ -1,6 +1,6 @@
 import Diagram from '@/domain/diagram/Diagram';
-import Company from '../company/Company';
-import UserSettings from '../setting/UserSettings';
+import UserSettings from '@/domain//setting/UserSettings';
+import Resource from '@/domain/resource/Resource';
 
 export default interface Product {
     id: string;
@@ -8,5 +8,5 @@ export default interface Product {
     userSettings: UserSettings;
     diagrams: Diagram[];
     resourceIdSequence: number;
-    companies: Company[];
+    resources: Resource[];
 }

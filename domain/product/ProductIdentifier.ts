@@ -35,7 +35,7 @@ export default class ProductIdentifier {
             name: newName,
             userSettings: { autoSave: true },
             diagrams: [],
-            companies: [],
+            resources: [],
             resourceIdSequence: 0
         };
     }
