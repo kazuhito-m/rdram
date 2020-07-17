@@ -13,3 +13,14 @@
 
 - 今こそ伝えたい！@ts-ignoreの魅力
   - https://scrapbox.io/terrierscript/%E4%BB%8A%E3%81%93%E3%81%9D%E4%BC%9D%E3%81%88%E3%81%9F%E3%81%84%EF%BC%81@ts-ignore%E3%81%AE%E9%AD%85%E5%8A%9B
+
+## TypeScriptでの「class情報を含めた」シリアライズとデシリアライズ
+
+※継続調査中。なんか…いいのがない
+
+- TypeScriptのDecoratorを使ってserializableを実現する
+  - https://qiita.com/tkrkt/items/a806d6c80d69b52af1b8
+  - 結局自力かー、ってハナシ
+- typescript-json-serializer
+  - https://www.npmjs.com/package/typescript-json-serializer
+  - まだためしていないが、使えそうならこれでもいい(でもなんとなく使われていないっぽくみえたり)

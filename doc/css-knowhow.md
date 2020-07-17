@@ -31,3 +31,10 @@
   - https://vue-loader-v14.vuejs.org/ja/features/scoped-css.html
 - 元にあったCSSを置き換えて、上書き乗っ取りする方法(Override SASS class)
   - https://stackoverflow.com/questions/45374926/override-sass-class
+
+## HTML5においてのDaD
+
+これは、cssというよりhtmlの範疇だが、まあここに。
+
+- 第1回 Drag & Drop APIとは
+  - https://app.codegrid.net/entry/dnd-api-1
