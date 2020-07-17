@@ -32,7 +32,7 @@ export default class DiagramType {
     }
 
     public prototypeOf(newId: number, newName: string): Diagram {
-        if (this=== DiagramType.ビジネスコンテキスト図) {
+        if (this === DiagramType.ビジネスコンテキスト図) {
             const dg1: BusinessContextDiagram = {
                 id: newId,
                 typeId: this.id,
