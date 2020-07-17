@@ -33,6 +33,7 @@ export default class ProductIdentifier {
         return {
             id: ProductIdentifier.ganerate().toString(),
             name: newName,
+            userSettings: {autoSave: true},
             diagrams: [],
             companies: [],
             resourceIdSequence: 0

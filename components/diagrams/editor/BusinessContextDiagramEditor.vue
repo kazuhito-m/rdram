@@ -61,8 +61,7 @@
 </template>
 
 <script lang="ts">
-import { Prop, Component, Vue } from "nuxt-property-decorator";
-import Diagram from "@/domain/diagram/Diagram";
+import { Prop, Component, Vue, Inject } from "nuxt-property-decorator";
 
 import "jquery";
 import "jquery-ui";
@@ -70,10 +69,21 @@ import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
 import draw2d from "draw2d";
 
+import Repository from "@/infrastructure/Repository";
+import Diagram from "@/domain/diagram/Diagram";
+import Product from "@/domain/product/Product";
+import BusinessContextDiagram from "@/domain/diagram/businesscontext/BusinessContextDiagram";
+import RecouseType from "../../../domain/resource/ResourceType";
+
 @Component
 export default class BusinessContextDiagramEditor extends Vue {
+  @Inject()
+  private repository!: Repository
+
   @Prop({ required: true })
-  private readonly diagram!: Diagram;
+  private readonly diagram!: BusinessContextDiagram;
+  private product!: Product;
+
   private canvas!: draw2d.Canvas;
 
   private editorPainId!: string;
@@ -84,6 +94,8 @@ export default class BusinessContextDiagramEditor extends Vue {
   private readonly paretsOpen = [0];
 
   public created(): void {
+    this.product = this.getCurrentProduct();
+
     const diagramId = this.diagram.id;
     this.editorPainId = "editorPain" + diagramId;
     this.paretPainId = "paretPain" + diagramId;
@@ -137,11 +149,18 @@ export default class BusinessContextDiagramEditor extends Vue {
     const x = event.offsetX;
     const y = event.offsetY;
 
-    this.canvas.add(
-      new draw2d.shape.widget.Slider({ width: 90, height: 20 }),
-      x,
-      y
-    );
+    const textData = event.dataTransfer?.getData('text');
+    if (!textData) return;
+    const resourceId = parseInt(textData, 10);
+    // 新規追加時。
+    if (resourceId < 0) {
+      const resouceTypeId = resourceId * -1;
+      if (resouceTypeId === RecouseType.事業体.id) this.createNewCompany(x, y);
+      return;
+    }
+
+    // それ以外は「図への追加(ふつーのドラッグ)」
+
   }
 
   public onDropOverCanvas(event: DragEvent) {
@@ -149,7 +168,39 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   public onDragStartNewCompany(event: DragEvent) {
-    event.dataTransfer?.setData('text', '結局、Stringifyデモしない限り、どこまでいってもテキストデータの入れ物に過ぎないわけか…。');
+    event.dataTransfer?.setData('text',  '-' + RecouseType.事業体.id);
+  }
+
+  private getCurrentProduct(): Product {
+    return this.repository.getCurrentProduct() as Product;
+  }
+
+  /**
+   * 自動保存のOn/Offを意識した「product,diagramへの操作」。
+   */
+  private transactionOf(func: Function):void {
+    const product = this.getCurrentProduct();
+    const autoSave = product.userSettings.autoSave;
+    if (autoSave) {
+      this.product = product;
+      const foundDiagram = this.product.diagrams
+        .find(d => d.id === this.diagram.id) as BusinessContextDiagram;
+      if (foundDiagram) this.shallowCopy(foundDiagram , this.diagram);
+    }
+
+    func(this.diagram, this.product);
+
+    if (autoSave) this.repository.registerCurrentProduct(this.product);
+  }
+
+  private shallowCopy(src: BusinessContextDiagram, dist: BusinessContextDiagram) {
+    dist.name = src.name;
+    dist.placementObjects = src.placementObjects;
+    dist.availableResourceTypeIds = src.availableResourceTypeIds;
+  }
+
+  private createNewCompany(x: number , y: number) {
+    alert(`createNewCompany(${x}, ${y})`);
   }
 }
 </script>
