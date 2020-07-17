@@ -32,27 +32,21 @@
                 </v-list-item-content>
               </v-list-item>
 
-              <v-list-item>
+              <v-list-item
+                v-for="resource in paret.resources"
+                :key="resource.resourceId"
+              >
+
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
-                      <v-chip color="primary" dark draggable @dragstart="onDragStartResource" v-bind:data-resource-id="1">
+                      <v-chip color="primary" dark draggable @dragstart="onDragStartResource" v-bind:data-resource-id="resource.resourceId">
                         <v-icon left>mdi-server-plus</v-icon>
-                        図書館
+                        {{ resource.name }}
                       </v-chip>
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title class="chip-container">
-                      <v-chip dark>
-                        <v-icon left>mdi-server-plus</v-icon>
-                        東京特許許可局(修正修理中かつ特許申請中)
-                      </v-chip>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
             </v-list>
 
           </v-expansion-panel-content>
@@ -64,12 +58,15 @@
 
             <v-list dark dence>
 
-             <v-list-item>
+              <v-list-item
+                v-for="usedResource in usedResources"
+                :key="usedResource.id"
+              >
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
                       <v-chip dark>
                         <v-icon left>mdi-server-plus</v-icon>
-                        図書館
+                        {{ usedResource.name }}
                       </v-chip>
                   </v-list-item-title>
                 </v-list-item-content>
@@ -132,7 +129,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   public mounted() {
     this.resyncParets();
-    for (let i = 0; i < this.parets.length + 1; i++ ) this.paretsOpen.push(i);
+    for (let i = 0; i < this.parets.length + 1; i++) this.paretsOpen.push(i);
     this.showCanvas();
     this.fixCanvasPosition();
   }
@@ -184,8 +181,8 @@ export default class BusinessContextDiagramEditor extends Vue {
     const resourceId = parseInt(textData, 10);
     // 新規追加時。
     if (resourceId < 0) {
-      const resouceTypeId = resourceId * -1;
-      if (resouceTypeId === ResourceType.事業体.id) this.createNewCompany(x, y);
+      const resourceTypeId = resourceId * -1;
+      if (resourceTypeId === ResourceType.事業体.id) this.createNewCompany(x, y);
       return;
     }
 
