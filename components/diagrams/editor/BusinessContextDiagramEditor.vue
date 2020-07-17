@@ -73,7 +73,7 @@ import Repository from "@/infrastructure/Repository";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import BusinessContextDiagram from "@/domain/diagram/businesscontext/BusinessContextDiagram";
-import RecouseType from "../../../domain/resource/ResourceType";
+import ResourceType from "../../../domain/resource/ResourceType";
 
 @Component
 export default class BusinessContextDiagramEditor extends Vue {
@@ -155,7 +155,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     // 新規追加時。
     if (resourceId < 0) {
       const resouceTypeId = resourceId * -1;
-      if (resouceTypeId === RecouseType.事業体.id) this.createNewCompany(x, y);
+      if (resouceTypeId === ResourceType.事業体.id) this.createNewCompany(x, y);
       return;
     }
 
@@ -168,7 +168,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   public onDragStartNewCompany(event: DragEvent) {
-    event.dataTransfer?.setData('text',  '-' + RecouseType.事業体.id);
+    event.dataTransfer?.setData('text',  '-' + ResourceType.事業体.id);
   }
 
   private getCurrentProduct(): Product {
