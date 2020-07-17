@@ -11,9 +11,12 @@
         focusable
         dark
       >
-        <v-expansion-panel class="paret-panel">
+        <v-expansion-panel class="paret-panel"
+          v-for="paret in parets"
+          :key="paret.resourceType.id" 
+        >
           <v-expansion-panel-header>
-            <span class="omit-long-text">会社・企業等</span>
+            <span class="omit-long-text">{{ paret.resourceType.name }}</span>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
 
@@ -21,7 +24,7 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
-                      <v-chip dark outlined draggable @dragstart="onDragStartNewCompany">
+                      <v-chip color="primary" dark outlined draggable @dragstart="onDragStartNewCompany">
                         <v-icon left>mdi-server-plus</v-icon>
                         (追加)
                       </v-chip>
@@ -32,7 +35,7 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
-                      <v-chip dark>
+                      <v-chip color="primary" dark draggable @dragstart="onDragStartResource" v-bind:data-resource-id="1">
                         <v-icon left>mdi-server-plus</v-icon>
                         図書館
                       </v-chip>
@@ -50,6 +53,28 @@
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
+            </v-list>
+
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header>使用済</v-expansion-panel-header>
+          <v-expansion-panel-content>
+
+            <v-list dark dence>
+
+             <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="chip-container">
+                      <v-chip dark>
+                        <v-icon left>mdi-server-plus</v-icon>
+                        図書館
+                      </v-chip>
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+
             </v-list>
 
           </v-expansion-panel-content>
@@ -92,7 +117,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   private canvasId!: string;
 
   private paretPainWidth: string | null = null;
-  private readonly paretsOpen = [0];
+  private readonly paretsOpen: number[] = [];
   private readonly parets: Paret[] = [];
   private readonly usedResource: Resource[] = [];
 
@@ -107,6 +132,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   public mounted() {
     this.resyncParets();
+    for (let i = 0; i < this.parets.length + 1; i++ ) this.paretsOpen.push(i);
     this.showCanvas();
     this.fixCanvasPosition();
   }
@@ -164,15 +190,22 @@ export default class BusinessContextDiagramEditor extends Vue {
     }
 
     // それ以外は「図への追加(ふつーのドラッグ)」
+    alert(`resourceId:${resourceId} (DaDはまだ未実装だよ！)`);
 
   }
 
-  public onDropOverCanvas(event: DragEvent) {
+  public onDropOverCanvas(event: DragEvent):void {
     event.preventDefault();
   }
 
-  public onDragStartNewCompany(event: DragEvent) {
+  public onDragStartNewCompany(event: DragEvent):void  {
     event.dataTransfer?.setData('text',  '-' + ResourceType.事業体.id);
+  }
+
+  public onDragStartResource(event: DragEvent):void {
+    const chip = event.srcElement as HTMLElement;
+    const resourceIdText = chip.getAttribute('data-resource-id') as string;
+    event.dataTransfer?.setData('text',  resourceIdText);
   }
 
   private getCurrentProduct(): Product {
