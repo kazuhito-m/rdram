@@ -244,8 +244,6 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private createNewCompany(x: number , y: number) {
-    let newCompany!: Company;
-
     this.transactionOf((diagram, product) => {
       const name = prompt("追加する事業体の名前を入力してください。");
       if (!name) return false;
@@ -260,16 +258,12 @@ export default class BusinessContextDiagramEditor extends Vue {
 
       product.resources.push(company);
 
-      this.addResourceToDiagram(company, x, y, diagram);
+      if (!this.addResourceToDiagram(company, x, y, diagram)) return false;
     
-      newCompany = company;
+      this.resyncParets();
+      this.syncOtherDiagramParets();
       return true;
     });
-
-    if (newCompany) return;
-
-    this.resyncParets();
-    this.syncOtherDiagramParets();
   }
 
   private validateCompanyName(companyName: string, product: Product): boolean {
