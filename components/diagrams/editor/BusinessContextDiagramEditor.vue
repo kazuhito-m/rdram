@@ -98,7 +98,7 @@ import BusinessContextDiagram from "@/domain/diagram/businesscontext/BusinessCon
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Company from "@/domain/company/Company";
-import Placement from "../../../domain/diagram/placement/Placement";
+import Placement from "@/domain/diagram/placement/Placement";
 
 @Component
 export default class BusinessContextDiagramEditor extends Vue {
@@ -263,6 +263,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (newCompany) return;
 
     this.resyncParets();
+    this.syncOtherDiagramParets();
   }
 
   private validateCompanyName(companyName: string, product: Product): boolean {
@@ -332,6 +333,16 @@ export default class BusinessContextDiagramEditor extends Vue {
 
     // DEBUG
     console.log(`パレット:${this.parets.length}, 使用済み:${this.usedResources.length}`);
+  }
+
+  /**
+   * 開いている他の図の右側パレットを、データの状態と同期する。
+   *
+   * リソースの削除や追加の場合のみ、「他の図に影響が行く」のでそれは更新されないといけない。
+   */
+  private syncOtherDiagramParets() {
+    // TODO 実装
+    console.log('TODO実装。自分の親に言って、すべての図でみぎPaletを更新してこいと。');
   }
 }
 
