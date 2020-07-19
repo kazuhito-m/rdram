@@ -263,3 +263,10 @@ export default class extends Vue {
     position: absolute;
 }
 </style>
+
+<style>
+/* Global */
+html {
+  overflow-y:hidden;
+}
+</style>

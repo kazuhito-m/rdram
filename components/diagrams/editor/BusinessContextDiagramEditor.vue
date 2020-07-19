@@ -350,7 +350,7 @@ interface Paret {
 }
 </script>
 
-<style type="sass">
+<style type="sass" scoped>
 .diagram-pain-container {
   display: flex;
   position: absolute;
