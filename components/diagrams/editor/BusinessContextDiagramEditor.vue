@@ -191,6 +191,14 @@ export default class BusinessContextDiagramEditor extends Vue {
     }
 
     // それ以外は「図への追加(ふつーのドラッグ)」
+    this.transactionOf((diagram, product) => {
+      const resource = product.resources
+        .find(resource => resource.resourceId === resourceId);
+      if (!resource) return false;
+
+      return this.addResourceToDiagram(resource, x, y , diagram);
+    });
+
     alert(`resourceId:${resourceId} (DaDはまだ未実装だよ！)`);
 
   }
@@ -285,7 +293,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     return ++product.resourceIdSequence;
   }
 
-  private addResourceToDiagram(resoruce: Resource,left: number,top: number,diagram: BusinessContextDiagram) {
+  private addResourceToDiagram(resoruce: Resource,left: number,top: number,diagram: BusinessContextDiagram): boolean {
     const placement: Placement = {
       x: left,
       y: top,
@@ -300,6 +308,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     // const icon = xxx;
     // this.canvas.add(icon);
     alert('Canvasに書き込む処理は未実装。');
+    return true;
   }
 
   private resyncParets(): void {
