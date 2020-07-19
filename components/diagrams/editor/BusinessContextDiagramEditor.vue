@@ -330,9 +330,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     for (let paret of parets) this.parets.push(paret);
     this.usedResources.length = 0;
     for (let resource of usedResources) this.usedResources.push(resource);
-
-    // DEBUG
-    console.log(`パレット:${this.parets.length}, 使用済み:${this.usedResources.length}`);
   }
 
   /**
