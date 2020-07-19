@@ -26,7 +26,7 @@
                   <v-list-item-title class="chip-container">
                       <v-chip color="primary" dark outlined draggable @dragstart="onDragStartNewCompany">
                         <v-icon left>mdi-server-plus</v-icon>
-                        (追加)
+                        新規追加
                       </v-chip>
                   </v-list-item-title>
                 </v-list-item-content>
@@ -53,7 +53,7 @@
         </v-expansion-panel>
 
         <v-expansion-panel>
-          <v-expansion-panel-header>使用済</v-expansion-panel-header>
+          <v-expansion-panel-header>この図で使用済</v-expansion-panel-header>
           <v-expansion-panel-content>
 
             <v-list dark dence>
@@ -95,8 +95,10 @@ import Repository from "@/infrastructure/Repository";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import BusinessContextDiagram from "@/domain/diagram/businesscontext/BusinessContextDiagram";
-import ResourceType from "../../../domain/resource/ResourceType";
-import Resource from "../../../domain/resource/Resource";
+import ResourceType from "@/domain/resource/ResourceType";
+import Resource from "@/domain/resource/Resource";
+import Company from "@/domain/company/Company";
+import Placement from "../../../domain/diagram/placement/Placement";
 
 @Component
 export default class BusinessContextDiagramEditor extends Vue {
@@ -116,7 +118,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   private paretPainWidth: string | null = null;
   private readonly paretsOpen: number[] = [];
   private readonly parets: Paret[] = [];
-  private readonly usedResource: Resource[] = [];
+  private readonly usedResources: Resource[] = [];
 
   public created(): void {
     this.product = this.getCurrentProduct();
@@ -136,6 +138,8 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private showCanvas(): void {
     const canvas = new draw2d.Canvas(this.canvasId);
+
+    // TODO Canvasの初期表示
 
     this.canvas = canvas;
   }
@@ -212,7 +216,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   /**
    * 自動保存のOn/Offを意識した「product,diagramへの操作」。
    */
-  private transactionOf(func: Function):void {
+  private transactionOf(func: (diagram: BusinessContextDiagram, product:Product) => boolean):void {
     const product = this.getCurrentProduct();
     const autoSave = product.userSettings.autoSave;
     if (autoSave) {
@@ -222,9 +226,9 @@ export default class BusinessContextDiagramEditor extends Vue {
       if (foundDiagram) this.shallowCopy(foundDiagram , this.diagram);
     }
 
-    func(this.diagram, this.product);
+    const requireSave = func(this.diagram, this.product);
 
-    if (autoSave) this.repository.registerCurrentProduct(this.product);
+    if (autoSave && requireSave) this.repository.registerCurrentProduct(this.product);
   }
 
   private shallowCopy(src: BusinessContextDiagram, dist: BusinessContextDiagram) {
@@ -234,7 +238,67 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private createNewCompany(x: number , y: number) {
-    alert(`createNewCompany(${x}, ${y})`);
+    let newCompany!: Company;
+
+    this.transactionOf((diagram, product) => {
+      const name = prompt("追加する事業体の名前を入力してください。");
+      if (!name) return false;
+      if (!this.validateCompanyName(name, product)) return false;
+
+      const company: Company = {
+        resourceId: this.generateResourceId(product),
+        resourceTypeId: ResourceType.事業体.id,
+        name: name,
+        description: '',
+      };
+
+      product.resources.push(company);
+
+      this.addResourceToDiagram(company, x, y, diagram);
+    
+      newCompany = company;
+      return true;
+    });
+
+    if (newCompany) return;
+
+    this.resyncParets();
+  }
+
+  private validateCompanyName(companyName: string, product: Product): boolean {
+    if (companyName.length > 255) {
+      alert('プロダクト名は255文字以内で入力してください。');
+      return false;
+    }
+    const exists = product.resources
+      .filter(resource => resource.resourceTypeId === ResourceType.事業体.id)
+      .some(resource => resource.name === companyName);
+    if (exists) {
+      alert('既に同一の事業体名が在ります。');
+      return false;
+    }
+    return true;
+  }
+
+  private generateResourceId(product: Product) {
+    return ++product.resourceIdSequence;
+  }
+
+  private addResourceToDiagram(resoruce: Resource,left: number,top: number,diagram: BusinessContextDiagram) {
+    const placement: Placement = {
+      x: left,
+      y: top,
+      width: 20,
+      height: 20,
+      resourceId: resoruce.resourceId
+    };
+
+    diagram.placementObjects.push(placement);
+
+    // TODO アイコンをCanvasに追加する。
+    // const icon = xxx;
+    // this.canvas.add(icon);
+    alert('Canvasに書き込む処理は未実装。');
   }
 
   private resyncParets(): void {
@@ -263,11 +327,11 @@ export default class BusinessContextDiagramEditor extends Vue {
     // なので「材料は予め用意しておいて、移し替えだけ集中してやる」にする。
     this.parets.length = 0;
     for (let paret of parets) this.parets.push(paret);
-    this.usedResource.length = 0;
-    for (let resource of usedResources) this.usedResource.push(resource);
+    this.usedResources.length = 0;
+    for (let resource of usedResources) this.usedResources.push(resource);
 
     // DEBUG
-    console.log(`パレット:${this.usedResource.length}, 使用済み:${this.usedResource.length}`);
+    console.log(`パレット:${this.parets.length}, 使用済み:${this.usedResources.length}`);
   }
 }
 
