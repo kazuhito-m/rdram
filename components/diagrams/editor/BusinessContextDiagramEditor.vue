@@ -198,9 +198,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 
       return this.addResourceToDiagram(resource, x, y , diagram);
     });
-
-    alert(`resourceId:${resourceId} (DaDはまだ未実装だよ！)`);
-
+    this.resyncParets();
   }
 
   public onDropOverCanvas(event: DragEvent):void {
