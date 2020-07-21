@@ -138,6 +138,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private showCanvas(): void {
     const canvas = new draw2d.Canvas(this.canvasId);
+    // canvas.setScrollArea("#" + this.canvasId); // TODO もしかしたら「そんなに小細工しなくても、draw2dでスクロールできるかもしれない」ので、後に検討。
 
     // TODO Canvasの初期表示
 
