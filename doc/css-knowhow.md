@@ -38,3 +38,24 @@
 
 - 第1回 Drag & Drop APIとは
   - https://app.codegrid.net/entry/dnd-api-1
+
+## Font Awasomeとか「文字でアイコン作る系」のやつのフォントファミリーと文字を取り出す方法
+
+結局、「 `::before` の擬似要素にフォントと文字が設定してある」ということがわかり、それの取り出し方さえわかれば、VuetifyのMaterialDesignIconとかの「素の文字」を割り出す事が可能。
+
+```TypeScript
+const iconTag = document.getElementById("icon") as HTMLDivElement;
+const style = window.getComputedStyle(iconTag, "::before");
+
+const fontFamily = style.fontFamily;
+const text = style.content.replace(/"/g, ""); // ダブルクオート付きでくるため
+```
+
+- jQueryでCSSの擬似要素:beforeや:afterのプロパティを変更する方法３種類
+  - http://ithat.me/2015/11/30/jquery-css-pseudo-before-after-change
+- getComputedStyle について調べてたら深みにハマったのでメモ
+  - https://amachang.hatenablog.com/entry/20070611/1181554170
+  - 「計算された後の状態を取得」するには、要るので覚えとけば良い感じ
+- How to get CSS class property in Javascript?
+  - https://stackoverflow.com/questions/20377835/how-to-get-css-class-property-in-javascript
+

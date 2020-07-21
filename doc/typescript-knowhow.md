@@ -24,3 +24,9 @@
 - typescript-json-serializer
   - https://www.npmjs.com/package/typescript-json-serializer
   - まだためしていないが、使えそうならこれでもいい(でもなんとなく使われていないっぽくみえたり)
+
+## FontAwasamとかを「直接文字コードで指定したい」場合
+
+- 文字列(JavaScriptの書き方)
+  - http://www.tohoho-web.com/js/string.htm
+  - CSS等から文字コードがわかれば、ここの「サロゲートペアを含むUnicode文字」の指定方法で実際に埋め込むことが可能
