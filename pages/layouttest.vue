@@ -1,10 +1,17 @@
 <template>
   <div>
-    <div class="v-icon mdi mdi-office-building-outline"></div>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css"
+    />
+    <!-- https://cdn.jsdelivr.net/npm/@mdi/font@latest/fonts/materialdesignicons-webfont.eot?v=5.5.55 -->
+    <v-icon>$vuetify.icons.company</v-icon>
+    <v-icon>mdi-office-building-outline</v-icon>
+    <div id="companyIcon" class="mdi mdi-office-building-outline"></div>
+    <div id="test_text" style="font-family: 'Material Design Icons'"></div>
     <div class="diagram-canvas" id="canvas01"></div>
   </div>
 </template>
-
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
@@ -26,7 +33,6 @@ export default class extends Vue {
 
   private showCanvas(): void {
     const canvas = new draw2d.Canvas("canvas01");
-    // canvas.setScrollArea("#" + this.canvasId); // TODO もしかしたら「そんなに小細工しなくても、draw2dでスクロールできるかもしれない」ので、後に検討。
 
     // TODO Canvasの初期表示
     this.addSampleObjects(canvas);
@@ -43,47 +49,70 @@ export default class extends Vue {
   }
 
   private addSampleObjects(canvas: draw2d.Canvas) {
-    const id2 = "枠のID";
-    const waku = new draw2d.shape.basic.Rectangle({
-      x: 10,
-      y: 10,
-      bgColor: "#FFFFFF",
-      alpha: 0.6, // opacityと一緒
-      width: 100,
-      height: 100,
-      radius: 3,
-      stroke: 3,
-      grow: true,
-      color: "#000000",
-      id: id2
-    });
-    canvas.add(waku);
-    const createdWaku = canvas.getFigure(id2);
+    const resourceId = 1;
+    const resourceName = "図書館";
+    const left = 20;
+    const top = 20;
 
-    const id = "テキストのID";
-    const text = new draw2d.shape.basic.Label({
-      x: 20,
-      y: 20,
-      text: "そりゃもう、優勝よ！",
+    // ---- icon作成 ----
+
+    // icon のTag(v-icon)から、フォントと文字を類推。
+    const iconTag = document.getElementById("companyIcon") as HTMLDivElement;
+    const style = window.getComputedStyle(iconTag, "::before");
+
+    const padding = 0;
+
+    const id3 = `${resourceId}-1`;
+    const icon = new draw2d.shape.basic.Label({
+      x: left,
+      y: top,
+      //   width: 20,
+      //   height: 30,
+      fontFamily: style.fontFamily,
+      text: style.content.replace(/"/g, ""),
+      fontSize: 25,
       stroke: 0,
+      padding: padding,
+      id: id3
+    });
+    canvas.add(icon);
+    const createdIcon = canvas.getFigure(id3);
+    console.log(createdIcon);
+
+    const id = `${resourceId}-2`;
+    const text = new draw2d.shape.basic.Label({
+      x: left + createdIcon.lastAppliedAttributes.width,
+      y: top + 6,
+      text: resourceName,
+      stroke: 0,
+      padding: padding,
       id: id
     });
     canvas.add(text);
     const createdText = canvas.getFigure(id);
     console.log(createdText);
 
-    const id3 = "アイコンのID";
-    const icon = new draw2d.shape.basic.Label({
-      x: 200,
-      y: 200,
-      text: "a",
-    //   cssClass: "v-icon mdi mdi-office-building-outline",
-      stroke: 0,
-      id: id
+    const id2 = `${resourceId}-3`;
+    const waku = new draw2d.shape.basic.Rectangle({
+      x: left,
+      y: top + createdIcon.lastAppliedAttributes.width + 5,
+      bgColor: "#FFFFFF",
+      alpha: 0.6, // opacityと一緒
+      width: 75,
+      height: 75,
+      radius: 3,
+      stroke: 3,
+      grow: true,
+      color: "#000000",
+      padding: padding,
+      id: id2
     });
-    canvas.add(icon);
-    const createdIcon = canvas.getFigure(id3);
-    console.log(createdText);
+    canvas.add(waku);
+    const createdWaku = canvas.getFigure(id2);
+
+    const div = document.getElementById("test_text");
+    if (!div) return;
+    div.textContent = "\u{F151F}";
   }
 }
 </script>
