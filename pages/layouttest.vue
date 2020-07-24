@@ -23,7 +23,7 @@ import "jquery-ui/ui/widgets/droppable";
 import draw2d, { Figure } from "draw2d";
 import { createWrapper } from "@vue/test-utils";
 
-import TopLeftLocator from '@/presentation/draw2d/custom/TopLeftLocator';
+import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
 
 @Component
 export default class extends Vue {
@@ -58,6 +58,7 @@ export default class extends Vue {
     this.groupingApproach(canvas);
     this.layoutApproach(canvas);
     this.structuredApproach2(canvas);
+    this.structuredApproach2Dash(canvas);
 
     console.log(canvas);
   }
@@ -278,7 +279,7 @@ export default class extends Vue {
       stroke: 0,
       padding: padding,
       bgColor: "#FFFFFF",
-      alpha: 1, // opacityと一緒
+      alpha: 1 // opacityと一緒
     });
 
     const name = new draw2d.shape.basic.Label({
@@ -286,7 +287,7 @@ export default class extends Vue {
       stroke: 0,
       padding: padding,
       resizable: false,
-      selectable: false,
+      selectable: false
     });
 
     waku.add(icon, new draw2d.layout.locator.XYAbsPortLocator(40, 40));
@@ -298,7 +299,6 @@ export default class extends Vue {
     canvas.add(waku);
     const createdWaku = canvas.getFigure(id);
   }
-
 
   private structuredApproach2Dash(canvas: draw2d.Canvas): void {
     const resourceId = 1;
@@ -337,7 +337,7 @@ export default class extends Vue {
       stroke: 0,
       padding: padding,
       bgColor: "#FFFFFF",
-      alpha: 1, // opacityと一緒
+      alpha: 1 // opacityと一緒
     });
 
     const name = new draw2d.shape.basic.Label({
@@ -345,14 +345,11 @@ export default class extends Vue {
       stroke: 0,
       padding: padding,
       resizable: false,
-      selectable: false,
+      selectable: false
     });
 
-    const hContainer = new draw2d.shape.layout.HorizontalLayout();
-    hContainer.add(icon);
-    hContainer.add(name);
-    hContainer.setStroke(0);
-    waku.add(hContainer, new TopLeftLocator()); // 無かったものを地力で作った
+    icon.add(name, new draw2d.layout.locator.RightLocator());
+    waku.add(icon, new TopLeftLocator()); // 無かったものを地力で作った
 
     canvas.add(waku);
     const createdWaku = canvas.getFigure(id);
