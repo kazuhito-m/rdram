@@ -23,6 +23,8 @@ import "jquery-ui/ui/widgets/droppable";
 import draw2d, { Figure } from "draw2d";
 import { createWrapper } from "@vue/test-utils";
 
+import TopLeftLocator from '@/presentation/draw2d/custom/TopLeftLocator';
+
 @Component
 export default class extends Vue {
   private canvas!: draw2d.Canvas;
@@ -227,13 +229,13 @@ export default class extends Vue {
       selectable: false
     });
 
-    const container = new draw2d.shape.layout.HorizontalLayout();
+    const hContainer = new draw2d.shape.layout.HorizontalLayout();
 
-    container.add(icon);
-    container.add(name);
-    container.setStroke(0);
+    hContainer.add(icon);
+    hContainer.add(name);
+    hContainer.setStroke(0);
 
-    waku.add(container, new draw2d.layout.locator.TopLocator());
+    waku.add(hContainer, new draw2d.layout.locator.TopLocator());
 
     canvas.add(waku);
     const createdWaku = canvas.getFigure(id);
@@ -292,6 +294,65 @@ export default class extends Vue {
     // ↑狙ったのは「枠の中で、左上からの一定の位置をキープ」である…が左に張り付いてうんともすんともいわない。
     // XYRelPortLocator(40, -40)だと反応するし、マイナスで枠外にも行くことから、バグのように感じられる。
     // …しかし”PortLocator"だからなぁ。
+
+    canvas.add(waku);
+    const createdWaku = canvas.getFigure(id);
+  }
+
+
+  private structuredApproach2Dash(canvas: draw2d.Canvas): void {
+    const resourceId = 1;
+    const resourceName = "構造化アプローチ(Locatorとadd利用編の自力拡張版)";
+    const left = 500;
+    const top = 250;
+
+    // ---- icon作成 ----
+
+    // icon のTag(v-icon)から、フォントと文字を類推。
+    const iconTag = document.getElementById("companyIcon") as HTMLDivElement;
+    const style = window.getComputedStyle(iconTag, "::before");
+
+    const padding = 0;
+
+    const id = resourceId + 6000000;
+    const waku = new draw2d.shape.basic.Rectangle({
+      x: left,
+      y: top,
+      bgColor: "#FFFFFF",
+      alpha: 0.6, // opacityと一緒
+      width: 75,
+      height: 75,
+      radius: 5,
+      stroke: 3,
+      selectable: true,
+      resizable: true,
+      color: "#000000",
+      padding: padding
+    });
+
+    const icon = new draw2d.shape.basic.Label({
+      fontFamily: style.fontFamily,
+      text: style.content.replace(/"/g, ""),
+      fontSize: 25,
+      stroke: 0,
+      padding: padding,
+      bgColor: "#FFFFFF",
+      alpha: 1, // opacityと一緒
+    });
+
+    const name = new draw2d.shape.basic.Label({
+      text: resourceName,
+      stroke: 0,
+      padding: padding,
+      resizable: false,
+      selectable: false,
+    });
+
+    const hContainer = new draw2d.shape.layout.HorizontalLayout();
+    hContainer.add(icon);
+    hContainer.add(name);
+    hContainer.setStroke(0);
+    waku.add(hContainer, new TopLeftLocator()); // 無かったものを地力で作った
 
     canvas.add(waku);
     const createdWaku = canvas.getFigure(id);
