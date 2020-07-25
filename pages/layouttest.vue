@@ -39,7 +39,12 @@ export default class extends Vue {
   private showCanvas(): void {
     const canvas = new draw2d.Canvas("canvas01");
 
-    // TODO Canvasの初期表示
+    // ポートをカーソルの近くのものしか見せないモード。
+    canvas.installEditPolicy(new draw2d.policy.canvas.CoronaDecorationPolicy());
+
+    // 未指定のときのデフォルトが20、マイナス値かポリシー削除で非表示に
+    canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
+    
     this.addSampleObjects(canvas);
 
     this.canvas = canvas;
