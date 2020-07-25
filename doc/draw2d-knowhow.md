@@ -43,3 +43,43 @@ drow2d のいろんなものは、ほぼ「HTML5のCanvasのラッパー」で�
 - draw2d.shape.basic.Label
   - http://www.draw2d.org/draw2d_touch/jsdoc_6/#!/api/draw2d.shape.basic.Label
   - fontFamiryとtextの指定で、フォント系アイコン指定が出来る
+
+## 必要そうなサンプル
+
+自分の機能に「コレ使いそうだな」という内容のショートカット(サンプルサイトが良く出来すぎている)
+
+### 汎用ポート(方向性のないもの)
+
+http://www.draw2d.org/draw2d_touch/jsdoc_6/#!/example/port_locator
+
+
+### 「線引くだけの時」モード
+
+http://www.draw2d.org/draw2d_touch/jsdoc_6/#!/example/policy_canvas_decoration
+
+### いわゆる「方眼紙」モード
+
+http://www.draw2d.org/draw2d_touch/jsdoc_6/#!/example/policy_snap_to
+
+### 画像ファイルエクスポート
+
+- http://www.draw2d.org/draw2d_touch/jsdoc_6/#!/example/io_svg_basic
+- http://www.draw2d.org/draw2d_touch/jsdoc_6/#!/example/io_png_overview
+
+### 線割り込み
+
+利用するか否かはは別として「こういうことが出来る」を覚えておきたい
+
+http://www.draw2d.org/draw2d_touch/jsdoc_6/#!/example/connection_drop
+
+### 線の途中折り曲げ
+
+利用するかは別として(ry
+
+http://www.draw2d.org/draw2d_touch/jsdoc_6/#!/example/connection_vertex
+
+### 線の曲げ方アルゴリズム
+
+コネクタの位置の影響を受けないのは「Direct」だけだが…スタンダードなポートの場合はどうなるのだろう？
+
+http://www.draw2d.org/draw2d_touch/jsdoc_6/#!/example/connection_router
