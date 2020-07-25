@@ -20,7 +20,7 @@ import "jquery";
 import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
-import draw2d, { Figure } from "draw2d";
+import draw2d, { Figure, VectorFigure } from "draw2d";
 import { createWrapper } from "@vue/test-utils";
 
 import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
@@ -135,6 +135,8 @@ export default class extends Vue {
       id: id1
     });
 
+    this.createStandardIconPort(icon);
+
     const id2 = `${resourceId}-2`;
     const name = new draw2d.shape.basic.Label({
       // x: left,
@@ -221,6 +223,9 @@ export default class extends Vue {
       bgColor: "#FFFFFF",
       alpha: 1 // opacityと一緒
     });
+    this.createStandardIconPort(icon);
+
+    this.createStandardIconPort(icon);
 
     const name = new draw2d.shape.basic.Label({
       text: resourceName,
@@ -282,6 +287,8 @@ export default class extends Vue {
       alpha: 1 // opacityと一緒
     });
 
+    this.createStandardIconPort(icon);
+
     const name = new draw2d.shape.basic.Label({
       text: resourceName,
       stroke: 0,
@@ -340,6 +347,8 @@ export default class extends Vue {
       alpha: 1 // opacityと一緒
     });
 
+    this.createStandardIconPort(icon);
+
     const name = new draw2d.shape.basic.Label({
       text: resourceName,
       stroke: 0,
@@ -353,6 +362,15 @@ export default class extends Vue {
 
     canvas.add(waku);
     const createdWaku = canvas.getFigure(id);
+  }
+
+  /**
+   * アイコンにポートを作成する。
+   *
+   * アイコンは「真ん中」かつ「汎用」かつ「線の方向なし」で
+   */
+  private createStandardIconPort(icon: any) {
+    icon.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
   }
 }
 </script>

@@ -48,3 +48,9 @@
           <v-expansion-panel-header>使用済</v-expansion-panel-header>
           <v-expansion-panel-content>ここに要素を</v-expansion-panel-content>
         </v-expansion-panel>/*  */
+
+---
+
+  private createStandardIconPort(icon: any) {
+    icon.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
+  }
