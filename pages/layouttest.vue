@@ -36,10 +36,11 @@ import "jquery";
 import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
-import draw2d, { Figure, VectorFigure } from "draw2d";
+import draw2d, { Figure } from "draw2d";
 import { createWrapper } from "@vue/test-utils";
 
 import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
+import XYRelAndLineDirectionUpwardPortLocator from "@/presentation/draw2d/custom/XYRelAndLineDirectionUpwardPortLocator";
 
 @Component
 export default class extends Vue {
@@ -260,8 +261,6 @@ export default class extends Vue {
     });
     this.createStandardIconPort(icon);
 
-    this.createStandardIconPort(icon);
-
     const name = new draw2d.shape.basic.Label({
       text: resourceName,
       stroke: 0,
@@ -332,11 +331,15 @@ export default class extends Vue {
       selectable: false
     });
 
-    waku.add(icon, new draw2d.layout.locator.XYAbsPortLocator(40, 40));
+    waku.add(icon, new draw2d.layout.locator.XYAbsPortLocator({ x: 2, y: 4 }));
     waku.add(name, new draw2d.layout.locator.TopLocator());
     // ↑狙ったのは「枠の中で、左上からの一定の位置をキープ」である…が左に張り付いてうんともすんともいわない。
-    // XYRelPortLocator(40, -40)だと反応するし、マイナスで枠外にも行くことから、バグのように感じられる。
+    // XYRelPortLocator -40)だと反応するし、マイナスで枠外にも行くことから、バグのように感じられる。
     // …しかし”PortLocator"だからなぁ。
+    //
+    // と思ったが、仕様の違いで「{ x: 2, y: 4 }指定でなければ有効にならない」でした。
+    // https://github.com/freegroup/draw2d/blob/master/src/layout/locator/XYAbsPortLocator.js#L36
+    // …てか「仕様を合わせたほうが良い」くね？やっぱバグっぽい。
 
     canvas.add(waku);
     const createdWaku = canvas.getFigure(id);
@@ -382,7 +385,7 @@ export default class extends Vue {
       alpha: 1 // opacityと一緒
     });
 
-    this.createStandardIconPort(icon);
+    // this.createStandardIconPort(icon);
 
     const name = new draw2d.shape.basic.Label({
       text: resourceName,
@@ -391,6 +394,11 @@ export default class extends Vue {
       resizable: false,
       selectable: false
     });
+
+    waku.createPort(
+      "hybrid",
+      new draw2d.layout.locator.XYAbsPortLocator({ x: 12, y: -14 })
+    );
 
     icon.add(name, new draw2d.layout.locator.RightLocator());
     waku.add(icon, new TopLeftLocator()); // 無かったものを地力で作った

@@ -679,6 +679,10 @@ declare module 'draw2d' {
         static inject: any;
     }
 
+    class Raphael {
+        static matrix(): any;
+    }
+
     const Configuration: {
         factory: {
             createConnection: any;
