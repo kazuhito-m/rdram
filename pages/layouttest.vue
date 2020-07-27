@@ -9,6 +9,22 @@
     <v-icon>mdi-office-building-outline</v-icon>
     <div id="companyIcon" class="mdi mdi-office-building-outline"></div>
     <div id="test_name" style="font-family: 'Material Design Icons'"></div>
+    <v-menu bottom origin="center center" transition="scale-transition">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn color="primary" dark v-bind="attrs" v-on="on">線種切り替え</v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item
+          v-for="lineType in Object.keys(LINE_TYPE)"
+          :key="lineType"
+          @click="changeLintType(lineType)"
+        >
+          <v-list-item-title>{{ lineType }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+
     <div class="diagram-canvas" id="canvas01"></div>
   </div>
 </template>
@@ -29,6 +45,20 @@ import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
 export default class extends Vue {
   private canvas!: draw2d.Canvas;
 
+  private readonly LINE_TYPE: { [key: string]: any } = {
+    // InteractiveManhattan(操作ポイント付きマンハッタン)があるので、普通のはイラんかな。
+    // "draw2d.layout.connection.ManhattanConnectionRouter": new draw2d.layout.connection.ManhattanConnectionRouter(),
+    // 角付きマンハッタン…はわかりにくいから要らんかな。
+    // "draw2d.layout.connection.ManhattanBridgedConnectionRouter": new draw2d.layout.connection.ManhattanBridgedConnectionRouter(),
+    "draw2d.layout.connection.InteractiveManhattanConnectionRouter": new draw2d.layout.connection.InteractiveManhattanConnectionRouter(),
+    "draw2d.layout.connection.CircuitConnectionRouter": new draw2d.layout.connection.CircuitConnectionRouter(),
+    "draw2d.layout.connection.DirectRouter": new draw2d.layout.connection.DirectRouter(),
+    "draw2d.layout.connection.SplineConnectionRouter": new draw2d.layout.connection.SplineConnectionRouter(),
+    // なんかバグる
+    // "draw2d.layout.connection.MazeConnectionRouter": new draw2d.layout.connection.MazeConnectionRouter(),
+    "draw2d.layout.connection.SketchConnectionRouter": new draw2d.layout.connection.SketchConnectionRouter()
+  };
+
   public mounted() {
     this.showCanvas();
     this.fixCanvasPosition();
@@ -44,7 +74,7 @@ export default class extends Vue {
 
     // 未指定のときのデフォルトが20、マイナス値かポリシー削除で非表示に
     canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
-    
+
     this.addSampleObjects(canvas);
 
     this.canvas = canvas;
@@ -375,7 +405,16 @@ export default class extends Vue {
    * アイコンは「真ん中」かつ「汎用」かつ「線の方向なし」で
    */
   private createStandardIconPort(icon: any) {
+    // 「中央」だと、「線がいつも下から出る」ので、うーん…(飢えから出て欲しい)
     icon.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
+    // icon.createPort("hybrid", new draw2d.layout.locator.TopLocator());
+  }
+
+  public changeLintType(lineType: string) {
+    const connectionRouter: any = this.LINE_TYPE[lineType];
+    this.canvas
+      .getLines()
+      .each((i: number, line: any) => line.setRouter(connectionRouter));
   }
 }
 </script>
