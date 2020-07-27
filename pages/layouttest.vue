@@ -36,7 +36,7 @@ import "jquery";
 import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
-import draw2d, { Figure } from "draw2d";
+import draw2d, { Figure, command } from "draw2d";
 import { createWrapper } from "@vue/test-utils";
 
 import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
@@ -76,9 +76,29 @@ export default class extends Vue {
     // 未指定のときのデフォルトが20、マイナス値かポリシー削除で非表示に
     canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
 
+    const commandStack = canvas.getCommandStack();
+    this.addCommandEventListner(commandStack);
+
     this.addSampleObjects(canvas);
 
     this.canvas = canvas;
+  }
+
+  private addCommandEventListner(commandStack: any): void {
+    commandStack.addEventListener((event: any) => {
+      // http://www.draw2d.org/draw2d_touch/jsdoc_6/#!/api/draw2d.command.CommandStackEvent
+      const command = event.getCommand();
+      console.log(
+        "execute commnad! " + event.action + ", " + command.getLabel()
+      );
+      console.log(event);
+      if (event.isPostChangeEvent()) {
+        //&& command.canExecute()
+        command.cancel();
+        if (confirm("この処理をそのまま適用して良いですか？")) return;
+        command.undo();
+      }
+    });
   }
 
   /**
@@ -372,7 +392,8 @@ export default class extends Vue {
       selectable: true,
       resizable: true,
       color: "#000000",
-      padding: padding
+      padding: padding,
+      id: id
     });
 
     const icon = new draw2d.shape.basic.Label({
@@ -405,6 +426,14 @@ export default class extends Vue {
 
     canvas.add(waku);
     const createdWaku = canvas.getFigure(id);
+
+    createdWaku.on("resize", (emitter: Figure) => {
+      console.log("resized. figure:" + emitter.getId());
+    });
+
+    createdWaku.on("move", (emitter: Figure) => {
+      console.log("move. figure:" + emitter.getId());
+    });
   }
 
   /**
