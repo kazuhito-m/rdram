@@ -133,13 +133,15 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.editorPainId = "editorPain" + diagramId;
     this.paretPainId = "paretPain" + diagramId;
     this.canvasId = "canvas" + diagramId;
+
+    this.resyncParets();
+    for (let i = 0; i < this.parets.length + 1; i++) this.paretsOpen.push(i);
   }
 
   public mounted() {
-    this.resyncParets();
-    for (let i = 0; i < this.parets.length + 1; i++) this.paretsOpen.push(i);
     this.showCanvas();
     this.fixCanvasPosition();
+    this.drowDiagram();
   }
 
   private showCanvas(): void {
@@ -148,8 +150,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
 
     // canvas.setScrollArea("#" + this.canvasId); // TODO もしかしたら「そんなに小細工しなくても、draw2dでスクロールできるかもしれない」ので、後に検討。
-
-    // TODO Canvasの初期表示
 
     this.canvas = canvas;
   }
@@ -162,6 +162,17 @@ export default class BusinessContextDiagramEditor extends Vue {
     svg.style.removeProperty("position");
     svg.addEventListener('drop', this.onDropCanvas);
     svg.addEventListener('dragover', this.onDropOverCanvas);
+  }
+
+  private drowDiagram() {
+    for (let placement of this.diagram.placementObjects) {
+      const resource = this.usedResources
+        .find(resource => resource.resourceId === placement.resourceId);
+      if (!resource) continue;
+
+      if (resource.resourceTypeId === ResourceType.事業体.id) 
+        this.addCompanyIcon(placement, resource);
+    }
   }
 
   public onDoubleClickSlideBar() {
@@ -299,16 +310,20 @@ export default class BusinessContextDiagramEditor extends Vue {
     const placement: Placement = {
       x: left,
       y: top,
-      width: 30,
-      height: 30,
+      width: 50,
+      height: 50,
       resourceId: resoruce.resourceId
     };
     diagram.placementObjects.push(placement);
 
+    this.addCompanyIcon(placement, resoruce);
+    return true;
+  }
+
+  private addCompanyIcon(placement:Placement, resoruce: Resource) {
     const icon = this.companyIconGenerator
       .generate(placement, resoruce as Company, this.iconStyleOf(ResourceType.事業体));
     this.canvas.add(icon);
-    return true;
   }
 
   private iconStyleOf(resourceType: ResourceType): CSSStyleDeclaration {
