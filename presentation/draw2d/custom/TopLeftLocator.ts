@@ -9,6 +9,7 @@ export default class TopLeftLocator extends draw2d.layout.locator.TopLocator {
 
     constructor(attr?: any, setter?: any, getter?: any) {
         super(attr, setter, getter);
+        this.padding = 0;
     }
 
     public relocate(index: any, target: any) {
