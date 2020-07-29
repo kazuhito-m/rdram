@@ -16,7 +16,10 @@
           :key="paret.resourceType.id" 
         >
           <v-expansion-panel-header>
-            <span class="omit-long-text">{{ paret.resourceType.name }}</span>
+            <div class="omit-long-text">
+              <v-icon :id="paret.resourceType.iconKey">{{ paret.resourceType.iconKey }}</v-icon>
+              {{ paret.resourceType.name }}
+            </div>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
 
@@ -25,7 +28,7 @@
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
                       <v-chip color="primary" dark outlined draggable @dragstart="onDragStartNewCompany">
-                        <v-icon left>mdi-server-plus</v-icon>
+                        <v-icon>{{ paret.resourceType.iconKey }}</v-icon>
                         新規追加
                       </v-chip>
                   </v-list-item-title>
@@ -40,7 +43,7 @@
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
                       <v-chip color="primary" dark draggable @dragstart="onDragStartResource" v-bind:data-resource-id="resource.resourceId">
-                        <v-icon left>mdi-server-plus</v-icon>
+                        <v-icon>{{ paret.resourceType.iconKey }}</v-icon>
                         {{ resource.name }}
                       </v-chip>
                   </v-list-item-title>
@@ -65,7 +68,7 @@
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
                       <v-chip dark>
-                        <v-icon left>mdi-server-plus</v-icon>
+                        <v-icon>{{ iconKeyOf(usedResource) }}</v-icon>
                         {{ usedResource.name }}
                       </v-chip>
                   </v-list-item-title>
@@ -92,6 +95,7 @@ import "jquery-ui/ui/widgets/droppable";
 import draw2d from "draw2d";
 
 import Repository from "@/infrastructure/Repository";
+import CompanyIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/CompanyIconGenerator";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import BusinessContextDiagram from "@/domain/diagram/businesscontext/BusinessContextDiagram";
@@ -104,6 +108,8 @@ import Placement from "@/domain/diagram/placement/Placement";
 export default class BusinessContextDiagramEditor extends Vue {
   @Inject()
   private repository!: Repository
+
+  private  readonly companyIconGenerator: CompanyIconGenerator = new CompanyIconGenerator();
 
   @Prop({ required: true })
   private readonly diagram!: BusinessContextDiagram;
@@ -138,6 +144,9 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private showCanvas(): void {
     const canvas = new draw2d.Canvas(this.canvasId);
+    canvas.installEditPolicy(new draw2d.policy.canvas.CoronaDecorationPolicy());
+    canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
+
     // canvas.setScrollArea("#" + this.canvasId); // TODO もしかしたら「そんなに小細工しなくても、draw2dでスクロールできるかもしれない」ので、後に検討。
 
     // TODO Canvasの初期表示
@@ -290,18 +299,29 @@ export default class BusinessContextDiagramEditor extends Vue {
     const placement: Placement = {
       x: left,
       y: top,
-      width: 20,
-      height: 20,
+      width: 30,
+      height: 30,
       resourceId: resoruce.resourceId
     };
-
     diagram.placementObjects.push(placement);
 
-    // TODO アイコンをCanvasに追加する。
-    // const icon = xxx;
-    // this.canvas.add(icon);
-    alert('Canvasに書き込む処理は未実装。');
+    const icon = this.companyIconGenerator
+      .generate(placement, resoruce as Company, this.iconStyleOf(ResourceType.事業体));
+    this.canvas.add(icon);
     return true;
+  }
+
+  private iconStyleOf(resourceType: ResourceType): CSSStyleDeclaration {
+    const iconElement = document.getElementById(resourceType.iconKey) as HTMLDialogElement;
+    return window.getComputedStyle(iconElement, "::before");
+  }
+
+  private iconKeyOf(resource: Resource): string {
+    console.log("resource:" + resource);
+    if (!resource) return "";
+    const resourceType = ResourceType.ofId(resource.resourceTypeId);
+    if (!resourceType) return "";
+    return resourceType.iconKey;
   }
 
   private resyncParets(): void {

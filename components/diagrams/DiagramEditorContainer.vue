@@ -7,8 +7,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Inject } from "nuxt-property-decorator";
-import BusinessContextDiagramEditor from "@/components/diagrams/editor/BusinessContextDiagramEditor.vue";
-import StateModelEditor from "@/components/diagrams/editor/StateModelEditor.vue";
+import BusinessContextDiagramEditor from "@/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
+import StateModelEditor from "@/components/diagrams/editor/statemodel/StateModelEditor.vue";
 import Repository from "@/infrastructure/Repository";
 import Diagram from "@/domain/diagram/Diagram";
 import DiagramType from "@/domain/diagram/DiagramType";
