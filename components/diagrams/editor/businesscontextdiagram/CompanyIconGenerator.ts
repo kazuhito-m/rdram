@@ -6,7 +6,7 @@ import TopLeftLocator from "~/presentation/draw2d/custom/TopLeftLocator";
 export default class CompanyIconGenerator {
     public generate(companyPlacement: Placement, company: Company, iconStyle: CSSStyleDeclaration): Figure {
         const padding = 0;
-        const id =companyPlacement.resourceId;
+        const id = companyPlacement.resourceId;
 
         const waku = new draw2d.shape.basic.Rectangle({
             x: companyPlacement.x,
@@ -49,7 +49,7 @@ export default class CompanyIconGenerator {
             new draw2d.layout.locator.XYAbsPortLocator({ x: 12, y: -14 })
         );
 
-        icon.add(name, new draw2d.layout.locator.RightLocator());
+        icon.add(name, new draw2d.layout.locator.RightLocator({ padding: 0 }));
         waku.add(icon, new TopLeftLocator()); // 無かったものを地力で作った
         return waku;
     }

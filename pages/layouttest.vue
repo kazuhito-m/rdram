@@ -40,7 +40,6 @@ import draw2d, { Figure, command } from "draw2d";
 import { createWrapper } from "@vue/test-utils";
 
 import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
-import XYRelAndLineDirectionUpwardPortLocator from "@/presentation/draw2d/custom/XYRelAndLineDirectionUpwardPortLocator";
 
 @Component
 export default class extends Vue {
