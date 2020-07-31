@@ -129,6 +129,13 @@ export default class BusinessContextDiagramEditor extends Vue {
   public created(): void {
     this.product = this.getCurrentProduct();
 
+    // this.$nextTick(() => {
+      this.$nuxt.$loading.start()
+
+    //   setTimeout(() => this.$nuxt.$loading.finish(), 500)
+    // })
+
+
     const diagramId = this.diagram.id;
     this.editorPainId = "editorPain" + diagramId;
     this.paretPainId = "paretPain" + diagramId;
@@ -139,9 +146,73 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   public mounted() {
+        const startTime = performance.now(); // 開始時間
+
+
+
     this.showCanvas();
+    this.canvas.hideDecoration();
     this.fixCanvasPosition();
     this.drowDiagram();
+    this.canvas.showDecoration();
+
+     const endTime = performance.now(); // 終了時間
+        console.log("Canvasの描画:" + (endTime - startTime)); // 何ミリ秒かかったかを表示する
+
+
+      let jsonTxt = '';
+
+      var writer = new draw2d.io.json.Writer();
+      writer.marshal(this.canvas, function(json:any){
+          // convert the json object into string representation
+          jsonTxt = JSON.stringify(json,null,2);
+      });
+
+      console.log('コレいかがJsonやで！');
+      console.log(jsonTxt);
+
+        this.canvas.clear();
+
+        const startTime2 = performance.now(); // 開始時間
+
+	  var reader = new draw2d.io.json.Reader();
+	  reader.unmarshal(this.canvas, jsonTxt);
+
+     const endTime2 = performance.now(); // 終了時間
+        console.log("Canvasの描画(json-Only):" + (endTime2 - startTime2)); // 何ミリ秒かかったかを表示する
+
+  const startTime3 = performance.now(); // 開始時間
+
+	  var reader = new draw2d.io.json.Reader();
+    reader.unmarshal(this.canvas, jsonTxt);
+    
+
+    const testRect =  new draw2d.shape.basic.Rectangle({
+            alpha: 0,
+            width: 2000,
+            height: 2000,
+        });
+    for (let placement of this.diagram.placementObjects) {
+      const resource = this.usedResources
+        .find(resource => resource.resourceId === placement.resourceId);
+      if (!resource) continue;
+
+      if (resource.resourceTypeId === ResourceType.事業体.id) {
+        const icon = this.companyIconGenerator
+          .generate(placement, resource as Company, this.iconStyleOf(ResourceType.事業体));
+        this.canvas.add(icon);
+        testRect.add(icon, new draw2d.layout.locator.XYAbsPortLocator({x:testRect.x, y:testRect.y})); // 無かったものを地力で作った
+      }
+      
+    }
+    this.canvas.add(testRect);
+
+
+     const endTime3 = performance.now(); // 終了時間
+        console.log("Canvasの描画(2kaime):" + (endTime3- startTime3)); // 何ミリ秒かかったかを表示する
+
+
+    this.$nuxt.$loading.finish();
   }
 
   private showCanvas(): void {

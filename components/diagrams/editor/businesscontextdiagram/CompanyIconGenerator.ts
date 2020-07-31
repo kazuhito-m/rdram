@@ -49,8 +49,10 @@ export default class CompanyIconGenerator {
             new draw2d.layout.locator.XYAbsPortLocator({ x: 12, y: -14 })
         );
 
-        icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 95, y : 23  }));
-        waku.add(icon, new TopLeftLocator()); // 無かったものを地力で作った
+        icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 95, y: 23 }));
+        // waku.add(icon, new TopLeftLocator()); // 無かったものを地力で作った
+        waku.add(icon, new draw2d.layout.locator.TopLocator()); // 無かったものを地力で作った
+
         return waku;
     }
 }

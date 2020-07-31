@@ -52,6 +52,7 @@
               background-color="primary"
               dark
               @change="onChangeActiveTab"
+              v-if="openTabs.length > 0"
             >
               <v-tab
                 v-for="item in openTabs"
@@ -134,12 +135,18 @@ export default class extends Vue {
   }
 
   public onClickTreeItem(treeItemIdText: string): void {
-    if (treeItemIdText === '') return;
+     if (treeItemIdText === '') return;
     const treeItemId = parseInt(treeItemIdText, 10);
 
     const exists = this.openTabs
       .some(tab => tab.id === treeItemId);
     if (!exists) {
+    this.$nextTick(() => {
+          this.$nuxt.$loading.start()
+
+      setTimeout(() => this.$nuxt.$loading.finish(), 10)
+    })
+
       const clickedItem = this.findTreeItemById(treeItemId, this.treeItems);
       if (!clickedItem) return;
       this.openTabs.push(clickedItem);
@@ -147,7 +154,8 @@ export default class extends Vue {
 
     const newTabIndex = this.openTabs
       .findIndex(tabItem => tabItem.id === treeItemId);
-    this.currentTabIndex = newTabIndex;
+    this.currentTabIndex = newTabIndex;  
+
   }
 
   private findTreeItemById(treeItemId: number, treeItems: TreeItem[]): TreeItem | null {

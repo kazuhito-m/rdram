@@ -50,7 +50,7 @@ export default {
   */
   buildModules: [
     '@nuxt/typescript-build',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
   ],
   /*
   ** Nuxt.js modules
@@ -98,5 +98,6 @@ export default {
         'jQuery': 'jquery'
       })
     ]
-  }
+  },
+  loading: "~/components/Loading.vue"
 }

@@ -27,15 +27,22 @@ export default class Repository {
     }
 
     public get(): LocalStrage | undefined {
+        const startTime = performance.now(); // 開始時間
+    
         const textData = localStorage.getItem(Repository.STRAGE_ID);
         if (!textData) return undefined;
-        console.log(textData);
-        return JSON.parse(textData);
+        // console.log(textData);
+        const data = JSON.parse(textData);
+
+        const endTime = performance.now(); // 終了時間
+        console.log("Repositoryでのデータ読み込み。:" + (endTime - startTime)); // 何ミリ秒かかったかを表示する
+
+        return data;
     }
 
     public register(strage: LocalStrage): void {
         const jsonText = JSON.stringify(strage);
-        console.log('register: ' + jsonText)
+        // console.log('register: ' + jsonText)
         localStorage.setItem(Repository.STRAGE_ID, jsonText);
     }
 
