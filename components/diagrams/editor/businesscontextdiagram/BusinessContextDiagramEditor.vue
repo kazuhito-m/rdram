@@ -143,6 +143,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   
     this.showCanvas();
     this.fixCanvasPosition();
+    this.addCanvasEvent();
     this.drowDiagram();
 
     this.$nuxt.$loading.finish();  // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
@@ -166,6 +167,36 @@ export default class BusinessContextDiagramEditor extends Vue {
     svg.style.removeProperty("position");
     svg.addEventListener('drop', this.onDropCanvas);
     svg.addEventListener('dragover', this.onDropOverCanvas);
+  }
+
+  private addCanvasEvent(): void {
+    const commandStack = this.canvas.getCommandStack();
+    commandStack.addEventListener(this.onCanvasCommandExecute);
+  }
+
+  private onCanvasCommandExecute(event: any): void {
+    console.log(event);
+    if (!event.isPostChangeEvent()) return;
+
+    const command = event.getCommand();
+
+    if (command.getLabel() === "Move Shape") this.onMovePlacement(command);
+  }
+
+  private onMovePlacement(commandMove: any) {
+    const resourceId = parseInt(commandMove.figure.id, 10);
+    const x = commandMove.newX;
+    const y = commandMove.newY;
+
+    this.transactionOf((diagram, product) => {
+      const placement = diagram.placementObjects
+        .find(placement => placement.resourceId === resourceId);
+      if (!placement) return false;
+
+      placement.x = x;
+      placement.y = y;
+      return true;
+    });
   }
 
   private drowDiagram() {
