@@ -409,7 +409,6 @@ interface Paret {
   min-width: 0px;
   overflow-y: auto;
   overflow-x: hidden;
-  background-color: aqua;
 }
 
 .slidebar {
@@ -421,7 +420,6 @@ interface Paret {
 .diagram-canvas {
   width: 1024px;
   height: 768px;
-  background-color: white;
   margin: 0px;
 
   border-radius: 5px;
