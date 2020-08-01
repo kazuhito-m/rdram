@@ -181,6 +181,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     const command = event.getCommand();
 
     if (command.getLabel() === "Move Shape") this.onMovePlacement(command);
+    if (command.getLabel() === "Resize Shape") this.onResizePlacement(command);
   }
 
   private onMovePlacement(commandMove: any) {
@@ -195,6 +196,22 @@ export default class BusinessContextDiagramEditor extends Vue {
 
       placement.x = x;
       placement.y = y;
+      return true;
+    });
+  }
+
+  private onResizePlacement(commandResize: any) {
+    const resourceId = parseInt(commandResize.figure.id, 10);
+    const width = commandResize.newWidth;
+    const height = commandResize.newHeight;
+
+    this.transactionOf((diagram, product) => {
+      const placement = diagram.placementObjects
+        .find(placement => placement.resourceId === resourceId);
+      if (!placement) return false;
+
+      placement.width = width;
+      placement.height = height;
       return true;
     });
   }
