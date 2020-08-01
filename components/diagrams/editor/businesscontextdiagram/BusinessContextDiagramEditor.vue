@@ -139,9 +139,13 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   public mounted() {
+    this.$nuxt.$loading.start();
+  
     this.showCanvas();
     this.fixCanvasPosition();
     this.drowDiagram();
+
+    this.$nuxt.$loading.finish();  // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
   }
 
   private showCanvas(): void {
@@ -332,7 +336,6 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private iconKeyOf(resource: Resource): string {
-    console.log("resource:" + resource);
     if (!resource) return "";
     const resourceType = ResourceType.ofId(resource.resourceTypeId);
     if (!resourceType) return "";

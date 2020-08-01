@@ -98,5 +98,6 @@ export default {
         'jQuery': 'jquery'
       })
     ]
-  }
+  },
+  loading: '~/components/Loading.vue'
 }

@@ -176,6 +176,11 @@ export default class extends Vue {
   private readonly repository = new Repository();
 
   public created() {
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start();
+      setTimeout(() => this.$nuxt.$loading.finish(), 500);
+    });
+
     if (this.showApplicationInitialization()) return;
     this.showProductSelectorWhenNotSelected();
   }
