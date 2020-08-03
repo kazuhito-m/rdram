@@ -7,7 +7,6 @@ export default class Repository {
     public isInitialized(): boolean {
         // this.clear();
         const data = this.get();
-        console.log(data);
         if (data) return true;
         return false;
     }
@@ -29,13 +28,15 @@ export default class Repository {
     public get(): LocalStrage | undefined {
         const textData = localStorage.getItem(Repository.STRAGE_ID);
         if (!textData) return undefined;
-        console.log(textData);
+        console.log(`repository.get(), ${textData.length} 文字取得。`);
+        // console.log(textData);
         return JSON.parse(textData);
     }
 
     public register(strage: LocalStrage): void {
         const jsonText = JSON.stringify(strage);
-        console.log('register: ' + jsonText)
+        console.log(`repository.register(), ${jsonText.length} 文字保存。`);
+        // console.log('register: ' + jsonText)
         localStorage.setItem(Repository.STRAGE_ID, jsonText);
     }
 
