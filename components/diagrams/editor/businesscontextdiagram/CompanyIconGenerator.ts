@@ -13,7 +13,7 @@ export default class CompanyIconGenerator {
             y: companyPlacement.y,
             bgColor: "#FFFFFF",
             alpha: 0.6, // opacityと一緒
-            width: companyPlacement.height,
+            width: companyPlacement.width,
             height: companyPlacement.height,
             radius: 5,
             stroke: 3,
@@ -21,6 +21,7 @@ export default class CompanyIconGenerator {
             resizable: true,
             color: "#000000",
             padding: padding,
+            keepAspectRatio: false,
             id: id
         });
 
