@@ -92,7 +92,7 @@ import "jquery";
 import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
-import draw2d from "draw2d";
+import draw2d, { Figure } from "draw2d";
 
 import Repository from "@/infrastructure/Repository";
 import CompanyIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/CompanyIconGenerator";
@@ -103,6 +103,8 @@ import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Company from "@/domain/company/Company";
 import Placement from "@/domain/diagram/placement/Placement";
+import RouterType from "@/domain/diagram/relation/RouterType";
+import Relation from "@/domain/diagram/relation/Relation";
 
 @Component
 export default class BusinessContextDiagramEditor extends Vue {
@@ -180,8 +182,10 @@ export default class BusinessContextDiagramEditor extends Vue {
 
     const command = event.getCommand();
 
-    if (command.getLabel() === "Move Shape") this.onMovePlacement(command);
-    if (command.getLabel() === "Resize Shape") this.onResizePlacement(command);
+    const eventType = command.getLabel();
+    if (eventType === "Move Shape") this.onMovePlacement(command);
+    if (eventType === "Resize Shape") this.onResizePlacement(command);
+    if (eventType === "Connect Ports") this.onConnectPlacement(command);
   }
 
   private onMovePlacement(commandMove: any) {
@@ -214,6 +218,57 @@ export default class BusinessContextDiagramEditor extends Vue {
       placement.height = height;
       return true;
     });
+  }
+
+  private onConnectPlacement(commandConnect: any) {
+    const srcResourceId = this.analyzeResourceId(commandConnect.source);
+    const distResourceId = this.analyzeResourceId(commandConnect.target);
+
+    if (!srcResourceId || !distResourceId) return;
+
+    console.log('src:' + commandConnect.source.id);
+    console.log('dst:' + commandConnect.target.id);
+
+    const connection = commandConnect.connection;
+    const routerType = this.analyzeRouterType(connection.router);
+
+    const relation: Relation = {
+      id: connection.id,
+      fromResourceId: srcResourceId,
+      toResourceId: distResourceId,
+      routerTypeId: routerType.id,
+      midpoints: []
+    };
+
+    // DEBUG
+    console.log(relation);
+
+    this.transactionOf((diagram, product) => {
+      diagram.relations.push(relation);
+      return true;
+    });
+  }
+
+  private analyzeResourceId(figure: Figure): number  {
+    let id = figure.getId();
+    if (!id || id.search(/^[0-9]+$/)) {
+      const parent = figure.getParent();
+      id = parent.getId();
+    }
+    const resourceId = parseInt(id, 10);
+    return resourceId;
+  }
+
+  private analyzeRouterType(router: any): RouterType {
+    if (!router) return RouterType.DIRECT;
+    const name = router.NAME;
+    if (!name) return RouterType.DIRECT;
+
+    if (name === "draw2d.layout.connection.InteractiveManhattanConnectionRouter") return RouterType.INTERACTIVE_MANHATTAN;
+    if (name === "draw2d.layout.connection.CircuitConnectionRouter") return RouterType.CIRCUIT;
+    if (name === "draw2d.layout.connection.SplineConnectionRouter") return RouterType.SPLINE;
+    if (name === "draw2d.layout.connection.SketchConnectionRouter") return RouterType.SKETCH;
+    return RouterType.DIRECT;
   }
 
   private drowDiagram() {
