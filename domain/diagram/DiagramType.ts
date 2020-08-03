@@ -38,6 +38,7 @@ export default class DiagramType {
                 typeId: this.id,
                 name: newName,
                 placementObjects: [],
+                relations: [],
                 availableResourceTypeIds: [ResourceType.事業体].map(type => type.id)
             };
             return dg1;
@@ -47,7 +48,8 @@ export default class DiagramType {
         return {
             id: newId,
             typeId: this.id,
-            name: newName
+            name: newName,
+            relations: []
         };
     }
 }
