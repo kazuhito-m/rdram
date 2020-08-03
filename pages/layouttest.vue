@@ -94,8 +94,8 @@ export default class extends Vue {
       if (event.isPostChangeEvent()) {
         //&& command.canExecute()
         command.cancel();
-        if (confirm("この処理をそのまま適用して良いですか？")) return;
-        command.undo();
+        // if (confirm("この処理をそのまま適用して良いですか？")) return;
+        // command.undo();
       }
     });
   }
@@ -420,7 +420,10 @@ export default class extends Vue {
       new draw2d.layout.locator.XYAbsPortLocator({ x: 12, y: -14 })
     );
 
-    icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 95, y : 23  }));
+    icon.add(
+      name,
+      new draw2d.layout.locator.XYRelPortLocator({ x: 95, y: 23 })
+    );
     waku.add(icon, new TopLeftLocator()); // 無かったものを地力で作った
 
     canvas.add(waku);
@@ -451,6 +454,12 @@ export default class extends Vue {
     this.canvas
       .getLines()
       .each((i: number, line: any) => line.setRouter(connectionRouter));
+    this.canvas.getLines().each((i: number, line: any) => {
+      console.log(line);
+      console.log(line.router);
+      if (!line.router) return;
+      console.log('name:' + line.router.NAME);
+    });
   }
 }
 </script>
