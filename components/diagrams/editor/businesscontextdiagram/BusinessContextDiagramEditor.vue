@@ -226,9 +226,6 @@ export default class BusinessContextDiagramEditor extends Vue {
 
     if (!srcResourceId || !distResourceId) return;
 
-    console.log('src:' + commandConnect.source.id);
-    console.log('dst:' + commandConnect.target.id);
-
     const connection = commandConnect.connection;
     const routerType = this.analyzeRouterType(connection.router);
 
@@ -287,20 +284,17 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private addConnection(relation: Relation) {
-    console.log('線の出力！');
-    console.log(relation);
-
     const canvas = this.canvas;
+
+    const connection = new draw2d.Connection({id: relation.id});
 
     const start = canvas.getFigure(String(relation.fromResourceId));
     const end = canvas.getFigure(String(relation.toResourceId));
+    // ちょっとトリッキーなデータの持ち方…解析しないとわからない。正攻法が在れば変えたい。
+    connection.setSource(start.hybridPorts.data[0]);
+    connection.setTarget(end.hybridPorts.data[0]);
 
-    console.log(start);
-    console.log(end);;
-
-    const connection = new draw2d.Connection({id: relation.id});
-    connection.setSource(start.getOutputPort(0));
-    connection.setTarget(end.getInputPort(0));
+    connection.setRouter(new draw2d.layout.connection.InteractiveManhattanConnectionRouter());
 
     canvas.add(connection);
   }
