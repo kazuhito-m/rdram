@@ -35,8 +35,6 @@ export default class CompanyIconGenerator {
             alpha: 1 // opacityと一緒
         });
 
-        // this.createStandardIconPort(icon);
-
         const name = new draw2d.shape.basic.Label({
             text: company.name,
             stroke: 0,
