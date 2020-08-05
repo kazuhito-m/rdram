@@ -280,6 +280,29 @@ export default class BusinessContextDiagramEditor extends Vue {
       if (resource.resourceTypeId === ResourceType.事業体.id) 
         this.addCompanyIcon(placement, resource);
     }
+
+    for (let relation of this.diagram.relations) {
+      this.addConnection(relation);
+    }
+  }
+
+  private addConnection(relation: Relation) {
+    console.log('線の出力！');
+    console.log(relation);
+
+    const canvas = this.canvas;
+
+    const start = canvas.getFigure(String(relation.fromResourceId));
+    const end = canvas.getFigure(String(relation.toResourceId));
+
+    console.log(start);
+    console.log(end);;
+
+    const connection = new draw2d.Connection({id: relation.id});
+    connection.setSource(start.getOutputPort(0));
+    connection.setTarget(end.getInputPort(0));
+
+    canvas.add(connection);
   }
 
   public onDoubleClickSlideBar() {
@@ -369,6 +392,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     dist.name = src.name;
     dist.placementObjects = src.placementObjects;
     dist.availableResourceTypeIds = src.availableResourceTypeIds;
+    dist.relations = src.relations;
   }
 
   private createNewCompany(x: number , y: number) {
