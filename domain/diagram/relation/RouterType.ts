@@ -23,4 +23,8 @@ export default class RouterType {
             .find(item => item.id === id);
         return found ? found : null;
     }
+
+    public equals(other: RouterType) {
+        return this.id === other.id;
+    }
 }

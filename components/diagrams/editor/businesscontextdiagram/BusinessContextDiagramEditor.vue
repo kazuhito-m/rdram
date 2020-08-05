@@ -268,6 +268,16 @@ export default class BusinessContextDiagramEditor extends Vue {
     return RouterType.DIRECT;
   }
 
+  private makeRouterBy(relation: Relation): any {
+    const routerType = RouterType.ofId(relation.routerTypeId);
+    if (!routerType) return undefined;
+    if (routerType.equals(RouterType.INTERACTIVE_MANHATTAN)) return new draw2d.layout.connection.InteractiveManhattanConnectionRouter();
+    if (routerType.equals(RouterType.CIRCUIT)) return new draw2d.layout.connection.CircuitConnectionRouter();
+    if (routerType.equals(RouterType.SPLINE)) return new draw2d.layout.connection.SplineConnectionRouter();
+    if (routerType.equals(RouterType.SKETCH)) return new draw2d.layout.connection.SketchConnectionRouter();
+    return undefined;
+  }
+
   private drowDiagram() {
     for (let placement of this.diagram.placementObjects) {
       const resource = this.usedResources
@@ -294,7 +304,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     connection.setSource(start.hybridPorts.data[0]);
     connection.setTarget(end.hybridPorts.data[0]);
 
-    connection.setRouter(new draw2d.layout.connection.InteractiveManhattanConnectionRouter());
+    connection.setRouter(this.makeRouterBy(relation));
 
     canvas.add(connection);
   }
