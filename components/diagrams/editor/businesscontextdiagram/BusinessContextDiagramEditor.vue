@@ -92,7 +92,7 @@ import "jquery";
 import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
-import draw2d, { Figure } from "draw2d";
+import draw2d, { Figure, command } from "draw2d";
 
 import Repository from "@/infrastructure/Repository";
 import CompanyIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/CompanyIconGenerator";
@@ -186,6 +186,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (eventType === "Move Shape") this.onMovePlacement(command);
     if (eventType === "Resize Shape") this.onResizePlacement(command);
     if (eventType === "Connect Ports") this.onConnectPlacement(command);
+    if (eventType === "Delete Shape") this.onCommandDeleteEtc(command);
   }
 
   private onMovePlacement(commandMove: any) {
@@ -276,6 +277,60 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (routerType.equals(RouterType.SPLINE)) return new draw2d.layout.connection.SplineConnectionRouter();
     if (routerType.equals(RouterType.SKETCH)) return new draw2d.layout.connection.SketchConnectionRouter();
     return undefined;
+  }
+
+  private onCommandDeleteEtc(commandDelete: any) {
+    // "Delete Shape" は「線と要素両方で同じ」「復数要素選択なら、ネストしたCommandで来る」ので、解析する。
+    let commands = [commandDelete];
+    if (commandDelete && commandDelete.commands) {
+      commands = commandDelete.commands.data;
+    }
+
+    const connections:any[] = [];
+    const figures: Figure[] = [];
+    for (let command of commands){
+      figures.push(command.figure);
+      for (let connection of command.connections.data) {
+        connections.push(connection);
+      }
+    }
+
+    console.log('delete: figure:' + figures.length + ', connection:' + connections.length);
+
+    this.transactionOf((diagram, product) => {
+      const relations = diagram.relations;
+
+      const deleteTargetResourceIds = figures.map(figure => parseInt(figure.getId(), 10));
+
+      const hasRelation = deleteTargetResourceIds.some(resourceId =>
+           relations.some(relation => relation.fromResourceId === resourceId || relation.toResourceId === resourceId)
+        );
+      if (hasRelation){
+        const message = `選択された要素には、他の要素への関連があります。それらを含め削除してよろしいですか。`;
+        if (!confirm(message)) {
+          commandDelete.undo();
+          return false;
+        }
+      }
+
+      // オブジェクトから削除
+      for (let i = relations.length -1 ; i >= 0; i--) {
+        const relationId = relations[i].id;
+        if (connections.some(connection => connection.id === relationId)) {
+          relations.splice(i, 1);
+        }
+      }
+      const placements = diagram.placementObjects;
+      for (let j = placements.length - 1; j >= 0; j--) {
+        const resourceId = placements[j].resourceId;
+        if (deleteTargetResourceIds.some(deleteResourceId => deleteResourceId === resourceId)) {
+          placements.splice(j, 1);
+        }
+      }
+      // UI同期。
+      this.resyncParets();
+      return true;
+    });
   }
 
   private drowDiagram() {
