@@ -1,7 +1,7 @@
-import Placement from "~/domain/diagram/placement/Placement";
 import draw2d, { Figure } from 'draw2d';
-import Company from "~/domain/company/Company";
-import TopLeftLocator from "~/presentation/draw2d/custom/TopLeftLocator";
+import Placement from "@/domain/diagram/placement/Placement";
+import Company from "@/domain/company/Company";
+import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
 
 export default class CompanyIconGenerator {
     public generate(companyPlacement: Placement, company: Company, iconStyle: CSSStyleDeclaration): Figure {
