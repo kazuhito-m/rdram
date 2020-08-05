@@ -114,6 +114,7 @@ export default class extends Vue {
     this.layoutApproach(canvas);
     this.structuredApproach2(canvas);
     this.structuredApproach2Dash(canvas);
+    this.conneectIcons(canvas);
 
     console.log(canvas);
   }
@@ -458,8 +459,29 @@ export default class extends Vue {
       console.log(line);
       console.log(line.router);
       if (!line.router) return;
-      console.log('name:' + line.router.NAME);
+      console.log("name:" + line.router.NAME);
     });
+  }
+
+  private conneectIcons(canvas: draw2d.Canvas) {
+    const src = canvas.getFigure(6000001);
+    console.log(src);
+    const start = src.hybridPorts.data[0];
+    console.log(start);
+    console.log('↑はプロパティ的にはあるはずなのに…。')
+
+    // TODO もう片方
+
+    const connection = new draw2d.Connection();
+    connection.setStroke(2);
+    connection.setOutlineStroke(1);
+    connection.setOutlineColor("#303030");
+    connection.setRouter(null);
+    connection.setColor("#91B93E");
+    connection.setSource(start);
+    // connection.setTarget(end.getInputPort(0));
+
+    canvas.add(connection);
   }
 }
 </script>
