@@ -56,7 +56,12 @@
         </v-expansion-panel>
 
         <v-expansion-panel>
-          <v-expansion-panel-header>この図で使用済</v-expansion-panel-header>
+          <v-expansion-panel-header>
+            <div class="omit-long-text">
+              <v-icon>mdi-clipboard-check-multiple-outline</v-icon>
+              この図で使用済
+            </div>
+          </v-expansion-panel-header>
           <v-expansion-panel-content>
 
             <v-list dark dence>
