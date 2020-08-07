@@ -58,3 +58,18 @@
 
 - 外部のJSスクリプトをVueJSコンポーネントに追加する方法
   - https://www.it-swarm.dev/ja/vue.js/%E5%A4%96%E9%83%A8%E3%81%AEjs%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%82%92vuejs%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AB%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/833359190/
+
+## 処理が長いものが在る場合、プログレスを表示する
+
+下の1つ目の通りしてみたのだけど…まだ解決していない。
+
+「フラグは変わってる」にもかかわらず、「実際にはかわらず一瞬だけ」なのである。
+
+
+- 【Nuxt.js/Typescript】ローディング画面の実装例(API: loading プロパティ使用）
+  - https://tecmemo-y.hatenablog.com/entry/2019/11/10/163136
+- Nuxt.js - API: loading プロパティ
+  - https://ja.nuxtjs.org/api/configuration-loading/
+- Vuetify.jsのプログレスバー
+  - https://vuetifyjs.com/ja/components/progress-circular/#%E3%82%B5%E3%82%A4%E3%82%BA-%E5%B9%85%EF%BC%88%E5%A4%AA%E3%81%95%EF%BC%89
+  - Nuxt.jsには直接関係ないけれど

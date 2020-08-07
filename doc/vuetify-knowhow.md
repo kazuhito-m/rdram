@@ -37,4 +37,3 @@
 
 - TypeScript + Vuetifyでエラー「Could not find a declaration file for module 'vuetify/lib'. 」したときの対処法
   - https://scrapbox.io/nwtgck/TypeScript_+_Vuetify%E3%81%A7%E3%82%A8%E3%83%A9%E3%83%BC%E3%80%8CCould_not_find_a_declaration_file_for_module_'vuetify%2Flib'._%E3%80%8D%E3%81%97%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E5%AF%BE%E5%87%A6%E6%B3%95
-
