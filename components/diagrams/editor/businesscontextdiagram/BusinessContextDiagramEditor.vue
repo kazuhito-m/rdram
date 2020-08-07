@@ -295,6 +295,16 @@ export default class BusinessContextDiagramEditor extends Vue {
       }
     }
 
+    // 「ConnectorがFigure側に混ざってくることがある」ということが(組み合わせによっては)在る。
+    // Figure側にConnectorがあれば、Connector側に移し替える。
+    for (let x = figures.length - 1; x >= 0; x--) {
+      const maybeFigure:any = figures[x];
+      if (maybeFigure.start && maybeFigure.end) {
+        connections.push(maybeFigure);
+        figures.splice(x, 1);
+      }
+    }
+
     console.log('delete: figure:' + figures.length + ', connection:' + connections.length);
 
     this.transactionOf((diagram, product) => {
