@@ -98,6 +98,11 @@ import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
 import draw2d, { Figure, command } from "draw2d";
+import EventAnalyzer from "@/presentation/draw2d/eventanalyze/EventAnalyzer";
+import BCDConnectPortsEvents from "./draw2d/eventanalyze/BCDConnectPortsEvents";
+import BCDDeleteShapeEvents from "./draw2d/eventanalyze/BCDDeleteShapeEvents";
+import BCDMoveShapeEvents from "./draw2d/eventanalyze/BCDMoveShapeEvents";
+import BCDResizeShapeEvents from "./draw2d/eventanalyze/BCDResizeShapeEvents";
 
 import Repository from "@/infrastructure/Repository";
 import CompanyIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/CompanyIconGenerator";
@@ -123,6 +128,12 @@ export default class BusinessContextDiagramEditor extends Vue {
   private product!: Product;
 
   private canvas!: draw2d.Canvas;
+  private readonly eventAnalyzer = new EventAnalyzer([
+    new BCDDeleteShapeEvents(),
+    new BCDConnectPortsEvents(),
+    new BCDMoveShapeEvents(),
+    new BCDResizeShapeEvents(),
+  ]);
 
   private editorPainId!: string;
   private paretPainId!: string;
@@ -182,35 +193,48 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private onCanvasCommandExecute(event: any): void {
-    console.log(event);
     if (!event.isPostChangeEvent()) return;
+    const rootCommand = event.getCommand();
 
-    const command = event.getCommand();
+    const analyzeResutEvents = this.eventAnalyzer.analyze(rootCommand);
+    if (analyzeResutEvents.isNothing()) return;
 
-    const eventType = command.getLabel();
-    if (eventType === "Move Shape") this.onMovePlacement(command);
-    if (eventType === "Resize Shape") this.onResizePlacement(command);
-    if (eventType === "Connect Ports") this.onConnectPlacement(command);
-    if (eventType === "Delete Shape") this.onCommandDeleteEtc(command);
+    this.transactionOf((diagram, product) => {
+      if (!analyzeResutEvents.validate(diagram, product)) return false;
+      return analyzeResutEvents.aapply(diagram, product);
+    });
+  }
+
+  private hitSubCommand(eventType: string, targetCommand: any): boolean {
+    let cs = new Array(targetCommand);
+    if (targetCommand && targetCommand.commands) cs = targetCommand.commands.data;
+    for (let c of cs) if (c.getLabel() === eventType) return true;
+    return false;
   }
 
   private onMovePlacement(commandMove: any) {
-    const resourceId = parseInt(commandMove.figure.id, 10);
-    const x = commandMove.newX;
-    const y = commandMove.newY;
+    const selections: CanvasSelections = this.selectionsOf(commandMove);
+    if (selections.figures.length < 1) return;
 
     this.transactionOf((diagram, product) => {
-      const placement = diagram.placementObjects
-        .find(placement => placement.resourceId === resourceId);
-      if (!placement) return false;
-
-      placement.x = x;
-      placement.y = y;
+      for (let figure of selections.figures) {
+        const placement = diagram.placementObjects
+          .find(placement => placement.resourceId === parseInt(figure.getId(), 10));
+        if (!placement)  continue;
+        placement.x = figure.getX();
+        placement.y = figure.getY();
+      }
       return true;
     });
   }
 
   private onResizePlacement(commandResize: any) {
+    const selections: CanvasSelections = this.selectionsOf(commandResize);
+    if (selections.figures.length < 1) return;
+
+    selections.figures
+      .forEach(f => console.log(`id:${f.getId()}, width:${f.getChildren()[0].name}`))
+
     const resourceId = parseInt(commandResize.figure.id, 10);
     const width = commandResize.newWidth;
     const height = commandResize.newHeight;
@@ -284,38 +308,14 @@ export default class BusinessContextDiagramEditor extends Vue {
     return undefined;
   }
 
-  private onCommandDeleteEtc(commandDelete: any) {
-    // "Delete Shape" は「線と要素両方で同じ」「復数要素選択なら、ネストしたCommandで来る」ので、解析する。
-    let commands = [commandDelete];
-    if (commandDelete && commandDelete.commands) {
-      commands = commandDelete.commands.data;
-    }
-
-    const connections:any[] = [];
-    const figures: Figure[] = [];
-    for (let command of commands){
-      figures.push(command.figure);
-      for (let connection of command.connections.data) {
-        connections.push(connection);
-      }
-    }
-
-    // 「ConnectorがFigure側に混ざってくることがある」ということが(組み合わせによっては)在る。
-    // Figure側にConnectorがあれば、Connector側に移し替える。
-    for (let x = figures.length - 1; x >= 0; x--) {
-      const maybeFigure:any = figures[x];
-      if (maybeFigure.start && maybeFigure.end) {
-        connections.push(maybeFigure);
-        figures.splice(x, 1);
-      }
-    }
-
-    console.log('delete: figure:' + figures.length + ', connection:' + connections.length);
+  private onDeletePlacement(command: any) {
+    const selections: CanvasSelections = this.selectionsOf(command);
 
     this.transactionOf((diagram, product) => {
       const relations = diagram.relations;
 
-      const deleteTargetResourceIds = figures.map(figure => parseInt(figure.getId(), 10));
+      const deleteTargetResourceIds = selections.figures
+        .map(figure => parseInt(figure.getId(), 10));
 
       const hasRelation = deleteTargetResourceIds.some(resourceId =>
            relations.some(relation => relation.fromResourceId === resourceId || relation.toResourceId === resourceId)
@@ -323,7 +323,7 @@ export default class BusinessContextDiagramEditor extends Vue {
       if (hasRelation){
         const message = `選択された要素には、他の要素への関連があります。それらを含め削除してよろしいですか。`;
         if (!confirm(message)) {
-          commandDelete.undo();
+          command.undo();
           return false;
         }
       }
@@ -331,7 +331,7 @@ export default class BusinessContextDiagramEditor extends Vue {
       // オブジェクトから削除
       for (let i = relations.length -1 ; i >= 0; i--) {
         const relationId = relations[i].id;
-        if (connections.some(connection => connection.id === relationId)) {
+        if (selections.connections.some(connection => connection.id === relationId)) {
           relations.splice(i, 1);
         }
       }
@@ -346,6 +346,61 @@ export default class BusinessContextDiagramEditor extends Vue {
       this.resyncParets();
       return true;
     });
+  }
+
+  private selectionsOf(targetCommand: any): CanvasSelections {
+    let cs = new Array(targetCommand);
+    if (targetCommand && targetCommand.commands) {
+      console.log('commandは「復数包含モード(commands)」だと判断。')
+      console.log(targetCommand);
+      cs = targetCommand.commands.data;
+    } else {
+      console.log('commandは「単一モード(commands)」だと判断。')
+    }
+
+    console.log('↓がcommands');
+    console.log(cs);
+
+    const selections: CanvasSelections ={figures:[],connections:[]};
+
+    const connections:any[] = [];
+    const figures: Figure[] = [];
+    
+    // let i = 0;
+    for (let c of cs) {
+      // i++;
+      // console.log('コマンド:' + i);
+      // console.log(command);
+      // console.log('figure:' + i);
+      // console.log(c.figure);
+
+
+
+      if (c.figure) figures.push(c.figure);
+      if (!c.connection) continue;
+      for (let connection of c.connections.data) {
+        connections.push(connection);
+      }
+    }
+
+    // 「ConnectorがFigure側に混ざってくることがある」ということが(組み合わせによっては)在る。
+    // Figure側にConnectorがあれば、Connector側に移し替える。
+    for (let x = figures.length - 1; x >= 0; x--) {
+      const maybeFigure:any = figures[x];
+      console.log(`index:${x}`);
+      console.log(maybeFigure);
+      if (maybeFigure.start && maybeFigure.end) { // 仕様には歌ってないが「end,startがある」を線と捉える。
+        connections.push(maybeFigure);
+        figures.splice(x, 1);
+      }
+    }
+
+    console.log('delete: figure:' + figures.length + ', connection:' + connections.length);
+
+    return {
+      figures: figures,
+      connections: connections,
+    }
   }
 
   private drowDiagram() {
@@ -587,6 +642,11 @@ export default class BusinessContextDiagramEditor extends Vue {
 interface Paret {
   resourceType: ResourceType;
   resources: Resource[];
+}
+
+interface CanvasSelections {
+  figures: Figure[],
+  connections: any[]
 }
 </script>
 
