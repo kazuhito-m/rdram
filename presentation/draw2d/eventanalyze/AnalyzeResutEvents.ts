@@ -3,7 +3,7 @@ import Product from "~/domain/product/Product";
 import Diagram from "~/domain/diagram/Diagram";
 
 export default class AnalyzeResutEvents {
-    constructor(private eventsOfTypes: EventsOfType[]) { }
+    constructor(private eventsOfTypes: EventsOfType<Diagram>[]) { }
 
     public static nothing(): AnalyzeResutEvents {
         return new AnalyzeResutEvents([]);

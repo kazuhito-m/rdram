@@ -5,10 +5,10 @@ import Product from "~/domain/product/Product";
 /**
  * Commandをタイプごとに集めたモノ。
  */
-export default interface EventsOfType {
+export default interface EventsOfType<D extends Diagram> {
     eventGists: EventGist[];
     eventType(): string;
-    validate(daiagram: Diagram, product: Product): boolean;
-    apply(daiagram: Diagram, product: Product): boolean;
-    prototype(): EventsOfType;
+    validate(diagram: D, product: Product): boolean;
+    apply(diagram: D, product: Product): boolean;
+    prototype(): EventsOfType<D>;
 }

@@ -1,19 +1,20 @@
 import EventsOfType from "./EventsOfType";
 import EventGist from "./EventGist";
 import AnalyzeResutEvents from "./AnalyzeResutEvents";
+import Diagram from "~/domain/diagram/Diagram";
 
 export default class EventAnalyzer {
-    constructor(private eventsOfTypeTemplates: EventsOfType[]) { }
+    constructor(private eventsOfTypeTemplates: EventsOfType<Diagram>[]) { }
 
     public analyze(targetCommand: any): AnalyzeResutEvents {
-        // console.log('---- analyzeEvents start ----');
+        console.log('---- analyzeEvents start ----');
         const eventGists = this.analyzeEventGists(targetCommand);
-        // eventGists.forEach(i => console.log(i));
-        // console.log('---- analyzeEvents end ----');
+        eventGists.forEach(i => console.log(i));
+        console.log('---- analyzeEvents end ----');
 
         if (eventGists.length === 0) return AnalyzeResutEvents.nothing();
 
-        const eventsOfTypeMap: { [key: string]: EventsOfType } = {};
+        const eventsOfTypeMap: { [key: string]: EventsOfType<Diagram> } = {};
         this.eventsOfTypeTemplates
             .forEach(t => eventsOfTypeMap[t.eventType()] = t.prototype());
 
@@ -36,6 +37,7 @@ export default class EventAnalyzer {
             figure: targetCommand.figure,
             source: targetCommand.source,
             target: targetCommand.target,
+            connection: targetCommand.connection,
             rootCommand: rootCommand,
         };
         const results: EventGist[] = [eventGist];

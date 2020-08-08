@@ -8,5 +8,6 @@ export default interface EventGist {
     figure?: Figure; // rootイベントの場合はundifinedになる可能性が在る。
     source?: Figure;
     target?: Figure;
+    connection?: any;
     rootCommand: any;
 }
