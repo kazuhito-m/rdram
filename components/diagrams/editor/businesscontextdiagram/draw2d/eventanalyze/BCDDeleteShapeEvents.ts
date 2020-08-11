@@ -1,11 +1,12 @@
 import EventsOfType from "~/presentation/draw2d/eventanalyze/EventsOfType";
 import EventGist from "~/presentation/draw2d/eventanalyze/EventGist";
+import BusinessContextDiagramEditor from "~/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
 import Product from "~/domain/product/Product";
 import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import { Figure } from "draw2d";
 import FigureAnalyzer from "./FigureAnalyzer";
 
-export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContextDiagram> {
+export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContextDiagram, BusinessContextDiagramEditor> {
     public eventGists: EventGist[] = [];
 
     private readonly figureAnalyzer = new FigureAnalyzer();
@@ -18,7 +19,7 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
         return new BCDDeleteShapeEvents();
     }
 
-    public validate(diagram: BusinessContextDiagram, product: Product): boolean {
+    public validate(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
         const relations = diagram.relations;
         // TODO なんども連打される問題について
         // ひょっとして「Rootじゃなく、子イベントを叩いてる」からかな？
@@ -34,7 +35,7 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
         }
         return true;
     }
-    public apply(diagram: BusinessContextDiagram, product: Product): boolean {
+    public apply(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
         // 対象のFigure
         const validTargetFigures = this.validTargetFigures();
         // Iconと線に分ける
@@ -67,10 +68,8 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
                 relations.splice(k, 1);
             }
         }
-        // UI同期。
-        // this.resyncParets();
 
-
+        view.resyncParets();  // UI同期。
         return true;
     }
 

@@ -1,10 +1,11 @@
 import EventsOfType from "~/presentation/draw2d/eventanalyze/EventsOfType";
 import EventGist from "~/presentation/draw2d/eventanalyze/EventGist";
+import BusinessContextDiagramEditor from "~/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
 import Product from "~/domain/product/Product";
 import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import { Figure } from "draw2d";
 
-export default class BCDResizeShapeEvents implements EventsOfType<BusinessContextDiagram> {
+export default class BCDResizeShapeEvents implements EventsOfType<BusinessContextDiagram, BusinessContextDiagramEditor> {
     public eventGists: EventGist[] = [];
 
     public eventType(): string {
@@ -15,10 +16,10 @@ export default class BCDResizeShapeEvents implements EventsOfType<BusinessContex
         return new BCDResizeShapeEvents();
     }
 
-    public validate(diagram: BusinessContextDiagram, product: Product): boolean {
+    public validate(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
         return true;
     }
-    public apply(diagram: BusinessContextDiagram, product: Product): boolean {
+    public apply(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
         const placements = diagram.placementObjects;
         for (let figure of this.validTargetFigures()) {
             const resourceId = parseInt(figure.getId(), 10);

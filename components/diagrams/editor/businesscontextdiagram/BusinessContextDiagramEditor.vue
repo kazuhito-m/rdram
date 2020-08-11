@@ -202,8 +202,8 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.transactionOf((diagram, product) => {
       this.dumpDiagram(diagram, '実行前');
 
-      if (!analyzeResutEvents.validate(diagram, product)) return false;
-      const result = analyzeResutEvents.aapply(diagram, product);
+      if (!analyzeResutEvents.validate(diagram, product, this)) return false;
+      const result = analyzeResutEvents.apply(diagram, product, this);
 
       this.dumpDiagram(diagram, '実行後');
       return result;
@@ -603,7 +603,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     return resourceType.iconKey;
   }
 
-  private resyncParets(): void {
+  public resyncParets(): void {
     const diagram = this.diagram;
     const product = this.product;
 

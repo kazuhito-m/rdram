@@ -4,7 +4,7 @@ import AnalyzeResutEvents from "./AnalyzeResutEvents";
 import Diagram from "~/domain/diagram/Diagram";
 
 export default class EventAnalyzer {
-    constructor(private eventsOfTypeTemplates: EventsOfType<Diagram>[]) { }
+    constructor(private eventsOfTypeTemplates: EventsOfType<Diagram, Vue>[]) { }
 
     public analyze(targetCommand: any): AnalyzeResutEvents {
         console.log('---- analyzeEvents start ----');
@@ -14,7 +14,7 @@ export default class EventAnalyzer {
 
         if (eventGists.length === 0) return AnalyzeResutEvents.nothing();
 
-        const eventsOfTypeMap: { [key: string]: EventsOfType<Diagram> } = {};
+        const eventsOfTypeMap: { [key: string]: EventsOfType<Diagram, Vue> } = {};
         this.eventsOfTypeTemplates
             .forEach(t => eventsOfTypeMap[t.eventType()] = t.prototype());
 
