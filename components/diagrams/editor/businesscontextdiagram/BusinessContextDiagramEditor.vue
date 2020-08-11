@@ -200,8 +200,13 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (analyzeResutEvents.isNothing()) return;
 
     this.transactionOf((diagram, product) => {
+      this.dumpDiagram(diagram, '実行前');
+
       if (!analyzeResutEvents.validate(diagram, product)) return false;
-      return analyzeResutEvents.aapply(diagram, product);
+      const result = analyzeResutEvents.aapply(diagram, product);
+
+      this.dumpDiagram(diagram, '実行後');
+      return result;
     });
   }
 
@@ -636,6 +641,13 @@ export default class BusinessContextDiagramEditor extends Vue {
   private syncOtherDiagramParets() {
     // TODO 実装
     console.log('TODO実装。自分の親に言って、すべての図でみぎPaletを更新してこいと。');
+  }
+
+  private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
+    console.log(`---- ${prefix} Diagram情報 start ----`);
+    diagram.placementObjects.forEach(i => console.log(`位置;${i.resourceId}`));
+    diagram.relations.forEach(i => console.log(`線;${i.id}, from:${i.fromResourceId}, to:${i.toResourceId}`));
+    console.log(`---- ${prefix} Diagram情報 end ----`);
   }
 }
 

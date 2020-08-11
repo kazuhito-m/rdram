@@ -3,9 +3,12 @@ import EventGist from "~/presentation/draw2d/eventanalyze/EventGist";
 import Product from "~/domain/product/Product";
 import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import { Figure } from "draw2d";
+import FigureAnalyzer from "./FigureAnalyzer";
 
 export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContextDiagram> {
     public eventGists: EventGist[] = [];
+
+    private readonly figureAnalyzer = new FigureAnalyzer();
 
     public eventType(): string {
         return "Delete Shape";
@@ -17,20 +20,11 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
 
     public validate(diagram: BusinessContextDiagram, product: Product): boolean {
         const relations = diagram.relations;
-
-        // TODO figure `が「線」だったときの考慮。
-
-        const deleteTargetResourceIds = this.validTargetFigures()
-            .map(figure => parseInt(figure.getId(), 10));
-
-        const hasRelation = deleteTargetResourceIds.some(resourceId =>
-            relations.some(relation => relation.fromResourceId === resourceId || relation.toResourceId === resourceId)
-        );
-
         // TODO なんども連打される問題について
-            // ひょっとして「Rootじゃなく、子イベントを叩いてる」からかな？
-
-        if (hasRelation) {
+        // ひょっとして「Rootじゃなく、子イベントを叩いてる」からかな？
+        const resourceIds = this.figureAnalyzer.analyzeResourceIds(this.validTargetFigures());
+        const relationIdsOfDeleteTargetResouce = this.relationIdsOfDeleteTargetResouce(resourceIds, diagram);
+        if (relationIdsOfDeleteTargetResouce.length > 0) {
             const message = `選択された要素には、他の要素への関連があります。それらを含め削除してよろしいですか。`;
             if (!confirm(message)) {
                 const rootCommand = this.eventGists[0].rootCommand;
@@ -41,28 +35,42 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
         return true;
     }
     public apply(diagram: BusinessContextDiagram, product: Product): boolean {
+        // 対象のFigure
+        const validTargetFigures = this.validTargetFigures();
+        // Iconと線に分ける
+        const resourceIds = this.figureAnalyzer.analyzeResourceIds(validTargetFigures);
+        const relationIds = this.figureAnalyzer.analizeRelationIds(validTargetFigures);
+        console.log(`消す位置:${resourceIds.join()}`)
+        console.log(`消す線:${relationIds.join()}`)
 
-        // TODO figure `が「線」だったときの考慮。
-        // 単体の場合だって在るし、線だけを選択されて削除、な場合もある。
+        // Iconにつながってる線も割り出す
+        const relationIdsOfDeleteTargetResouce = this.relationIdsOfDeleteTargetResouce(resourceIds, diagram);
+        console.log('共連れで消す周辺関連線。')
+        console.log(relationIdsOfDeleteTargetResouce.join());
 
+        // 「消す線」を全部足す
+        const allRelationsIds = relationIds.concat(relationIdsOfDeleteTargetResouce) as string[];
 
-        const deleteTargetResourceIds = this.validTargetFigures()
-            .map(figure => parseInt(figure.getId(), 10));
-
-        // TODO 関連線の削除
-        // 仮実装として、今は「全線を削除する」ロジックを入れておく。
-        diagram.relations.length = 0;
-
+        // Iconに対応する位置情報を削除
         const placements = diagram.placementObjects;
         for (let j = placements.length - 1; j >= 0; j--) {
             const resourceId = placements[j].resourceId;
-            if (deleteTargetResourceIds.some(deleteResourceId => deleteResourceId === resourceId)) {
+            if (resourceIds.some(deleteResourceId => deleteResourceId === resourceId)) {
                 placements.splice(j, 1);
             }
         }
+        // 線に対応する関連情報削除
+        const relations = diagram.relations;
+        for (let k = relations.length - 1; k >= 0; k--) {
+            const relationId = relations[k].id;
+            if (allRelationsIds.some(deleteRelationId => deleteRelationId === relationId)) {
+                relations.splice(k, 1);
+            }
+        }
         // UI同期。
-        // TODO 親への伝搬
         // this.resyncParets();
+
+
         return true;
     }
 
@@ -71,5 +79,12 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
             .map(eventGist => eventGist.figure)
             .filter(figure => typeof figure !== 'undefined')
             .map(figure => figure as Figure);
+    }
+
+    private relationIdsOfDeleteTargetResouce(deleteTargetResourceIds: number[], diagram: BusinessContextDiagram): string[] {
+        return diagram.relations
+            .filter(relation => deleteTargetResourceIds.some(id => id === relation.fromResourceId)
+                || deleteTargetResourceIds.some(id => id === relation.toResourceId))
+            .map(relation => relation.id);
     }
 }

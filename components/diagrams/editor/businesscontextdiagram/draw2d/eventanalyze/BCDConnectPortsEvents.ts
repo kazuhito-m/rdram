@@ -5,9 +5,12 @@ import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessCon
 import { Figure } from "draw2d";
 import RouterType from "~/domain/diagram/relation/RouterType";
 import Relation from "~/domain/diagram/relation/Relation";
+import FigureAnalyzer from "./FigureAnalyzer";
 
 export default class BCDConnectPortsEvents implements EventsOfType<BusinessContextDiagram> {
     public eventGists: EventGist[] = [];
+
+    private readonly figureAnalyzer = new FigureAnalyzer();
 
     public eventType(): string {
         return "Connect Ports";
@@ -24,8 +27,8 @@ export default class BCDConnectPortsEvents implements EventsOfType<BusinessConte
     }
     public apply(diagram: BusinessContextDiagram, product: Product): boolean {
         for (let eventGist of this.eventGists) {
-            const srcResourceId = this.analyzeResourceId(eventGist.source);
-            const distResourceId = this.analyzeResourceId(eventGist.target);
+            const srcResourceId = parseInt(eventGist.source?.getParent().id, 10);
+            const distResourceId = parseInt(eventGist.target?.getParent().id, 10);
 
             if (!srcResourceId || !distResourceId) continue;
 
@@ -43,18 +46,6 @@ export default class BCDConnectPortsEvents implements EventsOfType<BusinessConte
             diagram.relations.push(relation);
         }
         return true;
-    }
-
-    private analyzeResourceId(figure?: Figure): number | null {
-        if (!figure) return null;
-
-        let id = figure.getId();
-        if (!id || id.search(/^[0-9]+$/)) {
-            const parent = figure.getParent();
-            id = parent.getId();
-        }
-        const resourceId = parseInt(id, 10);
-        return resourceId;
     }
 
     private analyzeRouterType(router: any): RouterType {
