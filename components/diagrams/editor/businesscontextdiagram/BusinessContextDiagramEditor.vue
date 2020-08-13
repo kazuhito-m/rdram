@@ -105,6 +105,7 @@
       </template>
     </v-snackbar>
 　
+    <!-- リアクティブ監視させたいけど、ネストしたくないので…自身をコンテナにして監視させる(ちょっととトリッキー？) -->
     <ConnectorRightClickMenuAndEditor
       :visibleConnectorRightClickMenu="visibleConnectorMenu"
       :relationContainer="this"
