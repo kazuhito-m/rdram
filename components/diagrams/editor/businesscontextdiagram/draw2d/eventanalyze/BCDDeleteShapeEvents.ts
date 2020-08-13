@@ -41,12 +41,12 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
         // Iconと線に分ける
         const resourceIds = this.figureAnalyzer.analyzeResourceIds(validTargetFigures);
         const relationIds = this.figureAnalyzer.analizeRelationIds(validTargetFigures);
-        console.log(`消す位置:${resourceIds.join()}`)
-        console.log(`消す線:${relationIds.join()}`)
+        // console.log(`消す位置:${resourceIds.join()}`)
+        // console.log(`消す線:${relationIds.join()}`)
 
         // Iconにつながってる線も割り出す
         const relationIdsOfDeleteTargetResouce = this.relationIdsOfDeleteTargetResouce(resourceIds, diagram);
-        console.log('共連れで消す周辺関連線。')
+        // console.log('共連れで消す周辺関連線。')
         console.log(relationIdsOfDeleteTargetResouce.join());
 
         // 「消す線」を全部足す
@@ -69,7 +69,7 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
             }
         }
 
-        view.resyncParets();  // UI同期。
+        view.resyncParets(); // UI同期。
         return true;
     }
 

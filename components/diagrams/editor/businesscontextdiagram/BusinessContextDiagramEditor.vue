@@ -231,99 +231,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     });
   }
 
-  private hitSubCommand(eventType: string, targetCommand: any): boolean {
-    let cs = new Array(targetCommand);
-    if (targetCommand && targetCommand.commands) cs = targetCommand.commands.data;
-    for (let c of cs) if (c.getLabel() === eventType) return true;
-    return false;
-  }
-
-  private onMovePlacement(commandMove: any) {
-    const selections: CanvasSelections = this.selectionsOf(commandMove);
-    if (selections.figures.length < 1) return;
-
-    this.transactionOf((diagram, product) => {
-      for (let figure of selections.figures) {
-        const placement = diagram.placementObjects
-          .find(placement => placement.resourceId === parseInt(figure.getId(), 10));
-        if (!placement)  continue;
-        placement.x = figure.getX();
-        placement.y = figure.getY();
-      }
-      return true;
-    });
-  }
-
-  private onResizePlacement(commandResize: any) {
-    const selections: CanvasSelections = this.selectionsOf(commandResize);
-    if (selections.figures.length < 1) return;
-
-    selections.figures
-      .forEach(f => console.log(`id:${f.getId()}, width:${f.getChildren()[0].name}`))
-
-    const resourceId = parseInt(commandResize.figure.id, 10);
-    const width = commandResize.newWidth;
-    const height = commandResize.newHeight;
-
-    this.transactionOf((diagram, product) => {
-      const placement = diagram.placementObjects
-        .find(placement => placement.resourceId === resourceId);
-      if (!placement) return false;
-
-      placement.width = width;
-      placement.height = height;
-      return true;
-    });
-  }
-
-  private onConnectPlacement(commandConnect: any) {
-    const srcResourceId = this.analyzeResourceId(commandConnect.source);
-    const distResourceId = this.analyzeResourceId(commandConnect.target);
-
-    if (!srcResourceId || !distResourceId) return;
-
-    const connection = commandConnect.connection;
-    const routerType = this.analyzeRouterType(connection.router);
-
-    const relation: Relation = {
-      id: connection.id,
-      fromResourceId: srcResourceId,
-      toResourceId: distResourceId,
-      routerTypeId: routerType.id,
-      midpoints: []
-    };
-
-    // DEBUG
-    console.log(relation);
-
-    this.transactionOf((diagram, product) => {
-      diagram.relations.push(relation);
-      return true;
-    });
-  }
-
-  private analyzeResourceId(figure: Figure): number  {
-    let id = figure.getId();
-    if (!id || id.search(/^[0-9]+$/)) {
-      const parent = figure.getParent();
-      id = parent.getId();
-    }
-    const resourceId = parseInt(id, 10);
-    return resourceId;
-  }
-
-  private analyzeRouterType(router: any): RouterType {
-    if (!router) return RouterType.DIRECT;
-    const name = router.NAME;
-    if (!name) return RouterType.DIRECT;
-
-    if (name === "draw2d.layout.connection.InteractiveManhattanConnectionRouter") return RouterType.INTERACTIVE_MANHATTAN;
-    if (name === "draw2d.layout.connection.CircuitConnectionRouter") return RouterType.CIRCUIT;
-    if (name === "draw2d.layout.connection.SplineConnectionRouter") return RouterType.SPLINE;
-    if (name === "draw2d.layout.connection.SketchConnectionRouter") return RouterType.SKETCH;
-    return RouterType.DIRECT;
-  }
-
   private makeRouterBy(relation: Relation): any {
     const routerType = RouterType.ofId(relation.routerTypeId);
     if (!routerType) return undefined;
@@ -332,101 +239,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (routerType.equals(RouterType.SPLINE)) return new draw2d.layout.connection.SplineConnectionRouter();
     if (routerType.equals(RouterType.SKETCH)) return new draw2d.layout.connection.SketchConnectionRouter();
     return undefined;
-  }
-
-  private onDeletePlacement(command: any) {
-    const selections: CanvasSelections = this.selectionsOf(command);
-
-    this.transactionOf((diagram, product) => {
-      const relations = diagram.relations;
-
-      const deleteTargetResourceIds = selections.figures
-        .map(figure => parseInt(figure.getId(), 10));
-
-      const hasRelation = deleteTargetResourceIds.some(resourceId =>
-           relations.some(relation => relation.fromResourceId === resourceId || relation.toResourceId === resourceId)
-        );
-      if (hasRelation){
-        const message = `選択された要素には、他の要素への関連があります。それらを含め削除してよろしいですか。`;
-        if (!confirm(message)) {
-          command.undo();
-          return false;
-        }
-      }
-
-      // オブジェクトから削除
-      for (let i = relations.length -1 ; i >= 0; i--) {
-        const relationId = relations[i].id;
-        if (selections.connections.some(connection => connection.id === relationId)) {
-          relations.splice(i, 1);
-        }
-      }
-      const placements = diagram.placementObjects;
-      for (let j = placements.length - 1; j >= 0; j--) {
-        const resourceId = placements[j].resourceId;
-        if (deleteTargetResourceIds.some(deleteResourceId => deleteResourceId === resourceId)) {
-          placements.splice(j, 1);
-        }
-      }
-      // UI同期。
-      this.resyncParets();
-      return true;
-    });
-  }
-
-  private selectionsOf(targetCommand: any): CanvasSelections {
-    let cs = new Array(targetCommand);
-    if (targetCommand && targetCommand.commands) {
-      console.log('commandは「復数包含モード(commands)」だと判断。')
-      console.log(targetCommand);
-      cs = targetCommand.commands.data;
-    } else {
-      console.log('commandは「単一モード(commands)」だと判断。')
-    }
-
-    console.log('↓がcommands');
-    console.log(cs);
-
-    const selections: CanvasSelections ={figures:[],connections:[]};
-
-    const connections:any[] = [];
-    const figures: Figure[] = [];
-    
-    // let i = 0;
-    for (let c of cs) {
-      // i++;
-      // console.log('コマンド:' + i);
-      // console.log(command);
-      // console.log('figure:' + i);
-      // console.log(c.figure);
-
-
-
-      if (c.figure) figures.push(c.figure);
-      if (!c.connection) continue;
-      for (let connection of c.connections.data) {
-        connections.push(connection);
-      }
-    }
-
-    // 「ConnectorがFigure側に混ざってくることがある」ということが(組み合わせによっては)在る。
-    // Figure側にConnectorがあれば、Connector側に移し替える。
-    for (let x = figures.length - 1; x >= 0; x--) {
-      const maybeFigure:any = figures[x];
-      console.log(`index:${x}`);
-      console.log(maybeFigure);
-      if (maybeFigure.start && maybeFigure.end) { // 仕様には歌ってないが「end,startがある」を線と捉える。
-        connections.push(maybeFigure);
-        figures.splice(x, 1);
-      }
-    }
-
-    console.log('delete: figure:' + figures.length + ', connection:' + connections.length);
-
-    return {
-      figures: figures,
-      connections: connections,
-    }
   }
 
   private drowDiagram() {
@@ -480,6 +292,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     const element = document.getElementById(id) as HTMLElement;
     return element.style;
   }
+  
   public onDropCanvas(event: DragEvent) {
     event.preventDefault();
 

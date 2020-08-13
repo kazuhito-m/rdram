@@ -5,7 +5,7 @@ import Product from "~/domain/product/Product";
 import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import { Figure } from "draw2d";
 
-export default class BCDMoveShapeEvents implements  EventsOfType<BusinessContextDiagram, BusinessContextDiagramEditor> {
+export default class BCDMoveShapeEvents implements EventsOfType<BusinessContextDiagram, BusinessContextDiagramEditor> {
     public eventGists: EventGist[] = [];
 
     public eventType(): string {
