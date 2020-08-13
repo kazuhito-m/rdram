@@ -47,7 +47,9 @@ export default class BCDConnectPortsEvents implements EventsOfType<BusinessConte
             if (!srcResourceId || !distResourceId) continue;
 
             const connection = eventGist.connection;
-            const routerType = this.analyzeRouterType(connection.router);
+            connection.onContextMenu = view.onClickConnectorOnCanvas;
+
+            const routerType = view.analyzeRouterType(connection.router);
 
             const relation: Relation = {
                 id: connection.id,
@@ -60,17 +62,5 @@ export default class BCDConnectPortsEvents implements EventsOfType<BusinessConte
             diagram.relations.push(relation);
         }
         return true;
-    }
-
-    private analyzeRouterType(router: any): RouterType {
-        if (!router) return RouterType.DIRECT;
-        const name = router.NAME;
-        if (!name) return RouterType.DIRECT;
-
-        if (name === "draw2d.layout.connection.InteractiveManhattanConnectionRouter") return RouterType.INTERACTIVE_MANHATTAN;
-        if (name === "draw2d.layout.connection.CircuitConnectionRouter") return RouterType.CIRCUIT;
-        if (name === "draw2d.layout.connection.SplineConnectionRouter") return RouterType.SPLINE;
-        if (name === "draw2d.layout.connection.SketchConnectionRouter") return RouterType.SKETCH;
-        return RouterType.DIRECT;
     }
 }

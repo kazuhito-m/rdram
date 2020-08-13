@@ -105,11 +105,19 @@
       </template>
     </v-snackbar>
 　
+    <ConnectorRightClickMenuAndEditor
+      :visibleConnectorRightClickMenu="visibleConnectorMenu"
+      :relation="relationContainer"
+      :menuPositionX="menuX"
+      :menuPositionY="menuY"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { Prop, Component, Vue, Inject } from "nuxt-property-decorator";
+import ConnectorRightClickMenuAndEditor from "./ConnectorRightClickMenuAndEditor.vue";
+import { RelationContainer } from "./ConnectorRightClickMenuAndEditor.vue";
 
 import "jquery";
 import "jquery-ui";
@@ -134,7 +142,11 @@ import Placement from "@/domain/diagram/placement/Placement";
 import RouterType from "@/domain/diagram/relation/RouterType";
 import Relation from "@/domain/diagram/relation/Relation";
 
-@Component
+@Component({
+  components: {
+    ConnectorRightClickMenuAndEditor,
+  }
+})
 export default class BusinessContextDiagramEditor extends Vue {
   @Inject()
   private repository!: Repository
@@ -164,6 +176,11 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private warnBar: boolean = false;
   private warnMessage: string = '';
+
+  private visibleConnectorMenu = false;
+  private relationContainer :RelationContainer = {};
+  private menuX = 0;
+  private menuY = 0;
 
   public created(): void {
     this.product = this.getCurrentProduct();
@@ -241,6 +258,18 @@ export default class BusinessContextDiagramEditor extends Vue {
     return undefined;
   }
 
+  public analyzeRouterType(router: any): RouterType {
+      if (!router) return RouterType.DIRECT;
+      const name = router.NAME;
+      if (!name) return RouterType.DIRECT;
+
+      if (name === "draw2d.layout.connection.InteractiveManhattanConnectionRouter") return RouterType.INTERACTIVE_MANHATTAN;
+      if (name === "draw2d.layout.connection.CircuitConnectionRouter") return RouterType.CIRCUIT;
+      if (name === "draw2d.layout.connection.SplineConnectionRouter") return RouterType.SPLINE;
+      if (name === "draw2d.layout.connection.SketchConnectionRouter") return RouterType.SKETCH;
+      return RouterType.DIRECT;
+  }
+
   private drowDiagram() {
     for (let placement of this.diagram.placementObjects) {
       const resource = this.usedResources
@@ -266,10 +295,20 @@ export default class BusinessContextDiagramEditor extends Vue {
     // ちょっとトリッキーなデータの持ち方…解析しないとわからない。正攻法が在れば変えたい。
     connection.setSource(start.hybridPorts.data[0]);
     connection.setTarget(end.hybridPorts.data[0]);
-
     connection.setRouter(this.makeRouterBy(relation));
+    connection.onContextMenu = this.onClickConnectorOnCanvas;
 
     canvas.add(connection);
+  }
+
+  public onClickConnectorOnCanvas(x:number, y:number) {
+    const foundFigure = this.canvas.getBestFigure(x, y, [], []);
+    console.log(`foundFigure, x:${x}, y:${y}`);
+    if (!foundFigure) return;
+    const targetRelation = this.diagram.relations
+      .find(relation => relation.id === foundFigure.id);
+    if (!targetRelation) return;
+    this.showConnectorRightClickMenu(targetRelation, 100, 500);
   }
 
   public onDoubleClickSlideBar() {
@@ -480,6 +519,15 @@ export default class BusinessContextDiagramEditor extends Vue {
   public showWarnBar(text: string): void {
     this.warnMessage = text;
     this.warnBar = true;
+  }
+
+  private showConnectorRightClickMenu(relation: Relation,x: number, y:number):void{
+    this.menuX = x;
+    this.menuY = y;
+    this.relationContainer.relation = relation;
+    this.$nextTick(() => {
+      this.visibleConnectorMenu = true
+    });
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
