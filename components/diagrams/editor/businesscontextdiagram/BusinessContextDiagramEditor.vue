@@ -87,6 +87,24 @@
 
       </v-expansion-panels>
     </div>
+
+    <v-snackbar
+      v-model="warnBar"
+      timeout="2000"
+    >
+      {{ warnMessage }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="blue"
+          text
+          v-bind="attrs"
+          @click="warnBar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+　
   </div>
 </template>
 
@@ -143,6 +161,9 @@ export default class BusinessContextDiagramEditor extends Vue {
   private readonly paretsOpen: number[] = [];
   private readonly parets: Paret[] = [];
   private readonly usedResources: Resource[] = [];
+
+  private warnBar: boolean = false;
+  private warnMessage: string = '';
 
   public created(): void {
     this.product = this.getCurrentProduct();
@@ -641,6 +662,11 @@ export default class BusinessContextDiagramEditor extends Vue {
   private syncOtherDiagramParets() {
     // TODO 実装
     console.log('TODO実装。自分の親に言って、すべての図でみぎPaletを更新してこいと。');
+  }
+
+  public showWarnBar(text: string): void {
+    this.warnMessage = text;
+    this.warnBar = true;
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {

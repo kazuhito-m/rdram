@@ -22,15 +22,28 @@ export default class BCDConnectPortsEvents implements EventsOfType<BusinessConte
     }
 
     public validate(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
-        // TODO 同一関連線は引けない
-        // TODO UIにどうやって伝播しようか…。
+        const relations = diagram.relations;
+        for (let eventGist of this.eventGists) {
+            const srcResourceId = parseInt(eventGist.source?.getParent().id, 10);
+            const distResourceId = parseInt(eventGist.target?.getParent().id, 10);
+            if (!srcResourceId || !distResourceId) continue;
+
+            const exists = relations.some(relation => {
+                return relation.fromResourceId === srcResourceId && relation.toResourceId === distResourceId
+                    || relation.fromResourceId === distResourceId && relation.toResourceId === srcResourceId;
+            });
+            if (exists) {
+                view.showWarnBar('すでに関連が存在します。');
+                eventGist.rootCommand.undo();
+                return false;
+            }
+        }
         return true;
     }
     public apply(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
         for (let eventGist of this.eventGists) {
             const srcResourceId = parseInt(eventGist.source?.getParent().id, 10);
             const distResourceId = parseInt(eventGist.target?.getParent().id, 10);
-
             if (!srcResourceId || !distResourceId) continue;
 
             const connection = eventGist.connection;
