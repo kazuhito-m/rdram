@@ -107,7 +107,7 @@
 　
     <ConnectorRightClickMenuAndEditor
       :visibleConnectorRightClickMenu="visibleConnectorMenu"
-      :relation="relationContainer"
+      :relationContainer="this"
       :menuPositionX="menuX"
       :menuPositionY="menuY"
     />
@@ -178,7 +178,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   private warnMessage: string = '';
 
   private visibleConnectorMenu = false;
-  private relationContainer :RelationContainer = {};
+  private relation? : Relation ;
   private menuX = 0;
   private menuY = 0;
 
@@ -223,6 +223,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     svg.style.removeProperty("position");
     svg.addEventListener('drop', this.onDropCanvas);
     svg.addEventListener('dragover', this.onDropOverCanvas);
+    svg.oncontextmenu = function() {return false;}; // これは自動的にdraw2d.jsがやってくれるはず…なんだけどなぁ。
   }
 
   private addCanvasEvent(): void {
@@ -522,9 +523,10 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private showConnectorRightClickMenu(relation: Relation,x: number, y:number):void{
+    this.visibleConnectorMenu = false;
     this.menuX = x;
     this.menuY = y;
-    this.relationContainer.relation = relation;
+    this.relation = relation;
     this.$nextTick(() => {
       this.visibleConnectorMenu = true
     });

@@ -26,11 +26,10 @@ import Relation from "~/domain/diagram/relation/Relation";
 export default class ConnectorRightClickMenuAndEditor extends Vue {
   // @Inject()
   // private repository!: Repository
-
-  private relationContainer!: RelationContainer;
-
   @Prop()
-  private visibleConnectorRightClickMenu = false;
+  private visibleConnectorRightClickMenu?: boolean;
+  @Prop()
+  private relationContainer?: RelationContainer;
   @Prop()
   private menuPositionX?: number;
   @Prop()
@@ -41,7 +40,7 @@ export default class ConnectorRightClickMenuAndEditor extends Vue {
   public mounted() {}
 
   public onClickChangeRouter(): void {
-    alert("祝！開通！");
+    alert("祝！開通！id:" + this.relationContainer?.relation?.id);
   }
 }
 
