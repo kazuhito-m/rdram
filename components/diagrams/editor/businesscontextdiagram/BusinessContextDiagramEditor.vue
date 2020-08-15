@@ -108,9 +108,11 @@
     <!-- リアクティブ監視させたいけど、ネストしたくないので…自身をコンテナにして監視させる(ちょっととトリッキー？) -->
     <ConnectorRightClickMenuAndEditor
       :visibleConnectorRightClickMenu="visibleConnectorMenu"
-      :relationContainer="this"
       :menuPositionX="menuX"
       :menuPositionY="menuY"
+      :relationId="targetRelationId"
+      :selectedRouterTypeId="editableRouterId"
+      @onChangeRouterType="onChangeRouterTypeOnEditor"
     />
   </div>
 </template>
@@ -182,6 +184,9 @@ export default class BusinessContextDiagramEditor extends Vue {
   private relation? : Relation ;
   private menuX = 0;
   private menuY = 0;
+
+  private targetRelationId = '';
+  private editableRouterId = 0;
 
   public created(): void {
     this.product = this.getCurrentProduct();
@@ -305,12 +310,13 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   public onClickConnectorOnCanvas(x:number, y:number) {
     const foundFigure = this.canvas.getBestFigure(x, y, [], []);
-    console.log(`foundFigure, x:${x}, y:${y}`);
     if (!foundFigure) return;
     const targetRelation = this.diagram.relations
       .find(relation => relation.id === foundFigure.id);
     if (!targetRelation) return;
-    this.showConnectorRightClickMenu(targetRelation, 100, 500);
+    const absoluteX = this.canvas.getAbsoluteX() + x;
+    const absoluteY = this.canvas.getAbsoluteY() + y;
+    this.showConnectorRightClickMenu(targetRelation, absoluteX, absoluteY);
   }
 
   public onDoubleClickSlideBar() {
@@ -528,9 +534,15 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.menuX = x;
     this.menuY = y;
     this.relation = relation;
+    this.targetRelationId = relation.id;
+    this.editableRouterId = relation.routerTypeId;
     this.$nextTick(() => {
       this.visibleConnectorMenu = true
     });
+  }
+
+  private onChangeRouterTypeOnEditor(routerType: RouterType) {
+    alert("親側に戻ってきたよ！" + routerType);
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
