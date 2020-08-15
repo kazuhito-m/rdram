@@ -255,8 +255,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     });
   }
 
-  private makeRouterBy(relation: Relation): any {
-    const routerType = RouterType.ofId(relation.routerTypeId);
+  private makeRouterBy(routerType: RouterType): any {
     if (!routerType) return undefined;
     if (routerType.equals(RouterType.INTERACTIVE_MANHATTAN)) return new draw2d.layout.connection.InteractiveManhattanConnectionRouter();
     if (routerType.equals(RouterType.CIRCUIT)) return new draw2d.layout.connection.CircuitConnectionRouter();
@@ -299,10 +298,12 @@ export default class BusinessContextDiagramEditor extends Vue {
 
     const start = canvas.getFigure(String(relation.fromResourceId));
     const end = canvas.getFigure(String(relation.toResourceId));
+    let routerType = RouterType.ofId(relation.routerTypeId);
+    if (!routerType) routerType = RouterType.DIRECT;
     // ちょっとトリッキーなデータの持ち方…解析しないとわからない。正攻法が在れば変えたい。
     connection.setSource(start.hybridPorts.data[0]);
     connection.setTarget(end.hybridPorts.data[0]);
-    connection.setRouter(this.makeRouterBy(relation));
+    connection.setRouter(this.makeRouterBy(routerType));
     connection.onContextMenu = this.onClickConnectorOnCanvas;
 
     canvas.add(connection);
@@ -530,6 +531,9 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private showConnectorRightClickMenu(relation: Relation,x: number, y:number):void{
+    console.log('canvas.getLineで撮った結果↓');
+    console.log(this.canvas.getLine(relation.id));
+
     this.visibleConnectorMenu = false;
     this.menuX = x;
     this.menuY = y;
@@ -542,7 +546,18 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private onChangeRouterTypeOnEditor(routerType: RouterType) {
-    alert("親側に戻ってきたよ！" + routerType);
+    this.transactionOf((diagram, product) => {
+      const relation = diagram.relations
+        .find(relation => relation.id === this.targetRelationId);
+      if (!relation) return false;
+      relation.routerTypeId = routerType.id;
+      return true;
+    });
+
+    const connection = this.canvas.getLine(this.targetRelationId);
+    if (!connection) return;
+    const router = this.makeRouterBy(routerType);
+    connection.setRouter(router);
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
