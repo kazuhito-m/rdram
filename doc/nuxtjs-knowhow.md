@@ -73,3 +73,13 @@
 - Vuetify.jsのプログレスバー
   - https://vuetifyjs.com/ja/components/progress-circular/#%E3%82%B5%E3%82%A4%E3%82%BA-%E5%B9%85%EF%BC%88%E5%A4%AA%E3%81%95%EF%BC%89
   - Nuxt.jsには直接関係ないけれど
+
+## デコレータと関係性
+
+- 【nuxt-property-decorator】よく使う親子間デコレータまとめ
+  - https://kalappo.net/nuxt-property-decorator-component/
+
+## Vue.jsとNuxt.js
+
+- Vue.js to TypeScriptの書き方一覧
+  
