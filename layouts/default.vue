@@ -83,7 +83,8 @@
       :absolute="!fixed"
       app
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span>&copy; {{ new Date().getFullYear() }} </span>
+      <a class="auther-link" link nuxt target="_new" href="https://twitter.com/kazuhito_m"> <v-icon>mdi-twitter</v-icon>kazuhito_m</a>
     </v-footer>
 
     <v-dialog v-model="visibleApplicationInitializationDialog" persistent max-width="500">
@@ -273,5 +274,8 @@ export default class extends Vue {
 /* Global */
 html {
   overflow-y:hidden;
+}
+.auther-link {
+  text-decoration: none;
 }
 </style>
