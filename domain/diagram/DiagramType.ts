@@ -37,7 +37,7 @@ export default class DiagramType {
                 id: newId,
                 typeId: this.id,
                 name: newName,
-                placementObjects: [],
+                placements: [],
                 relations: [],
                 availableResourceTypeIds: [ResourceType.事業体].map(type => type.id)
             };

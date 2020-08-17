@@ -20,7 +20,7 @@ export default class BCDMoveShapeEvents implements EventsOfType<BusinessContextD
         return this.validTargetFigures().length > 0;
     }
     public apply(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
-        const placements = diagram.placementObjects;
+        const placements = diagram.placements;
         for (let figure of this.validTargetFigures()) {
             const placement = placements
                 .find(placement => placement.resourceId === parseInt(figure.getId(), 10));

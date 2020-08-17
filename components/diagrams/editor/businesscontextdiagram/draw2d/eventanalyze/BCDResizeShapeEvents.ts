@@ -20,7 +20,7 @@ export default class BCDResizeShapeEvents implements EventsOfType<BusinessContex
         return true;
     }
     public apply(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
-        const placements = diagram.placementObjects;
+        const placements = diagram.placements;
         for (let figure of this.validTargetFigures()) {
             const resourceId = parseInt(figure.getId(), 10);
             const placement = placements

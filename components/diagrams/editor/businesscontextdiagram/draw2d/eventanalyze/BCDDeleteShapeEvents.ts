@@ -53,7 +53,7 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
         const allRelationsIds = relationIds.concat(relationIdsOfDeleteTargetResouce) as string[];
 
         // Iconに対応する位置情報を削除
-        const placements = diagram.placementObjects;
+        const placements = diagram.placements;
         for (let j = placements.length - 1; j >= 0; j--) {
             const resourceId = placements[j].resourceId;
             if (resourceIds.some(deleteResourceId => deleteResourceId === resourceId)) {

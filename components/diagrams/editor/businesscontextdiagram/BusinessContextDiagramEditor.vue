@@ -280,7 +280,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private drowDiagram() {
-    for (let placement of this.diagram.placementObjects) {
+    for (let placement of this.diagram.placements) {
       const resource = this.usedResources
         .find(resource => resource.resourceId === placement.resourceId);
       if (!resource) continue;
@@ -409,7 +409,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private shallowCopy(src: BusinessContextDiagram, dist: BusinessContextDiagram) {
     dist.name = src.name;
-    dist.placementObjects = src.placementObjects;
+    dist.placements = src.placements;
     dist.availableResourceTypeIds = src.availableResourceTypeIds;
     dist.relations = src.relations;
   }
@@ -464,7 +464,7 @@ export default class BusinessContextDiagramEditor extends Vue {
       height: 50,
       resourceId: resoruce.resourceId
     };
-    diagram.placementObjects.push(placement);
+    diagram.placements.push(placement);
 
     this.addCompanyIcon(placement, resoruce);
     return true;
@@ -492,7 +492,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     const diagram = this.diagram;
     const product = this.product;
 
-    const usedResourceIds = diagram.placementObjects
+    const usedResourceIds = diagram.placements
       .map(placement => placement.resourceId);
 
     const parets: Paret[] = diagram.availableResourceTypeIds
@@ -565,7 +565,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
     console.log(`---- ${prefix} Diagram情報 start ----`);
-    diagram.placementObjects.forEach(i => console.log(`位置;${i.resourceId}`));
+    diagram.placements.forEach(i => console.log(`位置;${i.resourceId}`));
     diagram.relations.forEach(i => console.log(`線;${i.id}, from:${i.fromResourceId}, to:${i.toResourceId}`));
     console.log(`---- ${prefix} Diagram情報 end ----`);
   }
