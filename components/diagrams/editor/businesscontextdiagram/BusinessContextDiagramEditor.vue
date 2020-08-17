@@ -201,14 +201,17 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   public mounted() {
-    this.$nuxt.$loading.start();
-  
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start();
+    });
     this.showCanvas();
     this.fixCanvasPosition();
     this.addCanvasEvent();
     this.drowDiagram();
 
-    this.$nuxt.$loading.finish();  // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
+    this.$nextTick(() => {
+      this.$nuxt.$loading.finish();  // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
+    });
   }
 
   private showCanvas(): void {
