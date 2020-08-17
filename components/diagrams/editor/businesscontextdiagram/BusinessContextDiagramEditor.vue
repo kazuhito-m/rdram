@@ -113,6 +113,7 @@
       :relationId="targetRelationId"
       :selectedRouterTypeId="editableRouterId"
       @onChangeRouterType="onChangeRouterTypeOnEditor"
+      @onClickDeleteConnection="onClickDeleteConnection"
     />
   </div>
 </template>
@@ -534,9 +535,6 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private showConnectorRightClickMenu(relation: Relation,x: number, y:number):void{
-    console.log('canvas.getLineで撮った結果↓');
-    console.log(this.canvas.getLine(relation.id));
-
     this.visibleConnectorMenu = false;
     this.menuX = x;
     this.menuY = y;
@@ -561,6 +559,22 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (!connection) return;
     const router = this.makeRouterBy(routerType);
     connection.setRouter(router);
+  }
+
+  private onClickDeleteConnection() {
+    this.transactionOf((diagram, product) => {
+      const relations = diagram.relations;
+      for (let i = 0; i < relations.length; i++) {
+        const relation = relations[i];
+        if (relation.id !== this.targetRelationId) continue; 
+        relations.splice(i, 1);
+        break;
+      }
+      return true;
+    });
+
+    const connection = this.canvas.getLine(this.targetRelationId);
+    this.canvas.remove(connection);
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
