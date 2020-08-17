@@ -10,8 +10,11 @@
       :position-y="menuPositionY"
     >
       <v-list>
-        <v-list-item link>
-          <v-list-item-title @click="onClickChangeRouter">関連の線形(軌跡の形状)を変更...</v-list-item-title>
+        <v-list-item link @click="onClickChangeRouter">
+          <v-list-item-title>関連の線形(軌跡の形状)を変更...</v-list-item-title>
+        </v-list-item>
+        <v-list-item link @click="onClickDeleteConnection">
+          <v-list-item-title>関連の削除</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -71,6 +74,9 @@ export default class ConnectorRightClickMenuAndEditor extends Vue {
   private onChangeRouterType(routerType: RouterType) {
     this.visibleRouterSelector = false;
   }
+
+  @Emit("onClickDeleteConnection")
+  private onClickDeleteConnection() {}
 }
 
 export interface RelationContainer {
