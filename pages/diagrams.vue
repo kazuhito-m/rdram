@@ -35,8 +35,8 @@
                 :position-y="menuPositionY"
             >
               <v-list>
-                <v-list-item link>
-                  <v-list-item-title @click="onClickMenuAddDiagram">ダイアグラムを追加する...</v-list-item-title>
+                <v-list-item link @click="onClickMenuAddDiagram">
+                  <v-list-item-title>ダイアグラムを追加する...</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
