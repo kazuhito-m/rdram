@@ -217,7 +217,6 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private showCanvas(): void {
     const canvas = new draw2d.Canvas(this.canvasId);
-    canvas.installEditPolicy(new draw2d.policy.canvas.FadeoutDecorationPolicy());
     canvas.installEditPolicy(new draw2d.policy.canvas.CoronaDecorationPolicy());
     canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
 
