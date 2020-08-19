@@ -15,7 +15,7 @@ export default class Loading extends Vue {
 
   public start() {
     this.startTime = performance.now();
-    console.log("Loading表示開始。" + new Date());
+    console.log(`Loading表示開始。${new Date()}`);
 
     this.loading = true;
   }
@@ -24,7 +24,8 @@ export default class Loading extends Vue {
     this.loading = false;
 
     const time = performance.now() - this.startTime;
-    console.log("Loading表示終了。" + new Date() + "表示時間:" + time + " ms");
+    console.log(`Loading表示終了。${new Date()} 表示時間:${time.toFixed(3)} ms`);
+
     this.startTime = 0;
   }
 }

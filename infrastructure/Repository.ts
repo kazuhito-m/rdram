@@ -26,18 +26,27 @@ export default class Repository {
     }
 
     public get(): LocalStrage | undefined {
+        const startTime = performance.now();
+
         const textData = localStorage.getItem(Repository.STRAGE_ID);
         if (!textData) return undefined;
-        console.log(`repository.get(), ${textData.length} 文字取得。`);
+        const strage = JSON.parse(textData);
+
         // console.log(textData);
-        return JSON.parse(textData);
+        const ms = performance.now() - startTime;
+        console.log(`repository.get(),      ${(new Blob([textData])).size} byte取得。${ms.toFixed(3)} ms`);
+        return strage;
     }
 
     public register(strage: LocalStrage): void {
+        const startTime = performance.now();
+
         const jsonText = JSON.stringify(strage);
-        console.log(`repository.register(), ${jsonText.length} 文字保存。`);
-        // console.log('register: ' + jsonText)
         localStorage.setItem(Repository.STRAGE_ID, jsonText);
+
+        const ms = performance.now() - startTime;
+        console.log(`repository.register(), ${(new Blob([jsonText])).size} byte保存。${ms.toFixed(3)} ms`);
+        // console.log('register: ' + jsonText)
     }
 
     public getCurrentProduct(): Product | null {
