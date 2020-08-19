@@ -217,6 +217,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private showCanvas(): void {
     const canvas = new draw2d.Canvas(this.canvasId);
+    canvas.installEditPolicy(new draw2d.policy.canvas.FadeoutDecorationPolicy());
     canvas.installEditPolicy(new draw2d.policy.canvas.CoronaDecorationPolicy());
     canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
 
@@ -273,6 +274,7 @@ export default class BusinessContextDiagramEditor extends Vue {
       const name = router.NAME;
       if (!name) return RouterType.DIRECT;
 
+      if (name === "draw2d.layout.connection.ManhattanConnectionRouter") return RouterType.INTERACTIVE_MANHATTAN;
       if (name === "draw2d.layout.connection.CircuitConnectionRouter") return RouterType.CIRCUIT;
       if (name === "draw2d.layout.connection.SplineConnectionRouter") return RouterType.SPLINE;
       if (name === "draw2d.layout.connection.SketchConnectionRouter") return RouterType.SKETCH;
@@ -546,6 +548,11 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private onChangeRouterTypeOnEditor(routerType: RouterType) {
+    const connection = this.canvas.getLine(this.targetRelationId);
+    if (!connection) return;
+    const router = this.makeRouterBy(routerType);
+    connection.setRouter(router);
+
     this.transactionOf((diagram, product) => {
       const relation = diagram.relations
         .find(relation => relation.id === this.targetRelationId);
@@ -553,14 +560,12 @@ export default class BusinessContextDiagramEditor extends Vue {
       relation.routerTypeId = routerType.id;
       return true;
     });
-
-    const connection = this.canvas.getLine(this.targetRelationId);
-    if (!connection) return;
-    const router = this.makeRouterBy(routerType);
-    connection.setRouter(router);
   }
 
   private onClickDeleteConnection() {
+    const connection = this.canvas.getLine(this.targetRelationId);
+    this.canvas.remove(connection);
+
     this.transactionOf((diagram, product) => {
       const relations = diagram.relations;
       for (let i = 0; i < relations.length; i++) {
@@ -571,9 +576,6 @@ export default class BusinessContextDiagramEditor extends Vue {
       }
       return true;
     });
-
-    const connection = this.canvas.getLine(this.targetRelationId);
-    this.canvas.remove(connection);
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
