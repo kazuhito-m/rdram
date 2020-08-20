@@ -493,6 +493,7 @@ export default class BusinessContextDiagramEditor extends Vue {
       height: 50,
       resourceId: resource.resourceId
     };
+    console.log('ここまでとれたらおｋ');
     diagram.placements.push(placement);
 
     return this.addResouceIconToCanvas(resource, placement);
@@ -509,7 +510,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 
     const icon = iconGenerator.generate(placement, resource, this.iconStyleOf(resourceType));
     this.canvas.add(icon);
-    return false;
+    return true;
   }
 
   private choiceIconGenerator(resourceType: ResourceType): IconGenerator | null {
