@@ -102,22 +102,16 @@
       <a class="auther-link" target="_new" href="https://twitter.com/kazuhito_m"> <v-icon>mdi-twitter</v-icon>kazuhito_m</a>
     </v-footer>
 
-    <v-dialog v-model="visibleApplicationInitializationDialog" persistent max-width="500">
-      <v-card>
-        <v-card-title class="headline">LocalStrageが初期化されていません。</v-card-title>
-        <v-card-text>このWebアプリケーションは、ブラウザ固有のストレージ(LocalStarage)を使用します。<br>LocalStrageを初期化し、データを保存してよろしいですか。</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green darken-1" text @click="onAcceptUseLocalStrage">許可する</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
     <ProductSelectorDialog 
       :visibleProductSelectorDialog="visibleProductSelector"
       :cancelable="productSelectorCancelable"
       @onClose="onCloseChangeProduct"
-     />
+    />
+
+    <LocalStrageInitializeDialog 
+      :visible="visibleApplicationInitializationDialog"
+      @onClose="onCloseApplicationInitializationDialog"
+    />
 
     <TestSample :visibleTest="testOn" @onCloseTest="onClose" />
 
@@ -132,11 +126,13 @@ import Product from "@/domain/product/Product";
 import ProductIdentifier from "@/domain/product/ProductIdentifier";
 import TestSample from '@/components/TestSample.vue';
 import ProductSelectorDialog from '@/components/ProductSelectorDialog.vue'
+import LocalStrageInitializeDialog from '@/components/LocalStrageInitializeDialog.vue';
 
 @Component({
   components: {
     TestSample,
     ProductSelectorDialog,
+    LocalStrageInitializeDialog,
   }
 })
 export default class extends Vue {
@@ -173,6 +169,13 @@ export default class extends Vue {
   @Provide()
   private readonly repository = new Repository();
 
+  // this classs property & functions.
+
+  private visibleApplicationInitializationDialog = false;
+
+  private visibleProductSelector = false;
+  private productSelectorCancelable = false;
+
   public created() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
@@ -182,7 +185,6 @@ export default class extends Vue {
     if (this.showApplicationInitialization()) return;
     this.showProductSelectorWhenNotSelected();
   }
-  private visibleApplicationInitializationDialog = false;
 
   private showApplicationInitialization(): boolean {
     if (this.repository.isInitialized()) return false;
@@ -190,14 +192,10 @@ export default class extends Vue {
     return true;
   }
 
-  public onAcceptUseLocalStrage() {
-    this.repository.initialize();
+  public onCloseApplicationInitializationDialog() {
     this.visibleApplicationInitializationDialog = false;
     this.showProductSelectorWhenNotSelected();
   }
-
-  private visibleProductSelector = false;
-  private productSelectorCancelable = false;
 
   public showProductSelectorWhenNotSelected() {
     this.visibleProductSelector = false;
@@ -208,6 +206,7 @@ export default class extends Vue {
     this.visibleProductSelector = true;
     });
   }
+
   private onChangeProduct(): void {
     this.visibleProductSelector = false;
     this.rightDrawer = false;

@@ -62,9 +62,6 @@ export default class ProductSelectorDialog extends Vue {
 
   private onOpen(): string {
     if (!this.visibleProductSelectorDialog) return "";
-    console.log("ProductSelectorDialog.onOpen()");
-
-    console.log("cancelable:" + this.cancelable);
 
     const starge = this.repository?.get();
     if (!starge) return "";
