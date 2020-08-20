@@ -367,22 +367,14 @@ export default class BusinessContextDiagramEditor extends Vue {
     let resourceId = parseInt(textData, 10);
     // 新規追加時。
     if (resourceId < 0) {
+      let resource: Resource | null = null;
       const resourceTypeId = resourceId * -1;
-      if (resourceTypeId === ResourceType.事業体.id) {
-        const name = prompt("追加する事業体の名前を入力してください。");
-        if (!name) return false;
-        if (!this.validateCompanyName(name)) return false;
-
-        const company: Company = {
-          resourceId: this.repository.generateResourceId(),
-          resourceTypeId: ResourceType.事業体.id,
-          name: name,
-          description: '',
-        };
-        this.allResourcesOnCurrentProduct.push(company);
-        this.onUpdateResources();
-        resourceId = company.resourceId;
-      }
+      if (resourceTypeId === ResourceType.事業体.id) resource = this.createNewCompanyResource();
+      
+      if (!resource) return;
+      this.allResourcesOnCurrentProduct.push(resource);
+      this.onUpdateResources();
+      resourceId = resource.resourceId;
     }
 
     // 追加後は「図への追加(ふつーのドラッグ)」と一緒。
@@ -393,6 +385,20 @@ export default class BusinessContextDiagramEditor extends Vue {
 
       return this.addResourceToDiagram(resource, x, y , diagram);
     });
+  }
+
+  private createNewCompanyResource(): Company | null{
+    const name = prompt("追加する事業体の名前を入力してください。");
+    if (!name) return null;
+    if (!this.validateCompanyName(name)) return null;
+
+    const company: Company = {
+      resourceId: this.repository.generateResourceId(),
+      resourceTypeId: ResourceType.事業体.id,
+      name: name,
+      description: '',
+    };
+    return company;
   }
 
   public onDropOverCanvas(event: DragEvent):void {
@@ -463,14 +469,16 @@ export default class BusinessContextDiagramEditor extends Vue {
     };
     diagram.placements.push(placement);
 
-    this.addCompanyIcon(placement, resoruce);
-    return true;
+    const resourceType = ResourceType.ofId(resoruce.resourceTypeId);
+    if (resourceType?.equals(ResourceType.事業体)) return this.addCompanyIcon(placement, resoruce);
+    return false;
   }
 
-  private addCompanyIcon(placement:Placement, resoruce: Resource) {
+  private addCompanyIcon(placement:Placement, resoruce: Resource):boolean {
     const icon = this.companyIconGenerator
       .generate(placement, resoruce as Company, this.iconStyleOf(ResourceType.事業体));
     this.canvas.add(icon);
+    return true;
   }
 
   private iconStyleOf(resourceType: ResourceType): CSSStyleDeclaration {

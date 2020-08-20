@@ -11,6 +11,10 @@ export default class ResourceType {
         ResourceType.vs.push(this);
     }
 
+    public equals(other: ResourceType): boolean {
+        return other?.id === this.id;
+    }
+
     public static values(): ResourceType[] {
         return ResourceType.vs;
     }
