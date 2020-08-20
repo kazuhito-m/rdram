@@ -216,7 +216,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.showCanvas();
     this.fixCanvasPosition();
     this.addCanvasEvent();
-    this.drowDiagram();
+    this.drawDiagram();
 
     this.$nextTick(() => {
       this.$nuxt.$loading.finish();  // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
@@ -291,7 +291,7 @@ export default class BusinessContextDiagramEditor extends Vue {
       return RouterType.DIRECT;
   }
 
-  private drowDiagram() {
+  private drawDiagram() {
     for (let placement of this.diagram.placements) {
       const resource = this.allResourcesOnCurrentProduct
         .find(resource => resource.resourceId === placement.resourceId);
