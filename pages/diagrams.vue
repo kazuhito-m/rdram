@@ -72,6 +72,8 @@
               >
                 <DiagramEditorContainer
                   :diagram-id="item.id"
+                  :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+                  @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
                 />
               </v-tab-item>
             </v-tabs-items>
@@ -89,6 +91,8 @@ import Repository from "@/infrastructure/Repository";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
+import ResourceType from "../domain/resource/ResourceType";
+import Resource from "../domain/resource/Resource";
 
 @Component({
   components: {
@@ -114,7 +118,12 @@ export default class extends Vue {
   private currentTabIndex: number | null = null;
   private openTabs:TreeItem[] = [];
 
+  private allResourcesOnCurrentProduct: Resource[] = [];
+
   public created():void {
+  const product = this.repository.getCurrentProduct();
+    if (!product) return;
+     
     const items = this.treeItems;
     DiagramType.values()
       .map(type => {
@@ -125,15 +134,12 @@ export default class extends Vue {
         } as TreeItem;
       })
       .forEach(item => items.push(item));
-
-    this.productDiagrams()
+    
+    product.diagrams
       .forEach(product => this.addDiagramTreeItem(product));
-  }
 
-  private productDiagrams(): Diagram[] {
-    const product = this.repository.getCurrentProduct();
-    if (!product) return [];
-    return product.diagrams;
+    product.resources
+      .forEach(resource => this.allResourcesOnCurrentProduct.push(resource));
   }
 
   public onClickTreeItem(treeItemIdText: string): void {
@@ -286,6 +292,19 @@ export default class extends Vue {
     if (openIds.some(id => id === parentTreeItemId))
       openIds.splice(openIds.indexOf(parentTreeItemId), 1);
     openIds.push(parentTreeItemId);
+  }
+
+  private onUpdateResoucesOnContainer(): void {
+    this.saveAllResources();
+  }
+
+  private saveAllResources(): void {
+    console.log("トップ画面でのリソース全保存");
+    const product = this.repository.getCurrentProduct();
+    if (!product) return;
+    product.resources = this.allResourcesOnCurrentProduct
+    product.resources.forEach(r => console.log(`id:${r.resourceId}, name:${r.name}`));
+    this.repository.registerCurrentProduct(product);
   }
 }
 

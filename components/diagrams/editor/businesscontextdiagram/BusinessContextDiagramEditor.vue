@@ -12,13 +12,13 @@
         dark
       >
         <v-expansion-panel class="paret-panel"
-          v-for="paret in parets"
-          :key="paret.resourceType.id" 
+          v-for="resourceType in availableResourceTypes"
+          :key="resourceType.id" 
         >
           <v-expansion-panel-header>
             <div class="omit-long-text">
-              <v-icon :id="paret.resourceType.iconKey">{{ paret.resourceType.iconKey }}</v-icon>
-              {{ paret.resourceType.name }}
+              <v-icon :id="resourceType.iconKey">{{ resourceType.iconKey }}</v-icon>
+              {{ resourceType.name }}
             </div>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
@@ -28,7 +28,7 @@
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
                       <v-chip color="primary" dark outlined draggable @dragstart="onDragStartNewCompany">
-                        <v-icon>{{ paret.resourceType.iconKey }}</v-icon>
+                        <v-icon>{{ resourceType.iconKey }}</v-icon>
                         新規追加
                       </v-chip>
                   </v-list-item-title>
@@ -36,14 +36,17 @@
               </v-list-item>
 
               <v-list-item
-                v-for="resource in paret.resources"
+                v-for="resource in allResourcesOnCurrentProduct.filter(r => filterDisplayParet(r, resourceType))"
                 :key="resource.resourceId"
               >
 
-                <v-list-item-content>
+                <v-list-item-content >
                   <v-list-item-title class="chip-container">
-                      <v-chip color="primary" dark draggable @dragstart="onDragStartResource" v-bind:data-resource-id="resource.resourceId">
-                        <v-icon>{{ paret.resourceType.iconKey }}</v-icon>
+                      <v-chip color="primary" dark draggable
+                        @dragstart="onDragStartResource" 
+                        v-bind:data-resource-id="resource.resourceId"
+                      >
+                        <v-icon>{{ resourceType.iconKey }}</v-icon>
                         {{ resource.name }}
                       </v-chip>
                   </v-list-item-title>
@@ -67,7 +70,7 @@
             <v-list dark dence>
 
               <v-list-item
-                v-for="usedResource in usedResources"
+                v-for="usedResource in allResourcesOnCurrentProduct.filter(r => filterUsedList(r))"
                 :key="usedResource.id"
               >
                 <v-list-item-content>
@@ -161,6 +164,9 @@ export default class BusinessContextDiagramEditor extends Vue {
   private readonly diagram!: BusinessContextDiagram;
   private product!: Product;
 
+  @Prop({ required: true })
+  private allResourcesOnCurrentProduct!: Resource[];
+
   private canvas!: draw2d.Canvas;
   private readonly eventAnalyzer = new EventAnalyzer([
     new BCDDeleteShapeEvents(),
@@ -175,8 +181,8 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private paretPainWidth: string | null = null;
   private readonly paretsOpen: number[] = [];
-  private readonly parets: Paret[] = [];
-  private readonly usedResources: Resource[] = [];
+  // private readonly parets: Paret[] = [];
+  private availableResourceTypes: ResourceType[] = [];
 
   private warnBar: boolean = false;
   private warnMessage: string = '';
@@ -197,8 +203,12 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.paretPainId = "paretPain" + diagramId;
     this.canvasId = "canvas" + diagramId;
 
-    this.resyncParets();
-    for (let i = 0; i < this.parets.length + 1; i++) this.paretsOpen.push(i);
+    // this.resyncParets();
+    this.diagram.availableResourceTypeIds
+      .map(resourceTypeId => ResourceType.ofId(resourceTypeId))
+      .filter(resourceType => resourceType !== null)
+      .forEach(resourceType => this.availableResourceTypes.push(resourceType as ResourceType))
+    for (let i = 0; i < this.availableResourceTypes.length + 1; i++) this.paretsOpen.push(i);
   }
 
   public mounted() {
@@ -216,7 +226,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   @Emit('onUpdateResources')
-  private onUpdateResources(diagramId: number): void {}
+  private onUpdateResources(): void {}
 
   private showCanvas(): void {
     const canvas = new draw2d.Canvas(this.canvasId);
@@ -285,7 +295,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private drowDiagram() {
     for (let placement of this.diagram.placements) {
-      const resource = this.usedResources
+      const resource = this.allResourcesOnCurrentProduct
         .find(resource => resource.resourceId === placement.resourceId);
       if (!resource) continue;
 
@@ -356,23 +366,35 @@ export default class BusinessContextDiagramEditor extends Vue {
 
     const textData = event.dataTransfer?.getData('text');
     if (!textData) return;
-    const resourceId = parseInt(textData, 10);
+    let resourceId = parseInt(textData, 10);
     // 新規追加時。
     if (resourceId < 0) {
       const resourceTypeId = resourceId * -1;
-      if (resourceTypeId === ResourceType.事業体.id) this.createNewCompany(x, y);
-      return;
+      if (resourceTypeId === ResourceType.事業体.id) {
+        const name = prompt("追加する事業体の名前を入力してください。");
+        if (!name) return false;
+        if (!this.validateCompanyName(name)) return false;
+
+        const company: Company = {
+          resourceId: this.repository.generateResourceId(),
+          resourceTypeId: ResourceType.事業体.id,
+          name: name,
+          description: '',
+        };
+        this.allResourcesOnCurrentProduct.push(company);
+        this.onUpdateResources();
+        resourceId = company.resourceId;
+      }
     }
 
-    // それ以外は「図への追加(ふつーのドラッグ)」
+    // 追加後は「図への追加(ふつーのドラッグ)」と一緒。
     this.transactionOf((diagram, product) => {
-      const resource = product.resources
+      const resource = this.allResourcesOnCurrentProduct
         .find(resource => resource.resourceId === resourceId);
       if (!resource) return false;
 
       return this.addResourceToDiagram(resource, x, y , diagram);
     });
-    this.resyncParets();
   }
 
   public onDropOverCanvas(event: DragEvent):void {
@@ -418,35 +440,12 @@ export default class BusinessContextDiagramEditor extends Vue {
     dist.relations = src.relations;
   }
 
-  private createNewCompany(x: number , y: number) {
-    this.transactionOf((diagram, product) => {
-      const name = prompt("追加する事業体の名前を入力してください。");
-      if (!name) return false;
-      if (!this.validateCompanyName(name, product)) return false;
-
-      const company: Company = {
-        resourceId: this.generateResourceId(product),
-        resourceTypeId: ResourceType.事業体.id,
-        name: name,
-        description: '',
-      };
-
-      product.resources.push(company);
-
-      if (!this.addResourceToDiagram(company, x, y, diagram)) return false;
-    
-      this.resyncParets();
-      this.syncOtherDiagramParets();
-      return true;
-    });
-  }
-
-  private validateCompanyName(companyName: string, product: Product): boolean {
+  private validateCompanyName(companyName: string): boolean {
     if (companyName.length > 255) {
       alert('プロダクト名は255文字以内で入力してください。');
       return false;
     }
-    const exists = product.resources
+    const exists = this.allResourcesOnCurrentProduct
       .filter(resource => resource.resourceTypeId === ResourceType.事業体.id)
       .some(resource => resource.name === companyName);
     if (exists) {
@@ -454,10 +453,6 @@ export default class BusinessContextDiagramEditor extends Vue {
       return false;
     }
     return true;
-  }
-
-  private generateResourceId(product: Product) {
-    return ++product.resourceIdSequence;
   }
 
   private addResourceToDiagram(resoruce: Resource,left: number,top: number,diagram: BusinessContextDiagram): boolean {
@@ -492,35 +487,35 @@ export default class BusinessContextDiagramEditor extends Vue {
     return resourceType.iconKey;
   }
 
-  public resyncParets(): void {
-    const diagram = this.diagram;
-    const product = this.product;
+  // public resyncParets(): void {
+  //   const diagram = this.diagram;
+  //   const product = this.product;
 
-    const usedResourceIds = diagram.placements
-      .map(placement => placement.resourceId);
+  //   const usedResourceIds = diagram.placements
+  //     .map(placement => placement.resourceId);
 
-    const parets: Paret[] = diagram.availableResourceTypeIds
-      .map(typeId => ResourceType.ofId(typeId) as ResourceType)
-      .map(type => {
-        const paret: Paret = {
-          resourceType: type,
-          resources: product.resources
-            .filter(resource => resource.resourceTypeId === type.id)
-            .filter(resource => usedResourceIds.every(id => id !== resource.resourceId)),
-        }
-        return paret;
-      });
+  //   const parets: Paret[] = diagram.availableResourceTypeIds
+  //     .map(typeId => ResourceType.ofId(typeId) as ResourceType)
+  //     .map(type => {
+  //       const paret: Paret = {
+  //         resourceType: type,
+  //         resources: product.resources
+  //           .filter(resource => resource.resourceTypeId === type.id)
+  //           .filter(resource => usedResourceIds.every(id => id !== resource.resourceId)),
+  //       }
+  //       return paret;
+  //     });
 
-    const usedResources = product.resources
-      .filter(resource => usedResourceIds.some(id => id === resource.resourceId));
+  //   const usedResources = product.resources
+  //     .filter(resource => usedResourceIds.some(id => id === resource.resourceId));
 
-    // reactiveに動く前提として、「配列自体の参照は残す」が「出来るだけ時間掛けない(低コスト)」にしたい。
-    // なので「材料は予め用意しておいて、移し替えだけ集中してやる」にする。
-    this.parets.length = 0;
-    for (let paret of parets) this.parets.push(paret);
-    this.usedResources.length = 0;
-    for (let resource of usedResources) this.usedResources.push(resource);
-  }
+  //   // reactiveに動く前提として、「配列自体の参照は残す」が「出来るだけ時間掛けない(低コスト)」にしたい。
+  //   // なので「材料は予め用意しておいて、移し替えだけ集中してやる」にする。
+  //   this.parets.length = 0;
+  //   for (let paret of parets) this.parets.push(paret);
+  //   this.usedResources.length = 0;
+  //   for (let resource of usedResources) this.usedResources.push(resource);
+  // }
 
   /**
    * 開いている他の図の右側パレットを、データの状態と同期する。
@@ -528,7 +523,7 @@ export default class BusinessContextDiagramEditor extends Vue {
    * リソースの削除や追加の場合のみ、「他の図に影響が行く」のでそれは更新されないといけない。
    */
   private syncOtherDiagramParets() {
-    this.onUpdateResources(this.diagram.id);
+    this.onUpdateResources();
   }
 
   public showWarnBar(text: string): void {
@@ -577,6 +572,17 @@ export default class BusinessContextDiagramEditor extends Vue {
       }
       return true;
     });
+  }
+
+  private filterDisplayParet(resource: Resource, resourceType: ResourceType): boolean {
+    if (resource.resourceTypeId !== resourceType.id) return false;
+    return this.diagram.placements
+      .every(placement => placement.resourceId !== resource.resourceId);
+  }
+
+  private filterUsedList(resource: Resource): boolean {
+    return this.diagram.placements
+      .some(placement => placement.resourceId === resource.resourceId);
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {

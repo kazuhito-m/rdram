@@ -69,7 +69,7 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
             }
         }
 
-        view.resyncParets(); // UI同期。
+        // view.resyncParets(); // UI同期。
         return true;
     }
 

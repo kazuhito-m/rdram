@@ -1,14 +1,16 @@
 <template>
   <div>
     <BusinessContextDiagramEditor
-      :diagram="diagram"
       v-if="is('ビジネスコンテキスト図')"
-      @onUpdateResources="onUpdateResouceOnEditor"
+      :diagram="diagram"
+      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      @onUpdateResources="onUpdateResoucesOnEditor"
     />
     <StateModelEditor
-      :diagram="diagram"
       v-if="is('状態モデル')"
-      @onUpdateResources="onUpdateResouceOnEditor"
+      :diagram="diagram"
+      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      @onUpdateResources="onUpdateResoucesOnEditor"
     />
   </div>
 </template>
@@ -20,6 +22,7 @@ import StateModelEditor from "@/components/diagrams/editor/statemodel/StateModel
 import Repository from "@/infrastructure/Repository";
 import Diagram from "@/domain/diagram/Diagram";
 import DiagramType from "@/domain/diagram/DiagramType";
+import Resource from "../../domain/resource/Resource";
 
 @Component({
   components: {
@@ -34,19 +37,22 @@ export default class DiagramEditorContainer extends Vue {
   @Prop({ required: true })
   private readonly diagramId!: number;
 
+  @Prop({ required: true})
+  private allResourcesOnCurrentProduct?: Resource[];
+
   private diagram: Diagram | null = null;
 
   public created(): void {
     this.diagram = this.diagramOf(this.diagramId);
   }
 
-  private onUpdateResouceOnEditor(diagramId: number): void {
-    console.log(`onUpdateResouceOnEditor(): ${diagramId}`);
-    this.onUpdateResouceOnContainer(diagramId);
+  private onUpdateResoucesOnEditor(): void {
+    console.log(`onUpdateResoucesOnEditor()`);
+    this.onUpdateResoucesOnContainer();
   }
 
-  @Emit("onUpdateResouceOnContainer")
-  private onUpdateResouceOnContainer(diagramId: number): void {}
+  @Emit("onUpdateResoucesOnContainer")
+  private onUpdateResoucesOnContainer(): void {}
 
   private diagramOf(diagramId: number): Diagram | null {
     const product = this.repository.getCurrentProduct();

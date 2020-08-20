@@ -88,4 +88,12 @@ export default class Repository {
     public clear() {
         localStorage.removeItem(Repository.STRAGE_ID);
     }
+
+    public generateResourceId(): number {
+        const product = this.getCurrentProduct();
+        if (!product) return 1;
+        product.resourceIdSequence++;
+        this.registerCurrentProduct(product);
+        return product.resourceIdSequence;
+    }
 }
