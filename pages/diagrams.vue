@@ -70,7 +70,9 @@
                 v-for="item in openTabs"
                 :key="item.id"
               >
-                <DiagramEditorContainer :diagram-id="item.id" />
+                <DiagramEditorContainer
+                  :diagram-id="item.id"
+                />
               </v-tab-item>
             </v-tabs-items>
           </div>
@@ -95,7 +97,7 @@ import Diagram from "@/domain/diagram/Diagram";
 })
 export default class extends Vue {
   private readonly EMPTY_ITEMS: TreeItem = { id: 0, name: "(空)", children: [], disabled: true};
-  private readonly DIAGRAM_ID_MASK: number = 1000000;
+  private readonly DIAGRAM_FOLDER_ID_MASK: number = 1000000;
 
   @Inject()
   private readonly repository!: Repository;
@@ -117,7 +119,7 @@ export default class extends Vue {
     DiagramType.values()
       .map(type => {
         return {
-          id: type.id + this.DIAGRAM_ID_MASK,
+          id: type.id + this.DIAGRAM_FOLDER_ID_MASK,
           name: type.name,
           children: [this.EMPTY_ITEMS]
         } as TreeItem;
@@ -166,7 +168,7 @@ export default class extends Vue {
     const data = element.getAttribute('data-item-id');
     if (!data) return;
     const treeItemId = parseInt(data, 10);
-    if (treeItemId <= this.DIAGRAM_ID_MASK) return;
+    if (treeItemId <= this.DIAGRAM_FOLDER_ID_MASK) return;
     this.menuTargetTreeItemId = treeItemId;
 
     this.enableRightClickMenu = false;
@@ -195,7 +197,7 @@ export default class extends Vue {
     const item = this.treeItems
       .find(item => item.id === this.menuTargetTreeItemId);
     if (!item) return;
-    const diagramType = DiagramType.ofId(item.id - this.DIAGRAM_ID_MASK);
+    const diagramType = DiagramType.ofId(item.id - this.DIAGRAM_FOLDER_ID_MASK);
     if (!diagramType) return;
 
     const name = prompt(`追加する ${diagramType.name} の名前を入力してください。`);
@@ -239,7 +241,7 @@ export default class extends Vue {
   }
 
   private addDiagramTreeItem(diagram: Diagram): void {
-    const maskedDialogTypeId = diagram.typeId + this.DIAGRAM_ID_MASK;
+    const maskedDialogTypeId = diagram.typeId + this.DIAGRAM_FOLDER_ID_MASK;
     const folderItem = this.treeItems
       .find(item => item.id === maskedDialogTypeId);
     if (!folderItem) return;

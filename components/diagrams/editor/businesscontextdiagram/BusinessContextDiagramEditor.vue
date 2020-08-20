@@ -119,7 +119,7 @@
 </template>
 
 <script lang="ts">
-import { Prop, Component, Vue, Inject } from "nuxt-property-decorator";
+import { Prop, Component, Vue, Inject, Emit } from "nuxt-property-decorator";
 import ConnectorRightClickMenuAndEditor from "./ConnectorRightClickMenuAndEditor.vue";
 import { RelationContainer } from "./ConnectorRightClickMenuAndEditor.vue";
 
@@ -214,6 +214,9 @@ export default class BusinessContextDiagramEditor extends Vue {
       this.$nuxt.$loading.finish();  // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
     });
   }
+
+  @Emit('onUpdateResources')
+  private onUpdateResources(diagramId: number): void {}
 
   private showCanvas(): void {
     const canvas = new draw2d.Canvas(this.canvasId);
@@ -525,8 +528,7 @@ export default class BusinessContextDiagramEditor extends Vue {
    * リソースの削除や追加の場合のみ、「他の図に影響が行く」のでそれは更新されないといけない。
    */
   private syncOtherDiagramParets() {
-    // TODO 実装
-    console.log('TODO実装。自分の親に言って、すべての図でみぎPaletを更新してこいと。');
+    this.onUpdateResources(this.diagram.id);
   }
 
   public showWarnBar(text: string): void {

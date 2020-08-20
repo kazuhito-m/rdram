@@ -1,12 +1,20 @@
 <template>
   <div>
-    <BusinessContextDiagramEditor :diagram="diagram" v-if="is('ビジネスコンテキスト図')" />
-    <StateModelEditor :diagram="diagram" v-if="is('状態モデル')" />
+    <BusinessContextDiagramEditor
+      :diagram="diagram"
+      v-if="is('ビジネスコンテキスト図')"
+      @onUpdateResources="onUpdateResouceOnEditor"
+    />
+    <StateModelEditor
+      :diagram="diagram"
+      v-if="is('状態モデル')"
+      @onUpdateResources="onUpdateResouceOnEditor"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Inject } from "nuxt-property-decorator";
+import { Component, Vue, Prop, Inject, Emit } from "nuxt-property-decorator";
 import BusinessContextDiagramEditor from "@/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
 import StateModelEditor from "@/components/diagrams/editor/statemodel/StateModelEditor.vue";
 import Repository from "@/infrastructure/Repository";
@@ -32,11 +40,20 @@ export default class DiagramEditorContainer extends Vue {
     this.diagram = this.diagramOf(this.diagramId);
   }
 
+  private onUpdateResouceOnEditor(diagramId: number): void {
+    console.log(`onUpdateResouceOnEditor(): ${diagramId}`);
+    this.onUpdateResouceOnContainer(diagramId);
+  }
+
+  @Emit("onUpdateResouceOnContainer")
+  private onUpdateResouceOnContainer(diagramId: number): void {}
+
   private diagramOf(diagramId: number): Diagram | null {
     const product = this.repository.getCurrentProduct();
     if (!product) return null;
-    const hitDiagram = product.diagrams
-      .find(daigram => daigram.id === this.diagramId);
+    const hitDiagram = product.diagrams.find(
+      daigram => daigram.id === this.diagramId
+    );
     return hitDiagram ? hitDiagram : null;
   }
 
