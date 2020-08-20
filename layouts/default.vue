@@ -145,7 +145,7 @@
 
     <ProductSelectorDialog 
       :visibleProductSelectorDialog="visibleProductSelector"
-      :canselable="productSelectorCancelable"
+      :cancelable="productSelectorCancelable"
       @onClose="onCloseChangeProduct"
      />
 
@@ -236,7 +236,9 @@ export default class extends Vue {
     const strage = this.repository.get();
     if (!strage || strage.status.currentProductId) return;
     this.productSelectorCancelable = false;
+    this.$nextTick(() => {
     this.visibleProductSelector = true;
+    });
   }
 
   // public onOpenProduct() {

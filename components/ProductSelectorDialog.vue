@@ -22,7 +22,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text 
-          :disabled="cancelable"
+          v-if="cancelable"
           color="normal" 
           @click="onClose"
         >
@@ -55,7 +55,7 @@ export default class ProductSelectorDialog extends Vue {
   @Prop()
   private visibleProductSelectorDialog?: boolean;
   @Prop()
-  private cancelable?: boolean;
+  private cancelable = false;
 
   private selectedProduct: Product | null = null;
   private products?: Product[] | null = null;
@@ -63,6 +63,8 @@ export default class ProductSelectorDialog extends Vue {
   private onOpen(): string {
     if (!this.visibleProductSelectorDialog) return "";
     console.log("ProductSelectorDialog.onOpen()");
+
+    console.log("cancelable:" + this.cancelable);
 
     const starge = this.repository?.get();
     if (!starge) return "";
@@ -91,12 +93,13 @@ export default class ProductSelectorDialog extends Vue {
     if (!this.validateProductName(name)) return;
     const product = ProductIdentifier.prototypeProductOf(name);
     this.products?.push(product);
+    if (this.products?.length === 1) this.selectedProduct = product;
     this.saveAddProduct(product);
   }
 
   public onClickOpenProduct(): void {
     const changeCurrent = this.saveCurrentProduct();
-    this.visibleProductSelectorDialog = false;
+    if (!changeCurrent) this.onClose();
     location.reload();
   }
 
