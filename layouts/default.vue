@@ -81,13 +81,13 @@
 
         <v-list-item link @click="onChangeProduct">
           <v-list-item-icon>
-            <v-icon>mdi-home</v-icon>
+            <v-icon>mdi-account-switch-outline</v-icon>
           </v-list-item-icon>
           <v-list-item-title>プロダクト切替え...</v-list-item-title>
         </v-list-item>
         <v-list-item link @click="onDestroyLocalStrage">
           <v-list-item-icon>
-            <v-icon>mdi-account</v-icon>
+            <v-icon>mdi-delete-forever</v-icon>
           </v-list-item-icon>
           <v-list-item-title>LocalStrageの破棄...</v-list-item-title>
         </v-list-item>
