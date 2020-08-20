@@ -181,7 +181,6 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private paretPainWidth: string | null = null;
   private readonly paretsOpen: number[] = [];
-  // private readonly parets: Paret[] = [];
   private availableResourceTypes: ResourceType[] = [];
 
   private warnBar: boolean = false;
@@ -203,7 +202,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.paretPainId = "paretPain" + diagramId;
     this.canvasId = "canvas" + diagramId;
 
-    // this.resyncParets();
     this.diagram.availableResourceTypeIds
       .map(resourceTypeId => ResourceType.ofId(resourceTypeId))
       .filter(resourceType => resourceType !== null)
@@ -486,36 +484,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (!resourceType) return "";
     return resourceType.iconKey;
   }
-
-  // public resyncParets(): void {
-  //   const diagram = this.diagram;
-  //   const product = this.product;
-
-  //   const usedResourceIds = diagram.placements
-  //     .map(placement => placement.resourceId);
-
-  //   const parets: Paret[] = diagram.availableResourceTypeIds
-  //     .map(typeId => ResourceType.ofId(typeId) as ResourceType)
-  //     .map(type => {
-  //       const paret: Paret = {
-  //         resourceType: type,
-  //         resources: product.resources
-  //           .filter(resource => resource.resourceTypeId === type.id)
-  //           .filter(resource => usedResourceIds.every(id => id !== resource.resourceId)),
-  //       }
-  //       return paret;
-  //     });
-
-  //   const usedResources = product.resources
-  //     .filter(resource => usedResourceIds.some(id => id === resource.resourceId));
-
-  //   // reactiveに動く前提として、「配列自体の参照は残す」が「出来るだけ時間掛けない(低コスト)」にしたい。
-  //   // なので「材料は予め用意しておいて、移し替えだけ集中してやる」にする。
-  //   this.parets.length = 0;
-  //   for (let paret of parets) this.parets.push(paret);
-  //   this.usedResources.length = 0;
-  //   for (let resource of usedResources) this.usedResources.push(resource);
-  // }
 
   /**
    * 開いている他の図の右側パレットを、データの状態と同期する。
