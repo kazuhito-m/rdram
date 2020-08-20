@@ -28,7 +28,7 @@ export default class CompanyIconGenerator {
         const icon = new draw2d.shape.basic.Label({
             fontFamily: iconStyle.fontFamily,
             text: iconStyle.content.replace(/"/g, ""),
-            fontSize: 25,
+            fontSize: 30,
             stroke: 0,
             padding: padding,
             bgColor: "#FFFFFF",
@@ -45,7 +45,7 @@ export default class CompanyIconGenerator {
 
         waku.createPort(
             "hybrid",
-            new draw2d.layout.locator.XYAbsPortLocator({ x: 12, y: -14 })
+            new draw2d.layout.locator.XYAbsPortLocator({ x: 15, y: -17 })
         );
 
         icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 95, y: 23 }));

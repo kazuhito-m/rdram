@@ -8,9 +8,11 @@ export default class ActorIconGenerator {
         const id = String(placement.resourceId);
 
         const icon = new draw2d.shape.basic.Label({
+            x: placement.x,
+            y: placement.y,
             fontFamily: iconStyle.fontFamily,
             text: iconStyle.content.replace(/"/g, ""),
-            fontSize: 25,
+            fontSize: 40,
             stroke: 0,
             padding: padding,
             bgColor: "#FFFFFF",
