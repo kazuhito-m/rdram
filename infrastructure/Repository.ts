@@ -25,11 +25,11 @@ export default class Repository {
         };
     }
 
-    public get(): LocalStrage | undefined {
+    public get(): LocalStrage | null {
         const startTime = performance.now();
 
         const textData = localStorage.getItem(Repository.STRAGE_ID);
-        if (!textData) return undefined;
+        if (!textData) return null;
         const strage = JSON.parse(textData);
 
         // console.log(textData);

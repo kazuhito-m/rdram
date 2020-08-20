@@ -62,6 +62,7 @@
         <nuxt />
       </v-container>
     </v-main>
+    
     <v-navigation-drawer
       v-model="rightDrawer"
       :right="right"
@@ -75,16 +76,30 @@
               mdi-repeat
             </v-icon>
           </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
+          <v-list-item-title>システムメニュー</v-list-item-title>
         </v-list-item>
+
+        <v-list-item link @click="onChangeProduct">
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>プロダクト切替え...</v-list-item-title>
+        </v-list-item>
+        <v-list-item link @click="onDestroyLocalStrage">
+          <v-list-item-icon>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>LocalStrageの破棄...</v-list-item-title>
+        </v-list-item>
+
       </v-list>
     </v-navigation-drawer>
     <v-footer
       :absolute="!fixed"
       app
     >
-      <span>&copy; {{ new Date().getFullYear() }} </span>
-      <a class="auther-link" link nuxt target="_new" href="https://twitter.com/kazuhito_m"> <v-icon>mdi-twitter</v-icon>kazuhito_m</a>
+    <span>&copy; {{ new Date().getFullYear() }} </span>
+      <a class="auther-link" target="_new" href="https://twitter.com/kazuhito_m"> <v-icon>mdi-twitter</v-icon>kazuhito_m</a>
     </v-footer>
 
     <v-dialog v-model="visibleApplicationInitializationDialog" persistent max-width="500">
@@ -98,7 +113,7 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="visibleProductSelectorDialog" persistent max-width="600">
+    <!-- <v-dialog v-model="visibleProductSelectorDialog" persistent max-width="600">
       <v-card>
         <v-card-title class="headline">プロダクトを選択してください。</v-card-title>
         <v-card-text>編集対象となるプロダクトを選択してください。</v-card-text>
@@ -126,7 +141,15 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
+
+    <ProductSelectorDialog 
+      :visibleProductSelectorDialog="visibleProductSelector"
+      :canselable="productSelectorCancelable"
+      @onClose="onCloseChangeProduct"
+     />
+
+    <TestSample :visibleTest="testOn" @onCloseTest="onClose" />
 
   </v-app>
 
@@ -137,8 +160,15 @@ import { Component, Vue, Provide } from "nuxt-property-decorator";
 import Repository from "@/infrastructure/Repository";
 import Product from "@/domain/product/Product";
 import ProductIdentifier from "@/domain/product/ProductIdentifier";
+import TestSample from '@/components/TestSample.vue';
+import ProductSelectorDialog from '@/components/ProductSelectorDialog.vue'
 
-@Component
+@Component({
+  components: {
+    TestSample,
+    ProductSelectorDialog,
+  }
+})
 export default class extends Vue {
   clipped = false;
   drawer = false;
@@ -165,6 +195,8 @@ export default class extends Vue {
       to: "/layouttest"
     }
   ];
+
+  private testOn = false;
 
   // DI difinitions.
 
@@ -194,59 +226,81 @@ export default class extends Vue {
     this.showProductSelectorWhenNotSelected();
   }
 
-  private visibleProductSelectorDialog = false;
-  private products: Product[] = [];
-  private selectedProduct: Product | null = null;
+  private visibleProductSelector = false;
+  private productSelectorCancelable = false;
+  // private products: Product[] = [];
+  // private selectedProduct: Product | null = null;
 
   public showProductSelectorWhenNotSelected() {
+    this.visibleProductSelector = false;
     const strage = this.repository.get();
     if (!strage || strage.status.currentProductId) return;
-    this.products = strage.products;
-    this.visibleProductSelectorDialog = true;
+    this.productSelectorCancelable = false;
+    this.visibleProductSelector = true;
   }
 
-  public onOpenProduct() {
-    this.saveCurrentProduct();
-    this.visibleProductSelectorDialog = false;
-    location.reload();  // FIXME コレしか無かった…が、きっとPage側のメソッド(呼びたいのはcreated())呼べるはず。
+  // public onOpenProduct() {
+  //   this.saveCurrentProduct();
+  //   this.visibleProductSelectorDialog = false;
+  //   location.reload();  // FIXME コレしか無かった…が、きっとPage側のメソッド(呼びたいのはcreated())呼べるはず。
+  // }
+
+  // public onClickAddProduct() {
+  //   const name = prompt("追加するプロダクトの名前を入力してください。");
+  //   if (!name) return;
+  //   if (!this.validateProductName(name)) return;
+  //   const product = ProductIdentifier.prototypeProductOf(name);
+  //   this.products.push(product);
+  //   this.saveProducts();
+  // }
+
+  // private validateProductName(productName: string): boolean {
+  //   if (productName.length > 255) {
+  //     alert('プロダクト名は255文字以内で入力してください。');
+  //     return false;
+  //   }
+  //   const exists = this.products
+  //     .some(product => product.name === productName);
+  //   if (exists) {
+  //     alert('既に同一のプロダクト名が在ります。');
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
+  // private saveProducts(): void {
+  //   const strage = this.repository.get();
+  //   if (!strage) return;
+  //   strage.products = this.products;
+  //   this.repository.register(strage);
+  // }
+
+  // private saveCurrentProduct(): void {
+  //   const strage = this.repository.get();
+  //   if (!strage) return;
+  //   if (!this.selectedProduct) return;
+  //   strage.status.currentProductId = this.selectedProduct.id;
+  //   this.repository.register(strage);
+  // }
+
+  private onChangeProduct(): void {
+    this.visibleProductSelector = false;
+    this.rightDrawer = false;
+    this.productSelectorCancelable = true;
+    this.visibleProductSelector = true;
   }
 
-  public onClickAddProduct() {
-    const name = prompt("追加するプロダクトの名前を入力してください。");
-    if (!name) return;
-    if (!this.validateProductName(name)) return;
-    const product = ProductIdentifier.prototypeProductOf(name);
-    this.products.push(product);
-    this.saveProducts();
+  private onCloseChangeProduct(): void {
+    this.visibleProductSelector = false;
   }
 
-  private validateProductName(productName: string): boolean {
-    if (productName.length > 255) {
-      alert('プロダクト名は255文字以内で入力してください。');
-      return false;
-    }
-    const exists = this.products
-      .some(product => product.name === productName);
-    if (exists) {
-      alert('既に同一のプロダクト名が在ります。');
-      return false;
-    }
-    return true;
+  private onDestroyLocalStrage(): void {
+    this.testOn = true;
+    this.rightDrawer = false;
   }
 
-  private saveProducts(): void {
-    const strage = this.repository.get();
-    if (!strage) return;
-    strage.products = this.products;
-    this.repository.register(strage);
-  }
-
-  private saveCurrentProduct(): void {
-    const strage = this.repository.get();
-    if (!strage) return;
-    if (!this.selectedProduct) return;
-    strage.status.currentProductId = this.selectedProduct.id;
-    this.repository.register(strage);
+  private onClose():void {
+    this.testOn = false;
   }
 }
 </script>
