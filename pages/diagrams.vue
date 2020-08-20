@@ -54,12 +54,15 @@
               dark
               @change="onChangeActiveTab"
             >
-              <v-tab
+              <v-tab class="tab-title"
                 v-for="item in openTabs"
                 :key="item.id"
               >
                 {{ item.name }}
-                <v-btn dark small icon @click="onClickCloseTab" v-bind:data-item-id="item.id">
+                <v-btn dark small icon 
+                  @click="onClickCloseTab" 
+                  v-bind:data-item-id="item.id"
+                >
                   <v-icon dark v-bind:data-item-id="item.id">mdi-close-box</v-icon>
                 </v-btn>
               </v-tab>
@@ -368,5 +371,9 @@ interface TreeItem {
   position: relative;
   width: 100%;
   height: 97%;
+}
+
+.tab-title {
+  text-transform: none;
 }
 </style>
