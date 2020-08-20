@@ -27,7 +27,7 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
-                      <v-chip color="primary" dark outlined draggable @dragstart="onDragStartNewCompany">
+                      <v-chip color="primary" dark outlined draggable @dragstart="onDragStartNewCompany" :data-resource-type-id="resourceType.id">
                         <v-icon>{{ resourceType.iconKey }}</v-icon>
                         新規追加
                       </v-chip>
@@ -136,9 +136,10 @@ import BCDConnectPortsEvents from "./draw2d/eventanalyze/BCDConnectPortsEvents";
 import BCDDeleteShapeEvents from "./draw2d/eventanalyze/BCDDeleteShapeEvents";
 import BCDMoveShapeEvents from "./draw2d/eventanalyze/BCDMoveShapeEvents";
 import BCDResizeShapeEvents from "./draw2d/eventanalyze/BCDResizeShapeEvents";
+import CompanyIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/CompanyIconGenerator";
+import ActorIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/ActorIconGenerator";
 
 import Repository from "@/infrastructure/Repository";
-import CompanyIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/CompanyIconGenerator";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import BusinessContextDiagram from "@/domain/diagram/businesscontext/BusinessContextDiagram";
@@ -148,6 +149,7 @@ import Company from "@/domain/company/Company";
 import Placement from "@/domain/diagram/placement/Placement";
 import RouterType from "@/domain/diagram/relation/RouterType";
 import Relation from "@/domain/diagram/relation/Relation";
+import Actor from "@/domain/actor/Actor";
 
 @Component({
   components: {
@@ -158,7 +160,8 @@ export default class BusinessContextDiagramEditor extends Vue {
   @Inject()
   private repository!: Repository
 
-  private  readonly companyIconGenerator: CompanyIconGenerator = new CompanyIconGenerator();
+  private readonly companyIconGenerator: CompanyIconGenerator = new CompanyIconGenerator();
+  private readonly actorIconGenerator: ActorIconGenerator = new ActorIconGenerator();
 
   @Prop({ required: true })
   private readonly diagram!: BusinessContextDiagram;
@@ -297,8 +300,7 @@ export default class BusinessContextDiagramEditor extends Vue {
         .find(resource => resource.resourceId === placement.resourceId);
       if (!resource) continue;
 
-      if (resource.resourceTypeId === ResourceType.事業体.id) 
-        this.addCompanyIcon(placement, resource);
+      this.addResouceIconToCanvas(resource, placement);
     }
 
     for (let relation of this.diagram.relations) {
@@ -369,7 +371,8 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (resourceId < 0) {
       let resource: Resource | null = null;
       const resourceTypeId = resourceId * -1;
-      if (resourceTypeId === ResourceType.事業体.id) resource = this.createNewCompanyResource();
+
+      resource = this.createNewResource(resourceTypeId);
       
       if (!resource) return;
       this.allResourcesOnCurrentProduct.push(resource);
@@ -387,26 +390,51 @@ export default class BusinessContextDiagramEditor extends Vue {
     });
   }
 
-  private createNewCompanyResource(): Company | null{
-    const name = prompt("追加する事業体の名前を入力してください。");
-    if (!name) return null;
-    if (!this.validateCompanyName(name)) return null;
+  private createNewResource(resourceTypeId: number): Resource | null{
+    // 情報の形状が違う物体がでてくるまで、汎用でいく
+    const resourceType = ResourceType.ofId(resourceTypeId);
+    if (!resourceType) return null;
 
-    const company: Company = {
+    const name = prompt(`追加する${resourceType.name}の名前を入力してください。`);
+    if (!name) return null;
+    if (!this.validateName(name, resourceType)) return null;
+
+    const resource: Resource = {
       resourceId: this.repository.generateResourceId(),
-      resourceTypeId: ResourceType.事業体.id,
+      resourceTypeId: resourceType.id,
       name: name,
       description: '',
     };
-    return company;
+    return resource;
   }
+
+  private validateName(name: string, resourceType: ResourceType): boolean {
+    if (name.length > 255) {
+      alert(`${resourceType.name}名は255文字以内で入力してください。`);
+      return false;
+    }
+    const exists = this.allResourcesOnCurrentProduct
+      .filter(resource => resource.resourceTypeId === resourceType.id)
+      .some(resource => resource.name === name);
+    if (exists) {
+      alert(`既に同一の${resourceType.name}名が在ります。`);
+      return false;
+    }
+    return true;
+  }
+
 
   public onDropOverCanvas(event: DragEvent):void {
     event.preventDefault();
   }
 
-  public onDragStartNewCompany(event: DragEvent):void  {
-    event.dataTransfer?.setData('text',  '-' + ResourceType.事業体.id);
+  public onDragStartNewCompany(event: DragEvent):void {
+    if (!event.target) return;
+    const target= event.target as HTMLElement;
+    const text = target.getAttribute('data-resource-type-id');
+    if (!text) return;
+    const resourceTypeId = parseInt(text, 10);
+    event.dataTransfer?.setData('text',  '-' + resourceTypeId);
   }
 
   public onDragStartResource(event: DragEvent):void {
@@ -444,39 +472,38 @@ export default class BusinessContextDiagramEditor extends Vue {
     dist.relations = src.relations;
   }
 
-  private validateCompanyName(companyName: string): boolean {
-    if (companyName.length > 255) {
-      alert('プロダクト名は255文字以内で入力してください。');
-      return false;
-    }
-    const exists = this.allResourcesOnCurrentProduct
-      .filter(resource => resource.resourceTypeId === ResourceType.事業体.id)
-      .some(resource => resource.name === companyName);
-    if (exists) {
-      alert('既に同一の事業体名が在ります。');
-      return false;
-    }
-    return true;
-  }
-
-  private addResourceToDiagram(resoruce: Resource,left: number,top: number,diagram: BusinessContextDiagram): boolean {
+  private addResourceToDiagram(resource: Resource,left: number,top: number,diagram: BusinessContextDiagram): boolean {
     const placement: Placement = {
       x: left,
       y: top,
       width: 50,
       height: 50,
-      resourceId: resoruce.resourceId
+      resourceId: resource.resourceId
     };
     diagram.placements.push(placement);
 
-    const resourceType = ResourceType.ofId(resoruce.resourceTypeId);
-    if (resourceType?.equals(ResourceType.事業体)) return this.addCompanyIcon(placement, resoruce);
+    return this.addResouceIconToCanvas(resource, placement);
+  }
+
+  private addResouceIconToCanvas(resource: Resource, placement: Placement): boolean {
+     const resourceType = ResourceType.ofId(resource.resourceTypeId);
+    if (!resourceType) return false;
+
+    if (resourceType.equals(ResourceType.アクター)) return this.addActorIcon(placement, resource);
+    if (resourceType.equals(ResourceType.事業体)) return this.addCompanyIcon(placement, resource);
     return false;
   }
 
-  private addCompanyIcon(placement:Placement, resoruce: Resource):boolean {
+  private addActorIcon(placement:Placement, resource: Resource):boolean {
+    const icon = this.actorIconGenerator
+      .generate(placement, resource as Actor, this.iconStyleOf(ResourceType.アクター));
+    this.canvas.add(icon);
+    return true;
+  }
+
+  private addCompanyIcon(placement:Placement, resource: Resource):boolean {
     const icon = this.companyIconGenerator
-      .generate(placement, resoruce as Company, this.iconStyleOf(ResourceType.事業体));
+      .generate(placement, resource as Company, this.iconStyleOf(ResourceType.事業体));
     this.canvas.add(icon);
     return true;
   }

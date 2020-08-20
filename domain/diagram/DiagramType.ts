@@ -39,7 +39,10 @@ export default class DiagramType {
                 name: newName,
                 placements: [],
                 relations: [],
-                availableResourceTypeIds: [ResourceType.事業体].map(type => type.id)
+                availableResourceTypeIds: [
+                    ResourceType.アクター,
+                    ResourceType.事業体
+                ].map(type => type.id)
             };
             return dg1;
         }

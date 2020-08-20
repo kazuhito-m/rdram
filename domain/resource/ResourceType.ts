@@ -1,7 +1,8 @@
 export default class ResourceType {
     private static readonly vs: ResourceType[] = [];
 
-    static 事業体 = new ResourceType(1, '事業体', 'mdi-office-building-outline');
+    static アクター = new ResourceType(1, 'アクター', 'mdi-account');
+    static 事業体 = new ResourceType(2, '事業体', 'mdi-office-building-outline');
 
     private constructor(
         public readonly id: number,
