@@ -136,8 +136,14 @@ import BCDConnectPortsEvents from "./draw2d/eventanalyze/BCDConnectPortsEvents";
 import BCDDeleteShapeEvents from "./draw2d/eventanalyze/BCDDeleteShapeEvents";
 import BCDMoveShapeEvents from "./draw2d/eventanalyze/BCDMoveShapeEvents";
 import BCDResizeShapeEvents from "./draw2d/eventanalyze/BCDResizeShapeEvents";
-import CompanyIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/CompanyIconGenerator";
-import ActorIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/ActorIconGenerator";
+import CompanyIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/CompanyIconGenerator";
+import ActorIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/ActorIconGenerator";
+
+import RoomIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/RoomIconGenerator";
+import BusinessIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/BusinessIconGenerator";
+import GoodsIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/GoodsIconGenerator";
+import FacilityIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/FacilityIconGenerator";
+
 
 import Repository from "@/infrastructure/Repository";
 import Diagram from "@/domain/diagram/Diagram";
@@ -150,6 +156,7 @@ import Placement from "@/domain/diagram/placement/Placement";
 import RouterType from "@/domain/diagram/relation/RouterType";
 import Relation from "@/domain/diagram/relation/Relation";
 import Actor from "@/domain/actor/Actor";
+import IconGenerator from "../icon/IconGenerator";
 
 @Component({
   components: {
@@ -162,6 +169,10 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private readonly companyIconGenerator: CompanyIconGenerator = new CompanyIconGenerator();
   private readonly actorIconGenerator: ActorIconGenerator = new ActorIconGenerator();
+  private readonly roomIconGenerator: RoomIconGenerator = new RoomIconGenerator();
+  private readonly businessIconGenerator: BusinessIconGenerator = new BusinessIconGenerator();
+  private readonly goodsIconGenerator: GoodsIconGenerator = new GoodsIconGenerator();
+  private readonly facilityIconGenerator: FacilityIconGenerator = new FacilityIconGenerator();
 
   @Prop({ required: true })
   private readonly diagram!: BusinessContextDiagram;
@@ -263,11 +274,14 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (analyzeResutEvents.isNothing()) return;
 
     this.transactionOf((diagram, product) => {
+      console.log("中央のResoucesのサイズ:" + this.allResourcesOnCurrentProduct.length);
       this.dumpDiagram(diagram, '実行前');
 
       if (!analyzeResutEvents.validate(diagram, product, this)) return false;
       const result = analyzeResutEvents.apply(diagram, product, this);
 
+      console.log("中央のResoucesのサイズ:" + this.allResourcesOnCurrentProduct.length);
+      this.allResourcesOnCurrentProduct.forEach(i => console.log(i));
       this.dumpDiagram(diagram, '実行後');
       return result;
     });
@@ -385,7 +399,6 @@ export default class BusinessContextDiagramEditor extends Vue {
       const resource = this.allResourcesOnCurrentProduct
         .find(resource => resource.resourceId === resourceId);
       if (!resource) return false;
-
       return this.addResourceToDiagram(resource, x, y , diagram);
     });
   }
@@ -447,7 +460,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     return this.repository.getCurrentProduct() as Product;
   }
 
-  /**
+  /**ResourceType
    * 自動保存のOn/Offを意識した「product,diagramへの操作」。
    */
   private transactionOf(func: (diagram: BusinessContextDiagram, product:Product) => boolean):void {
@@ -489,23 +502,24 @@ export default class BusinessContextDiagramEditor extends Vue {
      const resourceType = ResourceType.ofId(resource.resourceTypeId);
     if (!resourceType) return false;
 
-    if (resourceType.equals(ResourceType.アクター)) return this.addActorIcon(placement, resource);
-    if (resourceType.equals(ResourceType.事業体)) return this.addCompanyIcon(placement, resource);
+    console.log('resouceType:' + resourceType);
+
+    const iconGenerator = this.choiceIconGenerator(resourceType);
+    if (!iconGenerator) return false
+
+    const icon = iconGenerator.generate(placement, resource, this.iconStyleOf(resourceType));
+    this.canvas.add(icon);
     return false;
   }
 
-  private addActorIcon(placement:Placement, resource: Resource):boolean {
-    const icon = this.actorIconGenerator
-      .generate(placement, resource as Actor, this.iconStyleOf(ResourceType.アクター));
-    this.canvas.add(icon);
-    return true;
-  }
-
-  private addCompanyIcon(placement:Placement, resource: Resource):boolean {
-    const icon = this.companyIconGenerator
-      .generate(placement, resource as Company, this.iconStyleOf(ResourceType.事業体));
-    this.canvas.add(icon);
-    return true;
+  private choiceIconGenerator(resourceType: ResourceType): IconGenerator | null {
+    if (resourceType.equals(ResourceType.アクター)) return this.actorIconGenerator;
+    if (resourceType.equals(ResourceType.事業体)) return this.companyIconGenerator;
+    if (resourceType.equals(ResourceType.場所)) return this.roomIconGenerator;
+    if (resourceType.equals(ResourceType.業務)) return this.businessIconGenerator;
+    if (resourceType.equals(ResourceType.物品)) return this.goodsIconGenerator;
+    if (resourceType.equals(ResourceType.設備)) return this.facilityIconGenerator;
+    return null;
   }
 
   private iconStyleOf(resourceType: ResourceType): CSSStyleDeclaration {

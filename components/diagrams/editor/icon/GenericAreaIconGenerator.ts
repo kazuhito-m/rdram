@@ -1,20 +1,22 @@
 import draw2d, { Figure } from 'draw2d';
 import Placement from "@/domain/diagram/placement/Placement";
-import Company from "@/domain/company/Company";
 import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
+import Resource from '~/domain/resource/Resource';
+import IconGenerator from './IconGenerator';
 
-export default class CompanyIconGenerator {
-    public generate(companyPlacement: Placement, company: Company, iconStyle: CSSStyleDeclaration): Figure {
+export default class GenericAreaIconGenerator implements IconGenerator {
+    public generate(placement: Placement, resource: Resource, iconStyle: CSSStyleDeclaration): Figure {
+        console.log('GenericAreaIconGeneratorとか');
         const padding = 0;
-        const id = String(companyPlacement.resourceId);
+        const id = String(placement.resourceId);
 
         const waku = new draw2d.shape.basic.Rectangle({
-            x: companyPlacement.x,
-            y: companyPlacement.y,
+            x: placement.x,
+            y: placement.y,
             bgColor: "#FFFFFF",
             alpha: 0.6, // opacityと一緒
-            width: companyPlacement.width,
-            height: companyPlacement.height,
+            width: placement.width,
+            height: placement.height,
             radius: 5,
             stroke: 3,
             selectable: true,
@@ -36,7 +38,7 @@ export default class CompanyIconGenerator {
         });
 
         const name = new draw2d.shape.basic.Label({
-            text: company.name,
+            text: resource.name,
             stroke: 0,
             padding: padding,
             resizable: false,

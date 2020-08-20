@@ -54,3 +54,18 @@
   private createStandardIconPort(icon: any) {
     icon.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
   }
+
+
+----
+
+
+countertops
+storefront
+foundation
+fence
+groups
+account-group
+barn
+cube
+cube-outline
+sitemap

@@ -41,7 +41,11 @@ export default class DiagramType {
                 relations: [],
                 availableResourceTypeIds: [
                     ResourceType.アクター,
-                    ResourceType.事業体
+                    ResourceType.事業体,
+                    ResourceType.場所,
+                    ResourceType.業務,
+                    ResourceType.物品,
+                    ResourceType.設備,
                 ].map(type => type.id)
             };
             return dg1;

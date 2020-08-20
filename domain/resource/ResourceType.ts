@@ -3,6 +3,10 @@ export default class ResourceType {
 
     static アクター = new ResourceType(1, 'アクター', 'mdi-account');
     static 事業体 = new ResourceType(2, '事業体', 'mdi-office-building-outline');
+    static 場所 = new ResourceType(3, '場所', 'mdi-sitemap');
+    static 業務 = new ResourceType(4, '業務', 'mdi-cog-outline');
+    static 物品 = new ResourceType(5, '物品', 'mdi-cube-outline');
+    static 設備 = new ResourceType(6, '設備', 'mdi-barn');
 
     private constructor(
         public readonly id: number,

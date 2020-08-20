@@ -1,9 +1,12 @@
 import draw2d, { Figure } from 'draw2d';
 import Placement from "@/domain/diagram/placement/Placement";
-import Actor from '~/domain/actor/Actor';
+import Resource from '~/domain/resource/Resource';
+import IconGenerator from './IconGenerator';
 
-export default class ActorIconGenerator {
-    public generate(placement: Placement, actor: Actor, iconStyle: CSSStyleDeclaration): Figure {
+export default class GenericSingleIconGenerator implements IconGenerator{
+    public generate(placement: Placement, resource: Resource, iconStyle: CSSStyleDeclaration): Figure {
+        console.log('GenericSingleIconGeneratorなど');
+
         const padding = 0;
         const id = String(placement.resourceId);
 
@@ -17,11 +20,12 @@ export default class ActorIconGenerator {
             padding: padding,
             bgColor: "#FFFFFF",
             resizable: false,
-            alpha: 1 // opacityと一緒
+            alpha: 1, // opacityと一緒
+            id: id,
         });
 
         const name = new draw2d.shape.basic.Label({
-            text: actor.name,
+            text: resource.name,
             stroke: 0,
             padding: padding,
             resizable: false,
