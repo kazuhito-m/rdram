@@ -71,16 +71,10 @@ export default class ProductSelectorDialog extends Vue {
     }
     if (!this.selectedProduct) {
       const strage = this.repository?.get() as LocalStrage;
-      const selectd = this.products.find(
-        product => product.id === strage.status.currentProductId
-      );
-      if (selectd) {
-        this.selectedProduct = selectd;
-      } else {
-        this.selectedProduct = null;
-      }
+      const currentId = strage.status.currentProductId;
+      const selectd = this.products.find(product => product.id === currentId);
+      this.selectedProduct = selectd ? selectd : null;
     }
-
     return "";
   }
 
@@ -96,7 +90,10 @@ export default class ProductSelectorDialog extends Vue {
 
   public onClickOpenProduct(): void {
     const changeCurrent = this.saveCurrentProduct();
-    if (!changeCurrent) this.onClose();
+    if (!changeCurrent) {
+      this.onClose();
+      return;
+    }
     location.reload();
   }
 
