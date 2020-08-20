@@ -16,6 +16,10 @@ export default class Repository {
         this.register(initialData);
     }
 
+    public destroy(): void {
+        localStorage.removeItem(Repository.STRAGE_ID);
+    }
+
     private defaultStructure(): LocalStrage {
         return {
             status: {
@@ -25,10 +29,14 @@ export default class Repository {
         };
     }
 
+    public getJsonText(): string | null {
+        return localStorage.getItem(Repository.STRAGE_ID);
+    }
+
     public get(): LocalStrage | null {
         const startTime = performance.now();
 
-        const textData = localStorage.getItem(Repository.STRAGE_ID);
+        const textData = this.getJsonText();
         if (!textData) return null;
         const strage = JSON.parse(textData);
 

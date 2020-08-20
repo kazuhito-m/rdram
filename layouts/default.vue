@@ -85,7 +85,8 @@
           </v-list-item-icon>
           <v-list-item-title>プロダクト切替え...</v-list-item-title>
         </v-list-item>
-        <v-list-item link @click="onDestroyLocalStrage">
+
+        <v-list-item link @click="onClickDestryLocalStrage">
           <v-list-item-icon>
             <v-icon>mdi-delete-forever</v-icon>
           </v-list-item-icon>
@@ -113,7 +114,10 @@
       @onClose="onCloseApplicationInitializationDialog"
     />
 
-    <TestSample :visibleTest="testOn" @onCloseTest="onClose" />
+    <LocalStrageDestroyDialog
+      :visible="visibleLocalStrageDestroyDialog"
+      @onClose="onCloseLocalStrageDestroyDialog"
+    />
 
   </v-app>
 
@@ -124,15 +128,15 @@ import { Component, Vue, Provide } from "nuxt-property-decorator";
 import Repository from "@/infrastructure/Repository";
 import Product from "@/domain/product/Product";
 import ProductIdentifier from "@/domain/product/ProductIdentifier";
-import TestSample from '@/components/TestSample.vue';
 import ProductSelectorDialog from '@/components/ProductSelectorDialog.vue'
 import LocalStrageInitializeDialog from '@/components/LocalStrageInitializeDialog.vue';
+import LocalStrageDestroyDialog from '@/components/LocalStrageDestroyDialog.vue';
 
 @Component({
   components: {
-    TestSample,
     ProductSelectorDialog,
     LocalStrageInitializeDialog,
+    LocalStrageDestroyDialog,
   }
 })
 export default class extends Vue {
@@ -162,8 +166,6 @@ export default class extends Vue {
     }
   ];
 
-  private testOn = false;
-
   // DI difinitions.
 
   @Provide()
@@ -175,6 +177,8 @@ export default class extends Vue {
 
   private visibleProductSelector = false;
   private productSelectorCancelable = false;
+
+  private visibleLocalStrageDestroyDialog = false;
 
   public created() {
     this.$nextTick(() => {
@@ -218,14 +222,15 @@ export default class extends Vue {
     this.visibleProductSelector = false;
   }
 
-  private onDestroyLocalStrage(): void {
-    this.testOn = true;
+  private onClickDestryLocalStrage(): void {
+    this.visibleLocalStrageDestroyDialog = true;
     this.rightDrawer = false;
   }
 
-  private onClose():void {
-    this.testOn = false;
+  private onCloseLocalStrageDestroyDialog():void {
+    this.visibleLocalStrageDestroyDialog = false;
   }
+
 }
 </script>
 

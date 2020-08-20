@@ -49,6 +49,7 @@
 
             <v-tabs
               v-model="currentTabIndex"
+              v-show="openTabs.length > 0"
               background-color="primary"
               dark
               @change="onChangeActiveTab"
