@@ -489,11 +489,20 @@ export default class BusinessContextDiagramEditor extends Vue {
     const placement: Placement = {
       x: left,
       y: top,
-      width: 50,
-      height: 50,
+      width: 0,
+      height: 0,
       resourceId: resource.resourceId
     };
-    console.log('ここまでとれたらおｋ');
+    const resourceType = ResourceType.ofId(resource.resourceTypeId);
+    if (ResourceType.場所.equals(resourceType)
+      || ResourceType.事業体.equals(resourceType)) {
+      placement.width = 50;
+      placement.height = 50;
+    }
+    if (ResourceType.業務.equals(resourceType)) {
+      placement.width = 50;
+      placement.height = 300;
+    }
     diagram.placements.push(placement);
 
     return this.addResouceIconToCanvas(resource, placement);

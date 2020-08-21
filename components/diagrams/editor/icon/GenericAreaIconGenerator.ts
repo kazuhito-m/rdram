@@ -6,23 +6,20 @@ import IconGenerator from './IconGenerator';
 
 export default class GenericAreaIconGenerator implements IconGenerator {
     public generate(placement: Placement, resource: Resource, iconStyle: CSSStyleDeclaration): Figure {
-        console.log('GenericAreaIconGeneratorとか');
-        const padding = 0;
         const id = String(placement.resourceId);
 
         const waku = new draw2d.shape.basic.Rectangle({
             x: placement.x,
             y: placement.y,
             bgColor: "#FFFFFF",
-            alpha: 0.6, // opacityと一緒
+            alpha: 0.6,
             width: placement.width,
             height: placement.height,
             radius: 5,
             stroke: 3,
             selectable: true,
             resizable: true,
-            color: "#000000",
-            padding: padding,
+            padding: 0,
             keepAspectRatio: false,
             id: id
         });
@@ -32,15 +29,15 @@ export default class GenericAreaIconGenerator implements IconGenerator {
             text: iconStyle.content.replace(/"/g, ""),
             fontSize: 30,
             stroke: 0,
-            padding: padding,
+            padding: 0,
             bgColor: "#FFFFFF",
-            alpha: 1 // opacityと一緒
+            alpha: 1
         });
 
         const name = new draw2d.shape.basic.Label({
             text: resource.name,
             stroke: 0,
-            padding: padding,
+            padding: 0,
             resizable: false,
             selectable: false
         });
@@ -51,7 +48,7 @@ export default class GenericAreaIconGenerator implements IconGenerator {
         );
 
         icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 95, y: 23 }));
-        waku.add(icon, new TopLeftLocator()); // 無かったものを地力で作った
+        waku.add(icon, new TopLeftLocator());
         return waku;
     }
 }

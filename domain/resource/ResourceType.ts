@@ -16,7 +16,8 @@ export default class ResourceType {
         ResourceType.vs.push(this);
     }
 
-    public equals(other: ResourceType): boolean {
+    public equals(other: ResourceType | null): boolean {
+        if (!other) return false;
         return other?.id === this.id;
     }
 

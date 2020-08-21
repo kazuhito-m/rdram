@@ -114,8 +114,8 @@ export default class extends Vue {
     this.layoutApproach(canvas);
     this.structuredApproach2(canvas);
     this.structuredApproach2Dash(canvas);
-    this.conneectIcons(canvas);
     this.circleAndIcon(canvas);
+    this.conneectIcons(canvas);
 
     console.log(canvas);
   }
@@ -384,15 +384,17 @@ export default class extends Vue {
     const waku = new draw2d.shape.basic.Rectangle({
       x: left,
       y: top,
-      bgColor: "#FFFFFF",
-      alpha: 0.6, // opacityと一緒
+      // 以下2つで、透明化AND頃合いの色になる
+      bgColor: "none",
+      color: "#666666",
+      alpha: 1,
+
       width: 75,
       height: 75,
       radius: 5,
       stroke: 3,
       selectable: true,
       resizable: true,
-      color: "#000000",
       padding: padding,
       id: id
     });
@@ -485,23 +487,61 @@ export default class extends Vue {
     canvas.add(connection);
   }
 
+  /**
+   * 丸とトップアイコンなスタンダード系を模索
+   */
   private circleAndIcon(canvas: draw2d.Canvas) {
     const id = 7000001;
-    const waku = new draw2d.shape.basic.Circle({
+
+    // icon のTag(v-icon)から、フォントと文字を類推。
+    const iconTag = document.getElementById("companyIcon") as HTMLDivElement;
+    const style = window.getComputedStyle(iconTag, "::before");
+
+    const waku = new draw2d.shape.basic.Oval({
       x: 50,
       y: 300,
-      bgColor: "#FF0000",
-      alpha: 1, // opacityと一緒
-      width: 300,
-      height: 100,
-      radius: 5,
-      stroke: 3,
+      bgColor: "#99DDFF",
+      alpha: 1,
+      width: 105,
+      height: 40,
+      radius: 0,
+      stroke: 0,
       selectable: true,
       resizable: true,
       color: "#000000",
       padding: 0,
       id: id
     });
+
+    const moji = new draw2d.shape.basic.Label({
+      text: "鉢文字基本かな灘",
+      stroke: 0,
+      padding: 0,
+      alpha: 1,
+      bold: true,
+    });
+
+    const icon = new draw2d.shape.basic.Label({
+      fontFamily: style.fontFamily,
+      text: style.content.replace(/"/g, ""),
+      fontSize: 25,
+      stroke: 0,
+      padding: 0,
+      bgColor: "#FFFFFF",
+      alpha: 1
+    });
+
+    waku.add(moji, new draw2d.layout.locator.CenterLocator());
+    waku.add(
+      icon,
+      new draw2d.layout.locator.XYAbsPortLocator({ x: -14, y: -17 })
+    );
+
+    waku.createPort(
+      "hybrid",
+      new draw2d.layout.locator.CenterLocator()
+    );
+
     canvas.add(waku);
   }
 }

@@ -3,10 +3,8 @@ import Placement from "@/domain/diagram/placement/Placement";
 import Resource from '~/domain/resource/Resource';
 import IconGenerator from './IconGenerator';
 
-export default class GenericSingleIconGenerator implements IconGenerator{
+export default class GenericSingleIconGenerator implements IconGenerator {
     public generate(placement: Placement, resource: Resource, iconStyle: CSSStyleDeclaration): Figure {
-        console.log('GenericSingleIconGeneratorなど');
-
         const padding = 0;
         const id = String(placement.resourceId);
 
