@@ -96,6 +96,7 @@ import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
 import ResourceType from "../domain/resource/ResourceType";
 import Resource from "../domain/resource/Resource";
+import MessageBox from "../presentation/MessageBox";
 
 @Component({
   components: {
@@ -209,13 +210,19 @@ export default class extends Vue {
     const diagramType = DiagramType.ofId(item.id - this.DIAGRAM_FOLDER_ID_MASK);
     if (!diagramType) return;
 
-    const name = prompt(`追加する ${diagramType.name} の名前を入力してください。`);
-    if (!name) return;
 
     const product = this.repository.getCurrentProduct();
     if (!product) return;
-
     const diagrams = product.diagrams;
+
+    const messageBox = new MessageBox();
+    const name = messageBox.promptWith255Limit(`追加する ${diagramType.name} の名前を入力してください。`, "", (inputText) => {
+      const exists = diagrams.some(diagram => diagram.name === inputText && diagram.typeId === diagramType.id);
+      if (exists) alert(`既に同一の${diagramType.name}名が在ります。`);
+      return !exists;
+    });
+    if (!name) return;
+
     if (!this.validateDiagramName(name, diagrams)) return;
     const newDiagramId = diagrams.map(d => d.id)
       .reduce((l,r) => Math.max(l,r), 0) + 1;

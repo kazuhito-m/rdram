@@ -42,10 +42,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
+import MessageBox from "@/presentation/MessageBox.ts";
 import Product from "@/domain/product/Product";
 import ProductIdentifier from "@/domain/product/ProductIdentifier";
 import Repository from "@/infrastructure/Repository";
-import LocalStrage from "../domain/strage/LocalStrage";
+import LocalStrage from "@/domain/strage/LocalStrage";
 
 @Component
 export default class ProductSelectorDialog extends Vue {
@@ -79,9 +80,13 @@ export default class ProductSelectorDialog extends Vue {
   }
 
   private onClickAddProduct() {
-    const name = prompt("追加するプロダクトの名前を入力してください。");
+    const messageBox = new MessageBox();
+    const name = messageBox.promptWith255Limit("追加するプロダクトの名前を入力してください。", "", (inputText) => {
+      const exists = this.products?.some(product => product.name === inputText);
+      if (exists)  alert("既に同一のプロダクト名が在ります。");
+      return !exists;
+    });
     if (!name) return;
-    if (!this.validateProductName(name)) return;
     const product = ProductIdentifier.prototypeProductOf(name);
     this.products?.push(product);
     this.selectedProduct = product;

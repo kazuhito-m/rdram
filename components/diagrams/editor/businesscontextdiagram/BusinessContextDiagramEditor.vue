@@ -157,6 +157,7 @@ import RouterType from "@/domain/diagram/relation/RouterType";
 import Relation from "@/domain/diagram/relation/Relation";
 import Actor from "@/domain/actor/Actor";
 import IconGenerator from "../icon/IconGenerator";
+import MessageBox from "../../../../presentation/MessageBox";
 
 @Component({
   components: {
@@ -418,9 +419,15 @@ export default class BusinessContextDiagramEditor extends Vue {
     const resourceType = ResourceType.ofId(resourceTypeId);
     if (!resourceType) return null;
 
-    const name = prompt(`追加する${resourceType.name}の名前を入力してください。`);
+    const messageBox = new MessageBox();
+    const name = messageBox.promptWith255Limit(`追加する${resourceType.name}の名前を入力してください。`, "", (inputText) => {
+      const exists = this.allResourcesOnCurrentProduct
+        .filter(resource => resource.resourceTypeId === resourceType.id)
+        .some(resource => resource.name === name);
+      if (exists) alert(`既に同一の${resourceType.name}名が在ります。`);
+      return !exists;
+    });
     if (!name) return null;
-    if (!this.validateName(name, resourceType)) return null;
 
     const resource: Resource = {
       resourceId: this.repository.generateResourceId(),
