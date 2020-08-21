@@ -500,8 +500,8 @@ export default class BusinessContextDiagramEditor extends Vue {
       placement.height = 50;
     }
     if (ResourceType.業務.equals(resourceType)) {
-      placement.width = 50;
-      placement.height = 300;
+      placement.width = 105
+      placement.height = 35
     }
     diagram.placements.push(placement);
 
