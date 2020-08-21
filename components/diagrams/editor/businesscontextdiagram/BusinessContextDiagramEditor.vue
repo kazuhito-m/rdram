@@ -494,8 +494,8 @@ export default class BusinessContextDiagramEditor extends Vue {
       resourceId: resource.resourceId
     };
     const resourceType = ResourceType.ofId(resource.resourceTypeId);
-    if (ResourceType.場所.equals(resourceType)
-      || ResourceType.事業体.equals(resourceType)) {
+    if (ResourceType.組織.equals(resourceType)
+      || ResourceType.会社.equals(resourceType)) {
       placement.width = 50;
       placement.height = 50;
     }
@@ -522,10 +522,10 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private choiceIconGenerator(resourceType: ResourceType): IconGenerator | null {
     if (resourceType.equals(ResourceType.アクター)) return this.actorIconGenerator;
-    if (resourceType.equals(ResourceType.事業体)) return this.companyIconGenerator;
-    if (resourceType.equals(ResourceType.場所)) return this.roomIconGenerator;
+    if (resourceType.equals(ResourceType.会社)) return this.companyIconGenerator;
+    if (resourceType.equals(ResourceType.組織)) return this.roomIconGenerator;
     if (resourceType.equals(ResourceType.業務)) return this.businessIconGenerator;
-    if (resourceType.equals(ResourceType.物品)) return this.goodsIconGenerator;
+    if (resourceType.equals(ResourceType.商品)) return this.goodsIconGenerator;
     if (resourceType.equals(ResourceType.設備)) return this.facilityIconGenerator;
     return null;
   }
