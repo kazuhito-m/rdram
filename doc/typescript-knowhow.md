@@ -30,3 +30,9 @@
 - 文字列(JavaScriptの書き方)
   - http://www.tohoho-web.com/js/string.htm
   - CSS等から文字コードがわかれば、ここの「サロゲートペアを含むUnicode文字」の指定方法で実際に埋め込むことが可能
+
+
+## 文字列のByteSizeを知る
+
+- JavaScriptで文字列のバイト数を得るにはどーする？
+  - https://takamints.hatenablog.jp/entry/measure-a-byte-length-of-a-string-in-javascript

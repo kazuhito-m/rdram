@@ -5,6 +5,11 @@
 - ドキュメント
   - https://vuetifyjs.com/ja/getting-started/
 
+## 「リンク」といふもの
+
+- Vuetify.jsのリンクの違いについて
+  - https://qiita.com/SatohJohn/items/881d9a6fceceda1c1ce7
+
 ## ツリービューで右クリックを実現する
 
 - How to add right click event for v-treeview to open menu in vuetify?

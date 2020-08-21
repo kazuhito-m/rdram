@@ -115,6 +115,7 @@ export default class extends Vue {
     this.structuredApproach2(canvas);
     this.structuredApproach2Dash(canvas);
     this.conneectIcons(canvas);
+    this.circleAndIcon(canvas);
 
     console.log(canvas);
   }
@@ -468,7 +469,7 @@ export default class extends Vue {
     console.log(src);
     const start = src.hybridPorts.data[0];
     console.log(start);
-    console.log('↑はプロパティ的にはあるはずなのに…。')
+    console.log("↑はプロパティ的にはあるはずなのに…。");
 
     // TODO もう片方
 
@@ -482,6 +483,26 @@ export default class extends Vue {
     // connection.setTarget(end.getInputPort(0));
 
     canvas.add(connection);
+  }
+
+  private circleAndIcon(canvas: draw2d.Canvas) {
+    const id = 7000001;
+    const waku = new draw2d.shape.basic.Circle({
+      x: 50,
+      y: 300,
+      bgColor: "#FF0000",
+      alpha: 1, // opacityと一緒
+      width: 300,
+      height: 100,
+      radius: 5,
+      stroke: 3,
+      selectable: true,
+      resizable: true,
+      color: "#000000",
+      padding: 0,
+      id: id
+    });
+    canvas.add(waku);
   }
 }
 </script>

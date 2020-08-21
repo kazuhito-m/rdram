@@ -1,5 +1,19 @@
 ## Nust.js(Vue.js)ノウハウ
 
+## Storeまわり(苦手)
+
+ちゃんと把握していない…ので、ちゃんと読みたい。
+
+- Nuxt公式-クラスベースStore
+  - https://typescript.nuxtjs.org/ja/cookbook/store.html#%E3%82%AF%E3%83%A9%E3%82%B9%E3%83%99%E3%83%BC%E3%82%B9
+- Nuxt.jsのStoreによるデータ保存 [vuex-persistedstate][js-cookie]
+  - https://noumenon-th.net/programming/2019/08/24/nuxt-js-store/
+
+## Version表示(というよりpackage.jsonの情報をアプリに持ち込む方法)
+
+- How to show your App Version from package.json in your Vue application
+  - https://medium.com/hceverything/how-to-show-your-app-version-from-package-json-in-your-vue-application-11e882b97d8c
+
 ## Drag And Dropのサポートしている道具を使う(VueDraggable)
 
 - 本家サイト(サンプルも置いてある)
@@ -35,6 +49,12 @@
 
 - Nuxt + TypeScript で 2つ以上の値をコンポーネントに渡して変更を受け取る方法
   - https://qiita.com/TaskKAWAHARA/items/7279595a66c1734af0ce
+
+## 基本、emit,propsまわり
+
+- 【図解】emit、propsを使ったコンポーネント間のデータのやり取り
+  - https://blog2.cct-inc.co.jp/blog/vue-js/vue_emit-props/
+- 
 
 ## Vueで動的にコンポーネントを作成、画面にぶっこむ
 
@@ -74,6 +94,11 @@
   - https://vuetifyjs.com/ja/components/progress-circular/#%E3%82%B5%E3%82%A4%E3%82%BA-%E5%B9%85%EF%BC%88%E5%A4%AA%E3%81%95%EF%BC%89
   - Nuxt.jsには直接関係ないけれど
 
+## 「先読み可能ページリンク」
+
+- <nuxt-link>コンポーネント
+  - https://ja.nuxtjs.org/api/components-nuxt-link/
+
 ## デコレータと関係性
 
 - 【nuxt-property-decorator】よく使う親子間デコレータまとめ
@@ -82,4 +107,3 @@
 ## Vue.jsとNuxt.js
 
 - Vue.js to TypeScriptの書き方一覧
-  
