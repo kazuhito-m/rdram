@@ -81,9 +81,10 @@ export default class ProductSelectorDialog extends Vue {
 
   private onClickAddProduct() {
     const messageBox = new MessageBox();
-    const name = messageBox.promptWith255Limit("追加するプロダクトの名前を入力してください。", "", (inputText) => {
+    const message = "追加するプロダクトの名前を入力してください。";
+    const name = messageBox.promptWith255Limit(message, "", inputText => {
       const exists = this.products?.some(product => product.name === inputText);
-      if (exists)  alert("既に同一のプロダクト名が在ります。");
+      if (exists) alert("既に同一のプロダクト名が在ります。");
       return !exists;
     });
     if (!name) return;
@@ -106,19 +107,6 @@ export default class ProductSelectorDialog extends Vue {
   public onClose(): void {
     this.selectedProduct = null;
     this.products = null;
-  }
-
-  private validateProductName(productName: string): boolean {
-    if (productName.length > 255) {
-      alert("プロダクト名は255文字以内で入力してください。");
-      return false;
-    }
-    const exists = this.products?.some(product => product.name === productName);
-    if (exists) {
-      alert("既に同一のプロダクト名が在ります。");
-      return false;
-    }
-    return true;
   }
 
   private saveAddProduct(product: Product): void {

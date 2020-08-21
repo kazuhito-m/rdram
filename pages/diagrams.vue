@@ -223,7 +223,6 @@ export default class extends Vue {
     });
     if (!name) return;
 
-    if (!this.validateDiagramName(name, diagrams)) return;
     const newDiagramId = diagrams.map(d => d.id)
       .reduce((l,r) => Math.max(l,r), 0) + 1;
     const diagram = diagramType.prototypeOf(newDiagramId, name);
@@ -240,20 +239,6 @@ export default class extends Vue {
     const leftPain = document.getElementById('leftPain') as HTMLElement;
     const style = leftPain.style;
     style.display = style.display === 'none' ? 'inline' : 'none';
-  }
-
-  private validateDiagramName(diagramName: string, diagrams: Diagram[]): boolean {
-    if (diagramName.length > 255) {
-      alert('ダイアグラム名は255文字以内で入力してください。');
-      return false;
-    }
-    const exists = diagrams
-      .some(diagram => diagram.name === diagramName);
-    if (exists) {
-      alert('既に同一のダイアグラム名が在ります。');
-      return false;
-    }
-    return true;
   }
 
   private addDiagramTreeItem(diagram: Diagram): void {

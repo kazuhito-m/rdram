@@ -438,22 +438,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     return resource;
   }
 
-  private validateName(name: string, resourceType: ResourceType): boolean {
-    if (name.length > 255) {
-      alert(`${resourceType.name}名は255文字以内で入力してください。`);
-      return false;
-    }
-    const exists = this.allResourcesOnCurrentProduct
-      .filter(resource => resource.resourceTypeId === resourceType.id)
-      .some(resource => resource.name === name);
-    if (exists) {
-      alert(`既に同一の${resourceType.name}名が在ります。`);
-      return false;
-    }
-    return true;
-  }
-
-
   public onDropOverCanvas(event: DragEvent):void {
     event.preventDefault();
   }
