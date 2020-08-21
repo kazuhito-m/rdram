@@ -1,4 +1,4 @@
-import GenericAreaIconGenerator from '../../icon/GenericAreaIconGenerator';
+import GenericAreaIconGenerator from '../../../icon/GenericAreaIconGenerator';
 import Placement from '~/domain/diagram/placement/Placement';
 import Resource from '~/domain/resource/Resource';
 import draw2d, { Figure } from "draw2d";
