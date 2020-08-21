@@ -512,8 +512,6 @@ export default class BusinessContextDiagramEditor extends Vue {
      const resourceType = ResourceType.ofId(resource.resourceTypeId);
     if (!resourceType) return false;
 
-    console.log('resouceType:' + resourceType);
-
     const iconGenerator = this.choiceIconGenerator(resourceType);
     if (!iconGenerator) return false
 
