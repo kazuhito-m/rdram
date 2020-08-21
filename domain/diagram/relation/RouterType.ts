@@ -5,7 +5,7 @@ export default class RouterType {
     static INTERACTIVE_MANHATTAN = new RouterType(2, 'マンハッタン');
     static CIRCUIT = new RouterType(3, 'サーキット');
     static SPLINE = new RouterType(4, 'スプライン');
-    static SKETCH = new RouterType(5, 'スケッチ');
+    // static SKETCH = new RouterType(5, 'スケッチ');
 
     private constructor(
         public readonly id: number,

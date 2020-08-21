@@ -292,7 +292,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (routerType.equals(RouterType.INTERACTIVE_MANHATTAN)) return new draw2d.layout.connection.ManhattanConnectionRouter();
     if (routerType.equals(RouterType.CIRCUIT)) return new draw2d.layout.connection.CircuitConnectionRouter();
     if (routerType.equals(RouterType.SPLINE)) return new draw2d.layout.connection.SplineConnectionRouter();
-    if (routerType.equals(RouterType.SKETCH)) return new draw2d.layout.connection.SketchConnectionRouter();
+    // if (routerType.equals(RouterType.SKETCH)) return new draw2d.layout.connection.SketchConnectionRouter();
     return undefined;
   }
 
@@ -304,7 +304,7 @@ export default class BusinessContextDiagramEditor extends Vue {
       if (name === "draw2d.layout.connection.ManhattanConnectionRouter") return RouterType.INTERACTIVE_MANHATTAN;
       if (name === "draw2d.layout.connection.CircuitConnectionRouter") return RouterType.CIRCUIT;
       if (name === "draw2d.layout.connection.SplineConnectionRouter") return RouterType.SPLINE;
-      if (name === "draw2d.layout.connection.SketchConnectionRouter") return RouterType.SKETCH;
+      // if (name === "draw2d.layout.connection.SketchConnectionRouter") return RouterType.SKETCH;
       return RouterType.DIRECT;
   }
 
@@ -329,15 +329,25 @@ export default class BusinessContextDiagramEditor extends Vue {
 
     const start = canvas.getFigure(String(relation.fromResourceId));
     const end = canvas.getFigure(String(relation.toResourceId));
+   
+    // ちょっとトリッキーなデータの持ち方…解析しないとわからない。正攻法が在れば変えたい。
+    const startHybridPort = this.getHybridPort(relation.fromResourceId, canvas);
+    if (startHybridPort) connection.setSource(startHybridPort);
+    const endHybridPort = this.getHybridPort(relation.toResourceId, canvas);
+    if (endHybridPort) connection.setTarget(endHybridPort);
+
     let routerType = RouterType.ofId(relation.routerTypeId);
     if (!routerType) routerType = RouterType.DIRECT;
-    // ちょっとトリッキーなデータの持ち方…解析しないとわからない。正攻法が在れば変えたい。
-    connection.setSource(start.hybridPorts.data[0]);
-    connection.setTarget(end.hybridPorts.data[0]);
     connection.setRouter(this.makeRouterBy(routerType));
     connection.onContextMenu = this.onClickConnectorOnCanvas;
 
     canvas.add(connection);
+  }
+
+  private getHybridPort(resourceId: number,canvas: draw2d.Canvas):any | null {
+    const targetFigure = canvas.getFigure(String(resourceId));
+    if (!targetFigure || !targetFigure.hybridPorts || !targetFigure.hybridPorts.data) return null;
+    return targetFigure.hybridPorts.data[0];
   }
 
   public onClickConnectorOnCanvas(x:number, y:number) {
@@ -496,8 +506,8 @@ export default class BusinessContextDiagramEditor extends Vue {
     const resourceType = ResourceType.ofId(resource.resourceTypeId);
     if (ResourceType.組織.equals(resourceType)
       || ResourceType.会社.equals(resourceType)) {
-      placement.width = 50;
-      placement.height = 50;
+      placement.width = 80;
+      placement.height = 35;
     }
     if (ResourceType.業務.equals(resourceType)) {
       placement.width = 105

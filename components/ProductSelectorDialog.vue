@@ -84,7 +84,7 @@ export default class ProductSelectorDialog extends Vue {
     if (!this.validateProductName(name)) return;
     const product = ProductIdentifier.prototypeProductOf(name);
     this.products?.push(product);
-    if (this.products?.length === 1) this.selectedProduct = product;
+    this.selectedProduct = product;
     this.saveAddProduct(product);
   }
 
