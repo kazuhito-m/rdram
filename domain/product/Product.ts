@@ -1,8 +1,8 @@
-import Diagram from '@/domain/diagram/Diagram';
 import UserSettings from '@/domain//setting/UserSettings';
-import Resource from '@/domain/resource/Resource';
+import Resources from '@/domain/resource/Resources';
 import ProductIdentifier from './ProductIdentifier';
 import { Type } from 'class-transformer';
+import Diagrams from '../diagram/Diagrams';
 
 export default class Product {
     private readonly updateAt: Date;
@@ -10,10 +10,10 @@ export default class Product {
     public readonly name: string;
     @Type(() => UserSettings)
     private readonly userSettings: UserSettings;
-    @Type(() => Diagram)
-    private readonly diagrams: Diagram[];
-    @Type(() => Resource)
-    private readonly resources: Resource[];
+    @Type(() => Diagrams)
+    public readonly diagrams: Diagrams;
+    @Type(() => Resources)
+    public readonly resources: Resources;
     public readonly resourceIdSequence: number;
 
     constructor(
@@ -21,8 +21,8 @@ export default class Product {
         id: string,
         name: string,
         userSettings: UserSettings,
-        diagrams: Diagram[],
-        resouces: Resource[],
+        diagrams: Diagrams,
+        resouces: Resources,
         resourceIdSequence: number,
     ) {
         this.updateAt = updateAt;
@@ -40,8 +40,8 @@ export default class Product {
             ProductIdentifier.ganerate().toString(),
             newName,
             UserSettings.create(),
-            [],
-            [],
+            Diagrams.empty(),
+            Resources.empty(),
             0
         );
     }

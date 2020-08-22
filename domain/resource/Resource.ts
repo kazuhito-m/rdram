@@ -12,8 +12,8 @@ export default class Resource {
         this.name = name;
         this.description = description;
     }
-    private readonly resourceId: number;
+    public readonly resourceId: number;
     private readonly resourceTypeId: number;
-    private readonly name: string;
+    public readonly name: string;
     private readonly description: string;
 }

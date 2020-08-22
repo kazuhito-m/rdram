@@ -135,7 +135,7 @@ export default class extends Vue {
       })
       .forEach(item => items.push(item));
 
-    product.diagrams.forEach(product => this.addDiagramTreeItem(product));
+    product.diagrams.forEach(diagram => this.addDiagramTreeItem(diagram));
 
     product.resources.forEach(resource =>
       this.allResourcesOnCurrentProduct.push(resource)
@@ -219,18 +219,15 @@ export default class extends Vue {
       `追加する ${diagramType.name} の名前を入力してください。`,
       "",
       inputText => {
-        const exists = diagrams.some(
-          diagram =>
-            diagram.name === inputText && diagram.typeId === diagramType.id
-        );
+        const exists = diagrams.existsSomeName(inputText, diagramType);
         if (exists) alert(`既に同一の${diagramType.name}名が在ります。`);
         return !exists;
       }
     );
     if (!name) return;
 
-    const newDiagramId =
-      diagrams.map(d => d.id).reduce((l, r) => Math.max(l, r), 0) + 1;
+    const diagram2: Diagram = diagrams.createNewDiagram(name, diagramType);
+    const newDiagramId = diagrams.map(d => d.id).reduce((l, r) => Math.max(l, r), 0) + 1;
     const diagram = diagramType.prototypeOf(newDiagramId, name);
     diagrams.push(diagram);
 

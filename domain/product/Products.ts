@@ -40,4 +40,8 @@ export default class Products {
         if (this.values.length === newValues.length) newValues.push(product);
         return new Products(newValues);
     }
+
+    public forEach(func: (product: Product) => void) {
+        this.values.forEach(func);
+    }
 }

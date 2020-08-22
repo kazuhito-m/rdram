@@ -25,6 +25,11 @@ export default class DiagramType {
         return DiagramType.vs;
     }
 
+    public equals(other: DiagramType | null): boolean {
+        if (!other) return false;
+        return other?.id === this.id;
+    }
+
     public static ofId(id: number): DiagramType | null {
         const found = this.vs
             .find(item => item.id === id);
@@ -52,11 +57,11 @@ export default class DiagramType {
         }
 
         // 上記以外…は「本来無い」ので、以下は未実装部分のための仮実装
-        return {
-            id: newId,
-            typeId: this.id,
-            name: newName,
-            relations: []
-        };
+        return new Diagram(
+            newId,
+            this.id,
+            newName,
+            []
+        );
     }
 }
