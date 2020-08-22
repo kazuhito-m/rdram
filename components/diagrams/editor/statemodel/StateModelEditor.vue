@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mainpain">
     <p>StateModelEditor</p>
     <p>id:{{ diagram.id }}</p>
     <p>name:{{ diagram.name }}</p>
@@ -25,4 +25,7 @@ export default class StateModelEditor extends Vue {
 </script>
 
 <style>
+.mainpain {
+  background-color: aqua;
+}
 </style>

@@ -6,6 +6,12 @@
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       @onUpdateResources="onUpdateResoucesOnEditor"
     />
+    <SystemContextDiagramEditor
+      v-if="is('システムコンテキスト図')"
+      :diagram="diagram"
+      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+    />
     <StateModelEditor
       v-if="is('状態モデル')"
       :diagram="diagram"
@@ -18,6 +24,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Inject, Emit } from "nuxt-property-decorator";
 import BusinessContextDiagramEditor from "@/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
+import SystemContextDiagramEditor from "@/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue";
 import StateModelEditor from "@/components/diagrams/editor/statemodel/StateModelEditor.vue";
 import Repository from "@/infrastructure/Repository";
 import Diagram from "@/domain/diagram/Diagram";
@@ -37,7 +44,7 @@ export default class DiagramEditorContainer extends Vue {
   @Prop({ required: true })
   private readonly diagramId!: number;
 
-  @Prop({ required: true})
+  @Prop({ required: true })
   private allResourcesOnCurrentProduct?: Resource[];
 
   private diagram: Diagram | null = null;

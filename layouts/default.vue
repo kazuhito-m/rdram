@@ -161,7 +161,7 @@ export default class extends Vue {
     },
      {
       icon: "mdi-apps",
-      title: "レイアウトのテスト",
+      title: "draw2dのテスト",
       to: "/layouttest"
     }
   ];

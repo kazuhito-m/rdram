@@ -156,7 +156,7 @@ import Placement from "@/domain/diagram/placement/Placement";
 import RouterType from "@/domain/diagram/relation/RouterType";
 import Relation from "@/domain/diagram/relation/Relation";
 import Actor from "@/domain/actor/Actor";
-import IconGenerator from "../icon/IconGenerator";
+import IconGenerator from "@/components/diagrams/icon/IconGenerator";
 import MessageBox from "../../../../presentation/MessageBox";
 
 @Component({
@@ -246,7 +246,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     canvas.installEditPolicy(new draw2d.policy.canvas.CoronaDecorationPolicy());
     canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
 
-    // canvas.setScrollArea("#" + this.canvasId); // TODO もしかしたら「そんなに小細工しなくても、draw2dでスクロールできるかもしれない」ので、後に検討。
+    canvas.setScrollArea("#" + this.editorPainId);
 
     this.canvas = canvas;
   }
@@ -646,6 +646,7 @@ interface CanvasSelections {
 }
 
 .paret-pain {
+  width: 0%;
   flex-grow: 1;
   min-width: 0px;
   overflow-y: auto;
