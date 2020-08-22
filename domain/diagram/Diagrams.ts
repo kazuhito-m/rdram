@@ -19,7 +19,7 @@ export default class Diagrams {
         const newDiagramId = this.values
             .map(d => d.id)
             .reduce((l, r) => Math.max(l, r), 0) + 1;
-        const diagram = Diagram.prototypeOf(newDiagramId, name, diagramType);
+        return Diagram.prototypeOf(newDiagramId, name, diagramType);
     }
 
     public existsSomeName(name: string, diagramType: DiagramType): boolean {

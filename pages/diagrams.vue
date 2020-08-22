@@ -83,6 +83,7 @@ import Diagram from "@/domain/diagram/Diagram";
 import ResourceType from "../domain/resource/ResourceType";
 import Resource from "../domain/resource/Resource";
 import MessageBox from "../presentation/MessageBox";
+import Resources from "../domain/resource/Resources";
 
 @Component({
   components: {
@@ -226,10 +227,9 @@ export default class extends Vue {
     );
     if (!name) return;
 
-    const diagram2: Diagram = diagrams.createNewDiagram(name, diagramType);
-    const newDiagramId = diagrams.map(d => d.id).reduce((l, r) => Math.max(l, r), 0) + 1;
-    const diagram = diagramType.prototypeOf(newDiagramId, name);
-    diagrams.push(diagram);
+    const diagram = diagrams.createNewDiagram(name, diagramType);
+    const addedDiagrams = diagrams.add(diagram);
+    const addedProducts = product.with(addedDiagrams);
 
     this.repository.registerCurrentProduct(product);
 
@@ -295,7 +295,8 @@ export default class extends Vue {
     console.log("トップ画面でのリソース全保存");
     const product = this.repository.getCurrentProduct();
     if (!product) return;
-    product.resources = this.allResourcesOnCurrentProduct;
+    const resources = new Resources(this.allResourcesOnCurrentProduct);
+    const newProduct = product.withResources(resources);
     this.repository.registerCurrentProduct(product);
   }
 }

@@ -46,6 +46,30 @@ export default class Product {
         );
     }
 
+    public with(newDiagrams: Diagrams) {
+        return new Product(
+            this.updateAt,
+            this.id,
+            this.name,
+            this.userSettings,
+            newDiagrams,
+            this.resources,
+            this.resourceIdSequence,
+        );
+    }
+
+    public withResources(newResources: Resources) {
+        return new Product(
+            this.updateAt,
+            this.id,
+            this.name,
+            this.userSettings,
+            this.diagrams,
+            newResources,
+            this.resourceIdSequence,
+        );
+    }
+
     public renewTimeStamp(): Product {
         return new Product(
             new Date(),

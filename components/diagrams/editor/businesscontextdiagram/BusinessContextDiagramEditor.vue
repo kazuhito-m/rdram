@@ -219,10 +219,8 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.paretPainId = "paretPain" + diagramId;
     this.canvasId = "canvas" + diagramId;
 
-    this.diagram.availableResourceTypeIds
-      .map(resourceTypeId => ResourceType.ofId(resourceTypeId))
-      .filter(resourceType => resourceType !== null)
-      .forEach(resourceType => this.availableResourceTypes.push(resourceType as ResourceType))
+    this.diagram.availableResourceTypes()
+      .forEach(resourceType => this.availableResourceTypes.push(resourceType))
     for (let i = 0; i < this.availableResourceTypes.length + 1; i++) this.paretsOpen.push(i);
   }
 
