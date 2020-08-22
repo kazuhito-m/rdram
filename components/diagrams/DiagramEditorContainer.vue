@@ -2,19 +2,19 @@
   <div>
     <BusinessContextDiagramEditor
       v-if="is('ビジネスコンテキスト図')"
-      :diagram="diagram"
+      :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       @onUpdateResources="onUpdateResoucesOnEditor"
     />
     <SystemContextDiagramEditor
       v-if="is('システムコンテキスト図')"
-      :diagram="diagram"
+      :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       @onUpdateResources="onUpdateResoucesOnEditor"
     />
     <StateModelEditor
       v-if="is('状態モデル')"
-      :diagram="diagram"
+      :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       @onUpdateResources="onUpdateResoucesOnEditor"
     />
@@ -64,20 +64,17 @@ export default class DiagramEditorContainer extends Vue {
   private diagramOf(diagramId: number): Diagram | null {
     const product = this.repository.getCurrentProduct();
     if (!product) return null;
-    const hitDiagram = product.diagrams.find(
-      daigram => daigram.id === this.diagramId
-    );
+    const hitDiagram = product.diagrams.of(diagramId);
     return hitDiagram ? hitDiagram : null;
   }
 
   public is(typeName: string): boolean {
     if (!this.diagram) return false;
-    const type = DiagramType.ofId(this.diagram.typeId);
-    if (!type) return false;
-    return type.name === typeName;
+    return this.diagram.type.name === typeName;
   }
 }
 </script>
 
 <style>
+
 </style>

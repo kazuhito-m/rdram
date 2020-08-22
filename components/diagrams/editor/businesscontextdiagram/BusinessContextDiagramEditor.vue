@@ -436,7 +436,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     const message = `追加する${resourceType.name}の名前を入力してください。`;
     const name = messageBox.promptWith255Limit(message, "", inputText => {
       const exists = this.allResourcesOnCurrentProduct
-        .filter(resource => resource.type().equals(resourceType))
+        .filter(resource => resource.type.equals(resourceType))
         .some(resource => resource.name === name);
       if (exists) alert(`既に同一の${resourceType.name}名が在ります。`);
       return !exists;
@@ -505,7 +505,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   ): boolean {
     let width = 0;
     let height = 0;
-    const resType = resource.type();
+    const resType = resource.type;
     if (
       ResourceType.組織.equals(resType) ||
       ResourceType.会社.equals(resType)
@@ -533,13 +533,13 @@ export default class BusinessContextDiagramEditor extends Vue {
     resource: Resource,
     placement: Placement
   ): boolean {
-    const iconGenerator = this.choiceIconGenerator(resource.type());
+    const iconGenerator = this.choiceIconGenerator(resource.type);
     if (!iconGenerator) return false;
 
     const icon = iconGenerator.generate(
       placement,
       resource,
-      this.iconStyleOf(resource.type())
+      this.iconStyleOf(resource.type)
     );
     this.canvas.add(icon);
     return true;
@@ -567,7 +567,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private iconKeyOf(resource: Resource): string {
     if (!resource) return "";
-    return resource.type().iconKey;
+    return resource.type.iconKey;
   }
 
   /**
@@ -635,7 +635,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     resource: Resource,
     resourceType: ResourceType
   ): boolean {
-    if (!resource.type().equals(resourceType)) return false;
+    if (!resource.type.equals(resourceType)) return false;
     return this.diagram.placements.every(
       placement => placement.resourceId !== resource.resourceId
     );

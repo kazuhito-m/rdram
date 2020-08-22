@@ -19,7 +19,7 @@ export default class Resource {
         this.description = description;
     }
 
-    public type() : ResourceType {
+    public get type(): ResourceType {
         return ResourceType.ofId(this.resourceTypeId) as ResourceType;
     }
 
