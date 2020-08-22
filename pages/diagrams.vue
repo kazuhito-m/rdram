@@ -1,94 +1,90 @@
 <template>
   <v-layout>
-    <v-flex class="text-center">
-      <div class="pain-container">
-        <div id="leftPain" class="left-pain">
-          <div class="treeview-container">
-            <v-treeview
-              :items="treeItems"
-              activatable
-              open-on-click
-              :active.sync="treeActiveItemIds"
-              :open.sync="treeOpenItemIds"
-              transition
-              dark
-              dense
-              @update:active="onClickTreeItem"
-            >
-              <template v-slot:label="{item}">
-                <div class="right-click-area"
-                  @click.right.prevent="onRightClickTreeItem"
-                  v-bind:data-item-id="item.id"
-                >
-                 {{item.name}}
-                </div>
-              </template>
-            </v-treeview>
-
-            <v-menu
-                :value="enableRightClickMenu"
-                :close-on-click="true"
-                :close-on-content-click="true"
-                :offset-x="true"
-                :rounded="true"
-                :position-x="menuPositionX"
-                :position-y="menuPositionY"
-            >
-              <v-list>
-                <v-list-item link @click="onClickMenuAddDiagram">
-                  <v-list-item-title>ダイアグラムを追加する...</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-
-          </div>
-        </div>
-        <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
-        <div class="right-pain">
-          <div class="tabview-container">
-
-            <v-tabs
-              v-model="currentTabIndex"
-              v-show="openTabs.length > 0"
-              background-color="primary"
-              dark
-              @change="onChangeActiveTab"
-            >
-              <v-tab class="tab-title"
-                v-for="item in openTabs"
-                :key="item.id"
+    <TwoPainWithSlideBarLayout>
+      <template v-slot:leftPain>
+        <div class="treeview-container">
+          <v-treeview
+            :items="treeItems"
+            activatable
+            open-on-click
+            :active.sync="treeActiveItemIds"
+            :open.sync="treeOpenItemIds"
+            transition
+            dark
+            dense
+            @update:active="onClickTreeItem"
+          >
+            <template v-slot:label="{item}">
+              <div class="right-click-area"
+                @click.right.prevent="onRightClickTreeItem"
+                v-bind:data-item-id="item.id"
               >
-                {{ item.name }}
-                <v-btn dark small icon 
-                  @click="onClickCloseTab" 
-                  v-bind:data-item-id="item.id"
-                >
-                  <v-icon dark v-bind:data-item-id="item.id">mdi-close-box</v-icon>
-                </v-btn>
-              </v-tab>
-            </v-tabs>
+                {{item.name}}
+              </div>
+            </template>
+          </v-treeview>
 
-            <v-tabs-items v-model="currentTabIndex" class="dialog-editor-container">
-              <v-tab-item
-                v-for="item in openTabs"
-                :key="item.id"
-              >
-                <DiagramEditorContainer
-                  :diagram-id="item.id"
-                  :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
-                  @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
-                />
-              </v-tab-item>
-            </v-tabs-items>
-          </div>
+          <v-menu
+              :value="enableRightClickMenu"
+              :close-on-click="true"
+              :close-on-content-click="true"
+              :offset-x="true"
+              :rounded="true"
+              :position-x="menuPositionX"
+              :position-y="menuPositionY"
+          >
+            <v-list>
+              <v-list-item link @click="onClickMenuAddDiagram">
+                <v-list-item-title>ダイアグラムを追加する...</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </div>
-      </div>
-    </v-flex>
+      </template>
+      <template v-slot:rightPain>
+        <div class="tabview-container">
+          <v-tabs
+            v-model="currentTabIndex"
+            v-show="openTabs.length > 0"
+            background-color="primary"
+            dark
+            @change="onChangeActiveTab"
+          >
+            <v-tab class="tab-title"
+              v-for="item in openTabs"
+              :key="item.id"
+            >
+              {{ item.name }}
+              <v-btn dark small icon 
+                @click="onClickCloseTab" 
+                v-bind:data-item-id="item.id"
+              >
+                <v-icon dark v-bind:data-item-id="item.id">mdi-close-box</v-icon>
+              </v-btn>
+            </v-tab>
+          </v-tabs>
+
+          <v-tabs-items v-model="currentTabIndex" class="dialog-editor-container">
+            <v-tab-item
+              v-for="item in openTabs"
+              :key="item.id"
+            >
+              <DiagramEditorContainer
+                :diagram-id="item.id"
+                :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+                @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
+              />
+            </v-tab-item>
+          </v-tabs-items>
+        </div>
+      </template>
+    </TwoPainWithSlideBarLayout>
   </v-layout>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop, Inject } from "nuxt-property-decorator";
+import TwoPainWithSlideBarLayout from '@/components/TwoPainWithSlideBarLayout.vue';
 import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import Repository from "@/infrastructure/Repository";
 import DiagramType from "@/domain/diagram/DiagramType";
@@ -100,6 +96,7 @@ import MessageBox from "../presentation/MessageBox";
 
 @Component({
   components: {
+    TwoPainWithSlideBarLayout,
     DiagramEditorContainer,
   }
 })
@@ -235,12 +232,6 @@ export default class extends Vue {
     this.openParentTreeItem(diagram.id);
   }
 
-  public onDoubleClickSlideBar(): void {
-    const leftPain = document.getElementById('leftPain') as HTMLElement;
-    const style = leftPain.style;
-    style.display = style.display === 'none' ? 'inline' : 'none';
-  }
-
   private addDiagramTreeItem(diagram: Diagram): void {
     const maskedDialogTypeId = diagram.typeId + this.DIAGRAM_FOLDER_ID_MASK;
     const folderItem = this.treeItems
@@ -325,8 +316,6 @@ interface TreeItem {
 }
 
 .left-pain {
-  /* 水平垂直方向にリサイズ可能 */
-  resize: horizontal;
   /* resizeを指定するため 'visible'以外を指定 */
   width: 20%;
   overflow: auto;
@@ -340,7 +329,7 @@ interface TreeItem {
 .slidebar {
   width: 8px;
   background-color: gray;
-  cursor: move;
+  cursor: col-resize;
 }
 
 .treeview-container {

@@ -1,7 +1,9 @@
 <template>
   <div class="diagram-pain-container">
     <div class="editor-pain" :id="editorPainId">
-      <div class="diagram-canvas" :id="canvasId"></div>
+      <div id="canvas-container">
+        <div class="diagram-canvas" :id="canvasId"></div>
+      </div>
     </div>
     <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
     <div class="paret-pain" :id="paretPainId">
@@ -641,8 +643,6 @@ interface CanvasSelections {
 .editor-pain {
   resize: horizontal;
   width: 80%;
-  min-width: 0px;
-  overflow: auto;
 }
 
 .paret-pain {
@@ -657,6 +657,13 @@ interface CanvasSelections {
   width: 8px;
   background-color: gray;
   cursor: move;
+}
+
+#canvas-container {
+  width: 100%;
+  height: 100%;
+  min-width: 0px;
+  overflow: auto;
 }
 
 .diagram-canvas {
