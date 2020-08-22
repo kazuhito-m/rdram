@@ -1,11 +1,13 @@
+import "reflect-metadata";
+import { plainToClass, classToPlain } from "class-transformer";
 import LocalStrage from "@/domain/strage/LocalStrage";
 import Product from "@/domain/product/Product";
+import Products from "@/domain/product/Products";
 
 export default class Repository {
     private static readonly STRAGE_ID = 'rdram-strage';
 
     public isInitialized(): boolean {
-        // this.clear();
         const data = this.get();
         if (data) return true;
         return false;
@@ -21,12 +23,7 @@ export default class Repository {
     }
 
     private defaultStructure(): LocalStrage {
-        return {
-            status: {
-                currentProductId: ''
-            },
-            products: []
-        };
+        return LocalStrage.prototypeOf();
     }
 
     public getJsonText(): string | null {
@@ -38,7 +35,7 @@ export default class Repository {
 
         const textData = this.getJsonText();
         if (!textData) return null;
-        const strage = JSON.parse(textData);
+        const strage = plainToClass(LocalStrage, textData);
 
         // console.log(textData);
         const ms = performance.now() - startTime;
@@ -47,9 +44,12 @@ export default class Repository {
     }
 
     public register(strage: LocalStrage): void {
+        const target = strage.renewTimeStamp();
+
         const startTime = performance.now();
 
-        const jsonText = JSON.stringify(strage);
+        const jsonText = classToPlain(strage) as unknown as string;
+        alert(jsonText);
         localStorage.setItem(Repository.STRAGE_ID, jsonText);
 
         const ms = performance.now() - startTime;
@@ -59,30 +59,19 @@ export default class Repository {
 
     public getCurrentProduct(): Product | null {
         const strage = this.get();
-        const currentProductId = strage?.status.currentProductId;
-        const currentProduct = strage?.products
-            .find(product => product.id === currentProductId);
-        if (currentProduct) return currentProduct;
-        return null;
+        if (!strage) return null;
+        return strage.currentProduct();
     }
 
     public registerCurrentProduct(product: Product): void {
         const strage = this.get();
         if (!strage) return;
 
-        strage.status.currentProductId = product.id;
-
-        const products = strage.products;
-        for (let i = 0; i < products.length; i++) {
-            const p = products[i];
-            if (p.id === strage.status.currentProductId) {
-                products.splice(i, 1);
-                break;
-            }
-        }
-        products.push(product);
-
-        this.register(strage);
+        const renewProduct: Product = product.renewTimeStamp();
+        let changed = strage.changeCurrent(renewProduct);
+        const mearged: Products = strage.products.meage(renewProduct);
+        changed = changed.with(mearged);
+        this.register(changed);
     }
 
     public clear() {
@@ -92,8 +81,8 @@ export default class Repository {
     public generateResourceId(): number {
         const product = this.getCurrentProduct();
         if (!product) return 1;
-        product.resourceIdSequence++;
-        this.registerCurrentProduct(product);
-        return product.resourceIdSequence;
+        const updated = product.moveNextResourceIdSequence();
+        this.registerCurrentProduct(updated);
+        return updated.resourceIdSequence;
     }
 }

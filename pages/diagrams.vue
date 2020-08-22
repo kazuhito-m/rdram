@@ -15,23 +15,22 @@
             @update:active="onClickTreeItem"
           >
             <template v-slot:label="{item}">
-              <div class="right-click-area"
+              <div
+                class="right-click-area"
                 @click.right.prevent="onRightClickTreeItem"
                 v-bind:data-item-id="item.id"
-              >
-                {{item.name}}
-              </div>
+              >{{item.name}}</div>
             </template>
           </v-treeview>
 
           <v-menu
-              :value="enableRightClickMenu"
-              :close-on-click="true"
-              :close-on-content-click="true"
-              :offset-x="true"
-              :rounded="true"
-              :position-x="menuPositionX"
-              :position-y="menuPositionY"
+            :value="enableRightClickMenu"
+            :close-on-click="true"
+            :close-on-content-click="true"
+            :offset-x="true"
+            :rounded="true"
+            :position-x="menuPositionX"
+            :position-y="menuPositionY"
           >
             <v-list>
               <v-list-item link @click="onClickMenuAddDiagram">
@@ -50,25 +49,16 @@
             dark
             @change="onChangeActiveTab"
           >
-            <v-tab class="tab-title"
-              v-for="item in openTabs"
-              :key="item.id"
-            >
+            <v-tab class="tab-title" v-for="item in openTabs" :key="item.id">
               {{ item.name }}
-              <v-btn dark small icon 
-                @click="onClickCloseTab" 
-                v-bind:data-item-id="item.id"
-              >
+              <v-btn dark small icon @click="onClickCloseTab" v-bind:data-item-id="item.id">
                 <v-icon dark v-bind:data-item-id="item.id">mdi-close-box</v-icon>
               </v-btn>
             </v-tab>
           </v-tabs>
 
           <v-tabs-items v-model="currentTabIndex" class="dialog-editor-container">
-            <v-tab-item
-              v-for="item in openTabs"
-              :key="item.id"
-            >
+            <v-tab-item v-for="item in openTabs" :key="item.id">
               <DiagramEditorContainer
                 :diagram-id="item.id"
                 :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
@@ -84,7 +74,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Inject } from "nuxt-property-decorator";
-import TwoPainWithSlideBarLayout from '@/components/TwoPainWithSlideBarLayout.vue';
+import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import Repository from "@/infrastructure/Repository";
 import DiagramType from "@/domain/diagram/DiagramType";
@@ -97,34 +87,43 @@ import MessageBox from "../presentation/MessageBox";
 @Component({
   components: {
     TwoPainWithSlideBarLayout,
-    DiagramEditorContainer,
+    DiagramEditorContainer
   }
 })
 export default class extends Vue {
-  private readonly EMPTY_ITEMS: TreeItem = { id: 0, name: "(空)", children: [], disabled: true};
+  private readonly EMPTY_ITEMS: TreeItem = {
+    id: 0,
+    name: "(空)",
+    children: [],
+    disabled: true
+  };
   private readonly DIAGRAM_FOLDER_ID_MASK: number = 1000000;
 
   @Inject()
   private readonly repository!: Repository;
 
-  private treeItems:TreeItem[] = [];
+  private treeItems: TreeItem[] = [];
   private treeActiveItemIds: number[] = [];
   private treeOpenItemIds: number[] = [];
 
   private enableRightClickMenu = false;
-  private menuTargetTreeItemId:number = 0;
+  private menuTargetTreeItemId: number = 0;
   private menuPositionX = 0;
-  private menuPositionY = 0
+  private menuPositionY = 0;
 
   private currentTabIndex: number | null = null;
-  private openTabs:TreeItem[] = [];
+  private openTabs: TreeItem[] = [];
 
   private allResourcesOnCurrentProduct: Resource[] = [];
 
-  public created():void {
-  const product = this.repository.getCurrentProduct();
+  private currentProduct?: Product;
+
+  public created(): void {
+    const product = this.repository.getCurrentProduct();
     if (!product) return;
-     
+
+    this.currentProduct = product;
+
     const items = this.treeItems;
     DiagramType.values()
       .map(type => {
@@ -135,32 +134,35 @@ export default class extends Vue {
         } as TreeItem;
       })
       .forEach(item => items.push(item));
-    
-    product.diagrams
-      .forEach(product => this.addDiagramTreeItem(product));
 
-    product.resources
-      .forEach(resource => this.allResourcesOnCurrentProduct.push(resource));
+    product.diagrams.forEach(product => this.addDiagramTreeItem(product));
+
+    product.resources.forEach(resource =>
+      this.allResourcesOnCurrentProduct.push(resource)
+    );
   }
 
   public onClickTreeItem(treeItemIdText: string): void {
-    if (treeItemIdText === '') return;
+    if (treeItemIdText === "") return;
     const treeItemId = parseInt(treeItemIdText, 10);
 
-    const exists = this.openTabs
-      .some(tab => tab.id === treeItemId);
+    const exists = this.openTabs.some(tab => tab.id === treeItemId);
     if (!exists) {
       const clickedItem = this.findTreeItemById(treeItemId, this.treeItems);
       if (!clickedItem) return;
       this.openTabs.push(clickedItem);
     }
 
-    const newTabIndex = this.openTabs
-      .findIndex(tabItem => tabItem.id === treeItemId);
+    const newTabIndex = this.openTabs.findIndex(
+      tabItem => tabItem.id === treeItemId
+    );
     this.currentTabIndex = newTabIndex;
   }
 
-  private findTreeItemById(treeItemId: number, treeItems: TreeItem[]): TreeItem | null {
+  private findTreeItemById(
+    treeItemId: number,
+    treeItems: TreeItem[]
+  ): TreeItem | null {
     for (let item of treeItems) {
       if (item.id === treeItemId) return item;
       const child = this.findTreeItemById(treeItemId, item.children);
@@ -172,7 +174,7 @@ export default class extends Vue {
   public onRightClickTreeItem(event: MouseEvent) {
     if (!event.target) return;
     const element = event.target as HTMLElement;
-    const data = element.getAttribute('data-item-id');
+    const data = element.getAttribute("data-item-id");
     if (!data) return;
     const treeItemId = parseInt(data, 10);
     if (treeItemId <= this.DIAGRAM_FOLDER_ID_MASK) return;
@@ -182,14 +184,14 @@ export default class extends Vue {
     this.menuPositionX = event.clientX;
     this.menuPositionY = event.clientY;
     this.$nextTick(() => {
-      this.enableRightClickMenu = true
+      this.enableRightClickMenu = true;
     });
   }
 
   public onClickCloseTab(event: MouseEvent) {
     if (!event.target) return;
     const element = event.target as HTMLElement;
-    const data = element.getAttribute('data-item-id');
+    const data = element.getAttribute("data-item-id");
     if (!data) return;
     const tabItemId = parseInt(data, 10);
 
@@ -201,27 +203,34 @@ export default class extends Vue {
   }
 
   public onClickMenuAddDiagram() {
-    const item = this.treeItems
-      .find(item => item.id === this.menuTargetTreeItemId);
+    const item = this.treeItems.find(
+      item => item.id === this.menuTargetTreeItemId
+    );
     if (!item) return;
     const diagramType = DiagramType.ofId(item.id - this.DIAGRAM_FOLDER_ID_MASK);
     if (!diagramType) return;
-
 
     const product = this.repository.getCurrentProduct();
     if (!product) return;
     const diagrams = product.diagrams;
 
     const messageBox = new MessageBox();
-    const name = messageBox.promptWith255Limit(`追加する ${diagramType.name} の名前を入力してください。`, "", (inputText) => {
-      const exists = diagrams.some(diagram => diagram.name === inputText && diagram.typeId === diagramType.id);
-      if (exists) alert(`既に同一の${diagramType.name}名が在ります。`);
-      return !exists;
-    });
+    const name = messageBox.promptWith255Limit(
+      `追加する ${diagramType.name} の名前を入力してください。`,
+      "",
+      inputText => {
+        const exists = diagrams.some(
+          diagram =>
+            diagram.name === inputText && diagram.typeId === diagramType.id
+        );
+        if (exists) alert(`既に同一の${diagramType.name}名が在ります。`);
+        return !exists;
+      }
+    );
     if (!name) return;
 
-    const newDiagramId = diagrams.map(d => d.id)
-      .reduce((l,r) => Math.max(l,r), 0) + 1;
+    const newDiagramId =
+      diagrams.map(d => d.id).reduce((l, r) => Math.max(l, r), 0) + 1;
     const diagram = diagramType.prototypeOf(newDiagramId, name);
     diagrams.push(diagram);
 
@@ -233,9 +242,10 @@ export default class extends Vue {
   }
 
   private addDiagramTreeItem(diagram: Diagram): void {
-    const maskedDialogTypeId = diagram.typeId + this.DIAGRAM_FOLDER_ID_MASK;
-    const folderItem = this.treeItems
-      .find(item => item.id === maskedDialogTypeId);
+    const maskedDialogTypeId = diagram.type.id + this.DIAGRAM_FOLDER_ID_MASK;
+    const folderItem = this.treeItems.find(
+      item => item.id === maskedDialogTypeId
+    );
     if (!folderItem) return;
     const children = folderItem.children;
 
@@ -246,12 +256,12 @@ export default class extends Vue {
     children.push(diagramTreeItem);
   }
 
-  private diagramToTreeItem(diagram: Diagram):TreeItem {
+  private diagramToTreeItem(diagram: Diagram): TreeItem {
     return {
       id: diagram.id,
       name: diagram.name,
       children: [],
-      disabled:false
+      disabled: false
     };
   }
 
@@ -268,10 +278,10 @@ export default class extends Vue {
     this.openParentTreeItem(currentTabItem.id);
   }
 
-  private openParentTreeItem(treeItemId: number):void {
-     const parentTreeItem = this.treeItems
-      .find(folderItem => 
-        folderItem.children.some(item => item.id === treeItemId));
+  private openParentTreeItem(treeItemId: number): void {
+    const parentTreeItem = this.treeItems.find(folderItem =>
+      folderItem.children.some(item => item.id === treeItemId)
+    );
     if (!parentTreeItem) return;
     const parentTreeItemId = parentTreeItem.id;
     const openIds = this.treeOpenItemIds;
@@ -288,8 +298,7 @@ export default class extends Vue {
     console.log("トップ画面でのリソース全保存");
     const product = this.repository.getCurrentProduct();
     if (!product) return;
-    product.resources = this.allResourcesOnCurrentProduct
-    product.resources.forEach(r => console.log(`id:${r.resourceId}, name:${r.name}`));
+    product.resources = this.allResourcesOnCurrentProduct;
     this.repository.registerCurrentProduct(product);
   }
 }
@@ -336,7 +345,7 @@ interface TreeItem {
   min-height: 0%;
   height: 100%;
   width: 100%;
-  overflow:auto;
+  overflow: auto;
 }
 
 .tabview-container {
@@ -345,7 +354,7 @@ interface TreeItem {
 }
 
 .right-click-area {
-  user-select: none
+  user-select: none;
 }
 
 .dialog-editor-container {
