@@ -10,9 +10,9 @@ export default class Diagram {
     private readonly typeId: number;
     public readonly name: string;
     @Type(() => Relation)
-    private readonly relations: Relation[];
+    public readonly relations: Relation[];
     @Type(() => Placement)
-    private readonly placements: Placement[];
+    public readonly placements: Placement[];
 
     protected constructor(
         id: number,
@@ -90,6 +90,12 @@ export default class Diagram {
     public existsSomeRelation(relation: Relation): boolean {
         return this.relations
             .some(r => r.some(relation));
+    }
+
+    public relationOf(relationId: string): Relation | null {
+        const found = this.relations
+            .find(r => r.id === relationId);
+        return found ? found : null;
     }
 
     public get type(): DiagramType {

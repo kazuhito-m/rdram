@@ -1,8 +1,9 @@
-import Midpoint from "./Midpoint";
 import { Type } from "class-transformer";
 import RouterType from "./RouterType";
+import Midpoint from "./Midpoint";
 
 export default class Relation {
+
     constructor(
         id: string,
         fromResourceId: number,
@@ -20,7 +21,7 @@ export default class Relation {
     public readonly id: string;
     public readonly fromResourceId: number;
     public readonly toResourceId: number;
-    private readonly routerTypeId: number;
+    public readonly routerTypeId: number;
     @Type(() => Midpoint)
     private readonly midpoints: Midpoint[];
 
@@ -37,5 +38,16 @@ export default class Relation {
     public some(other: Relation): boolean {
         return this.fromResourceId === other.fromResourceId && this.toResourceId === other.toResourceId
             || this.fromResourceId === other.toResourceId && this.toResourceId === other.fromResourceId;
+    }
+
+    public changeRouterType(routerType: RouterType): Relation {
+        return new Relation(
+            this.id,
+            this.fromResourceId,
+            this.toResourceId,
+            routerType.id,
+            this.midpoints,
+        );
+
     }
 }

@@ -9,7 +9,7 @@ export default class Product {
     public readonly id: string;
     public readonly name: string;
     @Type(() => UserSettings)
-    private readonly userSettings: UserSettings;
+    public readonly userSettings: UserSettings;
     @Type(() => Diagrams)
     public readonly diagrams: Diagrams;
     @Type(() => Resources)

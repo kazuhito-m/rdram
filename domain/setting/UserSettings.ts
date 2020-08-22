@@ -1,5 +1,5 @@
 export default class UserSettings {
-    private readonly autoSave: boolean;
+    public readonly autoSave: boolean;
     private readonly darkMode: boolean;
 
     constructor(autoSave: boolean, darkMode: boolean) {
