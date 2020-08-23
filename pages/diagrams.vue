@@ -84,6 +84,7 @@ import ResourceType from "../domain/resource/ResourceType";
 import Resource from "../domain/resource/Resource";
 import MessageBox from "../presentation/MessageBox";
 import Resources from "../domain/resource/Resources";
+import BusinessContextDiagramEditor from "../components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
 
 @Component({
   components: {
@@ -92,6 +93,12 @@ import Resources from "../domain/resource/Resources";
   }
 })
 export default class extends Vue {
+  private readonly TOP_FOLDERS: { [key: string]: number } = {
+    "RDRA 2.0": -1,
+    カスタム: -2,
+    分析: -3
+  };
+
   private readonly EMPTY_ITEMS: TreeItem = {
     id: 0,
     name: "(空)",
@@ -125,19 +132,6 @@ export default class extends Vue {
 
     this.currentProduct = product;
 
-    // const items = this.treeItems
-    // DiagramType.values()
-    //   .map(type => {
-    //     return {
-    //       id: type.id + this.DIAGRAM_FOLDER_ID_MASK,
-    //       name: type.name,
-    //       children: [this.EMPTY_ITEMS]
-    //     } as TreeItem;
-    //   })
-    //   .forEach(item => items.push(item));
-
-    // product.diagrams.forEach(diagram => this.addDiagramTreeItem(diagram));
-
     this.treeItems = this.buildTreeItems(product);
 
     product.resources.forEach(resource =>
@@ -146,31 +140,37 @@ export default class extends Vue {
   }
 
   private buildTreeItems(product: Product): TreeItem[] {
-    const topItemMap: { [key: number]: TreeItem } = {};
-    DiagramType.values().forEach(type => {
-      topItemMap[type.id] = {
-        id: type.id + this.DIAGRAM_FOLDER_ID_MASK,
-        name: type.name,
-        children: [this.EMPTY_ITEMS],
+    const items: TreeItem[] = [];
+    let rdraTop: TreeItem;
+    Object.keys(this.TOP_FOLDERS).forEach(tfName => {
+      const id = this.TOP_FOLDERS[tfName];
+      const item = {
+        id: id,
+        name: tfName,
+        children: [] as TreeItem[],
         disabled: false
       };
+      if (tfName === "RDRA 2.0") {
+        rdraTop = item;
+        this.treeOpenItemIds.push(rdraTop.id);
+      } else item.children.push(this.EMPTY_ITEMS);
+      items.push(item);
     });
-    product.diagrams.forEach(diagram => {
-      const topItem = topItemMap[diagram.type.id];
-      const children = topItem.children;
 
-      if (children.length === 1 && children[0] === this.EMPTY_ITEMS)
-        children.length = 0;
+    DiagramType.values()
+      .map(type => {
+        return {
+          id: type.id + this.DIAGRAM_FOLDER_ID_MASK,
+          name: type.name,
+          children: [this.EMPTY_ITEMS]
+        } as TreeItem;
+      })
+      .forEach(item => rdraTop.children.push(item));
 
-      const diagramTreeItem = {
-        id: diagram.id,
-        name: diagram.name,
-        children: [],
-        disabled: false
-      };
-      children.push(diagramTreeItem);
-    });
-    return Object.values(topItemMap);
+    product.diagrams.forEach(diagram =>
+      this.addDiagramTreeItem(diagram, items)
+    );
+    return items;
   }
 
   public onClickTreeItem(treeItemIdText: string): void {
@@ -234,8 +234,9 @@ export default class extends Vue {
   }
 
   public onClickMenuAddDiagram() {
-    const item = this.treeItems.find(
-      item => item.id === this.menuTargetTreeItemId
+    const item = this.findTreeItemById(
+      this.menuTargetTreeItemId,
+      this.treeItems
     );
     if (!item) return;
     const diagramType = DiagramType.ofId(item.id - this.DIAGRAM_FOLDER_ID_MASK);
@@ -263,17 +264,23 @@ export default class extends Vue {
 
     this.repository.registerCurrentProduct(addedProducts);
 
-    this.addDiagramTreeItem(diagram);
+    this.addDiagramTreeItem(diagram, this.treeItems);
     this.activeTreeItemOf(diagram.id);
     this.openParentTreeItem(diagram.id);
   }
 
-  private addDiagramTreeItem(diagram: Diagram): void {
+  private addDiagramTreeItem(
+    diagram: Diagram,
+    diagramTreeItems: TreeItem[]
+  ): void {
+    const rdraTopId = this.TOP_FOLDERS["RDRA 2.0"];
+    const rdraTop = diagramTreeItems.find(i => i.id === rdraTopId);
+    if (!rdraTop) return;
+
     const maskedDialogTypeId = diagram.type.id + this.DIAGRAM_FOLDER_ID_MASK;
-    const folderItem = this.treeItems.find(
-      item => item.id === maskedDialogTypeId
-    );
+    const folderItem = rdraTop.children.find(i => i.id === maskedDialogTypeId);
     if (!folderItem) return;
+
     const children = folderItem.children;
 
     if (children.length === 1 && children[0] === this.EMPTY_ITEMS)
@@ -306,7 +313,8 @@ export default class extends Vue {
   }
 
   private openParentTreeItem(treeItemId: number): void {
-    const parentTreeItem = this.treeItems.find(folderItem =>
+    const rdraTop = this.lookUpRdraTopItem();
+    const parentTreeItem = rdraTop.children.find(folderItem =>
       folderItem.children.some(item => item.id === treeItemId)
     );
     if (!parentTreeItem) return;
@@ -315,6 +323,12 @@ export default class extends Vue {
     if (openIds.some(id => id === parentTreeItemId))
       openIds.splice(openIds.indexOf(parentTreeItemId), 1);
     openIds.push(parentTreeItemId);
+  }
+
+  private lookUpRdraTopItem(): TreeItem {
+    const rdraTopId = this.TOP_FOLDERS['RDRA 2.0'];
+    return this.treeItems
+      .find(t =>  t.id === rdraTopId) as TreeItem;
   }
 
   private onUpdateResoucesOnContainer(): void {
