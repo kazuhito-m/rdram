@@ -341,7 +341,7 @@ export default class extends Vue {
     if (!product) return;
     const resources = new Resources(this.allResourcesOnCurrentProduct);
     const newProduct = product.withResources(resources);
-    this.repository.registerCurrentProduct(product);
+    this.repository.registerCurrentProduct(newProduct);
   }
 }
 
