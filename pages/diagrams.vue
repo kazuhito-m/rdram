@@ -123,6 +123,8 @@ export default class extends Vue {
     const product = this.repository.getCurrentProduct();
     if (!product) return;
 
+alert('ここと。')
+
     this.currentProduct = product;
 
     const items = this.treeItems;
@@ -141,6 +143,7 @@ export default class extends Vue {
     product.resources.forEach(resource =>
       this.allResourcesOnCurrentProduct.push(resource)
     );
+alert('ここ。')
   }
 
   public onClickTreeItem(treeItemIdText: string): void {

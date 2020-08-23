@@ -37,11 +37,11 @@ export default class LocalStrage {
         return this.status.currentProductId === product.id;
     }
 
-    public add(product: Product): LocalStrage {
+    public merge(product: Product): LocalStrage {
         return new LocalStrage(
             this.updateAt,
             this.status,
-            this.products.add(product),
+            this.products.merge(product),
         );
     }
 
@@ -49,7 +49,7 @@ export default class LocalStrage {
         return new LocalStrage(
             this.updateAt,
             new Status(product.id),
-            this.products.add(product),
+            this.products.merge(product),
         );
     }
 

@@ -34,7 +34,7 @@ export default class Repository {
     );
 
     public isInitialized(): boolean {
-        this.clear();
+        // this.clear();
         const data = this.get();
         if (data) return true;
         return false;
@@ -64,9 +64,11 @@ export default class Repository {
         if (!textData) return null;
         const strage = this.serializer.deserialize(textData) as LocalStrage;
 
-        // console.log(textData);
+        console.log('get :    ' + textData);
+        console.log(strage);
         const ms = performance.now() - startTime;
         console.log(`repository.get(),      ${(new Blob([textData])).size} byte取得。${ms.toFixed(3)} ms`);
+        // alert('get: ' + textData);
         return strage;
     }
 
@@ -76,12 +78,13 @@ export default class Repository {
         const startTime = performance.now();
 
         const jsonText = this.serializer.serialize(strage);
-        alert(jsonText);
         localStorage.setItem(Repository.STRAGE_ID, jsonText);
 
         const ms = performance.now() - startTime;
         console.log(`repository.register(), ${(new Blob([jsonText])).size} byte保存。${ms.toFixed(3)} ms`);
-        // console.log('register: ' + jsonText)
+        console.log('register: ' + jsonText)
+        console.log(strage);
+        // alert(jsonText);
     }
 
     public getCurrentProduct(): Product | null {
@@ -96,7 +99,7 @@ export default class Repository {
 
         const renewProduct: Product = product.renewTimeStamp();
         let changed = strage.changeCurrent(renewProduct);
-        const mearged: Products = strage.products.meage(renewProduct);
+        const mearged: Products = strage.products.merge(renewProduct);
         changed = changed.with(mearged);
         this.register(changed);
     }

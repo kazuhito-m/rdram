@@ -21,25 +21,23 @@ export default class Products {
         return found ? found : null;
     }
 
-    public add(product: Product): Products {
+    public merge(product: Product): Products {
         const newValues = Array.from(this.values);
-        newValues.push(product);
-        return new Products(newValues);
-    }
-
-    public meage(product: Product): Products {
-        const newValues = Array.from(this.values);
-        for (let i = 0; i < newValues.length; i++) {
-            const p = newValues[i];
-            if (p.id !== product.id) continue;
-            newValues[i] = product;
-            break;
+        const index = newValues.findIndex(p => p.id === product.id);
+        if (index > 0) {
+            newValues[index] = product;
+        } else {
+            newValues.push(product);
         }
-        if (this.values.length === newValues.length) newValues.push(product);
         return new Products(newValues);
     }
 
     public forEach(func: (product: Product) => void) {
         this.values.forEach(func);
+    }
+
+    public list(): Product[] {
+        const result = Array.from(this.values);
+        return result;
     }
 }

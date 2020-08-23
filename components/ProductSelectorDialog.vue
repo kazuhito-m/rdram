@@ -10,7 +10,7 @@
       <v-card-actions>
         <v-select
           v-model="selectedProduct"
-          :items="products"
+          :items="productsList()"
           item-text="name"
           label="Product"
           return-object
@@ -65,17 +65,21 @@ export default class ProductSelectorDialog extends Vue {
   private onOpen(): string {
     if (!this.visibleProductSelectorDialog) return "";
 
-    const starge = this.repository?.get();
-    if (!starge) return "";
+    const strage = this.repository?.get();
+    if (!strage) return "";
 
     if (!this.products) {
-      this.products = starge.products;
+      this.products = strage.products;
     }
     if (!this.selectedProduct) {
-      const strage = this.repository?.get() as LocalStrage;
       this.selectedProduct = strage.currentProduct();
     }
     return "";
+  }
+
+  private productsList(): Product[] {
+    if (!this.products) return [];
+    return this.products.list();
   }
 
   private onClickAddProduct() {
@@ -88,7 +92,7 @@ export default class ProductSelectorDialog extends Vue {
     });
     if (!name) return;
     const product = Product.prototypeOf(name);
-    this.products = this.products?.add(product);
+    this.products = this.products?.merge(product);
     this.selectedProduct = product;
     this.saveAddProduct(product);
   }
@@ -111,17 +115,16 @@ export default class ProductSelectorDialog extends Vue {
   private saveAddProduct(product: Product): void {
     const strage = this.repository?.get();
     if (!strage) return;
-    const added = strage.add(product);
+    const added = strage.merge(product);
     this.repository?.register(added);
   }
 
   private saveCurrentProduct(): boolean {
     const strage = this.repository?.get();
     if (!strage || !this.selectedProduct) return false;
-    const a: boolean = strage.isCurrentProduct(this.selectedProduct);
     if (strage.isCurrentProduct(this.selectedProduct)) return false;
     const changed = strage.changeCurrent(this.selectedProduct); 
-    this.repository?.register(strage);
+    this.repository?.register(changed);
     return true;
   }
 }

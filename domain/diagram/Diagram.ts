@@ -111,10 +111,6 @@ export default class Diagram {
     }
 
     public static prototypeOf(newDiagramId: number, name: string, diagramType: DiagramType): Diagram {
-        if (DiagramType.ビジネスコンテキスト図.equals(diagramType)) {
-            return BusinessContextDiagram.prototypeOf(newDiagramId, name);
-        }
-
         // それ以外(未定義なものが来た時)
         return new Diagram(
             newDiagramId,
