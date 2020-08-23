@@ -39,7 +39,7 @@
               </v-list-item>
 
               <v-list-item
-                v-for="resource in allResourcesOnCurrentProduct.filter(r => filterDisplayParet(r, resourceType))"
+                v-for="resource in allResourcesOnCurrentProduct.filter(r => filterDisplayParet(r, resourceType, usedResouceIds))"
                 :key="resource.resourceId"
               >
                 <v-list-item-content>
@@ -70,7 +70,7 @@
           <v-expansion-panel-content>
             <v-list dark dence>
               <v-list-item
-                v-for="usedResource in allResourcesOnCurrentProduct.filter(r => filterUsedList(r))"
+                v-for="usedResource in allResourcesOnCurrentProduct.filter(r => filterUsedList(r, usedResouceIds))"
                 :key="usedResource.id"
               >
                 <v-list-item-content>
@@ -162,7 +162,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   @Prop({ required: true })
   private readonly diagramId!: number;
-  private diagram!: BusinessContextDiagram;
+  private usedResouceIds: number[] = [];
   private product!: Product;
 
   @Prop({ required: true })
@@ -199,15 +199,16 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.product = this.getCurrentProduct();
 
     const diagramId = this.diagramId;
-    this.diagram = this.product.diagrams.of(
-      diagramId
-    ) as BusinessContextDiagram;
+    const diagram = this.product.diagrams.of(diagramId);
+    if (!diagram) return;
+
+    diagram.placements.forEach(p => this.usedResouceIds.push(p.resourceId));
 
     this.editorPainId = "editorPain" + diagramId;
     this.paretPainId = "paretPain" + diagramId;
     this.canvasId = "canvas" + diagramId;
 
-    this.diagram
+    diagram
       .availableResourceTypes()
       .forEach(resourceType => this.availableResourceTypes.push(resourceType));
     for (let i = 0; i < this.availableResourceTypes.length + 1; i++)
@@ -268,20 +269,8 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (analyzeResutEvents.isNothing()) return;
 
     this.transactionOf((diagram, product) => {
-      console.log(
-        "中央のResoucesのサイズ:" + this.allResourcesOnCurrentProduct.length
-      );
-      this.dumpDiagram(diagram, "実行前");
-
       if (!analyzeResutEvents.validate(diagram, product, this)) return false;
-      const result = analyzeResutEvents.apply(diagram, product, this);
-
-      console.log(
-        "中央のResoucesのサイズ:" + this.allResourcesOnCurrentProduct.length
-      );
-      this.allResourcesOnCurrentProduct.forEach(i => console.log(i));
-      this.dumpDiagram(diagram, "実行後");
-      return result;
+      return analyzeResutEvents.apply(diagram, product, this);
     });
   }
 
@@ -314,7 +303,10 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private drawDiagram() {
-    for (let placement of this.diagram.placements) {
+    const diagram = this.product.diagrams.of(this.diagramId);
+    if (!diagram) return;
+
+    for (let placement of diagram.placements) {
       const resource = this.allResourcesOnCurrentProduct.find(
         resource => resource.resourceId === placement.resourceId
       );
@@ -323,7 +315,7 @@ export default class BusinessContextDiagramEditor extends Vue {
       this.addResouceIconToCanvas(resource, placement);
     }
 
-    for (let relation of this.diagram.relations) {
+    for (let relation of diagram.relations) {
       this.addConnection(relation);
     }
   }
@@ -364,9 +356,9 @@ export default class BusinessContextDiagramEditor extends Vue {
   public onClickConnectorOnCanvas(x: number, y: number) {
     const foundFigure = this.canvas.getBestFigure(x, y, [], []);
     if (!foundFigure) return;
-    const targetRelation = this.diagram.relations.find(
-      relation => relation.id === foundFigure.id
-    );
+    const diagram = this.product.diagrams.of(this.diagramId);
+    if (!diagram) return;
+    const targetRelation = diagram.relationOf(foundFigure.id);
     if (!targetRelation) return;
     const absoluteX = this.canvas.getAbsoluteX() + x;
     const absoluteY = this.canvas.getAbsoluteY() + y;
@@ -481,19 +473,24 @@ export default class BusinessContextDiagramEditor extends Vue {
     func: (diagram: BusinessContextDiagram, product: Product) => boolean
   ): void {
     const product = this.getCurrentProduct();
-    const autoSave = product.userSettings.autoSave;
-    if (autoSave) {
-      this.product = product;
-      const foundDiagram = this.product.diagrams.of(
-        this.diagram.id
-      ) as BusinessContextDiagram;
-      if (foundDiagram) this.diagram = foundDiagram;
+    const diagram = product.diagrams.of(this.diagramId);
+    if (!diagram) return;
+
+    const requireSave = func(diagram, this.product);
+
+    this.mergePlacement(this.usedResouceIds, diagram.placements);
+
+    if (requireSave) this.repository.registerCurrentProduct(product);
+  }
+
+  private mergePlacement(usedResouceIds: number[], diffTarget: Placement[]) {
+    const idSet = new Set(diffTarget.map(p => p.resourceId));
+    for (let i = usedResouceIds.length - 1; i >= 0; i--) {
+      const usedResouceId = usedResouceIds[i];
+      if (idSet.has(usedResouceId)) idSet.delete(usedResouceId);
+      else usedResouceIds.splice(i, 1);
     }
-
-    const requireSave = func(this.diagram, this.product);
-
-    if (autoSave && requireSave)
-      this.repository.registerCurrentProduct(this.product);
+    idSet.forEach(id => usedResouceIds.push(id));
   }
 
   private addResourceToDiagram(
@@ -632,18 +629,20 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private filterDisplayParet(
     resource: Resource,
-    resourceType: ResourceType
+    resourceType: ResourceType,
+    usedResouceIds: number[]
   ): boolean {
+    const diagram = this.product.diagrams.of(this.diagramId);
+    if (!diagram) return false;
     if (!resource.type.equals(resourceType)) return false;
-    return this.diagram.placements.every(
-      placement => placement.resourceId !== resource.resourceId
-    );
+    return !usedResouceIds.includes(resource.resourceId);
   }
 
-  private filterUsedList(resource: Resource): boolean {
-    return this.diagram.placements.some(
-      placement => placement.resourceId === resource.resourceId
-    );
+  private filterUsedList(
+    resource: Resource,
+    usedResouceIds: number[]
+  ): boolean {
+    return usedResouceIds.includes(resource.resourceId);
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
