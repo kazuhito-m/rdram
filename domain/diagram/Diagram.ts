@@ -77,14 +77,13 @@ export default class Diagram {
         }
     }
 
-
     /**
      * FIXME ここだ「イミュータブルを破ってしまって」いる…なんとかしたい。 
      */
-    public modifyRelationOf(relation: Relation) {
+    public modifyRelationOf(relation: Relation): void {
         const index = this.relations
             .findIndex(r => r.id === relation.id);
-        if (!index) return;
+        if (index < 0) return;
         this.relations[index] = relation;
     }
 

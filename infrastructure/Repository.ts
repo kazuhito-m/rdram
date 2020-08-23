@@ -81,9 +81,9 @@ export default class Repository {
         localStorage.setItem(Repository.STRAGE_ID, jsonText);
 
         const ms = performance.now() - startTime;
-        console.log(`repository.register(), ${(new Blob([jsonText])).size} byte保存。${ms.toFixed(3)} ms`);
-        console.log('register: ' + jsonText)
+        // console.log('register: ' + jsonText)
         console.log(strage);
+        console.log(`repository.register(), ${(new Blob([jsonText])).size} byte保存。${ms.toFixed(3)} ms`);
         // alert('reg: ' + jsonText);
     }
 

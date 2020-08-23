@@ -38,7 +38,7 @@ export default class Relation {
             || this.fromResourceId === other.toResourceId && this.toResourceId === other.fromResourceId;
     }
 
-    public changeRouterType(routerType: RouterType): Relation {
+    public changeRouter(routerType: RouterType): Relation {
         return new Relation(
             this.id,
             this.fromResourceId,

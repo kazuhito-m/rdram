@@ -608,7 +608,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.transactionOf((diagram, product) => {
       const relation = diagram.relationOf(this.targetRelationId);
       if (!relation) return false;
-      const changed: Relation = relation.changeRouterType(routerType);
+      const changed: Relation = relation.changeRouter(routerType);
       diagram.modifyRelationOf(changed);
       return true;
     });
