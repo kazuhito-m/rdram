@@ -2,6 +2,7 @@ import Diagram from "@/domain/diagram/Diagram";
 import Relation from "../relation/Relation";
 import Placement from "../placement/Placement";
 import DiagramType from "../DiagramType";
+import ResourceType from "~/domain/resource/ResourceType";
 
 export default class BusinessContextDiagram extends Diagram {
     protected constructor(
@@ -20,8 +21,15 @@ export default class BusinessContextDiagram extends Diagram {
         );
     }
 
-    public availableResourceTypes() {
-        return [];
+    public availableResourceTypes(): ResourceType[] {
+        return [
+            ResourceType.業務,
+            ResourceType.アクター,
+            ResourceType.商品,
+            ResourceType.設備,
+            ResourceType.組織,
+            ResourceType.会社,
+        ];
     }
 
     public static prototypeOf(newDiagramId: number, name: string): BusinessContextDiagram {
