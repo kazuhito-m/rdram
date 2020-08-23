@@ -27,6 +27,8 @@ export default class BusinessContextDiagram extends Diagram {
             ResourceType.アクター,
             ResourceType.商品,
             ResourceType.設備,
+            ResourceType.契約,
+            ResourceType.サービス,
             ResourceType.組織,
             ResourceType.会社,
         ];

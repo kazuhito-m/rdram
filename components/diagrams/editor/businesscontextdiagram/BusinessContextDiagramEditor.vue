@@ -123,13 +123,15 @@ import BCDConnectPortsEvents from "./draw2d/eventanalyze/BCDConnectPortsEvents";
 import BCDDeleteShapeEvents from "./draw2d/eventanalyze/BCDDeleteShapeEvents";
 import BCDMoveShapeEvents from "./draw2d/eventanalyze/BCDMoveShapeEvents";
 import BCDResizeShapeEvents from "./draw2d/eventanalyze/BCDResizeShapeEvents";
+
 import CompanyIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/CompanyIconGenerator";
 import ActorIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/ActorIconGenerator";
-
 import RoomIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/RoomIconGenerator";
 import BusinessIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/BusinessIconGenerator";
 import GoodsIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/GoodsIconGenerator";
 import FacilityIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/FacilityIconGenerator";
+import ContractIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/ContractIconGenerator";
+import ServiceIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/ServiceIconGenerator";
 
 import Repository from "@/infrastructure/Repository";
 import Diagram from "@/domain/diagram/Diagram";
@@ -153,12 +155,14 @@ export default class BusinessContextDiagramEditor extends Vue {
   @Inject()
   private repository!: Repository;
 
-  private readonly companyIconGenerator: CompanyIconGenerator = new CompanyIconGenerator();
-  private readonly actorIconGenerator: ActorIconGenerator = new ActorIconGenerator();
-  private readonly roomIconGenerator: RoomIconGenerator = new RoomIconGenerator();
-  private readonly businessIconGenerator: BusinessIconGenerator = new BusinessIconGenerator();
-  private readonly goodsIconGenerator: GoodsIconGenerator = new GoodsIconGenerator();
-  private readonly facilityIconGenerator: FacilityIconGenerator = new FacilityIconGenerator();
+  private readonly companyIconGenerator = new CompanyIconGenerator();
+  private readonly actorIconGenerator = new ActorIconGenerator();
+  private readonly roomIconGenerator = new RoomIconGenerator();
+  private readonly businessIconGenerator = new BusinessIconGenerator();
+  private readonly goodsIconGenerator = new GoodsIconGenerator();
+  private readonly facilityIconGenerator = new FacilityIconGenerator();
+  private readonly serviceIconGenerator = new ServiceIconGenerator();
+  private readonly contractIconGenerator = new ContractIconGenerator();
 
   @Prop({ required: true })
   private readonly diagramId!: number;
@@ -546,11 +550,13 @@ export default class BusinessContextDiagramEditor extends Vue {
   ): IconGenerator | null {
     const type = resourceType;
     if (type.equals(ResourceType.アクター)) return this.actorIconGenerator;
-    if (type.equals(ResourceType.会社)) return this.companyIconGenerator;
-    if (type.equals(ResourceType.組織)) return this.roomIconGenerator;
     if (type.equals(ResourceType.業務)) return this.businessIconGenerator;
     if (type.equals(ResourceType.商品)) return this.goodsIconGenerator;
     if (type.equals(ResourceType.設備)) return this.facilityIconGenerator;
+    if (type.equals(ResourceType.契約)) return this.contractIconGenerator;
+    if (type.equals(ResourceType.サービス)) return this.serviceIconGenerator;
+    if (type.equals(ResourceType.組織)) return this.roomIconGenerator;
+    if (type.equals(ResourceType.会社)) return this.companyIconGenerator;
     return null;
   }
 
