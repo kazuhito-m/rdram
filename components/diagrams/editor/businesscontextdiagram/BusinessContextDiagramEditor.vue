@@ -155,14 +155,16 @@ export default class BusinessContextDiagramEditor extends Vue {
   @Inject()
   private repository!: Repository;
 
-  private readonly companyIconGenerator = new CompanyIconGenerator();
-  private readonly actorIconGenerator = new ActorIconGenerator();
-  private readonly roomIconGenerator = new RoomIconGenerator();
-  private readonly businessIconGenerator = new BusinessIconGenerator();
-  private readonly goodsIconGenerator = new GoodsIconGenerator();
-  private readonly facilityIconGenerator = new FacilityIconGenerator();
-  private readonly serviceIconGenerator = new ServiceIconGenerator();
-  private readonly contractIconGenerator = new ContractIconGenerator();
+  private static readonly ICON_GENERATORS: IconGenerator[] = [
+    new CompanyIconGenerator(),
+    new ActorIconGenerator(),
+    new RoomIconGenerator(),
+    new BusinessIconGenerator(),
+    new GoodsIconGenerator(),
+    new FacilityIconGenerator(),
+    new ServiceIconGenerator(),
+    new ContractIconGenerator()
+  ];
 
   @Prop({ required: true })
   private readonly diagramId!: number;
@@ -548,16 +550,10 @@ export default class BusinessContextDiagramEditor extends Vue {
   private choiceIconGenerator(
     resourceType: ResourceType
   ): IconGenerator | null {
-    const type = resourceType;
-    if (type.equals(ResourceType.アクター)) return this.actorIconGenerator;
-    if (type.equals(ResourceType.業務)) return this.businessIconGenerator;
-    if (type.equals(ResourceType.商品)) return this.goodsIconGenerator;
-    if (type.equals(ResourceType.設備)) return this.facilityIconGenerator;
-    if (type.equals(ResourceType.契約)) return this.contractIconGenerator;
-    if (type.equals(ResourceType.サービス)) return this.serviceIconGenerator;
-    if (type.equals(ResourceType.組織)) return this.roomIconGenerator;
-    if (type.equals(ResourceType.会社)) return this.companyIconGenerator;
-    return null;
+    const generator = BusinessContextDiagramEditor.ICON_GENERATORS.find(g =>
+      g.resourceType().equals(resourceType)
+    );
+    return generator ? generator : null;
   }
 
   private iconStyleOf(resourceType: ResourceType): CSSStyleDeclaration {

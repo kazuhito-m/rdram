@@ -2,8 +2,11 @@ import draw2d, { Figure } from 'draw2d';
 import Placement from "@/domain/diagram/placement/Placement";
 import Resource from '~/domain/resource/Resource';
 import IconGenerator from './IconGenerator';
+import ResourceType from '~/domain/resource/ResourceType';
 
-export default class GenericSingleIconGenerator implements IconGenerator {
+export default abstract class GenericSingleIconGenerator implements IconGenerator {
+    public abstract resourceType(): ResourceType;
+
     public generate(placement: Placement, resource: Resource, iconStyle: CSSStyleDeclaration): Figure {
         const padding = 0;
         const id = String(placement.resourceId);

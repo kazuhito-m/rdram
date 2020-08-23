@@ -3,8 +3,11 @@ import Placement from "@/domain/diagram/placement/Placement";
 import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
 import Resource from '~/domain/resource/Resource';
 import IconGenerator from './IconGenerator';
+import ResourceType from '~/domain/resource/ResourceType';
 
-export default class GenericAreaIconGenerator implements IconGenerator {
+export default abstract class GenericAreaIconGenerator implements IconGenerator {
+    public abstract resourceType(): ResourceType;
+    
     public generate(placement: Placement, resource: Resource, iconStyle: CSSStyleDeclaration): Figure {
         const id = String(placement.resourceId);
 
