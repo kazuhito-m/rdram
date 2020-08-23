@@ -25,6 +25,8 @@
       </v-list>
     </v-menu>
 
+    <v-btn color="normal" dark v-bind="attrs" v-on="on" @click="onCrickSiri">尻</v-btn>
+
     <div class="diagram-canvas" id="canvas01"></div>
   </div>
 </template>
@@ -40,6 +42,14 @@ import draw2d, { Figure, command } from "draw2d";
 import { createWrapper } from "@vue/test-utils";
 
 import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
+import Test from "@/infrastructure/Test";
+
+import {
+  serialize,
+  deserialize,
+  Type,
+  deserializeArray
+} from "class-transformer";
 
 @Component
 export default class extends Vue {
@@ -518,7 +528,7 @@ export default class extends Vue {
       stroke: 0,
       padding: 0,
       alpha: 1,
-      bold: true,
+      bold: true
     });
 
     const icon = new draw2d.shape.basic.Label({
@@ -537,12 +547,14 @@ export default class extends Vue {
       new draw2d.layout.locator.XYAbsPortLocator({ x: -14, y: -17 })
     );
 
-    waku.createPort(
-      "hybrid",
-      new draw2d.layout.locator.CenterLocator()
-    );
+    waku.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
 
     canvas.add(waku);
+  }
+
+  private onCrickSiri() {
+    const test = new Test();
+    test.test();
   }
 }
 </script>
