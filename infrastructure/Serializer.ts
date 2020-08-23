@@ -30,6 +30,7 @@ export default class Sreializer {
         if (typeof value !== "object") return value;
         if (Array.isArray(value)) return value.map(i => this.toClassInstance(i));
         if (!value.__CLASS_NAME) return value;
+        if (value.__CLASS_NAME === "Object") return value;
         const obj = this.createInstanceOf(value.__CLASS_NAME);
         if (!obj) return obj;
         for (let key in value) {
