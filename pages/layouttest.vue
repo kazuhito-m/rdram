@@ -42,6 +42,7 @@ import draw2d, { Figure, command } from "draw2d";
 import { createWrapper } from "@vue/test-utils";
 
 import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
+import Test from "@/infrastructure/Test";
 
 import {
   serialize,
@@ -552,71 +553,8 @@ export default class extends Vue {
   }
 
   private onCrickSiri() {
-    const test = new TestTest();
-    test.seri();
-  }
-}
-
-class SerializeTarget {
-  constructor(
-    private readonly x: number,
-    private readonly y: number,
-    children: Child[]
-  ) {
-    this.children = children;
-  }
-
-  // @Type(() => Child)
-  children: Child[];
-
-  public calc() {
-    return this.x + this.y;
-  }
-
-  public message() {
-    return this.children.map(i => i.text).join();
-  }
-
-  public get childrenMethod() {
-    return this.children;
-  }
-}
-
-class TestTest {
-  public seri() {
-    const child = new Child();
-    child.text = 'kore';
-    const t = new SerializeTarget(12, 34, [
-      // new Child("koredesu"),
-      // new Child("dokoininaru"),
-      // new Child("sdafda")
-      child
-    ]);
-    // t.x = 1;
-    // t.y = 2;
-    const text = serialize(t);
-    alert(text);
-    // const t2 = deserialize(SerializeTarget, text) as SerializeTarget;
-    const t2 = (deserializeArray(
-      SerializeTarget,
-      text
-    ) as unknown) as SerializeTarget;
-
-    alert(t2.calc());
-    alert(t2.message());
-    alert(t2.childrenMethod[0].testText());
-  }
-}
-
-class Child {
-  constructor(public readonly text: string) {}
-
-  public testText() {
-    return (
-      "このはなしは" +
-      this.text +
-      "と表示されれば、お子のメソッドも復元している。"
-    );
+    const test = new Test();
+    test.test();
   }
 }
 </script>
