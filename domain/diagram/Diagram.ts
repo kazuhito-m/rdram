@@ -6,7 +6,7 @@ import ResourceType from "../resource/ResourceType";
 
 export default class Diagram {
     public readonly id: number;
-    private readonly typeId: number;
+    protected readonly typeId: number;
     public readonly name: string;
     public readonly relations: Relation[];
     public readonly placements: Placement[];
@@ -111,7 +111,6 @@ export default class Diagram {
     }
 
     public static prototypeOf(newDiagramId: number, name: string, diagramType: DiagramType): Diagram {
-        // それ以外(未定義なものが来た時)
         return new Diagram(
             newDiagramId,
             diagramType.id,

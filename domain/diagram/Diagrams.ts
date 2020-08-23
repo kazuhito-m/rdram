@@ -1,5 +1,6 @@
 import Diagram from "./Diagram";
 import DiagramType from "./DiagramType";
+import DiagramFactory from "./DiagramFactory";
 
 export default class Diagrams {
     private readonly values: Diagram[];
@@ -16,7 +17,8 @@ export default class Diagrams {
         const newDiagramId = this.values
             .map(d => d.id)
             .reduce((l, r) => Math.max(l, r), 0) + 1;
-        return Diagram.prototypeOf(newDiagramId, name, diagramType);
+        const factory = new DiagramFactory();
+        return factory.create(newDiagramId, name, diagramType);
     }
 
     public existsSomeName(name: string, diagramType: DiagramType): boolean {
