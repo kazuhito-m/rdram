@@ -15,7 +15,6 @@ export default class Diagrams {
 
     public createNewDiagram(name: string, diagramType: DiagramType): Diagram {
         const newDiagramId = this.generateDiagramId();
-        alert(newDiagramId);
         const factory = new DiagramFactory();
         return factory.create(newDiagramId, name, diagramType);
     }

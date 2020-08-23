@@ -125,22 +125,52 @@ export default class extends Vue {
 
     this.currentProduct = product;
 
-    const items = this.treeItems;
-    DiagramType.values()
-      .map(type => {
-        return {
-          id: type.id + this.DIAGRAM_FOLDER_ID_MASK,
-          name: type.name,
-          children: [this.EMPTY_ITEMS]
-        } as TreeItem;
-      })
-      .forEach(item => items.push(item));
+    // const items = this.treeItems
+    // DiagramType.values()
+    //   .map(type => {
+    //     return {
+    //       id: type.id + this.DIAGRAM_FOLDER_ID_MASK,
+    //       name: type.name,
+    //       children: [this.EMPTY_ITEMS]
+    //     } as TreeItem;
+    //   })
+    //   .forEach(item => items.push(item));
 
-    product.diagrams.forEach(diagram => this.addDiagramTreeItem(diagram));
+    // product.diagrams.forEach(diagram => this.addDiagramTreeItem(diagram));
+
+    this.treeItems = this.buildTreeItems(product);
 
     product.resources.forEach(resource =>
       this.allResourcesOnCurrentProduct.push(resource)
     );
+  }
+
+  private buildTreeItems(product: Product): TreeItem[] {
+    const topItemMap: { [key: number]: TreeItem } = {};
+    DiagramType.values().forEach(type => {
+      topItemMap[type.id] = {
+        id: type.id + this.DIAGRAM_FOLDER_ID_MASK,
+        name: type.name,
+        children: [this.EMPTY_ITEMS],
+        disabled: false
+      };
+    });
+    product.diagrams.forEach(diagram => {
+      const topItem = topItemMap[diagram.id];
+      const children = topItem.children;
+
+      if (children.length === 1 && children[0] === this.EMPTY_ITEMS)
+        children.length = 0;
+
+      const diagramTreeItem = {
+        id: diagram.id,
+        name: diagram.name,
+        children: [],
+        disabled: false
+      };
+      children.push(diagramTreeItem);
+    });
+    return Object.values(topItemMap);
   }
 
   public onClickTreeItem(treeItemIdText: string): void {
