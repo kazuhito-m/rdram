@@ -1,8 +1,6 @@
 import Product from "./Product";
-import { Type } from "class-transformer";
 
 export default class Products {
-    @Type(() => Product)
     private readonly values: Product[];
 
     constructor(values: Product[]) {

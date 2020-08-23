@@ -1,5 +1,4 @@
 import Relation from "./relation/Relation";
-import { Type } from "class-transformer";
 import DiagramType from "./DiagramType";
 import Placement from "./placement/Placement";
 import BusinessContextDiagram from "./businesscontext/BusinessContextDiagram";
@@ -9,9 +8,7 @@ export default class Diagram {
     public readonly id: number;
     private readonly typeId: number;
     public readonly name: string;
-    @Type(() => Relation)
     public readonly relations: Relation[];
-    @Type(() => Placement)
     public readonly placements: Placement[];
 
     protected constructor(
@@ -78,6 +75,17 @@ export default class Diagram {
                 this.relations.splice(i, 1);
             }
         }
+    }
+
+
+    /**
+     * FIXME ここだ「イミュータブルを破ってしまって」いる…なんとかしたい。 
+     */
+    public modifyRelationOf(relation: Relation) {
+        const index = this.relations
+            .findIndex(r => r.id === relation.id);
+        if (!index) return;
+        this.relations[index] = relation;
     }
 
     /**

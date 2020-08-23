@@ -5,9 +5,6 @@ import DiagramType from "../DiagramType";
 import ResourceType from "~/domain/resource/ResourceType";
 
 export default class BusinessContextDiagram extends Diagram {
-  modifyRelationOf(changed: Relation) {
-    throw new Error("Method not implemented.");
-  }
     private constructor(
         id: number,
         typeId: number,

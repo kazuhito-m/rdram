@@ -1,4 +1,3 @@
-import { Type } from "class-transformer";
 import RouterType from "./RouterType";
 import Midpoint from "./Midpoint";
 
@@ -22,7 +21,6 @@ export default class Relation {
     public readonly fromResourceId: number;
     public readonly toResourceId: number;
     public readonly routerTypeId: number;
-    @Type(() => Midpoint)
     private readonly midpoints: Midpoint[];
 
     static prototypeOf(id: string, fromResourceId: number, toResourceId: number): Relation {
@@ -48,6 +46,5 @@ export default class Relation {
             routerType.id,
             this.midpoints,
         );
-
     }
 }

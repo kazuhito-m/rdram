@@ -34,6 +34,7 @@ export default class Repository {
     );
 
     public isInitialized(): boolean {
+        this.clear();
         const data = this.get();
         if (data) return true;
         return false;
