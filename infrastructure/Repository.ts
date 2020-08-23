@@ -64,7 +64,7 @@ export default class Repository {
         if (!textData) return null;
         const strage = this.serializer.deserialize(textData) as LocalStrage;
 
-        console.log('get :    ' + textData);
+        // console.log('get :    ' + textData);
         console.log(strage);
         const ms = performance.now() - startTime;
         console.log(`repository.get(),      ${(new Blob([textData])).size} byte取得。${ms.toFixed(3)} ms`);
@@ -81,7 +81,7 @@ export default class Repository {
         localStorage.setItem(Repository.STRAGE_ID, jsonText);
 
         const ms = performance.now() - startTime;
-        // console.log('register: ' + jsonText)
+        console.log('register: ' + jsonText)
         console.log(strage);
         console.log(`repository.register(), ${(new Blob([jsonText])).size} byte保存。${ms.toFixed(3)} ms`);
         // alert('reg: ' + jsonText);
