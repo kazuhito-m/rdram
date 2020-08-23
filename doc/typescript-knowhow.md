@@ -36,3 +36,33 @@
 
 - JavaScriptで文字列のバイト数を得るにはどーする？
   - https://takamints.hatenablog.jp/entry/measure-a-byte-length-of-a-string-in-javascript
+  
+## シリアライズ(出来なかった)
+
+できなかった。以下は使ってない。
+
+- TypeScriptのDecoratorを使ってserializableを実現する
+  - https://qiita.com/tkrkt/items/a806d6c80d69b52af1b8
+- class-transformerでpureなjsオブジェクトとクラスとの変換が便利だった
+  - https://qiita.com/NaotoFushimi/items/ff42888d4ebb1b6a667f
+- class-transformer
+  - https://github.com/typestack/class-transformer
+- TypeScriptによるデコレータの基礎と実践
+  - https://qiita.com/taqm/items/4bfd26dfa1f9610128bc
+
+## オブジェクトのクラス名を得る
+
+- Get an object's class name at runtime
+  - https://stackoverflow.com/questions/13613524/get-an-objects-class-name-at-runtime
+
+## プロパティ(フィールド変数)のコピー
+
+- Object.assign()を使ったコピーいろいろ
+  - https://qiita.com/SE-studying-now/items/ecdbc0317ba1806aed61
+
+## クラス名(文字列)からインスタンス生成
+
+下の例が多く載ってるが、これは出来なかった
+
+- Creating Instance Of Class Based On ClassName : string
+  - https://stackoverflow.com/questions/38137840/creating-instance-of-class-based-on-classname-string

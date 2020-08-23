@@ -121,3 +121,17 @@
 ## Vue.jsとNuxt.js
 
 - Vue.js to TypeScriptの書き方一覧
+
+
+## NuxtとTypescript
+
+結局「Vuetify.jsサイドからのプロジェクト初期化」だったので、以下の知識は使ってないが、基礎として。
+
+- 待望のNuxt v2.6リリース! 〜 nuxt-tsからの移行編〜
+  - https://qiita.com/iwata@github/items/f798cc6cc24ac41a74d9
+- Nuxt.jsの学習（インストールからビルドまで）
+  - https://qiita.com/mrymmh/items/9ad350bbf943aadec7ef
+- create-nuxt-app で作った Nuxt.js プロジェクトで TypeScript を使うためにやったこと
+  - https://qiita.com/chieeeeno/items/13c3a713f992473bdd88
+- Nuxt.js はじめました。プロジェクト作成で 5 つの方法を試した。
+  - https://qiita.com/high-u/items/1d2e91e97495ac90d10c#5vuetifyjsnuxt-%E7%B7%A8
