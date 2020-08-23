@@ -1,7 +1,6 @@
 import Relation from "./relation/Relation";
 import DiagramType from "./DiagramType";
 import Placement from "./placement/Placement";
-import BusinessContextDiagram from "./businesscontext/BusinessContextDiagram";
 import ResourceType from "../resource/ResourceType";
 
 export default class Diagram {
@@ -48,7 +47,7 @@ export default class Diagram {
     public modifyPlacementOf(placement: Placement) {
         const index = this.placements
             .findIndex(p => p.resourceId === placement.resourceId);
-        if (!index) return;
+        if (index < 0) return;
         this.placements[index] = placement;
     }
 
