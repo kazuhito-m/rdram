@@ -20,6 +20,10 @@ export default class BusinessContextDiagram extends Diagram {
         );
     }
 
+    public availableResourceTypes() {
+        return [];
+    }
+
     public static prototypeOf(newDiagramId: number, name: string): BusinessContextDiagram {
         return new BusinessContextDiagram(
             newDiagramId,
