@@ -14,11 +14,16 @@ export default class Diagrams {
     }
 
     public createNewDiagram(name: string, diagramType: DiagramType): Diagram {
-        const newDiagramId = this.values
-            .map(d => d.id)
-            .reduce((l, r) => Math.max(l, r), 0) + 1;
+        const newDiagramId = this.generateDiagramId();
+        alert(newDiagramId);
         const factory = new DiagramFactory();
         return factory.create(newDiagramId, name, diagramType);
+    }
+
+    private generateDiagramId(): number {
+        return this.values
+            .map(d => d.id)
+            .reduce((l, r) => Math.max(l, r), 0) + 1;
     }
 
     public existsSomeName(name: string, diagramType: DiagramType): boolean {

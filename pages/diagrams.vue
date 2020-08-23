@@ -231,7 +231,7 @@ export default class extends Vue {
     const addedDiagrams = diagrams.add(diagram);
     const addedProducts = product.with(addedDiagrams);
 
-    this.repository.registerCurrentProduct(product);
+    this.repository.registerCurrentProduct(addedProducts);
 
     this.addDiagramTreeItem(diagram);
     this.activeTreeItemOf(diagram.id);

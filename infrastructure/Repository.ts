@@ -9,9 +9,9 @@ import Diagrams from '@/domain/diagram/Diagrams';
 import Diagram from '@/domain/diagram/Diagram';
 import Resource from '~/domain/resource/Resource';
 import Placement from '~/domain/diagram/placement/Placement';
-import BusinessContextDiagram from '@/domain/diagram/businesscontext/BusinessContextDiagram'
 import Midpoint from '~/domain/diagram/relation/Midpoint';
 import Relation from '~/domain/diagram/relation/Relation';
+import BusinessContextDiagram from '@/domain/diagram/businesscontext/BusinessContextDiagram'
 
 export default class Repository {
     private static readonly STRAGE_ID = 'rdram-strage';
@@ -28,9 +28,9 @@ export default class Repository {
         Diagrams,
         Diagram,
         Placement,
-        BusinessContextDiagram,
         Midpoint,
         Relation,
+        BusinessContextDiagram,
     );
 
     public isInitialized(): boolean {
