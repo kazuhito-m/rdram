@@ -23,11 +23,12 @@ export default class Products {
 
     public merge(product: Product): Products {
         const newValues = Array.from(this.values);
-        const index = newValues.findIndex(p => p.id === product.id);
-        if (index > 0) {
-            newValues[index] = product;
-        } else {
+        const index = newValues
+            .findIndex(p => p.id === product.id);
+        if (index < 0) {
             newValues.push(product);
+        } else {
+            newValues[index] = product;
         }
         return new Products(newValues);
     }

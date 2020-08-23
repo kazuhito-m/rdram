@@ -84,7 +84,7 @@ export default class Repository {
         console.log(`repository.register(), ${(new Blob([jsonText])).size} byte保存。${ms.toFixed(3)} ms`);
         console.log('register: ' + jsonText)
         console.log(strage);
-        // alert(jsonText);
+        // alert('reg: ' + jsonText);
     }
 
     public getCurrentProduct(): Product | null {
