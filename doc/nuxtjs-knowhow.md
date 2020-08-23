@@ -9,6 +9,11 @@
 - Nuxt.jsのStoreによるデータ保存 [vuex-persistedstate][js-cookie]
   - https://noumenon-th.net/programming/2019/08/24/nuxt-js-store/
 
+## Slotまわり
+
+- Vuejsのslotの様々な使い方
+  - https://qiita.com/myLifeAsaDog/items/206c04fdef3a874b86f6
+
 ## Version表示(というよりpackage.jsonの情報をアプリに持ち込む方法)
 
 - How to show your App Version from package.json in your Vue application
@@ -24,6 +29,15 @@
   - https://medium.com/vuetify/drag-n-drop-in-vuetify-part-ii-2b07b4b27684
 - Vuetify2系で SortableJS つかって v-simple-table を ドラッグ&ドロップさせる
   - https://qiita.com/mykysyk@github/items/a6c1282cf6507724da35
+
+## HTML5のDnD
+
+- ドラッグ＆ドロップ
+  - http://www.htmq.com/dnd/
+- HTML5ドラッグアンドドロップドラッグ中のアイコン/カーソルの変更
+  - https://www.it-swarm.dev/ja/javascript/html5%E3%83%89%E3%83%A9%E3%83%83%E3%82%B0%E3%82%A2%E3%83%B3%E3%83%89%E3%83%89%E3%83%AD%E3%83%83%E3%83%97%E3%83%89%E3%83%A9%E3%83%83%E3%82%B0%E4%B8%AD%E3%81%AE%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%82%AB%E3%83%BC%E3%82%BD%E3%83%AB%E3%81%AE%E5%A4%89%E6%9B%B4/1067391314/
+-  カーソルの形状を指定する
+   -  http://www.htmq.com/style/cursor.shtml
 
 ## DIをデコレータのみでやる
 
