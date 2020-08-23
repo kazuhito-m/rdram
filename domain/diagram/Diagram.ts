@@ -107,7 +107,7 @@ export default class Diagram {
     }
 
     public get type(): DiagramType {
-        return DiagramType.ofId(this.id) as DiagramType;
+        return DiagramType.ofId(this.typeId) as DiagramType;
     }
 
     public static prototypeOf(newDiagramId: number, name: string, diagramType: DiagramType): Diagram {

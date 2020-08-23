@@ -156,7 +156,7 @@ export default class extends Vue {
       };
     });
     product.diagrams.forEach(diagram => {
-      const topItem = topItemMap[diagram.id];
+      const topItem = topItemMap[diagram.type.id];
       const children = topItem.children;
 
       if (children.length === 1 && children[0] === this.EMPTY_ITEMS)
