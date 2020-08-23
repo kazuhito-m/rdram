@@ -20,13 +20,12 @@ export default class BCDMoveShapeEvents implements EventsOfType<BusinessContextD
         return this.validTargetFigures().length > 0;
     }
     public apply(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
-        const placements = diagram.placements;
         for (let figure of this.validTargetFigures()) {
-            const placement = placements
-                .find(placement => placement.resourceId === parseInt(figure.getId(), 10));
+            const resouceId = parseInt(figure.getId(), 10);
+            const placement = diagram.placementOf(resouceId);
             if (!placement) continue;
-            placement.x = figure.getX();
-            placement.y = figure.getY();
+            const replaced  = placement.withPosition(figure.getX() ,figure.getY());
+            diagram.modifyPlacementOf(replaced);
         }
         return true;
     }

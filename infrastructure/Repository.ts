@@ -1,8 +1,37 @@
+import Serializer from '@/infrastructure/Serializer';
 import LocalStrage from "@/domain/strage/LocalStrage";
+import UserSettings from '@/domain//setting/UserSettings';
 import Product from "@/domain/product/Product";
+import Products from "@/domain/product/Products";
+import Status from '@/domain/strage/Status';
+import Resources from '@/domain/resource/Resources';
+import Diagrams from '@/domain/diagram/Diagrams';
+import Diagram from '@/domain/diagram/Diagram';
+import Resource from '~/domain/resource/Resource';
+import Placement from '~/domain/diagram/placement/Placement';
+import Midpoint from '~/domain/diagram/relation/Midpoint';
+import Relation from '~/domain/diagram/relation/Relation';
+import BusinessContextDiagram from '@/domain/diagram/businesscontext/BusinessContextDiagram'
 
 export default class Repository {
     private static readonly STRAGE_ID = 'rdram-strage';
+
+    private readonly serializer = new Serializer(
+        LocalStrage,
+        UserSettings,
+        Products,
+        Product,
+        Date,
+        Status,
+        Resources,
+        Resource,
+        Diagrams,
+        Diagram,
+        Placement,
+        Midpoint,
+        Relation,
+        BusinessContextDiagram,
+    );
 
     public isInitialized(): boolean {
         // this.clear();
@@ -21,12 +50,7 @@ export default class Repository {
     }
 
     private defaultStructure(): LocalStrage {
-        return {
-            status: {
-                currentProductId: ''
-            },
-            products: []
-        };
+        return LocalStrage.prototypeOf();
     }
 
     public getJsonText(): string | null {
@@ -38,51 +62,46 @@ export default class Repository {
 
         const textData = this.getJsonText();
         if (!textData) return null;
-        const strage = JSON.parse(textData);
+        const strage = this.serializer.deserialize(textData) as LocalStrage;
 
-        // console.log(textData);
+        // console.log('get :    ' + textData);
+        console.log(strage);
         const ms = performance.now() - startTime;
         console.log(`repository.get(),      ${(new Blob([textData])).size} byte取得。${ms.toFixed(3)} ms`);
+        // alert('get: ' + textData);
         return strage;
     }
 
     public register(strage: LocalStrage): void {
+        const target = strage.renewTimeStamp();
+
         const startTime = performance.now();
 
-        const jsonText = JSON.stringify(strage);
+        const jsonText = this.serializer.serialize(strage);
         localStorage.setItem(Repository.STRAGE_ID, jsonText);
 
         const ms = performance.now() - startTime;
+        console.log('register: ' + jsonText)
+        console.log(strage);
         console.log(`repository.register(), ${(new Blob([jsonText])).size} byte保存。${ms.toFixed(3)} ms`);
-        // console.log('register: ' + jsonText)
+        // alert('reg: ' + jsonText);
     }
 
     public getCurrentProduct(): Product | null {
         const strage = this.get();
-        const currentProductId = strage?.status.currentProductId;
-        const currentProduct = strage?.products
-            .find(product => product.id === currentProductId);
-        if (currentProduct) return currentProduct;
-        return null;
+        if (!strage) return null;
+        return strage.currentProduct();
     }
 
     public registerCurrentProduct(product: Product): void {
         const strage = this.get();
         if (!strage) return;
 
-        strage.status.currentProductId = product.id;
-
-        const products = strage.products;
-        for (let i = 0; i < products.length; i++) {
-            const p = products[i];
-            if (p.id === strage.status.currentProductId) {
-                products.splice(i, 1);
-                break;
-            }
-        }
-        products.push(product);
-
-        this.register(strage);
+        const renewProduct: Product = product.renewTimeStamp();
+        let changed = strage.changeCurrent(renewProduct);
+        const mearged: Products = strage.products.merge(renewProduct);
+        changed = changed.with(mearged);
+        this.register(changed);
     }
 
     public clear() {
@@ -92,8 +111,8 @@ export default class Repository {
     public generateResourceId(): number {
         const product = this.getCurrentProduct();
         if (!product) return 1;
-        product.resourceIdSequence++;
-        this.registerCurrentProduct(product);
-        return product.resourceIdSequence;
+        const updated = product.moveNextResourceIdSequence();
+        this.registerCurrentProduct(updated);
+        return updated.resourceIdSequence;
     }
 }

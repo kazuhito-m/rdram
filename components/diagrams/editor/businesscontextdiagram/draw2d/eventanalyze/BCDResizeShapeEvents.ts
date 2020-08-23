@@ -4,6 +4,7 @@ import BusinessContextDiagramEditor from "~/components/diagrams/editor/businessc
 import Product from "~/domain/product/Product";
 import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import { Figure } from "draw2d";
+import Placement from "~/domain/diagram/placement/Placement";
 
 export default class BCDResizeShapeEvents implements EventsOfType<BusinessContextDiagram, BusinessContextDiagramEditor> {
     public eventGists: EventGist[] = [];
@@ -20,15 +21,14 @@ export default class BCDResizeShapeEvents implements EventsOfType<BusinessContex
         return true;
     }
     public apply(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
-        const placements = diagram.placements;
         for (let figure of this.validTargetFigures()) {
             const resourceId = parseInt(figure.getId(), 10);
-            const placement = placements
-                .find(placement => placement.resourceId === resourceId);
+
+            const placement = diagram.placementOf(resourceId);
             if (!placement) continue;
 
-            placement.width = figure.getWidth();
-            placement.height = figure.getHeight();
+            const replaced = placement.withSize(figure.getWidth(), figure.getHeight());
+            diagram.modifyPlacementOf(placement);
         }
         return true;
     }

@@ -1,7 +1,44 @@
 import Diagram from "@/domain/diagram/Diagram";
-import Placement from "@/domain/diagram/placement/Placement";
+import Relation from "../relation/Relation";
+import Placement from "../placement/Placement";
+import DiagramType from "../DiagramType";
+import ResourceType from "~/domain/resource/ResourceType";
 
-export default interface BusinessContextDiagram extends Diagram {
-    placements: Placement[];
-    availableResourceTypeIds: number[];
+export default class BusinessContextDiagram extends Diagram {
+    protected constructor(
+        id: number,
+        typeId: number,
+        name: string,
+        relations: Relation[],
+        placements: Placement[],
+    ) {
+        super(
+            id,
+            typeId,
+            name,
+            relations,
+            placements,
+        );
+    }
+
+    public availableResourceTypes(): ResourceType[] {
+        return [
+            ResourceType.業務,
+            ResourceType.アクター,
+            ResourceType.商品,
+            ResourceType.設備,
+            ResourceType.組織,
+            ResourceType.会社,
+        ];
+    }
+
+    public static prototypeOf(newDiagramId: number, name: string): BusinessContextDiagram {
+        return new BusinessContextDiagram(
+            newDiagramId,
+            DiagramType.ビジネスコンテキスト図.id,
+            name,
+            [],
+            [],
+        );
+    }
 }
