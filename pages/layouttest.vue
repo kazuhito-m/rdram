@@ -44,13 +44,6 @@ import { createWrapper } from "@vue/test-utils";
 import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
 import Test from "@/infrastructure/Test";
 
-import {
-  serialize,
-  deserialize,
-  Type,
-  deserializeArray
-} from "class-transformer";
-
 @Component
 export default class extends Vue {
   private canvas!: draw2d.Canvas;

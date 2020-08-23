@@ -1,11 +1,37 @@
-import "reflect-metadata";
-import { plainToClass, classToPlain } from "class-transformer";
+import Serializer from '@/infrastructure/Serializer';
 import LocalStrage from "@/domain/strage/LocalStrage";
+import UserSettings from '@/domain//setting/UserSettings';
 import Product from "@/domain/product/Product";
 import Products from "@/domain/product/Products";
+import Status from '@/domain/strage/Status';
+import Resources from '@/domain/resource/Resources';
+import Diagrams from '@/domain/diagram/Diagrams';
+import Diagram from '@/domain/diagram/Diagram';
+import Resource from '~/domain/resource/Resource';
+import Placement from '~/domain/diagram/placement/Placement';
+import BusinessContextDiagram from '@/domain/diagram/businesscontext/BusinessContextDiagram'
+import Midpoint from '~/domain/diagram/relation/Midpoint';
+import Relation from '~/domain/diagram/relation/Relation';
 
 export default class Repository {
     private static readonly STRAGE_ID = 'rdram-strage';
+
+    private readonly serializer = new Serializer(
+        LocalStrage,
+        UserSettings,
+        Products,
+        Product,
+        Date,
+        Status,
+        Resources,
+        Resource,
+        Diagrams,
+        Diagram,
+        Placement,
+        BusinessContextDiagram,
+        Midpoint,
+        Relation,
+    );
 
     public isInitialized(): boolean {
         const data = this.get();
@@ -35,7 +61,7 @@ export default class Repository {
 
         const textData = this.getJsonText();
         if (!textData) return null;
-        const strage = plainToClass(LocalStrage, textData);
+        const strage = this.serializer.deserialize(textData) as LocalStrage;
 
         // console.log(textData);
         const ms = performance.now() - startTime;
@@ -48,7 +74,7 @@ export default class Repository {
 
         const startTime = performance.now();
 
-        const jsonText = classToPlain(strage) as unknown as string;
+        const jsonText = this.serializer.serialize(strage);
         alert(jsonText);
         localStorage.setItem(Repository.STRAGE_ID, jsonText);
 

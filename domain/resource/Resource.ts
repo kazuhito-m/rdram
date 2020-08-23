@@ -1,4 +1,3 @@
-import { deserialize } from "class-transformer";
 import ResourceType from "./ResourceType";
 
 export default class Resource {

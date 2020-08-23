@@ -1,8 +1,6 @@
 import Resource from "./Resource";
-import { Type } from "class-transformer";
 
 export default class Resources {
-    @Type(() => Resource)
     private readonly values: Resource[];
 
     constructor(values: Resource[]) {

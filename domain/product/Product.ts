@@ -1,18 +1,14 @@
 import UserSettings from '@/domain//setting/UserSettings';
 import Resources from '@/domain/resource/Resources';
-import ProductIdentifier from './ProductIdentifier';
-import { Type } from 'class-transformer';
-import Diagrams from '../diagram/Diagrams';
+import ProductIdentifier from '@/domain/product/ProductIdentifier';
+import Diagrams from '@/domain/diagram/Diagrams';
 
 export default class Product {
     private readonly updateAt: Date;
     public readonly id: string;
     public readonly name: string;
-    @Type(() => UserSettings)
     public readonly userSettings: UserSettings;
-    @Type(() => Diagrams)
     public readonly diagrams: Diagrams;
-    @Type(() => Resources)
     public readonly resources: Resources;
     public readonly resourceIdSequence: number;
 

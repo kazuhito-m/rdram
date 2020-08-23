@@ -137,13 +137,12 @@ import Product from "@/domain/product/Product";
 import BusinessContextDiagram from "@/domain/diagram/businesscontext/BusinessContextDiagram";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
-import Company from "@/domain/company/Company";
 import Placement from "@/domain/diagram/placement/Placement";
 import RouterType from "@/domain/diagram/relation/RouterType";
 import Relation from "@/domain/diagram/relation/Relation";
 import Actor from "@/domain/actor/Actor";
 import IconGenerator from "@/components/diagrams/icon/IconGenerator";
-import MessageBox from "../../../../presentation/MessageBox";
+import MessageBox from "@/presentation/MessageBox";
 
 @Component({
   components: {

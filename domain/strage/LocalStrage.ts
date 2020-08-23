@@ -1,14 +1,10 @@
-import { Type } from "class-transformer";
 import Status from "@/domain/strage/Status";
 import Products from "@/domain/product/Products";
-import Product from "../product/Product";
+import Product from "@/domain/product/Product";
 
 export default class LocalStrage {
-    @Type(() => Date)
     private readonly updateAt: Date;
-    @Type(() => Status)
     public readonly status: Status;
-    @Type(() => Products)
     public readonly products: Products;
 
     constructor(updateAt: Date, status: Status, products: Products) {

@@ -1,10 +1,7 @@
 import Diagram from "./Diagram";
-import { Type } from "class-transformer";
-import ResourceType from "../resource/ResourceType";
 import DiagramType from "./DiagramType";
 
 export default class Diagrams {
-    @Type(() => Diagram)
     private readonly values: Diagram[];
 
     constructor(values: Diagram[]) {
