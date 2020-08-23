@@ -10,7 +10,7 @@
       <v-card-actions>
         <v-select
           v-model="selectedProduct"
-          :items="products"
+          :items="productsList()"
           item-text="name"
           label="Product"
           return-object
@@ -44,6 +44,7 @@
 import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
 import MessageBox from "@/presentation/MessageBox.ts";
 import Product from "@/domain/product/Product";
+import Products from "@/domain/product/Products";
 import ProductIdentifier from "@/domain/product/ProductIdentifier";
 import Repository from "@/infrastructure/Repository";
 import LocalStrage from "@/domain/strage/LocalStrage";
@@ -59,37 +60,39 @@ export default class ProductSelectorDialog extends Vue {
   private cancelable = false;
 
   private selectedProduct: Product | null = null;
-  private products?: Product[] | null = null;
+  private products?: Products | null = null;
 
   private onOpen(): string {
     if (!this.visibleProductSelectorDialog) return "";
 
-    const starge = this.repository?.get();
-    if (!starge) return "";
+    const strage = this.repository?.get();
+    if (!strage) return "";
 
     if (!this.products) {
-      this.products = starge.products;
+      this.products = strage.products;
     }
     if (!this.selectedProduct) {
-      const strage = this.repository?.get() as LocalStrage;
-      const currentId = strage.status.currentProductId;
-      const selectd = this.products.find(product => product.id === currentId);
-      this.selectedProduct = selectd ? selectd : null;
+      this.selectedProduct = strage.currentProduct();
     }
     return "";
+  }
+
+  private productsList(): Product[] {
+    if (!this.products) return [];
+    return this.products.list();
   }
 
   private onClickAddProduct() {
     const messageBox = new MessageBox();
     const message = "追加するプロダクトの名前を入力してください。";
     const name = messageBox.promptWith255Limit(message, "", inputText => {
-      const exists = this.products?.some(product => product.name === inputText);
+      const exists = this.products?.existsSomeName(inputText);
       if (exists) alert("既に同一のプロダクト名が在ります。");
       return !exists;
     });
     if (!name) return;
-    const product = ProductIdentifier.prototypeProductOf(name);
-    this.products?.push(product);
+    const product = Product.prototypeOf(name);
+    this.products = this.products?.merge(product);
     this.selectedProduct = product;
     this.saveAddProduct(product);
   }
@@ -112,17 +115,16 @@ export default class ProductSelectorDialog extends Vue {
   private saveAddProduct(product: Product): void {
     const strage = this.repository?.get();
     if (!strage) return;
-    strage.products.push(product);
-    this.repository?.register(strage);
+    const added = strage.merge(product);
+    this.repository?.register(added);
   }
 
   private saveCurrentProduct(): boolean {
     const strage = this.repository?.get();
     if (!strage || !this.selectedProduct) return false;
-    if (strage.status.currentProductId === this.selectedProduct.id)
-      return false;
-    strage.status.currentProductId = this.selectedProduct.id;
-    this.repository?.register(strage);
+    if (strage.isCurrentProduct(this.selectedProduct)) return false;
+    const changed = strage.changeCurrent(this.selectedProduct); 
+    this.repository?.register(changed);
     return true;
   }
 }

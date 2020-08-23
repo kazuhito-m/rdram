@@ -25,38 +25,14 @@ export default class DiagramType {
         return DiagramType.vs;
     }
 
+    public equals(other: DiagramType | null): boolean {
+        if (!other) return false;
+        return other?.id === this.id;
+    }
+
     public static ofId(id: number): DiagramType | null {
         const found = this.vs
             .find(item => item.id === id);
         return found ? found : null;
-    }
-
-    public prototypeOf(newId: number, newName: string): Diagram {
-        if (this === DiagramType.ビジネスコンテキスト図) {
-            const dg1: BusinessContextDiagram = {
-                id: newId,
-                typeId: this.id,
-                name: newName,
-                placements: [],
-                relations: [],
-                availableResourceTypeIds: [
-                    ResourceType.業務,
-                    ResourceType.アクター,
-                    ResourceType.商品,
-                    ResourceType.設備,
-                    ResourceType.組織,
-                    ResourceType.会社,
-                ].map(type => type.id)
-            };
-            return dg1;
-        }
-
-        // 上記以外…は「本来無い」ので、以下は未実装部分のための仮実装
-        return {
-            id: newId,
-            typeId: this.id,
-            name: newName,
-            relations: []
-        };
     }
 }

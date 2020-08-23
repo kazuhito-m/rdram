@@ -7,7 +7,7 @@ export default class Sreializer {
 
     public serialize(target: any): string {
         this.addClassNameProperty(target);  // TODO 元のオブジェクトを上書きまくるのでなんとかしたい
-        return JSON.stringify(target);
+        return JSON.stringify(target, null, 4);
     }
 
     public deserialize(json: string): any {

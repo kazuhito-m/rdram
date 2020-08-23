@@ -29,9 +29,9 @@ export default class SystemContextDiagramEditor extends Vue {
 
   private canvas!: draw2d.Canvas;
 
-  private editorPainId!: string;
-  private paretPainId!: string;
-  private canvasId!: string;
+  private editorPainId: string = '';
+  private paretPainId: string = '';
+  private canvasId: string = '';
 
   private paretPainWidth: string | null = null;
 

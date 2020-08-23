@@ -7,15 +7,11 @@
     </div>
     <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
     <div class="paret-pain" :id="paretPainId">
-      <v-expansion-panels class="paret-panel"
-        v-model="paretsOpen"
-        multiple
-        focusable
-        dark
-      >
-        <v-expansion-panel class="paret-panel"
+      <v-expansion-panels class="paret-panel" v-model="paretsOpen" multiple focusable dark>
+        <v-expansion-panel
+          class="paret-panel"
           v-for="resourceType in availableResourceTypes"
-          :key="resourceType.id" 
+          :key="resourceType.id"
         >
           <v-expansion-panel-header>
             <div class="omit-long-text">
@@ -24,92 +20,81 @@
             </div>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-
             <v-list dark dence>
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
-                      <v-chip color="primary" dark outlined draggable @dragstart="onDragStartNewCompany" :data-resource-type-id="resourceType.id">
-                        <v-icon>{{ resourceType.iconKey }}</v-icon>
-                        新規追加
-                      </v-chip>
+                    <v-chip
+                      color="primary"
+                      dark
+                      outlined
+                      draggable
+                      @dragstart="onDragStartNewCompany"
+                      :data-resource-type-id="resourceType.id"
+                    >
+                      <v-icon>{{ resourceType.iconKey }}</v-icon>新規追加
+                    </v-chip>
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item
-                v-for="resource in allResourcesOnCurrentProduct.filter(r => filterDisplayParet(r, resourceType))"
+                v-for="resource in allResourcesOnCurrentProduct.filter(r => filterDisplayParet(r, resourceType, usedResouceIds))"
                 :key="resource.resourceId"
               >
-
-                <v-list-item-content >
+                <v-list-item-content>
                   <v-list-item-title class="chip-container">
-                      <v-chip color="primary" dark draggable
-                        @dragstart="onDragStartResource" 
-                        v-bind:data-resource-id="resource.resourceId"
-                      >
-                        <v-icon>{{ resourceType.iconKey }}</v-icon>
-                        {{ resource.name }}
-                      </v-chip>
+                    <v-chip
+                      color="primary"
+                      dark
+                      draggable
+                      @dragstart="onDragStartResource"
+                      v-bind:data-resource-id="resource.resourceId"
+                    >
+                      <v-icon>{{ resourceType.iconKey }}</v-icon>
+                      {{ resource.name }}
+                    </v-chip>
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-
             </v-list>
-
           </v-expansion-panel-content>
         </v-expansion-panel>
 
         <v-expansion-panel>
           <v-expansion-panel-header>
             <div class="omit-long-text">
-              <v-icon>mdi-clipboard-check-multiple-outline</v-icon>
-              この図で使用済
+              <v-icon>mdi-clipboard-check-multiple-outline</v-icon>この図で使用済
             </div>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-
             <v-list dark dence>
-
               <v-list-item
-                v-for="usedResource in allResourcesOnCurrentProduct.filter(r => filterUsedList(r))"
+                v-for="usedResource in allResourcesOnCurrentProduct.filter(r => filterUsedList(r, usedResouceIds))"
                 :key="usedResource.id"
               >
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
-                      <v-chip dark>
-                        <v-icon>{{ iconKeyOf(usedResource) }}</v-icon>
-                        {{ usedResource.name }}
-                      </v-chip>
+                    <v-chip dark>
+                      <v-icon>{{ iconKeyOf(usedResource) }}</v-icon>
+                      {{ usedResource.name }}
+                    </v-chip>
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-
             </v-list>
-
           </v-expansion-panel-content>
         </v-expansion-panel>
-
       </v-expansion-panels>
     </div>
 
-    <v-snackbar
-      v-model="warnBar"
-      timeout="2000"
-    >
+    <v-snackbar v-model="warnBar" timeout="2000">
       {{ warnMessage }}
       <template v-slot:action="{ attrs }">
-        <v-btn
-          color="blue"
-          text
-          v-bind="attrs"
-          @click="warnBar = false"
-        >
-          Close
-        </v-btn>
+        <v-btn color="blue" text v-bind="attrs" @click="warnBar = false">Close</v-btn>
       </template>
     </v-snackbar>
-　
+
     <!-- リアクティブ監視させたいけど、ネストしたくないので…自身をコンテナにして監視させる(ちょっととトリッキー？) -->
     <ConnectorRightClickMenuAndEditor
       :visibleConnectorRightClickMenu="visibleConnectorMenu"
@@ -146,29 +131,27 @@ import BusinessIconGenerator from "@/components/diagrams/editor/businesscontextd
 import GoodsIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/GoodsIconGenerator";
 import FacilityIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/FacilityIconGenerator";
 
-
 import Repository from "@/infrastructure/Repository";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import BusinessContextDiagram from "@/domain/diagram/businesscontext/BusinessContextDiagram";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
-import Company from "@/domain/company/Company";
 import Placement from "@/domain/diagram/placement/Placement";
 import RouterType from "@/domain/diagram/relation/RouterType";
 import Relation from "@/domain/diagram/relation/Relation";
 import Actor from "@/domain/actor/Actor";
 import IconGenerator from "@/components/diagrams/icon/IconGenerator";
-import MessageBox from "../../../../presentation/MessageBox";
+import MessageBox from "@/presentation/MessageBox";
 
 @Component({
   components: {
-    ConnectorRightClickMenuAndEditor,
+    ConnectorRightClickMenuAndEditor
   }
 })
 export default class BusinessContextDiagramEditor extends Vue {
   @Inject()
-  private repository!: Repository
+  private repository!: Repository;
 
   private readonly companyIconGenerator: CompanyIconGenerator = new CompanyIconGenerator();
   private readonly actorIconGenerator: ActorIconGenerator = new ActorIconGenerator();
@@ -178,7 +161,8 @@ export default class BusinessContextDiagramEditor extends Vue {
   private readonly facilityIconGenerator: FacilityIconGenerator = new FacilityIconGenerator();
 
   @Prop({ required: true })
-  private readonly diagram!: BusinessContextDiagram;
+  private readonly diagramId!: number;
+  private usedResouceIds: number[] = [];
   private product!: Product;
 
   @Prop({ required: true })
@@ -189,7 +173,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     new BCDDeleteShapeEvents(),
     new BCDConnectPortsEvents(),
     new BCDMoveShapeEvents(),
-    new BCDResizeShapeEvents(),
+    new BCDResizeShapeEvents()
   ]);
 
   private editorPainId!: string;
@@ -201,29 +185,34 @@ export default class BusinessContextDiagramEditor extends Vue {
   private availableResourceTypes: ResourceType[] = [];
 
   private warnBar: boolean = false;
-  private warnMessage: string = '';
+  private warnMessage: string = "";
 
   private visibleConnectorMenu = false;
-  private relation? : Relation ;
+  private relation?: Relation;
   private menuX = 0;
   private menuY = 0;
 
-  private targetRelationId = '';
+  private targetRelationId = "";
   private editableRouterId = 0;
 
   public created(): void {
     this.product = this.getCurrentProduct();
 
-    const diagramId = this.diagram.id;
+    const diagramId = this.diagramId;
+    const diagram = this.product.diagrams.of(diagramId);
+    if (!diagram) return;
+
+    diagram.placements.forEach(p => this.usedResouceIds.push(p.resourceId));
+
     this.editorPainId = "editorPain" + diagramId;
     this.paretPainId = "paretPain" + diagramId;
     this.canvasId = "canvas" + diagramId;
 
-    this.diagram.availableResourceTypeIds
-      .map(resourceTypeId => ResourceType.ofId(resourceTypeId))
-      .filter(resourceType => resourceType !== null)
-      .forEach(resourceType => this.availableResourceTypes.push(resourceType as ResourceType))
-    for (let i = 0; i < this.availableResourceTypes.length + 1; i++) this.paretsOpen.push(i);
+    diagram
+      .availableResourceTypes()
+      .forEach(resourceType => this.availableResourceTypes.push(resourceType));
+    for (let i = 0; i < this.availableResourceTypes.length + 1; i++)
+      this.paretsOpen.push(i);
   }
 
   public mounted() {
@@ -236,11 +225,11 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.drawDiagram();
 
     this.$nextTick(() => {
-      this.$nuxt.$loading.finish();  // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
+      this.$nuxt.$loading.finish(); // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
     });
   }
 
-  @Emit('onUpdateResources')
+  @Emit("onUpdateResources")
   private onUpdateResources(): void {}
 
   private showCanvas(): void {
@@ -257,11 +246,14 @@ export default class BusinessContextDiagramEditor extends Vue {
    * どーしても、draw2dがsvg作るときに”position: absolute"をしてしまうので、削除する。
    */
   private fixCanvasPosition(): void {
-    const svg = document.getElementById(this.canvasId)?.firstChild as SVGElement;
+    const svg = document.getElementById(this.canvasId)
+      ?.firstChild as SVGElement;
     svg.style.removeProperty("position");
-    svg.addEventListener('drop', this.onDropCanvas);
-    svg.addEventListener('dragover', this.onDropOverCanvas);
-    svg.oncontextmenu = function() {return false;}; // これは自動的にdraw2d.jsがやってくれるはず…なんだけどなぁ。
+    svg.addEventListener("drop", this.onDropCanvas);
+    svg.addEventListener("dragover", this.onDropOverCanvas);
+    svg.oncontextmenu = function() {
+      return false;
+    }; // これは自動的にdraw2d.jsがやってくれるはず…なんだけどなぁ。
   }
 
   private addCanvasEvent(): void {
@@ -277,50 +269,53 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (analyzeResutEvents.isNothing()) return;
 
     this.transactionOf((diagram, product) => {
-      console.log("中央のResoucesのサイズ:" + this.allResourcesOnCurrentProduct.length);
-      this.dumpDiagram(diagram, '実行前');
-
       if (!analyzeResutEvents.validate(diagram, product, this)) return false;
-      const result = analyzeResutEvents.apply(diagram, product, this);
-
-      console.log("中央のResoucesのサイズ:" + this.allResourcesOnCurrentProduct.length);
-      this.allResourcesOnCurrentProduct.forEach(i => console.log(i));
-      this.dumpDiagram(diagram, '実行後');
-      return result;
+      return analyzeResutEvents.apply(diagram, product, this);
     });
   }
 
   private makeRouterBy(routerType: RouterType): any {
     if (!routerType) return undefined;
-    if (routerType.equals(RouterType.INTERACTIVE_MANHATTAN)) return new draw2d.layout.connection.ManhattanConnectionRouter();
-    if (routerType.equals(RouterType.CIRCUIT)) return new draw2d.layout.connection.CircuitConnectionRouter();
-    if (routerType.equals(RouterType.SPLINE)) return new draw2d.layout.connection.SplineConnectionRouter();
-    // if (routerType.equals(RouterType.SKETCH)) return new draw2d.layout.connection.SketchConnectionRouter();
+    if (routerType.equals(RouterType.INTERACTIVE_MANHATTAN))
+      return new draw2d.layout.connection.ManhattanConnectionRouter();
+    if (routerType.equals(RouterType.CIRCUIT))
+      return new draw2d.layout.connection.CircuitConnectionRouter();
+    if (routerType.equals(RouterType.SPLINE))
+      return new draw2d.layout.connection.SplineConnectionRouter();
+    // if (routerType.equals(RouterType.SKETCH))
+    //    return new draw2d.layout.connection.SketchConnectionRouter();
     return undefined;
   }
 
   public analyzeRouterType(router: any): RouterType {
-      if (!router) return RouterType.DIRECT;
-      const name = router.NAME;
-      if (!name) return RouterType.DIRECT;
+    if (!router) return RouterType.DIRECT;
+    const name = router.NAME;
+    if (!name) return RouterType.DIRECT;
 
-      if (name === "draw2d.layout.connection.ManhattanConnectionRouter") return RouterType.INTERACTIVE_MANHATTAN;
-      if (name === "draw2d.layout.connection.CircuitConnectionRouter") return RouterType.CIRCUIT;
-      if (name === "draw2d.layout.connection.SplineConnectionRouter") return RouterType.SPLINE;
-      // if (name === "draw2d.layout.connection.SketchConnectionRouter") return RouterType.SKETCH;
-      return RouterType.DIRECT;
+    if (name === "draw2d.layout.connection.ManhattanConnectionRouter")
+      return RouterType.INTERACTIVE_MANHATTAN;
+    if (name === "draw2d.layout.connection.CircuitConnectionRouter")
+      return RouterType.CIRCUIT;
+    if (name === "draw2d.layout.connection.SplineConnectionRouter")
+      return RouterType.SPLINE;
+    // if (name === "draw2d.layout.connection.SketchConnectionRouter") return RouterType.SKETCH;
+    return RouterType.DIRECT;
   }
 
   private drawDiagram() {
-    for (let placement of this.diagram.placements) {
-      const resource = this.allResourcesOnCurrentProduct
-        .find(resource => resource.resourceId === placement.resourceId);
+    const diagram = this.product.diagrams.of(this.diagramId);
+    if (!diagram) return;
+
+    for (let placement of diagram.placements) {
+      const resource = this.allResourcesOnCurrentProduct.find(
+        resource => resource.resourceId === placement.resourceId
+      );
       if (!resource) continue;
 
       this.addResouceIconToCanvas(resource, placement);
     }
 
-    for (let relation of this.diagram.relations) {
+    for (let relation of diagram.relations) {
       this.addConnection(relation);
     }
   }
@@ -328,11 +323,11 @@ export default class BusinessContextDiagramEditor extends Vue {
   private addConnection(relation: Relation) {
     const canvas = this.canvas;
 
-    const connection = new draw2d.Connection({id: relation.id});
+    const connection = new draw2d.Connection({ id: relation.id });
 
     const start = canvas.getFigure(String(relation.fromResourceId));
     const end = canvas.getFigure(String(relation.toResourceId));
-   
+
     // ちょっとトリッキーなデータの持ち方…解析しないとわからない。正攻法が在れば変えたい。
     const startHybridPort = this.getHybridPort(relation.fromResourceId, canvas);
     if (startHybridPort) connection.setSource(startHybridPort);
@@ -347,17 +342,23 @@ export default class BusinessContextDiagramEditor extends Vue {
     canvas.add(connection);
   }
 
-  private getHybridPort(resourceId: number,canvas: draw2d.Canvas):any | null {
+  private getHybridPort(resourceId: number, canvas: draw2d.Canvas): any | null {
     const targetFigure = canvas.getFigure(String(resourceId));
-    if (!targetFigure || !targetFigure.hybridPorts || !targetFigure.hybridPorts.data) return null;
+    if (
+      !targetFigure ||
+      !targetFigure.hybridPorts ||
+      !targetFigure.hybridPorts.data
+    )
+      return null;
     return targetFigure.hybridPorts.data[0];
   }
 
-  public onClickConnectorOnCanvas(x:number, y:number) {
+  public onClickConnectorOnCanvas(x: number, y: number) {
     const foundFigure = this.canvas.getBestFigure(x, y, [], []);
     if (!foundFigure) return;
-    const targetRelation = this.diagram.relations
-      .find(relation => relation.id === foundFigure.id);
+    const diagram = this.product.diagrams.of(this.diagramId);
+    if (!diagram) return;
+    const targetRelation = diagram.relationOf(foundFigure.id);
     if (!targetRelation) return;
     const absoluteX = this.canvas.getAbsoluteX() + x;
     const absoluteY = this.canvas.getAbsoluteY() + y;
@@ -384,14 +385,14 @@ export default class BusinessContextDiagramEditor extends Vue {
     const element = document.getElementById(id) as HTMLElement;
     return element.style;
   }
-  
+
   public onDropCanvas(event: DragEvent) {
     event.preventDefault();
 
     const x = event.offsetX;
     const y = event.offsetY;
 
-    const textData = event.dataTransfer?.getData('text');
+    const textData = event.dataTransfer?.getData("text");
     if (!textData) return;
     let resourceId = parseInt(textData, 10);
     // 新規追加時。
@@ -400,7 +401,7 @@ export default class BusinessContextDiagramEditor extends Vue {
       const resourceTypeId = resourceId * -1;
 
       resource = this.createNewResource(resourceTypeId);
-      
+
       if (!resource) return;
       this.allResourcesOnCurrentProduct.push(resource);
       this.onUpdateResources();
@@ -409,54 +410,56 @@ export default class BusinessContextDiagramEditor extends Vue {
 
     // 追加後は「図への追加(ふつーのドラッグ)」と一緒。
     this.transactionOf((diagram, product) => {
-      const resource = this.allResourcesOnCurrentProduct
-        .find(resource => resource.resourceId === resourceId);
+      const resource = this.allResourcesOnCurrentProduct.find(
+        resource => resource.resourceId === resourceId
+      );
       if (!resource) return false;
-      return this.addResourceToDiagram(resource, x, y , diagram);
+      return this.addResourceToDiagram(resource, x, y, diagram);
     });
   }
 
-  private createNewResource(resourceTypeId: number): Resource | null{
+  private createNewResource(resourceTypeId: number): Resource | null {
     // 情報の形状が違う物体がでてくるまで、汎用でいく
     const resourceType = ResourceType.ofId(resourceTypeId);
     if (!resourceType) return null;
 
     const messageBox = new MessageBox();
-    const name = messageBox.promptWith255Limit(`追加する${resourceType.name}の名前を入力してください。`, "", (inputText) => {
+    const message = `追加する${resourceType.name}の名前を入力してください。`;
+    const name = messageBox.promptWith255Limit(message, "", inputText => {
       const exists = this.allResourcesOnCurrentProduct
-        .filter(resource => resource.resourceTypeId === resourceType.id)
+        .filter(resource => resource.type.equals(resourceType))
         .some(resource => resource.name === name);
       if (exists) alert(`既に同一の${resourceType.name}名が在ります。`);
       return !exists;
     });
     if (!name) return null;
 
-    const resource: Resource = {
-      resourceId: this.repository.generateResourceId(),
-      resourceTypeId: resourceType.id,
-      name: name,
-      description: '',
-    };
+    const resource = new Resource(
+      this.repository.generateResourceId(),
+      resourceType.id,
+      name,
+      ""
+    );
     return resource;
   }
 
-  public onDropOverCanvas(event: DragEvent):void {
+  public onDropOverCanvas(event: DragEvent): void {
     event.preventDefault();
   }
 
-  public onDragStartNewCompany(event: DragEvent):void {
+  public onDragStartNewCompany(event: DragEvent): void {
     if (!event.target) return;
-    const target= event.target as HTMLElement;
-    const text = target.getAttribute('data-resource-type-id');
+    const target = event.target as HTMLElement;
+    const text = target.getAttribute("data-resource-type-id");
     if (!text) return;
     const resourceTypeId = parseInt(text, 10);
-    event.dataTransfer?.setData('text',  '-' + resourceTypeId);
+    event.dataTransfer?.setData("text", "-" + resourceTypeId);
   }
 
-  public onDragStartResource(event: DragEvent):void {
+  public onDragStartResource(event: DragEvent): void {
     const chip = event.srcElement as HTMLElement;
-    const resourceIdText = chip.getAttribute('data-resource-id') as string;
-    event.dataTransfer?.setData('text',  resourceIdText);
+    const resourceIdText = chip.getAttribute("data-resource-id") as string;
+    event.dataTransfer?.setData("text", resourceIdText);
   }
 
   private getCurrentProduct(): Product {
@@ -466,83 +469,101 @@ export default class BusinessContextDiagramEditor extends Vue {
   /**ResourceType
    * 自動保存のOn/Offを意識した「product,diagramへの操作」。
    */
-  private transactionOf(func: (diagram: BusinessContextDiagram, product:Product) => boolean):void {
+  private transactionOf(
+    func: (diagram: BusinessContextDiagram, product: Product) => boolean
+  ): void {
     const product = this.getCurrentProduct();
-    const autoSave = product.userSettings.autoSave;
-    if (autoSave) {
-      this.product = product;
-      const foundDiagram = this.product.diagrams
-        .find(d => d.id === this.diagram.id) as BusinessContextDiagram;
-      if (foundDiagram) this.shallowCopy(foundDiagram , this.diagram);
-    }
+    const diagram = product.diagrams.of(this.diagramId);
+    if (!diagram) return;
 
-    const requireSave = func(this.diagram, this.product);
+    const requireSave = func(diagram, this.product);
 
-    if (autoSave && requireSave) this.repository.registerCurrentProduct(this.product);
+    this.mergePlacement(this.usedResouceIds, diagram.placements);
+
+    if (requireSave) this.repository.registerCurrentProduct(product);
   }
 
-  private shallowCopy(src: BusinessContextDiagram, dist: BusinessContextDiagram) {
-    dist.name = src.name;
-    dist.placements = src.placements;
-    dist.availableResourceTypeIds = src.availableResourceTypeIds;
-    dist.relations = src.relations;
+  private mergePlacement(usedResouceIds: number[], diffTarget: Placement[]) {
+    const idSet = new Set(diffTarget.map(p => p.resourceId));
+    for (let i = usedResouceIds.length - 1; i >= 0; i--) {
+      const usedResouceId = usedResouceIds[i];
+      if (idSet.has(usedResouceId)) idSet.delete(usedResouceId);
+      else usedResouceIds.splice(i, 1);
+    }
+    idSet.forEach(id => usedResouceIds.push(id));
   }
 
-  private addResourceToDiagram(resource: Resource,left: number,top: number,diagram: BusinessContextDiagram): boolean {
-    const placement: Placement = {
-      x: left,
-      y: top,
-      width: 0,
-      height: 0,
-      resourceId: resource.resourceId
-    };
-    const resourceType = ResourceType.ofId(resource.resourceTypeId);
-    if (ResourceType.組織.equals(resourceType)
-      || ResourceType.会社.equals(resourceType)) {
-      placement.width = 80;
-      placement.height = 35;
+  private addResourceToDiagram(
+    resource: Resource,
+    left: number,
+    top: number,
+    diagram: BusinessContextDiagram
+  ): boolean {
+    let width = 0;
+    let height = 0;
+    const resType = resource.type;
+    if (
+      ResourceType.組織.equals(resType) ||
+      ResourceType.会社.equals(resType)
+    ) {
+      width = 80;
+      height = 35;
     }
-    if (ResourceType.業務.equals(resourceType)) {
-      placement.width = 105
-      placement.height = 35
+    if (ResourceType.業務.equals(resType)) {
+      width = 105;
+      height = 35;
     }
+    const placement = new Placement(
+      left,
+      top,
+      width,
+      height,
+      resource.resourceId
+    );
     diagram.placements.push(placement);
 
     return this.addResouceIconToCanvas(resource, placement);
   }
 
-  private addResouceIconToCanvas(resource: Resource, placement: Placement): boolean {
-     const resourceType = ResourceType.ofId(resource.resourceTypeId);
-    if (!resourceType) return false;
+  private addResouceIconToCanvas(
+    resource: Resource,
+    placement: Placement
+  ): boolean {
+    const iconGenerator = this.choiceIconGenerator(resource.type);
+    if (!iconGenerator) return false;
 
-    const iconGenerator = this.choiceIconGenerator(resourceType);
-    if (!iconGenerator) return false
-
-    const icon = iconGenerator.generate(placement, resource, this.iconStyleOf(resourceType));
+    const icon = iconGenerator.generate(
+      placement,
+      resource,
+      this.iconStyleOf(resource.type)
+    );
     this.canvas.add(icon);
     return true;
   }
 
-  private choiceIconGenerator(resourceType: ResourceType): IconGenerator | null {
-    if (resourceType.equals(ResourceType.アクター)) return this.actorIconGenerator;
-    if (resourceType.equals(ResourceType.会社)) return this.companyIconGenerator;
-    if (resourceType.equals(ResourceType.組織)) return this.roomIconGenerator;
-    if (resourceType.equals(ResourceType.業務)) return this.businessIconGenerator;
-    if (resourceType.equals(ResourceType.商品)) return this.goodsIconGenerator;
-    if (resourceType.equals(ResourceType.設備)) return this.facilityIconGenerator;
+  private choiceIconGenerator(
+    resourceType: ResourceType
+  ): IconGenerator | null {
+    const type = resourceType;
+    if (type.equals(ResourceType.アクター)) return this.actorIconGenerator;
+    if (type.equals(ResourceType.会社)) return this.companyIconGenerator;
+    if (type.equals(ResourceType.組織)) return this.roomIconGenerator;
+    if (type.equals(ResourceType.業務)) return this.businessIconGenerator;
+    if (type.equals(ResourceType.商品)) return this.goodsIconGenerator;
+    if (type.equals(ResourceType.設備)) return this.facilityIconGenerator;
     return null;
   }
 
   private iconStyleOf(resourceType: ResourceType): CSSStyleDeclaration {
-    const iconElement = document.getElementById(resourceType.iconKey) as HTMLDialogElement;
+    const iconElement = document.getElementById(
+      resourceType.iconKey
+    ) as HTMLDialogElement;
     return window.getComputedStyle(iconElement, "::before");
   }
 
   private iconKeyOf(resource: Resource): string {
     if (!resource) return "";
-    const resourceType = ResourceType.ofId(resource.resourceTypeId);
-    if (!resourceType) return "";
-    return resourceType.iconKey;
+    return resource.type.iconKey;
   }
 
   /**
@@ -559,7 +580,11 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.warnBar = true;
   }
 
-  private showConnectorRightClickMenu(relation: Relation,x: number, y:number):void{
+  private showConnectorRightClickMenu(
+    relation: Relation,
+    x: number,
+    y: number
+  ): void {
     this.visibleConnectorMenu = false;
     this.menuX = x;
     this.menuY = y;
@@ -567,7 +592,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.targetRelationId = relation.id;
     this.editableRouterId = relation.routerTypeId;
     this.$nextTick(() => {
-      this.visibleConnectorMenu = true
+      this.visibleConnectorMenu = true;
     });
   }
 
@@ -578,10 +603,10 @@ export default class BusinessContextDiagramEditor extends Vue {
     connection.setRouter(router);
 
     this.transactionOf((diagram, product) => {
-      const relation = diagram.relations
-        .find(relation => relation.id === this.targetRelationId);
+      const relation = diagram.relationOf(this.targetRelationId);
       if (!relation) return false;
-      relation.routerTypeId = routerType.id;
+      const changed: Relation = relation.changeRouter(routerType);
+      diagram.modifyRelationOf(changed);
       return true;
     });
   }
@@ -594,7 +619,7 @@ export default class BusinessContextDiagramEditor extends Vue {
       const relations = diagram.relations;
       for (let i = 0; i < relations.length; i++) {
         const relation = relations[i];
-        if (relation.id !== this.targetRelationId) continue; 
+        if (relation.id !== this.targetRelationId) continue;
         relations.splice(i, 1);
         break;
       }
@@ -602,21 +627,30 @@ export default class BusinessContextDiagramEditor extends Vue {
     });
   }
 
-  private filterDisplayParet(resource: Resource, resourceType: ResourceType): boolean {
-    if (resource.resourceTypeId !== resourceType.id) return false;
-    return this.diagram.placements
-      .every(placement => placement.resourceId !== resource.resourceId);
+  private filterDisplayParet(
+    resource: Resource,
+    resourceType: ResourceType,
+    usedResouceIds: number[]
+  ): boolean {
+    const diagram = this.product.diagrams.of(this.diagramId);
+    if (!diagram) return false;
+    if (!resource.type.equals(resourceType)) return false;
+    return !usedResouceIds.includes(resource.resourceId);
   }
 
-  private filterUsedList(resource: Resource): boolean {
-    return this.diagram.placements
-      .some(placement => placement.resourceId === resource.resourceId);
+  private filterUsedList(
+    resource: Resource,
+    usedResouceIds: number[]
+  ): boolean {
+    return usedResouceIds.includes(resource.resourceId);
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
     console.log(`---- ${prefix} Diagram情報 start ----`);
     diagram.placements.forEach(i => console.log(`位置;${i.resourceId}`));
-    diagram.relations.forEach(i => console.log(`線;${i.id}, from:${i.fromResourceId}, to:${i.toResourceId}`));
+    diagram.relations.forEach(i =>
+      console.log(`線;${i.id}, from:${i.fromResourceId}, to:${i.toResourceId}`)
+    );
     console.log(`---- ${prefix} Diagram情報 end ----`);
   }
 }
@@ -627,8 +661,8 @@ interface Paret {
 }
 
 interface CanvasSelections {
-  figures: Figure[],
-  connections: any[]
+  figures: Figure[];
+  connections: any[];
 }
 </script>
 
@@ -678,7 +712,7 @@ interface CanvasSelections {
 }
 
 .paret-panel {
-  position:sticky;
+  position: sticky;
   width: 100%;
 }
 

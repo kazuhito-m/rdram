@@ -22,16 +22,13 @@ export default class BCDConnectPortsEvents implements EventsOfType<BusinessConte
     }
 
     public validate(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
-        const relations = diagram.relations;
         for (let eventGist of this.eventGists) {
             const srcResourceId = parseInt(eventGist.source?.getParent().id, 10);
             const distResourceId = parseInt(eventGist.target?.getParent().id, 10);
             if (!srcResourceId || !distResourceId) continue;
 
-            const exists = relations.some(relation => {
-                return relation.fromResourceId === srcResourceId && relation.toResourceId === distResourceId
-                    || relation.fromResourceId === distResourceId && relation.toResourceId === srcResourceId;
-            });
+            const relation = new Relation("", srcResourceId, distResourceId, RouterType.DIRECT.id, []);
+            const exists = diagram.existsSomeRelation(relation);
             if (exists) {
                 view.showWarnBar('すでに関連が存在します。');
                 eventGist.rootCommand.undo();
@@ -51,15 +48,14 @@ export default class BCDConnectPortsEvents implements EventsOfType<BusinessConte
 
             const routerType = view.analyzeRouterType(connection.router);
 
-            const relation: Relation = {
-                id: connection.id,
-                fromResourceId: srcResourceId,
-                toResourceId: distResourceId,
-                routerTypeId: routerType.id,
-                midpoints: []
-            };
-
-            diagram.relations.push(relation);
+            const relation = new Relation(
+                connection.id,
+                srcResourceId,
+                distResourceId,
+                routerType.id,
+                [],
+            );
+            diagram.addRelation(relation);
         }
         return true;
     }
