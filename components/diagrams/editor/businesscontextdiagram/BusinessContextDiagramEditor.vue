@@ -442,7 +442,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     const name = messageBox.promptWith255Limit(message, "", inputText => {
       const exists = this.allResourcesOnCurrentProduct
         .filter(resource => resource.type.equals(resourceType))
-        .some(resource => resource.name === name);
+        .some(resource => resource.name === inputText);
       if (exists) alert(`既に同一の${resourceType.name}名が在ります。`);
       return !exists;
     });
