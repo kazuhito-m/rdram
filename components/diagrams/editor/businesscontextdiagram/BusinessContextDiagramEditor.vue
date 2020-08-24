@@ -1,42 +1,11 @@
 <template>
   <div class="diagram-pain-container">
     <div class="editor-pain" ref="editorPain">
-      <div
-        id="canvas-container"
-        ref="convasContainer"
-        @dragover="onDragOverToolBar"
-        @drop="onDropToolBar"
-      >
+      <div class="canvas-container" ref="convasContainer">
         <div class="diagram-canvas" :id="canvasId"></div>
       </div>
 
-      <v-toolbar
-        :id="toolBarId"
-        class="canvas-float-toolbar"
-        draggable
-        dense
-        floating
-        outlined
-        rounded
-        shaped
-        short
-        :collapse="toolBarCollapse"
-        @dragstart="onDragStartToolBar"
-        @mousedown="onMouseDown"
-      >
-        <v-btn icon>
-          <v-icon>mdi-content-save-edit-outline</v-icon>
-        </v-btn>
-
-        <v-spacer></v-spacer>
-
-        <v-btn icon v-if="!toolBarCollapse" @click="onClickBarCollapseToggle">
-          <v-icon>mdi-arrow-collapse-horizontal</v-icon>
-        </v-btn>
-        <v-btn icon v-if="toolBarCollapse" @click="onClickBarCollapseToggle">
-          <v-icon>mdi-arrow-expand-horizontal</v-icon>
-        </v-btn>
-      </v-toolbar>
+      <CanvasSettingToolBar :diagramId="diagramId" />
     </div>
     <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
     <div class="paret-pain" :id="paretPainId">
@@ -144,6 +113,7 @@
 <script lang="ts">
 import { Prop, Component, Vue, Inject, Emit } from "nuxt-property-decorator";
 import ConnectorRightClickMenuAndEditor from "./ConnectorRightClickMenuAndEditor.vue";
+import CanvasSettingToolBar from "./CanvasSettingToolBar.vue";
 import { RelationContainer } from "./ConnectorRightClickMenuAndEditor.vue";
 import { ResizeObserver } from "resize-observer";
 
@@ -184,7 +154,8 @@ import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 
 @Component({
   components: {
-    ConnectorRightClickMenuAndEditor
+    ConnectorRightClickMenuAndEditor,
+    CanvasSettingToolBar
   }
 })
 export default class BusinessContextDiagramEditor extends Vue {
@@ -247,7 +218,6 @@ export default class BusinessContextDiagramEditor extends Vue {
 
     this.paretPainId = "paretPain" + diagramId;
     this.canvasId = "canvas" + diagramId;
-    this.toolBarId = "toolBar" + diagramId;
 
     diagram
       .availableResourceTypes()
@@ -264,9 +234,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.fixCanvasPosition();
     this.addCanvasEvent();
     this.drawDiagram();
-
-    this.addResizeListenerCanvasContainer();
-    this.moveToolBarOnFirstPosition();
 
     this.$nextTick(() => {
       this.$nuxt.$loading.finish(); // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
@@ -688,109 +655,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     return usedResouceIds.includes(resource.resourceId);
   }
 
-  // ToolBar controll.
-
-  private readonly TOOLBAR_PADDING = 10;
-  private toolBarId!: string;
-  private toolBarCollapse = false;
-  private dragStartLayerX = 0;
-  private dragStartLayerY = 0;
-
-  private onResizeEditorPain(event: ResizeObserverEntry[]): void {
-    // FIXME Tabの非アクティブ時に裏で無限呼び出され、することへの対策。今の所「ResizeObzerverを削除」くらいしか手がないが…。
-    if (event[0].target.clientHeight === 0) return;
-    // console.log(this.diagramId, event[0].target.clientHeight);
-
-    const toolBar = document.getElementById(this.toolBarId) as HTMLElement;
-    if (!toolBar) return;
-    const left = toolBar.offsetLeft;
-    const top = parseInt(toolBar.style.top.replace(/px$/, ""));
-    this.fixAreaOverToolBar(left, top, toolBar);
-  }
-
-  private addResizeListenerCanvasContainer(): void {
-    const observer = new ResizeObserver(this.onResizeEditorPain);
-    const editorPain = this.$refs.editorPain as HTMLElement;
-    observer.observe(editorPain);
-  }
-
-  private moveToolBarOnFirstPosition(): void {
-    // FIXME 本当は「IDとっといてgetElementById()とかしたくない」んだけど、$refsが「ほんものを返してくれない」のでLeft値が変えられない。
-    const toolBar = document.getElementById(this.toolBarId) as HTMLElement;
-    const c = this.$refs.convasContainer as HTMLElement;
-
-    const padding = this.TOOLBAR_PADDING;
-    let barWidth = toolBar.offsetWidth;
-    const containerWidth = c.clientLeft + c.clientWidth;
-    const scrollBarHeight = c.offsetHeight - c.clientHeight;
-    const left = containerWidth - barWidth - padding;
-    const top = -(toolBar.offsetHeight + padding + scrollBarHeight);
-    const style = toolBar.style;
-    style.left = `${left}px`;
-    style.top = `${top}px`;
-  }
-
-  private onMouseDown(event: any) {
-    this.dragStartLayerX = event.layerX;
-    this.dragStartLayerY = event.layerY;
-  }
-
-  private onDragStartToolBar(event: DragEvent): void {
-    event.dataTransfer?.setData("text", this.toolBarId);
-  }
-
-  private onDragOverToolBar(event: DragEvent): void {
-    event?.preventDefault();
-  }
-
-  private onDropToolBar(event: DragEvent): void {
-    event.preventDefault();
-    const toolBarId = event.dataTransfer?.getData("text");
-    if (toolBarId !== this.toolBarId) return;
-
-    const toolBar = document.getElementById(toolBarId);
-    const container = event.currentTarget as HTMLElement;
-    if (!(toolBar && container)) return;
-
-    const left = event.offsetX - this.dragStartLayerX;
-    const top = event.offsetY - this.dragStartLayerY - container.offsetHeight;
-    this.fixAreaOverToolBar(left, top, toolBar);
-  }
-
-  private fixAreaOverToolBar(left: number, top: number, toolBar: HTMLElement) {
-    const container = this.$refs.convasContainer as HTMLElement;
-    let toolBarWidth = toolBar.offsetWidth;
-
-    const leftOver = left + toolBarWidth - container.clientWidth;
-    if (leftOver > 0) left = container.clientWidth - toolBarWidth;
-    if (left < 0) left = 0;
-
-    const scrollBarHeight = container.offsetHeight - container.clientHeight;
-    const topOver = top + toolBar.offsetHeight + scrollBarHeight;
-    if (topOver > 0) top = -(toolBar.offsetHeight + scrollBarHeight);
-
-    const topUnder = top + container.offsetHeight;
-    if (topUnder < 0) top = -container.offsetHeight;
-
-    const style = toolBar.style;
-    style.left = `${left}px`;
-    style.top = `${top}px`;
-  }
-
-  /**
-   * バーを畳む時「左畳み」ではなく「右畳み」にする。
-   */
-  private onClickBarCollapseToggle(): void {
-    const toolBar = document.getElementById(this.toolBarId) as HTMLElement;
-    const beforeWidth = toolBar.offsetWidth;
-    this.toolBarCollapse = !this.toolBarCollapse;
-    this.$nextTick(() => {
-      const left = toolBar.offsetLeft + beforeWidth - toolBar.offsetWidth;
-      const top = parseInt(toolBar.style.top.replace(/px$/, ""));
-      this.fixAreaOverToolBar(left, top, toolBar);
-    });
-  }
-
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
     console.log(`---- ${prefix} Diagram情報 start ----`);
     diagram.placements.forEach(i => console.log(`位置;${i.resourceId}`));
@@ -839,7 +703,7 @@ interface CanvasSelections {
   cursor: move;
 }
 
-#canvas-container {
+.canvas-container {
   width: 100%;
   height: 100%;
   min-width: 0px;
@@ -881,16 +745,5 @@ div[class*="-expansion-panel-content__wrap"] {
   position: absolute;
   text-align: left;
   width: 100%;
-}
-
-.canvas-float-toolbar {
-  /* position:fixed; */
-  /* height: 50px; */
-  width: 500px;
-  left: 2%;
-  top: -10%;
-  display: block;
-  z-index: 2;
-  transition: none;
 }
 </style>
