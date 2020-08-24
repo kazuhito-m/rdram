@@ -20,7 +20,6 @@
         rounded
         shaped
         short
-        transition="none"
         :collapse="toolBarCollapse"
         @dragstart="onDragStartToolBar"
       >
@@ -30,10 +29,10 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn icon v-if="!toolBarCollapse" @click="toolBarCollapse = !toolBarCollapse">
+        <v-btn icon v-if="!toolBarCollapse" @click="onClickBarCollapseToggle">
           <v-icon>mdi-arrow-collapse-horizontal</v-icon>
         </v-btn>
-        <v-btn icon v-if="toolBarCollapse" @click="toolBarCollapse = !toolBarCollapse">
+        <v-btn icon v-if="toolBarCollapse" @click="onClickBarCollapseToggle">
           <v-icon>mdi-arrow-expand-horizontal</v-icon>
         </v-btn>
       </v-toolbar>
@@ -749,30 +748,49 @@ export default class BusinessContextDiagramEditor extends Vue {
     event.preventDefault();
     const toolBarId = event.dataTransfer?.getData("text");
     if (toolBarId !== this.toolBarId) return;
+
     const toolBar = document.getElementById(toolBarId);
     const container = event.currentTarget as HTMLElement;
     if (!(toolBar && container)) return;
 
-    let left = event.offsetX;
+    const left = event.offsetX;
     const top = event.offsetY - container.offsetHeight;
+    this.fixAreaOverToolBar(left, top, toolBar, container);
+  }
 
+  private fixAreaOverToolBar(
+    left: number,
+    top: number,
+    toolBar: HTMLElement,
+    container: HTMLElement
+  ) {
     let toolBarWidth = toolBar.offsetWidth;
-    let leftOver = left + toolBarWidth - container.offsetWidth;
+    const leftOver = left + toolBarWidth - container.clientWidth;
     if (leftOver > 0) {
-      left = container.offsetWidth - toolBarWidth;
+      left = container.clientWidth - toolBarWidth;
     }
 
+    const scrollBarHeight = container.offsetHeight - container.clientHeight;
+    const topOver = top + toolBar.offsetHeight + scrollBarHeight;
+    if (topOver > 0) {
+      top = -(toolBar.offsetHeight + scrollBarHeight);
+    }
     const style = toolBar.style;
     style.left = `${left}px`;
     style.top = `${top}px`;
+  }
 
-    // const style = this.styleOf("leftPainId");
-    // let painLeft = 0;
-    // if (style.left) {
-    //   const left = style.left;
-    //   if (left.match("px$")) painLeft = parseInt(left.replace("px", ""), 10);
-    // }
-    // style.width = event.x - painLeft + "px";
+  /**
+   * バーを畳む時「左畳み」ではなく「右畳み」にする。
+   */
+  private onClickBarCollapseToggle(): void {
+    const toolBar = document.getElementById(this.toolBarId) as HTMLElement;
+    const beforeWidth = toolBar.offsetWidth;
+    this.toolBarCollapse = !this.toolBarCollapse;
+    this.$nextTick(() => {
+      const left = toolBar.offsetLeft + beforeWidth - toolBar.offsetWidth;
+      toolBar.style.left = `${left}px`;
+    });
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
