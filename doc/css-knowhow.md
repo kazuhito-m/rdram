@@ -1,5 +1,21 @@
 # CSSノウハウ
 
+## offset,client,scrollなど領域について
+
+- 要素サイズとスクローリング
+  - https://ja.javascript.info/size-and-scroll
+- Element.offsetWidth - 全体の横幅を取得する
+  - https://syncer.jp/javascript-reference/element/offsetwidth
+
+
+## Resizeイベントが「起きない」エレメントへのリサイズ監視
+
+- 要素のサイズ変化を監視するResizeObserver
+  - https://1000ch.net/posts/2017/resize-observer.html
+- div のリサイズイベントを拾う方法（メモ）
+  - https://qiita.com/morozumi_h/items/ba8c1e474e86ef7ef950
+  - MutationObserver じゃ出来なかった…
+
 ## 角丸
 
 - 角を丸くする方法をコードを交えて詳しく解説
