@@ -4,6 +4,32 @@
       <div id="canvas-container">
         <div class="diagram-canvas" :id="canvasId"></div>
       </div>
+
+      <v-toolbar
+        id="canvas-float-toolbar"
+        draggable
+        dense
+        floating
+        outlined
+        rounded
+        shaped
+        short
+        :collapse="toolBarCollapse"
+        @resize="alert(test)"
+      >
+        <v-btn icon>
+          <v-icon>mdi-content-save-edit-outline</v-icon>
+        </v-btn>
+
+        <v-spacer></v-spacer>
+
+        <v-btn icon v-if="!toolBarCollapse" @click="toolBarCollapse = !toolBarCollapse">
+          <v-icon>mdi-arrow-collapse-horizontal</v-icon>
+        </v-btn>
+        <v-btn icon v-if="toolBarCollapse" @click="toolBarCollapse = !toolBarCollapse">
+          <v-icon>mdi-arrow-expand-horizontal</v-icon>
+        </v-btn>
+      </v-toolbar>
     </div>
     <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
     <div class="paret-pain" :id="paretPainId">
@@ -112,6 +138,7 @@
 import { Prop, Component, Vue, Inject, Emit } from "nuxt-property-decorator";
 import ConnectorRightClickMenuAndEditor from "./ConnectorRightClickMenuAndEditor.vue";
 import { RelationContainer } from "./ConnectorRightClickMenuAndEditor.vue";
+import { ResizeObserver } from "resize-observer";
 
 import "jquery";
 import "jquery-ui";
@@ -201,6 +228,8 @@ export default class BusinessContextDiagramEditor extends Vue {
   private targetRelationId = "";
   private editableRouterId = 0;
 
+  private toolBarCollapse = false;
+
   public created(): void {
     this.product = this.getCurrentProduct();
 
@@ -229,6 +258,9 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.fixCanvasPosition();
     this.addCanvasEvent();
     this.drawDiagram();
+
+    this.addResizeListenerCanvasContainer();
+    this.moveToolBarOnFirstPosition();
 
     this.$nextTick(() => {
       this.$nuxt.$loading.finish(); // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
@@ -647,6 +679,25 @@ export default class BusinessContextDiagramEditor extends Vue {
     return usedResouceIds.includes(resource.resourceId);
   }
 
+  private onResizeEditorPain(): void {
+    const editorPain = document.getElementById(this.editorPainId);
+    if (!editorPain) return;
+    console.log("width :" + editorPain.offsetWidth);
+    console.log("height:" + editorPain.offsetHeight);
+    const width = editorPain.getBoundingClientRect().width;
+    const height = editorPain.getBoundingClientRect().height;
+    console.log("size(w,h): ", width, height);
+  }
+
+  private addResizeListenerCanvasContainer(): void {
+    const observer = new ResizeObserver(this.onResizeEditorPain);
+    const editorPain = document.getElementById(this.editorPainId);
+    if (!editorPain) return;
+    observer.observe(editorPain);
+  }
+
+  private moveToolBarOnFirstPosition(): void {}
+
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
     console.log(`---- ${prefix} Diagram情報 start ----`);
     diagram.placements.forEach(i => console.log(`位置;${i.resourceId}`));
@@ -677,7 +728,7 @@ interface CanvasSelections {
 }
 
 .editor-pain {
-  resize: horizontal;
+  resize: both;
   width: 80%;
 }
 
@@ -737,5 +788,15 @@ div[class*="-expansion-panel-content__wrap"] {
   position: absolute;
   text-align: left;
   width: 100%;
+}
+
+#canvas-float-toolbar {
+  /* position:fixed; */
+  /* height: 50px; */
+  width: 500px;
+  left: 2%;
+  top: -10%;
+  display: block;
+  z-index: 2;
 }
 </style>
