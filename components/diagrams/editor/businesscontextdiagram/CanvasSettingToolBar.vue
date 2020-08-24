@@ -50,10 +50,10 @@ export default class CanvasSettingToolBar extends Vue {
   }
 
   public mounted(): void {
-    const canvasContainer = this.getCanvasContainer();
-    if (!canvasContainer) return;
-    canvasContainer.addEventListener("dragover", this.onDragOverToolBar);
-    canvasContainer.addEventListener("drop", this.onDropToolBar);
+    const container = this.getCanvasContainer();
+    if (!container) return;
+    container.addEventListener("dragover", this.onDragOverToolBar);
+    container.addEventListener("drop", this.onDropToolBar);
     this.addResizeListenerCanvasContainer();
     this.moveToolBarOnFirstPosition();
   }
@@ -81,7 +81,7 @@ export default class CanvasSettingToolBar extends Vue {
   private onResizeEditorPain(event: ResizeObserverEntry[]): void {
     // FIXME Tabの非アクティブ時に裏で無限呼び出され、することへの対策。今の所「ResizeObzerverを削除」くらいしか手がないが…。
     if (event[0].target.clientHeight === 0) return;
-    console.log(this.diagramId, event[0].target.clientHeight);
+    // console.log(this.diagramId, event[0].target.clientHeight);
 
     const toolBar = this.getToolBarElement();
     if (!toolBar) return;
@@ -91,10 +91,10 @@ export default class CanvasSettingToolBar extends Vue {
   }
 
   private addResizeListenerCanvasContainer(): void {
-    const editorPain = this.getEditorPain();
-    if (!editorPain) return;
+    const container = this.getCanvasContainer();
+    if (!container) return;
     const observer = new ResizeObserver(this.onResizeEditorPain);
-    observer.observe(editorPain);
+    observer.observe(container);
   }
 
   private moveToolBarOnFirstPosition(): void {
@@ -135,28 +135,30 @@ export default class CanvasSettingToolBar extends Vue {
     const container = this.getCanvasContainer();
     if (!(toolBar && container)) return;
 
-    console.log(event);
+    const left = event.offsetX - container.scrollLeft;
+    const top = event.offsetY - container.scrollTop - container.offsetHeight;
 
-    const left = event.offsetX - this.dragStartLayerX;
-    const top = event.offsetY - this.dragStartLayerY - container.offsetHeight;
-    this.fixAreaOverToolBar(left, top, toolBar);
+    const adjustLeft = left - this.dragStartLayerX;
+    const adjustTop  = top - this.dragStartLayerY;
+
+    this.fixAreaOverToolBar(adjustLeft, adjustTop, toolBar);
   }
 
   private fixAreaOverToolBar(left: number, top: number, toolBar: HTMLElement) {
-    // const container = this.getCanvasContainer();
-    // if (!container) return;
-    // let toolBarWidth = toolBar.offsetWidth;
+    const container = this.getCanvasContainer();
+    if (!container) return;
+    let toolBarWidth = toolBar.offsetWidth;
 
-    // const leftOver = left + toolBarWidth - container.clientWidth;
-    // if (leftOver > 0) left = container.clientWidth - toolBarWidth;
-    // if (left < 0) left = 0;
+    const leftOver = left + toolBarWidth - container.clientWidth;
+    if (leftOver > 0) left = container.clientWidth - toolBarWidth;
+    if (left < 0) left = 0;
 
-    // const scrollBarHeight = container.offsetHeight - container.clientHeight;
-    // const topOver = top + toolBar.offsetHeight + scrollBarHeight;
-    // if (topOver > 0) top = -(toolBar.offsetHeight + scrollBarHeight);
+    const scrollBarHeight = container.offsetHeight - container.clientHeight;
+    const topOver = top + toolBar.offsetHeight + scrollBarHeight;
+    if (topOver > 0) top = -(toolBar.offsetHeight + scrollBarHeight);
 
-    // const topUnder = top + container.offsetHeight;
-    // if (topUnder < 0) top = -container.offsetHeight;
+    const topUnder = top + container.offsetHeight;
+    if (topUnder < 0) top = -container.offsetHeight;
 
     const style = toolBar.style;
     style.left = `${left}px`;
