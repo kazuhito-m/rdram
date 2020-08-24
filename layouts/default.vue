@@ -101,6 +101,11 @@
     >
     <span>&copy; {{ new Date().getFullYear() }} </span>
       <a class="auther-link" target="_new" href="https://twitter.com/kazuhito_m"> <v-icon>mdi-twitter</v-icon>kazuhito_m</a>
+      <v-spacer></v-spacer>
+      <a class="auther-link" target="_new" href="https://twitter.com/kazuhito_m">
+      <v-icon>mdi-share</v-icon> 
+      Version x.x.x
+      </a> 
     </v-footer>
 
     <ProductSelectorDialog 
