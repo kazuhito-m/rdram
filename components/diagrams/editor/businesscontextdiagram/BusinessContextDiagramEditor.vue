@@ -180,6 +180,7 @@ import Actor from "@/domain/actor/Actor";
 import IconGenerator from "@/components/diagrams/icon/IconGenerator";
 import MessageBox from "@/presentation/MessageBox";
 import Uuid from "../../../../domain/world/Uuid";
+import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 
 @Component({
   components: {
@@ -208,6 +209,9 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   @Prop({ required: true })
   private allResourcesOnCurrentProduct!: Resource[];
+
+  @Prop({ required: true })
+  private activeTabDiagramId?: number;
 
   private canvas!: draw2d.Canvas;
   private readonly eventAnalyzer = new EventAnalyzer([
@@ -695,8 +699,12 @@ export default class BusinessContextDiagramEditor extends Vue {
   private dragStartLayerX = 0;
   private dragStartLayerY = 0;
 
-  private onResizeEditorPain(event: any): void {
+  private onResizeEditorPain(event: ResizeObserverEntry[]): void {
+    if (this.activeTabDiagramId !== this.diagramId) return;
+    // console.log(this.diagramId);
+
     const toolBar = document.getElementById(this.toolBarId) as HTMLElement;
+    if (!toolBar) return;
     const left = toolBar.offsetLeft;
     const top = parseInt(toolBar.style.top.replace(/px$/, ""));
     this.fixAreaOverToolBar(left, top, toolBar);
