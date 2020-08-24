@@ -58,7 +58,7 @@
           </v-tabs>
 
           <v-tabs-items v-model="currentTabIndex" class="dialog-editor-container">
-            <v-tab-item v-for="item in openTabs" :key="item.id">
+            <v-tab-item v-for="item in openTabs" :key="item.id" class="dialog-editor-tab-item">
               <DiagramEditorContainer
                 :diagram-id="item.id"
                 :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
@@ -406,6 +406,10 @@ interface TreeItem {
   position: relative;
   width: 100%;
   height: 97%;
+}
+
+.dialog-editor-tab-item {
+  transition: none;
 }
 
 .tab-title {
