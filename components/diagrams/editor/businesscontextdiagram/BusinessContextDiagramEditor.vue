@@ -755,26 +755,23 @@ export default class BusinessContextDiagramEditor extends Vue {
 
     const left = event.offsetX;
     const top = event.offsetY - container.offsetHeight;
-    this.fixAreaOverToolBar(left, top, toolBar, container);
+    this.fixAreaOverToolBar(left, top, toolBar);
   }
 
-  private fixAreaOverToolBar(
-    left: number,
-    top: number,
-    toolBar: HTMLElement,
-    container: HTMLElement
-  ) {
+  private fixAreaOverToolBar(left: number, top: number, toolBar: HTMLElement) {
+    const container = this.$refs.convasContainer as HTMLElement;
     let toolBarWidth = toolBar.offsetWidth;
+
     const leftOver = left + toolBarWidth - container.clientWidth;
-    if (leftOver > 0) {
-      left = container.clientWidth - toolBarWidth;
-    }
+    if (leftOver > 0) left = container.clientWidth - toolBarWidth;
+    if (left < 0) left = 0;
 
     const scrollBarHeight = container.offsetHeight - container.clientHeight;
     const topOver = top + toolBar.offsetHeight + scrollBarHeight;
-    if (topOver > 0) {
-      top = -(toolBar.offsetHeight + scrollBarHeight);
-    }
+    if (topOver > 0) top = -(toolBar.offsetHeight + scrollBarHeight);
+    const topUnder = top - container.offsetHeight;
+    if (topUnder > 0) top = - container.offsetHeight;
+
     const style = toolBar.style;
     style.left = `${left}px`;
     style.top = `${top}px`;
@@ -789,7 +786,8 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.toolBarCollapse = !this.toolBarCollapse;
     this.$nextTick(() => {
       const left = toolBar.offsetLeft + beforeWidth - toolBar.offsetWidth;
-      toolBar.style.left = `${left}px`;
+      const top = parseInt(toolBar.style.top.replace(/px$/, ""));
+      this.fixAreaOverToolBar(left, top, toolBar);
     });
   }
 
