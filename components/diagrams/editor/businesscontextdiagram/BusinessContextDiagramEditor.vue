@@ -210,9 +210,6 @@ export default class BusinessContextDiagramEditor extends Vue {
   @Prop({ required: true })
   private allResourcesOnCurrentProduct!: Resource[];
 
-  @Prop({ required: true })
-  private activeTabDiagramId?: number;
-
   private canvas!: draw2d.Canvas;
   private readonly eventAnalyzer = new EventAnalyzer([
     new BCDDeleteShapeEvents(),
@@ -701,7 +698,6 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private onResizeEditorPain(event: ResizeObserverEntry[]): void {
     // FIXME Tabの非アクティブ時に裏で無限呼び出され、することへの対策。今の所「ResizeObzerverを削除」くらいしか手がないが…。
-    if (this.activeTabDiagramId !== this.diagramId) return;
     if (event[0].target.clientHeight === 0) return;
 
     const toolBar = document.getElementById(this.toolBarId) as HTMLElement;

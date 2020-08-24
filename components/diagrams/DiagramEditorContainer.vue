@@ -4,21 +4,18 @@
       v-if="is('ビジネスコンテキスト図')"
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
-      :activeTabDiagramId="activeTabDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
     />
     <SystemContextDiagramEditor
       v-if="is('システムコンテキスト図')"
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
-      :activeTabDiagramId="activeTabDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
     />
     <StateModelEditor
       v-if="is('状態モデル')"
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
-      :activeTabDiagramId="activeTabDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
     />
   </div>
@@ -49,9 +46,6 @@ export default class DiagramEditorContainer extends Vue {
 
   @Prop({ required: true })
   private allResourcesOnCurrentProduct?: Resource[];
-
-  @Prop({ required: true })
-  private activeTabDiagramId?: number;
 
   private diagram: Diagram | null = null;
 

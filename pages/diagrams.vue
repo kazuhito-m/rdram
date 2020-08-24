@@ -62,7 +62,6 @@
               <DiagramEditorContainer
                 :diagram-id="item.id"
                 :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
-                :activeTabDiagramId="activeTabDiagramId"
                 @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
               />
             </v-tab-item>
@@ -121,7 +120,6 @@ export default class extends Vue {
   private menuPositionY = 0;
 
   private currentTabIndex: number | null = null;
-  private activeTabDiagramId = 0;
   private openTabs: TreeItem[] = [];
 
   private allResourcesOnCurrentProduct: Resource[] = [];
@@ -313,7 +311,6 @@ export default class extends Vue {
     if (!currentTabItem) return;
     this.activeTreeItemOf(currentTabItem.id);
     this.openParentTreeItem(currentTabItem.id);
-    this.activeTabDiagramId = currentTabItem.id;
   }
 
   private openParentTreeItem(treeItemId: number): void {
