@@ -22,6 +22,7 @@
         short
         :collapse="toolBarCollapse"
         @dragstart="onDragStartToolBar"
+        @mousedown="onMouseDown"
       >
         <v-btn icon>
           <v-icon>mdi-content-save-edit-outline</v-icon>
@@ -692,6 +693,8 @@ export default class BusinessContextDiagramEditor extends Vue {
   private readonly TOOLBAR_WIDTH_WHEN_COLLAPSE = 110;
   private toolBarId!: string;
   private toolBarCollapse = false;
+  private dragStartLayerX = 0;
+  private dragStartLayerY = 0;
 
   private onResizeEditorPain(): void {
     const convasContainer = this.$refs.convasContainer as HTMLElement;
@@ -736,6 +739,11 @@ export default class BusinessContextDiagramEditor extends Vue {
     style.top = `${top}px`;
   }
 
+  private onMouseDown(event: any) {
+    this.dragStartLayerX = event.layerX;
+    this.dragStartLayerY = event.layerY;
+  }
+
   private onDragStartToolBar(event: DragEvent): void {
     event.dataTransfer?.setData("text", this.toolBarId);
   }
@@ -753,8 +761,8 @@ export default class BusinessContextDiagramEditor extends Vue {
     const container = event.currentTarget as HTMLElement;
     if (!(toolBar && container)) return;
 
-    const left = event.offsetX;
-    const top = event.offsetY - container.offsetHeight;
+    const left = event.offsetX - this.dragStartLayerX;
+    const top = event.offsetY - this.dragStartLayerY - container.offsetHeight;
     this.fixAreaOverToolBar(left, top, toolBar);
   }
 
