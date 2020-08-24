@@ -765,6 +765,9 @@ export default class BusinessContextDiagramEditor extends Vue {
     const topOver = top + toolBar.offsetHeight + scrollBarHeight;
     if (topOver > 0) top = -(toolBar.offsetHeight + scrollBarHeight);
 
+    const topUnder = top + container.offsetHeight;
+    if (topUnder < 0) top = -container.offsetHeight;
+
     const style = toolBar.style;
     style.left = `${left}px`;
     style.top = `${top}px`;
