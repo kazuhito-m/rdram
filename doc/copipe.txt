@@ -69,3 +69,8 @@ barn
 cube
 cube-outline
 sitemap
+
+arrow-expand-horizontal
+application-export
+application-import
+arrow-collapse-horizontal
