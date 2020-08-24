@@ -696,21 +696,12 @@ export default class BusinessContextDiagramEditor extends Vue {
   private dragStartLayerX = 0;
   private dragStartLayerY = 0;
 
-  private onResizeEditorPain(): void {
-    const convasContainer = this.$refs.convasContainer as HTMLElement;
-    console.log("width :" + convasContainer.offsetWidth);
-    console.log("height:" + convasContainer.offsetHeight);
-    const width = convasContainer.getBoundingClientRect().width;
-    const height = convasContainer.getBoundingClientRect().height;
-    console.log("size(w,h): ", width, height);
-    const oWidth = convasContainer.clientWidth;
-    const oHeight = convasContainer.clientHeight;
-    console.log("client size(w,h): ", oWidth, oHeight);
-
-    const toolBar = this.$refs.toolBar as HTMLElement;
-    console.log(toolBar);
-    console.log(`toolBar.width :${toolBar.clientWidth}`);
-    console.log(`toolBar.height:${toolBar.clientHeight}`);
+  private onResizeEditorPain(event: any): void {
+    console.log(event);
+    const toolBar = document.getElementById(this.toolBarId) as HTMLElement;
+    const left = toolBar.offsetLeft;
+    const top = parseInt(toolBar.style.top.replace(/px$/, ""));
+    this.fixAreaOverToolBar(left, top, toolBar);
   }
 
   private addResizeListenerCanvasContainer(): void {
@@ -728,10 +719,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     let barWidth = toolBar.offsetWidth;
     const containerWidth = c.clientLeft + c.clientWidth;
     const scrollBarHeight = c.offsetHeight - c.clientHeight;
-    if (containerWidth < barWidth) {
-      this.toolBarCollapse = true;
-      barWidth = this.TOOLBAR_WIDTH_WHEN_COLLAPSE;
-    }
     const left = containerWidth - barWidth - padding;
     const top = -(toolBar.offsetHeight + padding + scrollBarHeight);
     const style = toolBar.style;
