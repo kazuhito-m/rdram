@@ -690,14 +690,12 @@ export default class BusinessContextDiagramEditor extends Vue {
   // ToolBar controll.
 
   private readonly TOOLBAR_PADDING = 10;
-  private readonly TOOLBAR_WIDTH_WHEN_COLLAPSE = 110;
   private toolBarId!: string;
   private toolBarCollapse = false;
   private dragStartLayerX = 0;
   private dragStartLayerY = 0;
 
   private onResizeEditorPain(event: any): void {
-    console.log(event);
     const toolBar = document.getElementById(this.toolBarId) as HTMLElement;
     const left = toolBar.offsetLeft;
     const top = parseInt(toolBar.style.top.replace(/px$/, ""));
