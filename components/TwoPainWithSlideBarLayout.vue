@@ -64,7 +64,6 @@ export default class TwoPainWithSlideBarLayout extends Vue {
   private onDragStartMasterPainSlideBar(event: DragEvent): void {
     this.dragId = Uuid.generate();
     event.dataTransfer?.setData("text", this.dragId);
-    console.log("start着てる:" + this.dragId);
   }
 
   private onDragOverMasterPainSlideBar(event: DragEvent): void {

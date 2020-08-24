@@ -1,12 +1,18 @@
 <template>
   <div class="diagram-pain-container">
-    <div class="editor-pain" :id="editorPainId">
-      <div id="canvas-container">
+    <div class="editor-pain" ref="editorPain">
+      <div
+        id="canvas-container"
+        ref="convasContainer"
+        @dragover="onDragOverToolBar"
+        @drop="onDropToolBar"
+      >
         <div class="diagram-canvas" :id="canvasId"></div>
       </div>
 
       <v-toolbar
-        id="canvas-float-toolbar"
+        :id="toolBarId"
+        class="canvas-float-toolbar"
         draggable
         dense
         floating
@@ -14,8 +20,9 @@
         rounded
         shaped
         short
+        transition="none"
         :collapse="toolBarCollapse"
-        @resize="alert(test)"
+        @dragstart="onDragStartToolBar"
       >
         <v-btn icon>
           <v-icon>mdi-content-save-edit-outline</v-icon>
@@ -172,6 +179,7 @@ import Relation from "@/domain/diagram/relation/Relation";
 import Actor from "@/domain/actor/Actor";
 import IconGenerator from "@/components/diagrams/icon/IconGenerator";
 import MessageBox from "@/presentation/MessageBox";
+import Uuid from "../../../../domain/world/Uuid";
 
 @Component({
   components: {
@@ -209,7 +217,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     new BCDResizeShapeEvents()
   ]);
 
-  private editorPainId!: string;
   private paretPainId!: string;
   private canvasId!: string;
 
@@ -228,8 +235,6 @@ export default class BusinessContextDiagramEditor extends Vue {
   private targetRelationId = "";
   private editableRouterId = 0;
 
-  private toolBarCollapse = false;
-
   public created(): void {
     this.product = this.getCurrentProduct();
 
@@ -239,9 +244,9 @@ export default class BusinessContextDiagramEditor extends Vue {
 
     diagram.placements.forEach(p => this.usedResouceIds.push(p.resourceId));
 
-    this.editorPainId = "editorPain" + diagramId;
     this.paretPainId = "paretPain" + diagramId;
     this.canvasId = "canvas" + diagramId;
+    this.toolBarId = "toolBar" + diagramId;
 
     diagram
       .availableResourceTypes()
@@ -275,7 +280,9 @@ export default class BusinessContextDiagramEditor extends Vue {
     canvas.installEditPolicy(new draw2d.policy.canvas.CoronaDecorationPolicy());
     canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
 
-    canvas.setScrollArea("#" + this.editorPainId);
+    const editorPain = this.$refs.editorPain as HTMLElement;
+    editorPain.id = `editorPain${this.diagramId}`;
+    canvas.setScrollArea(`#${editorPain.id}`);
 
     this.canvas = canvas;
   }
@@ -404,7 +411,8 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   public onDoubleClickSlideBar() {
-    const style = this.styleOf(this.editorPainId);
+    const elem = this.$refs.editorPain as HTMLElement;
+    const style = elem.style;
     const paretStyle = this.styleOf(this.paretPainId);
     if (this.paretPainWidth === null) {
       paretStyle.display = "none";
@@ -679,24 +687,93 @@ export default class BusinessContextDiagramEditor extends Vue {
     return usedResouceIds.includes(resource.resourceId);
   }
 
+  // ToolBar controll.
+
+  private readonly TOOLBAR_PADDING = 10;
+  private readonly TOOLBAR_WIDTH_WHEN_COLLAPSE = 110;
+  private toolBarId!: string;
+  private toolBarCollapse = false;
+
   private onResizeEditorPain(): void {
-    const editorPain = document.getElementById(this.editorPainId);
-    if (!editorPain) return;
-    console.log("width :" + editorPain.offsetWidth);
-    console.log("height:" + editorPain.offsetHeight);
-    const width = editorPain.getBoundingClientRect().width;
-    const height = editorPain.getBoundingClientRect().height;
+    const convasContainer = this.$refs.convasContainer as HTMLElement;
+    console.log("width :" + convasContainer.offsetWidth);
+    console.log("height:" + convasContainer.offsetHeight);
+    const width = convasContainer.getBoundingClientRect().width;
+    const height = convasContainer.getBoundingClientRect().height;
     console.log("size(w,h): ", width, height);
+    const oWidth = convasContainer.clientWidth;
+    const oHeight = convasContainer.clientHeight;
+    console.log("client size(w,h): ", oWidth, oHeight);
+
+    const toolBar = this.$refs.toolBar as HTMLElement;
+    console.log(toolBar);
+    console.log(`toolBar.width :${toolBar.clientWidth}`);
+    console.log(`toolBar.height:${toolBar.clientHeight}`);
   }
 
   private addResizeListenerCanvasContainer(): void {
     const observer = new ResizeObserver(this.onResizeEditorPain);
-    const editorPain = document.getElementById(this.editorPainId);
-    if (!editorPain) return;
+    const editorPain = this.$refs.editorPain as HTMLElement;
     observer.observe(editorPain);
   }
 
-  private moveToolBarOnFirstPosition(): void {}
+  private moveToolBarOnFirstPosition(): void {
+    // FIXME 本当は「IDとっといてgetElementById()とかしたくない」んだけど、$refsが「ほんものを返してくれない」のでLeft値が変えられない。
+    const toolBar = document.getElementById(this.toolBarId) as HTMLElement;
+    const c = this.$refs.convasContainer as HTMLElement;
+
+    const padding = this.TOOLBAR_PADDING;
+    let barWidth = toolBar.offsetWidth;
+    const containerWidth = c.clientLeft + c.clientWidth;
+    const scrollBarHeight = c.offsetHeight - c.clientHeight;
+    if (containerWidth < barWidth) {
+      this.toolBarCollapse = true;
+      barWidth = this.TOOLBAR_WIDTH_WHEN_COLLAPSE;
+    }
+    const left = containerWidth - barWidth - padding;
+    const top = -(toolBar.offsetHeight + padding + scrollBarHeight);
+    const style = toolBar.style;
+    style.left = `${left}px`;
+    style.top = `${top}px`;
+  }
+
+  private onDragStartToolBar(event: DragEvent): void {
+    event.dataTransfer?.setData("text", this.toolBarId);
+  }
+
+  private onDragOverToolBar(event: DragEvent): void {
+    event?.preventDefault();
+  }
+
+  private onDropToolBar(event: DragEvent): void {
+    event.preventDefault();
+    const toolBarId = event.dataTransfer?.getData("text");
+    if (toolBarId !== this.toolBarId) return;
+    const toolBar = document.getElementById(toolBarId);
+    const container = event.currentTarget as HTMLElement;
+    if (!(toolBar && container)) return;
+
+    let left = event.offsetX;
+    const top = event.offsetY - container.offsetHeight;
+
+    let toolBarWidth = toolBar.offsetWidth;
+    let leftOver = left + toolBarWidth - container.offsetWidth;
+    if (leftOver > 0) {
+      left = container.offsetWidth - toolBarWidth;
+    }
+
+    const style = toolBar.style;
+    style.left = `${left}px`;
+    style.top = `${top}px`;
+
+    // const style = this.styleOf("leftPainId");
+    // let painLeft = 0;
+    // if (style.left) {
+    //   const left = style.left;
+    //   if (left.match("px$")) painLeft = parseInt(left.replace("px", ""), 10);
+    // }
+    // style.width = event.x - painLeft + "px";
+  }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
     console.log(`---- ${prefix} Diagram情報 start ----`);
@@ -790,7 +867,7 @@ div[class*="-expansion-panel-content__wrap"] {
   width: 100%;
 }
 
-#canvas-float-toolbar {
+.canvas-float-toolbar {
   /* position:fixed; */
   /* height: 50px; */
   width: 500px;
@@ -798,5 +875,6 @@ div[class*="-expansion-panel-content__wrap"] {
   top: -10%;
   display: block;
   z-index: 2;
+  transition: none;
 }
 </style>
