@@ -130,7 +130,8 @@
 
 <script lang="ts">
 import { Component, Vue, Provide } from "nuxt-property-decorator";
-import Repository from "@/infrastructure/Repository";
+import StrageRepository from "@/domain/strage/StrageRepository";
+import StrageDatasource from "@/infrastructure/strage/StrageDatasource";
 import Product from "@/domain/product/Product";
 import ProductIdentifier from "@/domain/product/ProductIdentifier";
 import ProductSelectorDialog from '@/presentation/components/ProductSelectorDialog.vue'
@@ -174,7 +175,7 @@ export default class extends Vue {
   // DI difinitions.
 
   @Provide()
-  private readonly repository = new Repository();
+  private readonly repository: StrageRepository = new StrageDatasource();
 
   // this classs property & functions.
 

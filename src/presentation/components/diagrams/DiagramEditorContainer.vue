@@ -26,10 +26,10 @@ import { Component, Vue, Prop, Inject, Emit } from "nuxt-property-decorator";
 import BusinessContextDiagramEditor from "@/presentation/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
 import SystemContextDiagramEditor from "@/presentation/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue";
 import StateModelEditor from "@/presentation/components/diagrams/editor/statemodel/StateModelEditor.vue";
-import Repository from "@/infrastructure/Repository";
 import Diagram from "@/domain/diagram/Diagram";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Resource from "@/domain/resource/Resource";
+import StrageRepository from "@/domain/strage/StrageRepository";
 
 @Component({
   components: {
@@ -39,7 +39,7 @@ import Resource from "@/domain/resource/Resource";
 })
 export default class DiagramEditorContainer extends Vue {
   @Inject()
-  private readonly repository!: Repository;
+  private readonly repository!: StrageRepository;
 
   @Prop({ required: true })
   private readonly diagramId!: number;

@@ -13,7 +13,7 @@ import Midpoint from '~/domain/diagram/relation/Midpoint';
 import Relation from '~/domain/diagram/relation/Relation';
 import BusinessContextDiagram from '@/domain/diagram/businesscontext/BusinessContextDiagram'
 
-export default class Repository {
+export default class StrageDatasource {
     private static readonly STRAGE_ID = 'rdram-strage';
 
     private readonly serializer = new Serializer(
@@ -46,7 +46,7 @@ export default class Repository {
     }
 
     public destroy(): void {
-        localStorage.removeItem(Repository.STRAGE_ID);
+        localStorage.removeItem(StrageDatasource.STRAGE_ID);
     }
 
     private defaultStructure(): LocalStrage {
@@ -54,7 +54,7 @@ export default class Repository {
     }
 
     public getJsonText(): string | null {
-        return localStorage.getItem(Repository.STRAGE_ID);
+        return localStorage.getItem(StrageDatasource.STRAGE_ID);
     }
 
     public get(): LocalStrage | null {
@@ -67,7 +67,7 @@ export default class Repository {
         // console.log('get :    ' + textData);
         console.log(strage);
         const ms = performance.now() - startTime;
-        console.log(`repository.get(),      ${(new Blob([textData])).size} byte取得。${ms.toFixed(3)} ms`);
+        console.log(`StrageDatasource.get(),      ${(new Blob([textData])).size} byte取得。${ms.toFixed(3)} ms`);
         // alert('get: ' + textData);
         return strage;
     }
@@ -78,12 +78,12 @@ export default class Repository {
         const startTime = performance.now();
 
         const jsonText = this.serializer.serialize(strage);
-        localStorage.setItem(Repository.STRAGE_ID, jsonText);
+        localStorage.setItem(StrageDatasource.STRAGE_ID, jsonText);
 
         const ms = performance.now() - startTime;
         console.log('register: ' + jsonText)
         console.log(strage);
-        console.log(`repository.register(), ${(new Blob([jsonText])).size} byte保存。${ms.toFixed(3)} ms`);
+        console.log(`StrageDatasource.register(), ${(new Blob([jsonText])).size} byte保存。${ms.toFixed(3)} ms`);
         // alert('reg: ' + jsonText);
     }
 
@@ -105,7 +105,7 @@ export default class Repository {
     }
 
     public clear() {
-        localStorage.removeItem(Repository.STRAGE_ID);
+        localStorage.removeItem(StrageDatasource.STRAGE_ID);
     }
 
     public generateResourceId(): number {

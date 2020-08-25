@@ -46,13 +46,13 @@ import MessageBox from "@/presentation/MessageBox.ts";
 import Product from "@/domain/product/Product";
 import Products from "@/domain/product/Products";
 import ProductIdentifier from "@/domain/product/ProductIdentifier";
-import Repository from "@/infrastructure/Repository";
 import LocalStrage from "@/domain/strage/LocalStrage";
+import StrageRepository from "@/domain/strage/StrageRepository";
 
 @Component
 export default class ProductSelectorDialog extends Vue {
   @Inject()
-  private readonly repository?: Repository;
+  private readonly repository?: StrageRepository;
 
   @Prop()
   private visibleProductSelectorDialog?: boolean;

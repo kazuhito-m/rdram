@@ -76,7 +76,6 @@
 import { Component, Vue, Prop, Inject } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/presentation/components/TwoPainWithSlideBarLayout.vue";
 import DiagramEditorContainer from "@/presentation/components/diagrams/DiagramEditorContainer.vue";
-import Repository from "@/infrastructure/Repository";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
@@ -85,6 +84,7 @@ import Resource from "@/domain/resource/Resource";
 import MessageBox from "@/presentation/MessageBox";
 import Resources from "@/domain/resource/Resources";
 import BusinessContextDiagramEditor from "@/presentation/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
+import StrageRepository from "../domain/strage/StrageRepository";
 
 @Component({
   components: {
@@ -108,7 +108,7 @@ export default class extends Vue {
   private readonly DIAGRAM_FOLDER_ID_MASK: number = 1000000;
 
   @Inject()
-  private readonly repository!: Repository;
+  private readonly repository!: StrageRepository;
 
   private treeItems: TreeItem[] = [];
   private treeActiveItemIds: number[] = [];

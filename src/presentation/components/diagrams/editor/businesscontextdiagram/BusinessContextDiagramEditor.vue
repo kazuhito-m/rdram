@@ -137,7 +137,7 @@ import FacilityIconGenerator from "@/presentation/components/diagrams/editor/bus
 import ContractIconGenerator from "@/presentation/components/diagrams/editor/businesscontextdiagram/icon/ContractIconGenerator";
 import ServiceIconGenerator from "@/presentation/components/diagrams/editor/businesscontextdiagram/icon/ServiceIconGenerator";
 
-import Repository from "@/infrastructure/Repository";
+import StrageRepository from "@/domain/strage/StrageRepository";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import BusinessContextDiagram from "@/domain/diagram/businesscontext/BusinessContextDiagram";
@@ -159,7 +159,7 @@ import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 })
 export default class BusinessContextDiagramEditor extends Vue {
   @Inject()
-  private repository!: Repository;
+  private repository!: StrageRepository;
 
   private static readonly ICON_GENERATORS: IconGenerator[] = [
     new CompanyIconGenerator(),

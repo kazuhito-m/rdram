@@ -13,12 +13,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
-import Repository from "@/infrastructure/Repository";
+import StrageRepository from "@/domain/strage/StrageRepository";
 
 @Component
 export default class LocalStrageInitializeDialog extends Vue {
   @Inject()
-  private readonly repository?: Repository;
+  private readonly repository?: StrageRepository;
 
   @Prop()
   private visible?: boolean;
