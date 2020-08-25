@@ -113,7 +113,7 @@
 <script lang="ts">
 import { Prop, Component, Vue, Inject, Emit } from "nuxt-property-decorator";
 import ConnectorRightClickMenuAndEditor from "./ConnectorRightClickMenuAndEditor.vue";
-import CanvasSettingToolBar from "./CanvasSettingToolBar.vue";
+import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import { RelationContainer } from "./ConnectorRightClickMenuAndEditor.vue";
 import { ResizeObserver } from "resize-observer";
 
@@ -246,6 +246,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     const canvas = new draw2d.Canvas(this.canvasId);
     canvas.installEditPolicy(new draw2d.policy.canvas.CoronaDecorationPolicy());
     canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
+    canvas.installEditPolicy(new draw2d.policy.canvas.ExtendedKeyboardPolicy())
 
     const editorPain = this.$refs.editorPain as HTMLElement;
     editorPain.id = `editorPain${this.diagramId}`;

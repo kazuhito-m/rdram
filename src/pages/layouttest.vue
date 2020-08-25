@@ -10,9 +10,9 @@
     <div id="companyIcon" class="mdi mdi-office-building-outline"></div>
     <div id="test_name" style="font-family: 'Material Design Icons'"></div>
     <v-menu bottom origin="center center" transition="scale-transition">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn color="primary" dark v-bind="attrs" v-on="on">線種切り替え</v-btn>
-      </template>
+      <!-- <template v-slot:activator="{ on, attrs }">
+        <v-btn color="primary" dark v-on="on">線種切り替え</v-btn>
+      </template>-->
 
       <v-list>
         <v-list-item
@@ -25,14 +25,40 @@
       </v-list>
     </v-menu>
 
-    <v-btn color="normal" dark v-bind="attrs" v-on="on" @click="onCrickSiri">尻</v-btn>
+    <v-btn color="normal" dark @click="onCrickSiri">尻</v-btn>
 
+    <v-btn color="normal" dark @click="onCrickZoom">ズム</v-btn>
+
+    <v-card-text>
+      <v-row>
+        <v-col>
+          <v-slider
+            v-model.number="slider"
+            append-icon="zoom_in"
+            prepend-icon="zoom_out"
+            max="200"
+            min="20"
+            @click:append="zoomIn"
+            @click:prepend="zoomOut"
+          >
+            <template v-slot:append>
+              <v-text-field
+                v-model="slider"
+                class="mt-0 pt-0"
+                type="number"
+                style="width: 60px; float: righat; clear=both;"
+              ></v-text-field>
+            </template>
+          </v-slider>
+        </v-col>
+      </v-row>
+    </v-card-text>
     <div class="diagram-canvas" id="canvas01"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Watch } from "nuxt-property-decorator";
 
 import "jquery";
 import "jquery-ui";
@@ -47,6 +73,8 @@ import Test from "@/infrastructure/Test";
 @Component
 export default class extends Vue {
   private canvas!: draw2d.Canvas;
+
+  private slider: number = 100;
 
   private readonly LINE_TYPE: { [key: string]: any } = {
     // InteractiveManhattan(操作ポイント付きマンハッタン)があるので、普通のはイラんかな。
@@ -78,12 +106,16 @@ export default class extends Vue {
     // 未指定のときのデフォルトが20、マイナス値かポリシー削除で非表示に
     canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
 
+    canvas.installEditPolicy(new draw2d.policy.canvas.ExtendedKeyboardPolicy());
+
     const commandStack = canvas.getCommandStack();
     this.addCommandEventListner(commandStack);
 
     this.addSampleObjects(canvas);
 
     this.canvas = canvas;
+
+    this.setSliderZoomNumgber();
   }
 
   private addCommandEventListner(commandStack: any): void {
@@ -548,6 +580,62 @@ export default class extends Vue {
   private onCrickSiri() {
     const test = new Test();
     test.test();
+  }
+
+  private onCrickZoom() {
+    alert(this.canvas.getZoom());
+  }
+
+  private onChangeInputZoom(e: any) {
+    console.log(e);
+  }
+
+  private setSliderZoomNumgber() {
+    this.canvasZoomToSlider(this.canvas.getZoom());
+    this.canvas.on("zoom", this.onZoomChangeFromCanvas);
+  }
+
+  private canvasZoomToSlider(zoom: number) {
+    // alert(zoom);
+    this.slider = 100 / zoom;
+  }
+
+  @Watch("slider")
+  private onChangeSliderValue(e: any) {
+    console.log(e);
+    console.log(new Date(), this.slider);
+    if (Number.isInteger(this.slider)) {
+      let base = Number(this.slider);
+      isNaN;
+      let fix = base;
+      if (base < 20) fix = 20;
+      if (base > 300) fix = 300;
+      if (base != fix) {
+        this.$nextTick(() => {
+          this.slider = fix;
+        });
+        return false;
+      }
+      const zoom = 100 / fix;
+      console.log(zoom);
+      this.canvas.setZoom(zoom, false);
+      return true;
+    }
+  }
+
+  private onZoomChangeFromCanvas(emitterFigure: Figure, zoomData: any) {
+    console.log(emitterFigure);
+    console.log(zoomData.value);
+    // if (zoomData && Number.isNaN(zoomData.value))
+    this.canvasZoomToSlider(zoomData.value);
+  }
+
+  private zoomOut() {
+    this.slider = this.slider - 50 || 20;
+  }
+
+  private zoomIn() {
+    this.slider = this.slider + 50 || 300;
   }
 }
 </script>
