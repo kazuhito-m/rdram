@@ -17,6 +17,8 @@
       <v-icon>mdi-content-save-edit-outline</v-icon>
     </v-btn>
 
+    <CanvasZoomSlider :canvas="canvas" />
+
     <v-spacer></v-spacer>
 
     <v-btn icon v-if="!toolBarCollapse" @click="onClickBarCollapseToggle">
@@ -32,13 +34,22 @@
 import { Prop, Component, Vue, Emit } from "nuxt-property-decorator";
 import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 import { ResizeObserver } from "resize-observer";
+import { Canvas } from "draw2d";
+import CanvasZoomSlider from "./CanvasZoomSlider.vue";
 
-@Component
+@Component({
+  components: {
+    CanvasZoomSlider
+  }
+})
 export default class CanvasSettingToolBar extends Vue {
   private readonly TOOLBAR_PADDING = 10;
 
   @Prop({ required: true })
   private readonly diagramId!: number;
+
+  @Prop({ required: true })
+  private readonly canvas!: Canvas;
 
   private toolBarId!: string;
   private toolBarCollapse = false;
@@ -139,7 +150,7 @@ export default class CanvasSettingToolBar extends Vue {
     const top = event.offsetY - container.scrollTop - container.offsetHeight;
 
     const adjustLeft = left - this.dragStartLayerX;
-    const adjustTop  = top - this.dragStartLayerY;
+    const adjustTop = top - this.dragStartLayerY;
 
     this.fixAreaOverToolBar(adjustLeft, adjustTop, toolBar);
   }
@@ -191,5 +202,5 @@ export default class CanvasSettingToolBar extends Vue {
   display: block;
   z-index: 2;
   transition: none;
-} 
+}
 </style>
