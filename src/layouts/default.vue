@@ -133,9 +133,9 @@ import { Component, Vue, Provide } from "nuxt-property-decorator";
 import Repository from "@/infrastructure/Repository";
 import Product from "@/domain/product/Product";
 import ProductIdentifier from "@/domain/product/ProductIdentifier";
-import ProductSelectorDialog from '@/components/ProductSelectorDialog.vue'
-import LocalStrageInitializeDialog from '@/components/LocalStrageInitializeDialog.vue';
-import LocalStrageDestroyDialog from '@/components/LocalStrageDestroyDialog.vue';
+import ProductSelectorDialog from '@/presentation/components/ProductSelectorDialog.vue'
+import LocalStrageInitializeDialog from '@/presentation/components/LocalStrageInitializeDialog.vue';
+import LocalStrageDestroyDialog from '@/presentation/components/LocalStrageDestroyDialog.vue';
 
 @Component({
   components: {

@@ -23,13 +23,13 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Inject, Emit } from "nuxt-property-decorator";
-import BusinessContextDiagramEditor from "@/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
-import SystemContextDiagramEditor from "@/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue";
-import StateModelEditor from "@/components/diagrams/editor/statemodel/StateModelEditor.vue";
+import BusinessContextDiagramEditor from "@/presentation/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
+import SystemContextDiagramEditor from "@/presentation/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue";
+import StateModelEditor from "@/presentation/components/diagrams/editor/statemodel/StateModelEditor.vue";
 import Repository from "@/infrastructure/Repository";
 import Diagram from "@/domain/diagram/Diagram";
 import DiagramType from "@/domain/diagram/DiagramType";
-import Resource from "../../domain/resource/Resource";
+import Resource from "@/domain/resource/Resource";
 
 @Component({
   components: {

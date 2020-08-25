@@ -1,4 +1,4 @@
-import GenericSingleIconGenerator from '~/components/diagrams/icon/GenericSingleIconGenerator';
+import GenericSingleIconGenerator from '~/presentation/components/diagrams/icon/GenericSingleIconGenerator';
 import draw2d, { Figure } from 'draw2d';
 import Placement from '@/domain/diagram/placement/Placement';
 import Resource from '@/domain/resource/Resource';

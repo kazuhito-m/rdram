@@ -1,4 +1,4 @@
-import GenericSingleIconGenerator from '~/components/diagrams/icon/GenericSingleIconGenerator';
+import GenericSingleIconGenerator from '~/presentation/components/diagrams/icon/GenericSingleIconGenerator';
 import ResourceType from '~/domain/resource/ResourceType';
 
 export default class ActorIconGenerator extends GenericSingleIconGenerator {
