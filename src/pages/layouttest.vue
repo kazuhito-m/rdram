@@ -34,9 +34,9 @@
         <v-col>
           <v-slider
             v-model.number="slider"
-            append-icon="zoom_in"
-            prepend-icon="zoom_out"
-            max="200"
+            append-icon="mdi-magnify-plus-outline"
+            prepend-icon="mdi-magnify-minus-outline"
+            max="300"
             min="20"
             @click:append="zoomIn"
             @click:prepend="zoomOut"

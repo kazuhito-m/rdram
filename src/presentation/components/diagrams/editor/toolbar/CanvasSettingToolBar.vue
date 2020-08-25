@@ -17,7 +17,11 @@
       <v-icon>mdi-content-save-edit-outline</v-icon>
     </v-btn>
 
-    <CanvasZoomSlider :canvas="canvas" />
+    <v-spacer></v-spacer>
+
+    <v-card v-if="!toolBarCollapse">
+      <CanvasZoomSlider :canvasZoom="canvasZoom" @onChangeZoomBySlider="onChangeZoom" />
+    </v-card>
 
     <v-spacer></v-spacer>
 
@@ -49,7 +53,7 @@ export default class CanvasSettingToolBar extends Vue {
   private readonly diagramId!: number;
 
   @Prop({ required: true })
-  private readonly canvas!: Canvas;
+  private readonly canvasZoom!: number;
 
   private toolBarId!: string;
   private toolBarCollapse = false;
@@ -68,6 +72,13 @@ export default class CanvasSettingToolBar extends Vue {
     this.addResizeListenerCanvasContainer();
     this.moveToolBarOnFirstPosition();
   }
+
+  private onChangeZoom(zoom: number) {
+    this.onChangeZoomParent(zoom);
+  }
+
+  @Emit("onChangeZoomBySlider")
+  private onChangeZoomParent(zoom: number) {}
 
   private getToolBarElement(): HTMLElement {
     // FIXME 本当は「IDとっといてgetElementById()とかしたくない」んだけど、$refsが「ほんものを返してくれない」のでLeft値が変えられない。

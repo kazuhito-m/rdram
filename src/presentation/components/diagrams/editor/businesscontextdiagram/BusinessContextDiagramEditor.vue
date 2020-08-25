@@ -5,7 +5,11 @@
         <div class="diagram-canvas" :id="canvasId"></div>
       </div>
 
-      <CanvasSettingToolBar :diagramId="diagramId" />
+      <CanvasSettingToolBar
+        :diagramId="diagramId"
+        :canvasZoom="canvasZoom"
+        @onChangeZoomBySlider="onChangeZoomBySlider"
+      />
     </div>
     <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
     <div class="paret-pain" :id="paretPainId">
@@ -206,6 +210,8 @@ export default class BusinessContextDiagramEditor extends Vue {
   private targetRelationId = "";
   private editableRouterId = 0;
 
+  private canvasZoom = 1;
+
   public created(): void {
     this.product = this.getCurrentProduct();
 
@@ -246,11 +252,13 @@ export default class BusinessContextDiagramEditor extends Vue {
     const canvas = new draw2d.Canvas(this.canvasId);
     canvas.installEditPolicy(new draw2d.policy.canvas.CoronaDecorationPolicy());
     canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
-    canvas.installEditPolicy(new draw2d.policy.canvas.ExtendedKeyboardPolicy())
+    canvas.installEditPolicy(new draw2d.policy.canvas.ExtendedKeyboardPolicy());
 
     const editorPain = this.$refs.editorPain as HTMLElement;
     editorPain.id = `editorPain${this.diagramId}`;
     canvas.setScrollArea(`#${editorPain.id}`);
+
+    canvas.on("zoom", this.onZoomChangeFromCanvas);
 
     this.canvas = canvas;
   }
@@ -655,6 +663,14 @@ export default class BusinessContextDiagramEditor extends Vue {
     return usedResouceIds.includes(resource.resourceId);
   }
 
+  private onZoomChangeFromCanvas(emitterFigure: Figure, zoomData: any) {
+    this.canvasZoom = zoomData.value;
+  }
+
+  private onChangeZoomBySlider(zoom: number) {
+    this.canvas.setZoom(zoom, false);
+  }
+
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
     console.log(`---- ${prefix} Diagram情報 start ----`);
     diagram.placements.forEach(i => console.log(`位置;${i.resourceId}`));
@@ -708,6 +724,7 @@ interface CanvasSelections {
   height: 100%;
   min-width: 0px;
   overflow: auto;
+  text-align: left;
 }
 
 .diagram-canvas {
