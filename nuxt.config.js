@@ -99,5 +99,6 @@ export default {
       })
     ]
   },
-  loading: '~/components/Loading.vue'
+  loading: '~/components/Loading.vue',
+  srcDir: 'src/'
 }
