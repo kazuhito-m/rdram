@@ -681,9 +681,13 @@ export default class BusinessContextDiagramEditor extends Vue {
     beforeCanvasGuideType: CanvasGuideType
   ): void {
     const canvas = this.canvas;
-    canvas.uninstallEditPolicy(beforeCanvasGuideType.canvasPolicy);
+    if (beforeCanvasGuideType.canvasPolicy)
+      canvas.uninstallEditPolicy(beforeCanvasGuideType.canvasPolicy);
     if (canvasGuideType.canvasPolicy)
       canvas.installEditPolicy(canvasGuideType.canvasPolicy);
+    // 「何故か、背景が真っ黒になってしまう」対策。ちょーーっとだけリサイズする。
+    // …こんなワークアラウンドのほうが安定するからしゃーない。  
+    canvas.setZoom(canvas.getZoom() - 0.001, false);
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
@@ -749,7 +753,7 @@ interface CanvasSelections {
 
   border-radius: 5px;
   filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.6));
-  background-color: white;
+  /* background-color: white; */
 
   position: relative;
 }
