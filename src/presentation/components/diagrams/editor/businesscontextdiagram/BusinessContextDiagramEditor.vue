@@ -128,14 +128,14 @@ import BCDDeleteShapeEvents from "./draw2d/eventanalyze/BCDDeleteShapeEvents";
 import BCDMoveShapeEvents from "./draw2d/eventanalyze/BCDMoveShapeEvents";
 import BCDResizeShapeEvents from "./draw2d/eventanalyze/BCDResizeShapeEvents";
 
-import CompanyIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/CompanyIconGenerator";
-import ActorIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/ActorIconGenerator";
-import RoomIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/RoomIconGenerator";
-import BusinessIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/BusinessIconGenerator";
-import GoodsIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/GoodsIconGenerator";
-import FacilityIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/FacilityIconGenerator";
-import ContractIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/ContractIconGenerator";
-import ServiceIconGenerator from "@/components/diagrams/editor/businesscontextdiagram/icon/ServiceIconGenerator";
+import CompanyIconGenerator from "@/presentation/components/diagrams/editor/businesscontextdiagram/icon/CompanyIconGenerator";
+import ActorIconGenerator from "@/presentation/components/diagrams/editor/businesscontextdiagram/icon/ActorIconGenerator";
+import RoomIconGenerator from "@/presentation/components/diagrams/editor/businesscontextdiagram/icon/RoomIconGenerator";
+import BusinessIconGenerator from "@/presentation/components/diagrams/editor/businesscontextdiagram/icon/BusinessIconGenerator";
+import GoodsIconGenerator from "@/presentation/components/diagrams/editor/businesscontextdiagram/icon/GoodsIconGenerator";
+import FacilityIconGenerator from "@/presentation/components/diagrams/editor/businesscontextdiagram/icon/FacilityIconGenerator";
+import ContractIconGenerator from "@/presentation/components/diagrams/editor/businesscontextdiagram/icon/ContractIconGenerator";
+import ServiceIconGenerator from "@/presentation/components/diagrams/editor/businesscontextdiagram/icon/ServiceIconGenerator";
 
 import Repository from "@/infrastructure/Repository";
 import Diagram from "@/domain/diagram/Diagram";
@@ -147,9 +147,9 @@ import Placement from "@/domain/diagram/placement/Placement";
 import RouterType from "@/domain/diagram/relation/RouterType";
 import Relation from "@/domain/diagram/relation/Relation";
 import Actor from "@/domain/actor/Actor";
-import IconGenerator from "@/components/diagrams/icon/IconGenerator";
+import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
 import MessageBox from "@/presentation/MessageBox";
-import Uuid from "../../../../domain/world/Uuid";
+import Uuid from "@/domain/world/Uuid";
 import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 
 @Component({

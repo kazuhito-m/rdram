@@ -69,7 +69,7 @@ export default {
   ** https://github.com/nuxt-community/vuetify-module
   */
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
+    customVariables: ['~/presentation/assets/variables.scss'],
     theme: {
       dark: true,
       themes: {
@@ -99,5 +99,6 @@ export default {
       })
     ]
   },
-  loading: '~/components/Loading.vue'
+  loading: '~/presentation/components/Loading.vue',
+  srcDir: 'src/'
 }

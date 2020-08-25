@@ -89,8 +89,8 @@ import {
   Component,
   Vue
 } from "nuxt-property-decorator";
-import VuetifyLogo from "@/components/VuetifyLogo.vue";
-import Logo from '@/components/Logo.vue';
+import VuetifyLogo from "@/presentation/components/VuetifyLogo.vue";
+import Logo from '@/presentation/components/Logo.vue';
 
 @Component({
   components: {

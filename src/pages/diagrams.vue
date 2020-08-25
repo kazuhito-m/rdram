@@ -74,17 +74,17 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Inject } from "nuxt-property-decorator";
-import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
-import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
+import TwoPainWithSlideBarLayout from "@/presentation/components/TwoPainWithSlideBarLayout.vue";
+import DiagramEditorContainer from "@/presentation/components/diagrams/DiagramEditorContainer.vue";
 import Repository from "@/infrastructure/Repository";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
-import ResourceType from "../domain/resource/ResourceType";
-import Resource from "../domain/resource/Resource";
-import MessageBox from "../presentation/MessageBox";
-import Resources from "../domain/resource/Resources";
-import BusinessContextDiagramEditor from "../components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
+import ResourceType from "@/domain/resource/ResourceType";
+import Resource from "@/domain/resource/Resource";
+import MessageBox from "@/presentation/MessageBox";
+import Resources from "@/domain/resource/Resources";
+import BusinessContextDiagramEditor from "@/presentation/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
 
 @Component({
   components: {
