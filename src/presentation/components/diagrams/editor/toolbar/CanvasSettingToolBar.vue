@@ -27,7 +27,7 @@
 
     <v-menu top offset-y v-if="!toolBarCollapse">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on" >
+        <v-btn icon v-bind="attrs" v-on="on">
           <v-icon>{{ canvasGuideTypeIconKey }}</v-icon>
         </v-btn>
       </template>
@@ -238,12 +238,17 @@ export default class CanvasSettingToolBar extends Vue {
   }
 
   private onClickChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {
-    this.onChangeCanvasGuideType(canvasGuideType);
+    const before = CanvasGuideType.ofId(this.canvasGuideTypeIconKey);
+    if (!before) return;
+    this.onChangeCanvasGuideType(canvasGuideType, before);
     this.canvasGuideTypeIconKey = canvasGuideType.iconKey;
   }
 
   @Emit("onChangeCanvasGuideType")
-  private onChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {}
+  private onChangeCanvasGuideType(
+    canvasGuideType: CanvasGuideType,
+    beforeCanvasGuideType: CanvasGuideType
+  ): void {}
 }
 </script>
 
