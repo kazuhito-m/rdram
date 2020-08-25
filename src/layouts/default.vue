@@ -1,20 +1,8 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
+    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" fixed app>
       <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
+        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact>
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -24,36 +12,20 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
+    <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
+      <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
+      <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>mdi-application</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
+      <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>mdi-minus</v-icon>
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
+      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
     </v-app-bar>
@@ -62,19 +34,12 @@
         <nuxt />
       </v-container>
     </v-main>
-    
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
-      temporary
-      fixed
-    >
+
+    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
         <v-list-item @click.native="right = !right">
           <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
+            <v-icon light>mdi-repeat</v-icon>
           </v-list-item-action>
           <v-list-item-title>システムメニュー</v-list-item-title>
         </v-list-item>
@@ -92,29 +57,26 @@
           </v-list-item-icon>
           <v-list-item-title>LocalStrageの破棄...</v-list-item-title>
         </v-list-item>
-
       </v-list>
     </v-navigation-drawer>
-    <v-footer
-      :absolute="!fixed"
-      app
-    >
-    <span>&copy; {{ new Date().getFullYear() }} </span>
-      <a class="auther-link" target="_new" href="https://twitter.com/kazuhito_m"> <v-icon>mdi-twitter</v-icon>kazuhito_m</a>
+    <v-footer :absolute="!fixed" app>
+      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <a class="auther-link" target="_new" href="https://twitter.com/kazuhito_m">
+        <v-icon>mdi-twitter</v-icon>kazuhito_m
+      </a>
       <v-spacer></v-spacer>
       <a class="auther-link" target="_new" href="https://twitter.com/kazuhito_m">
-      <v-icon>mdi-share</v-icon> 
-      Version x.x.x
-      </a> 
+        <v-icon>mdi-share</v-icon>Version x.x.x
+      </a>
     </v-footer>
 
-    <ProductSelectorDialog 
+    <ProductSelectorDialog
       :visibleProductSelectorDialog="visibleProductSelector"
       :cancelable="productSelectorCancelable"
       @onClose="onCloseChangeProduct"
     />
 
-    <LocalStrageInitializeDialog 
+    <LocalStrageInitializeDialog
       :visible="visibleApplicationInitializationDialog"
       @onClose="onCloseApplicationInitializationDialog"
     />
@@ -123,9 +85,7 @@
       :visible="visibleLocalStrageDestroyDialog"
       @onClose="onCloseLocalStrageDestroyDialog"
     />
-
   </v-app>
-
 </template>
 
 <script lang="ts">
@@ -134,15 +94,15 @@ import StrageRepository from "@/domain/strage/StrageRepository";
 import StrageDatasource from "@/infrastructure/strage/StrageDatasource";
 import Product from "@/domain/product/Product";
 import ProductIdentifier from "@/domain/product/ProductIdentifier";
-import ProductSelectorDialog from '@/presentation/components/ProductSelectorDialog.vue'
-import LocalStrageInitializeDialog from '@/presentation/components/LocalStrageInitializeDialog.vue';
-import LocalStrageDestroyDialog from '@/presentation/components/LocalStrageDestroyDialog.vue';
+import ProductSelectorDialog from "@/presentation/components/ProductSelectorDialog.vue";
+import LocalStrageInitializeDialog from "@/presentation/components/LocalStrageInitializeDialog.vue";
+import LocalStrageDestroyDialog from "@/presentation/components/LocalStrageDestroyDialog.vue";
 
 @Component({
   components: {
     ProductSelectorDialog,
     LocalStrageInitializeDialog,
-    LocalStrageDestroyDialog,
+    LocalStrageDestroyDialog
   }
 })
 export default class extends Vue {
@@ -165,7 +125,7 @@ export default class extends Vue {
       title: "ダイアグラム一覧",
       to: "/diagrams"
     },
-     {
+    {
       icon: "mdi-apps",
       title: "draw2dのテスト",
       to: "/layouttest"
@@ -192,13 +152,20 @@ export default class extends Vue {
       setTimeout(() => this.$nuxt.$loading.finish(), 500);
     });
 
+    const head = this.$store?.app?.head as any;
+    this.title = head.title;
+
     if (this.showApplicationInitialization()) return;
-    this.showProductSelectorWhenNotSelected();
+
+    if (this.showProductSelectorWhenNotSelected()) return;
+
+    const product = this.repository.getCurrentProduct();
+    this.title += ` - [${product?.name}]`;
   }
 
   private showApplicationInitialization(): boolean {
     if (this.repository.isInitialized()) return false;
-    this.visibleApplicationInitializationDialog = true;    
+    this.visibleApplicationInitializationDialog = true;
     return true;
   }
 
@@ -207,14 +174,15 @@ export default class extends Vue {
     this.showProductSelectorWhenNotSelected();
   }
 
-  public showProductSelectorWhenNotSelected() {
+  public showProductSelectorWhenNotSelected(): boolean {
     this.visibleProductSelector = false;
     const strage = this.repository.get();
-    if (!strage || strage.status.currentProductId) return;
+    if (!strage || strage.status.currentProductId) return false;
     this.productSelectorCancelable = false;
     this.$nextTick(() => {
-    this.visibleProductSelector = true;
+      this.visibleProductSelector = true;
     });
+    return true;
   }
 
   private onChangeProduct(): void {
@@ -233,31 +201,30 @@ export default class extends Vue {
     this.rightDrawer = false;
   }
 
-  private onCloseLocalStrageDestroyDialog():void {
+  private onCloseLocalStrageDestroyDialog(): void {
     this.visibleLocalStrageDestroyDialog = false;
   }
-
 }
 </script>
 
 <style scoped>
 .container {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    max-width: initial;
-    padding-right: 0px;
-    padding-left: 0px;
-    margin-right: unset;
-    margin-left: unset;
-    position: absolute;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  max-width: initial;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: unset;
+  margin-left: unset;
+  position: absolute;
 }
 </style>
 
 <style>
 /* Global */
 html {
-  overflow-y:hidden;
+  overflow-y: hidden;
 }
 .auther-link {
   text-decoration: none;

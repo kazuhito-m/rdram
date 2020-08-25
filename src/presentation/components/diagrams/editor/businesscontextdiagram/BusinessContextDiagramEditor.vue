@@ -686,7 +686,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (canvasGuideType.canvasPolicy)
       canvas.installEditPolicy(canvasGuideType.canvasPolicy);
     // 「何故か、背景が真っ黒になってしまう」対策。ちょーーっとだけリサイズする。
-    // …こんなワークアラウンドのほうが安定するからしゃーない。  
+    // …こんなワークアラウンドのほうが安定するからしゃーない。
     canvas.setZoom(canvas.getZoom() - 0.001, false);
   }
 

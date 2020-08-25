@@ -29,6 +29,10 @@
 
     <v-btn color="normal" dark @click="onCrickZoom">ズム</v-btn>
 
+    <v-btn color="normal" dark @click="onClickRouter">router</v-btn>
+
+    <v-btn color="normal" dark @click="onClickStore">store</v-btn>
+
     <v-card-text>
       <v-row>
         <v-col>
@@ -636,6 +640,14 @@ export default class extends Vue {
 
   private zoomIn() {
     this.slider = this.slider + 50 || 300;
+  }
+
+  private onClickRouter() {
+    console.log(this.$router);
+  }
+
+  private onClickStore() {
+    console.log(this.$store);
   }
 }
 </script>
