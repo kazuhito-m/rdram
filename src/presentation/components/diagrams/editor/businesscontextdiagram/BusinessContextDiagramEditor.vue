@@ -411,8 +411,11 @@ export default class BusinessContextDiagramEditor extends Vue {
   public onDropCanvas(event: DragEvent) {
     event.preventDefault();
 
-    const x = event.offsetX;
-    const y = event.offsetY;
+    let zoom = this.canvas.getZoom();
+    zoom = isFinite(zoom) ? Number(zoom) : 1; // Zoom状況を考慮
+
+    const x = event.offsetX * zoom;
+    const y = event.offsetY * zoom;
 
     const textData = event.dataTransfer?.getData("text");
     if (!textData) return;
