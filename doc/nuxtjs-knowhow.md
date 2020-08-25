@@ -118,6 +118,12 @@
 - 【nuxt-property-decorator】よく使う親子間デコレータまとめ
   - https://kalappo.net/nuxt-property-decorator-component/
 
+## 階層変更
+
+- nuxt.js(v2)の作業ディレクトリを整理
+  - https://qiita.com/amishiro/items/9c31a3a9424de27efe28 
+  - おとすこと、だけならたったこれだけ、あとはtsconfig.jsの問題
+
 ## Vue.jsとNuxt.js
 
 - Vue.js to TypeScriptの書き方一覧
