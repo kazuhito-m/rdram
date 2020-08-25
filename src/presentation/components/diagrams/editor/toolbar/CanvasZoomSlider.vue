@@ -49,7 +49,6 @@ export default class CanvasZoomSlider extends Vue {
       return;
     }
     const zoom = 100 / fix;
-    console.log(zoom);
 
     this.onChangeZoomBySlider(zoom);
   }
