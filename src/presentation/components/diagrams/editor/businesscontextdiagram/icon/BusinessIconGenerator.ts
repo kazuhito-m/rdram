@@ -1,9 +1,8 @@
-import GenericSingleIconGenerator from '~/presentation/components/diagrams/icon/GenericSingleIconGenerator';
 import draw2d, { Figure } from 'draw2d';
 import Placement from '@/domain/diagram/placement/Placement';
 import Resource from '@/domain/resource/Resource';
-import IconGenerator from '../../../icon/IconGenerator';
-import ResourceType from '~/domain/resource/ResourceType';
+import IconGenerator from '@/presentation/components/diagrams/icon/IconGenerator';
+import ResourceType from '@/domain/resource/ResourceType';
 
 export default class BusinessIconGenerator implements IconGenerator {
     public resourceType(): ResourceType {

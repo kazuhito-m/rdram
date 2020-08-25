@@ -146,7 +146,6 @@ import Resource from "@/domain/resource/Resource";
 import Placement from "@/domain/diagram/placement/Placement";
 import RouterType from "@/domain/diagram/relation/RouterType";
 import Relation from "@/domain/diagram/relation/Relation";
-import Actor from "@/domain/actor/Actor";
 import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
 import MessageBox from "@/presentation/MessageBox";
 import Uuid from "@/domain/world/Uuid";

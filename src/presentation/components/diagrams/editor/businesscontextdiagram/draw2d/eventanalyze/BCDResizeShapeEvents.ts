@@ -4,7 +4,6 @@ import BusinessContextDiagramEditor from "~/presentation/components/diagrams/edi
 import Product from "~/domain/product/Product";
 import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import { Figure } from "draw2d";
-import Placement from "~/domain/diagram/placement/Placement";
 
 export default class BCDResizeShapeEvents implements EventsOfType<BusinessContextDiagram, BusinessContextDiagramEditor> {
     public eventGists: EventGist[] = [];
