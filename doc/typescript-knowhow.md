@@ -66,3 +66,8 @@
 
 - Creating Instance Of Class Based On ClassName : string
   - https://stackoverflow.com/questions/38137840/creating-instance-of-class-based-on-classname-string
+
+## 数値チェック
+
+- JavaScriptの数値チェックについてハマったのでメモ
+  - https://qiita.com/taku-0728/items/329e0bee1c49b7ce7cd1
