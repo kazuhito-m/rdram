@@ -23,6 +23,29 @@
       <CanvasZoomSlider :canvasZoom="canvasZoom" @onChangeZoomBySlider="onChangeZoom" />
     </v-card>
 
+    <span v-if="!toolBarCollapse">{{ calcZoomPercentage() }}</span>
+
+    <v-menu top offset-y v-if="!toolBarCollapse">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn icon v-bind="attrs" v-on="on" >
+          <v-icon>{{ canvasGuideTypeIconKey }}</v-icon>
+        </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item
+          v-for="guideType in canvasGuideTypes()"
+          :key="guideType.iconKey"
+          @click="onClickChangeCanvasGuideType(guideType)"
+        >
+          <v-list-item-title>
+            <v-icon>{{ guideType.iconKey }}</v-icon>
+            {{ guideType.caption }}
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+
     <v-spacer></v-spacer>
 
     <v-btn icon v-if="!toolBarCollapse" @click="onClickBarCollapseToggle">
@@ -40,6 +63,7 @@ import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 import { ResizeObserver } from "resize-observer";
 import { Canvas } from "draw2d";
 import CanvasZoomSlider from "./CanvasZoomSlider.vue";
+import CanvasGuideType from "./CanvasGuideType";
 
 @Component({
   components: {
@@ -59,6 +83,8 @@ export default class CanvasSettingToolBar extends Vue {
   private toolBarCollapse = false;
   private dragStartLayerX = 0;
   private dragStartLayerY = 0;
+
+  private canvasGuideTypeIconKey = CanvasGuideType.なし.iconKey;
 
   public created(): void {
     this.toolBarId = "toolBar" + this.diagramId;
@@ -200,6 +226,24 @@ export default class CanvasSettingToolBar extends Vue {
       this.fixAreaOverToolBar(left, top, toolBar);
     });
   }
+
+  private calcZoomPercentage(): string {
+    return `${Math.floor(100 / this.canvasZoom)}%`;
+  }
+
+  private canvasGuideTypes(): CanvasGuideType[] {
+    return CanvasGuideType.values().filter(
+      type => type.iconKey !== this.canvasGuideTypeIconKey
+    );
+  }
+
+  private onClickChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {
+    this.onChangeCanvasGuideType(canvasGuideType);
+    this.canvasGuideTypeIconKey = canvasGuideType.iconKey;
+  }
+
+  @Emit("onChangeCanvasGuideType")
+  private onChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {}
 }
 </script>
 

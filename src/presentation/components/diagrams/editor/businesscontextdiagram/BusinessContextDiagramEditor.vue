@@ -9,6 +9,7 @@
         :diagramId="diagramId"
         :canvasZoom="canvasZoom"
         @onChangeZoomBySlider="onChangeZoomBySlider"
+        @onChangeCanvasGuideType="onChangeCanvasGuideType"
       />
     </div>
     <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
@@ -154,6 +155,7 @@ import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator
 import MessageBox from "@/presentation/MessageBox";
 import Uuid from "@/domain/world/Uuid";
 import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
+import CanvasGuideType from "../toolbar/CanvasGuideType";
 
 @Component({
   components: {
@@ -672,6 +674,10 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private onChangeZoomBySlider(zoom: number) {
     this.canvas.setZoom(zoom, false);
+  }
+
+  private onChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {
+    alert("親がわのイベント:" + canvasGuideType.caption);
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
