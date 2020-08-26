@@ -38,11 +38,23 @@ export default class BusinessContextDiagram extends Diagram {
         ];
     }
 
+    public with(name: string): BusinessContextDiagram {
+        return new BusinessContextDiagram(
+            this.id,
+            this.typeId,
+            name.trim(),
+            this.relations,
+            this.placements,
+            this.width,
+            this.height,
+        );
+    }
+
     public static prototypeOf(newDiagramId: number, name: string): BusinessContextDiagram {
         return new BusinessContextDiagram(
             newDiagramId,
             DiagramType.ビジネスコンテキスト図.id,
-            name,
+            name.trim(),
             [],
             [],
             1024,
