@@ -714,7 +714,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   private makeSvgDownloadFileName(diagram: Diagram): string {
     const namePart = diagram.name.replace(" ", "-").replace("　", "＿");
     const ymdhms = moment().format("YYYYMMDDHHmmss");
-    const fileName = `${diagram.id}-${namePart}-${ymdhms}.svg`;
+    const fileName = `rdram-${diagram.id}-${namePart}-${ymdhms}.svg`;
     return fileName;
   }
 
