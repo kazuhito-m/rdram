@@ -38,15 +38,51 @@ export default class BusinessContextDiagram extends Diagram {
         ];
     }
 
-    public with(name: string, width: number, height: number): BusinessContextDiagram {
+    public with(name: string): BusinessContextDiagram {
         return new BusinessContextDiagram(
             this.id,
             this.typeId,
             name.trim(),
             this.relations,
             this.placements,
+            this.width,
+            this.height,
+        );
+    }
+
+    public resize(width: number, height: number): BusinessContextDiagram {
+        return new BusinessContextDiagram(
+            this.id,
+            this.typeId,
+            this.name,
+            this.relations,
+            this.placements,
             width,
             height,
+        );
+    }
+
+    /**
+     * 現在のサイズではみ出しているものを削除。
+     */
+    public fixStickOuts(): BusinessContextDiagram {
+        const deletePlacements: Placement[] = [];
+        const survivePlacements: Placement[] = [];
+        for (let placement of this.placements) {
+            if (this.isStickOut(placement)) deletePlacements.push(placement)
+            else survivePlacements.push(placement);
+        }
+        const surviveRelations = this.relations
+            .filter(relation => !deletePlacements.some(placement => relation.isRelatedTo(placement.resourceId)));
+
+        return new BusinessContextDiagram(
+            this.id,
+            this.typeId,
+            this.name,
+            surviveRelations,
+            survivePlacements,
+            this.width,
+            this.height,
         );
     }
 

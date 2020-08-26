@@ -104,7 +104,7 @@ export default class Diagram {
             .some(placement => this.isStickOut(placement));
     }
 
-    private isStickOut(placement: Placement): boolean {
+    protected isStickOut(placement: Placement): boolean {
         const p = placement;
         return (p.x + p.width) > this.width
             || (p.y + p.height) > this.height;
@@ -114,15 +114,51 @@ export default class Diagram {
         return DiagramType.ofId(this.typeId) as DiagramType;
     }
 
-    public with(name: string, width: number, height: number): Diagram {
+    public with(name: string): Diagram {
         return new Diagram(
             this.id,
             this.typeId,
             name.trim(),
             this.relations,
             this.placements,
+            this.width,
+            this.height,
+        );
+    }
+
+    public resize(width: number, height: number): Diagram {
+        return new Diagram(
+            this.id,
+            this.typeId,
+            this.name,
+            this.relations,
+            this.placements,
             width,
             height,
+        );
+    }
+
+    /**
+     * 現在のサイズではみ出しているものを削除。
+     */
+    public fixStickOuts(): Diagram {
+        const deletePlacements: Placement[] = [];
+        const survivePlacements: Placement[] = [];
+        for (let placement of this.placements) {
+            if (this.isStickOut(placement)) deletePlacements.push(placement)
+            else survivePlacements.push(placement);
+        }
+        const surviveRelations = this.relations
+            .filter(relation => !deletePlacements.some(placement => relation.isRelatedTo(placement.resourceId)));
+
+        return new Diagram(
+            this.id,
+            this.typeId,
+            this.name,
+            surviveRelations,
+            survivePlacements,
+            this.width,
+            this.height,
         );
     }
 

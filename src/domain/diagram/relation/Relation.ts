@@ -2,7 +2,6 @@ import RouterType from "./RouterType";
 import Midpoint from "./Midpoint";
 
 export default class Relation {
-
     constructor(
         id: string,
         fromResourceId: number,
@@ -31,6 +30,11 @@ export default class Relation {
             RouterType.DIRECT.id,
             [],
         );
+    }
+
+    public isRelatedTo(resourceId: number): boolean {
+        return this.fromResourceId === resourceId
+            || this.toResourceId === resourceId;
     }
 
     public some(other: Relation): boolean {

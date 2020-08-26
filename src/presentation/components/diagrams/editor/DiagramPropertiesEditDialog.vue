@@ -165,10 +165,10 @@ export default class DiagramPropertiesEditDialog extends Vue {
     const diagram = product?.diagrams.of(this.diagramId);
     if (!product || !diagram) return null;
 
-    const modified = diagram.with(this.name, this.width, this.height);
+    const modified = diagram.with(this.name).resize(this.width, this.height);
     if (!this.logicalValidation(modified, product)) return null;
 
-    const modifiedProduct = product.replaceOf(modified);
+    const modifiedProduct = product.replaceOf(modified.fixStickOuts());
     this.repository?.registerCurrentProduct(modifiedProduct);
 
     return modified;
