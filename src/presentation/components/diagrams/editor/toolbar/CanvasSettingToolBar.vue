@@ -46,6 +46,10 @@
       </v-list>
     </v-menu>
 
+    <v-btn icon v-if="!toolBarCollapse">
+      <v-icon @click="onClickSvgDownload">mdi-image-area-close</v-icon>
+    </v-btn>
+
     <v-spacer></v-spacer>
 
     <v-btn icon v-if="!toolBarCollapse" @click="onClickBarCollapseToggle">
@@ -249,6 +253,13 @@ export default class CanvasSettingToolBar extends Vue {
     canvasGuideType: CanvasGuideType,
     beforeCanvasGuideType: CanvasGuideType
   ): void {}
+
+  private onClickSvgDownload(): void {
+    this.onSvgDownLoad();
+  }
+
+  @Emit("onSvgDownload")
+  private onSvgDownLoad(): void {}
 }
 </script>
 

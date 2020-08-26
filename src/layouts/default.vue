@@ -92,6 +92,8 @@
 import { Component, Vue, Provide } from "nuxt-property-decorator";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import StrageDatasource from "@/infrastructure/strage/StrageDatasource";
+import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
+import ClientDownloadTransfar from "@/infrastructure/client/ClientDownloadTransfar";
 import Product from "@/domain/product/Product";
 import ProductIdentifier from "@/domain/product/ProductIdentifier";
 import ProductSelectorDialog from "@/presentation/components/ProductSelectorDialog.vue";
@@ -136,6 +138,8 @@ export default class extends Vue {
 
   @Provide()
   private readonly repository: StrageRepository = new StrageDatasource();
+  @Provide()
+  private readonly clientDownloadRepository: ClientDownloadRepository = new ClientDownloadTransfar();
 
   // this classs property & functions.
 

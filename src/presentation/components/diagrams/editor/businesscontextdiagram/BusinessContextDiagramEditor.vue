@@ -10,6 +10,7 @@
         :canvasZoom="canvasZoom"
         @onChangeZoomBySlider="onChangeZoomBySlider"
         @onChangeCanvasGuideType="onChangeCanvasGuideType"
+        @onSvgDownload="onSvgDownload"
       />
     </div>
     <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
@@ -122,6 +123,8 @@ import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/tool
 import { RelationContainer } from "./ConnectorRightClickMenuAndEditor.vue";
 import { ResizeObserver } from "resize-observer";
 
+import moment from "moment/moment";
+
 import "jquery";
 import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
@@ -156,6 +159,8 @@ import MessageBox from "@/presentation/MessageBox";
 import Uuid from "@/domain/world/Uuid";
 import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 import CanvasGuideType from "../toolbar/CanvasGuideType";
+import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
+import DownloadFile from "@/domain/client/DownloadFile";
 
 @Component({
   components: {
@@ -166,6 +171,8 @@ import CanvasGuideType from "../toolbar/CanvasGuideType";
 export default class BusinessContextDiagramEditor extends Vue {
   @Inject()
   private repository!: StrageRepository;
+  @Inject()
+  private clientDownloadRepository!: ClientDownloadRepository;
 
   private static readonly ICON_GENERATORS: IconGenerator[] = [
     new CompanyIconGenerator(),
@@ -688,6 +695,33 @@ export default class BusinessContextDiagramEditor extends Vue {
     // 「何故か、背景が真っ黒になってしまう」対策。ちょーーっとだけリサイズする。
     // …こんなワークアラウンドのほうが安定するからしゃーない。
     canvas.setZoom(canvas.getZoom() - 0.001, false);
+  }
+
+  private onSvgDownload(): void {
+    const diagram = this.product.diagrams.of(this.diagramId);
+    if (!diagram) return;
+    const ymdhms = moment().format("YYYYMMDDHHmmss");
+    const fileName = this.makeSvgDownloadFileName(diagram);
+
+    const writer = new draw2d.io.svg.Writer();
+    writer.marshal(this.canvas, (svg: string) => {
+      const withFontSvg = this.includeWebFont(svg);
+      const file = new DownloadFile(fileName, "image/svg+xml", withFontSvg);
+      this.clientDownloadRepository.register(file);
+    });
+  }
+
+  private makeSvgDownloadFileName(diagram: Diagram): string {
+    const namePart = diagram.name.replace(" ", "-").replace("　", "＿");
+    const ymdhms = moment().format("YYYYMMDDHHmmss");
+    const fileName = `${diagram.id}-${namePart}-${ymdhms}.svg`;
+    return fileName;
+  }
+
+  private includeWebFont(svgContents: string): string {
+    const cssLink =
+      "<defs><style type='text/css'>@import url('https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css');</style></defs>";
+    return svgContents.replace("<defs", cssLink + "<defs");
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
