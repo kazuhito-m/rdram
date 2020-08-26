@@ -75,6 +75,7 @@ import { Canvas } from "draw2d";
 import CanvasZoomSlider from "./CanvasZoomSlider.vue";
 import DiagramPropertiesEditDialog from "@/presentation/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import CanvasGuideType from "./CanvasGuideType";
+import Diagram from "../../../../../domain/diagram/Diagram";
 
 @Component({
   components: {
@@ -99,6 +100,11 @@ export default class CanvasSettingToolBar extends Vue {
 
   @Emit("onSvgDownload")
   private onSvgDownLoad(): void {}
+
+  @Emit("onUpdatedDiagramProperties")
+  private onUpdatedDiagramProperties(diagram: Diagram): void {
+    // TODO サイズ変更と再描画
+  }
 
   private toolBarId!: string;
   private toolBarCollapse = false;
@@ -273,10 +279,6 @@ export default class CanvasSettingToolBar extends Vue {
 
   private showDiagramPropertiesEditDialog(): void {
     this.propertiesEditorDiagramId = this.diagramId;
-  }
-
-  private onUpdatedDiagramProperties(): void {
-    alert("親側での更新");
   }
 
   private onCloseDiagramPropertiesEditDialog(): void {

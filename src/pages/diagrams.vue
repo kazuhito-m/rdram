@@ -63,6 +63,7 @@
                 :diagram-id="item.id"
                 :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
                 @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
+                @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
               />
             </v-tab-item>
           </v-tabs-items>
@@ -342,6 +343,13 @@ export default class extends Vue {
     const resources = new Resources(this.allResourcesOnCurrentProduct);
     const newProduct = product.withResources(resources);
     this.repository.registerCurrentProduct(newProduct);
+  }
+
+  private onUpdatedDiagramProperties(diagram: Diagram): void {
+    const rdraTopItem = this.lookUpRdraTopItem();
+    rdraTopItem.children
+      .filter(item => item.id === diagram.id)
+      .forEach(item => item.name = diagram.name);
   }
 }
 

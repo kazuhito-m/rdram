@@ -85,6 +85,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
 
     const modifiedProduct = product.replaceOf(modified);
     this.repository?.registerCurrentProduct(modifiedProduct);
+
     return diagram;
   }
 

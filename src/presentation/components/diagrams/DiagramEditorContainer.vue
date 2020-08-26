@@ -5,18 +5,21 @@
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
     />
     <SystemContextDiagramEditor
       v-if="is('システムコンテキスト図')"
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
     />
     <StateModelEditor
       v-if="is('状態モデル')"
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
     />
   </div>
 </template>
@@ -47,6 +50,9 @@ export default class DiagramEditorContainer extends Vue {
   @Prop({ required: true })
   private allResourcesOnCurrentProduct?: Resource[];
 
+  @Emit("onUpdatedDiagramProperties")
+  private onUpdatedDiagramProperties(diagram: Diagram): void {}
+
   private diagram: Diagram | null = null;
 
   public created(): void {
@@ -76,5 +82,4 @@ export default class DiagramEditorContainer extends Vue {
 </script>
 
 <style>
-
 </style>
