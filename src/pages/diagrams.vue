@@ -346,10 +346,9 @@ export default class extends Vue {
   }
 
   private onUpdatedDiagramProperties(diagram: Diagram): void {
-    const rdraTopItem = this.lookUpRdraTopItem();
-    rdraTopItem.children
-      .filter(item => item.id === diagram.id)
-      .forEach(item => item.name = diagram.name);
+    const foundItem = this.findTreeItemById(diagram.id, this.treeItems);
+    if (!foundItem) return;
+    foundItem.name = diagram.name;
   }
 }
 

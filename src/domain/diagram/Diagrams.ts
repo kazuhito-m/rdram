@@ -47,9 +47,9 @@ export default class Diagrams {
             const p = newValues[i];
             if (p.id !== diagram.id) continue;
             newValues[i] = diagram;
-            break;
+            return new Diagrams(newValues);
         }
-        if (this.values.length === newValues.length) newValues.push(diagram);
+        newValues.push(diagram);
         return new Diagrams(newValues);
     }
 
@@ -64,6 +64,7 @@ export default class Diagrams {
     public eixistsSomeName(diagram: Diagram) {
         return this.values
             .filter(d => d.id !== diagram.id)
+            .map(i => { console.log(i.id, i.name); return i })
             .some(d => d.name === diagram.name);
     }
 }

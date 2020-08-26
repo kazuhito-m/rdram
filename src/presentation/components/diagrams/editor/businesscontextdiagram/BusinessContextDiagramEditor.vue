@@ -8,6 +8,7 @@
       <CanvasSettingToolBar
         :diagramId="diagramId"
         :canvasZoom="canvasZoom"
+        @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
         @onChangeZoomBySlider="onChangeZoomBySlider"
         @onChangeCanvasGuideType="onChangeCanvasGuideType"
         @onSvgDownload="onSvgDownload"
@@ -253,6 +254,9 @@ export default class BusinessContextDiagramEditor extends Vue {
       this.$nuxt.$loading.finish(); // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
     });
   }
+
+  @Emit("onUpdatedDiagramProperties")
+  private onUpdatedDiagramProperties(diagram: Diagram): void {}
 
   @Emit("onUpdateResources")
   private onUpdateResources(): void {}

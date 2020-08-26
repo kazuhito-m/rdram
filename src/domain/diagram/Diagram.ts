@@ -114,7 +114,7 @@ export default class Diagram {
         return new Diagram(
             this.id,
             this.typeId,
-            name,
+            name.trim(),
             this.relations,
             this.placements,
         );
@@ -124,7 +124,7 @@ export default class Diagram {
         return new Diagram(
             newDiagramId,
             diagramType.id,
-            name,
+            name.trim(),
             [],
             [],
         );
