@@ -53,7 +53,7 @@
     </v-menu>
 
     <v-btn icon v-if="!toolBarCollapse">
-      <v-icon @click="onClickSvgDownload">mdi-image-area-close</v-icon>
+      <v-icon @click="onClickSvgDownload">mdi-image</v-icon>
     </v-btn>
 
     <v-spacer></v-spacer>
@@ -75,7 +75,7 @@ import { Canvas } from "draw2d";
 import CanvasZoomSlider from "./CanvasZoomSlider.vue";
 import DiagramPropertiesEditDialog from "@/presentation/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import CanvasGuideType from "./CanvasGuideType";
-import Diagram from "../../../../../domain/diagram/Diagram";
+import Diagram from "@/domain/diagram/Diagram";
 
 @Component({
   components: {
