@@ -39,13 +39,17 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
-import moment from 'moment/moment';
+import moment from "moment/moment";
 import StrageRepository from "@/domain/strage/StrageRepository";
+import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
+import DownloadFile from "../../domain/client/DownloadFile";
 
 @Component
 export default class LocalStrageDestroyDialog extends Vue {
   @Inject()
   private readonly repository?: StrageRepository;
+  @Inject()
+  private clientDownloadRepository!: ClientDownloadRepository;
 
   @Prop()
   private visible?: boolean;
@@ -59,7 +63,7 @@ export default class LocalStrageDestroyDialog extends Vue {
 
   private onClickDestroyExecute(): void {
     if (!this.downloadNowLocalStrageDateFile()) {
-      alert('ダウンロードファイルの作成に失敗しました。破棄処理を中段します。')
+      alert("ダウンロードファイルの作成に失敗しました。破棄処理を中段します。");
       return;
     }
     this.repository?.destroy();
@@ -69,12 +73,12 @@ export default class LocalStrageDestroyDialog extends Vue {
   private downloadNowLocalStrageDateFile(): boolean {
     const json = this.repository?.getJsonText();
     if (!json) return false;
-    let blob = new Blob([json], { type: "text/json" });
-    let link = document.createElement("a");
-    link.href = window.URL.createObjectURL(blob);
-    const ymdhms = moment().format('YYYYMMDDHHmmss');
-    link.download = `rdram_backup_${ymdhms}.json`;
-    link.click();
+    const ymdhms = moment().format("YYYYMMDDHHmmss");
+    const fileName = `rdram_backup_${ymdhms}.json`;
+
+    const file = new DownloadFile(fileName, "text/json", json);
+    this.clientDownloadRepository.register(file);
+
     return true;
   }
 }
