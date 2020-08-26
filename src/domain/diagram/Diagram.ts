@@ -12,6 +12,8 @@ export default class Diagram {
         public readonly name: string,
         public readonly relations: Relation[],
         public readonly placements: Placement[],
+        public readonly width: number,
+        public readonly height: number,
     ) {
     }
 
@@ -106,6 +108,8 @@ export default class Diagram {
             name.trim(),
             this.relations,
             this.placements,
+            this.width,
+            this.height,
         );
     }
 
@@ -116,6 +120,8 @@ export default class Diagram {
             name.trim(),
             [],
             [],
+            1024,
+            768,
         );
     }
 }

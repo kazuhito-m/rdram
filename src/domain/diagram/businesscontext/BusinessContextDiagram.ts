@@ -11,6 +11,8 @@ export default class BusinessContextDiagram extends Diagram {
         name: string,
         relations: Relation[],
         placements: Placement[],
+        width: number,
+        height: number,
     ) {
         super(
             id,
@@ -18,6 +20,8 @@ export default class BusinessContextDiagram extends Diagram {
             name,
             relations,
             placements,
+            width,
+            height,
         );
     }
 
@@ -41,6 +45,8 @@ export default class BusinessContextDiagram extends Diagram {
             name,
             [],
             [],
+            1024,
+            768,
         );
     }
 }
