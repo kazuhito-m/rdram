@@ -10,6 +10,8 @@ export default class Diagram {
     public readonly relations: Relation[];
     public readonly placements: Placement[];
 
+    public static readonly NAME_MAX_LENGTH = 128;
+
     protected constructor(
         id: number,
         typeId: number,
