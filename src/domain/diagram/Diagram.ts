@@ -108,6 +108,16 @@ export default class Diagram {
         return DiagramType.ofId(this.typeId) as DiagramType;
     }
 
+    public with(name: string): Diagram {
+        return new Diagram(
+            this.id,
+            this.typeId,
+            name,
+            this.relations,
+            this.placements,
+        );
+    }
+
     public static prototypeOf(newDiagramId: number, name: string, diagramType: DiagramType): Diagram {
         return new Diagram(
             newDiagramId,

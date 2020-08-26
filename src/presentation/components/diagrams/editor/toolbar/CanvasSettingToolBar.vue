@@ -13,9 +13,15 @@
     @dragstart="onDragStartToolBar"
     @mousedown="onMouseDownToolBar"
   >
-    <v-btn icon>
+    <v-btn icon @click="showDiagramPropertiesEditDialog">
       <v-icon>mdi-content-save-edit-outline</v-icon>
     </v-btn>
+
+    <DiagramPropertiesEditDialog
+      :diagramId="propertiesEditorDiagramId"
+      @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
+      @onClose="onCloseDiagramPropertiesEditDialog"
+    />
 
     <v-spacer></v-spacer>
 
@@ -67,11 +73,13 @@ import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 import { ResizeObserver } from "resize-observer";
 import { Canvas } from "draw2d";
 import CanvasZoomSlider from "./CanvasZoomSlider.vue";
+import DiagramPropertiesEditDialog from "@/presentation/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import CanvasGuideType from "./CanvasGuideType";
 
 @Component({
   components: {
-    CanvasZoomSlider
+    CanvasZoomSlider,
+    DiagramPropertiesEditDialog
   }
 })
 export default class CanvasSettingToolBar extends Vue {
@@ -83,12 +91,23 @@ export default class CanvasSettingToolBar extends Vue {
   @Prop({ required: true })
   private readonly canvasZoom!: number;
 
+  @Emit("onChangeCanvasGuideType")
+  private onChangeCanvasGuideType(
+    canvasGuideType: CanvasGuideType,
+    beforeCanvasGuideType: CanvasGuideType
+  ): void {}
+
+  @Emit("onSvgDownload")
+  private onSvgDownLoad(): void {}
+
   private toolBarId!: string;
   private toolBarCollapse = false;
   private dragStartLayerX = 0;
   private dragStartLayerY = 0;
 
   private canvasGuideTypeIconKey = CanvasGuideType.なし.iconKey;
+
+  private propertiesEditorDiagramId = 0;
 
   public created(): void {
     this.toolBarId = "toolBar" + this.diagramId;
@@ -248,18 +267,21 @@ export default class CanvasSettingToolBar extends Vue {
     this.canvasGuideTypeIconKey = canvasGuideType.iconKey;
   }
 
-  @Emit("onChangeCanvasGuideType")
-  private onChangeCanvasGuideType(
-    canvasGuideType: CanvasGuideType,
-    beforeCanvasGuideType: CanvasGuideType
-  ): void {}
-
   private onClickSvgDownload(): void {
     this.onSvgDownLoad();
   }
 
-  @Emit("onSvgDownload")
-  private onSvgDownLoad(): void {}
+  private showDiagramPropertiesEditDialog(): void {
+    this.propertiesEditorDiagramId = this.diagramId;
+  }
+
+  private onUpdatedDiagramProperties(): void {
+    alert("親側での更新");
+  }
+
+  private onCloseDiagramPropertiesEditDialog(): void {
+    this.propertiesEditorDiagramId = 0;
+  }
 }
 </script>
 

@@ -2,6 +2,7 @@ import UserSettings from '@/domain//setting/UserSettings';
 import Resources from '@/domain/resource/Resources';
 import ProductIdentifier from '@/domain/product/ProductIdentifier';
 import Diagrams from '@/domain/diagram/Diagrams';
+import Diagram from '@/domain/diagram/Diagram';
 
 export default class Product {
     private readonly updateAt: Date;
@@ -52,6 +53,10 @@ export default class Product {
             this.resources,
             this.resourceIdSequence,
         );
+    }
+
+    public replaceOf(newDiagram: Diagram): Product {
+        return this.with(this.diagrams.meage(newDiagram));
     }
 
     public withResources(newResources: Resources) {

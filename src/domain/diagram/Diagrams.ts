@@ -60,4 +60,10 @@ export default class Diagrams {
     public static empty(): Diagrams {
         return new Diagrams([]);
     }
+
+    public eixistsSomeName(diagram: Diagram) {
+        return this.values
+            .filter(d => d.id !== diagram.id)
+            .some(d => d.name === diagram.name);
+    }
 }
