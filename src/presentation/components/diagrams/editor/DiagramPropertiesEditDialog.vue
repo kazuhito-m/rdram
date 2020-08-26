@@ -165,13 +165,16 @@ export default class DiagramPropertiesEditDialog extends Vue {
     const diagram = product?.diagrams.of(this.diagramId);
     if (!product || !diagram) return null;
 
-    const modified = diagram.with(this.name).resize(this.width, this.height);
+    const modified = diagram
+      .with(this.name)
+      .resize(Number(this.width), Number(this.height));
     if (!this.logicalValidation(modified, product)) return null;
 
-    const modifiedProduct = product.replaceOf(modified.fixStickOuts());
+    const registerd = modified.fixStickOuts();
+    const modifiedProduct = product.replaceOf(registerd);
     this.repository?.registerCurrentProduct(modifiedProduct);
 
-    return modified;
+    return registerd;
   }
 
   private logicalValidation(diagram: Diagram, product: Product): boolean {
@@ -185,7 +188,6 @@ export default class DiagramPropertiesEditDialog extends Vue {
         "はみ出したアイコンは、実行時に削除されます。\nよろしいですか。";
       if (!window.confirm(message)) return false;
     }
-
     return true;
   }
 }

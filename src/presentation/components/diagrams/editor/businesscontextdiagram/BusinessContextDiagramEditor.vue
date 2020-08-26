@@ -259,7 +259,15 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   @Emit("onUpdatedDiagramProperties")
-  private onUpdatedDiagramProperties(diagram: Diagram): void {}
+  private onUpdatedDiagramProperties(diagram: Diagram): void {
+    const c = this.canvas;
+    if (c.getWidth() === diagram.width && c.getHeight() === diagram.height)
+      return;
+
+    alert(
+      "TODO 変更したが、それが現在のキャンバスサイズと異なるなら、この画面内で更新。"
+    );
+  }
 
   @Emit("onUpdateResources")
   private onUpdateResources(): void {}
