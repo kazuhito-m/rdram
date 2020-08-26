@@ -5,6 +5,8 @@ import ResourceType from "../resource/ResourceType";
 
 export default class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;
+    public static readonly MAX_WIDTH = 7680;
+    public static readonly MAX_HEIGHT = 4320;
 
     protected constructor(
         public readonly id: number,
@@ -97,19 +99,30 @@ export default class Diagram {
         return found ? found : null;
     }
 
+    public existsStickOutPlacements(): boolean {
+        return this.placements
+            .some(placement => this.isStickOut(placement));
+    }
+
+    private isStickOut(placement: Placement): boolean {
+        const p = placement;
+        return (p.x + p.width) > this.width
+            || (p.y + p.height) > this.height;
+    }
+
     public get type(): DiagramType {
         return DiagramType.ofId(this.typeId) as DiagramType;
     }
 
-    public with(name: string): Diagram {
+    public with(name: string, width: number, height: number): Diagram {
         return new Diagram(
             this.id,
             this.typeId,
             name.trim(),
             this.relations,
             this.placements,
-            this.width,
-            this.height,
+            width,
+            height,
         );
     }
 

@@ -38,15 +38,15 @@ export default class BusinessContextDiagram extends Diagram {
         ];
     }
 
-    public with(name: string): BusinessContextDiagram {
+    public with(name: string, width: number, height: number): BusinessContextDiagram {
         return new BusinessContextDiagram(
             this.id,
             this.typeId,
             name.trim(),
             this.relations,
             this.placements,
-            this.width,
-            this.height,
+            width,
+            height,
         );
     }
 

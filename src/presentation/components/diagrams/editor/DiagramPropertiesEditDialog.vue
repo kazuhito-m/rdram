@@ -1,15 +1,41 @@
 <template>
   <v-dialog persistent max-width="500" :value="diagramId">
     <v-card>
-      <v-card-title class="headline">「{{ title }}」の設定</v-card-title>
+      <v-card-title class="headline">「{{ nameForTitle }}」の設定</v-card-title>
       <v-card-text>
-        <v-text-field
-          label="名前"
-          v-model="name"
-          :rules="[validateName]"
-          counter="true"
-          :maxlength="nameMaxLength"
-        ></v-text-field>
+        <v-form>
+          <v-container>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  label="名前"
+                  v-model="name"
+                  :rules="[validateName]"
+                  counter
+                  :maxlength="nameMaxLength"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  label="横幅(px)"
+                  v-model="width"
+                  type="number"
+                  :rules="[validateWidith]"
+                ></v-text-field>
+              </v-col>
+              <v-col>
+                <v-text-field
+                  label="高さ(px)"
+                  v-model="height"
+                  type="number"
+                  :rules="[validateHeight]"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-form>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -55,10 +81,12 @@ export default class DiagramPropertiesEditDialog extends Vue {
   @Inject()
   private repository?: StrageRepository;
   private consent = false;
+  private nameForTitle = "";
   private old!: Diagram;
 
-  private title = "";
   private name = "";
+  private width = 0;
+  private height = 0;
 
   private onShow(): void {
     this.consent = false;
@@ -66,6 +94,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
     const diagram = product?.diagrams.of(this.diagramId);
     if (!diagram) return;
     this.old = diagram;
+    this.nameForTitle = diagram.name;
     this.showProperties(diagram);
   }
 
@@ -76,12 +105,18 @@ export default class DiagramPropertiesEditDialog extends Vue {
   }
 
   private showProperties(diagram: Diagram): void {
-    this.title = diagram.name;
     this.name = diagram.name;
+    this.width = diagram.width;
+    this.height = diagram.height;
   }
 
   private changed(): boolean {
-    return this.old!.name !== this.name;
+    const old = this.old!;
+    return (
+      old.name !== this.name ||
+      old.width !== this.width ||
+      old.height !== this.height
+    );
   }
 
   private get nameMaxLength(): number {
@@ -98,6 +133,26 @@ export default class DiagramPropertiesEditDialog extends Vue {
     return true;
   }
 
+  private validateWidith(): string | boolean {
+    return this.validateSize(this.width, Diagram.MAX_WIDTH);
+  }
+
+  private validateHeight(): string | boolean {
+    return this.validateSize(this.height, Diagram.MAX_HEIGHT);
+  }
+
+  private validateSize(value: number, max: number): string | boolean {
+    this.consent = false;
+    if (!value) return "入力してください。";
+    if (Number.isInteger(value)) return "数値を入力して下さい。";
+    const widthNumber = Number(value);
+    const min = 1;
+    if (widthNumber < min) return `${min} 以上で入力してください。`;
+    if (widthNumber > max) return `${max} 以下で入力してください。`;
+    this.consent = this.changed();
+    return true;
+  }
+
   private onClickLUpdateExecute(): void {
     const diagram = this.registerDiagramProperties();
     if (!diagram) return;
@@ -110,7 +165,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
     const diagram = product?.diagrams.of(this.diagramId);
     if (!product || !diagram) return null;
 
-    const modified = diagram.with(this.name);
+    const modified = diagram.with(this.name, this.width, this.height);
     if (!this.logicalValidation(modified, product)) return null;
 
     const modifiedProduct = product.replaceOf(modified);
@@ -124,6 +179,13 @@ export default class DiagramPropertiesEditDialog extends Vue {
       alert("既に重複した名前の図が在ります。");
       return false;
     }
+    if (diagram.existsStickOutPlacements()) {
+      const message =
+        "このサイズ変更を実行すると、はみ出すアイコンがあります。\n" +
+        "はみ出したアイコンは、実行時に削除されます。\nよろしいですか。";
+      if (!window.confirm(message)) return false;
+    }
+
     return true;
   }
 }
