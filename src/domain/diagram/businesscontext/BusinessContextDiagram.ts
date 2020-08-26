@@ -1,8 +1,8 @@
 import Diagram from "@/domain/diagram/Diagram";
-import Relation from "../relation/Relation";
-import Placement from "../placement/Placement";
-import DiagramType from "../DiagramType";
-import ResourceType from "~/domain/resource/ResourceType";
+import Relation from "@/domain/diagram/relation/Relation";
+import Placement from "@/domain/diagram/placement/Placement";
+import DiagramType from "@/domain/diagram/DiagramType";
+import ResourceType from "@/domain/resource/ResourceType";
 
 export default class BusinessContextDiagram extends Diagram {
     protected constructor(
