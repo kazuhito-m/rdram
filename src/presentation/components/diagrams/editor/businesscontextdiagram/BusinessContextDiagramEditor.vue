@@ -245,10 +245,13 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
     });
-    this.showCanvas();
+
+    const diagram = this.product.diagrams.of(this.diagramId) as Diagram;
+
+    this.showCanvas(diagram);
     this.fixCanvasPosition();
     this.addCanvasEvent();
-    this.drawDiagram();
+    this.drawDiagram(diagram);
 
     this.$nextTick(() => {
       this.$nuxt.$loading.finish(); // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
@@ -261,8 +264,12 @@ export default class BusinessContextDiagramEditor extends Vue {
   @Emit("onUpdateResources")
   private onUpdateResources(): void {}
 
-  private showCanvas(): void {
-    const canvas = new draw2d.Canvas(this.canvasId);
+  private showCanvas(diagram: Diagram): void {
+    const canvas = new draw2d.Canvas(
+      this.canvasId,
+      diagram.width,
+      diagram.height
+    );
     canvas.installEditPolicy(new draw2d.policy.canvas.CoronaDecorationPolicy());
     canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
     canvas.installEditPolicy(new draw2d.policy.canvas.ExtendedKeyboardPolicy());
@@ -336,10 +343,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     return RouterType.DIRECT;
   }
 
-  private drawDiagram() {
-    const diagram = this.product.diagrams.of(this.diagramId);
-    if (!diagram) return;
-
+  private drawDiagram(diagram: Diagram) {
     for (let placement of diagram.placements) {
       const resource = this.allResourcesOnCurrentProduct.find(
         resource => resource.resourceId === placement.resourceId
@@ -785,8 +789,8 @@ interface CanvasSelections {
 }
 
 .diagram-canvas {
-  width: 1024px;
-  height: 768px;
+  width: 1px;
+  height: 1px;
   margin: 0px;
 
   border-radius: 5px;
