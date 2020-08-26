@@ -4,26 +4,15 @@ import Placement from "./placement/Placement";
 import ResourceType from "../resource/ResourceType";
 
 export default class Diagram {
-    public readonly id: number;
-    protected readonly typeId: number;
-    public readonly name: string;
-    public readonly relations: Relation[];
-    public readonly placements: Placement[];
-
     public static readonly NAME_MAX_LENGTH = 128;
 
     protected constructor(
-        id: number,
-        typeId: number,
-        name: string,
-        relations: Relation[],
-        placements: Placement[],
+        public readonly id: number,
+        protected readonly typeId: number,
+        public readonly name: string,
+        public readonly relations: Relation[],
+        public readonly placements: Placement[],
     ) {
-        this.id = id;
-        this.typeId = typeId
-        this.name = name;
-        this.relations = relations;
-        this.placements = placements;
     }
 
     public availableResourceTypes(): ResourceType[] {
