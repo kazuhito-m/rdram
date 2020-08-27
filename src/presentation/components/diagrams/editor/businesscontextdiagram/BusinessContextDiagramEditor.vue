@@ -533,6 +533,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.mergePlacement(this.usedResouceIds, diagram.placements);
 
     if (requireSave) this.repository.registerCurrentProduct(product);
+    this.product = product;
   }
 
   private mergePlacement(usedResouceIds: number[], diffTarget: Placement[]) {
