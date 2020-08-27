@@ -304,7 +304,7 @@ export default class extends Vue {
   }
 
   public onClickMenuCopyDiagram(): void {
-    alert("onClickMenuCopyDiagram");
+    const diagramId = this.menuTargetTreeItemId;
   }
 
   public onClickMenuRemoveDiagram(): void {
@@ -351,23 +351,32 @@ export default class extends Vue {
   }
 
   private removeDiagram(diagramId: number): boolean {
+    return this.modifyDiagram(diagramId, (diagram, product) => {
+      if (diagram.placements.length > 0) {
+        const message =
+          "指定された図は編集されています。\n(アイコンが配置されています)\n" +
+          `${diagram.name} を削除してもよろしいですか。`;
+        if (!window.confirm(message)) return null;
+      }
+      const removedDiagrams = product.diagrams.remove(diagram);
+      return product.with(removedDiagrams);
+    });
+  }
+
+  private modifyDiagram(
+    diagramId: number,
+    func: (diagram: Diagram, product: Product) => Product | null
+  ): boolean {
     const product = this.repository.getCurrentProduct();
     if (!product) return true;
     const diagrams = product.diagrams;
     const diagram = diagrams.of(diagramId);
     if (!diagram) return true;
 
-    if (diagram.placements.length > 0) {
-      const message =
-        "指定された図は編集されています。\n(アイコンが配置されています)\n" +
-        `${diagram.name} を削除してもよろしいですか。`;
-      if (!window.confirm(message)) return false;
-    }
+    const modifedProduct = func(diagram, product);
 
-    const removedDiagrams = diagrams.remove(diagram);
-    const removedProducts = product.with(removedDiagrams);
-
-    this.repository.registerCurrentProduct(removedProducts);
+    if (!modifedProduct) return false;
+    this.repository.registerCurrentProduct(modifedProduct);
     return true;
   }
 
