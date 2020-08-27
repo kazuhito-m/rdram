@@ -51,4 +51,14 @@ export default class Relation {
             this.midpoints,
         );
     }
+
+    public clone(): Relation {
+        return new Relation(
+            this.id,
+            this.fromResourceId,
+            this.toResourceId,
+            this.routerTypeId,
+            this.midpoints.map(midpoint => midpoint.clone()),
+        );      
+    }
 }

@@ -29,6 +29,10 @@ export default class Diagram {
         return found ? found : null;
     }
 
+    public defaultNameWhenCopy(): string {
+        return `${this.name} のコピー`;
+    }
+
     public relationIdsOfDeleteTargetResouce(deleteTargetResourceIds: number[]): string[] {
         return this.relations
             .filter(relation => deleteTargetResourceIds.some(id => id === relation.fromResourceId)
@@ -135,6 +139,18 @@ export default class Diagram {
             this.placements,
             width,
             height,
+        );
+    }
+
+    public cloneWith(newDiagramId: number, newName: string): Diagram {
+        return new Diagram(
+            newDiagramId,
+            this.typeId,
+            newName,
+            this.relations.map(relation => relation.clone()),
+            this.placements.map(placement => placement.clone()),
+            this.width,
+            this.height,
         );
     }
 

@@ -19,7 +19,7 @@ export default class Diagrams {
         return factory.create(newDiagramId, name, diagramType);
     }
 
-    private generateDiagramId(): number {
+    public generateDiagramId(): number {
         return this.values
             .map(d => d.id)
             .reduce((l, r) => Math.max(l, r), 0) + 1;

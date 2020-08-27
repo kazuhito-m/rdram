@@ -1,5 +1,4 @@
 export default class Placement {
-
     constructor(
         public readonly x: number,
         public readonly y: number,
@@ -22,6 +21,16 @@ export default class Placement {
         return new Placement(
             x,
             y,
+            this.width,
+            this.height,
+            this.resourceId,
+        );
+    }
+
+    public clone(): Placement {
+        return new Placement(
+            this.x,
+            this.y,
             this.width,
             this.height,
             this.resourceId,

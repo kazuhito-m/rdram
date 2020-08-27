@@ -305,6 +305,43 @@ export default class extends Vue {
 
   public onClickMenuCopyDiagram(): void {
     const diagramId = this.menuTargetTreeItemId;
+
+    const diagram = this.copyDiagram(diagramId);
+    if (!diagram) return;
+
+    alert(diagram.name);
+    alert(diagram.id);
+
+    this.addDiagramTreeItem(diagram, this.treeItems);
+    this.activeTreeItemOf(diagram.id);
+    this.openParentTreeItem(diagram.id);
+  }
+
+  private copyDiagram(diagramId: number): Diagram | null {
+    let distDiagram = null;
+    const result = this.modifyDiagram(diagramId, (srcDiagram, product) => {
+      const diagrams = product.diagrams;
+
+      const messageBox = new MessageBox();
+      const message =
+        `${srcDiagram.name} をコピーします。` +
+        `コピー後の ${srcDiagram.type.name} の名前を入力してください。`;
+      const name = messageBox.promptWith255Limit(
+        message,
+        srcDiagram.defaultNameWhenCopy(),
+        inputText => {
+          const exists = diagrams.existsSomeName(inputText, srcDiagram.type);
+          if (exists) alert(`既に同一の${srcDiagram.type.name}名が在ります。`);
+          return !exists;
+        }
+      );
+      if (!name) return null;
+
+      distDiagram = srcDiagram.cloneWith(diagrams.generateDiagramId(), name);
+      const addedDiagrams = diagrams.add(distDiagram);
+      return product.with(addedDiagrams);
+    });
+    return result ? distDiagram : null;
   }
 
   public onClickMenuRemoveDiagram(): void {

@@ -1,15 +1,15 @@
 export default class Midpoint {
     constructor(
-        id: string,
-        left: number,
-        top: number,
-    ) {
-        this.id = id;
-        this.left = left;
-        this.top = top;
-    }
+        private readonly id: string,
+        private readonly left: number,
+        private readonly top: number,
+    ) { }
 
-    private readonly id: string;
-    private readonly left: number;
-    private readonly top: number;
+    public clone(): Midpoint {
+        return new Midpoint(
+            this.id,
+            this.left,
+            this.top,
+        );
+    }
 }

@@ -62,6 +62,18 @@ export default class BusinessContextDiagram extends Diagram {
         );
     }
 
+    public cloneWith(newDiagramId: number, newName: string): BusinessContextDiagram {
+        return new BusinessContextDiagram(
+            newDiagramId,
+            this.typeId,
+            newName,
+            this.relations.map(relation => relation.clone()),
+            this.placements.map(placement => placement.clone()),
+            this.width,
+            this.height,
+        );
+    }
+
     /**
      * 現在のサイズではみ出しているものを削除。
      */
