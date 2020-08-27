@@ -400,14 +400,16 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   public onClickConnectorOnCanvas(x: number, y: number) {
-    const foundFigure = this.canvas.getBestFigure(x, y, [], []);
+    const canvas = this.canvas;
+    const foundFigure = canvas.getBestFigure(x, y, [], []);
     if (!foundFigure) return;
     const diagram = this.product.diagrams.of(this.diagramId);
     if (!diagram) return;
     const targetRelation = diagram.relationOf(foundFigure.id);
     if (!targetRelation) return;
-    const absoluteX = this.canvas.getAbsoluteX() + x;
-    const absoluteY = this.canvas.getAbsoluteY() + y;
+    const zoom = canvas.getZoom();
+    const absoluteX = canvas.getAbsoluteX() + x / zoom;
+    const absoluteY = canvas.getAbsoluteY() + y / zoom;
     this.showConnectorRightClickMenu(targetRelation, absoluteX, absoluteY);
   }
 
