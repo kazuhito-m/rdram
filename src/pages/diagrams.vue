@@ -310,7 +310,7 @@ export default class extends Vue {
   public onClickMenuRemoveDiagram(): void {
     const diagramId = this.menuTargetTreeItemId;
 
-    this.removeDiagram(diagramId);
+    if (!this.removeDiagram(diagramId)) return;
 
     this.closeTab(diagramId);
     this.removeTreeItem(diagramId, this.treeItems);
@@ -350,30 +350,32 @@ export default class extends Vue {
     };
   }
 
-  private removeDiagram(diagramId: number): void {
+  private removeDiagram(diagramId: number): boolean {
     const product = this.repository.getCurrentProduct();
-    if (!product) return;
+    if (!product) return true;
     const diagrams = product.diagrams;
     const diagram = diagrams.of(diagramId);
-    if (!diagram) return;
+    if (!diagram) return true;
 
     if (diagram.placements.length > 0) {
       const message =
-        "指定された図は編集されています。(アイコンが配置されています)\n" +
+        "指定された図は編集されています。\n(アイコンが配置されています)\n" +
         `${diagram.name} を削除してもよろしいですか。`;
-      if (!window.confirm(message)) return;
+      if (!window.confirm(message)) return false;
     }
 
     const removedDiagrams = diagrams.remove(diagram);
     const removedProducts = product.with(removedDiagrams);
 
     this.repository.registerCurrentProduct(removedProducts);
+    return true;
   }
 
   private removeTreeItem(treeItemId: number, treeItems: TreeItem[]): boolean {
     const foundIndex = treeItems.findIndex(item => item.id === treeItemId);
     if (foundIndex >= 0) {
       treeItems.splice(foundIndex, 1);
+      if (treeItems.length === 0) treeItems.push(this.EMPTY_ITEMS);
       return true;
     }
     for (let item of treeItems) {
