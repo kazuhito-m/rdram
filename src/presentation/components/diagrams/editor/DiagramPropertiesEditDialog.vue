@@ -85,8 +85,8 @@ export default class DiagramPropertiesEditDialog extends Vue {
   private old!: Diagram;
 
   private name = "";
-  private width = 0;
-  private height = 0;
+  private width = "";
+  private height = "";
 
   private onShow(): void {
     this.consent = false;
@@ -106,21 +106,29 @@ export default class DiagramPropertiesEditDialog extends Vue {
 
   private showProperties(diagram: Diagram): void {
     this.name = diagram.name;
-    this.width = diagram.width;
-    this.height = diagram.height;
+    this.width = diagram.width.toString();
+    this.height = diagram.height.toString();
   }
 
   private changed(): boolean {
     const old = this.old!;
     return (
       old.name !== this.name ||
-      old.width !== this.width ||
-      old.height !== this.height
+      old.width !== this.getWidth() ||
+      old.height !== this.getHeight()
     );
   }
 
   private get nameMaxLength(): number {
     return Diagram.NAME_MAX_LENGTH;
+  }
+
+  private getWidth(): number {
+    return Number(this.width);
+  }
+
+  private getHeight(): number {
+    return Number(this.height);
   }
 
   private validateName(): string | boolean {
@@ -134,11 +142,11 @@ export default class DiagramPropertiesEditDialog extends Vue {
   }
 
   private validateWidith(): string | boolean {
-    return this.validateSize(this.width, Diagram.MAX_WIDTH);
+    return this.validateSize(this.getWidth(), Diagram.MAX_WIDTH);
   }
 
   private validateHeight(): string | boolean {
-    return this.validateSize(this.height, Diagram.MAX_HEIGHT);
+    return this.validateSize(this.getHeight(), Diagram.MAX_HEIGHT);
   }
 
   private validateSize(value: number, max: number): string | boolean {
@@ -167,7 +175,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
 
     const modified = diagram
       .with(this.name)
-      .resize(Number(this.width), Number(this.height));
+      .resize(this.getWidth(), this.getHeight());
     if (!this.logicalValidation(modified, product)) return null;
 
     const registerd = modified.fixStickOuts();
