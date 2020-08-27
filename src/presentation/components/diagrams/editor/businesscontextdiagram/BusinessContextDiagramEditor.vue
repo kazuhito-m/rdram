@@ -248,7 +248,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 
     const diagram = this.product.diagrams.of(this.diagramId) as Diagram;
 
-    this.showCanvas(diagram);
+    this.showCanvas();
     this.fixCanvasPosition();
     this.addCanvasEvent();
     this.drawDiagram(diagram);
@@ -264,6 +264,11 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (c.getWidth() === diagram.width && c.getHeight() === diagram.height)
       return;
 
+    const canvas = this.canvas;
+    canvas.clear();
+    canvas.setDimension(diagram.width, diagram.height);
+    this.drawDiagram(diagram);
+
     alert(
       "TODO 変更したが、それが現在のキャンバスサイズと異なるなら、この画面内で更新。"
     );
@@ -272,11 +277,11 @@ export default class BusinessContextDiagramEditor extends Vue {
   @Emit("onUpdateResources")
   private onUpdateResources(): void {}
 
-  private showCanvas(diagram: Diagram): void {
+  private showCanvas(): void {
     const canvas = new draw2d.Canvas(
       this.canvasId,
-      diagram.width,
-      diagram.height
+      Diagram.MAX_WIDTH,
+      Diagram.MAX_HEIGHT
     );
     canvas.installEditPolicy(new draw2d.policy.canvas.CoronaDecorationPolicy());
     canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
@@ -285,8 +290,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     const editorPain = this.$refs.editorPain as HTMLElement;
     editorPain.id = `editorPain${this.diagramId}`;
     canvas.setScrollArea(`#${editorPain.id}`);
-
-    canvas.on("zoom", this.onZoomChangeFromCanvas);
 
     this.canvas = canvas;
   }
@@ -308,6 +311,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   private addCanvasEvent(): void {
     const commandStack = this.canvas.getCommandStack();
     commandStack.addEventListener(this.onCanvasCommandExecute);
+    this.canvas.on("zoom", this.onZoomChangeFromCanvas);
   }
 
   private onCanvasCommandExecute(event: any): void {
@@ -352,12 +356,12 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private drawDiagram(diagram: Diagram) {
+    this.canvas.setDimension(diagram.width, diagram.height);
     for (let placement of diagram.placements) {
       const resource = this.allResourcesOnCurrentProduct.find(
         resource => resource.resourceId === placement.resourceId
       );
       if (!resource) continue;
-
       this.addResouceIconToCanvas(resource, placement);
     }
 
