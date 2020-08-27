@@ -105,6 +105,7 @@ import MessageBox from "@/presentation/MessageBox";
 import Resources from "@/domain/resource/Resources";
 import BusinessContextDiagramEditor from "@/presentation/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
 import StrageRepository from "../domain/strage/StrageRepository";
+import Diagrams from "../domain/diagram/Diagrams";
 
 @Component({
   components: {
@@ -280,16 +281,8 @@ export default class extends Vue {
     if (!product) return;
     const diagrams = product.diagrams;
 
-    const messageBox = new MessageBox();
-    const name = messageBox.promptWith255Limit(
-      `追加する ${diagramType.name} の名前を入力してください。`,
-      "",
-      inputText => {
-        const exists = diagrams.existsSomeName(inputText, diagramType);
-        if (exists) alert(`既に同一の${diagramType.name}名が在ります。`);
-        return !exists;
-      }
-    );
+    const message = `追加する ${diagramType.name} の名前を入力してください。`;
+    const name = this.promptNewDiagramName(message, "", diagramType, diagrams);
     if (!name) return;
 
     const diagram = diagrams.createNewDiagram(name, diagramType);
@@ -298,6 +291,10 @@ export default class extends Vue {
 
     this.repository.registerCurrentProduct(addedProducts);
 
+    this.addDiagramView(diagram);
+  }
+
+  private addDiagramView(diagram: Diagram): void {
     this.addDiagramTreeItem(diagram, this.treeItems);
     this.activeTreeItemOf(diagram.id);
     this.openParentTreeItem(diagram.id);
@@ -309,12 +306,7 @@ export default class extends Vue {
     const diagram = this.copyDiagram(diagramId);
     if (!diagram) return;
 
-    alert(diagram.name);
-    alert(diagram.id);
-
-    this.addDiagramTreeItem(diagram, this.treeItems);
-    this.activeTreeItemOf(diagram.id);
-    this.openParentTreeItem(diagram.id);
+    this.addDiagramView(diagram);
   }
 
   private copyDiagram(diagramId: number): Diagram | null {
@@ -322,18 +314,14 @@ export default class extends Vue {
     const result = this.modifyDiagram(diagramId, (srcDiagram, product) => {
       const diagrams = product.diagrams;
 
-      const messageBox = new MessageBox();
       const message =
         `${srcDiagram.name} をコピーします。` +
         `コピー後の ${srcDiagram.type.name} の名前を入力してください。`;
-      const name = messageBox.promptWith255Limit(
+      const name = this.promptNewDiagramName(
         message,
         srcDiagram.defaultNameWhenCopy(),
-        inputText => {
-          const exists = diagrams.existsSomeName(inputText, srcDiagram.type);
-          if (exists) alert(`既に同一の${srcDiagram.type.name}名が在ります。`);
-          return !exists;
-        }
+        srcDiagram.type,
+        diagrams
       );
       if (!name) return null;
 
@@ -342,6 +330,25 @@ export default class extends Vue {
       return product.with(addedDiagrams);
     });
     return result ? distDiagram : null;
+  }
+
+  private promptNewDiagramName(
+    message: string,
+    defaultName: string,
+    diagramType: DiagramType,
+    diagrams: Diagrams
+  ): string {
+    const messageBox = new MessageBox();
+    const name = messageBox.prompt(message, defaultName, inputText => {
+      if (inputText.length > Diagram.NAME_MAX_LENGTH) {
+        alert(`${Diagram.NAME_MAX_LENGTH}文字以内で入力してください。`);
+        return false;
+      }
+      const exists = diagrams.existsSomeName(inputText, diagramType);
+      if (exists) alert(`既に同名の ${diagramType.name} が在ります。`);
+      return !exists;
+    });
+    return name ? name : "";
   }
 
   public onClickMenuRemoveDiagram(): void {
