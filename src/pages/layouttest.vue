@@ -33,6 +33,8 @@
 
     <v-btn color="normal" dark @click="onClickStore">store</v-btn>
 
+    <v-btn color="normal" dark @click="onClickVersion">version</v-btn>
+
     <v-card-text>
       <v-row>
         <v-col>
@@ -648,6 +650,11 @@ export default class extends Vue {
 
   private onClickStore() {
     console.log(this.$store);
+  }
+
+  private onClickVersion() {
+    const head = this.$store?.app?.head as any;
+    alert(head.selfVersion);
   }
 }
 </script>

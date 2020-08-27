@@ -60,14 +60,26 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span>
+        &copy; {{ new Date().getFullYear() }}
+        <a
+          class="no-efect-link"
+          target="_new"
+          href="https://kazuhito-m.github.io/rdram"
+        >rdram</a>
+      </span>
       <a class="auther-link" target="_new" href="https://twitter.com/kazuhito_m">
         <v-icon>mdi-twitter</v-icon>kazuhito_m
       </a>
       <v-spacer></v-spacer>
-      <a class="auther-link" target="_new" href="https://twitter.com/kazuhito_m">
-        <v-icon>mdi-share</v-icon>Version x.x.x
+      <a class="no-efect-link" target="_new" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fkazuhito-m.github.io%2Frdram&hashtags=rdram">
+        <v-icon>mdi-share</v-icon>
       </a>
+      <a
+        class="no-efect-link"
+        target="_new"
+        href="https://github.com/kazuhito-m/rdram/releases"
+      >ver. {{ selfVersion }}</a>
     </v-footer>
 
     <ProductSelectorDialog
@@ -115,6 +127,7 @@ export default class extends Vue {
   right = true;
   rightDrawer = false;
   title = "RDRA-M";
+  selfVersion = "";
 
   private readonly items = [
     {
@@ -158,6 +171,7 @@ export default class extends Vue {
 
     const head = this.$store?.app?.head as any;
     this.title = head.title;
+    this.selfVersion = head.selfVersion;
 
     if (this.showApplicationInitialization()) return;
 
@@ -230,7 +244,18 @@ export default class extends Vue {
 html {
   overflow-y: hidden;
 }
+
 .auther-link {
   text-decoration: none;
+}
+
+.no-efect-link ,
+.no-efect-link:link,
+.no-efect-link:visited,
+.no-efect-link:hover,
+.no-efect-link:active
+{
+  text-decoration: none;
+  color: white;
 }
 </style>
