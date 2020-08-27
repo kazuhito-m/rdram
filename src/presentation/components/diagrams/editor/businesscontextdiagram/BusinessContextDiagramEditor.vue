@@ -52,13 +52,17 @@
                 :key="resource.resourceId"
               >
                 <v-list-item-content>
-                  <v-list-item-title class="chip-container">
+                  <v-list-item-title
+                    class="chip-container"
+                    v-bind:data-resource-id="resource.resourceId"
+                    @contextmenu="onRightClickResource"
+                  >
                     <v-chip
+                      v-bind:data-resource-id="resource.resourceId"
                       color="primary"
                       dark
                       draggable
                       @dragstart="onDragStartResource"
-                      v-bind:data-resource-id="resource.resourceId"
                     >
                       <v-icon>{{ resourceType.iconKey }}</v-icon>
                       {{ resource.name }}
@@ -114,6 +118,22 @@
       @onChangeRouterType="onChangeRouterTypeOnEditor"
       @onClickDeleteConnection="onClickDeleteConnection"
     />
+
+    <v-menu
+      :value="rightClickedResourceId"
+      :close-on-click="true"
+      :close-on-content-click="true"
+      :offset-x="true"
+      :rounded="true"
+      :position-x="rightClickedResourceX"
+      :position-y="rightClickedResourceY"
+    >
+      <v-list>
+        <v-list-item link @click="onClickMenuDeleteResourceOnProduct">
+          <v-list-item-title>プロダクト全体から削除</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
   </div>
 </template>
 
@@ -219,6 +239,10 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private targetRelationId = "";
   private editableRouterId = 0;
+
+  private rightClickedResourceId = 0;
+  private rightClickedResourceX = 0;
+  private rightClickedResourceY = 0;
 
   private canvasZoom = 1;
 
@@ -512,6 +536,24 @@ export default class BusinessContextDiagramEditor extends Vue {
     const chip = event.srcElement as HTMLElement;
     const resourceIdText = chip.getAttribute("data-resource-id") as string;
     event.dataTransfer?.setData("text", resourceIdText);
+  }
+
+  private onRightClickResource(event: MouseEvent): void {
+    event.preventDefault();
+    const src = event.srcElement as HTMLElement;
+    const chip = src.parentElement as HTMLElement; // FIXME ちょっと「Veutifyの構造を知りすぎてる」気がする。手が在れば変えたい。
+    const resourceIdText = chip.getAttribute("data-resource-id") as string;
+    if (!resourceIdText) return;
+    this.rightClickedResourceId = 0;
+    this.rightClickedResourceX = event.x;
+    this.rightClickedResourceY = event.y;
+    this.$nextTick(() => {
+      this.rightClickedResourceId = Number(resourceIdText);
+    });
+  }
+
+  private onClickMenuDeleteResourceOnProduct(): void {
+    alert(this.rightClickedResourceId);
   }
 
   private getCurrentProduct(): Product {
