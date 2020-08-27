@@ -1,7 +1,7 @@
 <template lang="html">
   <v-dialog v-model="visible" persistent max-width="500">
     <v-card>
-      <v-card-title class="headline">LocalStragenoの初期化</v-card-title>
+      <v-card-title class="headline">LocalStrageの初期化</v-card-title>
       <v-card-text>LocalStrageが初期化されていません。<br>このWebアプリケーションは、ブラウザ固有のストレージ(LocalStarage)を使用します。<br>LocalStrageを初期化し、データを保存してよろしいですか。</v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
