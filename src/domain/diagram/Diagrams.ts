@@ -41,6 +41,12 @@ export default class Diagrams {
         return new Diagrams(newValues);
     }
 
+    public remove(diagram: Diagram): Diagrams {
+        const newValues = this.values
+            .filter(value => value.id !== diagram.id);
+        return new Diagrams(newValues);
+    }
+
     public meage(diagram: Diagram): Diagrams {
         const newValues = Array.from(this.values);
         for (let i = 0; i < newValues.length; i++) {

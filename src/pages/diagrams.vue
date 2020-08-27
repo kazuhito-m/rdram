@@ -241,8 +241,9 @@ export default class extends Vue {
     this.menuPositionX = event.clientX;
     this.menuPositionY = event.clientY;
     this.$nextTick(() => {
-      if (treeItemId > this.DIAGRAM_FOLDER_ID_MASK)  this.enableRightClickMenu = true
-      else this.enableDiagramRightClickMenu = true;
+      const isFolder = treeItemId > this.DIAGRAM_FOLDER_ID_MASK;
+      this.enableRightClickMenu = isFolder;
+      this.enableDiagramRightClickMenu = !isFolder;
     });
   }
 
@@ -253,11 +254,17 @@ export default class extends Vue {
     if (!data) return;
     const tabItemId = parseInt(data, 10);
 
+    this.closeTab(tabItemId);
+  }
+
+  private closeTab(tabItemId: number): boolean {
     const tabs = this.openTabs;
     const tabIndex = tabs.findIndex(tabItem => tabItem.id === tabItemId);
+    if (tabIndex < 0) return false;
     tabs.splice(tabIndex, 1);
 
     if (tabs.length === 0) this.treeActiveItemIds.splice(0, 1);
+    return true;
   }
 
   public onClickMenuAddDiagram(): void {
@@ -301,21 +308,17 @@ export default class extends Vue {
   }
 
   public onClickMenuRemoveDiagram(): void {
-    alert("onClickMenuRemoveDiagram");
+    const diagramId = this.menuTargetTreeItemId;
+
+    this.removeDiagram(diagramId);
+
+    this.closeTab(diagramId);
+    this.removeTreeItem(diagramId, this.treeItems);
   }
 
-  private addDiagramTreeItem(
-    diagram: Diagram,
-    diagramTreeItems: TreeItem[]
-  ): void {
-    const rdraTopId = this.TOP_FOLDERS["RDRA 2.0"];
-    const rdraTop = diagramTreeItems.find(i => i.id === rdraTopId);
-    if (!rdraTop) return;
-
-    const maskedDialogTypeId = diagram.type.id + this.DIAGRAM_FOLDER_ID_MASK;
-    const folderItem = rdraTop.children.find(i => i.id === maskedDialogTypeId);
+  private addDiagramTreeItem(diagram: Diagram, treeItems: TreeItem[]): void {
+    const folderItem = this.folderItemOf(diagram.type, treeItems);
     if (!folderItem) return;
-
     const children = folderItem.children;
 
     if (children.length === 1 && children[0] === this.EMPTY_ITEMS)
@@ -325,6 +328,19 @@ export default class extends Vue {
     children.push(diagramTreeItem);
   }
 
+  private folderItemOf(
+    diagramType: DiagramType,
+    treeItems: TreeItem[]
+  ): TreeItem | null {
+    const rdraTopId = this.TOP_FOLDERS["RDRA 2.0"];
+    const rdraTop = treeItems.find(i => i.id === rdraTopId);
+    if (!rdraTop) return null;
+    const maskedDialogTypeId = diagramType.id + this.DIAGRAM_FOLDER_ID_MASK;
+    const folderItem = rdraTop.children.find(i => i.id === maskedDialogTypeId);
+    if (!folderItem) return null;
+    return folderItem;
+  }
+
   private diagramToTreeItem(diagram: Diagram): TreeItem {
     return {
       id: diagram.id,
@@ -332,6 +348,38 @@ export default class extends Vue {
       children: [],
       disabled: false
     };
+  }
+
+  private removeDiagram(diagramId: number): void {
+    const product = this.repository.getCurrentProduct();
+    if (!product) return;
+    const diagrams = product.diagrams;
+    const diagram = diagrams.of(diagramId);
+    if (!diagram) return;
+
+    if (diagram.placements.length > 0) {
+      const message =
+        "指定された図は編集されています。(アイコンが配置されています)\n" +
+        `${diagram.name} を削除してもよろしいですか。`;
+      if (!window.confirm(message)) return;
+    }
+
+    const removedDiagrams = diagrams.remove(diagram);
+    const removedProducts = product.with(removedDiagrams);
+
+    this.repository.registerCurrentProduct(removedProducts);
+  }
+
+  private removeTreeItem(treeItemId: number, treeItems: TreeItem[]): boolean {
+    const foundIndex = treeItems.findIndex(item => item.id === treeItemId);
+    if (foundIndex >= 0) {
+      treeItems.splice(foundIndex, 1);
+      return true;
+    }
+    for (let item of treeItems) {
+      if (this.removeTreeItem(treeItemId, item.children)) return true;
+    }
+    return false;
   }
 
   private activeTreeItemOf(treeItemId: number): void {
