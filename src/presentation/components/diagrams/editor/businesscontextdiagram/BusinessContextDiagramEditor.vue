@@ -229,8 +229,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     const diagram = this.product.diagrams.of(diagramId);
     if (!diagram) return;
 
-    diagram.placements.forEach(p => this.usedResouceIds.push(p.resourceId));
-
     this.paretPainId = "paretPain" + diagramId;
     this.canvasId = "canvas" + diagramId;
 
@@ -264,14 +262,9 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (c.getWidth() === diagram.width && c.getHeight() === diagram.height)
       return;
 
-    const canvas = this.canvas;
-    canvas.clear();
-    canvas.setDimension(diagram.width, diagram.height);
+    c.clear();
+    this.usedResouceIds.length = 0;
     this.drawDiagram(diagram);
-
-    alert(
-      "TODO 変更したが、それが現在のキャンバスサイズと異なるなら、この画面内で更新。"
-    );
   }
 
   @Emit("onUpdateResources")
@@ -356,6 +349,8 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private drawDiagram(diagram: Diagram) {
+    diagram.placements.forEach(p => this.usedResouceIds.push(p.resourceId));
+
     this.canvas.setDimension(diagram.width, diagram.height);
     for (let placement of diagram.placements) {
       const resource = this.allResourcesOnCurrentProduct.find(
