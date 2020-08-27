@@ -262,8 +262,8 @@ export default class BusinessContextDiagramEditor extends Vue {
     if (c.getWidth() === diagram.width && c.getHeight() === diagram.height)
       return;
 
+    this.usedResouceIds.splice(0, this.usedResouceIds.length);
     c.clear();
-    this.usedResouceIds.length = 0;
     this.drawDiagram(diagram);
     this.onChangeZoomBySlider(this.canvasZoom);
   }
