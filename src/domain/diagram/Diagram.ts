@@ -2,6 +2,7 @@ import Relation from "./relation/Relation";
 import DiagramType from "./DiagramType";
 import Placement from "./placement/Placement";
 import ResourceType from "../resource/ResourceType";
+import Resource from "../resource/Resource";
 
 export default class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;
@@ -40,6 +41,10 @@ export default class Diagram {
             .map(relation => relation.id);
     }
 
+    public usingOf(resource: Resource): boolean {
+        return this.placements
+            .some(Placement => Placement.resourceId === resource.resourceId);
+    }
     /**
      * FIXME ここだ「イミュータブルを破ってしまって」いる…なんとかしたい。 
      */

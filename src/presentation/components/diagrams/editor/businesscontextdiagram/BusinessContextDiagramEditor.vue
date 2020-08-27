@@ -553,7 +553,21 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   private onClickMenuDeleteResourceOnProduct(): void {
-    alert(this.rightClickedResourceId);
+    const resourceId = Number(this.rightClickedResourceId);
+
+    this.transactionOf((diagram, product) => {
+      const resource = product.resources.of(resourceId);
+      if (!resource) return false;
+      const usedCount = product.diagrams.countOfUsingOf(resource);
+      if (usedCount > 0) {
+        const message =
+          `「${resource.name}」は、現在 ${usedCount}個 のダイアグラムで参照されています。\n` +
+          "削除する場合、それらのダイアログのアイコンや関連のすべては削除されます。\n" +
+          `${resource.name} を削除してもよろしいですか。`;
+        if (!window.confirm(message)) return false;
+      }
+      return true;
+    });
   }
 
   private getCurrentProduct(): Product {

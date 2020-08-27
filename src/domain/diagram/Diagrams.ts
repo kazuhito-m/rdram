@@ -1,6 +1,7 @@
 import Diagram from "./Diagram";
 import DiagramType from "./DiagramType";
 import DiagramFactory from "./DiagramFactory";
+import Resource from "../resource/Resource";
 
 export default class Diagrams {
     private readonly values: Diagram[];
@@ -23,6 +24,12 @@ export default class Diagrams {
         return this.values
             .map(d => d.id)
             .reduce((l, r) => Math.max(l, r), 0) + 1;
+    }
+
+    public countOfUsingOf(resource: Resource): number {
+        return this.values
+            .filter(diagram => diagram.usingOf(resource))
+            .length;
     }
 
     public existsSomeName(name: string, diagramType: DiagramType): boolean {
