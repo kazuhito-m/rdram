@@ -34,7 +34,26 @@
           >
             <v-list>
               <v-list-item link @click="onClickMenuAddDiagram">
-                <v-list-item-title>ダイアグラムを追加する...</v-list-item-title>
+                <v-list-item-title>ダイアグラムの追加...</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+          <v-menu
+            :value="enableDiagramRightClickMenu"
+            :close-on-click="true"
+            :close-on-content-click="true"
+            :offset-x="true"
+            :rounded="true"
+            :position-x="menuPositionX"
+            :position-y="menuPositionY"
+          >
+            <v-list>
+              <v-list-item link @click="onClickMenuCopyDiagram">
+                <v-list-item-title>ダイアグラムのコピー...</v-list-item-title>
+              </v-list-item>
+              <v-list-item link @click="onClickMenuRemoveDiagram">
+                <v-list-item-title>ダイアグラムの削除</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -116,6 +135,7 @@ export default class extends Vue {
   private treeOpenItemIds: number[] = [];
 
   private enableRightClickMenu = false;
+  private enableDiagramRightClickMenu = false;
   private menuTargetTreeItemId: number = 0;
   private menuPositionX = 0;
   private menuPositionY = 0;
@@ -210,14 +230,19 @@ export default class extends Vue {
     const data = element.getAttribute("data-item-id");
     if (!data) return;
     const treeItemId = parseInt(data, 10);
-    if (treeItemId <= this.DIAGRAM_FOLDER_ID_MASK) return;
+
+    if (treeItemId <= 0) return;
+
     this.menuTargetTreeItemId = treeItemId;
 
     this.enableRightClickMenu = false;
+    this.enableDiagramRightClickMenu = false;
+
     this.menuPositionX = event.clientX;
     this.menuPositionY = event.clientY;
     this.$nextTick(() => {
-      this.enableRightClickMenu = true;
+      if (treeItemId > this.DIAGRAM_FOLDER_ID_MASK)  this.enableRightClickMenu = true
+      else this.enableDiagramRightClickMenu = true;
     });
   }
 
@@ -235,7 +260,7 @@ export default class extends Vue {
     if (tabs.length === 0) this.treeActiveItemIds.splice(0, 1);
   }
 
-  public onClickMenuAddDiagram() {
+  public onClickMenuAddDiagram(): void {
     const item = this.findTreeItemById(
       this.menuTargetTreeItemId,
       this.treeItems
@@ -269,6 +294,14 @@ export default class extends Vue {
     this.addDiagramTreeItem(diagram, this.treeItems);
     this.activeTreeItemOf(diagram.id);
     this.openParentTreeItem(diagram.id);
+  }
+
+  public onClickMenuCopyDiagram(): void {
+    alert("onClickMenuCopyDiagram");
+  }
+
+  public onClickMenuRemoveDiagram(): void {
+    alert("onClickMenuRemoveDiagram");
   }
 
   private addDiagramTreeItem(
