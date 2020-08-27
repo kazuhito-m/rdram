@@ -1,17 +1,24 @@
 <template>
-  <v-dialog persistent max-width="500" :value="diagramId">
-    <v-card>
-      <v-card-title class="headline">「{{ nameForTitle }}」の設定</v-card-title>
-      <v-card-text>
-        <v-form>
+  <v-dialog
+    persistent
+    max-width="500"
+    :value="diagramId"
+    @keydown.esc="onClose"
+    @keydown.enter="onClickLUpdateExecute"
+  >
+    <v-form>
+      <v-card>
+        <v-card-title class="headline">「{{ nameForTitle }}」の設定</v-card-title>
+        <v-card-text>
           <v-container>
             <v-row>
               <v-col>
                 <v-text-field
                   label="名前"
+                  counter
+                  autofocus
                   v-model="name"
                   :rules="[validateName]"
-                  counter
                   :maxlength="nameMaxLength"
                 ></v-text-field>
               </v-col>
@@ -35,14 +42,14 @@
               </v-col>
             </v-row>
           </v-container>
-        </v-form>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn text color="normal" @click="onClose">キャンセル</v-btn>
-        <v-btn text :disabled="!consent" color="primary" @click="onClickLUpdateExecute">更新</v-btn>
-      </v-card-actions>
-    </v-card>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text color="normal" @click="onClose">キャンセル</v-btn>
+          <v-btn text :disabled="!consent" color="primary" @click="onClickLUpdateExecute">更新</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-form>
   </v-dialog>
 </template>
 
@@ -142,17 +149,17 @@ export default class DiagramPropertiesEditDialog extends Vue {
   }
 
   private validateWidith(): string | boolean {
-    return this.validateSize(this.getWidth(), Diagram.MAX_WIDTH);
+    return this.validateSize(this.width, Diagram.MAX_WIDTH);
   }
 
   private validateHeight(): string | boolean {
-    return this.validateSize(this.getHeight(), Diagram.MAX_HEIGHT);
+    return this.validateSize(this.height, Diagram.MAX_HEIGHT);
   }
 
-  private validateSize(value: number, max: number): string | boolean {
+  private validateSize(value: string, max: number): string | boolean {
     this.consent = false;
     if (!value) return "入力してください。";
-    if (Number.isInteger(value)) return "数値を入力して下さい。";
+    if (!Number.isInteger(Number(value))) return "数値を入力して下さい。";
     const widthNumber = Number(value);
     const min = 1;
     if (widthNumber < min) return `${min} 以上で入力してください。`;
@@ -162,6 +169,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
   }
 
   private onClickLUpdateExecute(): void {
+    if (!this.consent) return;
     const diagram = this.registerDiagramProperties();
     if (!diagram) return;
     this.onUpdatedDiagramProperties(diagram);

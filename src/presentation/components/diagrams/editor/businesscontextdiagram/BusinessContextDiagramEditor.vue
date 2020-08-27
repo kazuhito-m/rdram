@@ -265,6 +265,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     c.clear();
     this.usedResouceIds.length = 0;
     this.drawDiagram(diagram);
+    this.onChangeZoomBySlider(this.canvasZoom);
   }
 
   @Emit("onUpdateResources")
