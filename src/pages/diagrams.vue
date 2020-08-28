@@ -469,16 +469,30 @@ export default class extends Vue {
   }
 
   private onUpdateResoucesOnContainer(): void {
-    this.saveAllResources();
+    this.reloadAllResources();
   }
 
-  private saveAllResources(): void {
-    console.log("トップ画面でのリソース全保存");
+  private reloadAllResources(): void {
+    console.log("トップ画面でのリソース全取り直し");
     const product = this.repository.getCurrentProduct();
     if (!product) return;
-    const resources = new Resources(this.allResourcesOnCurrentProduct);
-    const newProduct = product.withResources(resources);
-    this.repository.registerCurrentProduct(newProduct);
+    // 削除されていないか確認。
+    const nowIdDictionary = product.resources.map(r => r.resourceId);
+    const alreadyResources = this.allResourcesOnCurrentProduct;
+    for (let i = alreadyResources.length - 1; i >= 0; i--) {
+      const alredy = alreadyResources[i];
+      const foundIndex = nowIdDictionary.indexOf(alredy.resourceId);
+      if (foundIndex < 0) {
+        alreadyResources.splice(i, 1);
+      } else {
+        nowIdDictionary.splice(foundIndex, 1);
+      }
+    }
+
+    // 残ったものは追加なので、追加する。
+    product.resources
+      .filter(r => nowIdDictionary.includes(r.resourceId))
+      .forEach(r => alreadyResources.push(r));
   }
 
   private onUpdatedDiagramProperties(diagram: Diagram): void {
