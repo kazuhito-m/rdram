@@ -270,10 +270,13 @@ export default class BusinessContextDiagramEditor extends Vue {
       .forEach(resourceType => this.availableResourceTypes.push(resourceType));
     for (let i = 0; i < this.availableResourceTypes.length + 1; i++)
       this.paretsOpen.push(i);
+
+    this.lastResourcesOnCurrentProductCount = this.allResourcesOnCurrentProduct.length;
   }
 
   public mounted() {
     this.$nuxt.$loading.start();
+
     this.$nextTick(() => {
       const diagram = this.product.diagrams.of(this.diagramId) as Diagram;
 
@@ -828,13 +831,24 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.lastResourcesOnCurrentProductCount = this.allResourcesOnCurrentProduct.length;
     if (!whenRemoveResource) return;
 
-    // キャンバス部分のみを強制的リドロー
-    this.$nuxt.$loading.start();
-    this.$nextTick(() => {
-      const diagram = this.product.diagrams.of(this.diagramId) as Diagram;
-      this.canvas.clear();
-      this.drawDiagram(diagram);
-      this.$nuxt.$loading.finish(); // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
+    this.reverceSyncCavansDeleteThings();
+  }
+
+  /**
+   * キャンバス側から、逆にデータにあるかを調べ、削除されてそうなものが在れば消す。
+   */
+  private reverceSyncCavansDeleteThings(): void {
+    const product = this.repository.getCurrentProduct() as Product;
+    const diagram = product.diagrams.of(this.diagramId) as Diagram;
+
+    const canvas = this.canvas;
+    canvas.getLines().each((i: number, line: any) => {
+      if (!diagram.existsRelationId(line.id.toString())) canvas.remove(line);
+    });
+
+    canvas.getFigures().each((i: number, figure: any) => {
+      const resourceId = Number(figure.id);
+      if (!diagram.existsPlacementId(resourceId)) canvas.remove(figure);
     });
   }
 
