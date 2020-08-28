@@ -273,18 +273,15 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   public mounted() {
+    this.$nuxt.$loading.start();
     this.$nextTick(() => {
-      this.$nuxt.$loading.start();
-    });
+      const diagram = this.product.diagrams.of(this.diagramId) as Diagram;
 
-    const diagram = this.product.diagrams.of(this.diagramId) as Diagram;
+      this.showCanvas();
+      this.fixCanvasPosition();
+      this.addCanvasEvent();
+      this.drawDiagram(diagram);
 
-    this.showCanvas();
-    this.fixCanvasPosition();
-    this.addCanvasEvent();
-    this.drawDiagram(diagram);
-
-    this.$nextTick(() => {
       this.$nuxt.$loading.finish(); // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
     });
   }
@@ -825,15 +822,20 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   @Watch("allResourcesOnCurrentProduct.length")
   private onChangeAllResourcesOnCurrentProduct(): void {
-    console.log("length:" + this.allResourcesOnCurrentProduct.length);
-    console.log("count:" + this.lastResourcesOnCurrentProductCount);
-    if (
+    const whenRemoveResource =
       this.allResourcesOnCurrentProduct.length <
-      this.lastResourcesOnCurrentProductCount
-    ) {
-      alert("削除された。diagramId;" + this.diagramId);
-    }
+      this.lastResourcesOnCurrentProductCount;
     this.lastResourcesOnCurrentProductCount = this.allResourcesOnCurrentProduct.length;
+    if (!whenRemoveResource) return;
+
+    // キャンバス部分のみを強制的リドロー
+    this.$nuxt.$loading.start();
+    this.$nextTick(() => {
+      const diagram = this.product.diagrams.of(this.diagramId) as Diagram;
+      this.canvas.clear();
+      this.drawDiagram(diagram);
+      this.$nuxt.$loading.finish(); // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
+    });
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
