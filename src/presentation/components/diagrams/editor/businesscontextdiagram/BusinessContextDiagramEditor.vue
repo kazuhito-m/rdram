@@ -850,6 +850,8 @@ export default class BusinessContextDiagramEditor extends Vue {
       const resourceId = Number(figure.id);
       if (!diagram.existsPlacementId(resourceId)) canvas.remove(figure);
     });
+
+    this.product = product;
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
