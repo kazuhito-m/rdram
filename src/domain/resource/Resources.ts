@@ -52,4 +52,12 @@ export default class Resources {
     public forEach(func: (resource: Resource) => void) {
         this.values.forEach(func);
     }
+
+    public map<T>(func: (resoruce: Resource) => T): T[] {
+        return this.values.map(func);
+    }
+
+    public filter(func: (resoruce: Resource) => boolean): Resource[] {
+        return this.values.filter(func);
+    }
 }
