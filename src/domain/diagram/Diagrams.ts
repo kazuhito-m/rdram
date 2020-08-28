@@ -66,6 +66,12 @@ export default class Diagrams {
         return new Diagrams(newValues);
     }
 
+    public removeResouceOf(resource: Resource): Diagrams {
+        const newValues = this.values
+            .map(diagram => diagram.removeResouceOf(resource));
+        return new Diagrams(newValues);
+    }
+
     public forEach(func: (diagram: Diagram) => void) {
         this.values.forEach(func);
     }

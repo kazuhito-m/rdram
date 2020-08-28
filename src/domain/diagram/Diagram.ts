@@ -183,6 +183,19 @@ export default class Diagram {
         );
     }
 
+    public removeResouceOf(resource: Resource): Diagram {
+        const resourceId = resource.resourceId;
+        return new Diagram(
+            this.id,
+            this.typeId,
+            this.name,
+            this.relations.filter(r => !r.isRelatedTo(resourceId)),
+            this.placements.filter(p => p.resourceId !== resourceId),
+            this.width,
+            this.height,
+        );
+    }
+
     public static prototypeOf(newDiagramId: number, name: string, diagramType: DiagramType): Diagram {
         return new Diagram(
             newDiagramId,

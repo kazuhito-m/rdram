@@ -554,24 +554,38 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private onClickMenuDeleteResourceOnProduct(): void {
     const resourceId = Number(this.rightClickedResourceId);
+    this.deleteResourceOnProduct(resourceId);
 
-    this.transactionOf((diagram, product) => {
-      const resource = product.resources.of(resourceId);
-      if (!resource) return false;
-      const usedCount = product.diagrams.countOfUsingOf(resource);
-      if (usedCount > 0) {
-        const message =
-          `「${resource.name}」は、現在 ${usedCount}個 のダイアグラムで参照されています。\n` +
-          "削除する場合、それらのダイアログのアイコンや関連のすべては削除されます。\n" +
-          `${resource.name} を削除してもよろしいですか。`;
-        if (!window.confirm(message)) return false;
-      }
-      return true;
-    });
+    // TODO 親でやるか子でやるか決める。下記は応急処置。
+    const resources = this.allResourcesOnCurrentProduct;
+    const removeIndex = resources.findIndex(r => r.resourceId === resourceId);
+    resources.splice(removeIndex, 1);
+
+    this.onUpdateResources();
   }
 
   private getCurrentProduct(): Product {
     return this.repository.getCurrentProduct() as Product;
+  }
+
+  private deleteResourceOnProduct(resourceId: number): void {
+    const product = this.getCurrentProduct();
+    const resource = product.resources.of(resourceId);
+    if (!resource) return;
+
+    const usedCount = product.diagrams.countOfUsingOf(resource);
+    if (usedCount > 0) {
+      const message =
+        `「${resource.name}」は、現在 ${usedCount}個 のダイアグラムで参照されています。\n` +
+        "削除する場合、それらのダイアログのアイコンや関連のすべては削除されます。\n" +
+        `${resource.name} を削除してもよろしいですか。`;
+      if (!window.confirm(message)) return;
+    }
+
+    const modifiedProduct = product.removeOf(resource);
+
+    this.repository.registerCurrentProduct(modifiedProduct);
+    this.product = modifiedProduct;
   }
 
   /**ResourceType

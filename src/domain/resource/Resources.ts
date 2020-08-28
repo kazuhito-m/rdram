@@ -27,6 +27,12 @@ export default class Resources {
         return new Resources(newValues);
     }
 
+    public remove(resource: Resource): Resources {
+        const newValues = this.values
+            .filter(r => r.resourceId !== resource.resourceId);
+        return new Resources(newValues);
+    }
+
     public meage(resource: Resource): Resources {
         const newValues = Array.from(this.values);
         for (let i = 0; i < newValues.length; i++) {

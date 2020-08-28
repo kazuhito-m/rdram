@@ -3,6 +3,7 @@ import Relation from "@/domain/diagram/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
 import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
+import Resource from "~/domain/resource/Resource";
 
 export default class BusinessContextDiagram extends Diagram {
     protected constructor(
@@ -93,6 +94,19 @@ export default class BusinessContextDiagram extends Diagram {
             this.name,
             surviveRelations,
             survivePlacements,
+            this.width,
+            this.height,
+        );
+    }
+
+    public removeResouceOf(resource: Resource): BusinessContextDiagram {
+        const resourceId = resource.resourceId;
+        return new BusinessContextDiagram(
+            this.id,
+            this.typeId,
+            this.name,
+            this.relations.filter(r => !r.isRelatedTo(resourceId)),
+            this.placements.filter(p => p.resourceId !== resourceId),
             this.width,
             this.height,
         );
