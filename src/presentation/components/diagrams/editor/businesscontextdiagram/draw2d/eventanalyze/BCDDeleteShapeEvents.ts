@@ -5,6 +5,7 @@ import Product from "~/domain/product/Product";
 import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import { Figure } from "draw2d";
 import FigureAnalyzer from "./FigureAnalyzer";
+import Diagram from "~/domain/diagram/Diagram";
 
 export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContextDiagram, BusinessContextDiagramEditor> {
     public eventGists: EventGist[] = [];
@@ -23,16 +24,11 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
         // TODO なんども連打される問題について
         // ひょっとして「Rootじゃなく、子イベントを叩いてる」からかな？
         const resourceIds = this.figureAnalyzer.analyzeResourceIds(this.validTargetFigures());
-        const relationIdsOfDeleteTargetResouce = diagram.relationIdsOfDeleteTargetResouce(resourceIds);
-        if (relationIdsOfDeleteTargetResouce.length > 0) {
-            const message = `選択された要素には、他の要素への関連があります。それらを含め削除してよろしいですか。`;
-            if (!confirm(message)) {
-                const rootCommand = this.eventGists[0].rootCommand;
-                rootCommand.undo();
-                return false;
-            }
-        }
-        return true;
+        if (view.confirmResourceDelete(resourceIds, diagram)) return true;
+
+        const rootCommand = this.eventGists[0].rootCommand;
+        rootCommand.undo();
+        return false;
     }
 
     public apply(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {

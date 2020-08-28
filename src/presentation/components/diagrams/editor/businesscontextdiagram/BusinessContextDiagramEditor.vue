@@ -52,17 +52,14 @@
                 :key="resource.resourceId"
               >
                 <v-list-item-content>
-                  <v-list-item-title
-                    class="chip-container"
-                    v-bind:data-resource-id="resource.resourceId"
-                    @contextmenu="onRightClickResource"
-                  >
+                  <v-list-item-title class="chip-container">
                     <v-chip
                       v-bind:data-resource-id="resource.resourceId"
                       color="primary"
                       dark
                       draggable
                       @dragstart="onDragStartResource"
+                      @contextmenu="onRightClickResource"
                     >
                       <v-icon>{{ resourceType.iconKey }}</v-icon>
                       {{ resource.name }}
@@ -88,7 +85,12 @@
               >
                 <v-list-item-content>
                   <v-list-item-title class="chip-container">
-                    <v-chip dark>
+                    <v-chip
+                      dark
+                      v-bind:data-resource-id="usedResource.resourceId"
+                      data-resource-on-diagram="true"
+                      @contextmenu="onRightClickResource"
+                    >
                       <v-icon>{{ iconKeyOf(usedResource) }}</v-icon>
                       {{ usedResource.name }}
                     </v-chip>
@@ -129,6 +131,13 @@
       :position-y="rightClickedResourceY"
     >
       <v-list>
+        <v-list-item
+          link
+          v-if="rightClickedResourceOnDiagram"
+          @click="onClickMenuDeleteResourceOnDiagram"
+        >
+          <v-list-item-title>このダイアグラムから削除</v-list-item-title>
+        </v-list-item>
         <v-list-item link @click="onClickMenuDeleteResourceOnProduct">
           <v-list-item-title>プロダクト全体から削除</v-list-item-title>
         </v-list-item>
@@ -250,6 +259,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   private editableRouterId = 0;
 
   private rightClickedResourceId = 0;
+  private rightClickedResourceOnDiagram = false;
   private rightClickedResourceX = 0;
   private rightClickedResourceY = 0;
 
@@ -557,9 +567,13 @@ export default class BusinessContextDiagramEditor extends Vue {
   private onRightClickResource(event: MouseEvent): void {
     event.preventDefault();
     const src = event.srcElement as HTMLElement;
+    let resourceIdText = src.getAttribute("data-resource-id") as string;
     const chip = src.parentElement as HTMLElement; // FIXME ちょっと「Veutifyの構造を知りすぎてる」気がする。手が在れば変えたい。
-    const resourceIdText = chip.getAttribute("data-resource-id") as string;
+    resourceIdText = chip.getAttribute("data-resource-id") as string;
     if (!resourceIdText) return;
+
+    const onDinagram = chip.getAttribute("data-resource-on-diagram") as string;
+    this.rightClickedResourceOnDiagram = onDinagram === "true";
     this.rightClickedResourceId = 0;
     this.rightClickedResourceX = event.x;
     this.rightClickedResourceY = event.y;
@@ -568,10 +582,45 @@ export default class BusinessContextDiagramEditor extends Vue {
     });
   }
 
+  private onClickMenuDeleteResourceOnDiagram(): void {
+    const resourceId = Number(this.rightClickedResourceId);
+    const diagram = this.deleteResourceOnDiagram(resourceId);
+    this.reverceSyncCavansDeleteThings();
+    this.mergePlacement(this.usedResouceIds, diagram.placements);
+  }
+
   private onClickMenuDeleteResourceOnProduct(): void {
     const resourceId = Number(this.rightClickedResourceId);
     this.deleteResourceOnProduct(resourceId);
     this.onUpdateResources();
+  }
+
+  private deleteResourceOnDiagram(resourceId: number): Diagram {
+    const product = this.getCurrentProduct();
+    const diagram = product.diagrams.of(this.diagramId) as Diagram;
+    const resource = product.resources.of(resourceId);
+    if (!resource) return;
+
+    if (!this.confirmResourceDelete([], diagram)) return;
+
+    const modifiedDiagram = diagram.removeResouceOf(resource);
+    const diagrams = product.diagrams.meage(modifiedDiagram);
+    const modifiedProduct = product.with(diagrams);
+
+    this.repository.registerCurrentProduct(modifiedProduct);
+    this.product = modifiedProduct;
+
+    return modifiedDiagram;
+  }
+
+  public confirmResourceDelete(
+    resourceIds: number[],
+    diagram: Diagram
+  ): boolean {
+    const relationIds = diagram.relationIdsOfDeleteTargetResouce(resourceIds);
+    if (relationIds.length === 0) return true;
+    const message = `選択された要素には、他の要素への関連があります。それらを含め削除してよろしいですか。`;
+    return confirm(message);
   }
 
   private getCurrentProduct(): Product {
