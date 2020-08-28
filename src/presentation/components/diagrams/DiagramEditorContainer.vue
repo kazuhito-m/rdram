@@ -19,8 +19,8 @@
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       @onUpdateResources="onUpdateResoucesOnEditor"
-      @onUpdatedDiagramProperties="onChangeAllResourcesOnCurrentProduct"
-    />
+      @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
+    />/>
   </div>
 </template>
 
