@@ -38,7 +38,7 @@ export default class CanvasZoomSlider extends Vue {
   }
 
   @Watch("zoomPercentage")
-  private onChangeSliderValue(e: any) {
+  private onChangeSliderValue() {
     if (!isFinite(this.zoomPercentage)) return;
     let base = Number(this.zoomPercentage);
     let fix = base;

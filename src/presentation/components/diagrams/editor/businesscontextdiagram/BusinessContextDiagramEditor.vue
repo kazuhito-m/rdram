@@ -138,7 +138,14 @@
 </template>
 
 <script lang="ts">
-import { Prop, Component, Vue, Inject, Emit } from "nuxt-property-decorator";
+import {
+  Prop,
+  Component,
+  Vue,
+  Inject,
+  Emit,
+  Watch
+} from "nuxt-property-decorator";
 import ConnectorRightClickMenuAndEditor from "./ConnectorRightClickMenuAndEditor.vue";
 import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import { RelationContainer } from "./ConnectorRightClickMenuAndEditor.vue";
@@ -182,6 +189,7 @@ import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 import CanvasGuideType from "../toolbar/CanvasGuideType";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import DownloadFile from "@/domain/client/DownloadFile";
+import Products from "../../../../../domain/product/Products";
 
 @Component({
   components: {
@@ -213,6 +221,7 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   @Prop({ required: true })
   private allResourcesOnCurrentProduct!: Resource[];
+  private lastResourcesOnCurrentProductCount = 0;
 
   private canvas!: draw2d.Canvas;
   private readonly eventAnalyzer = new EventAnalyzer([
@@ -471,30 +480,43 @@ export default class BusinessContextDiagramEditor extends Vue {
     const textData = event.dataTransfer?.getData("text");
     if (!textData) return;
     let resourceId = parseInt(textData, 10);
+    const isAddNew = resourceId < 0;
+
+    let product = this.getCurrentProduct();
+    const diagram = product.diagrams.of(this.diagramId);
+    if (!diagram) return;
+
     // 新規追加時。
-    if (resourceId < 0) {
-      let resource: Resource | null = null;
+    let resource: Resource | null = null;
+    if (isAddNew) {
       const resourceTypeId = resourceId * -1;
-
-      resource = this.createNewResource(resourceTypeId);
-
+      product = product.moveNextResourceIdSequence();
+      const newResouceId = product.resourceIdSequence;
+      resource = this.createNewResource(resourceTypeId, newResouceId);
       if (!resource) return;
-      this.allResourcesOnCurrentProduct.push(resource);
-      this.onUpdateResources();
-      resourceId = resource.resourceId;
+      const addedResources = product.resources.add(resource);
+      product = product.withResources(addedResources);
+    } else {
+      resource = product.resources.of(resourceId);
     }
+    if (!resource) return;
 
     // 追加後は「図への追加(ふつーのドラッグ)」と一緒。
-    this.transactionOf((diagram, product) => {
-      const resource = this.allResourcesOnCurrentProduct.find(
-        resource => resource.resourceId === resourceId
-      );
-      if (!resource) return false;
-      return this.addResourceToDiagram(resource, x, y, diagram);
-    });
+    this.addResourceToDiagram(resource, x, y, diagram);
+    this.mergePlacement(this.usedResouceIds, diagram.placements);
+
+    // product/diagrogまとめて保存。
+    this.repository.registerCurrentProduct(product);
+    this.product = product;
+
+    // 親にコールバック。
+    if (isAddNew) this.onUpdateResources();
   }
 
-  private createNewResource(resourceTypeId: number): Resource | null {
+  private createNewResource(
+    resourceTypeId: number,
+    newResourceId: number
+  ): Resource | null {
     // 情報の形状が違う物体がでてくるまで、汎用でいく
     const resourceType = ResourceType.ofId(resourceTypeId);
     if (!resourceType) return null;
@@ -510,13 +532,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     });
     if (!name) return null;
 
-    const resource = new Resource(
-      this.repository.generateResourceId(),
-      resourceType.id,
-      name,
-      ""
-    );
-    return resource;
+    return new Resource(newResourceId, resourceType.id, name, "");
   }
 
   public onDropOverCanvas(event: DragEvent): void {
@@ -555,12 +571,6 @@ export default class BusinessContextDiagramEditor extends Vue {
   private onClickMenuDeleteResourceOnProduct(): void {
     const resourceId = Number(this.rightClickedResourceId);
     this.deleteResourceOnProduct(resourceId);
-
-    // TODO 親でやるか子でやるか決める。下記は応急処置。
-    const resources = this.allResourcesOnCurrentProduct;
-    const removeIndex = resources.findIndex(r => r.resourceId === resourceId);
-    resources.splice(removeIndex, 1);
-
     this.onUpdateResources();
   }
 
@@ -811,6 +821,19 @@ export default class BusinessContextDiagramEditor extends Vue {
     const cssLink =
       "<defs><style type='text/css'>@import url('https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css');</style></defs>";
     return svgContents.replace("<defs", cssLink + "<defs");
+  }
+
+  @Watch("allResourcesOnCurrentProduct.length")
+  private onChangeAllResourcesOnCurrentProduct(): void {
+    console.log("length:" + this.allResourcesOnCurrentProduct.length);
+    console.log("count:" + this.lastResourcesOnCurrentProductCount);
+    if (
+      this.allResourcesOnCurrentProduct.length <
+      this.lastResourcesOnCurrentProductCount
+    ) {
+      alert("削除された。diagramId;" + this.diagramId);
+    }
+    this.lastResourcesOnCurrentProductCount = this.allResourcesOnCurrentProduct.length;
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
