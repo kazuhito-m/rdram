@@ -102,7 +102,7 @@ export default class TwoPainWithSlideBarLayout extends Vue {
 }
 
 .left-pain {
-  overflow: auto;
+  overflow: hidden;
   text-align: left;
   resize: both;
   width: 250px;
@@ -110,6 +110,9 @@ export default class TwoPainWithSlideBarLayout extends Vue {
 
 .right-pain {
   flex-grow: 1;
+  width: 0%;
+  min-width: 0px;
+  overflow: hidden;
 }
 
 .slidebar {

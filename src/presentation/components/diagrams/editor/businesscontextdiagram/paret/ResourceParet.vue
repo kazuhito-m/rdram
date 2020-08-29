@@ -1,7 +1,7 @@
 <template lang="html">
-  <v-expansion-panels class="paret-panel" v-model="paretsOpen" multiple focusable dark>
+  <div class="paret-panel">
+  <v-expansion-panels  v-model="paretsOpen" multiple focusable dark>
     <v-expansion-panel
-      class="paret-panel"
       v-for="resourceType in availableResourceTypes"
       :key="resourceType.id"
     >
@@ -106,8 +106,8 @@
         </v-list-item>
       </v-list>
     </v-menu>
-         
   </v-expansion-panels>
+  </div>
 </template>
 
 <script lang="ts">
@@ -223,15 +223,17 @@ export default class ResourceParet extends Vue {
 
 <style>
 .paret-panel {
-  position: sticky;
+  overflow-x: hidden;
+  overflow-y: auto;
   width: 100%;
+  height: 100%;
 }
 
 .omit-long-text {
   position: absolute;
   text-align: left;
   text-overflow: ellipsis;
-  overflow-x: hidden;
+  overflow: hidden;
   white-space: nowrap;
   width: 100%;
   padding: 0px;

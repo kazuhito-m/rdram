@@ -1,48 +1,31 @@
 <template>
   <div class="diagram-pain-container">
-    <div class="editor-pain" ref="editorPain">
-      <div class="canvas-container" ref="convasContainer">
-        <div class="diagram-canvas" :id="canvasId"></div>
-      </div>
+    <TwoPainWithSlideBarLayout adsorptionLeftWhenDoubleClick="true" defaultLeftPainWidth="80%">
+      <template v-slot:leftPain>
+        <div class="canvas-container" ref="convasContainer">
+          <div class="diagram-canvas" :id="canvasId"></div>
+        </div>
 
-      <CanvasSettingToolBar
-        :diagramId="diagramId"
-        :canvasZoom="canvasZoom"
-        @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
-        @onChangeZoomBySlider="onChangeZoomBySlider"
-        @onChangeCanvasGuideType="onChangeCanvasGuideType"
-        @onSvgDownload="onSvgDownload"
-      />
-    </div>
-    <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
-    <div class="paret-pain" :id="paretPainId">
-      <ResourceParet
-        :diagramId="diagramId"
-        :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
-        :usedResouceIds="usedResouceIds"
-        :product="product"
-        @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
-        @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
-      />
-    </div>
-
-    <v-snackbar v-model="warnBar" timeout="2000">
-      {{ warnMessage }}
-      <template v-slot:action="{ attrs }">
-        <v-btn color="blue" text v-bind="attrs" @click="warnBar = false">Close</v-btn>
+        <CanvasSettingToolBar
+          :diagramId="diagramId"
+          :canvasZoom="canvasZoom"
+          @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
+          @onChangeZoomBySlider="onChangeZoomBySlider"
+          @onChangeCanvasGuideType="onChangeCanvasGuideType"
+          @onSvgDownload="onSvgDownload"
+        />
       </template>
-    </v-snackbar>
-
-    <!-- リアクティブ監視させたいけど、ネストしたくないので…自身をコンテナにして監視させる(ちょっととトリッキー？) -->
-    <ConnectorRightClickMenuAndEditor
-      :visibleConnectorRightClickMenu="visibleConnectorMenu"
-      :menuPositionX="menuX"
-      :menuPositionY="menuY"
-      :relationId="targetRelationId"
-      :selectedRouterTypeId="editableRouterId"
-      @onChangeRouterType="onChangeRouterTypeOnEditor"
-      @onClickDeleteConnection="onClickDeleteConnection"
-    />
+      <template v-slot:rightPain>
+        <ResourceParet
+          :diagramId="diagramId"
+          :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+          :usedResouceIds="usedResouceIds"
+          :product="product"
+          @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
+          @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
+        />
+      </template>
+    </TwoPainWithSlideBarLayout>
   </div>
 </template>
 
@@ -55,6 +38,7 @@ import {
   Emit,
   Watch
 } from "nuxt-property-decorator";
+import TwoPainWithSlideBarLayout from "@/presentation/components/TwoPainWithSlideBarLayout.vue";
 import ResourceParet from "@/presentation/components/diagrams/editor/businesscontextdiagram/paret/ResourceParet.vue";
 import ConnectorRightClickMenuAndEditor from "./ConnectorRightClickMenuAndEditor.vue";
 import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
@@ -103,6 +87,7 @@ import Products from "@/domain/product/Products";
 
 @Component({
   components: {
+    TwoPainWithSlideBarLayout,
     ResourceParet,
     ConnectorRightClickMenuAndEditor,
     CanvasSettingToolBar
@@ -133,6 +118,9 @@ export default class BusinessContextDiagramEditor extends Vue {
   @Prop({ required: true })
   private allResourcesOnCurrentProduct!: Resource[];
   private lastResourcesOnCurrentProductCount = 0;
+
+  @Prop()
+  private resizedDiagramId = 0;
 
   private canvas!: draw2d.Canvas;
   private readonly eventAnalyzer = new EventAnalyzer([
@@ -223,6 +211,10 @@ export default class BusinessContextDiagramEditor extends Vue {
     // canvas.setScrollArea(`#${editorPain.id}`);
 
     this.canvas = canvas;
+  }
+
+  private onResizeDiagram():void {
+    if (this.diagramId !== this.resizedDiagramId) return;
   }
 
   /**
@@ -767,19 +759,6 @@ interface CanvasSelections {
   position: absolute;
   height: 100%;
   width: 100%;
-}
-
-.editor-pain {
-  resize: both;
-  width: 80%;
-}
-
-.paret-pain {
-  width: 0%;
-  flex-grow: 1;
-  min-width: 0px;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 .slidebar {
