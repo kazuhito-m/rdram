@@ -55,6 +55,9 @@
               <v-list-item link @click="onClickMenuRemoveDiagram">
                 <v-list-item-title>{{ menuTargetTreeItemName }}削除</v-list-item-title>
               </v-list-item>
+              <v-list-item link @click="onClickMenuEditDiagramProperties">
+                <v-list-item-title>{{ menuTargetTreeItemName }}設定</v-list-item-title>
+              </v-list-item>
             </v-list>
           </v-menu>
         </div>
@@ -86,6 +89,12 @@
               />
             </v-tab-item>
           </v-tabs-items>
+
+          <DiagramPropertiesEditDialog
+            :diagramId="propertiesEditorDiagramId"
+            @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
+            @onClose="onCloseDiagramPropertiesEditDialog"
+          />
         </div>
       </template>
     </TwoPainWithSlideBarLayout>
@@ -96,6 +105,7 @@
 import { Component, Vue, Prop, Inject } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/presentation/components/TwoPainWithSlideBarLayout.vue";
 import DiagramEditorContainer from "@/presentation/components/diagrams/DiagramEditorContainer.vue";
+import DiagramPropertiesEditDialog from "@/presentation/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
@@ -104,13 +114,14 @@ import Resource from "@/domain/resource/Resource";
 import MessageBox from "@/presentation/MessageBox";
 import Resources from "@/domain/resource/Resources";
 import BusinessContextDiagramEditor from "@/presentation/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
-import StrageRepository from "../domain/strage/StrageRepository";
-import Diagrams from "../domain/diagram/Diagrams";
+import StrageRepository from "@/domain/strage/StrageRepository";
+import Diagrams from "@/domain/diagram/Diagrams";
 
 @Component({
   components: {
     TwoPainWithSlideBarLayout,
-    DiagramEditorContainer
+    DiagramEditorContainer,
+    DiagramPropertiesEditDialog
   }
 })
 export default class extends Vue {
@@ -141,6 +152,8 @@ export default class extends Vue {
   private menuTargetTreeItemName = "";
   private menuPositionX = 0;
   private menuPositionY = 0;
+
+  private propertiesEditorDiagramId = 0;
 
   private currentTabIndex: number | null = null;
   private openTabs: TreeItem[] = [];
@@ -375,6 +388,11 @@ export default class extends Vue {
     children.push(diagramTreeItem);
   }
 
+  private onClickMenuEditDiagramProperties(): void {
+    const diagramId = this.menuTargetTreeItemId;
+    this.propertiesEditorDiagramId = diagramId;
+  }
+
   private folderItemOf(
     diagramType: DiagramType,
     treeItems: TreeItem[]
@@ -502,6 +520,10 @@ export default class extends Vue {
     const foundItem = this.findTreeItemById(diagram.id, this.treeItems);
     if (!foundItem) return;
     foundItem.name = diagram.name;
+  }
+
+  private onCloseDiagramPropertiesEditDialog(): void {
+    this.propertiesEditorDiagramId = 0;
   }
 }
 
