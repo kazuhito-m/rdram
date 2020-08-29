@@ -16,91 +16,14 @@
     </div>
     <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
     <div class="paret-pain" :id="paretPainId">
-      <v-expansion-panels class="paret-panel" v-model="paretsOpen" multiple focusable dark>
-        <v-expansion-panel
-          class="paret-panel"
-          v-for="resourceType in availableResourceTypes"
-          :key="resourceType.id"
-        >
-          <v-expansion-panel-header>
-            <div class="omit-long-text">
-              <v-icon :id="resourceType.iconKey">{{ resourceType.iconKey }}</v-icon>
-              {{ resourceType.name }}
-            </div>
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-list dark dence>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title class="chip-container">
-                    <v-chip
-                      color="primary"
-                      dark
-                      outlined
-                      draggable
-                      @dragstart="onDragStartNewCompany"
-                      :data-resource-type-id="resourceType.id"
-                    >
-                      <v-icon>{{ resourceType.iconKey }}</v-icon>新規追加
-                    </v-chip>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-list-item
-                v-for="resource in allResourcesOnCurrentProduct.filter(r => filterDisplayParet(r, resourceType, usedResouceIds))"
-                :key="resource.resourceId"
-              >
-                <v-list-item-content>
-                  <v-list-item-title class="chip-container">
-                    <v-chip
-                      v-bind:data-resource-id="resource.resourceId"
-                      color="primary"
-                      dark
-                      draggable
-                      @dragstart="onDragStartResource"
-                      @contextmenu="onRightClickResource"
-                    >
-                      <v-icon>{{ resourceType.iconKey }}</v-icon>
-                      {{ resource.name }}
-                    </v-chip>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel>
-          <v-expansion-panel-header>
-            <div class="omit-long-text">
-              <v-icon>mdi-clipboard-check-multiple-outline</v-icon>この図で使用済
-            </div>
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-list dark dence>
-              <v-list-item
-                v-for="usedResource in allResourcesOnCurrentProduct.filter(r => filterUsedList(r, usedResouceIds))"
-                :key="usedResource.id"
-              >
-                <v-list-item-content>
-                  <v-list-item-title class="chip-container">
-                    <v-chip
-                      dark
-                      v-bind:data-resource-id="usedResource.resourceId"
-                      data-resource-on-diagram="true"
-                      @contextmenu="onRightClickResource"
-                    >
-                      <v-icon>{{ iconKeyOf(usedResource) }}</v-icon>
-                      {{ usedResource.name }}
-                    </v-chip>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
+      <Paret
+        :diagramId="diagramId"
+        :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+        :usedResouceIds="usedResouceIds"
+        :product="product"
+        @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
+        @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
+      />
     </div>
 
     <v-snackbar v-model="warnBar" timeout="2000">
@@ -120,29 +43,6 @@
       @onChangeRouterType="onChangeRouterTypeOnEditor"
       @onClickDeleteConnection="onClickDeleteConnection"
     />
-
-    <v-menu
-      :value="rightClickedResourceId"
-      :close-on-click="true"
-      :close-on-content-click="true"
-      :offset-x="true"
-      :rounded="true"
-      :position-x="rightClickedResourceX"
-      :position-y="rightClickedResourceY"
-    >
-      <v-list>
-        <v-list-item
-          link
-          v-if="rightClickedResourceOnDiagram"
-          @click="onClickMenuDeleteResourceOnDiagram"
-        >
-          <v-list-item-title>このダイアグラムから削除</v-list-item-title>
-        </v-list-item>
-        <v-list-item link @click="onClickMenuDeleteResourceOnProduct">
-          <v-list-item-title>プロダクト全体から削除</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
   </div>
 </template>
 
@@ -155,6 +55,7 @@ import {
   Emit,
   Watch
 } from "nuxt-property-decorator";
+import Paret from "@/presentation/components/diagrams/editor/businesscontextdiagram/paret/Paret.vue";
 import ConnectorRightClickMenuAndEditor from "./ConnectorRightClickMenuAndEditor.vue";
 import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import { RelationContainer } from "./ConnectorRightClickMenuAndEditor.vue";
@@ -198,10 +99,11 @@ import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 import CanvasGuideType from "../toolbar/CanvasGuideType";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import DownloadFile from "@/domain/client/DownloadFile";
-import Products from "../../../../../domain/product/Products";
+import Products from "@/domain/product/Products";
 
 @Component({
   components: {
+    Paret,
     ConnectorRightClickMenuAndEditor,
     CanvasSettingToolBar
   }
@@ -244,8 +146,6 @@ export default class BusinessContextDiagramEditor extends Vue {
   private canvasId!: string;
 
   private paretPainWidth: string | null = null;
-  private readonly paretsOpen: number[] = [];
-  private availableResourceTypes: ResourceType[] = [];
 
   private warnBar: boolean = false;
   private warnMessage: string = "";
@@ -258,11 +158,6 @@ export default class BusinessContextDiagramEditor extends Vue {
   private targetRelationId = "";
   private editableRouterId = 0;
 
-  private rightClickedResourceId = 0;
-  private rightClickedResourceOnDiagram = false;
-  private rightClickedResourceX = 0;
-  private rightClickedResourceY = 0;
-
   private canvasZoom = 1;
 
   public created(): void {
@@ -274,12 +169,6 @@ export default class BusinessContextDiagramEditor extends Vue {
 
     this.paretPainId = "paretPain" + diagramId;
     this.canvasId = "canvas" + diagramId;
-
-    diagram
-      .availableResourceTypes()
-      .forEach(resourceType => this.availableResourceTypes.push(resourceType));
-    for (let i = 0; i < this.availableResourceTypes.length + 1; i++)
-      this.paretsOpen.push(i);
 
     this.lastResourcesOnCurrentProductCount = this.allResourcesOnCurrentProduct.length;
   }
@@ -549,49 +438,14 @@ export default class BusinessContextDiagramEditor extends Vue {
     event.preventDefault();
   }
 
-  public onDragStartNewCompany(event: DragEvent): void {
-    if (!event.target) return;
-    const target = event.target as HTMLElement;
-    const text = target.getAttribute("data-resource-type-id");
-    if (!text) return;
-    const resourceTypeId = parseInt(text, 10);
-    event.dataTransfer?.setData("text", "-" + resourceTypeId);
-  }
-
-  public onDragStartResource(event: DragEvent): void {
-    const chip = event.srcElement as HTMLElement;
-    const resourceIdText = chip.getAttribute("data-resource-id") as string;
-    event.dataTransfer?.setData("text", resourceIdText);
-  }
-
-  private onRightClickResource(event: MouseEvent): void {
-    event.preventDefault();
-    const src = event.srcElement as HTMLElement;
-    let resourceIdText = src.getAttribute("data-resource-id") as string;
-    const chip = src.parentElement as HTMLElement; // FIXME ちょっと「Veutifyの構造を知りすぎてる」気がする。手が在れば変えたい。
-    resourceIdText = chip.getAttribute("data-resource-id") as string;
-    if (!resourceIdText) return;
-
-    const onDinagram = chip.getAttribute("data-resource-on-diagram") as string;
-    this.rightClickedResourceOnDiagram = onDinagram === "true";
-    this.rightClickedResourceId = 0;
-    this.rightClickedResourceX = event.x;
-    this.rightClickedResourceY = event.y;
-    this.$nextTick(() => {
-      this.rightClickedResourceId = Number(resourceIdText);
-    });
-  }
-
-  private onClickMenuDeleteResourceOnDiagram(): void {
-    const resourceId = Number(this.rightClickedResourceId);
+  private onDeleteResourceOnDiagram(resourceId: number): void {
     const diagram = this.deleteResourceOnDiagram(resourceId);
     if (!diagram) return;
     this.reverceSyncCavansDeleteThings();
     this.mergePlacement(this.usedResouceIds, diagram.placements);
   }
 
-  private onClickMenuDeleteResourceOnProduct(): void {
-    const resourceId = Number(this.rightClickedResourceId);
+  private onDeleteResourceOnProduct(resourceId: number): void {
     this.deleteResourceOnProduct(resourceId);
     this.onUpdateResources();
   }
@@ -602,7 +456,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     const resource = product.resources.of(resourceId);
     if (!resource) return null;
 
-    if (!this.confirmResourceDelete([], diagram)) return null;
+    if (!this.confirmResourceDelete([resourceId], diagram)) return null;
 
     const modifiedDiagram = diagram.removeResouceOf(resource);
     const diagrams = product.diagrams.meage(modifiedDiagram);
@@ -806,24 +660,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     });
   }
 
-  private filterDisplayParet(
-    resource: Resource,
-    resourceType: ResourceType,
-    usedResouceIds: number[]
-  ): boolean {
-    const diagram = this.product.diagrams.of(this.diagramId);
-    if (!diagram) return false;
-    if (!resource.type.equals(resourceType)) return false;
-    return !usedResouceIds.includes(resource.resourceId);
-  }
-
-  private filterUsedList(
-    resource: Resource,
-    usedResouceIds: number[]
-  ): boolean {
-    return usedResouceIds.includes(resource.resourceId);
-  }
-
   private onZoomChangeFromCanvas(emitterFigure: Figure, zoomData: any) {
     this.canvasZoom = zoomData.value;
   }
@@ -970,31 +806,5 @@ interface CanvasSelections {
   /* background-color: white; */
 
   position: relative;
-}
-
-.paret-panel {
-  position: sticky;
-  width: 100%;
-}
-
-.omit-long-text {
-  position: absolute;
-  text-align: left;
-  text-overflow: ellipsis;
-  overflow-x: hidden;
-  white-space: nowrap;
-  width: 100%;
-  padding: 0px;
-}
-
-div[class*="-expansion-panel-content__wrap"] {
-  padding: 0 0px 0px;
-  flex: auto;
-}
-
-.chip-container {
-  position: absolute;
-  text-align: left;
-  width: 100%;
 }
 </style>
