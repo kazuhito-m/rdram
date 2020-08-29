@@ -213,9 +213,14 @@ export default class BusinessContextDiagramEditor extends Vue {
     canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
     canvas.installEditPolicy(new draw2d.policy.canvas.ExtendedKeyboardPolicy());
 
-    const editorPain = this.$refs.editorPain as HTMLElement;
-    editorPain.id = `editorPain${this.diagramId}`;
-    canvas.setScrollArea(`#${editorPain.id}`);
+    // XXX 多分必要だと思うのだけど、実害がないので一旦消す。
+    // これで「スクロールの元と成るオブジェクトがわからなくなる」のだとは思うが、
+    // canvasのスクロールを制御するコードがまだないので、このままにしておく。
+    // 必要になったらここを思い出すこと。(無理だろ…)
+    //
+    // const editorPain = this.$refs.editorPain as HTMLElement;
+    // editorPain.id = `editorPain${this.diagramId}`;
+    // canvas.setScrollArea(`#${editorPain.id}`);
 
     this.canvas = canvas;
   }
