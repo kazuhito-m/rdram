@@ -30,25 +30,33 @@ import Uuid from "@/domain/world/Uuid";
 export default class TwoPainWithSlideBarLayout extends Vue {
   @Prop()
   private adsorptionLeftWhenDoubleClick?: boolean;
+  @Prop()
+  private readonly defaultLeftPainWidth?: string;
 
   private dragId?: string;
-  private paretPainWidth: string | null = null;
+  private leftPainWidth: string | null = null;
+
+  private mounted(): void {
+    if (!this.defaultLeftPainWidth) return;
+    const leftPain = document.getElementById("leftPainId") as HTMLElement;
+    leftPain.style.width = this.defaultLeftPainWidth;
+  }
 
   public onDoubleClickSlideBar(): void {
     const leftPain = document.getElementById("leftPainId") as HTMLElement;
     const leftPainStyle = leftPain.style;
     if (this.adsorptionLeftWhenDoubleClick) {
       const rightPainStyle = this.styleOf("rightPainId");
-      if (this.paretPainWidth === null) {
+      if (this.leftPainWidth === null) {
         rightPainStyle.display = "none";
-        this.paretPainWidth = leftPainStyle.width;
+        this.leftPainWidth = leftPainStyle.width;
         leftPainStyle.width = "100%";
         leftPainStyle.resize = "none";
       } else {
         rightPainStyle.display = "inline";
         leftPainStyle.resize = "horizontal";
-        leftPainStyle.width = this.paretPainWidth;
-        this.paretPainWidth = null;
+        leftPainStyle.width = this.leftPainWidth;
+        this.leftPainWidth = null;
       }
     } else {
       leftPainStyle.display =
