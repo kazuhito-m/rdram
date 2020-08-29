@@ -594,11 +594,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     return window.getComputedStyle(iconElement, "::before");
   }
 
-  private iconKeyOf(resource: Resource): string {
-    if (!resource) return "";
-    return resource.type.iconKey;
-  }
-
   /**
    * 開いている他の図の右側パレットを、データの状態と同期する。
    *
