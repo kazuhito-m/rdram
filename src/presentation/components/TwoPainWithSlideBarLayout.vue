@@ -5,7 +5,7 @@
       @dragover="onDragOverMasterPainSlideBar"
       @drop="onDropMasterPainSlideBar"
     >
-      <div id="leftPainId" class="left-pain">
+      <div ref="leftPain" class="left-pain">
         <slot name="leftPain"></slot>
       </div>
       <div
@@ -15,7 +15,7 @@
         @dblclick="onDoubleClickSlideBar"
         @dragstart="onDragStartMasterPainSlideBar"
       ></div>
-      <div id="rightPainId" class="right-pain">
+      <div ref="rightPain" class="right-pain">
         <slot name="rightPain"></slot>
       </div>
     </div>
@@ -38,15 +38,16 @@ export default class TwoPainWithSlideBarLayout extends Vue {
 
   private mounted(): void {
     if (!this.defaultLeftPainWidth) return;
-    const leftPain = document.getElementById("leftPainId") as HTMLElement;
+    const leftPain = this.$refs.leftPain as HTMLElement;
     leftPain.style.width = this.defaultLeftPainWidth;
   }
 
   public onDoubleClickSlideBar(): void {
-    const leftPain = document.getElementById("leftPainId") as HTMLElement;
+    const leftPain = this.$refs.leftPain as HTMLElement;
     const leftPainStyle = leftPain.style;
     if (this.adsorptionLeftWhenDoubleClick) {
-      const rightPainStyle = this.styleOf("rightPainId");
+      const rightPain = this.$refs.rightPain as HTMLElement;
+      const rightPainStyle = rightPain.style;
       if (this.leftPainWidth === null) {
         rightPainStyle.display = "none";
         this.leftPainWidth = leftPainStyle.width;
@@ -64,11 +65,6 @@ export default class TwoPainWithSlideBarLayout extends Vue {
     }
   }
 
-  private styleOf(id: string): CSSStyleDeclaration {
-    const element = document.getElementById(id) as HTMLElement;
-    return element.style;
-  }
-
   private onDragStartMasterPainSlideBar(event: DragEvent): void {
     this.dragId = Uuid.generate();
     event.dataTransfer?.setData("text", this.dragId);
@@ -81,7 +77,8 @@ export default class TwoPainWithSlideBarLayout extends Vue {
   private onDropMasterPainSlideBar(event: DragEvent): void {
     event.preventDefault();
     if (event.dataTransfer?.getData("text") !== this.dragId) return;
-    const style = this.styleOf("leftPainId");
+    const leftPain = this.$refs.leftPain as HTMLElement;
+    const style = leftPain.style;
     let painLeft = 0;
     if (style.left) {
       const left = style.left;
