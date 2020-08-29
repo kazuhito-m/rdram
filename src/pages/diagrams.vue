@@ -50,10 +50,10 @@
           >
             <v-list>
               <v-list-item link @click="onClickMenuCopyDiagram">
-                <v-list-item-title>ダイアグラムのコピー...</v-list-item-title>
+                <v-list-item-title>{{ menuTargetTreeItemName }}コピー...</v-list-item-title>
               </v-list-item>
               <v-list-item link @click="onClickMenuRemoveDiagram">
-                <v-list-item-title>ダイアグラムの削除</v-list-item-title>
+                <v-list-item-title>{{ menuTargetTreeItemName }}削除</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -138,6 +138,7 @@ export default class extends Vue {
   private enableRightClickMenu = false;
   private enableDiagramRightClickMenu = false;
   private menuTargetTreeItemId: number = 0;
+  private menuTargetTreeItemName = "";
   private menuPositionX = 0;
   private menuPositionY = 0;
 
@@ -231,10 +232,12 @@ export default class extends Vue {
     const data = element.getAttribute("data-item-id");
     if (!data) return;
     const treeItemId = parseInt(data, 10);
-
     if (treeItemId <= 0) return;
+    const treeItem = this.findTreeItemById(treeItemId, this.treeItems);
+    if (!treeItem) return;
 
     this.menuTargetTreeItemId = treeItemId;
+    this.menuTargetTreeItemName = `${treeItem.name} の`;
 
     this.enableRightClickMenu = false;
     this.enableDiagramRightClickMenu = false;
