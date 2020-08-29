@@ -1,4 +1,6 @@
 import Resource from "./Resource";
+import Product from "../product/Product";
+import ResourceType from "./ResourceType";
 
 export default class Resources {
     private readonly values: Resource[];
@@ -11,9 +13,10 @@ export default class Resources {
         return new Resources([]);
     }
 
-    public existsSomeName(name: string): boolean {
+    public existsSomeName(name: string, type: ResourceType): boolean {
         return this.values
-            .some(resource => resource.name === name);
+            .filter(resource => resource.name === name)
+            .some(resource => resource.type.equals(type));
     }
 
     public of(resourceId: number): Resource | null {
@@ -59,5 +62,8 @@ export default class Resources {
 
     public filter(func: (resoruce: Resource) => boolean): Resource[] {
         return this.values.filter(func);
+    }
+    public last(): Resource {
+        return this.values[this.values.length - 1];
     }
 }

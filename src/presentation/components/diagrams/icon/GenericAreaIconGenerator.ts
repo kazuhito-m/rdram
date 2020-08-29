@@ -4,11 +4,12 @@ import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
 import Resource from '~/domain/resource/Resource';
 import IconGenerator from './IconGenerator';
 import ResourceType from '~/domain/resource/ResourceType';
+import IconFontAndChar from './IconFontAndChar';
 
 export default abstract class GenericAreaIconGenerator implements IconGenerator {
     public abstract resourceType(): ResourceType;
-    
-    public generate(placement: Placement, resource: Resource, iconStyle: CSSStyleDeclaration): Figure {
+
+    public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {
         const id = String(placement.resourceId);
 
         const waku = new draw2d.shape.basic.Rectangle({
@@ -28,8 +29,8 @@ export default abstract class GenericAreaIconGenerator implements IconGenerator 
         });
 
         const icon = new draw2d.shape.basic.Label({
-            fontFamily: iconStyle.fontFamily,
-            text: iconStyle.content.replace(/"/g, ""),
+            fontFamily: iconChar.fontFamily,
+            text: iconChar.charactor,
             fontSize: 30,
             stroke: 0,
             padding: 0,

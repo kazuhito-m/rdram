@@ -39,6 +39,32 @@ export default class BusinessContextDiagram extends Diagram {
         ];
     }
 
+    public createPlacement(resource: Resource, left: number, top: number): Placement | null {
+        if (this.ngType(resource.type)) return null;
+
+        let width = 0;
+        let height = 0;
+        const resType = resource.type;
+        if (
+            ResourceType.組織.equals(resType) ||
+            ResourceType.会社.equals(resType)
+        ) {
+            width = 80;
+            height = 35;
+        }
+        if (ResourceType.業務.equals(resType)) {
+            width = 105;
+            height = 35;
+        }
+        return new Placement(
+            left,
+            top,
+            width,
+            height,
+            resource.resourceId
+        );
+    }
+
     public with(name: string): BusinessContextDiagram {
         return new BusinessContextDiagram(
             this.id,

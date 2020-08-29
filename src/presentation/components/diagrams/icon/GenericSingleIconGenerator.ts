@@ -3,19 +3,20 @@ import Placement from "@/domain/diagram/placement/Placement";
 import Resource from '~/domain/resource/Resource';
 import IconGenerator from './IconGenerator';
 import ResourceType from '~/domain/resource/ResourceType';
+import IconFontAndChar from './IconFontAndChar';
 
 export default abstract class GenericSingleIconGenerator implements IconGenerator {
     public abstract resourceType(): ResourceType;
 
-    public generate(placement: Placement, resource: Resource, iconStyle: CSSStyleDeclaration): Figure {
+    public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {
         const padding = 0;
         const id = String(placement.resourceId);
 
         const icon = new draw2d.shape.basic.Label({
             x: placement.x,
             y: placement.y,
-            fontFamily: iconStyle.fontFamily,
-            text: iconStyle.content.replace(/"/g, ""),
+            fontFamily: iconChar.fontFamily,
+            text: iconChar.charactor,
             fontSize: 40,
             stroke: 0,
             padding: padding,

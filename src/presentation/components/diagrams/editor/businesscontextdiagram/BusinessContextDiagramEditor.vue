@@ -58,6 +58,7 @@ import BCDDeleteShapeEvents from "./draw2d/eventanalyze/BCDDeleteShapeEvents";
 import BCDMoveShapeEvents from "./draw2d/eventanalyze/BCDMoveShapeEvents";
 import BCDResizeShapeEvents from "./draw2d/eventanalyze/BCDResizeShapeEvents";
 
+import IconFontAndChar from "@/presentation/components/diagrams/icon/IconFontAndChar";
 import CompanyIconGenerator from "@/presentation/components/diagrams/editor/businesscontextdiagram/icon/CompanyIconGenerator";
 import ActorIconGenerator from "@/presentation/components/diagrams/editor/businesscontextdiagram/icon/ActorIconGenerator";
 import RoomIconGenerator from "@/presentation/components/diagrams/editor/businesscontextdiagram/icon/RoomIconGenerator";
@@ -147,6 +148,8 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   private canvasZoom = 1;
 
+  private readonly iconMap: { [key: string]: IconFontAndChar } = {};
+
   public created(): void {
     this.product = this.getCurrentProduct();
 
@@ -165,6 +168,7 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.$nextTick(() => {
       const diagram = this.product.diagrams.of(this.diagramId) as Diagram;
 
+      this.intializeIconCharMap(diagram);
       this.showCanvas();
       this.fixCanvasPosition();
       this.addCanvasEvent();
@@ -570,11 +574,8 @@ export default class BusinessContextDiagramEditor extends Vue {
     return generator ? generator : null;
   }
 
-  private iconStyleOf(resourceType: ResourceType): CSSStyleDeclaration {
-    const iconElement = document.getElementById(
-      resourceType.iconKey
-    ) as HTMLDialogElement;
-    return window.getComputedStyle(iconElement, "::before");
+  private iconStyleOf(resourceType: ResourceType): IconFontAndChar {
+    return this.iconMap[resourceType.iconKey];
   }
 
   /**
@@ -714,8 +715,24 @@ export default class BusinessContextDiagramEditor extends Vue {
       const resourceId = Number(figure.id);
       if (!diagram.existsPlacementId(resourceId)) canvas.remove(figure);
     });
-
     this.product = product;
+  }
+
+  private intializeIconCharMap(diagram: Diagram): void {
+    diagram
+      .availableResourceTypes()
+      .map(resourceType => resourceType.iconKey)
+      .forEach(i => (this.iconMap[i] = this.analyzeMdiIconCharOf(i)));
+  }
+
+  private analyzeMdiIconCharOf(iconKey: string): IconFontAndChar {
+    const e = document.getElementById(iconKey) as HTMLDialogElement;
+    const style = window.getComputedStyle(e, "::before") as CSSStyleDeclaration;
+    const content = style.content;
+    return {
+      fontFamily: style.fontFamily,
+      charactor: content.replace(/"/g, "")
+    };
   }
 
   private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {

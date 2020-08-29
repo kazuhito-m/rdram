@@ -24,6 +24,10 @@ export default class Diagram {
         return [];
     }
 
+    public createPlacement(resource: Resource, left: number, top: number): Placement | null {
+        return null;
+    }
+
     public placementOf(resourceId: number): Placement | null {
         const found = this.placements
             .find(placement => placement.resourceId === resourceId);
@@ -93,8 +97,24 @@ export default class Diagram {
     /**
      * FIXME ここだ「イミュータブルを破ってしまって」いる…なんとかしたい。 
      */
-    public addRelation(relation: Relation) {
+    public addRelation(relation: Relation): Diagram {
         this.relations.push(relation);
+        return this;
+    }
+
+    public addPlacement(placement: Placement): Diagram {
+        const newValues = Array.from(this.placements);
+        newValues.push(placement);
+
+        return new Diagram(
+            this.id,
+            this.typeId,
+            this.name,
+            this.relations,
+            newValues,
+            this.width,
+            this.height,
+        );
     }
 
     public existsSomeRelation(relation: Relation): boolean {
@@ -131,6 +151,11 @@ export default class Diagram {
 
     public get type(): DiagramType {
         return DiagramType.ofId(this.typeId) as DiagramType;
+    }
+
+    protected ngType(resourceType: ResourceType): boolean {
+        return !this.availableResourceTypes()
+            .some(type => type.equals(resourceType));
     }
 
     public with(name: string): Diagram {

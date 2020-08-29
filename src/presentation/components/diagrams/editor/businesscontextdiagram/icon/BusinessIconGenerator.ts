@@ -3,13 +3,14 @@ import Placement from '@/domain/diagram/placement/Placement';
 import Resource from '@/domain/resource/Resource';
 import IconGenerator from '@/presentation/components/diagrams/icon/IconGenerator';
 import ResourceType from '@/domain/resource/ResourceType';
+import IconFontAndChar from '../../../icon/IconFontAndChar';
 
 export default class BusinessIconGenerator implements IconGenerator {
     public resourceType(): ResourceType {
         return ResourceType.業務;
     }
 
-    public generate(placement: Placement, resource: Resource, iconStyle: CSSStyleDeclaration): Figure {
+    public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {
         const id = String(placement.resourceId);
 
         const waku = new draw2d.shape.basic.Oval({
@@ -37,8 +38,8 @@ export default class BusinessIconGenerator implements IconGenerator {
         });
 
         const icon = new draw2d.shape.basic.Label({
-            fontFamily: iconStyle.fontFamily,
-            text: iconStyle.content.replace(/"/g, ""),
+            fontFamily: iconChar.fontFamily,
+            text: iconChar.charactor,
             fontSize: 25,
             stroke: 0,
             padding: 0,

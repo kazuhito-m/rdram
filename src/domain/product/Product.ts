@@ -4,6 +4,8 @@ import ProductIdentifier from '@/domain/product/ProductIdentifier';
 import Diagrams from '@/domain/diagram/Diagrams';
 import Diagram from '@/domain/diagram/Diagram';
 import Resource from '@/domain/resource/Resource';
+import ResourceType from '../resource/ResourceType';
+import ResourceFactory from '../resource/ResourceFactory';
 
 export default class Product {
     constructor(
@@ -90,5 +92,19 @@ export default class Product {
             this.resources,
             this.resourceIdSequence + 1,
         );
+    }
+
+
+    public createAndAddResource(name: string, resourceType: ResourceType): Product {
+        const factory = new ResourceFactory();
+        const updated = this.moveNextResourceIdSequence();
+        const newResouceId = this.resourceIdSequence;
+        const resource = factory.create(name, resourceType, newResouceId);
+        const addedResources = updated.resources.add(resource);
+        return updated.withResources(addedResources);
+    }
+
+    public lastCreatdResource(): Resource {
+        return this.resources.last();
     }
 }
