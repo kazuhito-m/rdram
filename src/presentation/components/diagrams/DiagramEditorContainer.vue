@@ -6,7 +6,6 @@
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
-      @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     />
     <SystemContextDiagramEditor
@@ -15,7 +14,6 @@
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
-      @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     />
     <StateModelEditor
@@ -24,7 +22,6 @@
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
-      @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     />
   </div>
@@ -58,9 +55,6 @@ export default class DiagramEditorContainer extends Vue {
 
   @Prop({ required: true })
   private lastPropertiesUpdatedDiagramId?: number;
-
-  @Emit("onUpdatedDiagramProperties")
-  private onUpdatedDiagramProperties(diagram: Diagram): void {}
 
   @Emit("onOpendDiagramPropertiesEditor")
   private onOpendDiagramPropertiesEditor(diagramId: number): void {}
