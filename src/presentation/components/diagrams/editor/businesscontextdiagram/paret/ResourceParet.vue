@@ -118,7 +118,7 @@ import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
 
 @Component
-export default class Paret extends Vue {
+export default class ResourceParet extends Vue {
   @Prop({ required: true })
   private readonly diagramId!: number;
   @Prop({ required: true })

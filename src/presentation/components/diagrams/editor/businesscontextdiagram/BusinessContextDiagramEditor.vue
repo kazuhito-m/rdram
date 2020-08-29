@@ -16,7 +16,7 @@
     </div>
     <div id="slideBar" class="slidebar" @dblclick="onDoubleClickSlideBar"></div>
     <div class="paret-pain" :id="paretPainId">
-      <Paret
+      <ResourceParet
         :diagramId="diagramId"
         :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
         :usedResouceIds="usedResouceIds"
@@ -55,7 +55,7 @@ import {
   Emit,
   Watch
 } from "nuxt-property-decorator";
-import Paret from "@/presentation/components/diagrams/editor/businesscontextdiagram/paret/Paret.vue";
+import ResourceParet from "@/presentation/components/diagrams/editor/businesscontextdiagram/paret/ResourceParet.vue";
 import ConnectorRightClickMenuAndEditor from "./ConnectorRightClickMenuAndEditor.vue";
 import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import { RelationContainer } from "./ConnectorRightClickMenuAndEditor.vue";
@@ -103,7 +103,7 @@ import Products from "@/domain/product/Products";
 
 @Component({
   components: {
-    Paret,
+    ResourceParet,
     ConnectorRightClickMenuAndEditor,
     CanvasSettingToolBar
   }
