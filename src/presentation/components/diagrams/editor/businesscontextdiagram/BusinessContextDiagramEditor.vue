@@ -585,6 +585,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   private onClickMenuDeleteResourceOnDiagram(): void {
     const resourceId = Number(this.rightClickedResourceId);
     const diagram = this.deleteResourceOnDiagram(resourceId);
+    if (!diagram) return;
     this.reverceSyncCavansDeleteThings();
     this.mergePlacement(this.usedResouceIds, diagram.placements);
   }
@@ -595,13 +596,13 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.onUpdateResources();
   }
 
-  private deleteResourceOnDiagram(resourceId: number): Diagram {
+  private deleteResourceOnDiagram(resourceId: number): Diagram | null {
     const product = this.getCurrentProduct();
     const diagram = product.diagrams.of(this.diagramId) as Diagram;
     const resource = product.resources.of(resourceId);
-    if (!resource) return;
+    if (!resource) return null;
 
-    if (!this.confirmResourceDelete([], diagram)) return;
+    if (!this.confirmResourceDelete([], diagram)) return null;
 
     const modifiedDiagram = diagram.removeResouceOf(resource);
     const diagrams = product.diagrams.meage(modifiedDiagram);
