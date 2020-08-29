@@ -13,6 +13,7 @@
           @onChangeZoomBySlider="onChangeZoomBySlider"
           @onChangeCanvasGuideType="onChangeCanvasGuideType"
           @onSvgDownload="onSvgDownload"
+          @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
         />
       </template>
       <template v-slot:rightPain>
@@ -122,6 +123,9 @@ export default class BusinessContextDiagramEditor extends Vue {
   @Prop()
   private resizedDiagramId = 0;
 
+  @Prop({ required: true })
+  private lastPropertiesUpdatedDiagramId?: number;
+
   private canvas!: draw2d.Canvas;
   private readonly eventAnalyzer = new EventAnalyzer([
     new BCDDeleteShapeEvents(),
@@ -176,16 +180,22 @@ export default class BusinessContextDiagramEditor extends Vue {
     });
   }
 
-  @Emit("onUpdatedDiagramProperties")
-  private onUpdatedDiagramProperties(diagram: Diagram): void {
+  @Watch("lastPropertiesUpdatedDiagramId")
+  private onUpdatedDiagramProperties(): void {
+    if (this.diagramId !== this.lastPropertiesUpdatedDiagramId) return;
+
+    const product = this.getCurrentProduct();
+    const diagram = product.diagrams.of(this.diagramId);
+    if (!diagram) return;
+
     const c = this.canvas;
     if (c.getWidth() === diagram.width && c.getHeight() === diagram.height)
       return;
 
-    this.usedResouceIds.splice(0, this.usedResouceIds.length);
-    c.clear();
-    this.drawDiagram(diagram);
+    this.reverceSyncCavansDeleteThings();
+    this.canvas.setDimension(diagram.width, diagram.height);
     this.onChangeZoomBySlider(this.canvasZoom);
+    this.mergePlacement(this.usedResouceIds, diagram.placements);
   }
 
   @Emit("onUpdateResources")
@@ -213,7 +223,10 @@ export default class BusinessContextDiagramEditor extends Vue {
     this.canvas = canvas;
   }
 
-  private onResizeDiagram():void {
+  @Emit("onOpendDiagramPropertiesEditor")
+  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
+
+  private onResizeDiagram(): void {
     if (this.diagramId !== this.resizedDiagramId) return;
   }
 

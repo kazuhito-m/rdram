@@ -84,8 +84,10 @@
               <DiagramEditorContainer
                 :diagram-id="item.id"
                 :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+                :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
                 @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
                 @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
+                @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
               />
             </v-tab-item>
           </v-tabs-items>
@@ -154,6 +156,7 @@ export default class extends Vue {
   private menuPositionY = 0;
 
   private propertiesEditorDiagramId = 0;
+  private lastPropertiesUpdatedDiagramId = 0;
 
   private currentTabIndex: number | null = null;
   private openTabs: TreeItem[] = [];
@@ -207,6 +210,10 @@ export default class extends Vue {
       this.addDiagramTreeItem(diagram, items)
     );
     return items;
+  }
+
+  private onOpendDiagramPropertiesEditor(diagramId: number): void {
+    this.propertiesEditorDiagramId = diagramId;
   }
 
   public onClickTreeItem(treeItemIdText: string): void {
@@ -520,6 +527,10 @@ export default class extends Vue {
     const foundItem = this.findTreeItemById(diagram.id, this.treeItems);
     if (!foundItem) return;
     foundItem.name = diagram.name;
+    this.lastPropertiesUpdatedDiagramId = 0;
+    this.$nextTick(() => {
+      this.lastPropertiesUpdatedDiagramId = diagram.id;
+    });
   }
 
   private onCloseDiagramPropertiesEditDialog(): void {

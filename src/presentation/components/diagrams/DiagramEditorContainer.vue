@@ -4,23 +4,29 @@
       v-if="is('ビジネスコンテキスト図')"
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     />
     <SystemContextDiagramEditor
       v-if="is('システムコンテキスト図')"
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     />
     <StateModelEditor
       v-if="is('状態モデル')"
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
-    />/>
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+    />
   </div>
 </template>
 
@@ -50,8 +56,14 @@ export default class DiagramEditorContainer extends Vue {
   @Prop({ required: true })
   private allResourcesOnCurrentProduct?: Resource[];
 
+  @Prop({ required: true })
+  private lastPropertiesUpdatedDiagramId?: number;
+
   @Emit("onUpdatedDiagramProperties")
   private onUpdatedDiagramProperties(diagram: Diagram): void {}
+
+  @Emit("onOpendDiagramPropertiesEditor")
+  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
 
   private diagram: Diagram | null = null;
 

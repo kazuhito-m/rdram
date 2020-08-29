@@ -13,15 +13,9 @@
     @dragstart="onDragStartToolBar"
     @mousedown="onMouseDownToolBar"
   >
-    <v-btn icon @click="showDiagramPropertiesEditDialog">
+    <v-btn icon @click="onClickEditDiagramProperties">
       <v-icon>mdi-content-save-edit-outline</v-icon>
     </v-btn>
-
-    <DiagramPropertiesEditDialog
-      :diagramId="propertiesEditorDiagramId"
-      @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
-      @onClose="onCloseDiagramPropertiesEditDialog"
-    />
 
     <v-spacer></v-spacer>
 
@@ -101,10 +95,8 @@ export default class CanvasSettingToolBar extends Vue {
   @Emit("onSvgDownload")
   private onSvgDownLoad(): void {}
 
-  @Emit("onUpdatedDiagramProperties")
-  private onUpdatedDiagramProperties(diagram: Diagram): void {
-    // TODO サイズ変更と再描画
-  }
+  @Emit("onOpendDiagramPropertiesEditor")
+  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
 
   private toolBarId!: string;
   private toolBarCollapse = false;
@@ -112,8 +104,6 @@ export default class CanvasSettingToolBar extends Vue {
   private dragStartLayerY = 0;
 
   private canvasGuideTypeIconKey = CanvasGuideType.なし.iconKey;
-
-  private propertiesEditorDiagramId = 0;
 
   public created(): void {
     this.toolBarId = "toolBar" + this.diagramId;
@@ -277,12 +267,8 @@ export default class CanvasSettingToolBar extends Vue {
     this.onSvgDownLoad();
   }
 
-  private showDiagramPropertiesEditDialog(): void {
-    this.propertiesEditorDiagramId = this.diagramId;
-  }
-
-  private onCloseDiagramPropertiesEditDialog(): void {
-    this.propertiesEditorDiagramId = 0;
+  private onClickEditDiagramProperties(): void {
+    this.onOpendDiagramPropertiesEditor(this.diagramId);
   }
 }
 </script>
