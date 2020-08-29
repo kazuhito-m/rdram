@@ -9,7 +9,6 @@
         <CanvasSettingToolBar
           :diagramId="diagramId"
           :canvasZoom="canvasZoom"
-          @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
           @onChangeZoomBySlider="onChangeZoomBySlider"
           @onChangeCanvasGuideType="onChangeCanvasGuideType"
           @onSvgDownload="onSvgDownload"
@@ -120,9 +119,6 @@ export default class BusinessContextDiagramEditor extends Vue {
   private allResourcesOnCurrentProduct!: Resource[];
   private lastResourcesOnCurrentProductCount = 0;
 
-  @Prop()
-  private resizedDiagramId = 0;
-
   @Prop({ required: true })
   private lastPropertiesUpdatedDiagramId?: number;
 
@@ -134,7 +130,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     new BCDResizeShapeEvents()
   ]);
 
-  private paretPainId!: string;
   private canvasId!: string;
 
   private paretPainWidth: string | null = null;
@@ -159,7 +154,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     const diagram = this.product.diagrams.of(diagramId);
     if (!diagram) return;
 
-    this.paretPainId = "paretPain" + diagramId;
     this.canvasId = "canvas" + diagramId;
 
     this.lastResourcesOnCurrentProductCount = this.allResourcesOnCurrentProduct.length;
@@ -225,10 +219,6 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   @Emit("onOpendDiagramPropertiesEditor")
   private onOpendDiagramPropertiesEditor(diagramId: number): void {}
-
-  private onResizeDiagram(): void {
-    if (this.diagramId !== this.resizedDiagramId) return;
-  }
 
   /**
    * どーしても、draw2dがsvg作るときに”position: absolute"をしてしまうので、削除する。
@@ -353,23 +343,6 @@ export default class BusinessContextDiagramEditor extends Vue {
     const absoluteX = canvas.getAbsoluteX() + x / zoom;
     const absoluteY = canvas.getAbsoluteY() + y / zoom;
     this.showConnectorRightClickMenu(targetRelation, absoluteX, absoluteY);
-  }
-
-  public onDoubleClickSlideBar() {
-    const elem = this.$refs.editorPain as HTMLElement;
-    const style = elem.style;
-    const paretStyle = this.styleOf(this.paretPainId);
-    if (this.paretPainWidth === null) {
-      paretStyle.display = "none";
-      this.paretPainWidth = style.width;
-      style.width = "100%";
-      style.resize = "none";
-    } else {
-      paretStyle.display = "inline";
-      style.resize = "horizontal";
-      style.width = this.paretPainWidth;
-      this.paretPainWidth = null;
-    }
   }
 
   private styleOf(id: string): CSSStyleDeclaration {
@@ -772,12 +745,6 @@ interface CanvasSelections {
   position: absolute;
   height: 100%;
   width: 100%;
-}
-
-.slidebar {
-  width: 8px;
-  background-color: gray;
-  cursor: move;
 }
 
 .canvas-container {

@@ -67,14 +67,12 @@ import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 import { ResizeObserver } from "resize-observer";
 import { Canvas } from "draw2d";
 import CanvasZoomSlider from "./CanvasZoomSlider.vue";
-import DiagramPropertiesEditDialog from "@/presentation/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import CanvasGuideType from "./CanvasGuideType";
 import Diagram from "@/domain/diagram/Diagram";
 
 @Component({
   components: {
     CanvasZoomSlider,
-    DiagramPropertiesEditDialog
   }
 })
 export default class CanvasSettingToolBar extends Vue {
