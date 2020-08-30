@@ -11,6 +11,7 @@
           :iconMap="iconMap"
           @onUpdateResources="onUpdateResources"
           @onMergePlacement="onMergePlacement"
+          @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
           @onShowWarnBar="onShowWarnBar"
         />
       </template>
