@@ -25,6 +25,13 @@
         />
       </template>
     </TwoPainWithSlideBarLayout>
+
+    <v-snackbar v-model="warnBar" timeout="2000">
+      {{ warnMessage }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="blue" text v-bind="attrs" @click="warnBar = false">Close</v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -117,7 +124,6 @@ export default class BusinessContextDiagramEditor extends Vue {
   private onShowWarnBar(text: string): void {
     this.warnMessage = text;
     this.warnBar = true;
-    alert("TODO どっかいったワーンバーの復元:" + text);
   }
 
   private onDeleteResourceOnDiagram(resourceId: number): void {
