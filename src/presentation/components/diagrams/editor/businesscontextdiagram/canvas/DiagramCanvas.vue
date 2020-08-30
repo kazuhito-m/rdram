@@ -228,7 +228,7 @@ export default class DiagramCanvas extends Vue {
   // from Toolbar events.
 
   private onChangeZoomBySlider(zoom: number) {
-    this.canvasZoom = zoom;
+    this.canvas.setZoom(zoom, false);
   }
 
   private onChangeCanvasGuideType(
