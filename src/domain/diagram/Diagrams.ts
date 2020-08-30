@@ -55,13 +55,12 @@ export default class Diagrams {
     }
 
     public meage(diagram: Diagram): Diagrams {
-        const newValues = Array.from(this.values);
-        for (let i = 0; i < newValues.length; i++) {
-            const p = newValues[i];
-            if (p.id !== diagram.id) continue;
-            newValues[i] = diagram;
+        if (this.values.some(d => d.id === diagram.id)) {
+            const newValues = this.values
+                .map(d => d.id === diagram.id ? diagram : d);
             return new Diagrams(newValues);
         }
+        const newValues = Array.from(this.values);
         newValues.push(diagram);
         return new Diagrams(newValues);
     }

@@ -72,7 +72,7 @@ import Diagram from "@/domain/diagram/Diagram";
 
 @Component({
   components: {
-    CanvasZoomSlider,
+    CanvasZoomSlider
   }
 })
 export default class CanvasSettingToolBar extends Vue {
@@ -281,5 +281,6 @@ export default class CanvasSettingToolBar extends Vue {
   display: block;
   z-index: 2;
   transition: none;
+  position: absolute;
 }
 </style>

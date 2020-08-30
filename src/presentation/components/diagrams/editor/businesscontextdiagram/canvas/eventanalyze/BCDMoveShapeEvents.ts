@@ -1,11 +1,11 @@
 import EventsOfType from "~/presentation/draw2d/eventanalyze/EventsOfType";
 import EventGist from "~/presentation/draw2d/eventanalyze/EventGist";
-import BusinessContextDiagramEditor from "~/presentation/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
+import DiagramCanvas from "@/presentation/components/diagrams/editor/businesscontextdiagram/canvas/DiagramCanvas.vue";
 import Product from "~/domain/product/Product";
 import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import { Figure } from "draw2d";
 
-export default class BCDMoveShapeEvents implements EventsOfType<BusinessContextDiagram, BusinessContextDiagramEditor> {
+export default class BCDMoveShapeEvents implements EventsOfType<BusinessContextDiagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
 
     public eventType(): string {
@@ -16,10 +16,10 @@ export default class BCDMoveShapeEvents implements EventsOfType<BusinessContextD
         return new BCDMoveShapeEvents();
     }
 
-    public validate(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
+    public validate(diagram: BusinessContextDiagram, product: Product, view: DiagramCanvas): boolean {
         return this.validTargetFigures().length > 0;
     }
-    public apply(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
+    public apply(diagram: BusinessContextDiagram, product: Product, view: DiagramCanvas): boolean {
         for (let figure of this.validTargetFigures()) {
             const resouceId = parseInt(figure.getId(), 10);
             const placement = diagram.placementOf(resouceId);

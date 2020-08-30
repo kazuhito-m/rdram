@@ -1,11 +1,27 @@
 <template lang="html">
     <div class="canvas-container" ref="convasContainer">
-        <div class="diagram-canvas" :id="canvasId"></div>
+        <div class="diagram-canvas" :id="canvasId" />
+        <CanvasSettingToolBar
+            :diagramId="diagramId"
+            :canvasZoom="canvasZoom"
+            @onChangeZoomBySlider="onChangeZoomBySlider"
+            @onChangeCanvasGuideType="onChangeCanvasGuideType"
+            @onSvgDownload="onSvgDownload"
+            @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+        />
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
+import {
+  Component,
+  Prop,
+  Vue,
+  Emit,
+  Inject,
+  Watch
+} from "vue-property-decorator";
+import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 
 import "jquery";
 import "jquery-ui";
@@ -13,11 +29,13 @@ import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
 import draw2d, { Figure, command } from "draw2d";
 
-import EventAnalyzer from "../../../../../draw2d/eventanalyze/EventAnalyzer";
-import BCDDeleteShapeEvents from "../draw2d/eventanalyze/BCDDeleteShapeEvents";
-import BCDConnectPortsEvents from "../draw2d/eventanalyze/BCDConnectPortsEvents";
-import BCDMoveShapeEvents from "../draw2d/eventanalyze/BCDMoveShapeEvents";
-import BCDResizeShapeEvents from "../draw2d/eventanalyze/BCDResizeShapeEvents";
+import moment from "moment/moment";
+
+import EventAnalyzer from "@/presentation/draw2d/eventanalyze/EventAnalyzer";
+import BCDDeleteShapeEvents from "./eventanalyze/BCDDeleteShapeEvents";
+import BCDConnectPortsEvents from "./eventanalyze/BCDConnectPortsEvents";
+import BCDMoveShapeEvents from "./eventanalyze/BCDMoveShapeEvents";
+import BCDResizeShapeEvents from "./eventanalyze/BCDResizeShapeEvents";
 
 import Product from "../../../../../../domain/product/Product";
 import Diagram from "../../../../../../domain/diagram/Diagram";
@@ -38,8 +56,15 @@ import ContractIconGenerator from "../icon/ContractIconGenerator";
 import Relation from "../../../../../../domain/diagram/relation/Relation";
 import RouterType from "../../../../../../domain/diagram/relation/RouterType";
 import IconFontAndChar from "../../../icon/IconFontAndChar";
+import CanvasGuideType from "../../toolbar/CanvasGuideType";
+import DownloadFile from "../../../../../../domain/client/DownloadFile";
+import ClientDownloadRepository from "../../../../../../domain/client/ClientDownloadRepository";
 
-@Component
+@Component({
+  components: {
+    CanvasSettingToolBar
+  }
+})
 export default class DiagramCanvas extends Vue {
   @Prop({ required: true })
   private readonly diagramId!: number;
@@ -56,10 +81,14 @@ export default class DiagramCanvas extends Vue {
 
   @Inject()
   private repository!: StrageRepository;
+  @Inject()
+  private clientDownloadRepository!: ClientDownloadRepository;
 
   private canvas!: draw2d.Canvas;
   private canvasId!: string;
   private canvasZoom = 1;
+
+  private lastResourcesOnCurrentProductCount = 0;
 
   private readonly eventAnalyzer = new EventAnalyzer([
     new BCDDeleteShapeEvents(),
@@ -94,7 +123,44 @@ export default class DiagramCanvas extends Vue {
   private onUpdateResources(): void {}
 
   @Emit("onMergePlacement")
-  private mergePlacement(diffTarget: Placement[]) {} // TODO 親側未定義
+  private onMergePlacement(diffTarget: Placement[]) {}
+
+  @Emit("onOpendDiagramPropertiesEditor")
+  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
+
+  @Emit("onShowWarnBar")
+  private onShowWarnBar(text: string): void {}
+
+  // Watch event.
+
+  @Watch("lastPropertiesUpdatedDiagramId")
+  private onUpdatedDiagramProperties(): void {
+    if (this.diagramId !== this.lastPropertiesUpdatedDiagramId) return;
+
+    const product = this.repository.getCurrentProduct() as Product;
+    const diagram = product.diagrams.of(this.diagramId);
+    if (!diagram) return;
+
+    const c = this.canvas;
+    if (c.getWidth() === diagram.width && c.getHeight() === diagram.height)
+      return;
+
+    this.reverceSyncCavansDeleteThings();
+    this.canvas.setDimension(diagram.width, diagram.height);
+    this.onChangeZoomBySlider(this.canvasZoom);
+    this.onMergePlacement(diagram.placements);
+  }
+
+  @Watch("allResourcesOnCurrentProduct.length")
+  private onChangeAllResourcesOnCurrentProduct(): void {
+    const whenRemoveResource =
+      this.allResourcesOnCurrentProduct.length <
+      this.lastResourcesOnCurrentProductCount;
+    this.lastResourcesOnCurrentProductCount = this.allResourcesOnCurrentProduct.length;
+    if (!whenRemoveResource) return;
+
+    this.reverceSyncCavansDeleteThings();
+  }
 
   // Vue events.(life cycle events)
 
@@ -102,6 +168,7 @@ export default class DiagramCanvas extends Vue {
     const diagram = this.product?.diagrams.of(this.diagramId);
     if (!diagram) return;
     this.canvasId = "canvas" + this.diagramId;
+    this.lastResourcesOnCurrentProductCount = this.allResourcesOnCurrentProduct.length;
   }
 
   private mounted() {
@@ -120,7 +187,51 @@ export default class DiagramCanvas extends Vue {
     });
   }
 
+  // public by other diarogs
+
+  public showWarnBar(text: string): void {
+    this.onShowWarnBar(text);
+  }
+
+  // from Toolbar events.
+
+  private onChangeZoomBySlider(zoom: number) {
+    this.canvasZoom = zoom;
+  }
+
+  private onChangeCanvasGuideType(
+    canvasGuideType: CanvasGuideType,
+    beforeCanvasGuideType: CanvasGuideType
+  ): void {
+    const canvas = this.canvas;
+    if (beforeCanvasGuideType.canvasPolicy)
+      canvas.uninstallEditPolicy(beforeCanvasGuideType.canvasPolicy);
+    if (canvasGuideType.canvasPolicy)
+      canvas.installEditPolicy(canvasGuideType.canvasPolicy);
+    // 「何故か、背景が真っ黒になってしまう」対策。ちょーーっとだけリサイズする。
+    // …こんなワークアラウンドのほうが安定するからしゃーない。
+    canvas.setZoom(canvas.getZoom() - 0.001, false);
+  }
+
+  private onSvgDownload(): void {
+    const diagram = this.product.diagrams.of(this.diagramId);
+    if (!diagram) return;
+    const ymdhms = moment().format("YYYYMMDDHHmmss");
+    const fileName = this.makeSvgDownloadFileName(diagram);
+
+    const writer = new draw2d.io.svg.Writer();
+    writer.marshal(this.canvas, (svg: string) => {
+      const withFontSvg = this.includeWebFont(svg);
+      const file = new DownloadFile(fileName, "image/svg+xml", withFontSvg);
+      this.clientDownloadRepository.register(file);
+    });
+  }
+
   // Canvas Events
+
+  private onZoomChangeFromCanvas(emitterFigure: Figure, zoomData: any): void {
+    this.canvasZoom = zoomData.value;
+  }
 
   private onDropCanvas(event: DragEvent) {
     event.preventDefault();
@@ -155,7 +266,7 @@ export default class DiagramCanvas extends Vue {
     // 追加後は「図への追加(ふつーのドラッグ)」と一緒。
     const placement = diagram.createPlacement(resource, x, y) as Placement;
     const modifiedDiagram: Diagram = diagram.addPlacement(placement);
-    product = product.replaceOf(diagram);
+    product = product.replaceOf(modifiedDiagram);
 
     this.addResouceIconToCanvas(resource, placement);
 
@@ -163,8 +274,8 @@ export default class DiagramCanvas extends Vue {
     this.repository.registerCurrentProduct(product);
 
     // 親にコールバック。
-    this.mergePlacement(diagram.placements);
     if (isAddNew) this.onUpdateResources();
+    this.onMergePlacement(modifiedDiagram.placements);
   }
 
   private onDropOverCanvas(event: DragEvent): void {
@@ -184,9 +295,6 @@ export default class DiagramCanvas extends Vue {
     });
   }
 
-  private onZoomChangeFromCanvas(emitterFigure: Figure, zoomData: any) {
-    this.canvasZoom = zoomData.value;
-  }
   // Initialize methods
 
   private showCanvas(): void {
@@ -242,21 +350,36 @@ export default class DiagramCanvas extends Vue {
     }
   }
 
+  // self decralation event.
+
+  private onChangeRouterTypeOnEditor(routerType: RouterType) {
+    const connection = this.canvas.getLine(this.targetRelationId);
+    if (!connection) return;
+    const router = this.makeRouterBy(routerType);
+    connection.setRouter(router);
+
+    this.transactionOf((diagram, product) => {
+      const relation = diagram.relationOf(this.targetRelationId);
+      if (!relation) return false;
+      const changed: Relation = relation.changeRouter(routerType);
+      diagram.modifyRelationOf(changed);
+      return true;
+    });
+  }
+
   // UI controll.
 
   private addResouceIconToCanvas(
     resource: Resource,
     placement: Placement
-  ): boolean {
-    const iconGenerator = this.choiceIconGenerator(resource.type);
-    if (!iconGenerator) return false;
-    const icon = iconGenerator.generate(
+  ): void {
+    const generator = this.choiceIconGenerator(resource.type) as IconGenerator;
+    const icon = generator.generate(
       placement,
       resource,
       this.iconStyleOf(resource.type)
     );
     this.canvas.add(icon);
-    return true;
   }
 
   private choiceIconGenerator(
@@ -314,6 +437,21 @@ export default class DiagramCanvas extends Vue {
     return undefined;
   }
 
+  public analyzeRouterType(router: any): RouterType {
+    if (!router) return RouterType.DIRECT;
+    const name = router.NAME;
+    if (!name) return RouterType.DIRECT;
+
+    if (name === "draw2d.layout.connection.ManhattanConnectionRouter")
+      return RouterType.INTERACTIVE_MANHATTAN;
+    if (name === "draw2d.layout.connection.CircuitConnectionRouter")
+      return RouterType.CIRCUIT;
+    if (name === "draw2d.layout.connection.SplineConnectionRouter")
+      return RouterType.SPLINE;
+    // if (name === "draw2d.layout.connection.SketchConnectionRouter") return RouterType.SKETCH;
+    return RouterType.DIRECT;
+  }
+
   private showConnectorRightClickMenu(
     relation: Relation,
     x: number,
@@ -332,6 +470,47 @@ export default class DiagramCanvas extends Vue {
 
   private iconStyleOf(resourceType: ResourceType): IconFontAndChar {
     return this.iconMap[resourceType.iconKey];
+  }
+
+  /**
+   * キャンバス側から、逆にデータにあるかを調べ、削除されてそうなものが在れば消す。
+   */
+  private reverceSyncCavansDeleteThings(): void {
+    const product = this.repository.getCurrentProduct() as Product;
+    const diagram = product.diagrams.of(this.diagramId) as Diagram;
+
+    const canvas = this.canvas;
+    canvas.getLines().each((i: number, line: any) => {
+      if (!diagram.existsRelationId(line.id.toString())) canvas.remove(line);
+    });
+
+    canvas.getFigures().each((i: number, figure: any) => {
+      const resourceId = Number(figure.id);
+      if (!diagram.existsPlacementId(resourceId)) canvas.remove(figure);
+    });
+  }
+
+  public confirmResourceDelete(
+    resourceIds: number[],
+    diagram: Diagram
+  ): boolean {
+    const relationIds = diagram.relationIdsOfDeleteTargetResouce(resourceIds);
+    if (relationIds.length === 0) return true;
+    const message = `選択された要素には、他の要素への関連があります。それらを含め削除してよろしいですか。`;
+    return confirm(message);
+  }
+
+  private makeSvgDownloadFileName(diagram: Diagram): string {
+    const namePart = diagram.name.replace(" ", "-").replace("　", "＿");
+    const ymdhms = moment().format("YYYYMMDDHHmmss");
+    const fileName = `rdram-${diagram.id}-${namePart}-${ymdhms}.svg`;
+    return fileName;
+  }
+
+  private includeWebFont(svgContents: string): string {
+    const cssLink =
+      "<defs><style type='text/css'>@import url('https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css');</style></defs>";
+    return svgContents.replace("<defs", cssLink + "<defs");
   }
 
   // Data change controll.
@@ -386,7 +565,7 @@ export default class DiagramCanvas extends Vue {
 
     const requireSave = func(diagram, this.product);
 
-    this.mergePlacement(diagram.placements);
+    this.onMergePlacement(diagram.placements);
 
     if (requireSave) this.repository.registerCurrentProduct(product);
   }

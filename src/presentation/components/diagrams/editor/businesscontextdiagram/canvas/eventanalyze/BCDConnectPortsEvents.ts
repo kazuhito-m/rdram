@@ -1,13 +1,13 @@
 import EventsOfType from "~/presentation/draw2d/eventanalyze/EventsOfType";
 import EventGist from "~/presentation/draw2d/eventanalyze/EventGist";
-import BusinessContextDiagramEditor from  "@/presentation/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
+import DiagramCanvas from "@/presentation/components/diagrams/editor/businesscontextdiagram/canvas/DiagramCanvas.vue";
 import Product from "~/domain/product/Product";
 import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import RouterType from "~/domain/diagram/relation/RouterType";
 import Relation from "~/domain/diagram/relation/Relation";
 import FigureAnalyzer from "./FigureAnalyzer";
 
-export default class BCDConnectPortsEvents implements EventsOfType<BusinessContextDiagram, BusinessContextDiagramEditor> {
+export default class BCDConnectPortsEvents implements EventsOfType<BusinessContextDiagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
 
     private readonly figureAnalyzer = new FigureAnalyzer();
@@ -20,7 +20,7 @@ export default class BCDConnectPortsEvents implements EventsOfType<BusinessConte
         return new BCDConnectPortsEvents();
     }
 
-    public validate(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
+    public validate(diagram: BusinessContextDiagram, product: Product, view: DiagramCanvas): boolean {
         for (let eventGist of this.eventGists) {
             const srcResourceId = parseInt(eventGist.source?.getParent().id, 10);
             const distResourceId = parseInt(eventGist.target?.getParent().id, 10);
@@ -36,7 +36,7 @@ export default class BCDConnectPortsEvents implements EventsOfType<BusinessConte
         }
         return true;
     }
-    public apply(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
+    public apply(diagram: BusinessContextDiagram, product: Product, view: DiagramCanvas): boolean {
         for (let eventGist of this.eventGists) {
             const srcResourceId = parseInt(eventGist.source?.getParent().id, 10);
             const distResourceId = parseInt(eventGist.target?.getParent().id, 10);

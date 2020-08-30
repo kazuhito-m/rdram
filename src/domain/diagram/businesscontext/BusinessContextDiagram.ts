@@ -77,6 +77,18 @@ export default class BusinessContextDiagram extends Diagram {
         );
     }
 
+    protected replacePlacement(placements: Placement[]): BusinessContextDiagram {
+        return new BusinessContextDiagram(
+            this.id,
+            this.typeId,
+            this.name,
+            this.relations,
+            placements,
+            this.width,
+            this.height,
+        );
+    }
+
     public resize(width: number, height: number): BusinessContextDiagram {
         return new BusinessContextDiagram(
             this.id,

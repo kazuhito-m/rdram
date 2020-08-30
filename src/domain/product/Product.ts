@@ -43,7 +43,7 @@ export default class Product {
             UserSettings.create(),
             Diagrams.empty(),
             Resources.empty(),
-            0
+            1
         );
     }
 

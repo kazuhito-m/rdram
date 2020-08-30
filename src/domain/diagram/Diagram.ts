@@ -25,7 +25,7 @@ export default class Diagram {
     }
 
     public createPlacement(resource: Resource, left: number, top: number): Placement | null {
-        return null;
+        throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
     }
 
     public placementOf(resourceId: number): Placement | null {
@@ -105,16 +105,11 @@ export default class Diagram {
     public addPlacement(placement: Placement): Diagram {
         const newValues = Array.from(this.placements);
         newValues.push(placement);
+        return this.replacePlacement(newValues);
+    }
 
-        return new Diagram(
-            this.id,
-            this.typeId,
-            this.name,
-            this.relations,
-            newValues,
-            this.width,
-            this.height,
-        );
+    protected replacePlacement(placements: Placement[]): Diagram {
+        throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
     }
 
     public existsSomeRelation(relation: Relation): boolean {

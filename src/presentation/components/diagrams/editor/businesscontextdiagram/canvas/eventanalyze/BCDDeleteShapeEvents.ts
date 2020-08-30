@@ -1,13 +1,13 @@
 import EventsOfType from "~/presentation/draw2d/eventanalyze/EventsOfType";
 import EventGist from "~/presentation/draw2d/eventanalyze/EventGist";
-import BusinessContextDiagramEditor from "@/presentation/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
+import DiagramCanvas from "@/presentation/components/diagrams/editor/businesscontextdiagram/canvas/DiagramCanvas.vue";
 import Product from "~/domain/product/Product";
 import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import { Figure } from "draw2d";
 import FigureAnalyzer from "./FigureAnalyzer";
 import Diagram from "~/domain/diagram/Diagram";
 
-export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContextDiagram, BusinessContextDiagramEditor> {
+export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContextDiagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
 
     private readonly figureAnalyzer = new FigureAnalyzer();
@@ -20,7 +20,7 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
         return new BCDDeleteShapeEvents();
     }
 
-    public validate(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
+    public validate(diagram: BusinessContextDiagram, product: Product, view: DiagramCanvas): boolean {
         // TODO なんども連打される問題について
         // ひょっとして「Rootじゃなく、子イベントを叩いてる」からかな？
         const resourceIds = this.figureAnalyzer.analyzeResourceIds(this.validTargetFigures());
@@ -31,7 +31,7 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
         return false;
     }
 
-    public apply(diagram: BusinessContextDiagram, product: Product, view: BusinessContextDiagramEditor): boolean {
+    public apply(diagram: BusinessContextDiagram, product: Product, view: DiagramCanvas): boolean {
         // 対象のFigure
         const validTargetFigures = this.validTargetFigures();
         // Iconと線に分ける
