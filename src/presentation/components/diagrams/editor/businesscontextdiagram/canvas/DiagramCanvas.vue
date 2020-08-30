@@ -1,6 +1,7 @@
 <template lang="html">
     <div class="canvas-container" ref="convasContainer">
         <div class="diagram-canvas" :id="canvasId" />
+
         <CanvasSettingToolBar
             :diagramId="diagramId"
             :canvasZoom="canvasZoom"
@@ -8,6 +9,17 @@
             @onChangeCanvasGuideType="onChangeCanvasGuideType"
             @onSvgDownload="onSvgDownload"
             @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+        />
+
+        <!-- リアクティブ監視させたいけど、ネストしたくないので…自身をコンテナにして監視させる(ちょっととトリッキー？) -->
+        <ConnectorRightClickMenuAndEditor
+            :visibleConnectorRightClickMenu="visibleConnectorMenu"
+            :menuPositionX="menuX"
+            :menuPositionY="menuY"
+            :relationId="targetRelationId"
+            :selectedRouterTypeId="editableRouterId"
+            @onChangeRouterType="onChangeRouterTypeOnEditor"
+            @onClickDeleteConnection="onClickDeleteConnection"
         />
     </div>
 </template>
@@ -22,6 +34,7 @@ import {
   Watch
 } from "vue-property-decorator";
 import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
+import ConnectorRightClickMenuAndEditor from "@/presentation/components/diagrams/editor/businesscontextdiagram/canvas/ConnectorRightClickMenuAndEditor.vue";
 
 import "jquery";
 import "jquery-ui";
@@ -62,7 +75,8 @@ import ClientDownloadRepository from "../../../../../../domain/client/ClientDown
 
 @Component({
   components: {
-    CanvasSettingToolBar
+    CanvasSettingToolBar,
+    ConnectorRightClickMenuAndEditor
   }
 })
 export default class DiagramCanvas extends Vue {

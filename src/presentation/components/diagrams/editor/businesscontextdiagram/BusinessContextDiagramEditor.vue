@@ -47,9 +47,7 @@ import {
 import TwoPainWithSlideBarLayout from "@/presentation/components/TwoPainWithSlideBarLayout.vue";
 import DiagramCanvas from "@/presentation/components/diagrams/editor/businesscontextdiagram/canvas/DiagramCanvas.vue";
 import ResourceParet from "@/presentation/components/diagrams/editor/businesscontextdiagram/paret/ResourceParet.vue";
-import ConnectorRightClickMenuAndEditor from "./ConnectorRightClickMenuAndEditor.vue";
 import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
-import { RelationContainer } from "./ConnectorRightClickMenuAndEditor.vue";
 import { ResizeObserver } from "resize-observer";
 
 import draw2d, { Figure, command } from "draw2d";
@@ -78,7 +76,6 @@ import IconFontAndChar from "../../icon/IconFontAndChar";
     TwoPainWithSlideBarLayout,
     DiagramCanvas,
     ResourceParet,
-    ConnectorRightClickMenuAndEditor
   }
 })
 export default class BusinessContextDiagramEditor extends Vue {
