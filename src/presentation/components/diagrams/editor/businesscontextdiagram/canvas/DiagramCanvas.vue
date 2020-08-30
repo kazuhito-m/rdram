@@ -207,6 +207,24 @@ export default class DiagramCanvas extends Vue {
     this.onShowWarnBar(text);
   }
 
+  // right click menu events.
+
+  private onClickDeleteConnection() {
+    const connection = this.canvas.getLine(this.targetRelationId);
+    this.canvas.remove(connection);
+
+    this.transactionOf((diagram, product) => {
+      const relations = diagram.relations;
+      for (let i = 0; i < relations.length; i++) {
+        const relation = relations[i];
+        if (relation.id !== this.targetRelationId) continue;
+        relations.splice(i, 1);
+        break;
+      }
+      return true;
+    });
+  }
+
   // from Toolbar events.
 
   private onChangeZoomBySlider(zoom: number) {
