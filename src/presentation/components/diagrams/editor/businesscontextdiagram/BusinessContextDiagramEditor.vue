@@ -48,8 +48,8 @@ import {
 import TwoPainWithSlideBarLayout from "@/presentation/components/TwoPainWithSlideBarLayout.vue";
 import DiagramCanvas from "@/presentation/components/diagrams/editor/businesscontextdiagram/canvas/DiagramCanvas.vue";
 import ResourceParet from "@/presentation/components/diagrams/editor/businesscontextdiagram/paret/ResourceParet.vue";
-import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import { ResizeObserver } from "resize-observer";
+import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 
 import draw2d, { Figure, command } from "draw2d";
 
@@ -60,23 +60,14 @@ import BusinessContextDiagram from "@/domain/diagram/businesscontext/BusinessCon
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Placement from "@/domain/diagram/placement/Placement";
-import RouterType from "@/domain/diagram/relation/RouterType";
 import Relation from "@/domain/diagram/relation/Relation";
-import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
-import MessageBox from "@/presentation/MessageBox";
-import Uuid from "@/domain/world/Uuid";
-import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
-import CanvasGuideType from "../toolbar/CanvasGuideType";
-import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
-import DownloadFile from "@/domain/client/DownloadFile";
-import Products from "@/domain/product/Products";
-import IconFontAndChar from "../../icon/IconFontAndChar";
+import IconFontAndChar from "@/presentation/components/diagrams/icon/IconFontAndChar";
 
 @Component({
   components: {
     TwoPainWithSlideBarLayout,
     DiagramCanvas,
-    ResourceParet,
+    ResourceParet
   }
 })
 export default class BusinessContextDiagramEditor extends Vue {
@@ -85,21 +76,19 @@ export default class BusinessContextDiagramEditor extends Vue {
 
   @Prop({ required: true })
   private readonly diagramId!: number;
-  private usedResouceIds: number[] = [];
+
+  @Prop({ required: true })
+  private readonly allResourcesOnCurrentProduct!: Resource[];
+
+  @Prop({ required: true })
+  private readonly lastPropertiesUpdatedDiagramId?: number;
+
+  private readonly usedResouceIds: number[] = [];
+  private readonly iconMap: { [key: string]: IconFontAndChar } = {};
   private product!: Product;
-
-  @Prop({ required: true })
-  private allResourcesOnCurrentProduct!: Resource[];
-
-  @Prop({ required: true })
-  private lastPropertiesUpdatedDiagramId?: number;
 
   private warnBar: boolean = false;
   private warnMessage: string = "";
-
-  private paretPainWidth: string | null = null;
-
-  private readonly iconMap: { [key: string]: IconFontAndChar } = {};
 
   public created(): void {
     this.product = this.getCurrentProduct();
