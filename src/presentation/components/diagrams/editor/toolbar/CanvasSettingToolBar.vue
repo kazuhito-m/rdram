@@ -103,6 +103,9 @@ export default class CanvasSettingToolBar extends Vue {
 
   private canvasGuideTypeIconKey = CanvasGuideType.なし.iconKey;
 
+  private lastContainerWidth = 0;
+  private lastContainerHeight = 0;
+
   public created(): void {
     this.toolBarId = "toolBar" + this.diagramId;
   }
@@ -123,36 +126,23 @@ export default class CanvasSettingToolBar extends Vue {
   @Emit("onChangeZoomBySlider")
   private onChangeZoomParent(zoom: number) {}
 
-  private getToolBarElement(): HTMLElement {
-    // FIXME 本当は「IDとっといてgetElementById()とかしたくない」んだけど、$refsが「ほんものを返してくれない」のでLeft値が変えられない。
-    return document.getElementById(this.toolBarId) as HTMLElement;
-  }
-
-  private getEditorPain(): HTMLElement | null {
-    const parent = this.getToolBarElement().parentElement;
-    if (!parent) return null;
-    return parent;
-  }
-
-  private getCanvasContainer(): HTMLElement | null {
-    const editorPain = this.getEditorPain();
-    if (!editorPain) return null;
-    const elements = editorPain.getElementsByClassName("canvas-container");
-    const container = elements.item(0);
-    if (!container) return null;
-    return container as HTMLElement;
-  }
-
   private onResizeEditorPain(event: ResizeObserverEntry[]): void {
     // FIXME Tabの非アクティブ時に裏で無限呼び出され、することへの対策。今の所「ResizeObzerverを削除」くらいしか手がないが…。
     if (event[0].target.clientHeight === 0) return;
-    // console.log(this.diagramId, event[0].target.clientHeight);
-
     const toolBar = this.getToolBarElement();
     if (!toolBar) return;
-    const left = toolBar.offsetLeft;
-    const top = parseInt(toolBar.style.top.replace(/px$/, ""));
+    const c = event[0].target;
+
+    // 右/下の座標を維持するような挙動張
+    const movedX = c.clientWidth - this.lastContainerWidth;
+    const movedY = c.clientHeight - this.lastContainerHeight;
+
+    const left = toolBar.offsetLeft + movedX;
+    const top = toolBar.offsetTop + movedY;
     this.fixAreaOverToolBar(left, top, toolBar);
+
+    this.lastContainerWidth = c.clientWidth;
+    this.lastContainerHeight = c.clientHeight;
   }
 
   private addResizeListenerCanvasContainer(): void {
@@ -167,12 +157,14 @@ export default class CanvasSettingToolBar extends Vue {
     const c = this.getCanvasContainer();
     if (!c) return;
 
+    this.lastContainerWidth = c.clientWidth;
+    this.lastContainerHeight = c.clientHeight;
+
     const padding = this.TOOLBAR_PADDING;
-    let barWidth = toolBar.offsetWidth;
-    const containerWidth = c.clientLeft + c.clientWidth;
     const scrollBarHeight = c.offsetHeight - c.clientHeight;
-    const left = containerWidth - barWidth - padding;
-    const top = -(toolBar.offsetHeight + padding + scrollBarHeight);
+    const left = c.clientWidth - toolBar.offsetWidth - padding;
+    const top = c.clientHeight - toolBar.offsetHeight - padding;
+
     const style = toolBar.style;
     style.left = `${left}px`;
     style.top = `${top}px`;
@@ -201,7 +193,7 @@ export default class CanvasSettingToolBar extends Vue {
     if (!(toolBar && container)) return;
 
     const left = event.offsetX - container.scrollLeft;
-    const top = event.offsetY - container.scrollTop - container.offsetHeight;
+    const top = event.offsetY - container.scrollTop;
 
     const adjustLeft = left - this.dragStartLayerX;
     const adjustTop = top - this.dragStartLayerY;
@@ -213,17 +205,15 @@ export default class CanvasSettingToolBar extends Vue {
     const container = this.getCanvasContainer();
     if (!container) return;
     let toolBarWidth = toolBar.offsetWidth;
+    let toolBarHeight = toolBar.offsetHeight;
 
     const leftOver = left + toolBarWidth - container.clientWidth;
     if (leftOver > 0) left = container.clientWidth - toolBarWidth;
     if (left < 0) left = 0;
 
-    const scrollBarHeight = container.offsetHeight - container.clientHeight;
-    const topOver = top + toolBar.offsetHeight + scrollBarHeight;
-    if (topOver > 0) top = -(toolBar.offsetHeight + scrollBarHeight);
-
-    const topUnder = top + container.offsetHeight;
-    if (topUnder < 0) top = -container.offsetHeight;
+    const topOver = top + toolBarHeight - container.clientHeight;
+    if (topOver > 0) top = container.clientHeight - toolBarHeight;
+    if (top < 0) top = 0;
 
     const style = toolBar.style;
     style.left = `${left}px`;
@@ -267,6 +257,23 @@ export default class CanvasSettingToolBar extends Vue {
 
   private onClickEditDiagramProperties(): void {
     this.onOpendDiagramPropertiesEditor(this.diagramId);
+  }
+
+  private getToolBarElement(): HTMLElement {
+    // FIXME 本当は「IDとっといてgetElementById()とかしたくない」んだけど、$refsが「ほんものを返してくれない」のでLeft値が変えられない。
+    return document.getElementById(this.toolBarId) as HTMLElement;
+  }
+
+  private getEditorPain(): HTMLElement | null {
+    const parent = this.getToolBarElement().parentElement;
+    if (!parent) return null;
+    return parent;
+  }
+
+  private getCanvasContainer(): HTMLElement | null {
+    const container = this.$parent.$el;
+    if (!container) return null;
+    return container as HTMLElement;
   }
 }
 </script>
