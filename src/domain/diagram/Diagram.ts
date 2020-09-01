@@ -49,14 +49,11 @@ export default class Diagram {
         return this.placements
             .some(Placement => Placement.resourceId === resource.resourceId);
     }
-    /**
-     * FIXME ここだ「イミュータブルを破ってしまって」いる…なんとかしたい。 
-     */
-    public modifyPlacementOf(placement: Placement) {
-        const index = this.placements
-            .findIndex(p => p.resourceId === placement.resourceId);
-        if (index < 0) return;
-        this.placements[index] = placement;
+
+    public modifyPlacementOf(placement: Placement): Diagram {
+        const newValues = this.placements
+            .map(p => p.resourceId === placement.resourceId ? placement : p);
+        return this.replacePlacement(newValues);
     }
 
     /**
@@ -94,12 +91,14 @@ export default class Diagram {
         this.relations[index] = relation;
     }
 
-    /**
-     * FIXME ここだ「イミュータブルを破ってしまって」いる…なんとかしたい。 
-     */
     public addRelation(relation: Relation): Diagram {
-        this.relations.push(relation);
-        return this;
+        const newValues = Array.from(this.relations);
+        newValues.push(relation);
+        return this.replaceRelations(newValues);
+    }
+
+    protected replaceRelations(relations: Relation[]): Diagram {
+        throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
     }
 
     public addPlacement(placement: Placement): Diagram {

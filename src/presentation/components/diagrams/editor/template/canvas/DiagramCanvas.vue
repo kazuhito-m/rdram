@@ -303,8 +303,8 @@ export default class DiagramCanvas extends Vue {
     const analyzeResutEvents = this.eventAnalyzer.analyze(rootCommand);
     if (analyzeResutEvents.isNothing()) return;
 
-    this.transactionOf((diagram, product) => {
-      if (!analyzeResutEvents.validate(diagram, product, this)) return false;
+    this.transactionOf2((diagram, product) => {
+      if (!analyzeResutEvents.validate(diagram, product, this)) return null;
       return analyzeResutEvents.apply(diagram, product, this);
     });
   }
@@ -582,6 +582,21 @@ export default class DiagramCanvas extends Vue {
     this.onMergePlacement(diagram.placements);
 
     if (requireSave) this.repository.registerCurrentProduct(product);
+  }
+
+  private transactionOf2(
+    func: (diagram: Diagram, product: Product) => Diagram | null
+  ): void {
+    const product = this.repository.getCurrentProduct() as Product;
+    const diagram = product.diagrams.of(this.diagramId);
+    if (!diagram) return;
+
+    const modifiedDiagram = func(diagram, this.product);
+    if (modifiedDiagram === null) return;
+
+    this.onMergePlacement(modifiedDiagram.placements);
+    const modifiedProduct = product.replaceOf(modifiedDiagram);
+    this.repository.registerCurrentProduct(modifiedProduct);
   }
 }
 </script>

@@ -30,7 +30,7 @@ export default class GemerocDeleteShapeEvents implements EventsOfType<Diagram, D
         return false;
     }
 
-    public apply(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
+    public apply(diagram: Diagram, product: Product, view: DiagramCanvas): Diagram {
         // 対象のFigure
         const validTargetFigures = this.validTargetFigures();
         // Iconと線に分ける
@@ -53,7 +53,7 @@ export default class GemerocDeleteShapeEvents implements EventsOfType<Diagram, D
         diagram.removeRelationsOf(allRelationsIds);
 
         // view.resyncParets(); // UI同期。
-        return true;
+        return diagram;
     }
 
     private validTargetFigures(): Figure[] {

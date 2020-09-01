@@ -83,6 +83,18 @@ export default class InfomationModelDiagram extends Diagram {
         );
     }
 
+    protected replaceRelations(relations: Relation[]): InfomationModelDiagram {
+        return new InfomationModelDiagram(
+            this.id,
+            this.typeId,
+            this.name,
+            relations,
+            this.placements,
+            this.width,
+            this.height,
+        );
+    }
+
     public resize(width: number, height: number): InfomationModelDiagram {
         return new InfomationModelDiagram(
             this.id,

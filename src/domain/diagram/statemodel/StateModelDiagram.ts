@@ -83,6 +83,18 @@ export default class StateModelDiagram extends Diagram {
         );
     }
 
+    protected replaceRelations(relations: Relation[]): StateModelDiagram {
+        return new StateModelDiagram(
+            this.id,
+            this.typeId,
+            this.name,
+            relations,
+            this.placements,
+            this.width,
+            this.height,
+        );
+    }
+
     public resize(width: number, height: number): StateModelDiagram {
         return new StateModelDiagram(
             this.id,

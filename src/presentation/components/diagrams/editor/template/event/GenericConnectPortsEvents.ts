@@ -36,7 +36,8 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
         }
         return true;
     }
-    public apply(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
+    public apply(diagram: Diagram, product: Product, view: DiagramCanvas): Diagram {
+        let modifiedDiagram = diagram;
         for (let eventGist of this.eventGists) {
             const srcResourceId = parseInt(eventGist.source?.getParent().id, 10);
             const distResourceId = parseInt(eventGist.target?.getParent().id, 10);
@@ -54,8 +55,8 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
                 routerType.id,
                 [],
             );
-            diagram.addRelation(relation);
+            modifiedDiagram = modifiedDiagram.addRelation(relation);
         }
-        return true;
+        return modifiedDiagram;
     }
 }

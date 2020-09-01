@@ -19,7 +19,8 @@ export default class GenericResizeShapeEvents implements EventsOfType<Diagram, D
     public validate(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
         return true;
     }
-    public apply(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
+    public apply(diagram: Diagram, product: Product, view: DiagramCanvas): Diagram {
+        let modifiedDiagram = diagram;
         for (let figure of this.validTargetFigures()) {
             const resourceId = parseInt(figure.getId(), 10);
 
@@ -27,9 +28,9 @@ export default class GenericResizeShapeEvents implements EventsOfType<Diagram, D
             if (!placement) continue;
 
             const replaced = placement.withSize(figure.getWidth(), figure.getHeight());
-            diagram.modifyPlacementOf(placement);
+            modifiedDiagram = modifiedDiagram.modifyPlacementOf(placement);
         }
-        return true;
+        return modifiedDiagram;
     }
 
     private validTargetFigures(): Figure[] {

@@ -19,15 +19,16 @@ export default class GenericMoveShapeEvents implements EventsOfType<Diagram, Dia
     public validate(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
         return this.validTargetFigures().length > 0;
     }
-    public apply(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
+    public apply(diagram: Diagram, product: Product, view: DiagramCanvas): Diagram {
+        let modifiedDiagram = diagram;
         for (let figure of this.validTargetFigures()) {
             const resouceId = parseInt(figure.getId(), 10);
             const placement = diagram.placementOf(resouceId);
             if (!placement) continue;
-            const replaced  = placement.withPosition(figure.getX() ,figure.getY());
-            diagram.modifyPlacementOf(replaced);
+            const replaced = placement.withPosition(figure.getX(), figure.getY());
+            modifiedDiagram = modifiedDiagram.modifyPlacementOf(replaced);
         }
-        return true;
+        return modifiedDiagram;
     }
 
     private validTargetFigures(): Figure[] {

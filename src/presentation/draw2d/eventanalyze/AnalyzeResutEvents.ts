@@ -9,14 +9,19 @@ export default class AnalyzeResutEvents {
         return new AnalyzeResutEvents([]);
     }
 
-    public validate(daiagram: Diagram, product: Product, view: Vue): boolean {
+    public validate(diagram: Diagram, product: Product, view: Vue): boolean {
         return this.eventsOfTypes
-            .every(events => events.validate(daiagram, product, view));
+            .every(events => events.validate(diagram, product, view));
     }
 
-    public apply(daiagram: Diagram, product: Product, view: Vue): boolean {
-        return this.eventsOfTypes
-            .every(events => events.apply(daiagram, product, view));
+    public apply(diagram: Diagram, product: Product, view: Vue): Diagram | null {
+        let modifiedDiagram = diagram;
+        for (const events of this.eventsOfTypes) {
+            const result = events.apply(modifiedDiagram, product, view);
+            if (result === null) return null;
+            modifiedDiagram = result;
+        }
+        return modifiedDiagram;
     }
 
     public isNothing() {
