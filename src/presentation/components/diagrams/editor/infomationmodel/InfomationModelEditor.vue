@@ -3,7 +3,7 @@
     :diagramId="diagramId"
     :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
     :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-    @onUpdateResources="onUpdateResoucesOnEditor"
+    @onUpdateResources="onUpdateResources"
     @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
   />
 </template>
@@ -13,8 +13,12 @@ import { Prop, Component, Vue, Emit } from "nuxt-property-decorator";
 import DiagramEditor from "@/presentation/components/diagrams/editor/template/DiagramEditor.vue";
 import Resource from "@/domain/resource/Resource";
 
-@Component
-export default class StateModelEditor extends Vue {
+@Component({
+  components: {
+    DiagramEditor
+  }
+})
+export default class InfomationModelEditor extends Vue {
   // Props
 
   @Prop({ required: true })
@@ -35,6 +39,8 @@ export default class StateModelEditor extends Vue {
   private onOpendDiagramPropertiesEditor(diagramId: number): void {}
 
   // Vue events(Life cycle events)
+
+  private created(): void {}
 }
 </script>
 

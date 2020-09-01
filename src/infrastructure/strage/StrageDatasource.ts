@@ -13,8 +13,10 @@ import Midpoint from '@/domain/diagram/relation/Midpoint';
 import Relation from '@/domain/diagram/relation/Relation';
 import BusinessContextDiagram from '@/domain/diagram/businesscontext/BusinessContextDiagram'
 import StrageRepository from '@/domain/strage/StrageRepository';
+import InfomationModelDiagram from '@/domain/diagram/infomationmodel/InfomationModelDiagram';
+import StateModelDiagram from '@/domain/diagram/statemodel/StateModelDiagram';
 
-export default class StrageDatasource implements StrageRepository{
+export default class StrageDatasource implements StrageRepository {
     private static readonly STRAGE_ID = 'rdram-strage';
 
     private readonly serializer = new Serializer(
@@ -32,6 +34,8 @@ export default class StrageDatasource implements StrageRepository{
         Midpoint,
         Relation,
         BusinessContextDiagram,
+        InfomationModelDiagram,
+        StateModelDiagram,
     );
 
     public isInitialized(): boolean {
