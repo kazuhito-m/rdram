@@ -19,7 +19,10 @@
                 class="right-click-area"
                 @click.right.prevent="onRightClickTreeItem"
                 v-bind:data-item-id="item.id"
-              >{{item.name}}</div>
+              >
+                <v-icon v-if="item.iconKey">{{ item.iconKey }}</v-icon> 
+                {{ item.name }}
+              </div>
             </template>
           </v-treeview>
 
@@ -72,6 +75,7 @@
             @change="onChangeActiveTab"
           >
             <v-tab class="tab-title" v-for="item in openTabs" :key="item.id">
+              <v-icon v-if="item.iconKey">{{ item.iconKey }}</v-icon>
               {{ item.name }}
               <v-btn dark small icon @click="onClickCloseTab" v-bind:data-item-id="item.id">
                 <v-icon dark v-bind:data-item-id="item.id">mdi-close-box</v-icon>
@@ -137,7 +141,8 @@ export default class extends Vue {
     id: 0,
     name: "(空)",
     children: [],
-    disabled: true
+    disabled: true,
+    iconKey: ""
   };
   private readonly DIAGRAM_FOLDER_ID_MASK: number = 1000000;
 
@@ -187,7 +192,8 @@ export default class extends Vue {
         id: id,
         name: tfName,
         children: [] as TreeItem[],
-        disabled: false
+        disabled: false,
+        iconKey: ""
       };
       if (tfName === "RDRA 2.0") {
         rdraTop = item;
@@ -418,7 +424,8 @@ export default class extends Vue {
       id: diagram.id,
       name: diagram.name,
       children: [],
-      disabled: false
+      disabled: false,
+      iconKey: diagram.type.iconKey
     };
   }
 
@@ -543,6 +550,7 @@ interface TreeItem {
   name: string;
   children: TreeItem[];
   disabled: boolean | undefined;
+  iconKey: string;
 }
 </script>
 
