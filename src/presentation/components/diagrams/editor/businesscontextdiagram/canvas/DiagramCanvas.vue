@@ -50,14 +50,14 @@ import BCDConnectPortsEvents from "./eventanalyze/BCDConnectPortsEvents";
 import BCDMoveShapeEvents from "./eventanalyze/BCDMoveShapeEvents";
 import BCDResizeShapeEvents from "./eventanalyze/BCDResizeShapeEvents";
 
-import Product from "../../../../../../domain/product/Product";
-import Diagram from "../../../../../../domain/diagram/Diagram";
-import Resource from "../../../../../../domain/resource/Resource";
-import ResourceType from "../../../../../../domain/resource/ResourceType";
-import MessageBox from "../../../../../MessageBox";
-import StrageRepository from "../../../../../../domain/strage/StrageRepository";
-import Placement from "../../../../../../domain/diagram/placement/Placement";
-import IconGenerator from "../../../icon/IconGenerator";
+import Product from "@/domain/product/Product";
+import Diagram from "@/domain/diagram/Diagram";
+import Resource from "@/domain/resource/Resource";
+import ResourceType from "@/domain/resource/ResourceType";
+import MessageBox from "@/presentation/MessageBox";
+import StrageRepository from "@/domain/strage/StrageRepository";
+import Placement from "@/domain/diagram/placement/Placement";
+import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
 import CompanyIconGenerator from "../icon/CompanyIconGenerator";
 import ActorIconGenerator from "../icon/ActorIconGenerator";
 import RoomIconGenerator from "../icon/RoomIconGenerator";
@@ -66,12 +66,12 @@ import GoodsIconGenerator from "../icon/GoodsIconGenerator";
 import ServiceIconGenerator from "../icon/ServiceIconGenerator";
 import FacilityIconGenerator from "../icon/FacilityIconGenerator";
 import ContractIconGenerator from "../icon/ContractIconGenerator";
-import Relation from "../../../../../../domain/diagram/relation/Relation";
-import RouterType from "../../../../../../domain/diagram/relation/RouterType";
-import IconFontAndChar from "../../../icon/IconFontAndChar";
+import Relation from "@/domain/diagram/relation/Relation";
+import RouterType from "@/domain/diagram/relation/RouterType";
+import IconFontAndChar from "@/presentation/components/diagrams/icon/IconFontAndChar";
 import CanvasGuideType from "../../toolbar/CanvasGuideType";
-import DownloadFile from "../../../../../../domain/client/DownloadFile";
-import ClientDownloadRepository from "../../../../../../domain/client/ClientDownloadRepository";
+import DownloadFile from "@/domain/client/DownloadFile";
+import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 
 @Component({
   components: {
