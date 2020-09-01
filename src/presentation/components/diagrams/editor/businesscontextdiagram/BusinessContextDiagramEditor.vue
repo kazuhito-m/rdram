@@ -101,9 +101,7 @@ export default class BusinessContextDiagramEditor extends Vue {
   }
 
   @Emit("onUpdateResources")
-  private onUpdateResources(): void {
-    alert("元 updateResources() が呼ばれていたところ");
-  }
+  private onUpdateResources(): void {}
 
   @Emit("onOpendDiagramPropertiesEditor")
   private onOpendDiagramPropertiesEditor(diagramId: number): void {}

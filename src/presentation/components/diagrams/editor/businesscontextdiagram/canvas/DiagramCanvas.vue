@@ -176,6 +176,11 @@ export default class DiagramCanvas extends Vue {
     this.reverceSyncCavansDeleteThings();
   }
 
+  @Watch("usedResouceIds")
+  private onChangeUsedResouceIds(): void {
+    this.reverceSyncCavansDeleteThings();
+  }
+
   // Vue events.(life cycle events)
 
   private created(): void {

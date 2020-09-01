@@ -176,6 +176,11 @@ export default class DiagramCanvas extends Vue {
     this.reverceSyncCavansDeleteThings();
   }
 
+  @Watch("usedResouceIds")
+  private onChangeUsedResouceIds(): void {
+    this.reverceSyncCavansDeleteThings();
+  }
+
   // Vue events.(life cycle events)
 
   private created(): void {
@@ -417,7 +422,7 @@ export default class DiagramCanvas extends Vue {
   private choiceIconGenerator(
     resourceType: ResourceType
   ): IconGenerator | null {
-    const generator = DiagramCanvas.iconGenerators.find(g =>
+    const generator = this.iconGenerators.find(g =>
       g.resourceType().equals(resourceType)
     );
     return generator ? generator : null;

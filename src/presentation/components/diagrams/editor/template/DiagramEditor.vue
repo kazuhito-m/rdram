@@ -46,8 +46,8 @@ import {
   Watch
 } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/presentation/components/TwoPainWithSlideBarLayout.vue";
-import DiagramCanvas from "@/presentation/components/diagrams/editor/businesscontextdiagram/canvas/DiagramCanvas.vue";
-import ResourceParet from "@/presentation/components/diagrams/editor/businesscontextdiagram/paret/ResourceParet.vue";
+import DiagramCanvas from "@/presentation/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
+import ResourceParet from "@/presentation/components/diagrams/editor/template/paret/ResourceParet.vue";
 import { ResizeObserver } from "resize-observer";
 import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 
@@ -70,9 +70,8 @@ import IconFontAndChar from "@/presentation/components/diagrams/icon/IconFontAnd
     ResourceParet
   }
 })
-export default class BusinessContextDiagramEditor extends Vue {
-  @Inject()
-  private repository!: StrageRepository;
+export default class DiagramEditor extends Vue {
+  // Props
 
   @Prop({ required: true })
   private readonly diagramId!: number;
@@ -83,6 +82,24 @@ export default class BusinessContextDiagramEditor extends Vue {
   @Prop({ required: true })
   private readonly lastPropertiesUpdatedDiagramId?: number;
 
+  // Emits
+
+  @Emit("onUpdateResources")
+  private onUpdateResources(): void {}
+
+  @Emit("onOpendDiagramPropertiesEditor")
+  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
+
+  public created(): void {
+    this.product = this.getCurrentProduct();
+    const diagramId = this.diagramId;
+  }
+
+  // this class properties
+
+  @Inject()
+  private repository!: StrageRepository;
+  
   private readonly usedResouceIds: number[] = [];
   private readonly iconMap: { [key: string]: IconFontAndChar } = {};
   private product!: Product;
@@ -90,35 +107,23 @@ export default class BusinessContextDiagramEditor extends Vue {
   private warnBar: boolean = false;
   private warnMessage: string = "";
 
-  public created(): void {
-    this.product = this.getCurrentProduct();
-    const diagramId = this.diagramId;
-  }
+  // Vue events(life cycle events)
 
   public mounted() {
     const diagram = this.product.diagrams.of(this.diagramId) as Diagram;
     this.intializeIconCharMap(diagram);
   }
 
-  @Emit("onUpdateResources")
-  private onUpdateResources(): void {
-    alert("元 updateResources() が呼ばれていたところ");
-  }
-
-  @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
-
   private onShowWarnBar(text: string): void {
     this.warnMessage = text;
     this.warnBar = true;
   }
 
+  // children component events.
+
   private onDeleteResourceOnDiagram(resourceId: number): void {
     const diagram = this.deleteResourceOnDiagram(resourceId);
     if (!diagram) return;
-    // TODO なんとかする
-    // this.reverceSyncCavansDeleteThings();
-    alert("元 reverceSyncCavansDeleteThings() を読んでたトコ");
     this.onMergePlacement(diagram.placements);
   }
 
