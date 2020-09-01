@@ -9,6 +9,8 @@
           :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
           :iconMap="iconMap"
+          :eventAnalyzer="eventAnalyzer"
+          :iconGenerators="iconGenerators"
           @onUpdateResources="onUpdateResources"
           @onMergePlacement="onMergePlacement"
           @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -53,6 +55,10 @@ import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 
 import draw2d, { Figure, command } from "draw2d";
 
+import IconFontAndChar from "@/presentation/components/diagrams/icon/IconFontAndChar";
+import EventAnalyzer from "../../../../draw2d/eventanalyze/EventAnalyzer";
+import IconGenerator from "../../icon/IconGenerator";
+
 import StrageRepository from "@/domain/strage/StrageRepository";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
@@ -60,7 +66,6 @@ import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Placement from "@/domain/diagram/placement/Placement";
 import Relation from "@/domain/diagram/relation/Relation";
-import IconFontAndChar from "@/presentation/components/diagrams/icon/IconFontAndChar";
 
 @Component({
   components: {
@@ -74,12 +79,14 @@ export default class DiagramEditor extends Vue {
 
   @Prop({ required: true })
   private readonly diagramId!: number;
-
   @Prop({ required: true })
   private readonly allResourcesOnCurrentProduct!: Resource[];
-
   @Prop({ required: true })
-  private readonly lastPropertiesUpdatedDiagramId?: number;
+  private readonly lastPropertiesUpdatedDiagramId!: number;
+  @Prop({ required: true })
+  private readonly eventAnalyzer!: EventAnalyzer;
+  @Prop({ required: true })
+  private readonly iconGenerators!: IconGenerator[];
 
   // Emits
 

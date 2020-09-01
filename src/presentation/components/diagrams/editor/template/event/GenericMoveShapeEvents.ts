@@ -1,25 +1,25 @@
 import EventsOfType from "~/presentation/draw2d/eventanalyze/EventsOfType";
 import EventGist from "~/presentation/draw2d/eventanalyze/EventGist";
-import DiagramCanvas from "@/presentation/components/diagrams/editor/businesscontextdiagram/canvas/DiagramCanvas.vue";
+import DiagramCanvas from "@/presentation/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import Product from "~/domain/product/Product";
-import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import { Figure } from "draw2d";
+import Diagram from "~/domain/diagram/Diagram";
 
-export default class BCDMoveShapeEvents implements EventsOfType<BusinessContextDiagram, DiagramCanvas> {
+export default class GenericMoveShapeEvents implements EventsOfType<Diagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
 
     public eventType(): string {
         return "Move Shape";
     }
 
-    public prototype(): BCDMoveShapeEvents {
-        return new BCDMoveShapeEvents();
+    public prototype(): GenericMoveShapeEvents {
+        return new GenericMoveShapeEvents();
     }
 
-    public validate(diagram: BusinessContextDiagram, product: Product, view: DiagramCanvas): boolean {
+    public validate(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
         return this.validTargetFigures().length > 0;
     }
-    public apply(diagram: BusinessContextDiagram, product: Product, view: DiagramCanvas): boolean {
+    public apply(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
         for (let figure of this.validTargetFigures()) {
             const resouceId = parseInt(figure.getId(), 10);
             const placement = diagram.placementOf(resouceId);

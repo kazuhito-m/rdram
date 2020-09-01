@@ -45,10 +45,7 @@ import draw2d, { Figure, command } from "draw2d";
 import moment from "moment/moment";
 
 import EventAnalyzer from "@/presentation/draw2d/eventanalyze/EventAnalyzer";
-import BCDDeleteShapeEvents from "./eventanalyze/BCDDeleteShapeEvents";
-import BCDConnectPortsEvents from "./eventanalyze/BCDConnectPortsEvents";
-import BCDMoveShapeEvents from "./eventanalyze/BCDMoveShapeEvents";
-import BCDResizeShapeEvents from "./eventanalyze/BCDResizeShapeEvents";
+import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
 
 import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
@@ -57,15 +54,7 @@ import ResourceType from "@/domain/resource/ResourceType";
 import MessageBox from "@/presentation/MessageBox";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import Placement from "@/domain/diagram/placement/Placement";
-import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
-import CompanyIconGenerator from "../icon/CompanyIconGenerator";
-import ActorIconGenerator from "../icon/ActorIconGenerator";
-import RoomIconGenerator from "../icon/RoomIconGenerator";
-import BusinessIconGenerator from "../icon/BusinessIconGenerator";
-import GoodsIconGenerator from "../icon/GoodsIconGenerator";
-import ServiceIconGenerator from "../icon/ServiceIconGenerator";
-import FacilityIconGenerator from "../icon/FacilityIconGenerator";
-import ContractIconGenerator from "../icon/ContractIconGenerator";
+
 import Relation from "@/domain/diagram/relation/Relation";
 import RouterType from "@/domain/diagram/relation/RouterType";
 import IconFontAndChar from "@/presentation/components/diagrams/icon/IconFontAndChar";
@@ -92,6 +81,12 @@ export default class DiagramCanvas extends Vue {
   private readonly lastPropertiesUpdatedDiagramId!: number;
   @Prop({ required: true })
   private readonly iconMap!: { [key: string]: IconFontAndChar };
+  @Prop({ required: true })
+  private readonly eventAnalyzer!: EventAnalyzer;
+  @Prop({ required: true })
+  private readonly iconGenerators!: IconGenerator[];
+
+  // This class fields.
 
   @Inject()
   private repository!: StrageRepository;
@@ -103,24 +98,6 @@ export default class DiagramCanvas extends Vue {
   private canvasZoom = 1;
 
   private lastResourcesOnCurrentProductCount = 0;
-
-  private readonly eventAnalyzer = new EventAnalyzer([
-    new BCDDeleteShapeEvents(),
-    new BCDConnectPortsEvents(),
-    new BCDMoveShapeEvents(),
-    new BCDResizeShapeEvents()
-  ]);
-
-  private readonly iconGenerators: IconGenerator[] = [
-    new CompanyIconGenerator(),
-    new ActorIconGenerator(),
-    new RoomIconGenerator(),
-    new BusinessIconGenerator(),
-    new GoodsIconGenerator(),
-    new FacilityIconGenerator(),
-    new ServiceIconGenerator(),
-    new ContractIconGenerator()
-  ];
 
   private visibleConnectorMenu = false;
   private relation?: Relation;

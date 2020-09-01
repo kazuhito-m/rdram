@@ -1,13 +1,12 @@
 import EventsOfType from "~/presentation/draw2d/eventanalyze/EventsOfType";
 import EventGist from "~/presentation/draw2d/eventanalyze/EventGist";
-import DiagramCanvas from "@/presentation/components/diagrams/editor/businesscontextdiagram/canvas/DiagramCanvas.vue";
+import DiagramCanvas from "@/presentation/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import Product from "~/domain/product/Product";
-import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import { Figure } from "draw2d";
 import FigureAnalyzer from "./FigureAnalyzer";
 import Diagram from "~/domain/diagram/Diagram";
 
-export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContextDiagram, DiagramCanvas> {
+export default class GemerocDeleteShapeEvents implements EventsOfType<Diagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
 
     private readonly figureAnalyzer = new FigureAnalyzer();
@@ -16,11 +15,11 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
         return "Delete Shape";
     }
 
-    public prototype(): BCDDeleteShapeEvents {
-        return new BCDDeleteShapeEvents();
+    public prototype(): GemerocDeleteShapeEvents {
+        return new GemerocDeleteShapeEvents();
     }
 
-    public validate(diagram: BusinessContextDiagram, product: Product, view: DiagramCanvas): boolean {
+    public validate(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
         // TODO なんども連打される問題について
         // ひょっとして「Rootじゃなく、子イベントを叩いてる」からかな？
         const resourceIds = this.figureAnalyzer.analyzeResourceIds(this.validTargetFigures());
@@ -31,7 +30,7 @@ export default class BCDDeleteShapeEvents implements EventsOfType<BusinessContex
         return false;
     }
 
-    public apply(diagram: BusinessContextDiagram, product: Product, view: DiagramCanvas): boolean {
+    public apply(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
         // 対象のFigure
         const validTargetFigures = this.validTargetFigures();
         // Iconと線に分ける

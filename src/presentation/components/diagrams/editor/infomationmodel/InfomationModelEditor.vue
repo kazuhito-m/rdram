@@ -3,6 +3,8 @@
     :diagramId="diagramId"
     :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
     :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+    :eventAnalyzer="eventAnalyzer"
+    :iconGenerators="iconGenerators"
     @onUpdateResources="onUpdateResources"
     @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
   />
@@ -11,6 +13,23 @@
 <script lang="ts">
 import { Prop, Component, Vue, Emit } from "nuxt-property-decorator";
 import DiagramEditor from "@/presentation/components/diagrams/editor/template/DiagramEditor.vue";
+
+import EventAnalyzer from "../../../../draw2d/eventanalyze/EventAnalyzer";
+import GenericConnectPortsEvents from "@/presentation/components/diagrams/editor/template/event/GenericConnectPortsEvents";
+import GemerocDeleteShapeEvents from "@/presentation/components/diagrams/editor/template/event/GemerocDeleteShapeEvents";
+import GenericMoveShapeEvents from "@/presentation/components/diagrams/editor/template/event/GenericMoveShapeEvents";
+import GenericResizeShapeEvents from "@/presentation/components/diagrams/editor/template/event/GenericResizeShapeEvents";
+
+import IconGenerator from "../../icon/IconGenerator";
+import CompanyIconGenerator from "@/presentation/components/diagrams/editor/template/icon/CompanyIconGenerator";
+import ActorIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ActorIconGenerator";
+import RoomIconGenerator from "@/presentation/components/diagrams/editor/template/icon/RoomIconGenerator";
+import BusinessIconGenerator from "@/presentation/components/diagrams/editor/template/icon/BusinessIconGenerator";
+import GoodsIconGenerator from "@/presentation/components/diagrams/editor/template/icon/GoodsIconGenerator";
+import ServiceIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ServiceIconGenerator";
+import FacilityIconGenerator from "@/presentation/components/diagrams/editor/template/icon/FacilityIconGenerator";
+import ContractIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ContractIconGenerator";
+
 import Resource from "@/domain/resource/Resource";
 
 @Component({
@@ -23,12 +42,30 @@ export default class InfomationModelEditor extends Vue {
 
   @Prop({ required: true })
   private readonly diagramId!: number;
-
   @Prop({ required: true })
   private readonly allResourcesOnCurrentProduct!: Resource[];
-
   @Prop({ required: true })
   private readonly lastPropertiesUpdatedDiagramId?: number;
+
+  // This class fields;
+
+  private readonly eventAnalyzer = new EventAnalyzer([
+    new GemerocDeleteShapeEvents(),
+    new GenericConnectPortsEvents(),
+    new GenericMoveShapeEvents(),
+    new GenericResizeShapeEvents()
+  ]);
+
+  private readonly iconGenerators: IconGenerator[] = [
+    new CompanyIconGenerator(),
+    new ActorIconGenerator(),
+    new RoomIconGenerator(),
+    new BusinessIconGenerator(),
+    new GoodsIconGenerator(),
+    new FacilityIconGenerator(),
+    new ServiceIconGenerator(),
+    new ContractIconGenerator()
+  ];
 
   // Emits
 

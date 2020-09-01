@@ -1,25 +1,25 @@
 import EventsOfType from "~/presentation/draw2d/eventanalyze/EventsOfType";
 import EventGist from "~/presentation/draw2d/eventanalyze/EventGist";
-import DiagramCanvas from "@/presentation/components/diagrams/editor/businesscontextdiagram/canvas/DiagramCanvas.vue";
+import DiagramCanvas from "@/presentation/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import Product from "~/domain/product/Product";
-import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import { Figure } from "draw2d";
+import Diagram from "~/domain/diagram/Diagram";
 
-export default class BCDResizeShapeEvents implements EventsOfType<BusinessContextDiagram, DiagramCanvas> {
+export default class GenericResizeShapeEvents implements EventsOfType<Diagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
 
     public eventType(): string {
         return "Resize Shape";
     }
 
-    public prototype(): BCDResizeShapeEvents {
-        return new BCDResizeShapeEvents();
+    public prototype(): GenericResizeShapeEvents {
+        return new GenericResizeShapeEvents();
     }
 
-    public validate(diagram: BusinessContextDiagram, product: Product, view: DiagramCanvas): boolean {
+    public validate(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
         return true;
     }
-    public apply(diagram: BusinessContextDiagram, product: Product, view: DiagramCanvas): boolean {
+    public apply(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
         for (let figure of this.validTargetFigures()) {
             const resourceId = parseInt(figure.getId(), 10);
 
