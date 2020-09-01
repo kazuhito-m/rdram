@@ -56,7 +56,6 @@ import draw2d, { Figure, command } from "draw2d";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
-import BusinessContextDiagram from "@/domain/diagram/businesscontext/BusinessContextDiagram";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Placement from "@/domain/diagram/placement/Placement";
@@ -99,7 +98,7 @@ export default class DiagramEditor extends Vue {
 
   @Inject()
   private repository!: StrageRepository;
-  
+
   private readonly usedResouceIds: number[] = [];
   private readonly iconMap: { [key: string]: IconFontAndChar } = {};
   private product!: Product;
@@ -131,6 +130,19 @@ export default class DiagramEditor extends Vue {
     this.deleteResourceOnProduct(resourceId);
     this.onUpdateResources();
   }
+
+  private onMergePlacement(diffTarget: Placement[]) {
+    const usedResouceIds = this.usedResouceIds;
+    const idSet = new Set(diffTarget.map(p => p.resourceId));
+    for (let i = usedResouceIds.length - 1; i >= 0; i--) {
+      const usedResouceId = usedResouceIds[i];
+      if (idSet.has(usedResouceId)) idSet.delete(usedResouceId);
+      else usedResouceIds.splice(i, 1);
+    }
+    idSet.forEach(id => usedResouceIds.push(id));
+  }
+
+  // private methods.
 
   private deleteResourceOnDiagram(resourceId: number): Diagram | null {
     const product = this.getCurrentProduct();
@@ -184,35 +196,6 @@ export default class DiagramEditor extends Vue {
     this.product = modifiedProduct;
   }
 
-  /**ResourceType
-   * 自動保存のOn/Offを意識した「product,diagramへの操作」。
-   */
-  private transactionOf(
-    func: (diagram: Diagram, product: Product) => boolean
-  ): void {
-    const product = this.getCurrentProduct();
-    const diagram = product.diagrams.of(this.diagramId);
-    if (!diagram) return;
-
-    const requireSave = func(diagram, this.product);
-
-    this.onMergePlacement(diagram.placements);
-
-    if (requireSave) this.repository.registerCurrentProduct(product);
-    this.product = product;
-  }
-
-  private onMergePlacement(diffTarget: Placement[]) {
-    const usedResouceIds = this.usedResouceIds;
-    const idSet = new Set(diffTarget.map(p => p.resourceId));
-    for (let i = usedResouceIds.length - 1; i >= 0; i--) {
-      const usedResouceId = usedResouceIds[i];
-      if (idSet.has(usedResouceId)) idSet.delete(usedResouceId);
-      else usedResouceIds.splice(i, 1);
-    }
-    idSet.forEach(id => usedResouceIds.push(id));
-  }
-
   private intializeIconCharMap(diagram: Diagram): void {
     diagram
       .availableResourceTypes()
@@ -230,7 +213,7 @@ export default class DiagramEditor extends Vue {
     };
   }
 
-  private dumpDiagram(diagram: BusinessContextDiagram, prefix: string) {
+  private dumpDiagram(diagram: Diagram, prefix: string) {
     console.log(`---- ${prefix} Diagram情報 start ----`);
     diagram.placements.forEach(i => console.log(`位置;${i.resourceId}`));
     diagram.relations.forEach(i =>
