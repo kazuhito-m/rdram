@@ -3,7 +3,7 @@ import Diagram from "~/domain/diagram/Diagram";
 import Product from "~/domain/product/Product";
 
 /**
- * Commandをタイプごとに集めたモノ。
+ * draw2dのCommandをタイプごとに集めたモノ。
  */
 export default interface EventsOfType<D extends Diagram, V extends Vue> {
     eventGists: EventGist[];
