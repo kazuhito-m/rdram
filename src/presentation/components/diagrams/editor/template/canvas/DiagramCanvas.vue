@@ -388,6 +388,10 @@ export default class DiagramCanvas extends Vue {
     placement: Placement
   ): void {
     const generator = this.choiceIconGenerator(resource.type) as IconGenerator;
+    if (!generator) {
+      alert("ジェネレータ無しアイコン生成不能:" + resource.type.name);
+      return;
+    }
     const icon = generator.generate(
       placement,
       resource,
