@@ -270,6 +270,7 @@ export default class DiagramCanvas extends Vue {
     let resource: Resource | null = null;
     if (isAddNew) {
       const name = this.promptResourceName(resourceType, product);
+      if (!name) return;
       product = product.createAndAddResource(name, resourceType);
       resource = product.lastCreatdResource();
     } else {
