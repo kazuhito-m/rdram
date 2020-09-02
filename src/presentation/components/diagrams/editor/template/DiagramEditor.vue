@@ -56,8 +56,8 @@ import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 import draw2d, { Figure, command } from "draw2d";
 
 import IconFontAndChar from "@/presentation/components/diagrams/icon/IconFontAndChar";
-import EventAnalyzer from "../../../../draw2d/eventanalyze/EventAnalyzer";
-import IconGenerator from "../../icon/IconGenerator";
+import EventAnalyzer from "@/presentation/components/diagrams/editor/template/event/EventAnalyzer";
+import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
 
 import StrageRepository from "@/domain/strage/StrageRepository";
 import Diagram from "@/domain/diagram/Diagram";
