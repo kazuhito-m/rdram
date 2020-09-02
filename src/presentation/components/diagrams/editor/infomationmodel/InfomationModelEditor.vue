@@ -74,10 +74,6 @@ export default class InfomationModelEditor extends Vue {
 
   @Emit("onOpendDiagramPropertiesEditor")
   private onOpendDiagramPropertiesEditor(diagramId: number): void {}
-
-  // Vue events(Life cycle events)
-
-  private created(): void {}
 }
 </script>
 

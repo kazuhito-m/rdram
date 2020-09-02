@@ -34,7 +34,7 @@ import {
   Watch
 } from "vue-property-decorator";
 import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
-import ConnectorRightClickMenuAndEditor from "@/presentation/components/diagrams/editor/businesscontextdiagram/canvas/ConnectorRightClickMenuAndEditor.vue";
+import ConnectorRightClickMenuAndEditor from "@/presentation/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue";
 
 import "jquery";
 import "jquery-ui";
