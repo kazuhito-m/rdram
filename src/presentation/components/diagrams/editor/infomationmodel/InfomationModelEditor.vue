@@ -21,14 +21,8 @@ import GenericMoveShapeEvents from "@/presentation/components/diagrams/editor/te
 import GenericResizeShapeEvents from "@/presentation/components/diagrams/editor/template/event/events/GenericResizeShapeEvents";
 
 import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
-import CompanyIconGenerator from "@/presentation/components/diagrams/editor/template/icon/CompanyIconGenerator";
-import ActorIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ActorIconGenerator";
-import RoomIconGenerator from "@/presentation/components/diagrams/editor/template/icon/RoomIconGenerator";
-import BusinessIconGenerator from "@/presentation/components/diagrams/editor/template/icon/BusinessIconGenerator";
-import GoodsIconGenerator from "@/presentation/components/diagrams/editor/template/icon/GoodsIconGenerator";
-import ServiceIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ServiceIconGenerator";
-import FacilityIconGenerator from "@/presentation/components/diagrams/editor/template/icon/FacilityIconGenerator";
-import ContractIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ContractIconGenerator";
+import InformationIconGenerator from "@/presentation/components/diagrams/editor/template/icon/InformationIconGenerator";
+import InformationGroupIconGenerator from "@/presentation/components/diagrams/editor/template/icon/InformationGroupIconGenerator";
 
 import Resource from "@/domain/resource/Resource";
 
@@ -57,14 +51,8 @@ export default class InfomationModelEditor extends Vue {
   ]);
 
   private readonly iconGenerators: IconGenerator[] = [
-    new CompanyIconGenerator(),
-    new ActorIconGenerator(),
-    new RoomIconGenerator(),
-    new BusinessIconGenerator(),
-    new GoodsIconGenerator(),
-    new FacilityIconGenerator(),
-    new ServiceIconGenerator(),
-    new ContractIconGenerator()
+    new InformationIconGenerator(),
+    new InformationGroupIconGenerator(),
   ];
 
   // Emits

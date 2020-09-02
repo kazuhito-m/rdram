@@ -10,6 +10,8 @@ export default class ResourceType {
     static 組織 = new ResourceType(7, '組織', 'mdi-sitemap');
     static 会社 = new ResourceType(8, '会社', 'mdi-office-building-outline');
 
+    static 情報 = new ResourceType(9, '情報', 'mdi-file-document-edit-outline');
+    static 情報グループ = new ResourceType(10, '情報グループ', 'mdi-folder-edit-outline');
 
     private constructor(
         public readonly id: number,

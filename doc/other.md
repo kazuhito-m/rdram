@@ -17,3 +17,9 @@
   - https://stackoverflow.com/questions/18434094/how-to-style-svg-with-external-css
 - How do I use a custom font in an SVG image on my site?
   - https://graphicdesign.stackexchange.com/questions/10733/how-do-i-use-a-custom-font-in-an-svg-image-on-my-site
+
+### 既知のバグ
+
+- 線の右クリックが時々聞かない
+- 同一名で「キャンセル」にするのに、無名のアイコンができてしまう
+

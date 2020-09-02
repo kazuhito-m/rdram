@@ -3,9 +3,9 @@ import Relation from "@/domain/diagram/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
 import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
-import Resource from "~/domain/resource/Resource";
+import Resource from "@/domain/resource/Resource";
 
-export default class InfomationModelDiagram extends Diagram {
+export default class InformationModelDiagram extends Diagram {
     protected constructor(
         id: number,
         typeId: number,
@@ -28,9 +28,8 @@ export default class InfomationModelDiagram extends Diagram {
 
     public availableResourceTypes(): ResourceType[] {
         return [
-            ResourceType.商品,
-            ResourceType.設備,
-            ResourceType.組織,
+            ResourceType.情報,
+            ResourceType.情報グループ,
         ];
     }
 
@@ -40,15 +39,8 @@ export default class InfomationModelDiagram extends Diagram {
         let width = 0;
         let height = 0;
         const resType = resource.type;
-        if (
-            ResourceType.組織.equals(resType) ||
-            ResourceType.会社.equals(resType)
-        ) {
+        if (ResourceType.情報グループ.equals(resType)) {
             width = 80;
-            height = 35;
-        }
-        if (ResourceType.業務.equals(resType)) {
-            width = 105;
             height = 35;
         }
         return new Placement(
@@ -60,8 +52,8 @@ export default class InfomationModelDiagram extends Diagram {
         );
     }
 
-    public with(name: string): InfomationModelDiagram {
-        return new InfomationModelDiagram(
+    public with(name: string): InformationModelDiagram {
+        return new InformationModelDiagram(
             this.id,
             this.typeId,
             name.trim(),
@@ -72,8 +64,8 @@ export default class InfomationModelDiagram extends Diagram {
         );
     }
 
-    protected replacePlacement(placements: Placement[]): InfomationModelDiagram {
-        return new InfomationModelDiagram(
+    protected replacePlacement(placements: Placement[]): InformationModelDiagram {
+        return new InformationModelDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -84,8 +76,8 @@ export default class InfomationModelDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): InfomationModelDiagram {
-        return new InfomationModelDiagram(
+    protected replaceRelations(relations: Relation[]): InformationModelDiagram {
+        return new InformationModelDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -96,8 +88,8 @@ export default class InfomationModelDiagram extends Diagram {
         );
     }
 
-    public resize(width: number, height: number): InfomationModelDiagram {
-        return new InfomationModelDiagram(
+    public resize(width: number, height: number): InformationModelDiagram {
+        return new InformationModelDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -108,8 +100,8 @@ export default class InfomationModelDiagram extends Diagram {
         );
     }
 
-    public cloneWith(newDiagramId: number, newName: string): InfomationModelDiagram {
-        return new InfomationModelDiagram(
+    public cloneWith(newDiagramId: number, newName: string): InformationModelDiagram {
+        return new InformationModelDiagram(
             newDiagramId,
             this.typeId,
             newName,
@@ -123,7 +115,7 @@ export default class InfomationModelDiagram extends Diagram {
     /**
      * 現在のサイズではみ出しているものを削除。
      */
-    public fixStickOuts(): InfomationModelDiagram {
+    public fixStickOuts(): InformationModelDiagram {
         const deletePlacements: Placement[] = [];
         const survivePlacements: Placement[] = [];
         for (let placement of this.placements) {
@@ -133,7 +125,7 @@ export default class InfomationModelDiagram extends Diagram {
         const surviveRelations = this.relations
             .filter(relation => !deletePlacements.some(placement => relation.isRelatedTo(placement.resourceId)));
 
-        return new InfomationModelDiagram(
+        return new InformationModelDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -144,9 +136,9 @@ export default class InfomationModelDiagram extends Diagram {
         );
     }
 
-    public removeResouceOf(resource: Resource): InfomationModelDiagram {
+    public removeResouceOf(resource: Resource): InformationModelDiagram {
         const resourceId = resource.resourceId;
-        return new InfomationModelDiagram(
+        return new InformationModelDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -157,8 +149,8 @@ export default class InfomationModelDiagram extends Diagram {
         );
     }
 
-    public static prototypeOf(newDiagramId: number, name: string): InfomationModelDiagram {
-        return new InfomationModelDiagram(
+    public static prototypeOf(newDiagramId: number, name: string): InformationModelDiagram {
+        return new InformationModelDiagram(
             newDiagramId,
             DiagramType.情報モデル図.id,
             name.trim(),
