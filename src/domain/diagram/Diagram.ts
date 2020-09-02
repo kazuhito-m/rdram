@@ -1,4 +1,4 @@
-import Relation from "./relation/Relation";
+import Relation from "@/domain/relation/Relation";
 import DiagramType from "./DiagramType";
 import Placement from "./placement/Placement";
 import ResourceType from "../resource/ResourceType";

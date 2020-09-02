@@ -1,5 +1,5 @@
 import Diagram from "@/domain/diagram/Diagram";
-import Relation from "@/domain/diagram/relation/Relation";
+import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
 import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";

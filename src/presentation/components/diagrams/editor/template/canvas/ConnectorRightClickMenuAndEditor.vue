@@ -43,8 +43,8 @@
 
 <script lang="ts">
 import { Prop, Component, Vue, Inject, Emit } from "nuxt-property-decorator";
-import Relation from "@/domain/diagram/relation/Relation";
-import RouterType from "@/domain/diagram/relation/RouterType";
+import Relation from "@/domain/relation/Relation";
+import RouterType from "@/domain/relation/RouterType";
 
 @Component
 export default class ConnectorRightClickMenuAndEditor extends Vue {

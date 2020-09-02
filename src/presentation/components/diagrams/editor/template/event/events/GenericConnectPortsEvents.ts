@@ -2,8 +2,8 @@ import EventsOfType from "~/presentation/components/diagrams/editor/template/eve
 import EventGist from "~/presentation/components/diagrams/editor/template/event/EventGist";
 import DiagramCanvas from "@/presentation/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import Product from "~/domain/product/Product";
-import RouterType from "~/domain/diagram/relation/RouterType";
-import Relation from "~/domain/diagram/relation/Relation";
+import RouterType from "~/domain/relation/RouterType";
+import Relation from "@/domain/relation/Relation";
 import FigureAnalyzer from "./FigureAnalyzer";
 import Diagram from "~/domain/diagram/Diagram";
 

@@ -65,7 +65,7 @@ import Product from "@/domain/product/Product";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Placement from "@/domain/diagram/placement/Placement";
-import Relation from "@/domain/diagram/relation/Relation";
+import Relation from "@/domain/relation/Relation";
 
 @Component({
   components: {

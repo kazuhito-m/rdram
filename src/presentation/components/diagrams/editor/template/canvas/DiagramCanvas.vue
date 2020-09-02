@@ -55,8 +55,8 @@ import MessageBox from "@/presentation/MessageBox";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import Placement from "@/domain/diagram/placement/Placement";
 
-import Relation from "@/domain/diagram/relation/Relation";
-import RouterType from "@/domain/diagram/relation/RouterType";
+import Relation from "@/domain/relation/Relation";
+import RouterType from "@/domain/relation/RouterType";
 import IconFontAndChar from "@/presentation/components/diagrams/icon/IconFontAndChar";
 import CanvasGuideType from "../../toolbar/CanvasGuideType";
 import DownloadFile from "@/domain/client/DownloadFile";
