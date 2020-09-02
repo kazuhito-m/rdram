@@ -30,6 +30,7 @@ export default class InfomationModelDiagram extends Diagram {
         return [
             ResourceType.商品,
             ResourceType.設備,
+            ResourceType.組織,
         ];
     }
 

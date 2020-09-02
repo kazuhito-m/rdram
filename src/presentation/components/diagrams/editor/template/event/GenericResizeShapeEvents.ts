@@ -27,9 +27,11 @@ export default class GenericResizeShapeEvents implements EventsOfType<Diagram, D
             const placement = diagram.placementOf(resourceId);
             if (!placement) continue;
 
-            const replaced = placement.withSize(figure.getWidth(), figure.getHeight());
-            modifiedDiagram = modifiedDiagram.modifyPlacementOf(placement);
+            const resized = placement.withSize(figure.getWidth(), figure.getHeight());
+            modifiedDiagram = modifiedDiagram.modifyPlacementOf(resized);
         }
+        modifiedDiagram.placements.forEach(p => console.log(p))
+
         return modifiedDiagram;
     }
 
