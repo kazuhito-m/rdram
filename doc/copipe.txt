@@ -74,3 +74,11 @@ arrow-expand-horizontal
 application-export
 application-import
 arrow-collapse-horizontal
+
+
+「要求」候補
+
+chat-outline
+clipboard-text-outline
+comment-text-outline
+hand-heart-outline
