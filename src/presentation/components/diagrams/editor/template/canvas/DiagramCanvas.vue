@@ -44,7 +44,7 @@ import draw2d, { Figure, command } from "draw2d";
 
 import moment from "moment/moment";
 
-import EventAnalyzer from "@/presentation/draw2d/eventanalyze/EventAnalyzer";
+import EventAnalyzer from "@/presentation/components/diagrams/editor/template/event/EventAnalyzer";
 import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
 
 import Product from "@/domain/product/Product";

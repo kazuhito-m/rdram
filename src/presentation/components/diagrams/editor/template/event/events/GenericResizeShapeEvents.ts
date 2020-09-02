@@ -1,32 +1,34 @@
-import EventsOfType from "~/presentation/draw2d/eventanalyze/EventsOfType";
-import EventGist from "~/presentation/draw2d/eventanalyze/EventGist";
+import EventsOfType from "~/presentation/components/diagrams/editor/template/event/EventsOfType";
+import EventGist from "~/presentation/components/diagrams/editor/template/event/EventGist";
 import DiagramCanvas from "@/presentation/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import Product from "~/domain/product/Product";
 import { Figure } from "draw2d";
 import Diagram from "~/domain/diagram/Diagram";
 
-export default class GenericMoveShapeEvents implements EventsOfType<Diagram, DiagramCanvas> {
+export default class GenericResizeShapeEvents implements EventsOfType<Diagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
 
     public eventType(): string {
-        return "Move Shape";
+        return "Resize Shape";
     }
 
-    public prototype(): GenericMoveShapeEvents {
-        return new GenericMoveShapeEvents();
+    public prototype(): GenericResizeShapeEvents {
+        return new GenericResizeShapeEvents();
     }
 
     public validate(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
-        return this.validTargetFigures().length > 0;
+        return true;
     }
     public apply(diagram: Diagram, product: Product, view: DiagramCanvas): Diagram {
         let modifiedDiagram = diagram;
         for (let figure of this.validTargetFigures()) {
-            const resouceId = parseInt(figure.getId(), 10);
-            const placement = diagram.placementOf(resouceId);
+            const resourceId = parseInt(figure.getId(), 10);
+
+            const placement = diagram.placementOf(resourceId);
             if (!placement) continue;
-            const replaced = placement.withPosition(figure.getX(), figure.getY());
-            modifiedDiagram = modifiedDiagram.modifyPlacementOf(replaced);
+
+            const resized = placement.withSize(figure.getWidth(), figure.getHeight());
+            modifiedDiagram = modifiedDiagram.modifyPlacementOf(resized);
         }
         return modifiedDiagram;
     }

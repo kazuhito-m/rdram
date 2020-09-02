@@ -1,7 +1,7 @@
 import EventsOfType from "./EventsOfType";
 import EventGist from "./EventGist";
 import AnalyzeResutEvents from "./AnalyzeResutEvents";
-import Diagram from "~/domain/diagram/Diagram";
+import Diagram from "@/domain/diagram/Diagram";
 
 export default class EventAnalyzer {
     constructor(private eventsOfTypeTemplates: EventsOfType<Diagram, Vue>[]) { }

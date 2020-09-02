@@ -1,12 +1,12 @@
-import EventsOfType from "~/presentation/draw2d/eventanalyze/EventsOfType";
-import EventGist from "~/presentation/draw2d/eventanalyze/EventGist";
+import EventsOfType from "~/presentation/components/diagrams/editor/template/event/EventsOfType";
+import EventGist from "~/presentation/components/diagrams/editor/template/event/EventGist";
 import DiagramCanvas from "@/presentation/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import Product from "~/domain/product/Product";
 import { Figure } from "draw2d";
 import FigureAnalyzer from "./FigureAnalyzer";
 import Diagram from "~/domain/diagram/Diagram";
 
-export default class GemerocDeleteShapeEvents implements EventsOfType<Diagram, DiagramCanvas> {
+export default class GenericDeleteShapeEvents implements EventsOfType<Diagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
 
     private readonly figureAnalyzer = new FigureAnalyzer();
@@ -15,8 +15,8 @@ export default class GemerocDeleteShapeEvents implements EventsOfType<Diagram, D
         return "Delete Shape";
     }
 
-    public prototype(): GemerocDeleteShapeEvents {
-        return new GemerocDeleteShapeEvents();
+    public prototype(): GenericDeleteShapeEvents {
+        return new GenericDeleteShapeEvents();
     }
 
     public validate(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {

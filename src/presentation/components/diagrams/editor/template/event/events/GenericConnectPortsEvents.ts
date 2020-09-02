@@ -1,5 +1,5 @@
-import EventsOfType from "~/presentation/draw2d/eventanalyze/EventsOfType";
-import EventGist from "~/presentation/draw2d/eventanalyze/EventGist";
+import EventsOfType from "~/presentation/components/diagrams/editor/template/event/EventsOfType";
+import EventGist from "~/presentation/components/diagrams/editor/template/event/EventGist";
 import DiagramCanvas from "@/presentation/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import Product from "~/domain/product/Product";
 import RouterType from "~/domain/diagram/relation/RouterType";

@@ -14,13 +14,13 @@
 import { Prop, Component, Vue, Emit } from "nuxt-property-decorator";
 import DiagramEditor from "@/presentation/components/diagrams/editor/template/DiagramEditor.vue";
 
-import EventAnalyzer from "../../../../draw2d/eventanalyze/EventAnalyzer";
-import GenericConnectPortsEvents from "@/presentation/components/diagrams/editor/template/event/GenericConnectPortsEvents";
-import GemerocDeleteShapeEvents from "@/presentation/components/diagrams/editor/template/event/GemerocDeleteShapeEvents";
-import GenericMoveShapeEvents from "@/presentation/components/diagrams/editor/template/event/GenericMoveShapeEvents";
-import GenericResizeShapeEvents from "@/presentation/components/diagrams/editor/template/event/GenericResizeShapeEvents";
+import EventAnalyzer from "@/presentation/components/diagrams/editor/template/event/EventAnalyzer";
+import GenericConnectPortsEvents from "@/presentation/components/diagrams/editor/template/event/events/GenericConnectPortsEvents";
+import GemerocDeleteShapeEvents from "@/presentation/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents";
+import GenericMoveShapeEvents from "@/presentation/components/diagrams/editor/template/event/events/GenericMoveShapeEvents";
+import GenericResizeShapeEvents from "@/presentation/components/diagrams/editor/template/event/events/GenericResizeShapeEvents";
 
-import IconGenerator from "../../icon/IconGenerator";
+import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
 import CompanyIconGenerator from "@/presentation/components/diagrams/editor/template/icon/CompanyIconGenerator";
 import ActorIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ActorIconGenerator";
 import RoomIconGenerator from "@/presentation/components/diagrams/editor/template/icon/RoomIconGenerator";
