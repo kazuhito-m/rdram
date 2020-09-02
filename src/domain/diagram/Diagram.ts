@@ -56,29 +56,19 @@ export default class Diagram {
         return this.replacePlacement(newValues);
     }
 
-    /**
-      * FIXME ここだ「イミュータブルを破ってしまって」いる…なんとかしたい。 
-      */
-    public removeResourcesOf(resourceIds: number[]) {
-        const placements = this.placements;
-        for (let i = placements.length - 1; i >= 0; i--) {
-            const resourceId = placements[i].resourceId;
-            if (resourceIds.some(deleteResourceId => deleteResourceId === resourceId)) {
-                placements.splice(i, 1);
-            }
-        }
+    public removeResourcesOf(resourceIds: number[]): Diagram {
+        const nonDeletedPlacements = this.placements
+            .filter(p => !resourceIds.includes(p.resourceId))
+        const nonDeletedRelations = this.relations
+            .filter(r => resourceIds.every(id => !r.isRelatedTo(id)));
+        return this.replacePlacement(nonDeletedPlacements)
+            .replaceRelations(nonDeletedRelations);
     }
 
-    /**
-     * FIXME ここだ「イミュータブルを破ってしまって」いる…なんとかしたい。 
-     */
-    public removeRelationsOf(relationIds: string[]) {
-        for (let i = this.relations.length - 1; i >= 0; i--) {
-            const relationId = this.relations[i].id;
-            if (relationIds.some(deleteId => deleteId === relationId)) {
-                this.relations.splice(i, 1);
-            }
-        }
+    public removeRelationsOf(relationIds: string[]): Diagram {
+        const nonDeletedRelations = this.relations
+            .filter(r => !relationIds.includes(r.id));
+        return this.replaceRelations(nonDeletedRelations);
     }
 
     /**

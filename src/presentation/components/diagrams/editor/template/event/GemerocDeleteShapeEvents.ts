@@ -39,21 +39,9 @@ export default class GemerocDeleteShapeEvents implements EventsOfType<Diagram, D
         console.log(`消す位置:${resourceIds.join()}`)
         console.log(`消す線:${relationIds.join()}`)
 
-        // Iconにつながってる線も割り出す
-        const relationIdsOfDeleteTargetResouce = diagram.relationIdsOfDeleteTargetResouce(resourceIds);
-        console.log('共連れで消す周辺関連線。')
-        console.log(relationIdsOfDeleteTargetResouce.join());
-
-        // 「消す線」を全部足す
-        const allRelationsIds = relationIds.concat(relationIdsOfDeleteTargetResouce) as string[];
-
-        // Iconに対応する位置情報を削除
-        diagram.removeResourcesOf(resourceIds);
-        // 線に対応する関連情報削除
-        diagram.removeRelationsOf(allRelationsIds);
-
-        // view.resyncParets(); // UI同期。
-        return diagram;
+        return diagram
+            .removeResourcesOf(resourceIds)
+            .removeRelationsOf(relationIds);
     }
 
     private validTargetFigures(): Figure[] {
