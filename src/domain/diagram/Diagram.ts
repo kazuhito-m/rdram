@@ -33,8 +33,8 @@ export default class Diagram {
         const newPlacement = this.createPlacement(resource, 0, 0);
         if (!newPlacement) return null;
 
-        const x = Math.floor((this.width + newPlacement.width) / 2);
-        const y = Math.floor((this.height + newPlacement.height) / 2);
+        const x = Math.floor((this.width - newPlacement.width) / 2);
+        const y = Math.floor((this.height - newPlacement.height) / 2);
         const modifiedPlacement = newPlacement.move(x, y);
         return modifiedPlacement;
     }
