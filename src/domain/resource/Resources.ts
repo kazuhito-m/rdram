@@ -24,6 +24,11 @@ export default class Resources {
         return found ? found : null;
     }
 
+    public typeOf(resourceType: ResourceType): Resources {
+        const newValues = this.values.filter(r => resourceType.equals(r.type));
+        return new Resources(newValues);
+    }
+
     public add(resource: Resource): Resources {
         const newValues = Array.from(this.values);
         newValues.push(resource);
@@ -63,7 +68,12 @@ export default class Resources {
     public filter(func: (resoruce: Resource) => boolean): Resource[] {
         return this.values.filter(func);
     }
+
+    public get length(): number {
+        return this.values.length;
+    }
+
     public last(): Resource {
-        return this.values[this.values.length - 1];
+        return this.values[this.length - 1];
     }
 }

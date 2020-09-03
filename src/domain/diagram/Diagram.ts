@@ -3,6 +3,7 @@ import DiagramType from "./DiagramType";
 import Placement from "./placement/Placement";
 import ResourceType from "../resource/ResourceType";
 import Resource from "../resource/Resource";
+import Resources from "../resource/Resources";
 
 export default class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;
@@ -26,6 +27,16 @@ export default class Diagram {
 
     public createPlacement(resource: Resource, left: number, top: number): Placement | null {
         throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
+    }
+
+    public createPlacementAtCenter(resource: Resource): Placement | null {
+        const newPlacement = this.createPlacement(resource, 0, 0);
+        if (!newPlacement) return null;
+
+        const x = Math.floor((this.width + newPlacement.width) / 2);
+        const y = Math.floor((this.height + newPlacement.height) / 2);
+        const modifiedPlacement = newPlacement.move(x, y);
+        return modifiedPlacement;
     }
 
     public placementOf(resourceId: number): Placement | null {
@@ -215,7 +226,7 @@ export default class Diagram {
         );
     }
 
-    public static prototypeOf(newDiagramId: number, name: string, diagramType: DiagramType): Diagram {
+    public static genericPrototypeOf(newDiagramId: number, name: string, diagramType: DiagramType, resources: Resources): Diagram {
         return new Diagram(
             newDiagramId,
             diagramType.id,

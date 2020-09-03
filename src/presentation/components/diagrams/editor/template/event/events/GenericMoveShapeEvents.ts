@@ -25,7 +25,7 @@ export default class GenericMoveShapeEvents implements EventsOfType<Diagram, Dia
             const resouceId = parseInt(figure.getId(), 10);
             const placement = diagram.placementOf(resouceId);
             if (!placement) continue;
-            const replaced = placement.withPosition(figure.getX(), figure.getY());
+            const replaced = placement.move(figure.getX(), figure.getY());
             modifiedDiagram = modifiedDiagram.modifyPlacementOf(replaced);
         }
         return modifiedDiagram;

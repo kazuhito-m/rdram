@@ -7,7 +7,7 @@ export default class Placement {
         public readonly resourceId: number,
     ) { }
 
-    public withSize(width: number, height: number): Placement {
+    public resize(width: number, height: number): Placement {
         return new Placement(
             this.x,
             this.y,
@@ -17,7 +17,7 @@ export default class Placement {
         );
     }
 
-    public withPosition(x: number, y: number): Placement {
+    public move(x: number, y: number): Placement {
         return new Placement(
             x,
             y,

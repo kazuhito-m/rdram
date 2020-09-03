@@ -20,7 +20,7 @@
                 @click.right.prevent="onRightClickTreeItem"
                 v-bind:data-item-id="item.id"
               >
-                <v-icon v-if="item.iconKey">{{ item.iconKey }}</v-icon> 
+                <v-icon v-if="item.iconKey">{{ item.iconKey }}</v-icon>
                 {{ item.name }}
               </div>
             </template>
@@ -315,11 +315,10 @@ export default class extends Vue {
     const name = this.promptNewDiagramName(message, "", diagramType, diagrams);
     if (!name) return;
 
-    const diagram = diagrams.createNewDiagram(name, diagramType);
-    const addedDiagrams = diagrams.add(diagram);
-    const addedProducts = product.with(addedDiagrams);
+    const modifiedProduct = product.createAndAddDiagram(name, diagramType);
+    const diagram = modifiedProduct.diagrams.last();
 
-    this.repository.registerCurrentProduct(addedProducts);
+    this.repository.registerCurrentProduct(modifiedProduct);
 
     this.addDiagramView(diagram);
   }
@@ -391,6 +390,7 @@ export default class extends Vue {
   }
 
   private addDiagramTreeItem(diagram: Diagram, treeItems: TreeItem[]): void {
+    console.log(diagram);
     const folderItem = this.folderItemOf(diagram.type, treeItems);
     if (!folderItem) return;
     const children = folderItem.children;

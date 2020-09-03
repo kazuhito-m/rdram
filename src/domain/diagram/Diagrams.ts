@@ -1,7 +1,8 @@
 import Diagram from "./Diagram";
 import DiagramType from "./DiagramType";
 import DiagramFactory from "./DiagramFactory";
-import Resource from "../resource/Resource";
+import Resource from "@/domain/resource/Resource";
+import Resources from "@/domain/resource/Resources";
 
 export default class Diagrams {
     private readonly values: Diagram[];
@@ -14,9 +15,9 @@ export default class Diagrams {
         return new Diagrams([]);
     }
 
-    public createNewDiagram(name: string, diagramType: DiagramType): Diagram {
+    public createNewDiagram(name: string, diagramType: DiagramType, resources: Resources): Diagram {
         const newDiagramId = this.generateDiagramId();
-        const factory = new DiagramFactory();
+        const factory = new DiagramFactory(resources);
         return factory.create(newDiagramId, name, diagramType);
     }
 
@@ -84,5 +85,9 @@ export default class Diagrams {
             .filter(d => d.id !== diagram.id)
             .map(i => { console.log(i.id, i.name); return i })
             .some(d => d.name === diagram.name);
+    }
+
+    public last(): Diagram {
+        return this.values[this.values.length - 1];
     }
 }
