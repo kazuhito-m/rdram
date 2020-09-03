@@ -138,8 +138,8 @@ export default class DiagramCanvas extends Vue {
 
     this.reverceSyncCavansDeleteThings();
     this.canvas.setDimension(diagram.width, diagram.height);
-    this.onChangeZoomBySlider(this.canvasZoom);
     this.onMergePlacement(diagram.placements);
+    this.onChangeZoomBySlider(this.canvasZoom + 0.001); // 再描画がうまく行くHack
   }
 
   @Watch("allResourcesOnCurrentProduct.length")
@@ -210,6 +210,7 @@ export default class DiagramCanvas extends Vue {
   // from Toolbar events.
 
   private onChangeZoomBySlider(zoom: number) {
+    console.log("zoom", zoom);
     this.canvas.setZoom(zoom, false);
   }
 
