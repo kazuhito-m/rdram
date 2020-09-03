@@ -3,6 +3,6 @@ import ResourceType from '~/domain/resource/ResourceType';
 
 export default class FacilityIconGenerator extends GenericSingleIconGenerator {
     public resourceType(): ResourceType {
-        return ResourceType.設備;
+        return ResourceType.住宅;
     }
 }

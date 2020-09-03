@@ -3,9 +3,9 @@ import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
 import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
-import Resource from "~/domain/resource/Resource";
+import Resource from "@/domain/resource/Resource";
 
-export default class BusinessContextDiagram extends Diagram {
+export default class SystemContextDiagram extends Diagram {
     protected constructor(
         id: number,
         typeId: number,
@@ -28,14 +28,10 @@ export default class BusinessContextDiagram extends Diagram {
 
     public availableResourceTypes(): ResourceType[] {
         return [
-            ResourceType.業務,
+            ResourceType.システム,
+            ResourceType.目的,
             ResourceType.アクター,
-            ResourceType.商品,
-            ResourceType.住宅,
-            ResourceType.契約,
-            ResourceType.サービス,
-            ResourceType.組織,
-            ResourceType.会社,
+            ResourceType.外部システム,
         ];
     }
 
@@ -45,15 +41,8 @@ export default class BusinessContextDiagram extends Diagram {
         let width = 0;
         let height = 0;
         const resType = resource.type;
-        if (
-            ResourceType.組織.equals(resType) ||
-            ResourceType.会社.equals(resType)
-        ) {
+        if (ResourceType.情報グループ.equals(resType)) {
             width = 80;
-            height = 35;
-        }
-        if (ResourceType.業務.equals(resType)) {
-            width = 105;
             height = 35;
         }
         return new Placement(
@@ -65,8 +54,8 @@ export default class BusinessContextDiagram extends Diagram {
         );
     }
 
-    public with(name: string): BusinessContextDiagram {
-        return new BusinessContextDiagram(
+    public with(name: string): SystemContextDiagram {
+        return new SystemContextDiagram(
             this.id,
             this.typeId,
             name.trim(),
@@ -77,20 +66,8 @@ export default class BusinessContextDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): BusinessContextDiagram {
-        return new BusinessContextDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            relations,
-            this.placements,
-            this.width,
-            this.height,
-        );
-    }
-
-    protected replacePlacement(placements: Placement[]): BusinessContextDiagram {
-        return new BusinessContextDiagram(
+    protected replacePlacement(placements: Placement[]): SystemContextDiagram {
+        return new SystemContextDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -101,8 +78,20 @@ export default class BusinessContextDiagram extends Diagram {
         );
     }
 
-    public resize(width: number, height: number): BusinessContextDiagram {
-        return new BusinessContextDiagram(
+    protected replaceRelations(relations: Relation[]): SystemContextDiagram {
+        return new SystemContextDiagram(
+            this.id,
+            this.typeId,
+            this.name,
+            relations,
+            this.placements,
+            this.width,
+            this.height,
+        );
+    }
+
+    public resize(width: number, height: number): SystemContextDiagram {
+        return new SystemContextDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -113,8 +102,8 @@ export default class BusinessContextDiagram extends Diagram {
         );
     }
 
-    public cloneWith(newDiagramId: number, newName: string): BusinessContextDiagram {
-        return new BusinessContextDiagram(
+    public cloneWith(newDiagramId: number, newName: string): SystemContextDiagram {
+        return new SystemContextDiagram(
             newDiagramId,
             this.typeId,
             newName,
@@ -128,7 +117,7 @@ export default class BusinessContextDiagram extends Diagram {
     /**
      * 現在のサイズではみ出しているものを削除。
      */
-    public fixStickOuts(): BusinessContextDiagram {
+    public fixStickOuts(): SystemContextDiagram {
         const deletePlacements: Placement[] = [];
         const survivePlacements: Placement[] = [];
         for (let placement of this.placements) {
@@ -138,7 +127,7 @@ export default class BusinessContextDiagram extends Diagram {
         const surviveRelations = this.relations
             .filter(relation => !deletePlacements.some(placement => relation.isRelatedTo(placement.resourceId)));
 
-        return new BusinessContextDiagram(
+        return new SystemContextDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -149,9 +138,9 @@ export default class BusinessContextDiagram extends Diagram {
         );
     }
 
-    public removeResouceOf(resource: Resource): BusinessContextDiagram {
+    public removeResouceOf(resource: Resource): SystemContextDiagram {
         const resourceId = resource.resourceId;
-        return new BusinessContextDiagram(
+        return new SystemContextDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -162,10 +151,10 @@ export default class BusinessContextDiagram extends Diagram {
         );
     }
 
-    public static prototypeOf(newDiagramId: number, name: string): BusinessContextDiagram {
-        return new BusinessContextDiagram(
+    public static prototypeOf(newDiagramId: number, name: string): SystemContextDiagram {
+        return new SystemContextDiagram(
             newDiagramId,
-            DiagramType.ビジネスコンテキスト図.id,
+            DiagramType.情報モデル図.id,
             name.trim(),
             [],
             [],
