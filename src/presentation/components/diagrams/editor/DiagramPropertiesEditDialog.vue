@@ -1,57 +1,39 @@
 <template>
-  <v-dialog
-    persistent
-    max-width="400"
-    :value="diagramId"
-    @keydown.esc="onClose"
-    @keydown.enter="onClickLUpdateExecute"
+  <PropertiesSettingDialog
+    :id="diagramId"
+    :consent="consent"
+    :nameForTitle="nameForTitle"
+    :categoryTitle="categoryTitle"
+    width="400"
+    @onClose="onClose"
+    @onClickOk="onClickLUpdateExecute"
+    @onShow="onShow"
   >
-    <v-form>
-      <v-card>
-        <v-card-text class="bottom-padding-ignore">{{ categoryTitle }}</v-card-text>
-        <v-card-title class="headline top-padding-ignore" >「{{ nameForTitle }}」の設定</v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col>
-                <v-text-field
-                  label="名前"
-                  counter
-                  autofocus
-                  v-model="name"
-                  :rules="[validateName]"
-                  :maxlength="nameMaxLength"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-text-field
-                  label="横幅(px)"
-                  v-model="width"
-                  type="number"
-                  :rules="[validateWidith]"
-                ></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field
-                  label="高さ(px)"
-                  v-model="height"
-                  type="number"
-                  :rules="[validateHeight]"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn text color="normal" @click="onClose">キャンセル</v-btn>
-          <v-btn text :disabled="!consent" color="primary" @click="onClickLUpdateExecute">OK</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-form>
-  </v-dialog>
+    <template v-slot:inputPart>
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-text-field
+              label="名前"
+              counter
+              autofocus
+              v-model="name"
+              :rules="[validateName]"
+              :maxlength="nameMaxLength"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-text-field label="横幅(px)" v-model="width" type="number" :rules="[validateWidith]"></v-text-field>
+          </v-col>
+          <v-col>
+            <v-text-field label="高さ(px)" v-model="height" type="number" :rules="[validateHeight]"></v-text-field>
+          </v-col>
+        </v-row>
+      </v-container>
+    </template>
+  </PropertiesSettingDialog>
 </template>
 
 <script lang="ts">
@@ -63,12 +45,15 @@ import {
   Emit,
   Watch
 } from "nuxt-property-decorator";
+import PropertiesSettingDialog from "@/presentation/components/PropertiesSettingDialog.vue";
 import Uuid from "@/domain/world/Uuid";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 
-@Component
+@Component({
+  components: { PropertiesSettingDialog }
+})
 export default class DiagramPropertiesEditDialog extends Vue {
   @Prop({ required: true })
   private readonly diagramId!: number;
@@ -213,10 +198,4 @@ export default class DiagramPropertiesEditDialog extends Vue {
 </script>
 
 <style scoped>
-.bottom-padding-ignore {
-  padding-bottom: 0px;
-}
-.top-padding-ignore {
-  padding-top: 0px;
-}
 </style>

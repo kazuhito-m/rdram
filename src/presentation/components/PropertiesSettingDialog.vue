@@ -4,12 +4,12 @@
     :max-width="width"
     :value="id"
     @keydown.esc="onClose"
-    @keydown.enter="onClickLUpdateExecute"
+    @keydown.enter="onClickOk"
   >
     <v-form>
       <v-card>
         <v-card-text class="bottom-padding-ignore">{{ categoryTitle }}</v-card-text>
-        <v-card-title class="headline top-padding-ignore">「{{ nameForTitle }}の設定</v-card-title>
+        <v-card-title class="headline top-padding-ignore">「{{ nameForTitle }}」の設定</v-card-title>
         <v-card-text>
           <slot name="inputPart"></slot>
         </v-card-text>
@@ -29,15 +29,15 @@ import { Component, Vue, Prop, Emit, Watch } from "nuxt-property-decorator";
 @Component
 export default class PropertiesSettingDialog extends Vue {
   @Prop({ required: true })
-  private readonly id: any | null = null;
+  private readonly id: any | null;
   @Prop({ required: true })
   private nameForTitle!: string;
   @Prop()
-  private readonly consent = true;
+  private readonly consent!: boolean;
   @Prop()
-  private readonly categoryTitle = "";
+  private readonly categoryTitle!: string;
   @Prop()
-  private readonly width: number = 400;
+  private readonly width!: number;
 
   @Emit("onClose")
   private onClose(): void {}
