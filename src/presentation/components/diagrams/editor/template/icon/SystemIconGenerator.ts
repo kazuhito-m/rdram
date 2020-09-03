@@ -13,7 +13,7 @@ export default class SystemIconGenerator implements IconGenerator {
     public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {
         const id = String(placement.resourceId);
 
-        const waku = new draw2d.shape.basic.Oval({
+        const oval = new draw2d.shape.basic.Oval({
             x: placement.x,
             y: placement.y,
             bgColor: "#FFFFFF",
@@ -48,10 +48,14 @@ export default class SystemIconGenerator implements IconGenerator {
             alpha: 1
         });
 
-        waku.add(moji, new draw2d.layout.locator.CenterLocator());
-        waku.add(icon, new draw2d.layout.locator.XYRelPortLocator({ x: 47, y: 3 }));
-        waku.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
+        oval.add(moji, new draw2d.layout.locator.CenterLocator());
+        oval.add(icon, new draw2d.layout.locator.XYRelPortLocator({ x: 47, y: 3 }));
+        oval.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
+        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
+        const port = oval.getPorts().last();
+        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(oval);
+        port.setConnectionAnchor(anchor);
 
-        return waku;
+        return oval;
     }
 }

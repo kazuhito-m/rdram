@@ -22,7 +22,7 @@ export default class ResourceType {
     static 条件 = new ResourceType(17, '条件', 'mdi-call-split');
 
     static 情報 = new ResourceType(18, '情報', 'mdi-text-box-outline');
-    static 情報グループ = new ResourceType(19, '情報グループ', 'mdi-folder-edit-outline');
+    static 情報グループ = new ResourceType(19, '情報グループ', 'mdi-text-box-multiple-outline');
     static 画面 = new ResourceType(20, '画面', 'mdi-application');
 
     static アクティビティ = new ResourceType(21, 'アクティビティ', 'alpha-a-box-outline');

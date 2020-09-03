@@ -44,7 +44,7 @@ export default class SystemContextDiagram extends Diagram {
         const resType = resource.type;
         if (ResourceType.システム.equals(resType)) {
             width = 350;
-            height = 100;
+            height = 75;
         }
         return new Placement(
             left,

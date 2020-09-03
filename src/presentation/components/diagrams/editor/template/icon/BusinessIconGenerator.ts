@@ -13,7 +13,7 @@ export default class BusinessIconGenerator implements IconGenerator {
     public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {
         const id = String(placement.resourceId);
 
-        const waku = new draw2d.shape.basic.Oval({
+        const oval = new draw2d.shape.basic.Oval({
             x: placement.x,
             y: placement.y,
             bgColor: "#99DDFF",
@@ -47,10 +47,14 @@ export default class BusinessIconGenerator implements IconGenerator {
             alpha: 1
         });
 
-        waku.add(moji, new draw2d.layout.locator.CenterLocator());
-        waku.add(icon, new draw2d.layout.locator.XYAbsPortLocator({ x: -14, y: -17 }));
-        waku.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
+        oval.add(moji, new draw2d.layout.locator.CenterLocator());
+        oval.add(icon, new draw2d.layout.locator.XYAbsPortLocator({ x: -14, y: -17 }));
+        oval.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
+        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
+        const port = oval.getPorts().last();
+        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(oval);
+        port.setConnectionAnchor(anchor);
 
-        return waku;
+        return oval;
     }
 }

@@ -38,6 +38,10 @@ export default abstract class GenericSingleIconGenerator implements IconGenerato
             "hybrid",
             new draw2d.layout.locator.CenterLocator()
         );
+        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
+        const port = icon.getPorts().last();
+        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(icon);
+        port.setConnectionAnchor(anchor);
 
         icon.add(name, new draw2d.layout.locator.BottomLocator());
         return icon;
