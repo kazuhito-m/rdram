@@ -1,14 +1,15 @@
 <template>
   <v-dialog
     persistent
-    max-width="500"
+    max-width="400"
     :value="diagramId"
     @keydown.esc="onClose"
     @keydown.enter="onClickLUpdateExecute"
   >
     <v-form>
       <v-card>
-        <v-card-title class="headline">「{{ nameForTitle }}」の設定</v-card-title>
+        <v-card-text class="bottom-padding-ignore">{{ categoryTitle }}</v-card-text>
+        <v-card-title class="headline top-padding-ignore" >「{{ nameForTitle }}」の設定</v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
@@ -46,7 +47,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text color="normal" @click="onClose">キャンセル</v-btn>
-          <v-btn text :disabled="!consent" color="primary" @click="onClickLUpdateExecute">更新</v-btn>
+          <v-btn text :disabled="!consent" color="primary" @click="onClickLUpdateExecute">OK</v-btn>
         </v-card-actions>
       </v-card>
     </v-form>
@@ -88,6 +89,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
   @Inject()
   private repository?: StrageRepository;
   private consent = false;
+  private categoryTitle = "";
   private nameForTitle = "";
   private old!: Diagram;
 
@@ -102,6 +104,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
     if (!diagram) return;
     this.old = diagram;
     this.nameForTitle = diagram.name;
+    this.categoryTitle = diagram.type.name;
     this.showProperties(diagram);
   }
 
@@ -210,4 +213,10 @@ export default class DiagramPropertiesEditDialog extends Vue {
 </script>
 
 <style scoped>
+.bottom-padding-ignore {
+  padding-bottom: 0px;
+}
+.top-padding-ignore {
+  padding-top: 0px;
+}
 </style>
