@@ -22,6 +22,7 @@ import GenericResizeShapeEvents from "@/presentation/components/diagrams/editor/
 
 import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
 
+import SystemIconGenerator from "@/presentation/components/diagrams/editor/template/icon/SystemIconGenerator";
 import ActorIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ActorIconGenerator";
 import OutsideSystemIconGenerator from "@/presentation/components/diagrams/editor/template/icon/OutsideSystemIconGenerator";
 
@@ -52,6 +53,7 @@ export default class SystemContextDiagramEditor extends Vue {
   ]);
 
   private readonly iconGenerators: IconGenerator[] = [
+    new SystemIconGenerator(),
     new ActorIconGenerator(),
     new OutsideSystemIconGenerator()
   ];
