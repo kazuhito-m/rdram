@@ -51,7 +51,7 @@ export default abstract class GenericAreaIconGenerator implements IconGenerator 
             new draw2d.layout.locator.XYAbsPortLocator({ x: 15, y: -17 })
         );
 
-        icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 105, y: 23 }));
+        icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 105, y: 27 }));
         waku.add(icon, new TopLeftLocator());
         return waku;
     }

@@ -52,7 +52,7 @@ export default class BusinessIconGenerator implements IconGenerator {
         oval.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
         // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
         const port = oval.getPorts().last();
-        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(oval);
+        const anchor = new draw2d.layout.anchor.FanConnectionAnchor(oval);
         port.setConnectionAnchor(anchor);
 
         return oval;
