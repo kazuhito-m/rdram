@@ -1,15 +1,15 @@
 <template>
   <div>
-    <BusinessContextDiagramEditor
-      v-if="is('ビジネスコンテキスト図')"
+    <SystemContextDiagramEditor
+      v-if="is('システムコンテキスト図')"
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     />
-    <SystemContextDiagramEditor
-      v-if="is('システムコンテキスト図')"
+    <BusinessContextDiagramEditor
+      v-if="is('ビジネスコンテキスト図')"
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
@@ -48,6 +48,7 @@ import StrageRepository from "@/domain/strage/StrageRepository";
 
 @Component({
   components: {
+    SystemContextDiagramEditor,
     BusinessContextDiagramEditor,
     InfomationModelEditor,
     StateModelEditor

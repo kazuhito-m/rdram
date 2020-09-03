@@ -11,8 +11,9 @@ import Resource from '@/domain/resource/Resource';
 import Placement from '@/domain/diagram/placement/Placement';
 import Midpoint from '~/domain/relation/Midpoint';
 import Relation from '~/domain/relation/Relation';
-import BusinessContextDiagram from '@/domain/diagram/businesscontext/BusinessContextDiagram'
 import StrageRepository from '@/domain/strage/StrageRepository';
+import SystemContextDiagram from '@/domain/diagram/systemcontext/SystemContextDiagram';
+import BusinessContextDiagram from '@/domain/diagram/businesscontext/BusinessContextDiagram'
 import InformationModelDiagram from '@/domain/diagram/informationmodel/InformationModelDiagram';
 import StateModelDiagram from '@/domain/diagram/statemodel/StateModelDiagram';
 
@@ -36,6 +37,7 @@ export default class StrageDatasource implements StrageRepository {
         BusinessContextDiagram,
         InformationModelDiagram,
         StateModelDiagram,
+        SystemContextDiagram,
     );
 
     public isInitialized(): boolean {

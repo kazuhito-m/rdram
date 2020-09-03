@@ -41,7 +41,7 @@ export default class SystemContextDiagram extends Diagram {
         let width = 0;
         let height = 0;
         const resType = resource.type;
-        if (ResourceType.情報グループ.equals(resType)) {
+        if (ResourceType.システム.equals(resType)) {
             width = 80;
             height = 35;
         }
@@ -154,7 +154,7 @@ export default class SystemContextDiagram extends Diagram {
     public static prototypeOf(newDiagramId: number, name: string): SystemContextDiagram {
         return new SystemContextDiagram(
             newDiagramId,
-            DiagramType.情報モデル図.id,
+            DiagramType.システムコンテキスト図.id,
             name.trim(),
             [],
             [],
