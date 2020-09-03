@@ -112,30 +112,6 @@ export default class InformationModelDiagram extends Diagram {
         );
     }
 
-    /**
-     * 現在のサイズではみ出しているものを削除。
-     */
-    public fixStickOuts(): InformationModelDiagram {
-        const deletePlacements: Placement[] = [];
-        const survivePlacements: Placement[] = [];
-        for (let placement of this.placements) {
-            if (this.isStickOut(placement)) deletePlacements.push(placement)
-            else survivePlacements.push(placement);
-        }
-        const surviveRelations = this.relations
-            .filter(relation => !deletePlacements.some(placement => relation.isRelatedTo(placement.resourceId)));
-
-        return new InformationModelDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            surviveRelations,
-            survivePlacements,
-            this.width,
-            this.height,
-        );
-    }
-
     public removeResouceOf(resource: Resource): InformationModelDiagram {
         const resourceId = resource.resourceId;
         return new InformationModelDiagram(

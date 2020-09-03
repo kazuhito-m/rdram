@@ -200,17 +200,10 @@ export default class Diagram {
             else survivePlacements.push(placement);
         }
         const surviveRelations = this.relations
-            .filter(relation => !deletePlacements.some(placement => relation.isRelatedTo(placement.resourceId)));
+            .filter(relation => !deletePlacements.some(p => relation.isRelatedTo(p.resourceId)));
 
-        return new Diagram(
-            this.id,
-            this.typeId,
-            this.name,
-            surviveRelations,
-            survivePlacements,
-            this.width,
-            this.height,
-        );
+        return this.replacePlacement(survivePlacements)
+            .replaceRelations(surviveRelations);
     }
 
     public removeResouceOf(resource: Resource): Diagram {
