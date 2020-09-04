@@ -10,10 +10,10 @@
       <v-card>
         <v-card-text class="bottom-padding-ignore">{{ categoryTitle }}</v-card-text>
         <v-card-title class="headline top-padding-ignore">「{{ nameForTitle }}」の設定</v-card-title>
-        <v-card-text>
+        <v-card-text class="bottom-padding-ignore top-padding-ignore">
           <slot name="inputPart"></slot>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="top-padding-ignore">
           <v-spacer></v-spacer>
           <v-btn text color="normal" @click="onClose">キャンセル</v-btn>
           <v-btn text :disabled="!consent" color="primary" @click="onClickOk">OK</v-btn>

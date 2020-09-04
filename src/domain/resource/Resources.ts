@@ -1,6 +1,6 @@
 import Resource from "./Resource";
-import Product from "../product/Product";
 import ResourceType from "./ResourceType";
+import ResourceFactory from "./ResourceFactory";
 
 export default class Resources {
     private readonly values: Resource[];
@@ -11,6 +11,15 @@ export default class Resources {
 
     public static prototypeOf(): Resources {
         return new Resources([]);
+    }
+
+    public createResourceOf(name: string, resourceType: ResourceType, resourceId: number): Resource {
+        const factory = new ResourceFactory();
+        return factory.create(name, resourceType, resourceId, this);
+    }
+
+    public prototypeResourceOf(resourceType: ResourceType): Resource {
+        return this.createResourceOf("", resourceType, Resource.YET_NUMBERING_ID);
     }
 
     public existsSomeName(name: string, type: ResourceType): boolean {
@@ -42,14 +51,9 @@ export default class Resources {
     }
 
     public meage(resource: Resource): Resources {
-        const newValues = Array.from(this.values);
-        for (let i = 0; i < newValues.length; i++) {
-            const p = newValues[i];
-            if (p.resourceId !== resource.resourceId) continue;
-            newValues[i] = resource;
-            break;
-        }
-        if (this.values.length === newValues.length) newValues.push(resource);
+        const newValues = this.values
+            .map(p => p.resourceId === resource.resourceId ? resource : p);
+        if (newValues.every(p => p !== resource)) newValues.push(resource);
         return new Resources(newValues);
     }
 

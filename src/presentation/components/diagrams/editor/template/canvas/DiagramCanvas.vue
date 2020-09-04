@@ -21,6 +21,14 @@
             @onChangeRouterType="onChangeRouterTypeOnEditor"
             @onClickDeleteConnection="onClickDeleteConnection"
         />
+
+        <ResourcePropertiesEditDialog 
+          :resourceId="editResourceId"
+          :resourceType="editResourceType"
+          @onUpdatedResourceProperties="onUpdatedResourceProperties"
+          @onClose="onCloseResourcePropertiesEditor"
+        />
+
     </div>
 </template>
 
@@ -35,6 +43,7 @@ import {
 } from "vue-property-decorator";
 import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import ConnectorRightClickMenuAndEditor from "@/presentation/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue";
+import ResourcePropertiesEditDialog from "@/presentation/components/diagrams/editor/ResourcePropertiesEditDialog.vue";
 
 import "jquery";
 import "jquery-ui";
@@ -65,7 +74,8 @@ import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 @Component({
   components: {
     CanvasSettingToolBar,
-    ConnectorRightClickMenuAndEditor
+    ConnectorRightClickMenuAndEditor,
+    ResourcePropertiesEditDialog
   }
 })
 export default class DiagramCanvas extends Vue {
@@ -105,6 +115,11 @@ export default class DiagramCanvas extends Vue {
   private menuY = 0;
   private targetRelationId = "";
   private editableRouterId = 0;
+
+  private editResourceId = 0;
+  private editResourceType: ResourceType | null = null;
+  private dropXOnCanvas = 0;
+  private dropYOnCanvas = 0;
 
   // Events
 
@@ -241,6 +256,18 @@ export default class DiagramCanvas extends Vue {
     });
   }
 
+  // from ResourcePropertiesEditor events.
+
+  private onUpdatedResourceProperties(resource: Resource): void {
+    alert('コールバック呼ぶだけでなんかおかしなる？')
+    // this.addPlacement(resource);
+    // this.onUpdateResources(); // 親にコールバック
+  }
+
+  private onCloseResourcePropertiesEditor(): void {
+    this.editResourceId = 0;
+  }
+
   // Canvas Events
 
   private onZoomChangeFromCanvas(emitterFigure: Figure, zoomData: any): void {
@@ -253,34 +280,30 @@ export default class DiagramCanvas extends Vue {
     let zoom = this.canvas.getZoom();
     zoom = isFinite(zoom) ? Number(zoom) : 1; // Zoom状況を考慮
 
-    const x = event.offsetX * zoom;
-    const y = event.offsetY * zoom;
+    this.dropXOnCanvas = event.offsetX * zoom;
+    this.dropYOnCanvas = event.offsetY * zoom;
 
     const textData = event.dataTransfer?.getData("text");
     if (!textData) return;
     let resourceId = parseInt(textData, 10);
     const isAddNew = resourceId < 0;
-    const resourceType = ResourceType.ofId(resourceId * -1) as ResourceType;
+
+    // 新規追加時。
+    let resource: Resource | null = null;
+    if (isAddNew) {
+      const resourceType = ResourceType.ofId(resourceId * -1) as ResourceType;
+      this.showResourcePropertiesEditor(resourceType);
+      return;
+    }
 
     let product = this.repository.getCurrentProduct() as Product;
     const diagram = product.diagrams.of(this.diagramId);
     if (!diagram) return;
 
-    // 新規追加時。
-    let resource: Resource | null = null;
-    if (isAddNew) {
-      const name = this.promptResourceName(resourceType, product);
-      if (!name) return;
-      product = product.createAndAddResource(name, resourceType);
-      resource = product.lastCreatdResource();
-      this.repository.registerCurrentProduct(product);
-      this.onUpdateResources(); // 親にコールバック
-    } else {
-      resource = product.resources.of(resourceId);
-    }
+    resource = product.resources.of(resourceId);
     if (!resource) return;
 
-    this.addPlacement(x, y, resource);
+    this.addPlacement(resource);
   }
 
   private onDropOverCanvas(event: DragEvent): void {
@@ -524,6 +547,11 @@ export default class DiagramCanvas extends Vue {
     return svgContents.replace("<defs", cssLink + "<defs");
   }
 
+  private showResourcePropertiesEditor(resourceType: ResourceType): void {
+    this.editResourceType = resourceType;
+    this.editResourceId = ResourcePropertiesEditDialog.ID_WHEN_CREATE_NEW;
+  }
+
   // Data change controll.
 
   /**
@@ -564,12 +592,16 @@ export default class DiagramCanvas extends Vue {
     return name ? name : "";
   }
 
-  private addPlacement(x: number, y: number, resource: Resource): void {
+  private addPlacement(resource: Resource): void {
     const product = this.repository.getCurrentProduct();
     const diagram = product!.diagrams.of(this.diagramId);
     if (!product || !diagram) return;
 
-    const placement = diagram.createPlacement(resource, x, y) as Placement;
+    const placement = diagram.createPlacement(
+      resource,
+      this.dropXOnCanvas,
+      this.dropYOnCanvas
+    ) as Placement;
     const modifiedDiagram: Diagram = diagram.addPlacement(placement);
     const modifiedProduct = product.replaceOf(modifiedDiagram);
 

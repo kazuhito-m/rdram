@@ -6,7 +6,7 @@
     :categoryTitle="categoryTitle"
     width="400"
     @onClose="onClose"
-    @onClickOk="onClickLUpdateExecute"
+    @onClickOk="onClickUpdateExecute"
     @onShow="onShow"
   >
     <template v-slot:inputPart>
@@ -156,7 +156,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
     return true;
   }
 
-  private onClickLUpdateExecute(): void {
+  private onClickUpdateExecute(): void {
     if (!this.consent) return;
     const diagram = this.registerDiagramProperties();
     if (!diagram) return;
