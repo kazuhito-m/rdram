@@ -2,8 +2,9 @@
   <PropertiesSettingDialog
     :id="diagramId"
     :consent="consent"
-    :nameForTitle="nameForTitle"
-    :categoryTitle="categoryTitle"
+    :title="title"
+    :subTitle="subTitle"
+    :iconKey="iconKey"
     width="400"
     @onClose="onClose"
     @onClickOk="onClickUpdateExecute"
@@ -74,8 +75,9 @@ export default class DiagramPropertiesEditDialog extends Vue {
   @Inject()
   private repository?: StrageRepository;
   private consent = false;
-  private categoryTitle = "";
-  private nameForTitle = "";
+  private subTitle = "";
+  private title = "";
+  private iconKey = "";
   private old!: Diagram;
 
   private name = "";
@@ -88,8 +90,9 @@ export default class DiagramPropertiesEditDialog extends Vue {
     const diagram = product?.diagrams.of(this.diagramId);
     if (!diagram) return;
     this.old = diagram;
-    this.nameForTitle = diagram.name;
-    this.categoryTitle = diagram.type.name;
+    this.title = `${diagram.name} の設定`;
+    this.subTitle = diagram.type.name;
+    this.iconKey = diagram.type.iconKey;
     this.showProperties(diagram);
   }
 

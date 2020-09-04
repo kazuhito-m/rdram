@@ -7,7 +7,6 @@ import Resource from '@/domain/resource/Resource';
 import ResourceType from '../resource/ResourceType';
 import ResourceFactory from '../resource/ResourceFactory';
 import DiagramType from '../diagram/DiagramType';
-import DiagramFactory from '../diagram/DiagramFactory';
 
 export default class Product {
     constructor(
@@ -37,7 +36,7 @@ export default class Product {
         );
     }
 
-    public static prototypeOf(newName: string) {
+    public static prototypeOf(newName: string): Product {
         const product = new Product(
             new Date(),
             ProductIdentifier.ganerate().toString(),
@@ -104,7 +103,7 @@ export default class Product {
         const factory = new ResourceFactory();
         const newResouceId = this.resourceIdSequence;
         const updated = this.moveNextResourceIdSequence();
-        const resource = factory.create(name, resourceType, newResouceId);
+        const resource = factory.create(name, resourceType, newResouceId, this.resources);
         const addedResources = updated.resources.add(resource);
         return updated.withResources(addedResources);
     }

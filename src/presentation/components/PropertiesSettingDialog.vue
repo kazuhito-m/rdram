@@ -7,12 +7,12 @@
     @keydown.enter="onClickOk"
   >
     <v-card>
-      <v-card-text class="bottom-padding-ignore">{{ categoryTitle }}</v-card-text>
-      <v-card-title class="headline top-padding-ignore">「{{ nameForTitle }}」の設定</v-card-title>
-      <v-card-text class="bottom-padding-ignore top-padding-ignore">
+      <v-card-title class="headline"><v-icon>{{ iconKey }}</v-icon>{{ title }}</v-card-title>
+      <v-card-subtitle class="text-right">{{ subTitle }}</v-card-subtitle>
+      <v-card-text>
         <slot name="inputPart"></slot>
       </v-card-text>
-      <v-card-actions class="top-padding-ignore">
+      <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text color="normal" @click="onClose">キャンセル</v-btn>
         <v-btn text :disabled="!consent" color="primary" @click="onClickOk">OK</v-btn>
@@ -29,11 +29,13 @@ export default class PropertiesSettingDialog extends Vue {
   @Prop({ required: true })
   private readonly id: any | null;
   @Prop({ required: true })
-  private nameForTitle!: string;
+  private title!: string;
+  @Prop()
+  private readonly iconKey!: string;
   @Prop()
   private readonly consent!: boolean;
   @Prop()
-  private readonly categoryTitle!: string;
+  private readonly subTitle!: string;
   @Prop()
   private readonly width!: number;
 
@@ -51,11 +53,5 @@ export default class PropertiesSettingDialog extends Vue {
 }
 </script>
 
-<style scoped>
-.bottom-padding-ignore {
-  padding-bottom: 0px;
-}
-.top-padding-ignore {
-  padding-top: 0px;
-}
+<style type="sass" scoped>
 </style>

@@ -2,9 +2,10 @@
   <PropertiesSettingDialog
     :id="resourceId"
     :consent="consent"
-    :nameForTitle="nameForTitle"
-    :categoryTitle="categoryTitle"
-    width="500"
+    :title="title"
+    :subTitle="subTitle"
+    :iconKey="iconKey"
+    width="400"
     @onClose="onClose"
     @onClickOk="onClickUpdateExecute"
     @onShow="onShow"
@@ -87,8 +88,9 @@ export default class ResourcePropertiesEditDialog extends Vue {
   @Inject()
   private repository?: StrageRepository;
   private consent = false;
-  private categoryTitle = "";
-  private nameForTitle = "";
+  private subTitle = "";
+  private title = "";
+  private iconKey = "";
   private old!: Resource;
 
   private name = "";
@@ -104,8 +106,11 @@ export default class ResourcePropertiesEditDialog extends Vue {
     if (!resource) return;
     this.old = resource;
     const type = resource.type;
-    this.nameForTitle = whenNew ? `${type.name}の新規作成` : type.name;
-    this.categoryTitle = type.name;
+    this.title = whenNew
+      ? `${type.name} の新規作成`
+      : `${resource.name} の設定`;
+    this.subTitle = type.name;
+    this.iconKey = type.iconKey;
     this.showProperties(resource);
   }
 
