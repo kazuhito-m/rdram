@@ -259,9 +259,8 @@ export default class DiagramCanvas extends Vue {
   // from ResourcePropertiesEditor events.
 
   private onUpdatedResourceProperties(resource: Resource): void {
-    alert('コールバック呼ぶだけでなんかおかしなる？')
-    // this.addPlacement(resource);
-    // this.onUpdateResources(); // 親にコールバック
+    this.addPlacement(resource);
+    this.onUpdateResources(); // 親にコールバック
   }
 
   private onCloseResourcePropertiesEditor(): void {
