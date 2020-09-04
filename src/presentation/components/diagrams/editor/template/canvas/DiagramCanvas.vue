@@ -273,24 +273,14 @@ export default class DiagramCanvas extends Vue {
       if (!name) return;
       product = product.createAndAddResource(name, resourceType);
       resource = product.lastCreatdResource();
+      this.repository.registerCurrentProduct(product);
+      this.onUpdateResources(); // 親にコールバック
     } else {
       resource = product.resources.of(resourceId);
     }
     if (!resource) return;
 
-    // 追加後は「図への追加(ふつーのドラッグ)」と一緒。
-    const placement = diagram.createPlacement(resource, x, y) as Placement;
-    const modifiedDiagram: Diagram = diagram.addPlacement(placement);
-    product = product.replaceOf(modifiedDiagram);
-
-    this.addResouceIconToCanvas(resource, placement);
-
-    // product/diagrogまとめて保存。
-    this.repository.registerCurrentProduct(product);
-
-    // 親にコールバック。
-    if (isAddNew) this.onUpdateResources();
-    this.onMergePlacement(modifiedDiagram.placements);
+    this.addPlacement(x, y, resource);
   }
 
   private onDropOverCanvas(event: DragEvent): void {
@@ -572,6 +562,22 @@ export default class DiagramCanvas extends Vue {
       return !exists;
     });
     return name ? name : "";
+  }
+
+  private addPlacement(x: number, y: number, resource: Resource): void {
+    const product = this.repository.getCurrentProduct();
+    const diagram = product!.diagrams.of(this.diagramId);
+    if (!product || !diagram) return;
+
+    const placement = diagram.createPlacement(resource, x, y) as Placement;
+    const modifiedDiagram: Diagram = diagram.addPlacement(placement);
+    const modifiedProduct = product.replaceOf(modifiedDiagram);
+
+    this.addResouceIconToCanvas(resource, placement);
+
+    this.repository.registerCurrentProduct(modifiedProduct);
+
+    this.onMergePlacement(modifiedDiagram.placements);
   }
 
   /**
