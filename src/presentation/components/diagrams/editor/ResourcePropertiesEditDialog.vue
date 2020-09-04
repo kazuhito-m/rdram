@@ -5,7 +5,7 @@
     :title="title"
     :subTitle="subTitle"
     :iconKey="iconKey"
-    width="400"
+    width="450"
     @onClose="onClose"
     @onClickOk="onClickUpdateExecute"
     @onShow="onShow"
@@ -17,11 +17,26 @@
             <v-text-field
               label="名前"
               counter
-              autofocus
               v-model="name"
+              :autofocus="!enableContent"
               :rules="[validateName]"
               :maxlength="nameMaxLength"
             ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row v-if="enableContent">
+          <v-col>
+            <v-textarea
+              v-model="content"
+              ref="inputContent"
+              counter
+              filled
+              label="内容"
+              rows="3"
+              no-resize
+              :autofocus="enableContent"
+              :rules="[validateContent]"
+            ></v-textarea>
           </v-col>
         </v-row>
         <v-row>
@@ -92,6 +107,7 @@ export default class ResourcePropertiesEditDialog extends Vue {
   private title = "";
   private iconKey = "";
   private old!: Resource;
+  private enableContent = false;
 
   private name = "";
   private description = "";
@@ -101,16 +117,16 @@ export default class ResourcePropertiesEditDialog extends Vue {
     this.consent = false;
     const product = this.repository?.getCurrentProduct();
     if (!product) return;
-    const whenNew = this.isAddNew();
     const resource = this.getTargetResource(product.resources);
     if (!resource) return;
     this.old = resource;
     const type = resource.type;
-    this.title = whenNew
+    this.title = this.isAddNew()
       ? `${type.name} の新規作成`
       : `${resource.name} の設定`;
     this.subTitle = type.name;
     this.iconKey = type.iconKey;
+    this.enableContent = ResourceType.目的.equals(type);
     this.showProperties(resource);
   }
 
@@ -128,7 +144,7 @@ export default class ResourcePropertiesEditDialog extends Vue {
   }
 
   private changed(): boolean {
-    const old = this.old!;
+    const old = this.old;
     let whenSpecialTypeDiff = false;
     if (ResourceType.目的.equals(old.type)) {
       const purpose = this.old as Purpose;
@@ -165,6 +181,15 @@ export default class ResourcePropertiesEditDialog extends Vue {
     const description = this.description;
     const max = this.descriptionMaxLength;
     if (description.length > max) return `${max}文字以内で入力してください。`;
+    this.consent = this.changed();
+    return true;
+  }
+
+  private validateContent(): string | boolean {
+    this.consent = false;
+    const content = this.content;
+    const max = Purpose.CONTENT_MAX_LENGTH;
+    if (content.length > max) return `${max}文字以内で入力してください。`;
     this.consent = this.changed();
     return true;
   }

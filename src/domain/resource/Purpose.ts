@@ -5,6 +5,8 @@ import Resource from "./Resource";
  * 「目的」リソース。
  */
 export default class Purpose extends Resource {
+    public static CONTENT_MAX_LENGTH = 512;
+
     constructor(
         resourceId: number,
         name: string,
