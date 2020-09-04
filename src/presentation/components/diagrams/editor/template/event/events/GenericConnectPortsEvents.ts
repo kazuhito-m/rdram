@@ -44,6 +44,7 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
             if (!srcResourceId || !distResourceId) continue;
 
             const connection = eventGist.connection;
+            console.log("connectionのオブジェクト？", connection);
             connection.onContextMenu = view.onClickConnectorOnCanvas;
 
             const routerType = view.analyzeRouterType(connection.router);

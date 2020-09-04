@@ -390,7 +390,6 @@ export default class extends Vue {
   }
 
   private addDiagramTreeItem(diagram: Diagram, treeItems: TreeItem[]): void {
-    console.log(diagram);
     const folderItem = this.folderItemOf(diagram.type, treeItems);
     if (!folderItem) return;
     const children = folderItem.children;
@@ -509,7 +508,6 @@ export default class extends Vue {
   }
 
   private reloadAllResources(): void {
-    console.log("トップ画面でのリソース全取り直し");
     const product = this.repository.getCurrentProduct();
     if (!product) return;
     // 削除されていないか確認。

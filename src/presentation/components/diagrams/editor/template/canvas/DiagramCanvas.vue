@@ -210,7 +210,6 @@ export default class DiagramCanvas extends Vue {
   // from Toolbar events.
 
   private onChangeZoomBySlider(zoom: number) {
-    console.log("zoom", zoom);
     this.canvas.setZoom(zoom, false);
   }
 
@@ -339,7 +338,9 @@ export default class DiagramCanvas extends Vue {
     const canvas = this.canvas;
     const foundFigure = canvas.getBestFigure(x, y, [], []);
     if (!foundFigure) return;
-    const diagram = this.product.diagrams.of(this.diagramId);
+    const product = this.repository.getCurrentProduct();
+    if (!product) return;
+    const diagram = product.diagrams.of(this.diagramId);
     if (!diagram) return;
     const targetRelation = diagram.relationOf(foundFigure.id);
     if (!targetRelation) return;
