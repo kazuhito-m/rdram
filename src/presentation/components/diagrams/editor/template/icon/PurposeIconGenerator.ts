@@ -19,7 +19,7 @@ export default class PurposeIconGenerator implements IconGenerator {
         const text = new draw2d.shape.basic.Text({
             x: placement.x,
             y: placement.y,
-            bgColor: "#fff0e0",
+            bgColor: "#efffef",
             alpha: 1,
             radius: 3,
             stroke: 2,

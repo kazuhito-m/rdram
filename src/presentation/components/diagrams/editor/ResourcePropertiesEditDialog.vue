@@ -32,6 +32,7 @@
               counter
               filled
               label="内容"
+              hint="半角スペース・改行 で折り返す事ができます。"
               rows="3"
               no-resize
               :autofocus="enableContent"
