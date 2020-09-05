@@ -3,7 +3,6 @@ import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
 import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
-import Resources from "@/domain/resource/Resources";
 import Resource from "~/domain/resource/Resource";
 
 export default class RequestModelDiagram extends Diagram {

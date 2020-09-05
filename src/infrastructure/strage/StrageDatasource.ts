@@ -10,6 +10,8 @@ import Diagram from '@/domain/diagram/Diagram';
 
 import Resource from '@/domain/resource/Resource';
 import Purpose from '@/domain/resource/Purpose';
+import Request from '~/domain/resource/Request';
+import Requirement from '~/domain/resource/Requirement';
 
 import Placement from '@/domain/diagram/placement/Placement';
 import Midpoint from '~/domain/relation/Midpoint';
@@ -35,6 +37,8 @@ export default class StrageDatasource implements StrageRepository {
         Resources,
         Resource,
         Purpose,
+        Request,
+        Requirement,
         Diagrams,
         Diagram,
         Placement,

@@ -1,21 +1,19 @@
 import ResourceType from "./ResourceType";
-import Resource from "./Resource";
-import HasContent from "./HasContent";
 import HasContentResource from "./HasContentResource";
 
 /**
- * 「目的」リソース。
+ * 「要求」リソース。
  */
-export default class Purpose extends HasContentResource {
+export default class Request extends HasContentResource {
     constructor(
         resourceId: number,
         name: string,
         description: string,
         content: string,
-    ) { super(resourceId, ResourceType.目的.id, name, description, content); }
+    ) { super(resourceId, ResourceType.要求.id, name, description, content); }
 
-    public withName(name: string): Purpose {
-        return new Purpose(
+    public withName(name: string): Request {
+        return new Request(
             this.resourceId,
             name,
             this.description,
@@ -23,8 +21,8 @@ export default class Purpose extends HasContentResource {
         );
     }
 
-    public withContent(content: string): Purpose {
-        return new Purpose(
+    public withContent(content: string): Request {
+        return new Request(
             this.resourceId,
             this.name,
             this.description,
