@@ -40,7 +40,8 @@ export default class RequestModelDiagram extends Diagram {
         let width = 0;
         let height = 0;
         const resType = resource.type;
-        if (ResourceType.システム.equals(resType)) {
+        if (ResourceType.要求.equals(resType)
+            || ResourceType.要件.equals(resType)) {
             width = 350;
             height = 75;
         }
