@@ -109,6 +109,7 @@ export default class ResourcePropertiesEditDialog extends Vue {
   private iconKey = "";
   private old!: Resource;
   private enableContent = false;
+  private firstCheck = false;
 
   private name = "";
   private description = "";
@@ -116,6 +117,7 @@ export default class ResourcePropertiesEditDialog extends Vue {
 
   private onShow(): void {
     this.consent = false;
+    this.firstCheck = true;
     const product = this.repository?.getCurrentProduct();
     if (!product) return;
     const resource = this.getTargetResource(product.resources);
@@ -168,8 +170,8 @@ export default class ResourcePropertiesEditDialog extends Vue {
 
   private validateName(): string | boolean {
     this.consent = false;
+    if (this.firstCheck) return !(this.firstCheck = false); // 初期未入力でエラーにならないように対策
     const name = this.name;
-    if (this.old.name === name) return true; // 初期値がバリデーションで怒られない対策
     if (name.length === 0) return "入力してください。";
     const max = this.nameMaxLength;
     if (name.length > max) return `${max}文字以内で入力してください。`;
@@ -198,7 +200,7 @@ export default class ResourcePropertiesEditDialog extends Vue {
   private onClickUpdateExecute(): void {
     if (!this.consent) return;
     const resource = this.registerResourceProperties();
-    if (!resource) return;
+    if (resource === null) return;
     this.onUpdatedResourceProperties(resource);
     this.onClose();
   }
