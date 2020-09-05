@@ -4,6 +4,7 @@ import BusinessContextDiagram from "./businesscontext/BusinessContextDiagram";
 import InformationModelDiagram from "./informationmodel/InformationModelDiagram";
 import StateModelDiagram from "./statemodel/StateModelDiagram";
 import SystemContextDiagram from "./systemcontext/SystemContextDiagram";
+import RequestModelDiagram from "./requrestmodel/RequestModelDiagram";
 import Resources from "@/domain/resource/Resources";
 
 export default class DiagramFactory {
@@ -12,6 +13,8 @@ export default class DiagramFactory {
     public create(newDiagramId: number, name: string, diagramType: DiagramType): Diagram {
         if (DiagramType.システムコンテキスト図.equals(diagramType))
             return SystemContextDiagram.prototypeOf(newDiagramId, name, this.resources);
+        if (DiagramType.要求モデル図.equals(diagramType))
+            return RequestModelDiagram.prototypeOf(newDiagramId, name);
         if (DiagramType.ビジネスコンテキスト図.equals(diagramType))
             return BusinessContextDiagram.prototypeOf(newDiagramId, name);
         if (DiagramType.情報モデル図.equals(diagramType))

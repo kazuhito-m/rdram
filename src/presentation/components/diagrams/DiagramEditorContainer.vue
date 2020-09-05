@@ -8,6 +8,14 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     />
+    <RequestModelDiagramEditor
+      v-if="is('要求モデル図')"
+      :diagramId="diagram.id"
+      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+    />
     <BusinessContextDiagramEditor
       v-if="is('ビジネスコンテキスト図')"
       :diagramId="diagram.id"
@@ -39,6 +47,7 @@
 import { Component, Vue, Prop, Inject, Emit } from "nuxt-property-decorator";
 import BusinessContextDiagramEditor from "@/presentation/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
 import SystemContextDiagramEditor from "@/presentation/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue";
+import RequestModelDiagramEditor from "@/presentation/components/diagrams/editor/requrestmodel/RequestModelDiagramEditor.vue";
 import InfomationModelEditor from "@/presentation/components/diagrams/editor/infomationmodel/InfomationModelEditor.vue";
 import StateModelEditor from "@/presentation/components/diagrams/editor/statemodel/StateModelEditor.vue";
 import Diagram from "@/domain/diagram/Diagram";
@@ -49,6 +58,7 @@ import StrageRepository from "@/domain/strage/StrageRepository";
 @Component({
   components: {
     SystemContextDiagramEditor,
+    RequestModelDiagramEditor,
     BusinessContextDiagramEditor,
     InfomationModelEditor,
     StateModelEditor
