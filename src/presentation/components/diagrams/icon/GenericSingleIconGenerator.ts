@@ -40,7 +40,7 @@ export default abstract class GenericSingleIconGenerator implements IconGenerato
         );
         // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
         const port = icon.getPorts().last();
-        const anchor = new draw2d.layout.anchor.FanConnectionAnchor(icon);
+        const anchor = new draw2d.layout.anchor.ShortesPathConnectionAnchor(icon);
         port.setConnectionAnchor(anchor);
 
         icon.add(name, new draw2d.layout.locator.BottomLocator());
