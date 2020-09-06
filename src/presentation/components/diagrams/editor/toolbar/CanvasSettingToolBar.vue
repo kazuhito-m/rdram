@@ -13,7 +13,7 @@
     @dragstart="onDragStartToolBar"
     @mousedown="onMouseDownToolBar"
   >
-    <v-btn icon @click="onClickEditDiagramProperties">
+    <v-btn dark icon @click="onClickEditDiagramProperties">
       <v-icon>mdi-content-save-edit-outline</v-icon>
     </v-btn>
 
@@ -27,7 +27,7 @@
 
     <v-menu top offset-y v-if="!toolBarCollapse">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on">
+        <v-btn dark small icon v-bind="attrs" v-on="on">
           <v-icon>{{ canvasGuideTypeIconKey }}</v-icon>
         </v-btn>
       </template>
@@ -46,16 +46,20 @@
       </v-list>
     </v-menu>
 
-    <v-btn icon v-if="!toolBarCollapse">
-      <v-icon @click="onClickSvgDownload">mdi-image</v-icon>
+    <v-btn dark small icon v-if="!toolBarCollapse">
+      <v-icon @click="onPngDownload">mdi-image</v-icon>
+    </v-btn>
+
+    <v-btn dark small icon v-if="!toolBarCollapse">
+      <v-icon @click="onClickSvgDownload">mdi-image-outline</v-icon>
     </v-btn>
 
     <v-spacer></v-spacer>
 
-    <v-btn icon v-if="!toolBarCollapse" @click="onClickBarCollapseToggle">
+    <v-btn dark icon v-if="!toolBarCollapse" @click="onClickBarCollapseToggle">
       <v-icon>mdi-arrow-collapse-horizontal</v-icon>
     </v-btn>
-    <v-btn icon v-if="toolBarCollapse" @click="onClickBarCollapseToggle">
+    <v-btn dark icon v-if="toolBarCollapse" @click="onClickBarCollapseToggle">
       <v-icon>mdi-arrow-expand-horizontal</v-icon>
     </v-btn>
   </v-toolbar>
@@ -89,6 +93,9 @@ export default class CanvasSettingToolBar extends Vue {
     canvasGuideType: CanvasGuideType,
     beforeCanvasGuideType: CanvasGuideType
   ): void {}
+
+  @Emit("onPngDownload")
+  private onPngDownload(): void {}
 
   @Emit("onSvgDownload")
   private onSvgDownLoad(): void {}

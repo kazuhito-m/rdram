@@ -1,12 +1,13 @@
 <template lang="html">
     <div class="canvas-container" ref="convasContainer">
-        <div class="diagram-canvas" :id="canvasId" />
+        <div class="diagram-canvas" :id="canvasId"/>
 
         <CanvasSettingToolBar
             :diagramId="diagramId"
             :canvasZoom="canvasZoom"
             @onChangeZoomBySlider="onChangeZoomBySlider"
             @onChangeCanvasGuideType="onChangeCanvasGuideType"
+            @onPngDownload="onPngDownload"
             @onSvgDownload="onSvgDownload"
             @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
         />
@@ -242,12 +243,22 @@ export default class DiagramCanvas extends Vue {
     canvas.setZoom(canvas.getZoom() - 0.001, false);
   }
 
-  private onSvgDownload(): void {
-    const diagram = this.product.diagrams.of(this.diagramId);
+  private onPngDownload(): void {
+    const product = this.repository.getCurrentProduct();
+    const diagram = product!.diagrams.of(this.diagramId);
     if (!diagram) return;
-    const ymdhms = moment().format("YYYYMMDDHHmmss");
-    const fileName = this.makeSvgDownloadFileName(diagram);
+    const fileName = this.makeDownloadFileName(diagram, "png");
+    const writer = new draw2d.io.png.Writer();
+    writer.marshal(this.canvas, (png: string) => {
+      this.clientDownloadRepository.registerBase64PngImage(png, fileName);
+    });
+  }
 
+  private onSvgDownload(): void {
+    const product = this.repository.getCurrentProduct();
+    const diagram = product!.diagrams.of(this.diagramId);
+    if (!diagram) return;
+    const fileName = this.makeDownloadFileName(diagram, "svg");
     const writer = new draw2d.io.svg.Writer();
     writer.marshal(this.canvas, (svg: string) => {
       const withFontSvg = this.includeWebFont(svg);
@@ -533,10 +544,10 @@ export default class DiagramCanvas extends Vue {
     return confirm(message);
   }
 
-  private makeSvgDownloadFileName(diagram: Diagram): string {
+  private makeDownloadFileName(diagram: Diagram, extension: string): string {
     const namePart = diagram.name.replace(" ", "-").replace("　", "＿");
     const ymdhms = moment().format("YYYYMMDDHHmmss");
-    const fileName = `rdram-${diagram.id}-${namePart}-${ymdhms}.svg`;
+    const fileName = `rdram-${diagram.id}-${namePart}-${ymdhms}.${extension}`;
     return fileName;
   }
 
@@ -545,6 +556,11 @@ export default class DiagramCanvas extends Vue {
       "<defs><style type='text/css'>@import url('https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css');</style></defs>";
     return svgContents.replace("<defs", cssLink + "<defs");
   }
+
+  // private decodePngBase64(pngBase64Text: string): string {
+  //   const cutedHeader = pngBase64Text.replace(/^data:image\/png;base64,/, "");
+  //   return atob(cutedHeader);
+  // }
 
   private showResourcePropertiesEditor(resourceType: ResourceType): void {
     this.editResourceType = resourceType;

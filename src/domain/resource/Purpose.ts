@@ -1,6 +1,4 @@
 import ResourceType from "./ResourceType";
-import Resource from "./Resource";
-import HasContent from "./HasContent";
 import HasContentResource from "./HasContentResource";
 
 /**
