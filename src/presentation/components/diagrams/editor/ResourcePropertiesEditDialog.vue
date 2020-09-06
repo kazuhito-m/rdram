@@ -32,11 +32,11 @@
               counter
               filled
               label="内容"
-              hint="半角スペース・改行 で折り返す事ができます。"
               rows="3"
               no-resize
               :autofocus="enableContent"
               :rules="[validateContent]"
+              :hint="inputContentHint"
             ></v-textarea>
           </v-col>
         </v-row>
@@ -111,6 +111,7 @@ export default class ResourcePropertiesEditDialog extends Vue {
   private old!: Resource;
   private enableContent = false;
   private firstCheck = false;
+  private inputContentHint = "";
 
   private name = "";
   private description = "";
@@ -131,6 +132,7 @@ export default class ResourcePropertiesEditDialog extends Vue {
     this.subTitle = type.name;
     this.iconKey = type.iconKey;
     this.enableContent = resource instanceof HasContentResource;
+    this.inputContentHint = this.choiceContentHint();
     this.showProperties(resource);
   }
 
@@ -167,6 +169,12 @@ export default class ResourcePropertiesEditDialog extends Vue {
 
   private get descriptionMaxLength(): number {
     return Resource.DESCRIPTION_MAX_LENGTH;
+  }
+
+  private choiceContentHint(): string {
+    if (ResourceType.目的.equals(this.old!.type))
+      return "半角スペース・改行 で折り返す事ができます。";
+    return "改行 で折り返す事ができます。";
   }
 
   private validateName(): string | boolean {
