@@ -1,6 +1,7 @@
 import Diagram from "./Diagram";
 import DiagramType from "./DiagramType";
 import BusinessContextDiagram from "./businesscontext/BusinessContextDiagram";
+import BusinessUseCaseDiagram from "./businessusecase/BusinessUseCaseDiagram";
 import InformationModelDiagram from "./informationmodel/InformationModelDiagram";
 import StateModelDiagram from "./statemodel/StateModelDiagram";
 import SystemContextDiagram from "./systemcontext/SystemContextDiagram";
@@ -17,6 +18,8 @@ export default class DiagramFactory {
             return RequestModelDiagram.prototypeOf(newDiagramId, name);
         if (DiagramType.ビジネスコンテキスト図.equals(diagramType))
             return BusinessContextDiagram.prototypeOf(newDiagramId, name);
+        if (DiagramType.ビジネスユースケース図.equals(diagramType))
+            return BusinessUseCaseDiagram.prototypeOf(newDiagramId, name);
         if (DiagramType.情報モデル図.equals(diagramType))
             return InformationModelDiagram.prototypeOf(newDiagramId, name);
         if (DiagramType.状態モデル.equals(diagramType))

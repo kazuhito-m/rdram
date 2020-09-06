@@ -21,6 +21,7 @@ import GenericMoveShapeEvents from "@/presentation/components/diagrams/editor/te
 import GenericResizeShapeEvents from "@/presentation/components/diagrams/editor/template/event/events/GenericResizeShapeEvents";
 
 import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
+import BusinessUseCaseIconGenerator from "@/presentation/components/diagrams/editor/template/icon/BusinessUseCaseIconGenerator";
 import CompanyIconGenerator from "@/presentation/components/diagrams/editor/template/icon/CompanyIconGenerator";
 import ActorIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ActorIconGenerator";
 import RoomIconGenerator from "@/presentation/components/diagrams/editor/template/icon/RoomIconGenerator";
@@ -37,7 +38,7 @@ import Resource from "@/domain/resource/Resource";
     DiagramEditor
   }
 })
-export default class InfomationModelEditor extends Vue {
+export default class BusinessUseCaseDiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
@@ -57,7 +58,7 @@ export default class InfomationModelEditor extends Vue {
   ]);
 
   private readonly iconGenerators: IconGenerator[] = [
-    new BusinessIconGenerator(),
+    new BusinessUseCaseIconGenerator(),
     new CompanyIconGenerator(),
     new ActorIconGenerator(),
     new RoomIconGenerator(),
