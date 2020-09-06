@@ -20,7 +20,7 @@ export default abstract class GenericTextCardIconGenerator implements IconGenera
             color: "#888888",
             bgColor: "#FFFFFF",
             alpha: 1,
-            radius: 20,
+            radius: 17,
             stroke: 2,
             lineStroke: 2,
             resizable: true,
