@@ -23,6 +23,7 @@ import BusinessContextDiagram from '@/domain/diagram/businesscontext/BusinessCon
 import InformationModelDiagram from '@/domain/diagram/informationmodel/InformationModelDiagram';
 import StateModelDiagram from '@/domain/diagram/statemodel/StateModelDiagram';
 import RequestModelDiagram from '@/domain/diagram/requrestmodel/RequestModelDiagram';
+import BusinessUseCaseDiagram from '@/domain/diagram/businessusecase/BusinessUseCaseDiagram';
 
 export default class StrageDatasource implements StrageRepository {
     private static readonly STRAGE_ID = 'rdram-strage';
@@ -49,6 +50,7 @@ export default class StrageDatasource implements StrageRepository {
         StateModelDiagram,
         SystemContextDiagram,
         RequestModelDiagram,
+        BusinessUseCaseDiagram,
     );
 
     public isInitialized(): boolean {
