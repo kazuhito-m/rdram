@@ -17,12 +17,14 @@ export default abstract class GenericTextCardIconGenerator implements IconGenera
         const text = new draw2d.shape.node.Hub({
             x: placement.x,
             y: placement.y,
+            color: "#888888",
             bgColor: "#FFFFFF",
             alpha: 1,
-            radius: 3,
+            radius: 20,
             stroke: 2,
+            lineStroke: 2,
             resizable: true,
-            padding: 5,
+            padding: 0,
             bold: true,
             text: purpose.content,
             id: id

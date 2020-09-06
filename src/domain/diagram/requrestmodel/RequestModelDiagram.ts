@@ -42,8 +42,8 @@ export default class RequestModelDiagram extends Diagram {
         const resType = resource.type;
         if (ResourceType.要求.equals(resType)
             || ResourceType.要件.equals(resType)) {
-            width = 350;
-            height = 75;
+            width = 250;
+            height = 50;
         }
         return new Placement(
             left,

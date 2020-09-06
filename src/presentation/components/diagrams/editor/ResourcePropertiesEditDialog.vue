@@ -76,6 +76,7 @@ import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Purpose from "@/domain/resource/Purpose";
 import Resources from "@/domain/resource/Resources";
+import HasContentResource from "@/domain/resource/HasContentResource";
 
 @Component({
   components: { PropertiesSettingDialog }
@@ -129,7 +130,7 @@ export default class ResourcePropertiesEditDialog extends Vue {
       : `${resource.name} の設定`;
     this.subTitle = type.name;
     this.iconKey = type.iconKey;
-    this.enableContent = ResourceType.目的.equals(type);
+    this.enableContent = resource instanceof HasContentResource;
     this.showProperties(resource);
   }
 
@@ -140,7 +141,7 @@ export default class ResourcePropertiesEditDialog extends Vue {
   private showProperties(resource: Resource): void {
     this.name = resource.name;
     this.description = resource.description;
-    if (ResourceType.目的.equals(this.resourceType)) {
+    if (this.old instanceof HasContentResource) {
       const purpose = resource as Purpose;
       this.content = purpose.content;
     }
@@ -149,7 +150,7 @@ export default class ResourcePropertiesEditDialog extends Vue {
   private changed(): boolean {
     const old = this.old;
     let whenSpecialTypeDiff = false;
-    if (ResourceType.目的.equals(old.type)) {
+    if (this.old instanceof HasContentResource) {
       const purpose = this.old as Purpose;
       whenSpecialTypeDiff = purpose.content !== this.content;
     }
@@ -219,7 +220,7 @@ export default class ResourcePropertiesEditDialog extends Vue {
       this.old.type,
       resourceId
     );
-    if (ResourceType.目的.equals(resource.type)) {
+    if (this.old instanceof HasContentResource) {
       const purpose = resource as Purpose;
       resource = purpose.withContent(this.content);
     }
