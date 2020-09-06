@@ -30,6 +30,9 @@ import GoodsIconGenerator from "@/presentation/components/diagrams/editor/templa
 import ServiceIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ServiceIconGenerator";
 import FacilityIconGenerator from "@/presentation/components/diagrams/editor/template/icon/FacilityIconGenerator";
 import ContractIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ContractIconGenerator";
+import InHouseSystemIconGenerator from "@/presentation/components/diagrams/editor/template/icon/InHouseSystemIconGenerator";
+import OutsideSystemIconGenerator from "@/presentation/components/diagrams/editor/template/icon/OutsideSystemIconGenerator";
+import InformationIconGenerator from "@/presentation/components/diagrams/editor/template/icon/InformationIconGenerator";
 
 import Resource from "@/domain/resource/Resource";
 
@@ -65,7 +68,10 @@ export default class BusinessUseCaseDiagramEditor extends Vue {
     new GoodsIconGenerator(),
     new FacilityIconGenerator(),
     new ServiceIconGenerator(),
-    new ContractIconGenerator()
+    new ContractIconGenerator(),
+    new InHouseSystemIconGenerator(),
+    new OutsideSystemIconGenerator(),
+    new InformationIconGenerator()
   ];
 
   // Emits
