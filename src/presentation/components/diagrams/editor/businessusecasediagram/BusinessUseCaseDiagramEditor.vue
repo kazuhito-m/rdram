@@ -60,7 +60,7 @@ export default class BusinessUseCaseDiagramEditor extends Vue {
     new GenericResizeShapeEvents()
   ]);
 
-  private readonly iconGenerators: IconGenerator[] = [
+  private readonly iconGenerators: IconGenerator<Resource>[] = [
     new BusinessUseCaseIconGenerator(),
     new CompanyIconGenerator(),
     new ActorIconGenerator(),

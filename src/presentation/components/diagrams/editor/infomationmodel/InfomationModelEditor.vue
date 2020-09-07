@@ -50,7 +50,7 @@ export default class InfomationModelEditor extends Vue {
     new GenericResizeShapeEvents()
   ]);
 
-  private readonly iconGenerators: IconGenerator[] = [
+  private readonly iconGenerators: IconGenerator<Resource>[] = [
     new InformationIconGenerator(),
     new InformationGroupIconGenerator(),
   ];

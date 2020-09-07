@@ -1,36 +1,31 @@
 import draw2d, { Figure } from 'draw2d';
 import Placement from '@/domain/diagram/placement/Placement';
-import Resource from '@/domain/resource/Resource';
 import IconGenerator from '@/presentation/components/diagrams/icon/IconGenerator';
 import ResourceType from '@/domain/resource/ResourceType';
 import IconFontAndChar from './IconFontAndChar';
-import Purpose from '@/domain/resource/Purpose';
 import TopLeftLocator from '~/presentation/draw2d/custom/TopLeftLocator';
+import HasContentResource from '~/domain/resource/HasContentResource';
 
-export default abstract class GenericTextCardIconGenerator implements IconGenerator<Resource> {
+export default abstract class GenericHasContentIconGenerator implements IconGenerator< HasContentResource> {
     public abstract resourceType(): ResourceType;
 
-    public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {
+    generate(placement: Placement, resource: HasContentResource, iconChar: IconFontAndChar): draw2d.Figure {
         const id = String(placement.resourceId);
-        const purpose = resource as Purpose;
 
-        const text = new draw2d.shape.node.Hub({
+        const text = new draw2d.shape.basic.Text({
             x: placement.x,
             y: placement.y,
-            color: "#888888",
             bgColor: "#FFFFFF",
             alpha: 1,
-            radius: 17,
+            radius: 3,
             stroke: 2,
-            lineStroke: 2,
             resizable: true,
-            padding: 0,
+            padding: 5,
             bold: true,
-            text: purpose.content,
+            text: resource.content,
             id: id
         });
         text.setWidth(placement.width);
-        text.setHeight(placement.height);
 
         const icon = new draw2d.shape.basic.Label({
             fontFamily: iconChar.fontFamily,

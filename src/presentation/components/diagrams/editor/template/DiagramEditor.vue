@@ -86,7 +86,7 @@ export default class DiagramEditor extends Vue {
   @Prop({ required: true })
   private readonly eventAnalyzer!: EventAnalyzer;
   @Prop({ required: true })
-  private readonly iconGenerators!: IconGenerator[];
+  private readonly iconGenerators!: IconGenerator<Resource>[];
 
   // Emits
 

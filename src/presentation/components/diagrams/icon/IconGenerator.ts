@@ -4,7 +4,7 @@ import Placement from "~/domain/diagram/placement/Placement";
 import ResourceType from "~/domain/resource/ResourceType";
 import IconFontAndChar from "./IconFontAndChar";
 
-export default interface IconGenerator {
+export default interface IconGenerator<T extends Resource> {
     resourceType(): ResourceType;
-    generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure;
+    generate(placement: Placement, resource: T, iconChar: IconFontAndChar): Figure;
 }

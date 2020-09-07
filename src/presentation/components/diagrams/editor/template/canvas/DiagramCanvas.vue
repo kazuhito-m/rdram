@@ -95,7 +95,7 @@ export default class DiagramCanvas extends Vue {
   @Prop({ required: true })
   private readonly eventAnalyzer!: EventAnalyzer;
   @Prop({ required: true })
-  private readonly iconGenerators!: IconGenerator[];
+  private readonly iconGenerators!: IconGenerator<Resource>[];
 
   // This class fields.
 
@@ -413,7 +413,7 @@ export default class DiagramCanvas extends Vue {
     resource: Resource,
     placement: Placement
   ): void {
-    const generator = this.choiceIconGenerator(resource.type) as IconGenerator;
+    const generator = this.choiceIconGenerator(resource.type) as IconGenerator<Resource>;
     if (!generator) {
       alert("ジェネレータ無しアイコン生成不能:" + resource.type.name);
       return;
@@ -428,7 +428,7 @@ export default class DiagramCanvas extends Vue {
 
   private choiceIconGenerator(
     resourceType: ResourceType
-  ): IconGenerator | null {
+  ): IconGenerator<Resource> | null {
     const generator = this.iconGenerators.find(g =>
       g.resourceType().equals(resourceType)
     );

@@ -5,7 +5,7 @@ import IconGenerator from '@/presentation/components/diagrams/icon/IconGenerator
 import ResourceType from '@/domain/resource/ResourceType';
 import IconFontAndChar from '../../../icon/IconFontAndChar';
 
-export default class BusinessIconGenerator implements IconGenerator {
+export default class BusinessIconGenerator implements IconGenerator<Resource> {
     public resourceType(): ResourceType {
         return ResourceType.業務;
     }

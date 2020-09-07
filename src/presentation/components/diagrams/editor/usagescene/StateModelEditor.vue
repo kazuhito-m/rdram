@@ -50,7 +50,7 @@ export default class UsageSceneEditor extends Vue {
     new GenericResizeShapeEvents()
   ]);
 
-  private readonly iconGenerators: IconGenerator[] = [
+  private readonly iconGenerators: IconGenerator<Resource>[] = [
         new UsageSceneIconGenerator(),
         new ActorIconGenerator(),
       

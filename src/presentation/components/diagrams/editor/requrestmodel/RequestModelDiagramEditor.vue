@@ -51,7 +51,7 @@ export default class RequestModelDiagramEditor extends Vue {
     new GenericResizeShapeEvents()
   ]);
 
-  private readonly iconGenerators: IconGenerator[] = [
+  private readonly iconGenerators: IconGenerator<Resource>[] = [
     new ActorIconGenerator(),
     new RequestIconGenerator(),
     new RequirementIconGenerator()

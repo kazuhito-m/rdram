@@ -10,7 +10,7 @@ export default class Scenario extends HasContentResource {
         name: string,
         description: string,
         content: string,
-    ) { super(resourceId, ResourceType.要求.id, name, description, content); }
+    ) { super(resourceId, ResourceType.シナリオ.id, name, description, content); }
 
     public withName(name: string): Scenario {
         return new Scenario(

@@ -53,7 +53,7 @@ export default class SystemContextDiagramEditor extends Vue {
     new GenericResizeShapeEvents()
   ]);
 
-  private readonly iconGenerators: IconGenerator[] = [
+  private readonly iconGenerators: IconGenerator<Resource>[] = [
     new SystemIconGenerator(),
     new PurposeIconGenerator(),
     new ActorIconGenerator(),

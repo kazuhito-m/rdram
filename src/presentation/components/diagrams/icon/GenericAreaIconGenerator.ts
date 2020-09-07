@@ -6,7 +6,7 @@ import IconGenerator from './IconGenerator';
 import ResourceType from '~/domain/resource/ResourceType';
 import IconFontAndChar from './IconFontAndChar';
 
-export default abstract class GenericAreaIconGenerator implements IconGenerator {
+export default abstract class GenericAreaIconGenerator implements IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;
 
     public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {
