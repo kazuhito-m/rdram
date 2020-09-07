@@ -5,7 +5,7 @@ import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "~/domain/resource/Resource";
 
-export default class BusinessUseCaseDiagram extends Diagram {
+export default class UsageSceneDiagram extends Diagram {
     protected constructor(
         id: number,
         typeId: number,
@@ -28,17 +28,10 @@ export default class BusinessUseCaseDiagram extends Diagram {
 
     public availableResourceTypes(): ResourceType[] {
         return [
-            ResourceType.ビジネスユースケース,
-            ResourceType.アクター,
-            ResourceType.ユースケース,
+            ResourceType.利用シーン,
             ResourceType.シナリオ,
-            ResourceType.契約,
-            ResourceType.サービス,
-            ResourceType.組織,
-            ResourceType.会社,
-            ResourceType.自社システム,
-            ResourceType.外部システム,
-            ResourceType.情報,
+            ResourceType.ユースケース,
+            ResourceType.アクター,
         ];
     }
 
@@ -64,8 +57,8 @@ export default class BusinessUseCaseDiagram extends Diagram {
         );
     }
 
-    public with(name: string): BusinessUseCaseDiagram {
-        return new BusinessUseCaseDiagram(
+    public with(name: string): UsageSceneDiagram {
+        return new UsageSceneDiagram(
             this.id,
             this.typeId,
             name.trim(),
@@ -76,8 +69,8 @@ export default class BusinessUseCaseDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): BusinessUseCaseDiagram {
-        return new BusinessUseCaseDiagram(
+    protected replaceRelations(relations: Relation[]): UsageSceneDiagram {
+        return new UsageSceneDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -88,8 +81,8 @@ export default class BusinessUseCaseDiagram extends Diagram {
         );
     }
 
-    protected replacePlacement(placements: Placement[]): BusinessUseCaseDiagram {
-        return new BusinessUseCaseDiagram(
+    protected replacePlacement(placements: Placement[]): UsageSceneDiagram {
+        return new UsageSceneDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -100,8 +93,8 @@ export default class BusinessUseCaseDiagram extends Diagram {
         );
     }
 
-    public resize(width: number, height: number): BusinessUseCaseDiagram {
-        return new BusinessUseCaseDiagram(
+    public resize(width: number, height: number): UsageSceneDiagram {
+        return new UsageSceneDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -112,8 +105,8 @@ export default class BusinessUseCaseDiagram extends Diagram {
         );
     }
 
-    public cloneWith(newDiagramId: number, newName: string): BusinessUseCaseDiagram {
-        return new BusinessUseCaseDiagram(
+    public cloneWith(newDiagramId: number, newName: string): UsageSceneDiagram {
+        return new UsageSceneDiagram(
             newDiagramId,
             this.typeId,
             newName,
@@ -124,9 +117,9 @@ export default class BusinessUseCaseDiagram extends Diagram {
         );
     }
 
-    public removeResouceOf(resource: Resource): BusinessUseCaseDiagram {
+    public removeResouceOf(resource: Resource): UsageSceneDiagram {
         const resourceId = resource.resourceId;
-        return new BusinessUseCaseDiagram(
+        return new UsageSceneDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -137,8 +130,8 @@ export default class BusinessUseCaseDiagram extends Diagram {
         );
     }
 
-    public static prototypeOf(newDiagramId: number, name: string): BusinessUseCaseDiagram {
-        return new BusinessUseCaseDiagram(
+    public static prototypeOf(newDiagramId: number, name: string): UsageSceneDiagram {
+        return new UsageSceneDiagram(
             newDiagramId,
             DiagramType.ビジネスユースケース図.id,
             name.trim(),

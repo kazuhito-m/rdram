@@ -10,12 +10,12 @@ import Diagram from '@/domain/diagram/Diagram';
 
 import Resource from '@/domain/resource/Resource';
 import Purpose from '@/domain/resource/Purpose';
-import Request from '~/domain/resource/Request';
-import Requirement from '~/domain/resource/Requirement';
+import Request from '@/domain/resource/Request';
+import Requirement from '@/domain/resource/Requirement';
 
 import Placement from '@/domain/diagram/placement/Placement';
-import Midpoint from '~/domain/relation/Midpoint';
-import Relation from '~/domain/relation/Relation';
+import Midpoint from '@/domain/relation/Midpoint';
+import Relation from '@/domain/relation/Relation';
 
 import StrageRepository from '@/domain/strage/StrageRepository';
 import SystemContextDiagram from '@/domain/diagram/systemcontext/SystemContextDiagram';
@@ -24,6 +24,7 @@ import InformationModelDiagram from '@/domain/diagram/informationmodel/Informati
 import StateModelDiagram from '@/domain/diagram/statemodel/StateModelDiagram';
 import RequestModelDiagram from '@/domain/diagram/requrestmodel/RequestModelDiagram';
 import BusinessUseCaseDiagram from '@/domain/diagram/businessusecase/BusinessUseCaseDiagram';
+import UsageSceneDiagram from '@/domain/diagram/usagescene/UsageSceneDiagram';
 
 export default class StrageDatasource implements StrageRepository {
     private static readonly STRAGE_ID = 'rdram-strage';
@@ -51,6 +52,7 @@ export default class StrageDatasource implements StrageRepository {
         SystemContextDiagram,
         RequestModelDiagram,
         BusinessUseCaseDiagram,
+        UsageSceneDiagram,
     );
 
     public isInitialized(): boolean {
