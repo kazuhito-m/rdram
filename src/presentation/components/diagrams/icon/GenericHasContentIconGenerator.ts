@@ -16,6 +16,7 @@ export default abstract class GenericHasContentIconGenerator implements IconGene
             x: placement.x,
             y: placement.y,
             bgColor: "#FFFFFF",
+            color: "#888888",
             alpha: 1,
             radius: 3,
             stroke: 2,

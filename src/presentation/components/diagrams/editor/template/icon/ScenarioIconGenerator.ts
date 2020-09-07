@@ -12,7 +12,7 @@ export default class ScenarioIconGenerator extends GenericHasContentIconGenerato
 
     public generate(placement: Placement, scenario: Scenario, iconChar: IconFontAndChar): Figure {
         const figure = super.generate(placement, scenario, iconChar) as any;
-        figure.setBackgroundColor("#AFE3F7");
+        figure.setBackgroundColor("#D8EAF2");
         return figure;
     }
 }
