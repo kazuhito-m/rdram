@@ -55,6 +55,10 @@ export default class BusinessUseCaseDiagram extends Diagram {
             width = 80;
             height = 35;
         }
+        if (ResourceType.ビジネスユースケース.equals(resType)) {
+            width = 105;
+            height = 35;
+        }
         return new Placement(
             left,
             top,
