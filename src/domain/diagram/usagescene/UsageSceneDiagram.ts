@@ -41,11 +41,13 @@ export default class UsageSceneDiagram extends Diagram {
         let width = 0;
         let height = 0;
         const resType = resource.type;
-        if (
-            ResourceType.シナリオ.equals(resType)
-        ) {
+        if (ResourceType.シナリオ.equals(resType)) {
             width = 350;
             height = 75;
+        }
+        if (ResourceType.ユースケース.equals(resType)) {
+            width = 105;
+            height = 35;
         }
         return new Placement(
             left,

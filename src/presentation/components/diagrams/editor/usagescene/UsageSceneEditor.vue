@@ -21,10 +21,10 @@ import GenericMoveShapeEvents from "@/presentation/components/diagrams/editor/te
 import GenericResizeShapeEvents from "@/presentation/components/diagrams/editor/template/event/events/GenericResizeShapeEvents";
 
 import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
+import ActorIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ActorIconGenerator";
 import UsageSceneIconGenerator from "@/presentation/components/diagrams/editor/template/icon/UsageSceneIconGenerator";
 import ScenarioIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ScenarioIconGenerator";
-
-import ActorIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ActorIconGenerator";
+import UseCaseIconGenerator from "@/presentation/components/diagrams/editor/template/icon/UseCaseIconGenerator";
 
 import Resource from "@/domain/resource/Resource";
 
@@ -56,6 +56,7 @@ export default class UsageSceneEditor extends Vue {
     new UsageSceneIconGenerator(),
     new ScenarioIconGenerator(),
     new ActorIconGenerator(),
+    new UseCaseIconGenerator(),
   ];
 
   // Emits
