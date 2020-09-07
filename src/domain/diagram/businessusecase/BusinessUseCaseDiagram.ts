@@ -30,8 +30,8 @@ export default class BusinessUseCaseDiagram extends Diagram {
         return [
             ResourceType.ビジネスユースケース,
             ResourceType.アクター,
-            ResourceType.ユースケース,
-            ResourceType.シナリオ,
+            ResourceType.商品,
+            ResourceType.住宅,
             ResourceType.契約,
             ResourceType.サービス,
             ResourceType.組織,
