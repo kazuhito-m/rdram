@@ -7,6 +7,7 @@ import StateModelDiagram from "./statemodel/StateModelDiagram";
 import SystemContextDiagram from "./systemcontext/SystemContextDiagram";
 import RequestModelDiagram from "./requrestmodel/RequestModelDiagram";
 import Resources from "@/domain/resource/Resources";
+import UsageSceneDiagram from "./usagescene/UsageSceneDiagram";
 
 export default class DiagramFactory {
     constructor(private readonly resources: Resources) { }
@@ -20,6 +21,8 @@ export default class DiagramFactory {
             return BusinessContextDiagram.prototypeOf(newDiagramId, name);
         if (DiagramType.ビジネスユースケース図.equals(diagramType))
             return BusinessUseCaseDiagram.prototypeOf(newDiagramId, name);
+        if (DiagramType.利用シーン.equals(diagramType))
+            return UsageSceneDiagram.prototypeOf(newDiagramId, name);
         if (DiagramType.情報モデル図.equals(diagramType))
             return InformationModelDiagram.prototypeOf(newDiagramId, name);
         if (DiagramType.状態モデル.equals(diagramType))

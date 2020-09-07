@@ -42,11 +42,10 @@ export default class UsageSceneDiagram extends Diagram {
         let height = 0;
         const resType = resource.type;
         if (
-            ResourceType.組織.equals(resType) ||
-            ResourceType.会社.equals(resType)
+            ResourceType.シナリオ.equals(resType)
         ) {
-            width = 80;
-            height = 35;
+            width = 350;
+            height = 75;
         }
         return new Placement(
             left,
@@ -133,7 +132,7 @@ export default class UsageSceneDiagram extends Diagram {
     public static prototypeOf(newDiagramId: number, name: string): UsageSceneDiagram {
         return new UsageSceneDiagram(
             newDiagramId,
-            DiagramType.ビジネスユースケース図.id,
+            DiagramType.利用シーン.id,
             name.trim(),
             [],
             [],

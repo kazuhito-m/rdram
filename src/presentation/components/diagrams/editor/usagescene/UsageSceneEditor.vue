@@ -22,6 +22,8 @@ import GenericResizeShapeEvents from "@/presentation/components/diagrams/editor/
 
 import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
 import UsageSceneIconGenerator from "@/presentation/components/diagrams/editor/template/icon/UsageSceneIconGenerator";
+import ScenarioIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ScenarioIconGenerator";
+
 import ActorIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ActorIconGenerator";
 
 import Resource from "@/domain/resource/Resource";
@@ -51,9 +53,9 @@ export default class UsageSceneEditor extends Vue {
   ]);
 
   private readonly iconGenerators: IconGenerator<Resource>[] = [
-        new UsageSceneIconGenerator(),
-        new ActorIconGenerator(),
-      
+    new UsageSceneIconGenerator(),
+    new ScenarioIconGenerator(),
+    new ActorIconGenerator(),
   ];
 
   // Emits
