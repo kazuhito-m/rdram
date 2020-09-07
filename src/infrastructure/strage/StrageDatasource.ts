@@ -16,6 +16,7 @@ import Requirement from '@/domain/resource/Requirement';
 import Placement from '@/domain/diagram/placement/Placement';
 import Midpoint from '@/domain/relation/Midpoint';
 import Relation from '@/domain/relation/Relation';
+import Scenario from '@/domain/resource/Scenario';
 
 import StrageRepository from '@/domain/strage/StrageRepository';
 import SystemContextDiagram from '@/domain/diagram/systemcontext/SystemContextDiagram';
@@ -41,6 +42,7 @@ export default class StrageDatasource implements StrageRepository {
         Purpose,
         Request,
         Requirement,
+        Scenario,
         Diagrams,
         Diagram,
         Placement,

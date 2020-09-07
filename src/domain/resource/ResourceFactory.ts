@@ -5,6 +5,7 @@ import Resources from "./Resources";
 import Purpose from "./Purpose";
 import Requirement from "./Requirement";
 import Request from "./Request";
+import Scenario from "./Scenario";
 
 export default class ResourceFactory {
     public create(name: string, resourceType: ResourceType, newResourceId: number, nowResouces: Resources): Resource {
@@ -16,7 +17,8 @@ export default class ResourceFactory {
             resource = new Request(newResourceId, name, "", "");
         if (ResourceType.要件.equals(resourceType))
             resource = new Requirement(newResourceId, name, "", "");
-
+        if (ResourceType.シナリオ.equals(resourceType))
+            resource = new Scenario(newResourceId, name, "", "");
         if (resource instanceof HasContentResource)
             resource = this.setDefaultName(resource, nowResouces);
 
