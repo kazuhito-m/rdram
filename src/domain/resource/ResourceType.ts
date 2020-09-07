@@ -23,14 +23,14 @@ export default class ResourceType {
 
     static 利用シーン = new ResourceType(25, '利用シーン', 'mdi-video-account');
     static シナリオ = new ResourceType(32, 'シナリオ', 'mdi-script-text-outline');
+    static ユースケース = new ResourceType(23, 'ユースケース', 'mdi-alpha-u-circle-outline');
 
     static 情報 = new ResourceType(18, '情報', 'mdi-text-box-outline');
     static 情報グループ = new ResourceType(19, '情報グループ', 'mdi-text-box-multiple-outline');
     static 画面 = new ResourceType(20, '画面', 'mdi-application');
 
-    static アクティビティ = new ResourceType(21, 'アクティビティ', 'alpha-a-box-outline');
+    static アクティビティ = new ResourceType(21, 'アクティビティ', 'mdi-alpha-a-box-outline');
     static イベント = new ResourceType(22, 'イベント', 'mdi-lightning-bolt');
-    static ユースケース = new ResourceType(23, 'ユースケース', 'alpha-u-circle-outline');
     static ビジネスユースケース = new ResourceType(24, 'ビジネスユースケース', 'mdi-alpha-b-circle-outline');
     static タイマー = new ResourceType(26, 'タイマー', 'mdi-alarm');
     static 状態 = new ResourceType(27, '状態', 'mdi-circle-slice-4');
