@@ -28,7 +28,7 @@
     <v-menu top offset-y v-if="!toolBarCollapse">
       <template v-slot:activator="{ on, attrs }">
         <v-btn dark small icon v-bind="attrs" v-on="on">
-          <v-icon>{{ canvasGuideTypeIconKey }}</v-icon>
+          <v-icon>{{ canvasGuideType.iconKey }}</v-icon>
         </v-btn>
       </template>
 
@@ -108,7 +108,7 @@ export default class CanvasSettingToolBar extends Vue {
   private dragStartLayerX = 0;
   private dragStartLayerY = 0;
 
-  private canvasGuideTypeIconKey = CanvasGuideType.なし.iconKey;
+  private canvasGuideType = CanvasGuideType.なし;
 
   private lastContainerWidth = 0;
   private lastContainerHeight = 0;
@@ -247,15 +247,15 @@ export default class CanvasSettingToolBar extends Vue {
 
   private canvasGuideTypes(): CanvasGuideType[] {
     return CanvasGuideType.values().filter(
-      type => type.iconKey !== this.canvasGuideTypeIconKey
+      type => !type.equals(this.canvasGuideType)
     );
   }
 
   private onClickChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {
-    const before = CanvasGuideType.ofId(this.canvasGuideTypeIconKey);
+    const before = this.canvasGuideType;
     if (!before) return;
     this.onChangeCanvasGuideType(canvasGuideType, before);
-    this.canvasGuideTypeIconKey = canvasGuideType.iconKey;
+    this.canvasGuideType = canvasGuideType;
   }
 
   private onClickSvgDownload(): void {
