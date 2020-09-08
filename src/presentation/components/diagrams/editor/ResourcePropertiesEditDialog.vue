@@ -124,7 +124,6 @@ export default class ResourcePropertiesEditDialog extends Vue {
     if (!product) return;
     const resource = this.getTargetResource(product.resources);
     if (!resource) return;
-    alert('dialog中でのname:' + resource.name)
     this.old = resource;
     const type = resource.type;
     this.title = this.isAddNew()
@@ -245,7 +244,7 @@ export default class ResourcePropertiesEditDialog extends Vue {
 
   private logicalValidation(resource: Resource, product: Product): boolean {
     if (product.resources.existsSomeName(resource.name, resource.type)) {
-      alert("既に重複した名前の図が在ります。");
+      alert(`既に重複した名前の${resource.type.name}が在ります。`);
       return false;
     }
     return true;

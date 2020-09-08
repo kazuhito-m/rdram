@@ -48,7 +48,6 @@ export default class ResourceFactory {
         let i = 2;
         do { r = r.renewDefaultName(i++); }
         while (nowResouces.existsSomeName(r.name, r.type))
-        alert(r.name);
         return r;
     }
 }
