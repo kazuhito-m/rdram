@@ -42,8 +42,8 @@ export default class Product {
         const factory = new ResourceFactory();
         const resources: Resource[] = [
             factory.create(newName, ResourceType.システム, 1, Resources.empty()),
-            new StartOrEndPoint(2, "始点", "", true),
-            new StartOrEndPoint(3, "終点", "", false),
+            new StartOrEndPoint(2, "始点", "", false, true),
+            new StartOrEndPoint(3, "終点", "", false, false),
         ]
 
         return new Product(

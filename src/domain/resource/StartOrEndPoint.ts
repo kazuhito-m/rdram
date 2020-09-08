@@ -9,6 +9,7 @@ export default class StartOrEndPoint extends Resource {
         resourceId: number,
         name: string,
         description: string,
+        public readonly deletable: boolean,
         public readonly startPoint: boolean = false,
     ) { super(resourceId, ResourceType.始点終点.id, name, description); }
 

@@ -101,7 +101,11 @@
         >
           <v-list-item-title>このダイアグラムから削除</v-list-item-title>
         </v-list-item>
-        <v-list-item link @click="onClickMenuDeleteResourceOnProduct">
+        <v-list-item
+          link
+          v-if="rightClickedResourceOnProduct"
+          @click="onClickMenuDeleteResourceOnProduct"
+        >
           <v-list-item-title>プロダクト全体から削除</v-list-item-title>
         </v-list-item>
       </v-list>
@@ -133,6 +137,7 @@ export default class ResourceParet extends Vue {
 
   private rightClickedResourceId = 0;
   private rightClickedResourceOnDiagram = false;
+  private rightClickedResourceOnProduct = false;
   private rightClickedResourceX = 0;
   private rightClickedResourceY = 0;
 
@@ -175,14 +180,21 @@ export default class ResourceParet extends Vue {
     const chip = src.parentElement as HTMLElement; // FIXME ちょっと「Veutifyの構造を知りすぎてる」気がする。手が在れば変えたい。
     resourceIdText = chip.getAttribute("data-resource-id") as string;
     if (!resourceIdText) return;
-
+    const resourceId = Number(resourceIdText);
     const onDinagram = chip.getAttribute("data-resource-on-diagram") as string;
+
+    const resource = this.allResourcesOnCurrentProduct.find(
+      r => r.resourceId === resourceId
+    );
+    if (!resource) return;
+
     this.rightClickedResourceOnDiagram = onDinagram === "true";
+    this.rightClickedResourceOnProduct = resource.deletable;
     this.rightClickedResourceId = 0;
     this.rightClickedResourceX = event.x;
     this.rightClickedResourceY = event.y;
     this.$nextTick(() => {
-      this.rightClickedResourceId = Number(resourceIdText);
+      this.rightClickedResourceId = resourceId;
     });
   }
 
