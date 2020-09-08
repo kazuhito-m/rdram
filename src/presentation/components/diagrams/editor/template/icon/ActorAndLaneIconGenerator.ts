@@ -46,7 +46,6 @@ export default class ActorAndLaneIconGenerator implements IconGenerator<Resource
             color: "#000000",
             alpha: 1,
             stroke: 2,
-            zOrder: 100
         });
 
         const topBox = new draw2d.shape.basic.Rectangle({
