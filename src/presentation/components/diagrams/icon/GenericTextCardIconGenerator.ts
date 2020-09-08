@@ -56,7 +56,7 @@ export default abstract class GenericTextCardIconGenerator implements IconGenera
         text.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
         // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
         const port = text.getPorts().last();
-        const anchor = new draw2d.layout.anchor.FanConnectionAnchor(text);
+        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(text);
         port.setConnectionAnchor(anchor);
 
         return text;
