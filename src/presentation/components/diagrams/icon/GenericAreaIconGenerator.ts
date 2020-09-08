@@ -5,6 +5,7 @@ import Resource from '~/domain/resource/Resource';
 import IconGenerator from './IconGenerator';
 import ResourceType from '~/domain/resource/ResourceType';
 import IconFontAndChar from './IconFontAndChar';
+import IconStatus from './IconStatus';
 
 export default abstract class GenericAreaIconGenerator implements IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;
@@ -53,6 +54,9 @@ export default abstract class GenericAreaIconGenerator implements IconGenerator<
 
         icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 105, y: 27 }));
         waku.add(icon, new TopLeftLocator());
+
+        waku.setUserData(new IconStatus(true));
+
         return waku;
     }
 }

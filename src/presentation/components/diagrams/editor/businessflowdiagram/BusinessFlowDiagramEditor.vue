@@ -53,6 +53,7 @@ export default class BusinessFlowDiagramEditor extends Vue {
   ]);
 
   private readonly iconGenerators: IconGenerator<Resource>[] = [
+    new UseCaseIconGenerator(),
     new ActorIconGenerator(),
   ];
 

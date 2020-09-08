@@ -4,6 +4,7 @@ import Resource from '~/domain/resource/Resource';
 import IconGenerator from './IconGenerator';
 import ResourceType from '~/domain/resource/ResourceType';
 import IconFontAndChar from './IconFontAndChar';
+import IconStatus from './IconStatus';
 
 export default abstract class GenericSingleIconGenerator implements IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;
@@ -44,6 +45,9 @@ export default abstract class GenericSingleIconGenerator implements IconGenerato
         port.setConnectionAnchor(anchor);
 
         icon.add(name, new draw2d.layout.locator.BottomLocator());
+
+        icon.setUserData(new IconStatus(false));
+
         return icon;
     }
 }

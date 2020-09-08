@@ -4,6 +4,7 @@ import Resource from '@/domain/resource/Resource';
 import IconGenerator from '@/presentation/components/diagrams/icon/IconGenerator';
 import ResourceType from '@/domain/resource/ResourceType';
 import IconFontAndChar from '../../../icon/IconFontAndChar';
+import IconStatus from '../../../icon/IconStatus';
 
 export default class SystemIconGenerator implements IconGenerator<Resource> {
     public resourceType(): ResourceType {
@@ -55,6 +56,8 @@ export default class SystemIconGenerator implements IconGenerator<Resource> {
         const port = oval.getPorts().last();
         const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(oval);
         port.setConnectionAnchor(anchor);
+
+        oval.setUserData(new IconStatus(false));
 
         return oval;
     }

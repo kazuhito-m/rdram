@@ -5,8 +5,9 @@ import ResourceType from '@/domain/resource/ResourceType';
 import IconFontAndChar from './IconFontAndChar';
 import TopLeftLocator from '~/presentation/draw2d/custom/TopLeftLocator';
 import HasContentResource from '~/domain/resource/HasContentResource';
+import IconStatus from './IconStatus';
 
-export default abstract class GenericHasContentIconGenerator implements IconGenerator< HasContentResource> {
+export default abstract class GenericHasContentIconGenerator implements IconGenerator<HasContentResource> {
     public abstract resourceType(): ResourceType;
 
     generate(placement: Placement, resource: HasContentResource, iconChar: IconFontAndChar): draw2d.Figure {
@@ -54,6 +55,8 @@ export default abstract class GenericHasContentIconGenerator implements IconGene
         const port = text.getPorts().last();
         const anchor = new draw2d.layout.anchor.FanConnectionAnchor(text);
         port.setConnectionAnchor(anchor);
+
+        text.setUserData(new IconStatus(false));
 
         return text;
     }

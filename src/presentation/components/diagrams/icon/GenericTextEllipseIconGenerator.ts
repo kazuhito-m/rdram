@@ -4,6 +4,7 @@ import Resource from '~/domain/resource/Resource';
 import IconGenerator from './IconGenerator';
 import ResourceType from '~/domain/resource/ResourceType';
 import IconFontAndChar from './IconFontAndChar';
+import IconStatus from './IconStatus';
 
 /**
  * 「楕円のテキスト＋左上アイコン」ジェネレータ。
@@ -55,6 +56,8 @@ export default abstract class GenericTextEllipseIconGenerator implements IconGen
         const port = oval.getPorts().last();
         const anchor = new draw2d.layout.anchor.FanConnectionAnchor(oval);
         port.setConnectionAnchor(anchor);
+
+        oval.setUserData(new IconStatus(false));
 
         return oval;
     }

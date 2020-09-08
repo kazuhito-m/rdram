@@ -6,6 +6,7 @@ import ResourceType from '@/domain/resource/ResourceType';
 import IconFontAndChar from './IconFontAndChar';
 import Purpose from '@/domain/resource/Purpose';
 import TopLeftLocator from '~/presentation/draw2d/custom/TopLeftLocator';
+import IconStatus from './IconStatus';
 
 export default abstract class GenericTextCardIconGenerator implements IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;
@@ -58,6 +59,8 @@ export default abstract class GenericTextCardIconGenerator implements IconGenera
         const port = text.getPorts().last();
         const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(text);
         port.setConnectionAnchor(anchor);
+
+        text.setUserData(new IconStatus(false));
 
         return text;
     }
