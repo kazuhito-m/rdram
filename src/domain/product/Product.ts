@@ -41,7 +41,7 @@ export default class Product {
         // 特殊処理。プロダクトに最初からあるリソースは、ここで作る。
         const factory = new ResourceFactory();
         const resources: Resource[] = [
-            factory.create(this.name, ResourceType.システム, 1, Resources.empty()),
+            factory.create(newName, ResourceType.システム, 1, Resources.empty()),
             new StartOrEndPoint(2, "始点", "", true),
             new StartOrEndPoint(3, "終点", "", false),
         ]
