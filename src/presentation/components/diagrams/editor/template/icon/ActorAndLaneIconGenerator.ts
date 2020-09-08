@@ -13,6 +13,8 @@ export default class ActorAndLaneIconGenerator implements IconGenerator<Resource
     }
 
     public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {
+        const id = String(placement.resourceId);
+
         const icon = new draw2d.shape.basic.Label({
             fontFamily: iconChar.fontFamily,
             text: iconChar.charactor,
@@ -33,7 +35,7 @@ export default class ActorAndLaneIconGenerator implements IconGenerator<Resource
         });
 
         const waku = new draw2d.shape.basic.Rectangle({
-            id: resource.resourceId,
+            id: id,
             x: placement.x,
             y: placement.y,
             width: 280,
