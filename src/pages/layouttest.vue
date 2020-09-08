@@ -70,7 +70,7 @@ import "jquery";
 import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
-import draw2d, { Figure, command } from "draw2d";
+import draw2d, { Figure, command, Canvas } from "draw2d";
 import { createWrapper } from "@vue/test-utils";
 
 import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
@@ -155,8 +155,11 @@ export default class extends Vue {
     this.layoutApproach(canvas);
     this.structuredApproach2(canvas);
     this.structuredApproach2Dash(canvas);
+    this.startPointCircle(canvas);
+    this.endPointCircle(canvas);
     this.circleAndIcon(canvas);
     this.conneectIcons(canvas);
+    this.addStartEndTest(canvas);
 
     console.log(canvas);
   }
@@ -581,6 +584,108 @@ export default class extends Vue {
     waku.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
 
     canvas.add(waku);
+  }
+
+  private startPointCircle(canvas: draw2d.Canvas): void {
+    const id = 114514;
+
+    const bg = new draw2d.shape.basic.Rectangle({
+      stroke: 0,
+      padding: 0,
+      alpha: 0.5,
+      width: 40,
+      height: 40
+    });
+    bg.setResizeable(false);
+
+    const waku = new draw2d.shape.basic.Circle({
+      bgColor: "#000000",
+      alpha: 1,
+      radius: 0,
+      stroke: 0,
+      selectable: true,
+      resizable: false,
+      id: id
+    });
+    waku.setWidth(20);
+    waku.setResizeable(false);
+
+    const outputPort = new draw2d.OutputPort();
+    waku.addPort(outputPort, new draw2d.layout.locator.CenterLocator());
+    // waku.createPort("output");
+    // const outputPort = waku.getPorts().last();
+
+    const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(waku);
+    const port = outputPort as any;
+    port.setConnectionAnchor(anchor);
+    waku.add(
+      bg,
+      new draw2d.layout.locator.XYAbsPortLocator({ x: -10, y: -10 })
+    );
+
+    canvas.add(waku, 500, 150);
+  }
+
+  private endPointCircle(canvas: draw2d.Canvas): void {
+    const id = 11451419;
+
+    const bg = new draw2d.shape.basic.Rectangle({
+      stroke: 0,
+      padding: 0,
+      alpha: 0.5,
+      width: 40,
+      height: 40
+    });
+    bg.setResizeable(false);
+
+    const waku = new draw2d.shape.basic.Circle({
+      bgColor: "none",
+      alpha: 1,
+      radius: 0,
+      stroke: 2,
+      selectable: true,
+      resizable: false,
+      id: id
+    });
+    waku.setWidth(21);
+    waku.setResizeable(false);
+
+    const center = new draw2d.shape.basic.Circle({
+      bgColor: "#000000",
+      alpha: 1,
+      radius: 0,
+      stroke: 0,
+      selectable: false,
+      resizable: false,
+      id: id
+    });
+    center.setWidth(13);
+    center.setResizeable(false);
+
+    const inputPort = new draw2d.InputPort();
+    const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(center);
+    const port = inputPort as any;
+    port.setConnectionAnchor(anchor);
+    center.addPort(inputPort, new draw2d.layout.locator.CenterLocator());
+
+    center.add(
+      waku,
+      new draw2d.layout.locator.XYAbsPortLocator({ x: -4, y: -4 })
+    );
+
+    center.add(
+      bg,
+      new draw2d.layout.locator.XYAbsPortLocator({ x: -13, y: -13 })
+    );
+
+    canvas.add(center, 600, 150);
+  }
+
+  private addStartEndTest(canvas: draw2d.Canvas): void {
+    var start = new draw2d.shape.node.Start({ x: 50, y: 450 });
+    var end = new draw2d.shape.node.End({ x: 230, y: 450 });
+    canvas.add(start);
+    canvas.add(end);
   }
 
   private onCrickSiri() {
