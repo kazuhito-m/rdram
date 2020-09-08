@@ -124,6 +124,7 @@ export default class ResourcePropertiesEditDialog extends Vue {
     if (!product) return;
     const resource = this.getTargetResource(product.resources);
     if (!resource) return;
+    alert('dialog中でのname:' + resource.name)
     this.old = resource;
     const type = resource.type;
     this.title = this.isAddNew()

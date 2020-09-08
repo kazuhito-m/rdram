@@ -62,7 +62,7 @@ export default class ResourceType {
 
     public equals(other: ResourceType | null): boolean {
         if (!other) return false;
-        return other?.id === this.id;
+        return other.id === this.id;
     }
 
     public static values(): ResourceType[] {

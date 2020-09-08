@@ -10,13 +10,12 @@ import StartOrEndPoint from "./StartOrEndPoint";
 
 export default class ResourceFactory {
     public create(name: string, resourceType: ResourceType, newResourceId: number, nowResouces: Resources): Resource {
-        let resource = this.createEmptyResoruce(name, resourceType, newResourceId);
+        const resource = this.createEmptyResoruce(name, resourceType, newResourceId);
         if (resource instanceof HasContentResource)
-            resource = this.setDefaultName(resource, nowResouces);
+            return this.setDefaultName(resource, nowResouces);
         if (ResourceType.始点終点.equals(resourceType))
-            resource = this.setDefaultNameForEndPoint(resource as StartOrEndPoint, nowResouces);
-
-        return new Resource(newResourceId, resourceType.id, name, "");
+            return this.setDefaultNameForEndPoint(resource as StartOrEndPoint, nowResouces);
+        return resource;
     }
 
     private createEmptyResoruce(name: string, resourceType: ResourceType, newResourceId: number): Resource {
@@ -35,18 +34,21 @@ export default class ResourceFactory {
     }
 
     private setDefaultName(resource: HasContentResource, nowResouces: Resources): HasContentResource {
-        if (resource.name.length > 0) return resource;
+        let r = resource;
+        if (r.name.length > 0) return r;
         let i = 1;
-        do { resource = resource.renewDefaultName(i++); }
-        while (nowResouces.existsSomeName(resource.name, resource.type))
-        return resource;
+        do { r = r.renewDefaultName(i++); }
+        while (nowResouces.existsSomeName(r.name, r.type))
+        return r;
     }
 
     private setDefaultNameForEndPoint(resource: StartOrEndPoint, nowResouces: Resources): StartOrEndPoint {
-        if (resource.name.length > 0) return resource;
+        let r = resource;
+        if (r.name.length > 0) return r;
         let i = 2;
-        do { resource = resource.renewDefaultName(i++); }
-        while (nowResouces.existsSomeName(resource.name, resource.type))
-        return resource;
+        do { r = r.renewDefaultName(i++); }
+        while (nowResouces.existsSomeName(r.name, r.type))
+        alert(r.name);
+        return r;
     }
 }
