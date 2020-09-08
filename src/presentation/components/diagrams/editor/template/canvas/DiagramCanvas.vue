@@ -598,11 +598,6 @@ export default class DiagramCanvas extends Vue {
     return svgContents.replace("<defs", cssLink + "<defs");
   }
 
-  // private decodePngBase64(pngBase64Text: string): string {
-  //   const cutedHeader = pngBase64Text.replace(/^data:image\/png;base64,/, "");
-  //   return atob(cutedHeader);
-  // }
-
   private showResourcePropertiesEditor(resourceType: ResourceType): void {
     this.editResourceType = resourceType;
     this.editResourceId = ResourcePropertiesEditDialog.ID_WHEN_CREATE_NEW;
