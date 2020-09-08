@@ -130,7 +130,7 @@ export default class BusinessFlowDiagram extends Diagram {
     public static prototypeOf(newDiagramId: number, name: string): BusinessFlowDiagram {
         return new BusinessFlowDiagram(
             newDiagramId,
-            DiagramType.業務フロー.id,
+            DiagramType.業務フロー図.id,
             name.trim(),
             [],
             [],

@@ -134,7 +134,7 @@ export default class UsageSceneDiagram extends Diagram {
     public static prototypeOf(newDiagramId: number, name: string): UsageSceneDiagram {
         return new UsageSceneDiagram(
             newDiagramId,
-            DiagramType.利用シーン.id,
+            DiagramType.利用シーン図.id,
             name.trim(),
             [],
             [],

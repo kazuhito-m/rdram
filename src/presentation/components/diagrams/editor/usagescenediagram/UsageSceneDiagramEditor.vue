@@ -33,7 +33,7 @@ import Resource from "@/domain/resource/Resource";
     DiagramEditor
   }
 })
-export default class UsageSceneEditor extends Vue {
+export default class UsageSceneDiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })

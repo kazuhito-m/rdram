@@ -22,9 +22,9 @@ export default class DiagramFactory {
             return BusinessContextDiagram.prototypeOf(newDiagramId, name);
         if (DiagramType.ビジネスユースケース図.equals(diagramType))
             return BusinessUseCaseDiagram.prototypeOf(newDiagramId, name);
-        if (DiagramType.業務フロー.equals(diagramType))
+        if (DiagramType.業務フロー図.equals(diagramType))
             return BusinessFlowDiagram.prototypeOf(newDiagramId, name);
-        if (DiagramType.利用シーン.equals(diagramType))
+        if (DiagramType.利用シーン図.equals(diagramType))
             return UsageSceneDiagram.prototypeOf(newDiagramId, name);
         if (DiagramType.情報モデル図.equals(diagramType))
             return InformationModelDiagram.prototypeOf(newDiagramId, name);
