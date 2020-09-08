@@ -7,6 +7,7 @@ import Resource from '@/domain/resource/Resource';
 import ResourceType from '../resource/ResourceType';
 import ResourceFactory from '../resource/ResourceFactory';
 import DiagramType from '../diagram/DiagramType';
+import StartOrEndPoint from '../resource/StartOrEndPoint';
 
 export default class Product {
     constructor(
@@ -37,19 +38,23 @@ export default class Product {
     }
 
     public static prototypeOf(newName: string): Product {
-        const product = new Product(
+        // 特殊処理。プロダクトに最初からあるリソースは、ここで作る。
+        const factory = new ResourceFactory();
+        const resources: Resource[] = [
+            factory.create(this.name, ResourceType.システム, 1, Resources.empty()),
+            new StartOrEndPoint(2, "始点", "", true),
+            new StartOrEndPoint(3, "終点", "", false),
+        ]
+
+        return new Product(
             new Date(),
             ProductIdentifier.ganerate().toString(),
             newName,
             UserSettings.create(),
             Diagrams.empty(),
-            Resources.empty(),
-            1
+            new Resources(resources),
+            4
         );
-
-        // 特殊処理。唯一の『システム」をここで作ってしまう。
-        const modified = product.createAndAddResource(newName, ResourceType.システム);
-        return modified;
     }
 
     public with(newDiagrams: Diagrams) {
@@ -99,13 +104,13 @@ export default class Product {
         );
     }
 
-    public createAndAddResource(name: string, resourceType: ResourceType): Product {
+    public createAndAddResource(): Product {
         const factory = new ResourceFactory();
-        const newResouceId = this.resourceIdSequence;
-        const updated = this.moveNextResourceIdSequence();
-        const resource = factory.create(name, resourceType, newResouceId, this.resources);
-        const addedResources = updated.resources.add(resource);
-        return updated.withResources(addedResources);
+        const addedResources = this.resources
+            .add(factory.create(this.name, ResourceType.システム, 1, this.resources))
+            .add(new StartOrEndPoint(2, "始点", "", true))
+            .add(new StartOrEndPoint(3, "終点", "", false));
+        return this.withResources(addedResources);
     }
 
     public createAndAddDiagram(name: string, diagramType: DiagramType): Product {

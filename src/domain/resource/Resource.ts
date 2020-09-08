@@ -12,6 +12,8 @@ export default class Resource {
         public readonly description: string,
     ) { }
 
+    public readonly deletable: boolean = true;
+
     public get type(): ResourceType {
         return ResourceType.ofId(this.resourceTypeId) as ResourceType;
     }
