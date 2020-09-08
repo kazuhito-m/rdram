@@ -198,6 +198,7 @@ export default class DiagramCanvas extends Vue {
       this.fixCanvasPosition();
       this.addCanvasEvent();
       this.drawDiagram(diagram);
+      this.onChangeCanvasGuideType(diagram.canvasGuideType);
 
       this.$nuxt.$loading.finish(); // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
     });
@@ -235,7 +236,7 @@ export default class DiagramCanvas extends Vue {
 
   private onChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {
     const canvas = this.canvas;
-    const beforeCanvasGuideType = this.canvasGuideType; 
+    const beforeCanvasGuideType = this.canvasGuideType;
     if (beforeCanvasGuideType.canvasPolicy)
       canvas.uninstallEditPolicy(beforeCanvasGuideType.canvasPolicy);
     if (canvasGuideType.canvasPolicy)
