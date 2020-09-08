@@ -45,6 +45,10 @@ export default class BusinessFlowDiagram extends Diagram {
             width = 280;
             height = 700;
         }
+        if (ResourceType.ユースケース.equals(resType)) {
+            width = 105;
+            height = 35;
+        }
         return new Placement(
             left,
             top,
