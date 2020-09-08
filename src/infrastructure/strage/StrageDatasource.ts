@@ -25,6 +25,7 @@ import InformationModelDiagram from '@/domain/diagram/informationmodel/Informati
 import StateModelDiagram from '@/domain/diagram/statemodel/StateModelDiagram';
 import RequestModelDiagram from '@/domain/diagram/requrestmodel/RequestModelDiagram';
 import BusinessUseCaseDiagram from '@/domain/diagram/businessusecase/BusinessUseCaseDiagram';
+import BusinessFlowDiagram from '@/domain/diagram/businessflow/BusinessFlowDiagram';
 import UsageSceneDiagram from '@/domain/diagram/usagescene/UsageSceneDiagram';
 
 export default class StrageDatasource implements StrageRepository {
@@ -54,6 +55,7 @@ export default class StrageDatasource implements StrageRepository {
         SystemContextDiagram,
         RequestModelDiagram,
         BusinessUseCaseDiagram,
+        BusinessFlowDiagram,
         UsageSceneDiagram,
     );
 
