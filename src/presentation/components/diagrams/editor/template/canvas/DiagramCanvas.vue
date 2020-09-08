@@ -71,6 +71,8 @@ import IconFontAndChar from "@/presentation/components/diagrams/icon/IconFontAnd
 import CanvasGuideType from "../../toolbar/CanvasGuideType";
 import DownloadFile from "@/domain/client/DownloadFile";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
+import IconStatus from "../../../icon/IconStatus";
+import ContractIconGenerator from "../icon/ContractIconGenerator";
 
 @Component({
   components: {
@@ -413,7 +415,9 @@ export default class DiagramCanvas extends Vue {
     resource: Resource,
     placement: Placement
   ): void {
-    const generator = this.choiceIconGenerator(resource.type) as IconGenerator<Resource>;
+    const generator = this.choiceIconGenerator(resource.type) as IconGenerator<
+      Resource
+    >;
     if (!generator) {
       alert("ジェネレータ無しアイコン生成不能:" + resource.type.name);
       return;
@@ -424,6 +428,37 @@ export default class DiagramCanvas extends Vue {
       this.iconStyleOf(resource.type)
     );
     this.canvas.add(icon);
+    this.fixZOrder();
+  }
+
+  /**
+   * 最後に追加したのが範囲アイコンなら、通常アイコンの後ろに持っていく。
+   */
+  private fixZOrder(): void {
+    const allFigures = this.canvas.getFigures().asArray();
+    const lastAdded = allFigures.last;
+    if (!this.isAreaIcon(lastAdded)) return;
+    let lastZOrder = null;
+    for (const figure of allFigures) {
+      if (figure.getId() === lastAdded.getId()) continue;
+      if (!lastZOrder) {
+        lastZOrder = figure;
+        continue;
+      }
+      if (this.isAreaIcon(figure)) continue;
+      if (lastZOrder.getZOrder() < figure.getZOrder()) continue;
+      lastZOrder = figure;
+    }
+    if (!lastZOrder) return;
+    lastAdded.toFront(lastZOrder);
+  }
+
+  private isAreaIcon(icon: Figure): boolean {
+    if (!icon.getUserData()) {
+      const iconStatus: IconStatus = icon.getUserData();
+      if (iconStatus.area) return true;
+    }
+    return false;
   }
 
   private choiceIconGenerator(
