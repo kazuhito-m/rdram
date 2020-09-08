@@ -428,12 +428,13 @@ export default class DiagramCanvas extends Vue {
       this.iconStyleOf(resource.type)
     );
     this.canvas.add(icon);
-    console.log("icon.getUserData()", icon.getUserData());
     this.fixZOrder(icon);
   }
 
   /**
    * 最後に追加したのが「範囲アイコン」なら、通常アイコンよりZOrder後ろにもっていく。
+   *
+   * TODO IconGeneratorでsetUserData()してるので、このロジックもそこらへんに移動したい。
    */
   private fixZOrder(icon: Figure): void {
     const allFigures = this.canvas.getFigures().asArray();
