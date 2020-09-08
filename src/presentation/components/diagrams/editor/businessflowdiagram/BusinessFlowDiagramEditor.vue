@@ -22,9 +22,9 @@ import GenericResizeShapeEvents from "@/presentation/components/diagrams/editor/
 
 import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
 import ActorAndLaneIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ActorAndLaneIconGenerator";
-import UsageSceneIconGenerator from "@/presentation/components/diagrams/editor/template/icon/UsageSceneIconGenerator";
-import StartOrEndPointIconGenerator from "@/presentation/components/diagrams/editor/template/icon/StartOrEndPointIconGenerator";
+import ActivityIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ActivityIconGenerator";
 import UseCaseIconGenerator from "@/presentation/components/diagrams/editor/template/icon/UseCaseIconGenerator";
+import StartOrEndPointIconGenerator from "@/presentation/components/diagrams/editor/template/icon/StartOrEndPointIconGenerator";
 
 import Resource from "@/domain/resource/Resource";
 
@@ -54,6 +54,7 @@ export default class BusinessFlowDiagramEditor extends Vue {
 
   private readonly iconGenerators: IconGenerator<Resource>[] = [
     new ActorAndLaneIconGenerator(),
+    new ActivityIconGenerator(),
     new UseCaseIconGenerator(),
     new StartOrEndPointIconGenerator()
   ];
