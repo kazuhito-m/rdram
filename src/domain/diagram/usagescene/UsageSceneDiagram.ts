@@ -4,6 +4,7 @@ import Placement from "@/domain/diagram/placement/Placement";
 import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "~/domain/resource/Resource";
+import CanvasGuideType from "~/presentation/components/diagrams/editor/toolbar/CanvasGuideType";
 
 export default class UsageSceneDiagram extends Diagram {
     protected constructor(
@@ -14,6 +15,7 @@ export default class UsageSceneDiagram extends Diagram {
         placements: Placement[],
         width: number,
         height: number,
+        canvasGuideTypeId: number,
     ) {
         super(
             id,
@@ -23,6 +25,7 @@ export default class UsageSceneDiagram extends Diagram {
             placements,
             width,
             height,
+            canvasGuideTypeId,
         );
     }
 
@@ -67,6 +70,7 @@ export default class UsageSceneDiagram extends Diagram {
             this.placements,
             this.width,
             this.height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -79,6 +83,7 @@ export default class UsageSceneDiagram extends Diagram {
             this.placements,
             this.width,
             this.height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -91,6 +96,7 @@ export default class UsageSceneDiagram extends Diagram {
             placements,
             this.width,
             this.height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -103,6 +109,7 @@ export default class UsageSceneDiagram extends Diagram {
             this.placements,
             width,
             height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -115,6 +122,7 @@ export default class UsageSceneDiagram extends Diagram {
             this.placements.map(placement => placement.clone()),
             this.width,
             this.height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -128,6 +136,7 @@ export default class UsageSceneDiagram extends Diagram {
             this.placements.filter(p => p.resourceId !== resourceId),
             this.width,
             this.height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -140,6 +149,7 @@ export default class UsageSceneDiagram extends Diagram {
             [],
             1024,
             768,
+            CanvasGuideType.なし.id,
         );
     }
 }

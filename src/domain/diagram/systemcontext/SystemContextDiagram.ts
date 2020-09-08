@@ -5,6 +5,7 @@ import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resources from "@/domain/resource/Resources";
 import Resource from "~/domain/resource/Resource";
+import CanvasGuideType from "~/presentation/components/diagrams/editor/toolbar/CanvasGuideType";
 
 export default class SystemContextDiagram extends Diagram {
     protected constructor(
@@ -15,6 +16,7 @@ export default class SystemContextDiagram extends Diagram {
         placements: Placement[],
         width: number,
         height: number,
+        canvasGuideTypeId: number,
     ) {
         super(
             id,
@@ -24,6 +26,7 @@ export default class SystemContextDiagram extends Diagram {
             placements,
             width,
             height,
+            canvasGuideTypeId,
         );
     }
 
@@ -64,6 +67,7 @@ export default class SystemContextDiagram extends Diagram {
             this.placements,
             this.width,
             this.height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -76,6 +80,7 @@ export default class SystemContextDiagram extends Diagram {
             placements,
             this.width,
             this.height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -88,6 +93,7 @@ export default class SystemContextDiagram extends Diagram {
             this.placements,
             this.width,
             this.height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -100,6 +106,7 @@ export default class SystemContextDiagram extends Diagram {
             this.placements,
             width,
             height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -112,6 +119,7 @@ export default class SystemContextDiagram extends Diagram {
             this.placements.map(placement => placement.clone()),
             this.width,
             this.height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -125,6 +133,7 @@ export default class SystemContextDiagram extends Diagram {
             this.placements.filter(p => p.resourceId !== resourceId),
             this.width,
             this.height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -137,6 +146,7 @@ export default class SystemContextDiagram extends Diagram {
             [],
             1024,
             768,
+            CanvasGuideType.なし.id,
         );
         // 特殊処理、Resource種が「システム」で、かつ「ひとつだけ」なら予め足してしまう。
         const resoucesOfSystem = resources.typeOf(ResourceType.システム);

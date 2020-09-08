@@ -4,6 +4,7 @@ import Placement from "./placement/Placement";
 import ResourceType from "../resource/ResourceType";
 import Resource from "../resource/Resource";
 import Resources from "../resource/Resources";
+import CanvasGuideType from "~/presentation/components/diagrams/editor/toolbar/CanvasGuideType";
 
 export default class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;
@@ -18,6 +19,7 @@ export default class Diagram {
         public readonly placements: Placement[],
         public readonly width: number,
         public readonly height: number,
+        protected readonly canvasGuideTypeId: number,
     ) {
     }
 
@@ -148,6 +150,10 @@ export default class Diagram {
         return DiagramType.ofId(this.typeId) as DiagramType;
     }
 
+    public get canvasGuideType(): CanvasGuideType {
+        return CanvasGuideType.ofId(this.canvasGuideTypeId) as CanvasGuideType;
+    }
+
     protected ngType(resourceType: ResourceType): boolean {
         return !this.availableResourceTypes()
             .some(type => type.equals(resourceType));
@@ -162,6 +168,7 @@ export default class Diagram {
             this.placements,
             this.width,
             this.height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -174,6 +181,7 @@ export default class Diagram {
             this.placements,
             width,
             height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -186,6 +194,7 @@ export default class Diagram {
             this.placements.map(placement => placement.clone()),
             this.width,
             this.height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -216,6 +225,7 @@ export default class Diagram {
             this.placements.filter(p => p.resourceId !== resourceId),
             this.width,
             this.height,
+            this.canvasGuideTypeId,
         );
     }
 
@@ -228,6 +238,7 @@ export default class Diagram {
             [],
             1024,
             768,
+            CanvasGuideType.なし.id,
         );
     }
 }
