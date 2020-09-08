@@ -630,24 +630,6 @@ export default class DiagramCanvas extends Vue {
     this.canvas.on("zoom", this.onZoomChangeFromCanvas);
   }
 
-  private promptResourceName(
-    resourceType: ResourceType,
-    product: Product
-  ): string {
-    const messageBox = new MessageBox();
-    const message = `追加する${resourceType.name}の名前を入力してください。`;
-    const name = messageBox.promptWith255Limit(message, "", inputText => {
-      if (inputText.length > Resource.NAME_MAX_LENGTH) {
-        alert(`${Resource.NAME_MAX_LENGTH}文字以内で入力してください。`);
-        return false;
-      }
-      const exists = product.resources.existsSomeName(inputText, resourceType);
-      if (exists) alert(`既に同一の${resourceType.name}名が在ります。`);
-      return !exists;
-    });
-    return name ? name : "";
-  }
-
   private addPlacement(resource: Resource): void {
     const product = this.repository.getCurrentProduct();
     const diagram = product!.diagrams.of(this.diagramId);
