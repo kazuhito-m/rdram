@@ -5,6 +5,7 @@
         <CanvasSettingToolBar
             :diagramId="diagramId"
             :canvasZoom="canvasZoom"
+            :canvasGuideType="canvasGuideType"
             @onChangeZoomBySlider="onChangeZoomBySlider"
             @onChangeCanvasGuideType="onChangeCanvasGuideType"
             @onPngDownload="onPngDownload"
@@ -109,6 +110,7 @@ export default class DiagramCanvas extends Vue {
   private canvas!: draw2d.Canvas;
   private canvasId!: string;
   private canvasZoom = 1;
+  private canvasGuideType = CanvasGuideType.なし;
 
   private lastResourcesOnCurrentProductCount = 0;
 
@@ -231,11 +233,9 @@ export default class DiagramCanvas extends Vue {
     this.canvas.setZoom(zoom, false);
   }
 
-  private onChangeCanvasGuideType(
-    canvasGuideType: CanvasGuideType,
-    beforeCanvasGuideType: CanvasGuideType
-  ): void {
+  private onChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {
     const canvas = this.canvas;
+    const beforeCanvasGuideType = this.canvasGuideType; 
     if (beforeCanvasGuideType.canvasPolicy)
       canvas.uninstallEditPolicy(beforeCanvasGuideType.canvasPolicy);
     if (canvasGuideType.canvasPolicy)
@@ -243,6 +243,8 @@ export default class DiagramCanvas extends Vue {
     // 「何故か、背景が真っ黒になってしまう」対策。ちょーーっとだけリサイズする。
     // …こんなワークアラウンドのほうが安定するからしゃーない。
     canvas.setZoom(canvas.getZoom() - 0.001, false);
+
+    this.canvasGuideType = canvasGuideType;
   }
 
   private onPngDownload(): void {

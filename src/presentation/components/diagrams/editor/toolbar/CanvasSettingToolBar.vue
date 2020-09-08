@@ -88,11 +88,11 @@ export default class CanvasSettingToolBar extends Vue {
   @Prop({ required: true })
   private readonly canvasZoom!: number;
 
+  @Prop({ required: true })
+  private canvasGuideType!: CanvasGuideType;
+
   @Emit("onChangeCanvasGuideType")
-  private onChangeCanvasGuideType(
-    canvasGuideType: CanvasGuideType,
-    beforeCanvasGuideType: CanvasGuideType
-  ): void {}
+  private onChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {}
 
   @Emit("onPngDownload")
   private onPngDownload(): void {}
@@ -107,8 +107,6 @@ export default class CanvasSettingToolBar extends Vue {
   private toolBarCollapse = false;
   private dragStartLayerX = 0;
   private dragStartLayerY = 0;
-
-  private canvasGuideType = CanvasGuideType.なし;
 
   private lastContainerWidth = 0;
   private lastContainerHeight = 0;
@@ -252,10 +250,7 @@ export default class CanvasSettingToolBar extends Vue {
   }
 
   private onClickChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {
-    const before = this.canvasGuideType;
-    if (!before) return;
-    this.onChangeCanvasGuideType(canvasGuideType, before);
-    this.canvasGuideType = canvasGuideType;
+    this.onChangeCanvasGuideType(canvasGuideType);
   }
 
   private onClickSvgDownload(): void {
