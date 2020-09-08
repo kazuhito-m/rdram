@@ -457,7 +457,7 @@ export default class DiagramCanvas extends Vue {
       lastZOrder = figure;
     }
     if (!lastZOrder) return;
-    lastAdded.toFront(lastZOrder);
+    lastAdded.toBack(lastZOrder);
   }
 
   private isAreaIcon(icon: Figure): boolean {
