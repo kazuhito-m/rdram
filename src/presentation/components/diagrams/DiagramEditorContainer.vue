@@ -32,6 +32,14 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     />
+    <BusinessFlowDiagramEditor
+      v-if="is('業務フロー図')"
+      :diagramId="diagram.id"
+      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+    />
     <UsageSceneDiagramEditor
       v-if="is('利用シーン図')"
       :diagramId="diagram.id"
@@ -63,6 +71,7 @@
 import { Component, Vue, Prop, Inject, Emit } from "nuxt-property-decorator";
 import BusinessContextDiagramEditor from "@/presentation/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
 import BusinessUseCaseDiagramEditor from "@/presentation/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue";
+import BusinessFlowDiagramEditor from "@/presentation/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue";
 import UsageSceneDiagramEditor from "@/presentation/components/diagrams/editor/usagescenediagram/UsageSceneDiagramEditor.vue";
 import SystemContextDiagramEditor from "@/presentation/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue";
 import RequestModelDiagramEditor from "@/presentation/components/diagrams/editor/requrestmodel/RequestModelDiagramEditor.vue";
@@ -79,6 +88,7 @@ import StrageRepository from "@/domain/strage/StrageRepository";
     RequestModelDiagramEditor,
     BusinessContextDiagramEditor,
     BusinessUseCaseDiagramEditor,
+    BusinessFlowDiagramEditor,
     UsageSceneDiagramEditor,
     InfomationModelEditor,
     StateModelEditor
