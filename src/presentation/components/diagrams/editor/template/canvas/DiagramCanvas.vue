@@ -428,16 +428,19 @@ export default class DiagramCanvas extends Vue {
       this.iconStyleOf(resource.type)
     );
     this.canvas.add(icon);
-    this.fixZOrder();
+    console.log("icon.getUserData()", icon.getUserData());
+    this.fixZOrder(icon);
   }
 
   /**
-   * 最後に追加したのが範囲アイコンなら、通常アイコンの後ろに持っていく。
+   * 最後に追加したのが「範囲アイコン」なら、通常アイコンよりZOrder後ろにもっていく。
    */
-  private fixZOrder(): void {
+  private fixZOrder(icon: Figure): void {
     const allFigures = this.canvas.getFigures().asArray();
-    const lastAdded = allFigures.last;
-    if (!this.isAreaIcon(lastAdded)) return;
+    const lastAdded = allFigures.find(
+      (i: Figure) => i.getId() === icon.getId()
+    );
+    if (!lastAdded || !this.isAreaIcon(lastAdded)) return;
     let lastZOrder = null;
     for (const figure of allFigures) {
       if (figure.getId() === lastAdded.getId()) continue;
@@ -454,10 +457,9 @@ export default class DiagramCanvas extends Vue {
   }
 
   private isAreaIcon(icon: Figure): boolean {
-    if (!icon.getUserData()) {
-      const iconStatus: IconStatus = icon.getUserData();
-      if (iconStatus.area) return true;
-    }
+    if (!icon.getUserData()) return false;
+    const iconStatus: IconStatus = icon.getUserData();
+    if (iconStatus.area) return true;
     return false;
   }
 
