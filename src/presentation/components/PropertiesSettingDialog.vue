@@ -7,7 +7,10 @@
     @keydown.enter="onClickOk"
   >
     <v-card>
-      <v-card-title class="headline"><v-icon>{{ iconKey }}</v-icon>{{ title }}</v-card-title>
+      <v-card-title class="headline">
+        <v-icon>{{ iconKey }}</v-icon>
+        {{ title }}
+      </v-card-title>
       <v-card-subtitle class="text-right">{{ subTitle }}</v-card-subtitle>
       <v-card-text>
         <slot name="inputPart"></slot>

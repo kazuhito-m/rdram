@@ -134,6 +134,10 @@ export default class ResourcePropertiesEditDialog extends Vue {
     this.enableContent = resource instanceof HasContentResource;
     this.inputContentHint = this.choiceContentHint();
     this.showProperties(resource);
+    this.$nextTick(() => {
+      if (ResourceType.始点終点.equals(resource.type)) this.description += " "; // TODO 特殊条件過ぎる。包括的にやりたい。
+      console.log("cons", this.consent);
+    });
   }
 
   private isAddNew(): boolean {
