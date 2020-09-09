@@ -51,7 +51,7 @@ import "jquery";
 import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
-import draw2d, { Figure, command, Connection } from "draw2d";
+import draw2d, { Figure, command, Connection, Port } from "draw2d";
 
 import moment from "moment/moment";
 
@@ -426,17 +426,16 @@ export default class DiagramCanvas extends Vue {
     resource: Resource,
     placement: Placement
   ): void {
-    const generator = this.choiceIconGenerator(resource.type) as IconGenerator<
-      Resource
-    >;
+    const type = resource.type;
+    const generator = this.choiceIconGenerator(type) as IconGenerator<Resource>;
     if (!generator) {
-      alert("ジェネレータ無しアイコン生成不能:" + resource.type.name);
+      alert("ジェネレータ無しアイコン生成不能:" + type.name);
       return;
     }
     const icon = generator.generate(
       placement,
       resource,
-      this.iconStyleOf(resource.type)
+      this.iconStyleOf(type)
     );
     this.canvas.add(icon);
     this.fixZOrder(icon);
@@ -493,10 +492,10 @@ export default class DiagramCanvas extends Vue {
     const end = canvas.getFigure(String(relation.toResourceId));
 
     // ちょっとトリッキーなデータの持ち方…解析しないとわからない。正攻法が在れば変えたい。
-    const startHybridPort = this.getHybridPort(relation.fromResourceId, canvas);
-    if (startHybridPort) connection.setSource(startHybridPort);
-    const endHybridPort = this.getHybridPort(relation.toResourceId, canvas);
-    if (endHybridPort) connection.setTarget(endHybridPort);
+    const startPort = this.getPort(relation.fromResourceId, canvas, true);
+    if (startPort) connection.setSource(startPort);
+    const endPort = this.getPort(relation.toResourceId, canvas, false);
+    if (endPort) connection.setTarget(endPort);
 
     let routerType = RouterType.ofId(relation.routerTypeId);
     if (!routerType) routerType = RouterType.DIRECT;
@@ -507,15 +506,22 @@ export default class DiagramCanvas extends Vue {
     canvas.add(connection);
   }
 
-  private getHybridPort(resourceId: number, canvas: draw2d.Canvas): any | null {
+  private getPort(
+    resourceId: number,
+    canvas: draw2d.Canvas,
+    fromPort: boolean
+  ): any | null {
     const targetFigure = canvas.getFigure(String(resourceId));
-    if (
-      !targetFigure ||
-      !targetFigure.hybridPorts ||
-      !targetFigure.hybridPorts.data
-    )
-      return null;
-    return targetFigure.hybridPorts.data[0];
+    if (!targetFigure) return null;
+    const portTypeName = fromPort ? "draw2d.OutputPort" : "draw2d.InputPort";
+    const foundPoft = targetFigure
+      .getPorts(false)
+      .asArray()
+      .find(
+        (port: any) =>
+          port.NAME === portTypeName || port.NAME === "draw2d.HybridPort"
+      );
+    return foundPoft ? foundPoft : null;
   }
 
   private showConnectorRightClickMenu(
