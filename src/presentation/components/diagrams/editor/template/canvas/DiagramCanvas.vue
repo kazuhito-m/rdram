@@ -504,26 +504,6 @@ export default class DiagramCanvas extends Vue {
     canvas.add(connection);
   }
 
-  public decorateWhenFlow(relation: Relation, connection: any): void {
-    if (this.isFlowRelation(relation)) this.arrowDocorate(connection);
-  }
-
-  private isFlowRelation(relation: Relation): boolean {
-    const fromResource = this.findResource(relation.fromResourceId);
-    const toResource = this.findResource(relation.toResourceId);
-    if (!fromResource || !toResource) return false;
-    const fromType = fromResource.type;
-    const toType = toResource.type;
-    return (
-      (ResourceType.アクティビティ.equals(fromType) &&
-        ResourceType.アクティビティ.equals(toType)) ||
-      (ResourceType.アクティビティ.equals(fromType) &&
-        ResourceType.始点終点.equals(toType)) ||
-      (ResourceType.始点終点.equals(fromType) &&
-        ResourceType.アクティビティ.equals(toType))
-    );
-  }
-
   private getHybridPort(resourceId: number, canvas: draw2d.Canvas): any | null {
     const targetFigure = canvas.getFigure(String(resourceId));
     if (
@@ -629,6 +609,25 @@ export default class DiagramCanvas extends Vue {
     this.editResourceId = ResourcePropertiesEditDialog.ID_WHEN_CREATE_NEW;
   }
 
+  public decorateWhenFlow(relation: Relation, connection: any): void {
+    if (this.isFlowRelation(relation)) this.arrowDocorate(connection);
+  }
+
+  private isFlowRelation(relation: Relation): boolean {
+    const fromResource = this.findResource(relation.fromResourceId);
+    const toResource = this.findResource(relation.toResourceId);
+    if (!fromResource || !toResource) return false;
+    const fromType = fromResource.type;
+    const toType = toResource.type;
+    return (
+      (ResourceType.アクティビティ.equals(fromType) &&
+        ResourceType.アクティビティ.equals(toType)) ||
+      (ResourceType.アクティビティ.equals(fromType) &&
+        ResourceType.始点終点.equals(toType)) ||
+      (ResourceType.始点終点.equals(fromType) &&
+        ResourceType.アクティビティ.equals(toType))
+    );
+  }
   private arrowDocorate(connection: any): void {
     const decorator = new draw2d.decoration.connection.ArrowDecorator();
     decorator.setBackgroundColor(connection.getColor());
