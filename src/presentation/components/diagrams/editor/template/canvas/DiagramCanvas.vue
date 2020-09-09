@@ -515,7 +515,7 @@ export default class DiagramCanvas extends Vue {
     return targetFigure.hybridPorts.data[0];
   }
 
-  private makeRouterBy(routerType: RouterType): any {
+  public makeRouterBy(routerType: RouterType): any {
     if (!routerType) return undefined;
     if (routerType.equals(RouterType.INTERACTIVE_MANHATTAN))
       return new draw2d.layout.connection.ManhattanConnectionRouter();
@@ -613,7 +613,7 @@ export default class DiagramCanvas extends Vue {
     if (this.isFlowRelation(relation)) this.arrowDocorate(connection);
   }
 
-  private isFlowRelation(relation: Relation): boolean {
+  public isFlowRelation(relation: Relation): boolean {
     const fromResource = this.findResource(relation.fromResourceId);
     const toResource = this.findResource(relation.toResourceId);
     if (!fromResource || !toResource) return false;

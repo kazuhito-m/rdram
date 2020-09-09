@@ -47,15 +47,19 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
             const connection = eventGist.connection;
             connection.onContextMenu = view.onClickConnectorOnCanvas;
 
-            const routerType = view.analyzeRouterType(connection.router);
-
-            const relation = new Relation(
+            let relation = new Relation(
                 connection.id,
                 srcResourceId,
                 distResourceId,
-                routerType.id,
+                RouterType.DIRECT.id,
                 [],
             );
+            if (view.isFlowRelation(relation)) {
+                const defaultRouterType = RouterType.INTERACTIVE_MANHATTAN;
+                relation = relation.changeRouter(defaultRouterType);
+                connection.setRouter(view.makeRouterBy(defaultRouterType));
+            }
+
             modifiedDiagram = modifiedDiagram.addRelation(relation);
 
             view.decorateWhenFlow(relation, connection);
