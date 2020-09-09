@@ -517,7 +517,7 @@ export default class DiagramCanvas extends Vue {
 
   public makeRouterBy(routerType: RouterType): any {
     if (!routerType) return undefined;
-    if (routerType.equals(RouterType.INTERACTIVE_MANHATTAN))
+    if (routerType.equals(RouterType.MANHATTAN))
       return new draw2d.layout.connection.ManhattanConnectionRouter();
     if (routerType.equals(RouterType.CIRCUIT))
       return new draw2d.layout.connection.CircuitConnectionRouter();
@@ -534,7 +534,7 @@ export default class DiagramCanvas extends Vue {
     if (!name) return RouterType.DIRECT;
 
     if (name === "draw2d.layout.connection.ManhattanConnectionRouter")
-      return RouterType.INTERACTIVE_MANHATTAN;
+      return RouterType.MANHATTAN;
     if (name === "draw2d.layout.connection.CircuitConnectionRouter")
       return RouterType.CIRCUIT;
     if (name === "draw2d.layout.connection.SplineConnectionRouter")

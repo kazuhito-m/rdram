@@ -54,8 +54,9 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
                 RouterType.DIRECT.id,
                 [],
             );
+
             if (view.isFlowRelation(relation)) {
-                const defaultRouterType = RouterType.INTERACTIVE_MANHATTAN;
+                const defaultRouterType = RouterType.MANHATTAN;
                 relation = relation.changeRouter(defaultRouterType);
                 connection.setRouter(view.makeRouterBy(defaultRouterType));
             }

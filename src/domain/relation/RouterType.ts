@@ -2,7 +2,7 @@ export default class RouterType {
     private static readonly vs: RouterType[] = [];
 
     static DIRECT = new RouterType(1, '直線');
-    static INTERACTIVE_MANHATTAN = new RouterType(2, 'マンハッタン');
+    static MANHATTAN = new RouterType(2, 'マンハッタン');
     static CIRCUIT = new RouterType(3, 'サーキット');
     static SPLINE = new RouterType(4, 'スプライン');
     // static SKETCH = new RouterType(5, 'スケッチ');
