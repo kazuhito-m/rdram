@@ -6,6 +6,7 @@ import RouterType from "~/domain/relation/RouterType";
 import Relation from "@/domain/relation/Relation";
 import FigureAnalyzer from "./FigureAnalyzer";
 import Diagram from "~/domain/diagram/Diagram";
+import vuetify from "~/pages/vuetify";
 
 export default class GenericConnectPortsEvents implements EventsOfType<Diagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
@@ -56,6 +57,8 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
                 [],
             );
             modifiedDiagram = modifiedDiagram.addRelation(relation);
+
+            view.decorateWhenFlow(relation, connection);
         }
         return modifiedDiagram;
     }

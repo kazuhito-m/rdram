@@ -51,7 +51,7 @@ import "jquery";
 import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
-import draw2d, { Figure, command } from "draw2d";
+import draw2d, { Figure, command, Connection } from "draw2d";
 
 import moment from "moment/moment";
 
@@ -383,9 +383,7 @@ export default class DiagramCanvas extends Vue {
 
     this.canvas.setDimension(diagram.width, diagram.height);
     for (let placement of diagram.placements) {
-      const resource = this.allResourcesOnCurrentProduct.find(
-        resource => resource.resourceId === placement.resourceId
-      );
+      const resource = this.findResource(placement.resourceId);
       if (!resource) continue;
       this.addResouceIconToCanvas(resource, placement);
     }
@@ -393,6 +391,13 @@ export default class DiagramCanvas extends Vue {
     for (let relation of diagram.relations) {
       this.addConnection(relation);
     }
+  }
+
+  private findResource(resourceId: number): Resource | null {
+    const found = this.allResourcesOnCurrentProduct.find(
+      r => r.resourceId === resourceId
+    );
+    return found ? found : null;
   }
 
   // self decralation event.
@@ -494,8 +499,29 @@ export default class DiagramCanvas extends Vue {
     if (!routerType) routerType = RouterType.DIRECT;
     connection.setRouter(this.makeRouterBy(routerType));
     connection.onContextMenu = this.onClickConnectorOnCanvas;
+    this.decorateWhenFlow(relation, connection);
 
     canvas.add(connection);
+  }
+
+  public decorateWhenFlow(relation: Relation, connection: any): void {
+    if (this.isFlowRelation(relation)) this.arrowDocorate(connection);
+  }
+
+  private isFlowRelation(relation: Relation): boolean {
+    const fromResource = this.findResource(relation.fromResourceId);
+    const toResource = this.findResource(relation.toResourceId);
+    if (!fromResource || !toResource) return false;
+    const fromType = fromResource.type;
+    const toType = toResource.type;
+    return (
+      (ResourceType.アクティビティ.equals(fromType) &&
+        ResourceType.アクティビティ.equals(toType)) ||
+      (ResourceType.アクティビティ.equals(fromType) &&
+        ResourceType.始点終点.equals(toType)) ||
+      (ResourceType.始点終点.equals(fromType) &&
+        ResourceType.アクティビティ.equals(toType))
+    );
   }
 
   private getHybridPort(resourceId: number, canvas: draw2d.Canvas): any | null {
@@ -601,6 +627,12 @@ export default class DiagramCanvas extends Vue {
   private showResourcePropertiesEditor(resourceType: ResourceType): void {
     this.editResourceType = resourceType;
     this.editResourceId = ResourcePropertiesEditDialog.ID_WHEN_CREATE_NEW;
+  }
+
+  private arrowDocorate(connection: any): void {
+    const decorator = new draw2d.decoration.connection.ArrowDecorator();
+    decorator.setBackgroundColor(connection.getColor());
+    connection.setTargetDecorator(decorator);
   }
 
   // Data change controll.
