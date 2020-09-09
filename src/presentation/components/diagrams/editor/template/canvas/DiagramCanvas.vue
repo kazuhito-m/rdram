@@ -74,6 +74,7 @@ import DownloadFile from "@/domain/client/DownloadFile";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import IconStatus from "../../../icon/IconStatus";
 import ContractIconGenerator from "../icon/ContractIconGenerator";
+import RouterTypeDraw2dConverter from "../RouterTypeDraw2dConverter";
 
 @Component({
   components: {
@@ -106,6 +107,8 @@ export default class DiagramCanvas extends Vue {
   private repository!: StrageRepository;
   @Inject()
   private clientDownloadRepository!: ClientDownloadRepository;
+
+  private readonly routerConverter = new RouterTypeDraw2dConverter();
 
   private canvas!: draw2d.Canvas;
   private canvasId!: string;
@@ -405,7 +408,7 @@ export default class DiagramCanvas extends Vue {
   private onChangeRouterTypeOnEditor(routerType: RouterType) {
     const connection = this.canvas.getLine(this.targetRelationId);
     if (!connection) return;
-    const router = this.makeRouterBy(routerType);
+    const router = this.routerConverter.makeRouterBy(routerType);
     connection.setRouter(router);
 
     this.transactionOf((diagram, product) => {
@@ -497,7 +500,7 @@ export default class DiagramCanvas extends Vue {
 
     let routerType = RouterType.ofId(relation.routerTypeId);
     if (!routerType) routerType = RouterType.DIRECT;
-    connection.setRouter(this.makeRouterBy(routerType));
+    connection.setRouter(this.routerConverter.makeRouterBy(routerType));
     connection.onContextMenu = this.onClickConnectorOnCanvas;
     this.decorateWhenFlow(relation, connection);
 
@@ -513,34 +516,6 @@ export default class DiagramCanvas extends Vue {
     )
       return null;
     return targetFigure.hybridPorts.data[0];
-  }
-
-  public makeRouterBy(routerType: RouterType): any {
-    if (!routerType) return undefined;
-    if (routerType.equals(RouterType.MANHATTAN))
-      return new draw2d.layout.connection.ManhattanConnectionRouter();
-    if (routerType.equals(RouterType.CIRCUIT))
-      return new draw2d.layout.connection.CircuitConnectionRouter();
-    if (routerType.equals(RouterType.SPLINE))
-      return new draw2d.layout.connection.SplineConnectionRouter();
-    // if (routerType.equals(RouterType.SKETCH))
-    //    return new draw2d.layout.connection.SketchConnectionRouter();
-    return undefined;
-  }
-
-  public analyzeRouterType(router: any): RouterType {
-    if (!router) return RouterType.DIRECT;
-    const name = router.NAME;
-    if (!name) return RouterType.DIRECT;
-
-    if (name === "draw2d.layout.connection.ManhattanConnectionRouter")
-      return RouterType.MANHATTAN;
-    if (name === "draw2d.layout.connection.CircuitConnectionRouter")
-      return RouterType.CIRCUIT;
-    if (name === "draw2d.layout.connection.SplineConnectionRouter")
-      return RouterType.SPLINE;
-    // if (name === "draw2d.layout.connection.SketchConnectionRouter") return RouterType.SKETCH;
-    return RouterType.DIRECT;
   }
 
   private showConnectorRightClickMenu(

@@ -4,14 +4,13 @@ import DiagramCanvas from "@/presentation/components/diagrams/editor/template/ca
 import Product from "~/domain/product/Product";
 import RouterType from "~/domain/relation/RouterType";
 import Relation from "@/domain/relation/Relation";
-import FigureAnalyzer from "./FigureAnalyzer";
+import RouterTypeDraw2dConverter from "../../RouterTypeDraw2dConverter";
 import Diagram from "~/domain/diagram/Diagram";
-import vuetify from "~/pages/vuetify";
 
 export default class GenericConnectPortsEvents implements EventsOfType<Diagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
 
-    private readonly figureAnalyzer = new FigureAnalyzer();
+    private readonly routerConverter = new RouterTypeDraw2dConverter();
 
     public eventType(): string {
         return "Connect Ports";
@@ -58,7 +57,7 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
             if (view.isFlowRelation(relation)) {
                 const defaultRouterType = RouterType.MANHATTAN;
                 relation = relation.changeRouter(defaultRouterType);
-                connection.setRouter(view.makeRouterBy(defaultRouterType));
+                connection.setRouter(this.routerConverter.makeRouterBy(defaultRouterType));
             }
 
             modifiedDiagram = modifiedDiagram.addRelation(relation);
