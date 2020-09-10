@@ -5,6 +5,7 @@ import Relation from "./Relation";
 import ResourceType from "../resource/ResourceType";
 
 export default class RelationWithResources {
+
     constructor(
         public readonly id: string,
         public readonly fromResource: Resource,
@@ -23,9 +24,17 @@ export default class RelationWithResources {
         );
     }
 
+    /**
+     * from/to両方共「同一タイプのリソース」か。
+     */
     public betweenBothFromTo(resourceType: ResourceType): boolean {
         return resourceType.equals(this.fromType)
             && resourceType.equals(this.toType);
+    }
+
+    public existsType(resourceType: ResourceType): boolean {
+        return resourceType.equals(this.fromType)
+            || resourceType.equals(this.toType);
     }
 
     public get fromType(): ResourceType {

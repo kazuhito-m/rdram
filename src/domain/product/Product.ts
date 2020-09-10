@@ -42,6 +42,12 @@ export default class Product {
             }
         }
 
+        if (relationPlus.existsType(ResourceType.始点終点)) {
+            if (!relationPlus.existsType(ResourceType.アクティビティ)) {
+                return "そのアイコン種類の間に関連は引けません。"
+            }
+        }
+
         if (relationPlus.betweenBothFromTo(ResourceType.アクティビティ)) {
             if (relations.exists(relation)
                 || relations.existsBothReversivle(relation)) return "すでに関連が存在します。";
