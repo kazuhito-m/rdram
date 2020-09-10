@@ -43,8 +43,8 @@ export default class Product {
         }
 
         if (relationPlus.betweenBothFromTo(ResourceType.アクティビティ)) {
-            if (relations.exists(relation) && relations.exists(relation.reverse()))
-                return "すでに関連が存在します。";
+            if (relations.exists(relation)
+                || relations.existsBothReversivle(relation)) return "すでに関連が存在します。";
             return "";
         }
 

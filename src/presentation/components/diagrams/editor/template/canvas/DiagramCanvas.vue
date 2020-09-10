@@ -681,7 +681,7 @@ export default class DiagramCanvas extends Vue {
     const diagram = product.diagrams.of(this.diagramId);
     if (!diagram) return;
 
-    const modifiedDiagram = func(diagram, this.product);
+    const modifiedDiagram = func(diagram, product);
     if (modifiedDiagram === null) return;
 
     this.onMergePlacement(modifiedDiagram.placements);
