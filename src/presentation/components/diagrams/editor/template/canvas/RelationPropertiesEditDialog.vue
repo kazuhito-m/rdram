@@ -5,7 +5,7 @@
     :title="title"
     :subTitle="subTitle"
     iconKey
-    width="450"
+    width="490"
     @onClose="onClose"
     @onClickOk="onClickUpdateExecute"
     @onShow="onShow"
@@ -25,7 +25,17 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col>予定地</v-col>
+          <v-col>
+            <p>線形(軌跡の形状)</p>
+            <v-btn-toggle v-model="routerType.id" tile color="deep-purple accent-3" group>
+              <v-btn
+                v-for="itemRouterType in routerTypes"
+                v-bind:key="itemRouterType.id"
+                :value="itemRouterType.id"
+                @click="onChangeRouterType(itemRouterType)"
+              >{{ itemRouterType.name }}</v-btn>
+            </v-btn-toggle>
+          </v-col>
         </v-row>
       </v-container>
     </template>
@@ -65,6 +75,7 @@ export default class RelationPropertiesEditDialog extends Vue {
   private consent = false;
   private readonly title = "関連 の設定";
   private readonly subTitle = "関連";
+  private readonly routerTypes = RouterType.values();
 
   private meaning = "";
   private routerType: RouterType = RouterType.DIRECT;
@@ -106,6 +117,11 @@ export default class RelationPropertiesEditDialog extends Vue {
     const modified = this.relation.with(this.meaning, this.routerType);
     this.onUpdateRelationProperties(modified);
     this.onClose();
+  }
+
+  private onChangeRouterType(routerType: RouterType): void {
+    this.routerType = routerType;
+    this.consent = this.changed();
   }
 }
 </script>
