@@ -16,12 +16,11 @@
         <!-- リアクティブ監視させたいけど、ネストしたくないので…自身をコンテナにして監視させる(ちょっととトリッキー？) -->
         <ConnectorRightClickMenuAndEditor
             :visibleConnectorRightClickMenu="visibleConnectorMenu"
+            :relation="targetRelation"
             :menuPositionX="menuX"
             :menuPositionY="menuY"
-            :relationId="targetRelationId"
-            :selectedRouterTypeId="editableRouterId"
-            @onChangeRouterType="onChangeRouterTypeOnEditor"
-            @onClickDeleteConnection="onClickDeleteConnection"
+            @onUpdateRelation="onUpdateRelation"
+            @onDeleteRelation="onDeleteRelation"
         />
 
         <ResourcePropertiesEditDialog 
@@ -118,11 +117,9 @@ export default class DiagramCanvas extends Vue {
   private lastResourcesOnCurrentProductCount = 0;
 
   private visibleConnectorMenu = false;
-  private relation?: Relation;
+  private targetRelation: Relation | null = null;
   private menuX = 0;
   private menuY = 0;
-  private targetRelationId = "";
-  private editableRouterId = 0;
 
   private editResourceId = 0;
   private editResourceType: ResourceType | null = null;
@@ -215,19 +212,30 @@ export default class DiagramCanvas extends Vue {
 
   // right click menu events.
 
-  private onClickDeleteConnection() {
-    const connection = this.canvas.getLine(this.targetRelationId);
+  private onDeleteRelation(relation: Relation): void {
+    const connection = this.canvas.getLine(relation.id);
     this.canvas.remove(connection);
 
-    this.transactionOf((diagram, product) => {
-      const relations = diagram.relations;
-      for (let i = 0; i < relations.length; i++) {
-        const relation = relations[i];
-        if (relation.id !== this.targetRelationId) continue;
-        relations.splice(i, 1);
-        break;
-      }
-      return true;
+    this.transactionOf2((diagram, product) => {
+      return diagram.removeRelationsOf([relation.id]);
+    });
+  }
+
+  private onUpdateRelation(relation: Relation): void {
+    const connection = this.canvas.getLine(relation.id);
+    if (!connection) return;
+
+    const router = this.routerConverter.makeRouterBy(relation.routerType);
+    connection.setRouter(router);
+
+    connection
+      .getChildren()
+      .asArray()
+      .forEach((c: Figure) => connection.remove(c));
+    this.addConnectionLabel(connection, relation);
+
+    this.transactionOf2((diagram, product) => {
+      return diagram.modifyRelationOf(relation);
     });
   }
 
@@ -405,21 +413,6 @@ export default class DiagramCanvas extends Vue {
 
   // self decralation event.
 
-  private onChangeRouterTypeOnEditor(routerType: RouterType) {
-    const connection = this.canvas.getLine(this.targetRelationId);
-    if (!connection) return;
-    const router = this.routerConverter.makeRouterBy(routerType);
-    connection.setRouter(router);
-
-    this.transactionOf((diagram, product) => {
-      const relation = diagram.relationOf(this.targetRelationId);
-      if (!relation) return false;
-      const changed: Relation = relation.changeRouter(routerType);
-      diagram.modifyRelationOf(changed);
-      return true;
-    });
-  }
-
   // UI controll.
 
   private addResouceIconToCanvas(
@@ -500,6 +493,7 @@ export default class DiagramCanvas extends Vue {
     if (!routerType) routerType = RouterType.DIRECT;
     connection.setRouter(this.routerConverter.makeRouterBy(routerType));
     connection.onContextMenu = this.onClickConnectorOnCanvas;
+    this.addConnectionLabel(connection, relation);
     this.decorateWhenFlow(relation, connection);
 
     canvas.add(connection);
@@ -523,17 +517,27 @@ export default class DiagramCanvas extends Vue {
     return foundPoft ? foundPoft : null;
   }
 
+  private addConnectionLabel(connection: any, relation: Relation): void {
+    if (relation.meaning.length === 0) return;
+    const label = new draw2d.shape.basic.Label({
+      text: relation.meaning,
+      stroke: 0,
+      padding: 0,
+      alpha: 0.75,
+      bgColor: "#ffffff"
+    });
+    connection.add(label, new draw2d.layout.locator.PolylineMidpointLocator());
+  }
+
   private showConnectorRightClickMenu(
     relation: Relation,
     x: number,
     y: number
   ): void {
     this.visibleConnectorMenu = false;
+    this.targetRelation = relation;
     this.menuX = x;
     this.menuY = y;
-    this.relation = relation;
-    this.targetRelationId = relation.id;
-    this.editableRouterId = relation.routerTypeId;
     this.$nextTick(() => {
       this.visibleConnectorMenu = true;
     });

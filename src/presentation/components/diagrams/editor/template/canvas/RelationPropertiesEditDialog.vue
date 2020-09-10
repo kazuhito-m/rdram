@@ -1,10 +1,10 @@
 <template>
   <PropertiesSettingDialog
-    :id="relationId"
+    :id="relation"
     :consent="consent"
     :title="title"
     :subTitle="subTitle"
-    :iconKey="iconKey"
+    iconKey
     width="450"
     @onClose="onClose"
     @onClickOk="onClickUpdateExecute"
@@ -17,9 +17,9 @@
             <v-text-field
               label="意味(関連に表示されるラベル)"
               counter
-              v-model="name"
-              :autofocus="!enableContent"
-              :rules="[validateName]"
+              v-model="meaning"
+              autofocus
+              :rules="[validateMeaning]"
               :maxlength="meaningMaxLength"
             ></v-text-field>
           </v-col>
@@ -51,40 +51,28 @@ import RouterType from "@/domain/relation/RouterType";
 })
 export default class RelationPropertiesEditDialog extends Vue {
   @Prop({ required: true })
-  private readonly relationId!: string;
-  @Prop({ required: true })
-  private readonly diagramId!: number;
-
-  @Emit("onUpdatedRelationProperties")
-  private onUpdatedRelationProperties(relation: Relation): void {}
-
+  private readonly relation!: Relation | null;
+  @Emit("onUpdateRelationProperties")
+  private onUpdateRelationProperties(relation: Relation): void {}
   @Emit("onClose")
   private onClose(): void {}
 
-  @Watch("relationId")
-  private onChangeRelationId(): void {
-    if (this.relationId.length > 0) this.onShow();
+  @Watch("relation")
+  private onChangeRelation(): void {
+    if (this.relation) this.onShow();
   }
 
-  @Inject()
-  private repository?: StrageRepository;
   private consent = false;
   private readonly title = "関連 の設定";
   private readonly subTitle = "関連";
-  private old!: Relation;
 
   private meaning = "";
   private routerType: RouterType = RouterType.DIRECT;
 
   private onShow(): void {
+    if (!this.relation) return;
     this.consent = false;
-    const product = this.repository?.getCurrentProduct();
-    const diagram = product!.diagrams.of(this.diagramId);
-    const relation = diagram!.relationOf(this.relationId);
-    if (!product || !diagram || !relation) return;
-
-    this.old = relation;
-    this.showProperties(relation);
+    this.showProperties(this.relation);
   }
 
   private showProperties(relation: Relation): void {
@@ -93,7 +81,8 @@ export default class RelationPropertiesEditDialog extends Vue {
   }
 
   private changed(): boolean {
-    const old = this.old;
+    if (!this.relation) return false;
+    const old = this.relation;
     return (
       old.meaning !== this.meaning || !old.routerType.equals(this.routerType)
     );
@@ -103,7 +92,7 @@ export default class RelationPropertiesEditDialog extends Vue {
     return Relation.MEANING_MAX_LENGTH;
   }
 
-  private validateName(): string | boolean {
+  private validateMeaning(): string | boolean {
     this.consent = false;
     const meaning = this.meaning;
     const max = this.meaningMaxLength;
@@ -113,26 +102,10 @@ export default class RelationPropertiesEditDialog extends Vue {
   }
 
   private onClickUpdateExecute(): void {
-    if (!this.consent) return;
-    const relation = this.registerRelationProperties();
-    if (relation === null) return;
-    this.onUpdatedRelationProperties(relation);
+    if (!this.relation || !this.consent) return;
+    const modified = this.relation.with(this.meaning, this.routerType);
+    this.onUpdateRelationProperties(modified);
     this.onClose();
-  }
-
-  private registerRelationProperties(): Relation | null {
-    const product = this.repository?.getCurrentProduct();
-    const diagram = product!.diagrams.of(this.diagramId);
-    const relation = diagram!.relationOf(this.relationId);
-    if (!product || !diagram || !relation) return null;
-
-    const changed: Relation = relation.with(this.meaning, this.routerType);
-
-    const updatedDiagram = diagram.modifyRelationOf(changed);
-    const updatedProduct = product.replaceOf(diagram);
-    this.repository?.registerCurrentProduct(product);
-
-    return relation;
   }
 }
 </script>
