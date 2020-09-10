@@ -26,7 +26,7 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
             const distResourceId = parseInt(eventGist.target?.getParent().id, 10);
             if (!srcResourceId || !distResourceId) continue;
 
-            const relation = new Relation("", srcResourceId, distResourceId, RouterType.DIRECT.id, []);
+            const relation = Relation.prototypeOf("", srcResourceId, distResourceId);
             if (!this.validateRelationBetweenResource(relation, diagram, product, view)) {
                 eventGist.rootCommand.undo();
                 return false;
@@ -52,13 +52,7 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
             const connection = eventGist.connection;
             connection.onContextMenu = view.onClickConnectorOnCanvas;
 
-            let relation = new Relation(
-                connection.id,
-                srcResourceId,
-                distResourceId,
-                RouterType.DIRECT.id,
-                [],
-            );
+            let relation = Relation.prototypeOf(connection.id, srcResourceId, distResourceId);
 
             if (view.isFlowRelation(relation)) {
                 const defaultRouterType = RouterType.MANHATTAN;

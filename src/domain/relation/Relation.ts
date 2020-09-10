@@ -7,6 +7,7 @@ export default class Relation {
         public readonly fromResourceId: number,
         public readonly toResourceId: number,
         public readonly routerTypeId: number,
+        public readonly meaning: string,
         public readonly midpoints: Midpoint[],
     ) { }
 
@@ -16,6 +17,7 @@ export default class Relation {
             fromResourceId,
             toResourceId,
             RouterType.DIRECT.id,
+            "",
             [],
         );
     }
@@ -26,6 +28,7 @@ export default class Relation {
             this.toResourceId,
             this.fromResourceId,
             this.routerTypeId,
+            this.meaning,
             this.midpoints,
         );
     }
@@ -49,6 +52,7 @@ export default class Relation {
             this.fromResourceId,
             this.toResourceId,
             routerType.id,
+            this.meaning,
             this.midpoints,
         );
     }
@@ -59,6 +63,7 @@ export default class Relation {
             this.fromResourceId,
             this.toResourceId,
             this.routerTypeId,
+            this.meaning,
             this.midpoints.map(midpoint => midpoint.clone()),
         );
     }
