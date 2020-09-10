@@ -33,6 +33,8 @@ export default class Product {
         const relationPlus = RelationWithResources.of(relation, fromResource, toResource);
         const relations = new Relations(diagram.relations); // TODO Diagram側にこれをつけたい。
 
+        if (relations.exists(relation)) return "すでに関連が存在します。";
+
         if (relationPlus.fromType.equals(ResourceType.始点終点)) {
             const startPoint = relationPlus.fromResource as StartOrEndPoint;
             if (startPoint.startPoint) {
@@ -54,9 +56,7 @@ export default class Product {
             return "";
         }
 
-        if (relations.existsOrReversivle(relation)) {
-            return "すでに関連が存在します。";
-        }
+        if (relations.existsOrReversivle(relation)) return "すでに関連が存在します。";
 
         return "";
     }
