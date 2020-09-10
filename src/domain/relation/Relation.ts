@@ -47,12 +47,20 @@ export default class Relation {
     }
 
     public changeRouter(routerType: RouterType): Relation {
+        return this.with(this.meaning, routerType);
+    }
+
+    public get routerType(): RouterType {
+        return RouterType.ofId(this.routerTypeId) as RouterType;
+    }
+
+    public with(meaning: string, routerType: RouterType): Relation {
         return new Relation(
             this.id,
             this.fromResourceId,
             this.toResourceId,
             routerType.id,
-            this.meaning,
+            meaning.trim(),
             this.midpoints,
         );
     }
