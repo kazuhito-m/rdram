@@ -8,6 +8,9 @@ import ResourceType from '../resource/ResourceType';
 import ResourceFactory from '../resource/ResourceFactory';
 import DiagramType from '../diagram/DiagramType';
 import StartOrEndPoint from '../resource/StartOrEndPoint';
+import Relation from '../relation/Relation';
+import RelationWithResources from '../relation/RelationWithResources';
+import Relations from '../relation/Relations';
 
 export default class Product {
     constructor(
@@ -20,6 +23,37 @@ export default class Product {
         public readonly resourceIdSequence: number,
     ) { }
 
+    public relationable(relation: Relation, diagramId: number): string {
+        const diagram = this.diagrams.of(diagramId);
+        if (!diagram) return "指定されたダイアグラムがありません。";
+        const fromResource = this.resources.of(relation.fromResourceId);
+        const toResource = this.resources.of(relation.toResourceId);
+        if (!fromResource || !toResource) return "対応するリソースがありません。";
+
+        const relationPlus = RelationWithResources.of(relation, fromResource, toResource);
+        const relations = new Relations(diagram.relations); // TODO Diagram側にこれをつけたい。
+
+        if (relationPlus.fromType.equals(ResourceType.始点終点)) {
+            const startPoint = relationPlus.fromResource as StartOrEndPoint;
+            if (startPoint.startPoint) {
+                if (relations.existsFromResource(startPoint)) {
+                    return "始点からは一つの関連しか引けません。"
+                }
+            }
+        }
+
+        if (relationPlus.betweenBothFromTo(ResourceType.アクティビティ)) {
+            if (relations.exists(relation) && relations.exists(relation.reverse()))
+                return "すでに関連が存在します。";
+            return "";
+        }
+
+        if (relations.existsOrReversivle(relation)) {
+            return "すでに関連が存在します。";
+        }
+
+        return "";
+    }
 
     public replaceOf(newDiagram: Diagram): Product {
         return this.with(this.diagrams.meage(newDiagram));

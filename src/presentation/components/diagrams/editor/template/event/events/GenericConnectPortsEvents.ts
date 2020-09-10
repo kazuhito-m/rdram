@@ -27,15 +27,21 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
             if (!srcResourceId || !distResourceId) continue;
 
             const relation = new Relation("", srcResourceId, distResourceId, RouterType.DIRECT.id, []);
-            const exists = diagram.existsSomeRelation(relation);
-            if (exists) {
-                view.showWarnBar('すでに関連が存在します。');
+            if (!this.validateRelationBetweenResource(relation, diagram, product, view)) {
                 eventGist.rootCommand.undo();
                 return false;
             }
         }
         return true;
     }
+
+    private validateRelationBetweenResource(relation: Relation, diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
+        const message = product.relationable(relation, diagram.id);
+        if (message.length === 0) return true;
+        view.showWarnBar(message);
+        return false;
+    }
+
     public apply(diagram: Diagram, product: Product, view: DiagramCanvas): Diagram {
         let modifiedDiagram = diagram;
         for (let eventGist of this.eventGists) {

@@ -15,7 +15,7 @@ export default class Diagram {
         public readonly id: number,
         protected readonly typeId: number,
         public readonly name: string,
-        public readonly relations: Relation[],
+        public readonly relations: Relation[],   // TODO Relationsに置き換えたい
         public readonly placements: Placement[],
         public readonly width: number,
         public readonly height: number,
@@ -116,7 +116,7 @@ export default class Diagram {
 
     public existsSomeRelation(relation: Relation): boolean {
         return this.relations
-            .some(r => r.some(relation));
+            .some(r => r.equalRouteReversivle(relation));
     }
 
     public relationOf(relationId: string): Relation | null {
