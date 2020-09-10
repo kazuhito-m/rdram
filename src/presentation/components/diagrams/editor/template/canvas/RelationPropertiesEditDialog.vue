@@ -4,7 +4,7 @@
     :consent="consent"
     :title="title"
     :subTitle="subTitle"
-    iconKey
+    iconKey="mdi-vector-line"
     width="490"
     @onClose="onClose"
     @onClickOk="onClickUpdateExecute"
