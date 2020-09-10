@@ -2,6 +2,8 @@ import RouterType from "./RouterType";
 import Midpoint from "./Midpoint";
 
 export default class Relation {
+    public static MEANING_MAX_LENGTH = 64;
+
     constructor(
         public readonly id: string,
         public readonly fromResourceId: number,

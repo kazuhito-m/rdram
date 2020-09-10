@@ -87,11 +87,12 @@ export default class Diagram {
     /**
      * FIXME ここだ「イミュータブルを破ってしまって」いる…なんとかしたい。 
      */
-    public modifyRelationOf(relation: Relation): void {
+    public modifyRelationOf(relation: Relation): Diagram {
         const index = this.relations
             .findIndex(r => r.id === relation.id);
-        if (index < 0) return;
+        if (index < 0) return this;
         this.relations[index] = relation;
+        return this;
     }
 
     public addRelation(relation: Relation): Diagram {
