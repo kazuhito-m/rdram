@@ -491,7 +491,6 @@ export default class DiagramCanvas extends Vue {
     const start = canvas.getFigure(String(relation.fromResourceId));
     const end = canvas.getFigure(String(relation.toResourceId));
 
-    // ちょっとトリッキーなデータの持ち方…解析しないとわからない。正攻法が在れば変えたい。
     const startPort = this.getPort(relation.fromResourceId, canvas, true);
     if (startPort) connection.setSource(startPort);
     const endPort = this.getPort(relation.toResourceId, canvas, false);

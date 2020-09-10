@@ -15,6 +15,20 @@ export default class ActorAndLaneIconGenerator implements IconGenerator<Resource
     public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {
         const id = String(placement.resourceId);
 
+        const waku = new draw2d.shape.basic.Rectangle({
+            id: id,
+            x: placement.x,
+            y: placement.y,
+            width: placement.width,
+            height: placement.height,
+            minWidth: 100,
+            minHeight: 60,
+            bgColor: "none",
+            color: "#000000",
+            alpha: 1,
+            stroke: 2,
+        });
+
         const icon = new draw2d.shape.basic.Label({
             fontFamily: iconChar.fontFamily,
             text: iconChar.charactor,
@@ -34,22 +48,8 @@ export default class ActorAndLaneIconGenerator implements IconGenerator<Resource
             selectable: false
         });
 
-        const waku = new draw2d.shape.basic.Rectangle({
-            id: id,
-            x: placement.x,
-            y: placement.y,
-            width: 280,
-            height: 700,
-            minWidth: 100,
-            minHeight: 60,
-            bgColor: "none",
-            color: "#000000",
-            alpha: 1,
-            stroke: 2,
-        });
-
         const topBox = new draw2d.shape.basic.Rectangle({
-            width: 280,
+            width: placement.width,
             height: 60,
             bgColor: "none",
             color: "#000000",

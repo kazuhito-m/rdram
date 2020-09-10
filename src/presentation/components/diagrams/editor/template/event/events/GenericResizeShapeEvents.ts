@@ -20,6 +20,7 @@ export default class GenericResizeShapeEvents implements EventsOfType<Diagram, D
         return true;
     }
     public apply(diagram: Diagram, product: Product, view: DiagramCanvas): Diagram {
+        console.log('まず、来てるのか')
         let modifiedDiagram = diagram;
         for (let figure of this.validTargetFigures()) {
             const resourceId = parseInt(figure.getId(), 10);
