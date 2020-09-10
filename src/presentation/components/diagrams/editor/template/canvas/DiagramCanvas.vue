@@ -526,7 +526,7 @@ export default class DiagramCanvas extends Vue {
       alpha: 0.75,
       bgColor: "#ffffff"
     });
-    connection.add(label, new draw2d.layout.locator.PolylineMidpointLocator());
+    connection.add(label, new draw2d.layout.locator.ParallelMidpointLocator());
   }
 
   private showConnectorRightClickMenu(
