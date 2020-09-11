@@ -33,6 +33,7 @@ import ContractIconGenerator from "@/presentation/components/diagrams/editor/tem
 import InHouseSystemIconGenerator from "@/presentation/components/diagrams/editor/template/icon/InHouseSystemIconGenerator";
 import OutsideSystemIconGenerator from "@/presentation/components/diagrams/editor/template/icon/OutsideSystemIconGenerator";
 import InformationIconGenerator from "@/presentation/components/diagrams/editor/template/icon/InformationIconGenerator";
+import ConditionIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ConditionIconGenerator";
 
 import Resource from "@/domain/resource/Resource";
 
@@ -71,7 +72,8 @@ export default class BusinessUseCaseDiagramEditor extends Vue {
     new ContractIconGenerator(),
     new InHouseSystemIconGenerator(),
     new OutsideSystemIconGenerator(),
-    new InformationIconGenerator()
+    new InformationIconGenerator(),
+    new ConditionIconGenerator()
   ];
 
   // Emits

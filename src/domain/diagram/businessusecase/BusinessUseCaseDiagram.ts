@@ -42,6 +42,7 @@ export default class BusinessUseCaseDiagram extends Diagram {
             ResourceType.自社システム,
             ResourceType.外部システム,
             ResourceType.情報,
+            ResourceType.条件,
         ];
     }
 
