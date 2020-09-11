@@ -26,6 +26,7 @@ import SystemIconGenerator from "@/presentation/components/diagrams/editor/templ
 import ActorIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ActorIconGenerator";
 import OutsideSystemIconGenerator from "@/presentation/components/diagrams/editor/template/icon/OutsideSystemIconGenerator";
 import PurposeIconGenerator from "@/presentation/components/diagrams/editor/template/icon/PurposeIconGenerator";
+import InHouseSystemIconGenerator from "@/presentation/components/diagrams/editor/template/icon/InHouseSystemIconGenerator";
 
 import Resource from "@/domain/resource/Resource";
 
@@ -57,7 +58,8 @@ export default class SystemContextDiagramEditor extends Vue {
     new SystemIconGenerator(),
     new PurposeIconGenerator(),
     new ActorIconGenerator(),
-    new OutsideSystemIconGenerator()
+    new OutsideSystemIconGenerator(),
+    new InHouseSystemIconGenerator()
   ];
 
   // Emits

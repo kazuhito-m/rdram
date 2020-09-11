@@ -36,6 +36,7 @@ export default class SystemContextDiagram extends Diagram {
             ResourceType.目的,
             ResourceType.アクター,
             ResourceType.外部システム,
+            ResourceType.自社システム,
         ];
     }
 
