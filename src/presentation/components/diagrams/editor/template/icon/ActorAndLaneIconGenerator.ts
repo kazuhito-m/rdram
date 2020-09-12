@@ -22,7 +22,7 @@ export default class ActorAndLaneIconGenerator implements IconGenerator<Resource
             width: placement.width,
             height: placement.height,
             minWidth: 100,
-            minHeight: 60,
+            minHeight: 40,
             bgColor: "none",
             color: "#000000",
             alpha: 1,
@@ -32,7 +32,7 @@ export default class ActorAndLaneIconGenerator implements IconGenerator<Resource
         const icon = new draw2d.shape.basic.Label({
             fontFamily: iconChar.fontFamily,
             text: iconChar.charactor,
-            fontSize: 36,
+            fontSize: 28,
             stroke: 0,
             padding: 0,
             bgColor: "#FFFFFF",
@@ -42,15 +42,22 @@ export default class ActorAndLaneIconGenerator implements IconGenerator<Resource
 
         const name = new draw2d.shape.basic.Label({
             text: resource.name,
+            bold: true,
             stroke: 0,
             padding: 0,
             resizable: false,
             selectable: false
         });
 
+        const container = new draw2d.shape.layout.TableLayout();
+        container.addRow(icon, name);
+        container.setCellVerticalAlign(0, 0, "middle");
+        container.setCellVerticalAlign(0, 1, "middle");
+        container.setStroke(0);
+
         const topBox = new draw2d.shape.basic.Rectangle({
             width: placement.width,
-            height: 60,
+            height: 40,
             bgColor: "none",
             color: "#000000",
             alpha: 1,
@@ -64,8 +71,7 @@ export default class ActorAndLaneIconGenerator implements IconGenerator<Resource
                 .forEach((i: Figure) => i.setWidth(selfFigure.getWidth()));
         });
 
-        icon.add(name, new draw2d.layout.locator.BottomLocator());
-        waku.add(icon, new TopAbsAndCenterLocator({ y: 5 }));
+        topBox.add(container, new draw2d.layout.locator.CenterLocator());
         waku.add(topBox, new draw2d.layout.locator.XYAbsPortLocator(0, 0));
 
         waku.setUserData(new IconStatus(true));
