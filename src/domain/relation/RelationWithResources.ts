@@ -24,12 +24,26 @@ export default class RelationWithResources {
         );
     }
 
+    public isFlowRelation(): boolean {
+        return this.betweenBothFromTo(ResourceType.アクティビティ) ||
+            this.betweenRevercibleFromTo(ResourceType.アクティビティ, ResourceType.始点終点) ||
+            this.betweenRevercibleFromTo(ResourceType.ユースケース, ResourceType.状態);
+    }
+
     /**
      * from/to両方共「同一タイプのリソース」か。
      */
     public betweenBothFromTo(resourceType: ResourceType): boolean {
         return resourceType.equals(this.fromType)
             && resourceType.equals(this.toType);
+    }
+
+    /**
+     * from/to問わず「2つのタイプのリソース」か。
+     */
+    public betweenRevercibleFromTo(typeOne: ResourceType, typeTwo: ResourceType): boolean {
+        return typeOne.equals(this.fromType) && typeTwo.equals(this.toType)
+            || typeTwo.equals(this.fromType) && typeOne.equals(this.toType)
     }
 
     public existsType(resourceType: ResourceType): boolean {

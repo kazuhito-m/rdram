@@ -73,6 +73,7 @@ import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import IconStatus from "../../../icon/IconStatus";
 import ContractIconGenerator from "../icon/ContractIconGenerator";
 import RouterTypeDraw2dConverter from "../RouterTypeDraw2dConverter";
+import RelationWithResources from "../../../../../../domain/relation/RelationWithResources";
 
 @Component({
   components: {
@@ -600,16 +601,12 @@ export default class DiagramCanvas extends Vue {
     const fromResource = this.findResource(relation.fromResourceId);
     const toResource = this.findResource(relation.toResourceId);
     if (!fromResource || !toResource) return false;
-    const fromType = fromResource.type;
-    const toType = toResource.type;
-    return (
-      (ResourceType.アクティビティ.equals(fromType) &&
-        ResourceType.アクティビティ.equals(toType)) ||
-      (ResourceType.アクティビティ.equals(fromType) &&
-        ResourceType.始点終点.equals(toType)) ||
-      (ResourceType.始点終点.equals(fromType) &&
-        ResourceType.アクティビティ.equals(toType))
+    const relationWithResource = RelationWithResources.of(
+      relation,
+      fromResource,
+      toResource
     );
+    return relationWithResource.isFlowRelation();
   }
   private arrowDocorate(connection: any): void {
     const decorator = new draw2d.decoration.connection.ArrowDecorator();
