@@ -23,7 +23,7 @@
       <CanvasZoomSlider :canvasZoom="canvasZoom" @onChangeZoomBySlider="onChangeZoom" />
     </v-card>
 
-    <span v-if="!toolBarCollapse">{{ calcZoomPercentage() }}</span>
+    <span v-if="!toolBarCollapse" @dblclick="onDblClickZoomPercentage()">{{ calcZoomPercentage() }}</span>
 
     <v-menu top offset-y v-if="!toolBarCollapse">
       <template v-slot:activator="{ on, attrs }">
@@ -148,6 +148,10 @@ export default class CanvasSettingToolBar extends Vue {
 
     this.lastContainerWidth = c.clientWidth;
     this.lastContainerHeight = c.clientHeight;
+  }
+
+  private onDblClickZoomPercentage(): void {
+    this.onChangeZoomParent(1);
   }
 
   private addResizeListenerCanvasContainer(): void {
