@@ -38,7 +38,7 @@ export default class ResourceType {
     static 状態グループ = new ResourceType(28, '状態グループ', 'mdi-circle-slice-4');
 
     static バリエーション = new ResourceType(29, 'バリエーション', 'mdi-lock-pattern');
-    static 条件表 = new ResourceType(30, '条件表', 'mdi-table');
+    static 表形式の条件 = new ResourceType(30, '表形式の条件', 'mdi-table');
     static 項目説明 = new ResourceType(31, '項目説明', '');
     static スライド = new ResourceType(32, 'スライド', 'mdi-presentation');
 
