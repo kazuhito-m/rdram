@@ -20,21 +20,22 @@ export default class StateGroupIconGenerator implements IconGenerator<Resource> 
             y: placement.y,
             width: placement.width,
             height: placement.height,
-            minWidth: 100,
+            minWidth: 200,
             minHeight: 40,
-            bgColor: "none",
+            bgColor: "#FFD07F",
             color: "#000000",
-            alpha: 1,
+            alpha: 0.4,
             stroke: 2,
+            radius: 40,
         });
 
         const icon = new draw2d.shape.basic.Label({
             fontFamily: iconChar.fontFamily,
             text: iconChar.charactor,
-            fontSize: 28,
+            fontSize: 25,
             stroke: 0,
             padding: 0,
-            bgColor: "#FFFFFF",
+            bgColor: "none",
             resizable: false,
             alpha: 1,
         });
@@ -60,7 +61,7 @@ export default class StateGroupIconGenerator implements IconGenerator<Resource> 
             bgColor: "none",
             color: "#000000",
             alpha: 1,
-            stroke: 1
+            stroke: 0
         });
 
         waku.on("resize", (selfFigure: Figure) => {
