@@ -13,7 +13,7 @@ export default class StateIconGenerator extends GenericTextEllipseIconGenerator 
     public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {
         const icon = super.generate(placement, resource, iconChar) as any;
         icon.setStroke(2);
-        icon.setBackgroundColor("#FFD07F");
+        icon.setBackgroundColor("#FFE0AF");
 
         icon.getOutputPorts().asArray()
             .forEach((port: Figure) => icon.removePort(port));
