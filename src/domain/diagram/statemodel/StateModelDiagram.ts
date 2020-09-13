@@ -147,7 +147,7 @@ export default class StateModelDiagram extends Diagram {
     public static prototypeOf(newDiagramId: number, name: string): StateModelDiagram {
         return new StateModelDiagram(
             newDiagramId,
-            DiagramType.状態モデル.id,
+            DiagramType.状態モデル図.id,
             name.trim(),
             [],
             [],

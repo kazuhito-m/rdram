@@ -28,7 +28,7 @@ export default class DiagramFactory {
             return UsageSceneDiagram.prototypeOf(newDiagramId, name);
         if (DiagramType.情報モデル図.equals(diagramType))
             return InformationModelDiagram.prototypeOf(newDiagramId, name);
-        if (DiagramType.状態モデル.equals(diagramType))
+        if (DiagramType.状態モデル図.equals(diagramType))
             return StateModelDiagram.prototypeOf(newDiagramId, name);
         // それ以外(未定義なものが来た時)
         return Diagram.genericPrototypeOf(

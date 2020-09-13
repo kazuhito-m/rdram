@@ -8,9 +8,9 @@ export default class DiagramType {
     static 業務フロー図 = new DiagramType(11, '業務フロー図', "mdi-clipboard-flow");
     static 利用シーン図 = new DiagramType(12, '利用シーン図', "mdi-video-image");
     static 情報モデル図 = new DiagramType(5, '情報モデル図', "mdi-axis-arrow-info");
-    static 状態モデル = new DiagramType(6, '状態モデル', "mdi-state-machine");
+    static 状態モデル図 = new DiagramType(6, '状態モデル図', "mdi-state-machine");
     static ユースケース複合図 = new DiagramType(7, 'ユースケース複合図', "mdi-set-none");
-    static バリエーション = new DiagramType(8, 'バリエーション', "mdi-vector-combine");
+    static バリエーション条件 = new DiagramType(8, 'バリエーション・条件', "mdi-vector-combine");
 
     private constructor(
         public readonly id: number,

@@ -57,7 +57,7 @@
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     />
     <StateModelEditor
-      v-if="is('状態モデル')"
+      v-if="is('状態モデル図')"
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
