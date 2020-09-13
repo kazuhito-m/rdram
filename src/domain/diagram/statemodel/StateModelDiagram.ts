@@ -143,8 +143,8 @@ export default class StateModelDiagram extends Diagram {
             name.trim(),
             [],
             [],
-            1024,
             768,
+            1024,
             CanvasGuideType.グリッド.id,
         );
     }
