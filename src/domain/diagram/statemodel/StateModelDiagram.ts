@@ -44,16 +44,9 @@ export default class StateModelDiagram extends Diagram {
         let width = 0;
         let height = 0;
         const resType = resource.type;
-        if (
-            ResourceType.組織.equals(resType) ||
-            ResourceType.会社.equals(resType)
-        ) {
-            width = 80;
-            height = 35;
-        }
-        if (ResourceType.業務.equals(resType)) {
-            width = 105;
-            height = 35;
+        if (ResourceType.状態グループ.equals(resType)) {
+            width = 100;
+            height = 40;
         }
         return new Placement(
             left,
@@ -152,7 +145,7 @@ export default class StateModelDiagram extends Diagram {
             [],
             1024,
             768,
-            CanvasGuideType.なし.id,
+            CanvasGuideType.グリッド.id,
         );
     }
 }
