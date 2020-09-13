@@ -20,6 +20,10 @@ export default class UseCaseForStateModelIconGenerator extends GenericTextEllips
         icon.createPort("input", new draw2d.layout.locator.TopLocator());
         icon.createPort("output", new draw2d.layout.locator.BottomLocator());
 
+        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(icon);
+        const port = icon.getOutputPorts().last() as any;
+        port.setConnectionAnchor(anchor);
+
         return icon;
     }
 }

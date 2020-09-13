@@ -77,6 +77,10 @@ export default class StateGroupIconGenerator implements IconGenerator<Resource> 
         waku.createPort("input", new draw2d.layout.locator.TopLocator());
         waku.createPort("output", new draw2d.layout.locator.BottomLocator());
 
+        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(icon);
+        const port = waku.getOutputPorts().last() as any;
+        port.setConnectionAnchor(anchor);
+
         waku.setUserData(new IconStatus(true));
 
         return waku;
