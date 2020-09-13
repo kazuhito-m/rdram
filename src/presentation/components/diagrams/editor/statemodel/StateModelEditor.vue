@@ -21,6 +21,10 @@ import GenericMoveShapeEvents from "@/presentation/components/diagrams/editor/te
 import GenericResizeShapeEvents from "@/presentation/components/diagrams/editor/template/event/events/GenericResizeShapeEvents";
 
 import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
+import UseCaseForStateModelIconGenerator from "@/presentation/components/diagrams/editor/template/icon/UseCaseForStateModelIconGenerator";
+import StateIconGenerator from "@/presentation/components/diagrams/editor/template/icon/StateIconGenerator";
+import StateGroupIconGenerator from "@/presentation/components/diagrams/editor/template/icon/StateGroupIconGenerator";
+import StartOrEndPointIconGenerator from "@/presentation/components/diagrams/editor/template/icon/StartOrEndPointIconGenerator";
 
 import Resource from "@/domain/resource/Resource";
 
@@ -48,7 +52,12 @@ export default class InfomationModelEditor extends Vue {
     new GenericResizeShapeEvents()
   ]);
 
-  private readonly iconGenerators: IconGenerator<Resource>[] = [];
+  private readonly iconGenerators: IconGenerator<Resource>[] = [
+    new UseCaseForStateModelIconGenerator(),
+    new StateIconGenerator(),
+    new StateGroupIconGenerator(),
+    new StartOrEndPointIconGenerator()
+  ];
 
   // Emits
 
