@@ -27,7 +27,10 @@ export default class RelationWithResources {
     public isFlowRelation(): boolean {
         return this.betweenBothFromTo(ResourceType.アクティビティ) ||
             this.betweenRevercibleFromTo(ResourceType.アクティビティ, ResourceType.始点終点) ||
-            this.betweenRevercibleFromTo(ResourceType.ユースケース, ResourceType.状態);
+            this.betweenRevercibleFromTo(ResourceType.状態, ResourceType.ユースケース) ||
+            this.betweenRevercibleFromTo(ResourceType.状態, ResourceType.始点終点) ||
+            this.betweenRevercibleFromTo(ResourceType.状態グループ, ResourceType.ユースケース) ||
+            this.betweenRevercibleFromTo(ResourceType.状態グループ, ResourceType.始点終点)
     }
 
     /**

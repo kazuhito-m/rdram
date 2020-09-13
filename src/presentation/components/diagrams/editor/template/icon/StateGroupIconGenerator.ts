@@ -74,6 +74,9 @@ export default class StateGroupIconGenerator implements IconGenerator<Resource> 
         topBox.add(container, new draw2d.layout.locator.CenterLocator());
         waku.add(topBox, new draw2d.layout.locator.XYAbsPortLocator(0, 0));
 
+        waku.createPort("input", new draw2d.layout.locator.TopLocator());
+        waku.createPort("output", new draw2d.layout.locator.BottomLocator());
+
         waku.setUserData(new IconStatus(true));
 
         return waku;
