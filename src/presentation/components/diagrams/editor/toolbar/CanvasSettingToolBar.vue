@@ -189,7 +189,6 @@ export default class CanvasSettingToolBar extends Vue {
   }
 
   private onDropToolBar(event: DragEvent): void {
-    event.preventDefault();
     const toolBarId = event.dataTransfer?.getData("text");
     if (toolBarId !== this.toolBarId) return;
 
@@ -197,13 +196,16 @@ export default class CanvasSettingToolBar extends Vue {
     const container = this.getCanvasContainer();
     if (!(toolBar && container)) return;
 
-    const left = event.offsetX - container.scrollLeft;
-    const top = event.offsetY - container.scrollTop;
+    const browserAbsContainerRect = container.getBoundingClientRect();
+    const left = event.pageX - browserAbsContainerRect.left;
+    const top = event.pageY - browserAbsContainerRect.top;
 
     const adjustLeft = left - this.dragStartLayerX;
     const adjustTop = top - this.dragStartLayerY;
 
     this.fixAreaOverToolBar(adjustLeft, adjustTop, toolBar);
+
+    event.preventDefault();
   }
 
   private fixAreaOverToolBar(left: number, top: number, toolBar: HTMLElement) {
