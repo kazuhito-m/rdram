@@ -56,32 +56,4 @@ export default class ActivityIconGenerator implements IconGenerator<Resource> {
 
         return outline;
     }
-
-    private decorateStartPint(outline: any): void {
-        const ten = new draw2d.shape.basic.Circle({ bgColor: "#000000" });
-        ten.setWidth(20);
-        outline.add(ten, new draw2d.layout.locator.CenterLocator());
-
-        const port = new draw2d.OutputPort();
-        outline.addPort(port, new draw2d.layout.locator.BottomLocator());
-    }
-
-    private decorateEndPoint(outline: any): void {
-        const maru = new draw2d.shape.basic.Circle({
-            bgColor: "none",
-            stroke: 2,
-        });
-        maru.setWidth(20);
-        outline.add(maru, new draw2d.layout.locator.CenterLocator());
-
-        const ten = new draw2d.shape.basic.Circle({
-            bgColor: "#000000",
-            stroke: 1,
-        });
-        ten.setWidth(12);
-        outline.add(ten, new draw2d.layout.locator.CenterLocator());
-
-        const port = new draw2d.InputPort();
-        outline.addPort(port, new draw2d.layout.locator.TopLocator());
-    }
 }
