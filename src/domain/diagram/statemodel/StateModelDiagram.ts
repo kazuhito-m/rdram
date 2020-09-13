@@ -44,6 +44,10 @@ export default class StateModelDiagram extends Diagram {
         let width = 0;
         let height = 0;
         const resType = resource.type;
+        if (ResourceType.ユースケース.equals(resType)) {
+            width = 120;
+            height = 40;
+        }
         if (ResourceType.状態グループ.equals(resType)) {
             width = 100;
             height = 40;
