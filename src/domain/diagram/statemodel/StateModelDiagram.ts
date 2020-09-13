@@ -53,7 +53,7 @@ export default class StateModelDiagram extends Diagram {
             height = 40;
         }
         if (ResourceType.状態グループ.equals(resType)) {
-            width = 220;
+            width = 200;
             height = 120;
         }
         return new Placement(
