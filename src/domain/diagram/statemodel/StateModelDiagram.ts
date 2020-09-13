@@ -48,6 +48,10 @@ export default class StateModelDiagram extends Diagram {
             width = 120;
             height = 40;
         }
+        if (ResourceType.状態.equals(resType)) {
+            width = 160;
+            height = 40;
+        }
         if (ResourceType.状態グループ.equals(resType)) {
             width = 100;
             height = 40;
