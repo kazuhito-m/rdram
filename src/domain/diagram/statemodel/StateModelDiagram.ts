@@ -31,8 +31,10 @@ export default class StateModelDiagram extends Diagram {
 
     public availableResourceTypes(): ResourceType[] {
         return [
-            ResourceType.商品,
-            ResourceType.住宅,
+            ResourceType.ユースケース,
+            ResourceType.状態,
+            ResourceType.状態グループ,
+            ResourceType.始点終点,
         ];
     }
 

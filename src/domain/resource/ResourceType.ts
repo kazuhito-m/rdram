@@ -33,12 +33,14 @@ export default class ResourceType {
     static イベント = new ResourceType(22, 'イベント', 'mdi-lightning-bolt');
     static ビジネスユースケース = new ResourceType(24, 'ビジネスユースケース', 'mdi-alpha-b-circle-outline');
     static タイマー = new ResourceType(26, 'タイマー', 'mdi-alarm');
-    static 状態 = new ResourceType(27, '状態', 'mdi-circle-slice-4');
 
-    static バリエーション = new ResourceType(28, 'バリエーション', 'mdi-lock-pattern');
-    static 条件表 = new ResourceType(29, '条件表', 'mdi-table');
-    static 項目説明 = new ResourceType(30, '項目説明', '');
-    static スライド = new ResourceType(31, 'スライド', 'mdi-presentation');
+    static 状態 = new ResourceType(27, '状態', 'mdi-circle-slice-4');
+    static 状態グループ = new ResourceType(28, '状態グループ', 'mdi-circle-slice-4');
+
+    static バリエーション = new ResourceType(29, 'バリエーション', 'mdi-lock-pattern');
+    static 条件表 = new ResourceType(30, '条件表', 'mdi-table');
+    static 項目説明 = new ResourceType(31, '項目説明', '');
+    static スライド = new ResourceType(32, 'スライド', 'mdi-presentation');
 
     static 説明 = new ResourceType(101, '説明', 'mdi-comment-outline');
     static 始点終点 = new ResourceType(102, '始点・終点', 'mdi-source-commit-start');
