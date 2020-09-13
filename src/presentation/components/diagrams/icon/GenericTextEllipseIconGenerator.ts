@@ -45,7 +45,7 @@ export default abstract class GenericTextEllipseIconGenerator implements IconGen
             fontSize: 25,
             stroke: 0,
             padding: 0,
-            bgColor: "#FFFFFF",
+            bgColor: "none",
             alpha: 1
         });
 
