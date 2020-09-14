@@ -64,6 +64,14 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     />
+    <VariationAndConditionDiagramEditor
+      v-if="is('バリエーション・条件')"
+      :diagramId="diagram.id"
+      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+    />
   </div>
 </template>
 
@@ -77,6 +85,7 @@ import SystemContextDiagramEditor from "@/presentation/components/diagrams/edito
 import RequestModelDiagramEditor from "@/presentation/components/diagrams/editor/requrestmodel/RequestModelDiagramEditor.vue";
 import InfomationModelEditor from "@/presentation/components/diagrams/editor/infomationmodel/InfomationModelEditor.vue";
 import StateModelEditor from "@/presentation/components/diagrams/editor/statemodel/StateModelEditor.vue";
+import VariationAndConditionDiagramEditor from "@/presentation/components/diagrams/editor/variationandcondition/VariationAndConditionDiagramEditor.vue";
 import Diagram from "@/domain/diagram/Diagram";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Resource from "@/domain/resource/Resource";
@@ -91,7 +100,8 @@ import StrageRepository from "@/domain/strage/StrageRepository";
     BusinessFlowDiagramEditor,
     UsageSceneDiagramEditor,
     InfomationModelEditor,
-    StateModelEditor
+    StateModelEditor,
+    VariationAndConditionDiagramEditor,
   }
 })
 export default class DiagramEditorContainer extends Vue {
