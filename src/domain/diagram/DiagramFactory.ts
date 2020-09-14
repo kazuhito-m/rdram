@@ -6,9 +6,10 @@ import InformationModelDiagram from "./informationmodel/InformationModelDiagram"
 import StateModelDiagram from "./statemodel/StateModelDiagram";
 import SystemContextDiagram from "./systemcontext/SystemContextDiagram";
 import RequestModelDiagram from "./requrestmodel/RequestModelDiagram";
-import Resources from "@/domain/resource/Resources";
 import UsageSceneDiagram from "./usagescene/UsageSceneDiagram";
 import BusinessFlowDiagram from "./businessflow/BusinessFlowDiagram";
+import VariationAndConditionDiagram from "./variationandcondition/VariationAndConditionDiagram";
+import Resources from "@/domain/resource/Resources";
 
 export default class DiagramFactory {
     constructor(private readonly resources: Resources) { }
@@ -30,6 +31,8 @@ export default class DiagramFactory {
             return InformationModelDiagram.prototypeOf(newDiagramId, name);
         if (DiagramType.状態モデル図.equals(diagramType))
             return StateModelDiagram.prototypeOf(newDiagramId, name);
+        if (DiagramType.バリエーション条件.equals(diagramType))
+            return VariationAndConditionDiagram.prototypeOf(newDiagramId, name);
         // それ以外(未定義なものが来た時)
         return Diagram.genericPrototypeOf(
             newDiagramId,
