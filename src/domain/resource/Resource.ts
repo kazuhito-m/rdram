@@ -14,6 +14,13 @@ export default class Resource {
 
     public readonly deletable: boolean = true;
 
+    public with(name: string, description: string): Resource {
+        const clone = Object.assign({}, this) as any;
+        clone.name = name;
+        clone.description = description;
+        return clone;
+    }
+
     public get type(): ResourceType {
         return ResourceType.ofId(this.resourceTypeId) as ResourceType;
     }
