@@ -2,7 +2,7 @@
   <div>
     <CoreResourceEditDialog
       :resource="targetStandaerdResource"
-      :resources="latestResources" 
+      :resources="latestResources"
       @onModifyResource="onModifyStandardResource"
       @onClose="onCloseStandardResourceEditDialog"
     />
@@ -68,6 +68,21 @@ export default class ResourceEditDialog extends Vue {
 
   private onModifyStandardResource(resource: Resource): void {
     alert(resource.name);
+
+    let product = this.repository?.getCurrentProduct();
+    if (!product) return;
+
+    let newResource = resource;
+    if (this.isAddNew()) {
+      newResource = newResource.renewId(product.resourceIdSequence);
+      product = product.moveNextResourceIdSequence();
+    }
+
+    const addedResources = product.resources.meage(newResource);
+    product = product.withResources(addedResources);
+    this.repository?.registerCurrentProduct(product);
+
+    this.onUpdatedResource(newResource);
   }
 
   private onCloseStandardResourceEditDialog(): void {

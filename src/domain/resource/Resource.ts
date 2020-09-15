@@ -15,9 +15,15 @@ export default class Resource {
     public readonly deletable: boolean = true;
 
     public with(name: string, description: string): Resource {
-        const clone = Object.assign({}, this) as any;
+        const clone = this.clone() as any;
         clone.name = name;
         clone.description = description;
+        return clone;
+    }
+
+    public renewId(newResourceId: number): Resource {
+        const clone = this.clone() as any;
+        clone.resourceId = newResourceId;
         return clone;
     }
 
@@ -25,4 +31,7 @@ export default class Resource {
         return ResourceType.ofId(this.resourceTypeId) as ResourceType;
     }
 
+    private clone(): Resource {
+        return Object.assign({}, this) as Resource;
+    }
 }
