@@ -22,11 +22,11 @@
             @onDeleteRelation="onDeleteRelation"
         />
 
-        <ResourcePropertiesEditDialog 
+        <ResourceEditDialog 
           :resourceId="editResourceId"
           :resourceType="editResourceType"
-          @onUpdatedResourceProperties="onUpdatedResourceProperties"
-          @onClose="onCloseResourcePropertiesEditor"
+          @onUpdatedResource="onUpdatedResource"
+          @onClose="onCloseResourceEditor"
         />
 
     </div>
@@ -44,6 +44,7 @@ import {
 import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import ConnectorRightClickMenuAndEditor from "@/presentation/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue";
 import ResourcePropertiesEditDialog from "@/presentation/components/diagrams/editor/ResourcePropertiesEditDialog.vue";
+import ResourceEditDialog from "@/presentation/components/resource/ResourceEditDialog.vue";
 
 import "jquery";
 import "jquery-ui";
@@ -79,7 +80,7 @@ import RelationWithResources from "../../../../../../domain/relation/RelationWit
   components: {
     CanvasSettingToolBar,
     ConnectorRightClickMenuAndEditor,
-    ResourcePropertiesEditDialog
+    ResourceEditDialog
   }
 })
 export default class DiagramCanvas extends Vue {
@@ -285,12 +286,12 @@ export default class DiagramCanvas extends Vue {
 
   // from ResourcePropertiesEditor events.
 
-  private onUpdatedResourceProperties(resource: Resource): void {
+  private onUpdatedResource(resource: Resource): void {
     this.addPlacement(resource);
     this.onUpdateResources(); // 親にコールバック
   }
 
-  private onCloseResourcePropertiesEditor(): void {
+  private onCloseResourceEditor(): void {
     this.editResourceId = 0;
   }
 

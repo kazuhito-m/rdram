@@ -67,7 +67,8 @@ export default class ResourceEditDialog extends Vue {
   }
 
   private onModifyStandardResource(resource: Resource): void {
-    alert(resource.name);
+    alert(typeof resource);
+    console.log(resource);
 
     let product = this.repository?.getCurrentProduct();
     if (!product) return;

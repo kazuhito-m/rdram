@@ -18,7 +18,7 @@
               label="名前"
               counter
               v-model="name"
-              :autofocus="!enableContent"
+              :autofocus="foucusSetName"
               :rules="[validateName]"
               :maxlength="nameMaxLength"
             ></v-text-field>
@@ -107,6 +107,7 @@ export default class CoreResourceEditDialog extends Vue {
   private title = "";
   private iconKey = "";
   private firstCheck = false;
+  private foucusSetName = true;
 
   private name = "";
   private description = "";
