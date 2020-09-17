@@ -1,67 +1,13 @@
-import Serializer from '@/infrastructure/Serializer';
-import LocalStrage from "@/domain/strage/LocalStrage";
-import UserSettings from '@/domain//setting/UserSettings';
-import Product from "@/domain/product/Product";
-import Products from "@/domain/product/Products";
-import Status from '@/domain/strage/Status';
-import Resources from '@/domain/resource/Resources';
-import Diagrams from '@/domain/diagram/Diagrams';
-import Diagram from '@/domain/diagram/Diagram';
-
-import Resource from '@/domain/resource/Resource';
-import Purpose from '@/domain/resource/Purpose';
-import Request from '@/domain/resource/Request';
-import Requirement from '@/domain/resource/Requirement';
-
-import Placement from '@/domain/diagram/placement/Placement';
-import Midpoint from '@/domain/relation/Midpoint';
-import Relation from '@/domain/relation/Relation';
-import Scenario from '@/domain/resource/Scenario';
-import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
-
+import Serializer from '@/domain/Serializer';
+import Product from '@/domain/product/Product';
+import Products from '@/domain/product/Products';
+import LocalStrage from '@/domain/strage/LocalStrage';
 import StrageRepository from '@/domain/strage/StrageRepository';
-import SystemContextDiagram from '@/domain/diagram/systemcontext/SystemContextDiagram';
-import BusinessContextDiagram from '@/domain/diagram/businesscontext/BusinessContextDiagram'
-import InformationModelDiagram from '@/domain/diagram/informationmodel/InformationModelDiagram';
-import StateModelDiagram from '@/domain/diagram/statemodel/StateModelDiagram';
-import RequestModelDiagram from '@/domain/diagram/requrestmodel/RequestModelDiagram';
-import BusinessUseCaseDiagram from '@/domain/diagram/businessusecase/BusinessUseCaseDiagram';
-import BusinessFlowDiagram from '@/domain/diagram/businessflow/BusinessFlowDiagram';
-import UsageSceneDiagram from '@/domain/diagram/usagescene/UsageSceneDiagram';
-import VariationAndConditionDiagram from '@/domain/diagram/variationandcondition/VariationAndConditionDiagram';
 
 export default class StrageDatasource implements StrageRepository {
     private static readonly STRAGE_ID = 'rdram-strage';
 
-    private readonly serializer = new Serializer(
-        LocalStrage,
-        UserSettings,
-        Products,
-        Product,
-        Date,
-        Status,
-        Resources,
-        Resource,
-        Purpose,
-        Request,
-        Requirement,
-        Scenario,
-        StartOrEndPoint,
-        Diagrams,
-        Diagram,
-        Placement,
-        Midpoint,
-        Relation,
-        BusinessContextDiagram,
-        InformationModelDiagram,
-        StateModelDiagram,
-        SystemContextDiagram,
-        RequestModelDiagram,
-        BusinessUseCaseDiagram,
-        BusinessFlowDiagram,
-        UsageSceneDiagram,
-        VariationAndConditionDiagram,
-    );
+    private readonly serializer = new Serializer();
 
     public isInitialized(): boolean {
         // this.clear();

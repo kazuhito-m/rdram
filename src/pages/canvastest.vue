@@ -16,7 +16,6 @@ import { createWrapper } from "@vue/test-utils";
 
 import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
 import TopAbsAndCenterLocator from "@/presentation/draw2d/custom/TopAbsAndCenterLocator";
-import Test from "@/infrastructure/Test";
 
 @Component
 export default class extends Vue {

@@ -74,7 +74,6 @@ import draw2d, { Figure, command, Canvas } from "draw2d";
 import { createWrapper } from "@vue/test-utils";
 
 import TopLeftLocator from "@/presentation/draw2d/custom/TopLeftLocator";
-import Test from "@/infrastructure/Test";
 
 @Component
 export default class extends Vue {
@@ -689,8 +688,7 @@ export default class extends Vue {
   }
 
   private onCrickSiri() {
-    const test = new Test();
-    test.test();
+
   }
 
   private onCrickZoom() {

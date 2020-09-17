@@ -1,3 +1,4 @@
+import Serializer from "../Serializer";
 import ResourceType from "./ResourceType";
 
 export default class Resource {
@@ -32,6 +33,7 @@ export default class Resource {
     }
 
     private clone(): Resource {
-        return Object.assign({}, this) as Resource;
+        const serializer = new Serializer();
+        return serializer.cloningOf(this);
     }
 }
