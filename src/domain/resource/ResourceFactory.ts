@@ -7,6 +7,7 @@ import Requirement from "./Requirement";
 import Request from "./Request";
 import Scenario from "./Scenario";
 import StartOrEndPoint from "./StartOrEndPoint";
+import Variation from "./Variation";
 
 export default class ResourceFactory {
     public create(name: string, resourceType: ResourceType, newResourceId: number, nowResouces: Resources): Resource {
@@ -29,6 +30,8 @@ export default class ResourceFactory {
             return new Scenario(newResourceId, name, "", "");
         if (ResourceType.始点終点.equals(resourceType))
             return new StartOrEndPoint(newResourceId, name, "", true);
+        if (ResourceType.バリエーション.equals(resourceType))
+            return new Variation(newResourceId, name, "", ["", ""]);
 
         return new Resource(newResourceId, resourceType.id, name, "");
     }
