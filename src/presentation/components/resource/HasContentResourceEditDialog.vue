@@ -76,6 +76,10 @@ export default class HasContentResourceEditDialog extends Vue {
   }
 
   private changeConsent(newConsent: boolean): void {
+    if (this.validateContent() !== true) {
+      this.consent = false;
+      return;
+    }
     this.consent = newConsent;
   }
 
