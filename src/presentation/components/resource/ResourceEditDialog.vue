@@ -59,8 +59,6 @@ export default class ResourceEditDialog extends Vue {
     if (id !== 0) this.onShow();
   }
 
-  public static readonly ID_WHEN_CREATE_NEW = -1;
-
   private latestResources: Resources | null = null;
   private targetStandaerdResource: Resource | null = null;
   private targetHasContentResource: HasContentResource | null = null;

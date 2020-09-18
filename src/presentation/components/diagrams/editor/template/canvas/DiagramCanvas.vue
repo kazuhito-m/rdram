@@ -43,7 +43,6 @@ import {
 } from "vue-property-decorator";
 import CanvasSettingToolBar from "@/presentation/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import ConnectorRightClickMenuAndEditor from "@/presentation/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue";
-import ResourcePropertiesEditDialog from "@/presentation/components/diagrams/editor/ResourcePropertiesEditDialog.vue";
 import ResourceEditDialog from "@/presentation/components/resource/ResourceEditDialog.vue";
 
 import "jquery";
@@ -74,7 +73,8 @@ import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import IconStatus from "../../../icon/IconStatus";
 import ContractIconGenerator from "../icon/ContractIconGenerator";
 import RouterTypeDraw2dConverter from "../RouterTypeDraw2dConverter";
-import RelationWithResources from "../../../../../../domain/relation/RelationWithResources";
+import RelationWithResources from "@/domain/relation/RelationWithResources";
+import CoreResourceEditDialog from "../../../../resource/CoreResourceEditDialog.vue";
 
 @Component({
   components: {
@@ -591,7 +591,7 @@ export default class DiagramCanvas extends Vue {
 
   private showResourcePropertiesEditor(resourceType: ResourceType): void {
     this.editResourceType = resourceType;
-    this.editResourceId = ResourcePropertiesEditDialog.ID_WHEN_CREATE_NEW;
+    this.editResourceId = CoreResourceEditDialog.ID_WHEN_CREATE_NEW;
   }
 
   public decorateWhenFlow(relation: Relation, connection: any): void {
