@@ -111,7 +111,9 @@ export default class ResourceEditDialog extends Vue {
 
   private getTargetResource(resources: Resources): Resource | null {
     if (this.isAddNew())
-      return resources.prototypeResourceOf(this.resourceType);
+      return resources
+        .prototypeResourceOf(this.resourceType)
+        .renewId(CoreResourceEditDialog.ID_WHEN_CREATE_NEW);
     return resources.of(this.resourceId);
   }
 
