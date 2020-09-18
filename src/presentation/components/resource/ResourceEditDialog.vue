@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CoreResourceEditDialog
+    <StandardResourceEditDialog
       :resource="targetStandaerdResource"
       :resources="latestResources"
       @onModifyResource="onModifyStandardResource"
@@ -29,13 +29,14 @@ import StrageRepository from "@/domain/strage/StrageRepository";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
-import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
-import HasContentResourceEditDialog from "./HasContentResourceEditDialog.vue";
 import HasContentResource from "@/domain/resource/HasContentResource";
+import StandardResourceEditDialog from "./StandardResourceEditDialog.vue";
+import HasContentResourceEditDialog from "./HasContentResourceEditDialog.vue";
+import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
 
 @Component({
   components: {
-    CoreResourceEditDialog,
+    StandardResourceEditDialog,
     HasContentResourceEditDialog
   }
 })

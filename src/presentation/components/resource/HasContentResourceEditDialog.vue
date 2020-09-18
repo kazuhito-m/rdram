@@ -1,35 +1,33 @@
 <template>
-  <div>
-    <CoreResourceEditDialog
-      :resource="resource"
-      :resources="resources"
-      :consent="consent"
-      notFocusSetName="true"
-      @onModifyResource="onModifyResourceInner"
-      @onClose="onClose"
-      @showCustomProperties="showCustomProperties"
-      @changeConsent="changeConsent"
-    >
-      <template v-slot:customInputFields>
-        <v-row>
-          <v-col>
-            <v-textarea
-              v-model="content"
-              ref="inputContent"
-              counter
-              filled
-              label="内容"
-              rows="3"
-              no-resize
-              autofocus
-              :rules="[validateContent]"
-              :hint="inputContentHint"
-            ></v-textarea>
-          </v-col>
-        </v-row>
-      </template>
-    </CoreResourceEditDialog>
-  </div>
+  <CoreResourceEditDialog
+    :resource="resource"
+    :resources="resources"
+    :consent="consent"
+    notFocusSetName="true"
+    @onModifyResource="onModifyResourceInner"
+    @onClose="onClose"
+    @showCustomProperties="showCustomProperties"
+    @changeConsent="changeConsent"
+  >
+    <template v-slot:customInputFields>
+      <v-row>
+        <v-col>
+          <v-textarea
+            v-model="content"
+            ref="inputContent"
+            counter
+            filled
+            label="内容"
+            rows="3"
+            no-resize
+            autofocus
+            :rules="[validateContent]"
+            :hint="inputContentHint"
+          ></v-textarea>
+        </v-col>
+      </v-row>
+    </template>
+  </CoreResourceEditDialog>
 </template>
 
 <script lang="ts">
