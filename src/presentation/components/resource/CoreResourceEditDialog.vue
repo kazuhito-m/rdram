@@ -24,24 +24,7 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <!--
-        <v-row v-if="enableContent">
-          <v-col>
-            <v-textarea
-              v-model="content"
-              ref="inputContent"
-              counter
-              filled
-              label="内容"
-              rows="3"
-              no-resize
-              :autofocus="enableContent"
-              :rules="[validateContent]"
-              :hint="inputContentHint"
-            ></v-textarea>
-          </v-col>
-        </v-row>
-        -->
+        <template v-slot:customInputFields />
         <v-row>
           <v-col>
             <v-textarea

@@ -6,6 +6,12 @@
       @onModifyResource="onModifyStandardResource"
       @onClose="onCloseStandardResourceEditDialog"
     />
+    <HasContentResourceEditDialog
+      :resource="targetHasContentResource"
+      :resources="latestResources"
+      @onModifyResource="onModifyHasContentResource"
+      @onClose="onCloseHasContentResourceEditDialog"
+    />
   </div>
 </template>
 
@@ -24,10 +30,13 @@ import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
 import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
+import HasContentResourceEditDialog from "./HasContentResourceEditDialog.vue";
+import HasContentResource from "../../../domain/resource/HasContentResource";
 
 @Component({
   components: {
-    CoreResourceEditDialog
+    CoreResourceEditDialog,
+    HasContentResourceEditDialog
   }
 })
 export default class ResourceEditDialog extends Vue {
@@ -53,6 +62,7 @@ export default class ResourceEditDialog extends Vue {
 
   private latestResources: Resources | null = null;
   private targetStandaerdResource: Resource | null = null;
+  private targetHasContentResource: HasContentResource | null = null;
 
   @Inject()
   private repository?: StrageRepository;
@@ -63,31 +73,34 @@ export default class ResourceEditDialog extends Vue {
     const resource = this.getTargetResource(resources);
 
     this.latestResources = resources;
+
+    // リソース別エディタ切り替え判定
+
+    if (resource instanceof HasContentResource) {
+      this.targetHasContentResource = resource;
+      return;
+    }
+
     this.targetStandaerdResource = resource;
   }
 
   private onModifyStandardResource(resource: Resource): void {
-    alert(typeof resource);
-    console.log(resource);
-
-    let product = this.repository?.getCurrentProduct();
-    if (!product) return;
-
-    let newResource = resource;
-    if (this.isAddNew()) {
-      newResource = newResource.renewId(product.resourceIdSequence);
-      product = product.moveNextResourceIdSequence();
-    }
-
-    const addedResources = product.resources.meage(newResource);
-    product = product.withResources(addedResources);
-    this.repository?.registerCurrentProduct(product);
-
-    this.onUpdatedResource(newResource);
+    const registerd = this.registerResoruce(resource);
+    this.onUpdatedResource(registerd);
   }
 
   private onCloseStandardResourceEditDialog(): void {
     this.targetStandaerdResource = null;
+    this.onClose();
+  }
+
+  private onModifyHasContentResource(resource: HasContentResource): void {
+    const registerd = this.registerResoruce(resource);
+    this.onUpdatedResource(registerd);
+  }
+
+  private onCloseHasContentResourceEditDialog(): void {
+    this.targetHasContentResource = null;
     this.onClose();
   }
 
@@ -105,6 +118,23 @@ export default class ResourceEditDialog extends Vue {
     const product = this.repository?.getCurrentProduct();
     if (!product) return null;
     return product.resources;
+  }
+
+  private registerResoruce(resource: Resource): Resource {
+    let product = this.repository?.getCurrentProduct();
+    if (!product) return resource;
+
+    let newResource = resource;
+    if (this.isAddNew()) {
+      newResource = newResource.renewId(product.resourceIdSequence);
+      product = product.moveNextResourceIdSequence();
+    }
+
+    const addedResources = product.resources.meage(newResource);
+    product = product.withResources(addedResources);
+    this.repository?.registerCurrentProduct(product);
+
+    return newResource;
   }
 }
 </script>
