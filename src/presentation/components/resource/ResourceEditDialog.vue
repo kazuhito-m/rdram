@@ -31,7 +31,7 @@ import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
 import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
 import HasContentResourceEditDialog from "./HasContentResourceEditDialog.vue";
-import HasContentResource from "../../../domain/resource/HasContentResource";
+import HasContentResource from "@/domain/resource/HasContentResource";
 
 @Component({
   components: {

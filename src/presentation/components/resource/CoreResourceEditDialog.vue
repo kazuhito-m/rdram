@@ -18,13 +18,13 @@
               label="名前"
               counter
               v-model="name"
-              :autofocus="foucusSetName"
+              :autofocus="!notFocusSetName"
               :rules="[validateName]"
               :maxlength="nameMaxLength"
             ></v-text-field>
           </v-col>
         </v-row>
-        <template v-slot:customInputFields />
+        <slot name="customInputFields" />
         <v-row>
           <v-col>
             <v-textarea
@@ -70,12 +70,17 @@ export default class CoreResourceEditDialog extends Vue {
   private readonly resource!: Resource;
   @Prop({ required: true })
   private readonly resources!: Resources;
+  @Prop()
+  private notFocusSetName!: boolean;
 
   @Emit("onModifyResource")
   private onModifyResource(resource: Resource): void {}
 
   @Emit("onClose")
   private onClose(): void {}
+
+  @Emit("showCustomProperties")
+  private showCustomProperties(resource: Resource): void {}
 
   @Watch("resource")
   private onChangeResource(): void {
@@ -90,7 +95,6 @@ export default class CoreResourceEditDialog extends Vue {
   private title = "";
   private iconKey = "";
   private firstCheck = false;
-  private foucusSetName = true;
 
   private name = "";
   private description = "";
@@ -106,6 +110,7 @@ export default class CoreResourceEditDialog extends Vue {
     this.iconKey = type.iconKey;
     this.showProperties(this.resource);
     this.$nextTick(() => {
+      this.showCustomProperties(this.resource);
       if (ResourceType.始点終点.equals(this.resource.type))
         this.description += " "; // TODO 特殊条件過ぎる。包括的にやりたい。
     });
