@@ -13,19 +13,10 @@ export default class StartOrEndPoint extends Resource {
         public readonly startPoint: boolean = false,
     ) { super(resourceId, ResourceType.始点終点.id, name, description); }
 
-    public withName(name: string): StartOrEndPoint {
-        return new StartOrEndPoint(
-            this.resourceId,
-            name,
-            this.description,
-            this.startPoint,
-        );
-    }
-
     public renewDefaultName(seq: number): StartOrEndPoint {
         const type = this.type;
         const newName = '終点' + this.zeroPadding(seq, 2);
-        return this.withName(newName);
+        return this.withName(newName) as StartOrEndPoint;
     }
 
     private zeroPadding(value: number, point: number): string {

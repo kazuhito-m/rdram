@@ -14,14 +14,16 @@ export default abstract class HasContentResource extends Resource {
         public readonly content: string,
     ) { super(resourceId, resouceTypeId, name, description); }
 
-    public abstract withContent(content: string): HasContentResource;
-
-    public abstract withName(name: string): HasContentResource;
+    public withContent(content: string): HasContentResource {
+        const clone = this.clone() as any;
+        clone.content = content;
+        return clone;
+    }
 
     public renewDefaultName(seq: number): HasContentResource {
         const type = this.type;
         const newName = type.name + this.zeroPadding(seq, 2);
-        return this.withName(newName);
+        return this.withName(newName) as HasContentResource;
     }
 
     private zeroPadding(value: number, point: number): string {

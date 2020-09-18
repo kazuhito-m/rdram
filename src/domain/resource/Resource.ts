@@ -22,6 +22,12 @@ export default class Resource {
         return clone;
     }
 
+    public withName(name: string): Resource {
+        const clone = this.clone() as any;
+        clone.name = name;
+        return clone;
+    }
+
     public renewId(newResourceId: number): Resource {
         const clone = this.clone() as any;
         clone.resourceId = newResourceId;
@@ -32,7 +38,7 @@ export default class Resource {
         return ResourceType.ofId(this.resourceTypeId) as ResourceType;
     }
 
-    private clone(): Resource {
+    protected clone(): Resource {
         const serializer = new Serializer();
         return serializer.cloningOf(this);
     }
