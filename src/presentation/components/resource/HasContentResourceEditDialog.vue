@@ -3,10 +3,12 @@
     <CoreResourceEditDialog
       :resource="resource"
       :resources="resources"
+      :consent="consent"
       notFocusSetName="true"
       @onModifyResource="onModifyResourceInner"
       @onClose="onClose"
       @showCustomProperties="showCustomProperties"
+      @changeConsent="changeConsent"
     >
       <template v-slot:customInputFields>
         <v-row>
@@ -64,11 +66,17 @@ export default class HasContentResourceEditDialog extends Vue {
   private onClose(): void {}
 
   private content: string = "";
+
   private inputContentHint: string = "";
+  private consent: boolean = false;
 
   private showCustomProperties(resource: HasContentResource): void {
     this.content = resource.content;
     this.inputContentHint = this.choiceHintText(resource);
+  }
+
+  private changeConsent(newConsent: boolean): void {
+    this.consent = newConsent;
   }
 
   private choiceHintText(resource: HasContentResource): string {
@@ -78,12 +86,12 @@ export default class HasContentResourceEditDialog extends Vue {
   }
 
   private validateContent(): string | boolean {
-    // this.consent = false;
+    this.consent = false;
     const content = this.content;
     if (content.length <= 0) return `入力してください。`;
     const max = Purpose.CONTENT_MAX_LENGTH;
     if (content.length > max) return `${max}文字以内で入力してください。`;
-    // this.consent = this.changed();
+    this.consent = true;
     return true;
   }
 

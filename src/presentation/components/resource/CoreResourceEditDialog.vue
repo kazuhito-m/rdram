@@ -70,6 +70,8 @@ export default class CoreResourceEditDialog extends Vue {
   private readonly resource!: Resource;
   @Prop({ required: true })
   private readonly resources!: Resources;
+  @Prop({ required: true })
+  private readonly consent!: boolean;
   @Prop()
   private notFocusSetName!: boolean;
 
@@ -82,6 +84,9 @@ export default class CoreResourceEditDialog extends Vue {
   @Emit("showCustomProperties")
   private showCustomProperties(resource: Resource): void {}
 
+  @Emit("changeConsent")
+  private changeConsent(newConsent: boolean): void {}
+
   @Watch("resource")
   private onChangeResource(): void {
     if (!this.resource) return;
@@ -90,7 +95,6 @@ export default class CoreResourceEditDialog extends Vue {
 
   public static readonly ID_WHEN_CREATE_NEW = -1;
 
-  private consent = false;
   private subTitle = "";
   private title = "";
   private iconKey = "";
@@ -100,7 +104,7 @@ export default class CoreResourceEditDialog extends Vue {
   private description = "";
 
   private onShow(): void {
-    this.consent = false;
+    this.changeConsent(false);
     this.firstCheck = true;
     const type = this.resource.type;
     this.title = this.isAddNew()
@@ -141,22 +145,22 @@ export default class CoreResourceEditDialog extends Vue {
   }
 
   private validateName(): string | boolean {
-    this.consent = false;
+    this.changeConsent(false);
     if (this.firstCheck) return !(this.firstCheck = false); // 初期未入力でエラーにならないように対策
     const name = this.name;
     if (name.length === 0) return "入力してください。";
     const max = this.nameMaxLength;
     if (name.length > max) return `${max}文字以内で入力してください。`;
-    this.consent = this.changed();
+    this.changeConsent(this.changed());
     return true;
   }
 
   private validateDescription(): string | boolean {
-    this.consent = false;
+    this.changeConsent(false);
     const description = this.description;
     const max = this.descriptionMaxLength;
     if (description.length > max) return `${max}文字以内で入力してください。`;
-    this.consent = this.changed();
+    this.changeConsent(this.changed());
     return true;
   }
 
