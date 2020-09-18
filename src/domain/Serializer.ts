@@ -27,6 +27,7 @@ import BusinessUseCaseDiagram from '@/domain/diagram/businessusecase/BusinessUse
 import BusinessFlowDiagram from '@/domain/diagram/businessflow/BusinessFlowDiagram';
 import UsageSceneDiagram from '@/domain/diagram/usagescene/UsageSceneDiagram';
 import VariationAndConditionDiagram from '@/domain/diagram/variationandcondition/VariationAndConditionDiagram';
+import Variation from "./resource/Variation";
 
 
 export default class Serializer {
@@ -50,6 +51,7 @@ export default class Serializer {
         Placement,
         Midpoint,
         Relation,
+        Variation,
         BusinessContextDiagram,
         InformationModelDiagram,
         StateModelDiagram,

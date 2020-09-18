@@ -12,6 +12,12 @@
       @onModifyResource="onModifyHasContentResource"
       @onClose="onCloseHasContentResourceEditDialog"
     />
+    <VariationEditDialog
+      :resource="targetVariation"
+      :resources="latestResources"
+      @onModifyResource="onModifyVariation"
+      @onClose="onCloseVariationEditDialog"
+    />
   </div>
 </template>
 
@@ -30,14 +36,17 @@ import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
 import HasContentResource from "@/domain/resource/HasContentResource";
+import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
 import StandardResourceEditDialog from "./StandardResourceEditDialog.vue";
 import HasContentResourceEditDialog from "./HasContentResourceEditDialog.vue";
-import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
+import VariationEditDialog from "./VariationEditDialog.vue";
+import Variation from "@/domain/resource/Variation";
 
 @Component({
   components: {
     StandardResourceEditDialog,
-    HasContentResourceEditDialog
+    HasContentResourceEditDialog,
+    VariationEditDialog
   }
 })
 export default class ResourceEditDialog extends Vue {
@@ -62,6 +71,7 @@ export default class ResourceEditDialog extends Vue {
   private latestResources: Resources | null = null;
   private targetStandaerdResource: Resource | null = null;
   private targetHasContentResource: HasContentResource | null = null;
+  private targetVariation: Variation | null = null;
 
   @Inject()
   private repository?: StrageRepository;
@@ -74,6 +84,11 @@ export default class ResourceEditDialog extends Vue {
     this.latestResources = resources;
 
     // リソース別エディタ切り替え判定
+
+    if (resource instanceof Variation) {
+      this.targetVariation = resource;
+      return;
+    }
 
     if (resource instanceof HasContentResource) {
       this.targetHasContentResource = resource;
@@ -100,6 +115,16 @@ export default class ResourceEditDialog extends Vue {
 
   private onCloseHasContentResourceEditDialog(): void {
     this.targetHasContentResource = null;
+    this.onClose();
+  }
+
+  private onModifyVariation(resource: Variation): void {
+    const registerd = this.registerResoruce(resource);
+    this.onUpdatedResource(registerd);
+  }
+
+  private onCloseVariationEditDialog(): void {
+    this.targetVariation = null;
     this.onClose();
   }
 
