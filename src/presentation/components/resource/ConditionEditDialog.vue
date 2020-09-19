@@ -11,7 +11,13 @@
     <template v-slot:customInputFields>
       <v-row>
         <v-col>
-          これ表示できたら成功。
+          <v-text-field
+            label="条件の内容"
+            counter
+            v-model="value"
+            :rules="[validateValue]"
+            :maxlength="valueMaxLength"
+          ></v-text-field>
         </v-col>
       </v-row>
     </template>
@@ -54,7 +60,7 @@ export default class ConditionEditDialog extends Vue {
 
   private value: string = "";
 
-private consent: boolean = false;
+  private consent: boolean = false;
 
   private showCustomProperties(resource: Condition): void {
     this.value = resource.value;
@@ -67,6 +73,20 @@ private consent: boolean = false;
 
   private changeConsent(newConsent: boolean): void {
     this.consent = newConsent;
+  }
+
+  private get valueMaxLength(): number {
+    return Condition.CONDITION_VALUE_MAX_LENGTH;
+  }
+
+  private validateValue(): string | boolean {
+    this.consent = false;
+    const value = this.value;
+    if (value.length === 0) return "入力してください。";
+    const max = this.valueMaxLength;
+    if (value.length > max) return `${max}文字以内で入力してください。`;
+    this.consent = true;
+    return true;
   }
 }
 </script>

@@ -16,7 +16,7 @@ export default class Condition extends Resource {
 
   public withValue(newValue: string): Condition {
     const resource = this.clone() as any;
-    resource.value = newValue;
+    resource.value = newValue.trim();
     return resource;
   }
 }
