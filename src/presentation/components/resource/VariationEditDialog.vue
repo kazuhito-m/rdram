@@ -94,7 +94,9 @@ export default class VariationEditDialog extends Vue {
   ): void {
     const rowIndexNumber = Number(rowIndex);
     const changeValue = value as string;
-    const fixedValue = changeValue.trim().substring(0, 4);
+    const fixedValue = changeValue
+      .trim()
+      .substring(0, Variation.CONDITION_VALUE_MAX_LENGTH);
     this.values[rowIndexNumber][0] = fixedValue;
     cell.textContent = fixedValue;
   }
