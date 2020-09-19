@@ -18,6 +18,12 @@
       @onModifyResource="onModifyVariation"
       @onClose="onCloseVariationEditDialog"
     />
+    <ConditionEditDialog
+      :resource="targetCondition"
+      :resources="latestResources"
+      @onModifyResource="onModifyCondition"
+      @onClose="onCloseConditionEditDialog"
+    />
   </div>
 </template>
 
@@ -41,12 +47,15 @@ import StandardResourceEditDialog from "./StandardResourceEditDialog.vue";
 import HasContentResourceEditDialog from "./HasContentResourceEditDialog.vue";
 import VariationEditDialog from "./VariationEditDialog.vue";
 import Variation from "@/domain/resource/Variation";
+import ConditionEditDialog from "./ConditionEditDialog.vue";
+import Condition from "@/domain/resource/Condition";
 
 @Component({
   components: {
     StandardResourceEditDialog,
     HasContentResourceEditDialog,
-    VariationEditDialog
+    VariationEditDialog,
+    ConditionEditDialog
   }
 })
 export default class ResourceEditDialog extends Vue {
@@ -72,6 +81,7 @@ export default class ResourceEditDialog extends Vue {
   private targetStandaerdResource: Resource | null = null;
   private targetHasContentResource: HasContentResource | null = null;
   private targetVariation: Variation | null = null;
+  private targetCondition: Condition | null = null;
 
   @Inject()
   private repository?: StrageRepository;
@@ -87,6 +97,11 @@ export default class ResourceEditDialog extends Vue {
 
     if (resource instanceof Variation) {
       this.targetVariation = resource;
+      return;
+    }
+
+    if (resource instanceof Condition) {
+      this.targetCondition = resource;
       return;
     }
 
@@ -125,6 +140,16 @@ export default class ResourceEditDialog extends Vue {
 
   private onCloseVariationEditDialog(): void {
     this.targetVariation = null;
+    this.onClose();
+  }
+
+  private onModifyCondition(resource: Condition): void {
+    const registerd = this.registerResoruce(resource);
+    this.onUpdatedResource(registerd);
+  }
+
+  private onCloseConditionEditDialog(): void {
+    this.targetCondition = null;
     this.onClose();
   }
 

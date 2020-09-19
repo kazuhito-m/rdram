@@ -8,6 +8,7 @@ import Request from "./Request";
 import Scenario from "./Scenario";
 import StartOrEndPoint from "./StartOrEndPoint";
 import Variation from "./Variation";
+import Condition from "./Condition";
 
 export default class ResourceFactory {
     public create(name: string, resourceType: ResourceType, newResourceId: number, nowResouces: Resources): Resource {
@@ -32,6 +33,8 @@ export default class ResourceFactory {
             return new StartOrEndPoint(newResourceId, name, "", true);
         if (ResourceType.バリエーション.equals(resourceType))
             return new Variation(newResourceId, name, "", ["", ""]);
+        if (ResourceType.条件.equals(resourceType))
+            return new Condition(newResourceId, "", "", "");
 
         return new Resource(newResourceId, resourceType.id, name, "");
     }
