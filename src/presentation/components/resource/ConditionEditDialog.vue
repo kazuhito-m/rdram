@@ -72,6 +72,7 @@ export default class ConditionEditDialog extends Vue {
   }
 
   private changeConsent(newConsent: boolean): void {
+    if (this.validateValue() !== true) return;
     this.consent = newConsent;
   }
 
