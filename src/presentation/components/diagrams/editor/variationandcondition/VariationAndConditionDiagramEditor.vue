@@ -23,7 +23,7 @@ import GenericResizeShapeEvents from "@/presentation/components/diagrams/editor/
 import IconGenerator from "@/presentation/components/diagrams/icon/IconGenerator";
 
 import SystemIconGenerator from "@/presentation/components/diagrams/editor/template/icon/SystemIconGenerator";
-import ActorIconGenerator from "@/presentation/components/diagrams/editor/template/icon/ActorIconGenerator";
+import VariationIconGenerator from "@/presentation/components/diagrams/editor/template/icon/VariationIconGenerator";
 
 import Resource from "@/domain/resource/Resource";
 
@@ -51,7 +51,9 @@ export default class VariationAndConditionDiagramEditor extends Vue {
     new GenericResizeShapeEvents()
   ]);
 
-  private readonly iconGenerators: IconGenerator<Resource>[] = [];
+  private readonly iconGenerators: IconGenerator<Resource>[] = [
+    new VariationIconGenerator()
+  ];
 
   // Emits
 
