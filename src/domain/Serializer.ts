@@ -28,6 +28,7 @@ import BusinessFlowDiagram from '@/domain/diagram/businessflow/BusinessFlowDiagr
 import UsageSceneDiagram from '@/domain/diagram/usagescene/UsageSceneDiagram';
 import VariationAndConditionDiagram from '@/domain/diagram/variationandcondition/VariationAndConditionDiagram';
 import Variation from "./resource/Variation";
+import Condition from "./resource/Condition";
 
 
 export default class Serializer {
@@ -46,12 +47,13 @@ export default class Serializer {
         Requirement,
         Scenario,
         StartOrEndPoint,
+        Variation,
+        Condition,
         Diagrams,
         Diagram,
         Placement,
         Midpoint,
         Relation,
-        Variation,
         BusinessContextDiagram,
         InformationModelDiagram,
         StateModelDiagram,

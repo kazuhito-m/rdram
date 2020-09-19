@@ -1,6 +1,9 @@
 import Resource from "./Resource";
 import ResourceType from "./ResourceType";
 
+/**
+ * バリエーション。
+ */
 export default class Variation extends Resource {
   public static readonly CONDITION_VALUE_MAX_LENGTH = 128;
 
