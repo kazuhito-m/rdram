@@ -3,8 +3,8 @@
     persistent
     :max-width="width"
     :value="id"
-    @keydown.esc="onClose"
-    @keydown.enter="onClickOk"
+    @keydown.esc="onKeyEsc"
+    @keydown.enter="onKeyEnter"
   >
     <v-card>
       <v-card-title class="headline">
@@ -41,6 +41,10 @@ export default class PropertiesSettingDialog extends Vue {
   private readonly subTitle!: string;
   @Prop()
   private readonly width!: number;
+  @Prop()
+  private readonly ignoreEscKey!: boolean;
+  @Prop()
+  private readonly ignoreEnterKey!: boolean;
 
   @Emit("onClose")
   private onClose(): void {}
@@ -52,6 +56,16 @@ export default class PropertiesSettingDialog extends Vue {
   @Watch("id")
   private onChangeId(): void {
     if (this.id) this.onShow();
+  }
+
+  private onKeyEsc(): void {
+    if (this.ignoreEscKey) return;
+    this.onClose();
+  }
+
+  private onKeyEnter(): void {
+    if (this.ignoreEnterKey) return;
+    this.onClickOk();
   }
 }
 </script>

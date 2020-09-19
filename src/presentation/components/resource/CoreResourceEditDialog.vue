@@ -6,6 +6,8 @@
     :subTitle="subTitle"
     :iconKey="iconKey"
     width="450"
+    :ignoreEscKey="ignoreEscKey"
+    :ignoreEnterKey="ignoreEnterKey"
     @onClose="onClose"
     @onClickOk="onClickUpdateExecute"
     @onShow="onShow"
@@ -74,6 +76,10 @@ export default class CoreResourceEditDialog extends Vue {
   private readonly consent!: boolean;
   @Prop()
   private notFocusSetName!: boolean;
+  @Prop()
+  private readonly ignoreEscKey!: boolean;
+  @Prop()
+  private readonly ignoreEnterKey!: boolean;
 
   @Emit("onModifyResource")
   private onModifyResource(resource: Resource): void {}

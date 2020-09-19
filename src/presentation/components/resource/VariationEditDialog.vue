@@ -3,7 +3,8 @@
     :resource="resource"
     :resources="resources"
     :consent="consent"
-    notFocusSetName="true"
+    ignoreEscKey="true"
+    ignoreEnterKey="true"
     @onModifyResource="onModifyResourceInner"
     @onClose="onClose"
     @showCustomProperties="showCustomProperties"
@@ -12,6 +13,7 @@
     <template v-slot:customInputFields>
       <v-row>
         <v-col>
+          <div class="values-spread" ref="valuesSpreadDiv"></div>
         </v-col>
       </v-row>
     </template>
@@ -27,6 +29,9 @@ import {
   Emit,
   Watch
 } from "nuxt-property-decorator";
+import jexcel, { JExcelElement, Options, CellValue } from "jexcel";
+import "jexcel/dist/jexcel.css";
+
 import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
@@ -41,7 +46,7 @@ import ResourceType from "@/domain/resource/ResourceType";
 })
 export default class VariationEditDialog extends Vue {
   @Prop({ required: true })
-  private readonly resource!: Resource;
+  private readonly resource!: Variation;
   @Prop({ required: true })
   private readonly resources!: Resources;
 
@@ -52,15 +57,54 @@ export default class VariationEditDialog extends Vue {
   private onClose(): void {}
 
   private values: string[][] = [];
-
+  private valuesSpread: JExcelElement | null = null;
   private consent: boolean = false;
 
   private showCustomProperties(resource: Variation): void {
+    if (this.valuesSpread !== null) this.valuesSpread.destroy();
+
     this.values = resource.valuesOf().map(value => [value]);
+    const div = this.$refs.valuesSpreadDiv as HTMLDivElement;
+    this.valuesSpread = this.createSpread(this.values, div);
+  }
+
+  private createSpread(values: string[][], div: HTMLDivElement): JExcelElement {
+    const options = {
+      data: this.values,
+      allowToolbar: true,
+      columnResize: false,
+      columnSorting: false,
+      tableOverflow: true,
+      tableHeight: "130px",
+      allowInsertColumn: false,
+      onchange: this.onChangedCell,
+      columns: [
+        { type: "text", title: "値の種類", width: "325px", align: "left" }
+      ] as any
+    };
+    return jexcel(div, options);
+  }
+
+  private onChangedCell(
+    instance: HTMLElement,
+    cell: HTMLTableCellElement,
+    columnIndex: string,
+    rowIndex: string,
+    value: CellValue
+  ): void {
+    const rowIndexNumber = Number(rowIndex);
+    const changeValue = value as string;
+    const fixedValue = changeValue.trim().substring(0, 4);
+    this.values[rowIndexNumber][0] = fixedValue;
+    cell.textContent = fixedValue;
   }
 
   private onModifyResourceInner(resource: Variation): void {
-    const withContent = resource.withValues(this.values.map(line => line[0]));
+    const newValues = this.values
+      .map(line => line[0])
+      .map(value => value.trim())
+      .filter(value => value.length > 0);
+    const withContent = resource.withValues(newValues);
     this.onModifyResource(withContent);
   }
 
@@ -71,4 +115,7 @@ export default class VariationEditDialog extends Vue {
 </script>
 
 <style scoped>
+.values-spread {
+  color: black;
+}
 </style>
