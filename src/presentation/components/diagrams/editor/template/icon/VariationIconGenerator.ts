@@ -41,7 +41,6 @@ export default class VariationIconGenerator extends GenericSingleIconGenerator {
 
         let i = 0;
         for (let value of variation.valuesOf()) {
-            console.log(value);
             const valueLabel = new draw2d.shape.basic.Label({ text: value });
             valueLabel.setResizeable(true);
             valueLabel.setPadding(2);
