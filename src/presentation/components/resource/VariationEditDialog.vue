@@ -11,7 +11,8 @@
   >
     <template v-slot:customInputFields>
       <v-row>
-        <v-col>ここが変更される予定。</v-col>
+        <v-col>
+        </v-col>
       </v-row>
     </template>
   </CoreResourceEditDialog>
@@ -26,9 +27,9 @@ import {
   Emit,
   Watch
 } from "nuxt-property-decorator";
+import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
-import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
 import Purpose from "@/domain/resource/Purpose";
 import Variation from "@/domain/resource/Variation";
 import ResourceType from "@/domain/resource/ResourceType";
