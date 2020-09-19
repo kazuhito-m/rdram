@@ -5,6 +5,7 @@ export default class Placement {
         public readonly width: number,
         public readonly height: number,
         public readonly resourceId: number,
+        public readonly alias: boolean = false,
     ) { }
 
     public resize(width: number, height: number): Placement {
@@ -14,6 +15,7 @@ export default class Placement {
             width,
             height,
             this.resourceId,
+            this.alias,
         );
     }
 
@@ -24,6 +26,7 @@ export default class Placement {
             this.width,
             this.height,
             this.resourceId,
+            this.alias,
         );
     }
 
@@ -34,6 +37,7 @@ export default class Placement {
             this.width,
             this.height,
             this.resourceId,
+            this.alias
         );
     }
 }

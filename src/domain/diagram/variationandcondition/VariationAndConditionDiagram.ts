@@ -47,7 +47,8 @@ export default class VariationAndConditionDiagram extends Diagram {
             top,
             width,
             height,
-            resource.resourceId
+            resource.resourceId,
+            false,
         );
     }
 
