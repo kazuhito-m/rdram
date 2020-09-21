@@ -24,6 +24,12 @@
       @onModifyResource="onModifyCondition"
       @onClose="onCloseConditionEditDialog"
     />
+    <TableTypeConditionEditDialog
+      :resource="targetTableTypeCondition"
+      :resources="latestResources"
+      @onModifyResource="onModifyTableTypeCondition"
+      @onClose="onCloseTableTypeConditionEditDialog"
+    />
   </div>
 </template>
 
@@ -49,13 +55,16 @@ import VariationEditDialog from "./VariationEditDialog.vue";
 import Variation from "@/domain/resource/Variation";
 import ConditionEditDialog from "./ConditionEditDialog.vue";
 import Condition from "@/domain/resource/Condition";
+import TableTypeCondition from "@/domain/resource/TableTypeCondition";
+import TableTypeConditionEditDialog from "./TableTypeConditionEditDialog.vue";
 
 @Component({
   components: {
     StandardResourceEditDialog,
     HasContentResourceEditDialog,
     VariationEditDialog,
-    ConditionEditDialog
+    ConditionEditDialog,
+    TableTypeConditionEditDialog
   }
 })
 export default class ResourceEditDialog extends Vue {
@@ -82,6 +91,7 @@ export default class ResourceEditDialog extends Vue {
   private targetHasContentResource: HasContentResource | null = null;
   private targetVariation: Variation | null = null;
   private targetCondition: Condition | null = null;
+  private targetTableTypeCondition: TableTypeCondition | null = null;
 
   @Inject()
   private repository?: StrageRepository;
@@ -102,6 +112,11 @@ export default class ResourceEditDialog extends Vue {
 
     if (resource instanceof Condition) {
       this.targetCondition = resource;
+      return;
+    }
+
+    if (resource instanceof TableTypeCondition) {
+      this.targetTableTypeCondition = resource;
       return;
     }
 
@@ -150,6 +165,16 @@ export default class ResourceEditDialog extends Vue {
 
   private onCloseConditionEditDialog(): void {
     this.targetCondition = null;
+    this.onClose();
+  }
+
+  private onModifyTableTypeCondition(resource: TableTypeCondition): void {
+    const registerd = this.registerResoruce(resource);
+    this.onUpdatedResource(registerd);
+  }
+
+  private onCloseTableTypeConditionEditDialog(): void {
+    this.targetTableTypeCondition = null;
     this.onClose();
   }
 
