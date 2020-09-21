@@ -29,6 +29,7 @@ import UsageSceneDiagram from '@/domain/diagram/usagescene/UsageSceneDiagram';
 import VariationAndConditionDiagram from '@/domain/diagram/variationandcondition/VariationAndConditionDiagram';
 import Variation from "./resource/Variation";
 import Condition from "./resource/Condition";
+import TableTypeCondition from "./resource/TableTypeCondition";
 
 
 export default class Serializer {
@@ -49,6 +50,7 @@ export default class Serializer {
         StartOrEndPoint,
         Variation,
         Condition,
+        TableTypeCondition,
         Diagrams,
         Diagram,
         Placement,

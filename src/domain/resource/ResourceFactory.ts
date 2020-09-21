@@ -9,6 +9,7 @@ import Scenario from "./Scenario";
 import StartOrEndPoint from "./StartOrEndPoint";
 import Variation from "./Variation";
 import Condition from "./Condition";
+import TableTypeCondition from "./TableTypeCondition";
 
 export default class ResourceFactory {
     public create(name: string, resourceType: ResourceType, newResourceId: number, nowResouces: Resources): Resource {
@@ -35,6 +36,14 @@ export default class ResourceFactory {
             return new Variation(newResourceId, name, "", ["", ""]);
         if (ResourceType.条件.equals(resourceType))
             return new Condition(newResourceId, "", "", "");
+        if (ResourceType.表形式の条件.equals(resourceType)) {
+            return new TableTypeCondition(
+                newResourceId, "", "",
+                TableTypeCondition.NOTHING_VARIATION_ID,
+                TableTypeCondition.NOTHING_VARIATION_ID,
+                [["", ""], ["", ""]]
+            );
+        }
 
         return new Resource(newResourceId, resourceType.id, name, "");
     }
