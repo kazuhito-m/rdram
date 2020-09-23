@@ -81,7 +81,7 @@ export default class CoreResourceEditDialog extends Vue {
   @Prop()
   private readonly ignoreEnterKey!: boolean;
   @Prop()
-  private readonly dialogWidth: number = 450;
+  private readonly dialogWidth!: number;
 
   @Emit("onModifyResource")
   private onModifyResource(resource: Resource): void {}
