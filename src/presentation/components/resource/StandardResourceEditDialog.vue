@@ -3,6 +3,7 @@
     :resource="resource"
     :resources="resources"
     :consent="consent"
+    dialogWidth="450"
     @onModifyResource="onModifyResource"
     @onClose="onClose"
     @changeConsent="changeConsent"

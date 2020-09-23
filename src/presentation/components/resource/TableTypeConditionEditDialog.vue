@@ -39,7 +39,7 @@ import Resources from "@/domain/resource/Resources";
 import Purpose from "@/domain/resource/Purpose";
 import TableTypeCondition from "@/domain/resource/TableTypeCondition";
 import ResourceType from "@/domain/resource/ResourceType";
-import Condition from "../../../domain/resource/Condition";
+import Condition from "@/domain/resource/Condition";
 
 @Component({
   components: {

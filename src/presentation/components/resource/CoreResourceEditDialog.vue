@@ -5,7 +5,7 @@
     :title="title"
     :subTitle="subTitle"
     :iconKey="iconKey"
-    width="450"
+    :width="dialogWidth"
     :ignoreEscKey="ignoreEscKey"
     :ignoreEnterKey="ignoreEnterKey"
     @onClose="onClose"
@@ -80,6 +80,8 @@ export default class CoreResourceEditDialog extends Vue {
   private readonly ignoreEscKey!: boolean;
   @Prop()
   private readonly ignoreEnterKey!: boolean;
+  @Prop()
+  private readonly dialogWidth: number = 450;
 
   @Emit("onModifyResource")
   private onModifyResource(resource: Resource): void {}

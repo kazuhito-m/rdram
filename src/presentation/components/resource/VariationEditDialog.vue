@@ -3,6 +3,7 @@
     :resource="resource"
     :resources="resources"
     :consent="consent"
+    dialogWidth="450"
     ignoreEscKey="true"
     ignoreEnterKey="true"
     @onModifyResource="onModifyResourceInner"
