@@ -5,16 +5,19 @@
     :consent="consent"
     ignoreEscKey="true"
     ignoreEnterKey="true"
+    dialogWidth="600"
     @onModifyResource="onModifyResourceInner"
     @onClose="onClose"
     @showCustomProperties="showCustomProperties"
     @changeConsent="changeConsent"
   >
     <template v-slot:customInputFields>
-      これが表示されているということは、TableTypeConditionEditDialogが出てるってこと。
       <v-row>
         <v-col>
-          <div class="values-spread" ref="valuesSpreadDiv"></div>
+          条件
+          <br />
+          <div class="values-spread-headless" ref="valuesSpreadDiv"></div>
+          ※tabキーで列追加、enterキーで行追加、右クリックでその他の操作
         </v-col>
       </v-row>
     </template>
@@ -74,17 +77,28 @@ export default class TableTypeConditionEditDialog extends Vue {
     const options = {
       data: this.values,
       allowToolbar: true,
-      columnResize: false,
+      columnResize: true,
       columnSorting: false,
+      rowResize: true,
       tableOverflow: true,
       tableHeight: "130px",
-      allowInsertColumn: false,
-      onchange: this.onChangedCell,
-      columns: [
-        { type: "text", title: "値の種類", width: "325px", align: "left" }
-      ] as any
-    };
-    return jexcel(div, options);
+      tableWidth: "530px",
+      defaultColWidth: "130px",
+      defaultColAlign: "left",
+      allowInsertColumn: true,
+      onchange: this.onChangedCell
+    } as any;
+    const target = jexcel(div, options);
+    target.hideIndex();
+    this.hideRowHeader(div);
+    return target;
+  }
+
+  private hideRowHeader(spreadTable: HTMLElement): void {
+    const tHead = spreadTable
+      .getElementsByTagName("thead")
+      .item(0) as HTMLTableSectionElement;
+    tHead.style.display = "none";
   }
 
   private onChangedCell(
@@ -120,7 +134,11 @@ export default class TableTypeConditionEditDialog extends Vue {
 </script>
 
 <style scoped>
-.values-spread {
+.values-spread-headless {
   color: black;
+}
+
+.values-spread-headless > div > table > tbody > tr > td {
+  min-height: 120px;
 }
 </style>
