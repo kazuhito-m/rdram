@@ -1,10 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
-const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
-  router: {
-    base: '/rdram/'
-  }
-} : {}
+const routerBasePath = process.env.DEPLOY_ENV === 'GH_PAGES' ? '/rdram/' : '/';
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -87,5 +83,8 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
-  routerBase
+
+  router: {
+    base: routerBasePath
+  }
 }
