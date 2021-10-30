@@ -8,8 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ${{ matrix.os }}
-    env:
-      GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
     strategy:
       matrix:
@@ -47,4 +45,7 @@ jobs:
         run: npm run generate:gh-pages
 
       - name: Deploy for gh-pages
-        run: npm run deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
