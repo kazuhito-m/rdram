@@ -11,12 +11,13 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - rdram',
-    title: 'rdram',
+    titleTemplate: '%s - ' + process.env.npm_package_name,
+    title: process.env.npm_package_name || '',
+    selfVersion: process.env.npm_package_version,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
@@ -63,7 +64,7 @@ export default {
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
+    customVariables: ['~/presentation/assets/variables.scss'],
     theme: {
       dark: true,
       themes: {
@@ -83,6 +84,8 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
+  loading: '~/presentation/components/Loading.vue',
+  srcDir: 'src/',
 
   router: {
     base: routerBasePath
