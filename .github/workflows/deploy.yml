@@ -34,6 +34,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      - name: Node.js check
+        run: node -v
+        run: npm -v
+
       - name: Install npm modules
         run: npm install
 
