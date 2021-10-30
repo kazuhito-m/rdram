@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@reset-new-nuxtjs-start
+        uses: actions/checkout@v2
 
       - name: Setup node env
         uses: actions/setup-node@v2.1.5
