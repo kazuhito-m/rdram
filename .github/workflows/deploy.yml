@@ -32,6 +32,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      - name: Install npm modules
+        run: npm ci
+
       - name: Build for gh-pages dist
         run: npm run generate:gh-pages
 
