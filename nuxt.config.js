@@ -93,24 +93,9 @@ export default {
         'jQuery': 'jquery'
       })
     ],
-
-    // debug for production
-    extend (config, { isDev, isClient }) {
-      console.log(config.externals = [])
-      config.devtool = 'eval-source-map';
-      config.module.rules = [...config.module.rules.map((r) => {
-        if (r.loader !== 'babel-loader') {
-          return r;
-        }
-        r.options.presets[0][1]['targets']['uglify'] = false;
-        return r;
-      })];
-    },
-    uglify: {
-      uglifyOptions: {
-        compress: false
-      },
-      cache: './.cache/'
+    extend (config, ctx) {
+      // config.devtool = 'source-map'
+      config.optimization.minimize = false; // クラス名を利用しているところが動かなくなるので
     }
   },
   loading: '~/components/Loading.vue',
