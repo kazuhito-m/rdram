@@ -1,5 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
+const webpack = require('webpack')
+
 const routerBasePath = process.env.DEPLOY_ENV === 'GH_PAGES' ? '/rdram/' : '/';
 
 export default {
@@ -83,6 +85,14 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        '$': 'jquery',
+        'jquery': 'jquery',
+        'window.jQuery': 'jquery',
+        'jQuery': 'jquery'
+      })
+    ]
   },
   loading: '~/components/Loading.vue',
   srcDir: 'src/',
