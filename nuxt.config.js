@@ -92,12 +92,25 @@ export default {
         'window.jQuery': 'jquery',
         'jQuery': 'jquery'
       })
-    ]
+    ],
+
+    // debug for production
+    extend (config, { isDev, isClient }) {
+      console.log(config.externals = [])
+      config.devtool = 'eval-source-map';
+      config.module.rules = [...config.module.rules.map((r) => {
+        if (r.loader !== 'babel-loader') {
+          return r;
+        }
+        r.options.presets[0][1]['targets']['uglify'] = false;
+        return r;
+      })];
+    }
   },
   loading: '~/components/Loading.vue',
   srcDir: 'src/',
 
   router: {
     base: routerBasePath
-  }
+  },
 }
