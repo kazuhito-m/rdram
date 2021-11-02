@@ -1,6 +1,6 @@
 {
-  "name": "rdram",
-  "version": "1.0.0",
+  "name": "rdram-prototype",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "nuxt",
