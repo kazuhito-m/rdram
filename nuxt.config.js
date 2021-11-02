@@ -105,6 +105,12 @@ export default {
         r.options.presets[0][1]['targets']['uglify'] = false;
         return r;
       })];
+    },
+    uglify: {
+      uglifyOptions: {
+        compress: false
+      },
+      cache: './.cache/'
     }
   },
   loading: '~/components/Loading.vue',
