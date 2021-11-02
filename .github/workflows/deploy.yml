@@ -3,7 +3,7 @@ name: gh-pages-deploy
 on:
   push:
     branches:
-      - reset-new-nuxtjs-start
+      - porting-old-structure
 
 jobs:
   deploy:
