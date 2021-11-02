@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[69],{683:function(n,t,c){"use strict";c.r(t),c.d(t,"default",(function(){return o}));var e=c(5),o=function n(area){Object(e.a)(this,n),this.area=area}}}]);

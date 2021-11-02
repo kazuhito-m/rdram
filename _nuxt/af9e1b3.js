@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[90],{884:function(n,o,e){"use strict";e.r(o);var c=e(4),d=e(170);c.default.use(d.a),o.default=new d.a({icons:{iconfont:"mdi",values:{company:"mdi-office-building-outline"}}})}}]);
