@@ -30,7 +30,7 @@ export default class TableTypeConditionIconGenerator extends GenericSingleIconGe
         });
 
         tableTypeCondition.valuesOf()
-            .map((line, index) => this.generateRowLabels(line, index))
+            .map((line, rowNumber) => this.generateRowLabels(line, rowNumber))
             .forEach(labels => container.addRow(...labels));
 
         const icon = new draw2d.shape.basic.Label({
@@ -63,32 +63,29 @@ export default class TableTypeConditionIconGenerator extends GenericSingleIconGe
         return container;
     }
 
-    private generateRowLabels(values: string[], lineNumber: number): any[] {
-        const labels: any[] = [];
-        for (let i = 0; i < values.length; i++) {
-            const value = values[i];
+    private generateRowLabels = (values: string[], rowNumber: number): Figure[] => values
+        .map((value, columnNumber) => this.generateColmunLabel(value, rowNumber, columnNumber));
 
-            const label = new draw2d.shape.basic.Label({ text: value });
+    private generateColmunLabel(value: string, rowNumber: number, columnNumber: number): Figure {
+        if (rowNumber === 0)
+            return this.generateLabel(value, true, "#FFFFFF", "#2FA3EE");
+        return this.generateLabel(
+            value,
+            columnNumber === 0,
+            "#000000",
+            rowNumber % 2 ? "#D1D8E5" : "#E8F0FC"
+        );
+    }
 
-            if (lineNumber == 0) {
-                label.setResizeable(true);
-                label.setBold(true);
-                label.setFontColor("#FFFFFF");
-                label.setColor("#FFFFFF");
-                label.setStroke(2);
-                label.setPadding(2);
-                label.setBackgroundColor("#2FA3EE");
-            } else {
-                label.setResizeable(true);
-                label.setBold(i === 0);
-                label.setPadding(2);
-                label.setStroke(2);
-                label.setColor("#FFFFFF");
-                label.setBackgroundColor("#E8F0FC");
-            }
-
-            labels.push(label);
-        }
-        return labels;
+    private generateLabel(text: string, bold: boolean, fontColor: string, backColor: string): Figure {
+        const label = new draw2d.shape.basic.Label({ text: text });
+        label.setResizeable(true);
+        label.setBold(bold);
+        label.setFontColor(fontColor);
+        label.setColor("#FFFFFF");
+        label.setStroke(2);
+        label.setPadding(2);
+        label.setBackgroundColor(backColor);
+        return label;
     }
 }
