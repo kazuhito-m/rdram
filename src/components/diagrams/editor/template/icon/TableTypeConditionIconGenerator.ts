@@ -21,15 +21,6 @@ export default class TableTypeConditionIconGenerator extends GenericSingleIconGe
     private generateTableTypeConditionTable(placement: Placement, tableTypeCondition: TableTypeCondition, iconChar: IconFontAndChar): Figure {
         const id = String(placement.resourceId);
 
-        const label = new draw2d.shape.basic.Label({ text: tableTypeCondition.name });
-        label.setResizeable(true);
-        label.setBold(true);
-        label.setFontColor("#FFFFFF");
-        label.setColor("#FFFFFF");
-        label.setStroke(2);
-        label.setPadding(2);
-        label.setBackgroundColor("#2FA3EE");
-
         const container = new draw2d.shape.layout.TableLayout({
             id: id,
             x: placement.x,
@@ -72,15 +63,29 @@ export default class TableTypeConditionIconGenerator extends GenericSingleIconGe
         return container;
     }
 
-    private generateRowLabels(values: string[], index: number) : any[] {
+    private generateRowLabels(values: string[], lineNumber: number): any[] {
         const labels: any[] = [];
-        for (let value of values) {
+        for (let i = 0; i < values.length; i++) {
+            const value = values[i];
+
             const label = new draw2d.shape.basic.Label({ text: value });
-            label.setResizeable(true);
-            label.setPadding(2);
-            label.setStroke(2);
-            label.setColor("#FFFFFF");
-            label.setBackgroundColor("#E8F0FC");
+
+            if (lineNumber == 0) {
+                label.setResizeable(true);
+                label.setBold(true);
+                label.setFontColor("#FFFFFF");
+                label.setColor("#FFFFFF");
+                label.setStroke(2);
+                label.setPadding(2);
+                label.setBackgroundColor("#2FA3EE");
+            } else {
+                label.setResizeable(true);
+                label.setBold(i === 0);
+                label.setPadding(2);
+                label.setStroke(2);
+                label.setColor("#FFFFFF");
+                label.setBackgroundColor("#E8F0FC");
+            }
 
             labels.push(label);
         }
