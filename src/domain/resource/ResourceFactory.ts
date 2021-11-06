@@ -41,7 +41,7 @@ export default class ResourceFactory {
                 newResourceId, "", "",
                 TableTypeCondition.NOTHING_VARIATION_ID,
                 TableTypeCondition.NOTHING_VARIATION_ID,
-                [["", "上バリエ1", "上バリエ2"], ["左バリエ1", "", ""], ["左バリエ2", "", ""]]
+                [["対象の項目", "上バリエ1", "上バリエ2"], ["左バリエ1", "", ""], ["左バリエ2", "", ""]]
             );
         }
 
