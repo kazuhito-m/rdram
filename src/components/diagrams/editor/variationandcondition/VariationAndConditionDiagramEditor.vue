@@ -23,6 +23,7 @@ import GenericResizeShapeEvents from "@/components/diagrams/editor/template/even
 import IconGenerator from "@/components/diagrams/icon/IconGenerator";
 import VariationIconGenerator from "@/components/diagrams/editor/template/icon/VariationIconGenerator";
 import ConditionIconGenerator from "@/components/diagrams/editor/template/icon/ConditionIconGenerator";
+import TableTypeConditionIconGenerator from "@/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator";
 
 import Resource from "@/domain/resource/Resource";
 
@@ -52,7 +53,8 @@ export default class VariationAndConditionDiagramEditor extends Vue {
 
   private readonly iconGenerators: IconGenerator<Resource>[] = [
     new VariationIconGenerator(),
-    new ConditionIconGenerator()
+    new ConditionIconGenerator(),
+    new TableTypeConditionIconGenerator()
   ];
 
   // Emits

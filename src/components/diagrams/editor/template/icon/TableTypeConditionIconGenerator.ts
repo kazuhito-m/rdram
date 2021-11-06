@@ -23,10 +23,10 @@ export default class TableTypeConditionIconGenerator extends GenericSingleIconGe
 
         const label = new draw2d.shape.basic.Label({ text: tableTypeCondition.name });
         label.setResizeable(true);
-        label.setFontColor("#FFFFFF");
         label.setBold(true);
-        label.setStroke(2);
+        label.setFontColor("#FFFFFF");
         label.setColor("#FFFFFF");
+        label.setStroke(2);
         label.setPadding(2);
         label.setBackgroundColor("#2FA3EE");
 
@@ -38,15 +38,9 @@ export default class TableTypeConditionIconGenerator extends GenericSingleIconGe
             stroke: 1,
         });
 
-        const valueLabel = new draw2d.shape.basic.Label({ text: tableTypeCondition.value });
-        valueLabel.setResizeable(true);
-        valueLabel.setPadding(2);
-        valueLabel.setStroke(2);
-        valueLabel.setColor("#FFFFFF");
-        valueLabel.setBackgroundColor("#E8F0FC");
-
-        container.addRow(label, valueLabel);
-
+        tableTypeCondition.valuesOf()
+            .map((line, index) => this.generateRowLabels(line, index))
+            .forEach(labels => container.addRow(...labels));
 
         const icon = new draw2d.shape.basic.Label({
             fontFamily: iconChar.fontFamily,
@@ -76,5 +70,20 @@ export default class TableTypeConditionIconGenerator extends GenericSingleIconGe
         container.setUserData(new IconStatus(false));
 
         return container;
+    }
+
+    private generateRowLabels(values: string[], index: number) : any[] {
+        const labels: any[] = [];
+        for (let value of values) {
+            const label = new draw2d.shape.basic.Label({ text: value });
+            label.setResizeable(true);
+            label.setPadding(2);
+            label.setStroke(2);
+            label.setColor("#FFFFFF");
+            label.setBackgroundColor("#E8F0FC");
+
+            labels.push(label);
+        }
+        return labels;
     }
 }
