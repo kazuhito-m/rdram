@@ -159,6 +159,7 @@ export default class extends Vue {
     this.circleAndIcon(canvas);
     this.conneectIcons(canvas);
     this.addStartEndTest(canvas);
+    this.sampleContainer(canvas);
 
     console.log(canvas);
   }
@@ -685,6 +686,37 @@ export default class extends Vue {
     var end = new draw2d.shape.node.End({ x: 230, y: 450 });
     canvas.add(start);
     canvas.add(end);
+  }
+
+  private sampleContainer(canvas: draw2d.Canvas) {
+    var label1 =  new draw2d.shape.basic.Label({text:"[0,1] with long long long long label", fontColor:"#00AF00"});
+    var label2 =  new draw2d.shape.basic.Label({text:"[1,1] padding:10", fontColor:"#00AF00"});
+    var label3 =  new draw2d.shape.basic.Label({text:"[2,1] align:right", fontColor:"#00AF00"});
+    var label4 =  new draw2d.shape.basic.Label({text:"[3,1] resize:true",resizeable:true, fontColor:"#00AF00"});
+
+    var container = new draw2d.shape.layout.TableLayout();
+
+    container.addRow(...["[0,0]", label1 ,"[0,2] align:center"]);
+    container.addRow(...["[1,0] valign:bottom", label2,"[1,2] long long long label"]);
+    container.addRow(...["[2,0]", label3,"[2,2]"]);
+    container.addRow(...["[3,0]", label4,"[3,2]"]);
+
+    var cells = ["a", "b", "c"];
+    container.addRow(...cells);
+
+    var numbers = [];
+    for (let i = 0; i<3; i++) numbers.push(i + "");
+    container.addRow(...numbers);
+
+    container.setPadding(0);
+    container.setCellPadding(1,1, 10);
+
+    container.setCellAlign(0,2, "center");
+    container.setCellAlign(2,1, "right");
+
+    container.setCellVerticalAlign(1, 0, "bottom");
+
+    canvas.add(container, 500, 350);
   }
 
   private onCrickSiri() {
