@@ -26,6 +26,7 @@ import RequestModelDiagram from '@/domain/diagram/requrestmodel/RequestModelDiag
 import BusinessUseCaseDiagram from '@/domain/diagram/businessusecase/BusinessUseCaseDiagram';
 import BusinessFlowDiagram from '@/domain/diagram/businessflow/BusinessFlowDiagram';
 import UsageSceneDiagram from '@/domain/diagram/usagescene/UsageSceneDiagram';
+import UsecaseCompositeDiagram from '@/domain/diagram/usecasecomposite/UsecaseCompositeDiagram';
 import VariationAndConditionDiagram from '@/domain/diagram/variationandcondition/VariationAndConditionDiagram';
 import Variation from "./resource/Variation";
 import Condition from "./resource/Condition";
@@ -64,6 +65,7 @@ export default class Serializer {
         BusinessUseCaseDiagram,
         BusinessFlowDiagram,
         UsageSceneDiagram,
+        UsecaseCompositeDiagram,
         VariationAndConditionDiagram,
     ];
 
