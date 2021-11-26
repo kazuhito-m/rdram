@@ -592,7 +592,7 @@ export default class DiagramCanvas extends Vue {
     const router = this.routerConverter.draw2dRouterOf(relation.routerType);
     connection.setRouter(router);
 
-    if (relation.allowDecorate) this.arrowDocorate(connection);
+    if (relation.tipAllow) this.arrowDocorate(connection);
   }
 
   public isFlowRelation(relation: Relation): boolean {
