@@ -44,11 +44,13 @@ export default class Relation {
     }
 
     public equalRoute(other: Relation): boolean {
-        return this.fromResourceId === other.fromResourceId && this.toResourceId === other.toResourceId;
+        return this.fromResourceId === other.fromResourceId
+            && this.toResourceId === other.toResourceId;
     }
 
     public equalRouteReversivle(other: Relation): boolean {
-        return this.equalRoute(other) || this.reverse().equalRoute(other);
+        return this.equalRoute(other)
+            || this.reverse().equalRoute(other);
     }
 
     public changeRouter(routerType: RouterType): Relation {
@@ -63,7 +65,7 @@ export default class Relation {
         return RouterType.ofId(this.routerTypeId) as RouterType;
     }
 
-    public with(meaning: string, routerType: RouterType, allowDecorate: boolean): Relation {
+    private with(meaning: string, routerType: RouterType, allowDecorate: boolean): Relation {
         return new Relation(
             this.id,
             this.fromResourceId,
