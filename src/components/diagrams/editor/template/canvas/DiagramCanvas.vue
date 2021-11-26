@@ -71,7 +71,6 @@ import DownloadFile from "@/domain/client/DownloadFile";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import IconStatus from "../../../icon/IconStatus";
 import RouterTypeDraw2dConverter from "../RouterTypeDraw2dConverter";
-import RelationWithResources from "@/domain/relation/RelationWithResources";
 import CoreResourceEditDialog from "../../../../resource/CoreResourceEditDialog.vue";
 
 @Component({
@@ -593,18 +592,6 @@ export default class DiagramCanvas extends Vue {
     connection.setRouter(router);
 
     if (relation.tipAllow) this.arrowDocorate(connection);
-  }
-
-  public isFlowRelation(relation: Relation): boolean {
-    const fromResource = this.findResource(relation.fromResourceId);
-    const toResource = this.findResource(relation.toResourceId);
-    if (!fromResource || !toResource) return false;
-    const relationWithResource = RelationWithResources.of(
-      relation,
-      fromResource,
-      toResource
-    );
-    return relationWithResource.isFlowRelation();
   }
 
   private arrowDocorate(connection: any): void {
