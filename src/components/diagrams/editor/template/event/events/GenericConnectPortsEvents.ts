@@ -49,7 +49,7 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
             connection.onContextMenu = view.onClickConnectorOnCanvas;
 
             const original = Relation.prototypeOf(connection.id, srcResourceId, distResourceId);
-            const relation = this.customizeRelation(original, view);
+            const relation = this.customizeRelation(original, product);
 
             modifiedDiagram = modifiedDiagram.addRelation(relation);
 
