@@ -96,7 +96,6 @@ import StateModelEditor from "@/components/diagrams/editor/statemodel/StateModel
 import UseCaseCompositeDiagramEditor from "@/components/diagrams/editor/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue";
 import VariationAndConditionDiagramEditor from "@/components/diagrams/editor/variationandcondition/VariationAndConditionDiagramEditor.vue";
 import Diagram from "@/domain/diagram/Diagram";
-import DiagramType from "@/domain/diagram/DiagramType";
 import Resource from "@/domain/resource/Resource";
 import StrageRepository from "@/domain/strage/StrageRepository";
 
