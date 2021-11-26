@@ -14,6 +14,10 @@ export default class Relation {
         public readonly midpoints: Midpoint[],
     ) { }
 
+    public get routerType(): RouterType {
+        return RouterType.ofId(this.routerTypeId) as RouterType;
+    }
+
     public static prototypeOf(id: string, fromResourceId: number, toResourceId: number): Relation {
         return new Relation(
             id,
@@ -63,10 +67,6 @@ export default class Relation {
 
     public changeTipAllow(value: boolean): Relation {
         return this.with(this.meaning, this.routerType, value);
-    }
-
-    public get routerType(): RouterType {
-        return RouterType.ofId(this.routerTypeId) as RouterType;
     }
 
     private with(meaning: string, routerType: RouterType, tipAllow: boolean): Relation {
