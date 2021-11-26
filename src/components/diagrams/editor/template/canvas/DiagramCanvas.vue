@@ -224,8 +224,7 @@ export default class DiagramCanvas extends Vue {
     const connection = this.canvas.getLine(relation.id);
     if (!connection) return;
 
-    const router = this.routerConverter.makeRouterBy(relation.routerType);
-    connection.setRouter(router);
+    this.decorateConnection(connection, relation);
 
     connection
       .getChildren()
@@ -488,12 +487,9 @@ export default class DiagramCanvas extends Vue {
     const endPort = this.getPort(relation.toResourceId, canvas, false);
     if (endPort) connection.setTarget(endPort);
 
-    let routerType = RouterType.ofId(relation.routerTypeId);
-    if (!routerType) routerType = RouterType.DIRECT;
-    connection.setRouter(this.routerConverter.makeRouterBy(routerType));
     connection.onContextMenu = this.onClickConnectorOnCanvas;
     this.addConnectionLabel(connection, relation);
-    this.decorateWhenFlow(relation, connection);
+    this.decorateConnection(connection, relation);
 
     canvas.add(connection);
   }
@@ -592,8 +588,11 @@ export default class DiagramCanvas extends Vue {
     this.editResourceId = CoreResourceEditDialog.ID_WHEN_CREATE_NEW;
   }
 
-  public decorateWhenFlow(relation: Relation, connection: any): void {
-    if (this.isFlowRelation(relation)) this.arrowDocorate(connection);
+  public decorateConnection(connection: any, relation: Relation): void {
+    const router = this.routerConverter.draw2dRouterOf(relation.routerType);
+    connection.setRouter(router);
+
+    if (relation.allowDecorate) this.arrowDocorate(connection);
   }
 
   public isFlowRelation(relation: Relation): boolean {
@@ -607,6 +606,7 @@ export default class DiagramCanvas extends Vue {
     );
     return relationWithResource.isFlowRelation();
   }
+
   private arrowDocorate(connection: any): void {
     const decorator = new draw2d.decoration.connection.ArrowDecorator();
     decorator.setBackgroundColor(connection.getColor());

@@ -2,7 +2,7 @@ import RouterType from "@/domain/relation/RouterType";
 import draw2d from "draw2d";
 
 export default class RouterTypeDraw2dConverter {
-    public makeRouterBy(routerType: RouterType): any {
+    public draw2dRouterOf(routerType: RouterType): any {
         if (!routerType) return undefined;
         if (routerType.equals(RouterType.MANHATTAN))
             return new draw2d.layout.connection.ManhattanConnectionRouter();

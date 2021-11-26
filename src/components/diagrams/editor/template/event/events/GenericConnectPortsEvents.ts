@@ -54,15 +54,18 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
 
             let relation = Relation.prototypeOf(connection.id, srcResourceId, distResourceId);
 
+            console.log("isFlowRelation() 判定前の直前");
             if (view.isFlowRelation(relation)) {
-                const defaultRouterType = RouterType.MANHATTAN;
-                relation = relation.changeRouter(defaultRouterType);
-                connection.setRouter(this.routerConverter.makeRouterBy(defaultRouterType));
+                console.log("isFlowRelation() 判定に入る");
+                relation = relation
+                    .changeRouter(RouterType.MANHATTAN)
+                    .changeTipAllow(true);
+                    console.log("isFlowRelation() 判定後のallow:" + relation.tipAllow);
             }
 
             modifiedDiagram = modifiedDiagram.addRelation(relation);
 
-            view.decorateWhenFlow(relation, connection);
+            view.decorateConnection(connection, relation);
         }
         return modifiedDiagram;
     }

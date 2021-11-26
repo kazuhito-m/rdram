@@ -9,6 +9,7 @@ export default class Relation {
         public readonly fromResourceId: number,
         public readonly toResourceId: number,
         public readonly routerTypeId: number,
+        public readonly tipAllow: boolean,
         public readonly meaning: string,
         public readonly midpoints: Midpoint[],
     ) { }
@@ -19,6 +20,7 @@ export default class Relation {
             fromResourceId,
             toResourceId,
             RouterType.DIRECT.id,
+            false,
             "",
             [],
         );
@@ -30,6 +32,7 @@ export default class Relation {
             this.toResourceId,
             this.fromResourceId,
             this.routerTypeId,
+            this.tipAllow,
             this.meaning,
             this.midpoints,
         );
@@ -49,19 +52,24 @@ export default class Relation {
     }
 
     public changeRouter(routerType: RouterType): Relation {
-        return this.with(this.meaning, routerType);
+        return this.with(this.meaning, routerType, this.tipAllow);
+    }
+
+    public changeTipAllow(value: boolean): Relation {
+        return this.with(this.meaning, this.routerType, value);
     }
 
     public get routerType(): RouterType {
         return RouterType.ofId(this.routerTypeId) as RouterType;
     }
 
-    public with(meaning: string, routerType: RouterType): Relation {
+    public with(meaning: string, routerType: RouterType, allowDecorate: boolean): Relation {
         return new Relation(
             this.id,
             this.fromResourceId,
             this.toResourceId,
             routerType.id,
+            allowDecorate,
             meaning.trim(),
             this.midpoints,
         );
@@ -73,6 +81,7 @@ export default class Relation {
             this.fromResourceId,
             this.toResourceId,
             this.routerTypeId,
+            this.tipAllow,
             this.meaning,
             this.midpoints.map(midpoint => midpoint.clone()),
         );
