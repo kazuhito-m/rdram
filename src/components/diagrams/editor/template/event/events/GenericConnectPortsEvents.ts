@@ -52,18 +52,21 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
             const connection = eventGist.connection;
             connection.onContextMenu = view.onClickConnectorOnCanvas;
 
-            let relation = Relation.prototypeOf(connection.id, srcResourceId, distResourceId);
-
-            if (view.isFlowRelation(relation)) {
-                relation = relation
-                    .changeRouter(RouterType.MANHATTAN)
-                    .changeTipAllow(true);
-            }
+            const original = Relation.prototypeOf(connection.id, srcResourceId, distResourceId);
+            const relation = this.customizeRelation(original, view);
 
             modifiedDiagram = modifiedDiagram.addRelation(relation);
 
             view.decorateConnection(connection, relation);
         }
         return modifiedDiagram;
+    }
+
+    protected customizeRelation(original: Relation, view: DiagramCanvas): Relation {
+        if (!view.isFlowRelation(original)) return original;
+
+        return original
+            .changeRouter(RouterType.MANHATTAN)
+            .changeTipAllow(true);
     }
 }
