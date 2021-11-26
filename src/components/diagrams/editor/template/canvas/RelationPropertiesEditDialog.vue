@@ -114,7 +114,9 @@ export default class RelationPropertiesEditDialog extends Vue {
 
   private onClickUpdateExecute(): void {
     if (!this.relation || !this.consent) return;
-    const modified = this.relation.with(this.meaning, this.routerType);
+    const modified = this.relation
+      .changeMeaning(this.meaning)
+      .changeRouter(this.routerType);
     this.onUpdateRelationProperties(modified);
     this.onClose();
   }

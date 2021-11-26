@@ -53,6 +53,10 @@ export default class Relation {
             || this.reverse().equalRoute(other);
     }
 
+    public changeMeaning(meaning: string): Relation {
+        return this.with(meaning, this.routerType, this.tipAllow);
+    }
+
     public changeRouter(routerType: RouterType): Relation {
         return this.with(this.meaning, routerType, this.tipAllow);
     }
@@ -65,13 +69,13 @@ export default class Relation {
         return RouterType.ofId(this.routerTypeId) as RouterType;
     }
 
-    private with(meaning: string, routerType: RouterType, allowDecorate: boolean): Relation {
+    private with(meaning: string, routerType: RouterType, tipAllow: boolean): Relation {
         return new Relation(
             this.id,
             this.fromResourceId,
             this.toResourceId,
             routerType.id,
-            allowDecorate,
+            tipAllow,
             meaning.trim(),
             this.midpoints,
         );
