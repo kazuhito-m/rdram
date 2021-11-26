@@ -62,8 +62,8 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
         return modifiedDiagram;
     }
 
-    protected customizeRelation(original: Relation, view: DiagramCanvas): Relation {
-        if (!view.isFlowRelation(original)) return original;
+    protected customizeRelation(original: Relation, product: Product): Relation {
+        if (!product.isFlowRelation(original)) return original;
 
         return original
             .changeRouter(RouterType.MANHATTAN)
