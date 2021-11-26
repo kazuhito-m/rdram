@@ -54,24 +54,23 @@ import draw2d, { Figure, command, Connection, Port } from "draw2d";
 import moment from "moment/moment";
 
 import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
+import CanvasGuideType from "@/components/diagrams/editor/toolbar/CanvasGuideType";
+import RouterTypeDraw2dConverter from "@/components/diagrams/editor/template/RouterTypeDraw2dConverter";
 import IconGenerator from "@/components/diagrams/icon/IconGenerator";
+import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
+import IconStatus from "@/components/diagrams/icon/IconStatus";
 
 import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
+import Relation from "@/domain/relation/Relation";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import Placement from "@/domain/diagram/placement/Placement";
-
-import Relation from "@/domain/relation/Relation";
-import RouterType from "@/domain/relation/RouterType";
-import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
-import CanvasGuideType from "../../toolbar/CanvasGuideType";
 import DownloadFile from "@/domain/client/DownloadFile";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
-import IconStatus from "../../../icon/IconStatus";
-import RouterTypeDraw2dConverter from "../RouterTypeDraw2dConverter";
-import CoreResourceEditDialog from "../../../../resource/CoreResourceEditDialog.vue";
+
+import CoreResourceEditDialog from "@/components/resource/CoreResourceEditDialog.vue";
 
 @Component({
   components: {
