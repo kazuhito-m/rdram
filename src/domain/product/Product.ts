@@ -4,12 +4,12 @@ import ProductIdentifier from '@/domain/product/ProductIdentifier';
 import Diagrams from '@/domain/diagram/Diagrams';
 import Diagram from '@/domain/diagram/Diagram';
 import Resource from '@/domain/resource/Resource';
-import ResourceType from '../resource/ResourceType';
-import ResourceFactory from '../resource/ResourceFactory';
-import DiagramType from '../diagram/DiagramType';
-import StartOrEndPoint from '../resource/StartOrEndPoint';
-import Relation from '../relation/Relation';
-import Relations from '../relation/Relations';
+import ResourceType from '@/domain/resource/ResourceType';
+import ResourceFactory from '@/domain/resource/ResourceFactory';
+import DiagramType from '@/domain/diagram/DiagramType';
+import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
+import Relation from '@/domain/relation/Relation';
+import Relations from '@/domain/relation/Relations';
 
 export default class Product {
     constructor(
