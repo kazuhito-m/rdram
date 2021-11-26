@@ -2,7 +2,6 @@ import EventsOfType from "@/components/diagrams/editor/template/event/EventsOfTy
 import EventGist from "@/components/diagrams/editor/template/event/EventGist";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import Product from "@/domain/product/Product";
-import RouterType from "@/domain/relation/RouterType";
 import Relation from "@/domain/relation/Relation";
 import RouterTypeDraw2dConverter from "../../RouterTypeDraw2dConverter";
 import Diagram from "@/domain/diagram/Diagram";
@@ -63,10 +62,6 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
     }
 
     protected customizeRelation(original: Relation, product: Product): Relation {
-        if (!product.isFlowRelation(original)) return original;
-
-        return original
-            .changeRouter(RouterType.MANHATTAN)
-            .changeTipAllow(true);
+        return original;
     }
 }
