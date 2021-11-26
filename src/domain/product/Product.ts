@@ -9,7 +9,6 @@ import ResourceFactory from '../resource/ResourceFactory';
 import DiagramType from '../diagram/DiagramType';
 import StartOrEndPoint from '../resource/StartOrEndPoint';
 import Relation from '../relation/Relation';
-import RelationWithResources from '../relation/RelationWithResources';
 import Relations from '../relation/Relations';
 
 export default class Product {
@@ -26,13 +25,11 @@ export default class Product {
     public relationable(relation: Relation, diagramId: number): string {
         const diagram = this.diagrams.of(diagramId);
         if (!diagram) return "指定されたダイアグラムがありません。";
-        const fromResource = this.resources.of(relation.fromResourceId);
-        const toResource = this.resources.of(relation.toResourceId);
-        if (!fromResource || !toResource) return "対応するリソースがありません。";
 
-        const relationPlus = RelationWithResources.of(relation, fromResource, toResource);
+        const relationPlus = this.resources.relationWithResourcesOf(relation);
+        if (!relationPlus) return "対応するリソースがありません。";
+
         const relations = new Relations(diagram.relations); // TODO Diagram側にこれをつけたい。
-
         if (relations.exists(relation)) return "すでに関連が存在します。";
 
         if (relationPlus.fromType.equals(ResourceType.始点終点)) {
@@ -171,5 +168,11 @@ export default class Product {
 
     public lastCreatdResource(): Resource {
         return this.resources.last();
+    }
+
+    public isFlowRelation(relation: Relation): boolean {
+        const relationPlus = this.resources.relationWithResourcesOf(relation);
+        if (!relationPlus) return false;
+        return relationPlus.isFlowRelation();
     }
 }

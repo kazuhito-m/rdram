@@ -1,6 +1,8 @@
 import Resource from "./Resource";
 import ResourceType from "./ResourceType";
 import ResourceFactory from "./ResourceFactory";
+import Relation from "@/domain/relation/Relation";
+import RelationWithResources from "@/domain/relation/RelationWithResources";
 
 export default class Resources {
     private readonly values: Resource[];
@@ -55,6 +57,14 @@ export default class Resources {
             .map(p => p.resourceId === resource.resourceId ? resource : p);
         if (newValues.every(p => p !== resource)) newValues.push(resource);
         return new Resources(newValues);
+    }
+
+    public relationWithResourcesOf(relation: Relation): RelationWithResources | null {
+        const fromResource = this.of(relation.fromResourceId);
+        const toResource = this.of(relation.toResourceId);
+        if (!fromResource || !toResource) return null;
+
+        return RelationWithResources.of(relation, fromResource, toResource);
     }
 
     public static empty(): Resources {
