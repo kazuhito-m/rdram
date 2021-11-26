@@ -3,13 +3,10 @@ import EventGist from "@/components/diagrams/editor/template/event/EventGist";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import Product from "@/domain/product/Product";
 import Relation from "@/domain/relation/Relation";
-import RouterTypeDraw2dConverter from "../../RouterTypeDraw2dConverter";
 import Diagram from "@/domain/diagram/Diagram";
 
 export default class GenericConnectPortsEvents implements EventsOfType<Diagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
-
-    private readonly routerConverter = new RouterTypeDraw2dConverter();
 
     public eventType(): string {
         return "Connect Ports";
