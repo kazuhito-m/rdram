@@ -64,7 +64,7 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     />
-    <UsecaseCompositeDiagramEditor
+    <UseCaseCompositeDiagramEditor
       v-if="is('ユースケース複合図')"
       :diagramId="diagram.id"
       :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
@@ -93,7 +93,7 @@ import SystemContextDiagramEditor from "@/components/diagrams/editor/systemconte
 import RequestModelDiagramEditor from "@/components/diagrams/editor/requrestmodel/RequestModelDiagramEditor.vue";
 import InfomationModelEditor from "@/components/diagrams/editor/infomationmodel/InfomationModelEditor.vue";
 import StateModelEditor from "@/components/diagrams/editor/statemodel/StateModelEditor.vue";
-import UsecaseCompositeDiagramEditor from "@/components/diagrams/editor/usecasecompositediagram/UsecaseCompositeDiagramEditor.vue";
+import UseCaseCompositeDiagramEditor from "@/components/diagrams/editor/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue";
 import VariationAndConditionDiagramEditor from "@/components/diagrams/editor/variationandcondition/VariationAndConditionDiagramEditor.vue";
 import Diagram from "@/domain/diagram/Diagram";
 import DiagramType from "@/domain/diagram/DiagramType";
@@ -110,7 +110,7 @@ import StrageRepository from "@/domain/strage/StrageRepository";
     UsageSceneDiagramEditor,
     InfomationModelEditor,
     StateModelEditor,
-    UsecaseCompositeDiagramEditor,
+    UseCaseCompositeDiagramEditor,
     VariationAndConditionDiagramEditor,
   }
 })

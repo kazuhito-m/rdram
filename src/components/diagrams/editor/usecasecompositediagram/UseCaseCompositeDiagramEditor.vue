@@ -40,7 +40,7 @@ import Resource from "@/domain/resource/Resource";
     DiagramEditor
   }
 })
-export default class UsecaseCompositeDiagramEditor extends Vue {
+export default class UseCaseCompositeDiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })

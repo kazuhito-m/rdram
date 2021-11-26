@@ -6,7 +6,7 @@ import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import CanvasGuideType from "@/components/diagrams/editor/toolbar/CanvasGuideType";
 
-export default class UsecaseCompositeDiagram extends Diagram {
+export default class UseCaseCompositeDiagram extends Diagram {
     protected constructor(
         id: number,
         typeId: number,
@@ -62,8 +62,8 @@ export default class UsecaseCompositeDiagram extends Diagram {
         );
     }
 
-    public with(name: string): UsecaseCompositeDiagram {
-        return new UsecaseCompositeDiagram(
+    public with(name: string): UseCaseCompositeDiagram {
+        return new UseCaseCompositeDiagram(
             this.id,
             this.typeId,
             name.trim(),
@@ -75,8 +75,8 @@ export default class UsecaseCompositeDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): UsecaseCompositeDiagram {
-        return new UsecaseCompositeDiagram(
+    protected replaceRelations(relations: Relation[]): UseCaseCompositeDiagram {
+        return new UseCaseCompositeDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -88,8 +88,8 @@ export default class UsecaseCompositeDiagram extends Diagram {
         );
     }
 
-    protected replacePlacement(placements: Placement[]): UsecaseCompositeDiagram {
-        return new UsecaseCompositeDiagram(
+    protected replacePlacement(placements: Placement[]): UseCaseCompositeDiagram {
+        return new UseCaseCompositeDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -101,8 +101,8 @@ export default class UsecaseCompositeDiagram extends Diagram {
         );
     }
 
-    public resize(width: number, height: number): UsecaseCompositeDiagram {
-        return new UsecaseCompositeDiagram(
+    public resize(width: number, height: number): UseCaseCompositeDiagram {
+        return new UseCaseCompositeDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -114,8 +114,8 @@ export default class UsecaseCompositeDiagram extends Diagram {
         );
     }
 
-    public cloneWith(newDiagramId: number, newName: string): UsecaseCompositeDiagram {
-        return new UsecaseCompositeDiagram(
+    public cloneWith(newDiagramId: number, newName: string): UseCaseCompositeDiagram {
+        return new UseCaseCompositeDiagram(
             newDiagramId,
             this.typeId,
             newName,
@@ -127,9 +127,9 @@ export default class UsecaseCompositeDiagram extends Diagram {
         );
     }
 
-    public removeResouceOf(resource: Resource): UsecaseCompositeDiagram {
+    public removeResouceOf(resource: Resource): UseCaseCompositeDiagram {
         const resourceId = resource.resourceId;
-        return new UsecaseCompositeDiagram(
+        return new UseCaseCompositeDiagram(
             this.id,
             this.typeId,
             this.name,
@@ -141,8 +141,8 @@ export default class UsecaseCompositeDiagram extends Diagram {
         );
     }
 
-    public static prototypeOf(newDiagramId: number, name: string): UsecaseCompositeDiagram {
-        return new UsecaseCompositeDiagram(
+    public static prototypeOf(newDiagramId: number, name: string): UseCaseCompositeDiagram {
+        return new UseCaseCompositeDiagram(
             newDiagramId,
             DiagramType.ユースケース複合図.id,
             name.trim(),
