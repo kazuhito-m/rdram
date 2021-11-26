@@ -21,7 +21,17 @@ import GenericMoveShapeEvents from "@/components/diagrams/editor/template/event/
 import GenericResizeShapeEvents from "@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents";
 
 import IconGenerator from "@/components/diagrams/icon/IconGenerator";
-import UseCaseForStateModelIconGenerator from "@/components/diagrams/editor/template/icon/UseCaseForStateModelIconGenerator";
+import ActorIconGenerator from "@/components/diagrams/editor/template/icon/ActorIconGenerator";
+import ActivityIconGenerator from "@/components/diagrams/editor/template/icon/ActivityIconGenerator";
+import UseCaseIconGenerator from "@/components/diagrams/editor/template/icon/UseCaseIconGenerator";
+import InformationIconGenerator from "@/components/diagrams/editor/template/icon/InformationIconGenerator";
+import ScreenIconGenerator from "@/components/diagrams/editor/template/icon/ScreenIconGenerator";
+import EventIconGenerator from "@/components/diagrams/editor/template/icon/EventIconGenerator";
+import VariationIconGenerator from "@/components/diagrams/editor/template/icon/VariationIconGenerator";
+import ConditionIconGenerator from "@/components/diagrams/editor/template/icon/ConditionIconGenerator";
+import TableTypeConditionIconGenerator from "@/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator";
+
+EventIconGenerator
 
 import Resource from "@/domain/resource/Resource";
 
@@ -50,7 +60,15 @@ export default class UsecaseCompositeDiagramEditor extends Vue {
   ]);
 
   private readonly iconGenerators: IconGenerator<Resource>[] = [
-    new UseCaseForStateModelIconGenerator(),
+    new ActorIconGenerator(),
+    new ActivityIconGenerator(),
+    new UseCaseIconGenerator(),
+    new InformationIconGenerator(),
+    new ScreenIconGenerator(),
+    new EventIconGenerator(),
+    new VariationIconGenerator(),
+    new ConditionIconGenerator(),
+    new TableTypeConditionIconGenerator()
   ];
 
   // Emits

@@ -48,6 +48,10 @@ export default class UsecaseCompositeDiagram extends Diagram {
 
         let width = 0;
         let height = 0;
+        if (ResourceType.ユースケース.equals(resource.type)) {
+            width = 105;
+            height = 35;
+        }
         return new Placement(
             left,
             top,
