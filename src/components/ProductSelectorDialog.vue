@@ -4,7 +4,9 @@
     :data-opend="onOpen()" 
   >
     <v-card>
-      <v-card-title class="headline">プロダクト選択</v-card-title>
+      <v-card-title class="headline">
+        <v-icon>mdi-account-switch-outline</v-icon> プロダクト切替え
+      </v-card-title>
       <v-card-text>編集対象となるプロダクトを選択してください。</v-card-text>
 
       <v-card-actions>

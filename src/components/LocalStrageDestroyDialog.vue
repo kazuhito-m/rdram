@@ -3,7 +3,9 @@
     v-model="visible"
   >
     <v-card>
-      <v-card-title class="headline">LocalStrageの破棄</v-card-title>
+      <v-card-title class="headline">
+        <v-icon>mdi-delete-forever</v-icon> LocalStrageの破棄
+      </v-card-title>
       <v-card-text>
         LocalStrageからデータ破棄します。<br>
         これは、<span class="red--text">全データの消去</span> や <span class="red--text">システムの初期化</span> と同様の操作です。<br>
