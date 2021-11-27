@@ -56,11 +56,16 @@ import MessageBox from "@/presentation/MessageBox";
 import Product from "@/domain/product/Product";
 import Products from "@/domain/product/Products";
 import StrageRepository from "@/domain/strage/StrageRepository";
+import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
+import DownloadFile from "@/domain/client/DownloadFile";
+import RdramExportFileName from "@/domain/client/RdramExportFileName";
 
 @Component
 export default class ProductSelectorDialog extends Vue {
   @Inject()
   private readonly repository?: StrageRepository;
+  @Inject()
+  private clientDownloadRepository!: ClientDownloadRepository;
 
   @Prop()
   private visibleProductSelectorDialog?: boolean;
@@ -115,7 +120,8 @@ export default class ProductSelectorDialog extends Vue {
   }
 
   public onClickExportProduct(): void {
-    alert("test, ちゃんと動いているのを確認。");
+    if (this.downloadProductExportFile()) return;
+    alert("プロダクトのエクスポートダウンロードファイルの作成に失敗しました。");
   }
 
   @Emit("onClose")
@@ -139,6 +145,19 @@ export default class ProductSelectorDialog extends Vue {
     this.repository?.register(changed);
     return true;
   }
+
+  private downloadProductExportFile(): boolean {
+    const product = this.selectedProduct;
+    if (!product) return true;
+    const productJson = this.repository?.getProductJsonTextOf(product.id);
+    if (!productJson) return false;
+
+    const fileName = new RdramExportFileName(`product_${product.name}`);
+    const file = new DownloadFile(fileName, fileName.contentType(), productJson);
+    this.clientDownloadRepository.register(file);
+    return true;
+  }
+
 }
 </script>
 

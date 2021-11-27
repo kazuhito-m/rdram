@@ -48,6 +48,13 @@ export default class StrageDatasource implements StrageRepository {
         return strage;
     }
 
+    public getProductJsonTextOf(productId: string): string | null {
+        const strage = this.get();
+        const product = strage?.products.of(productId); 
+        if (!product) return null;
+        return this.serializer.serialize(product);
+    }
+
     public register(strage: LocalStrage): void {
         const target = strage.renewTimeStamp();
 

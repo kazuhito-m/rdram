@@ -7,6 +7,7 @@ export default interface StrageRepository {
     destroy(): void;
     getJsonText(): string | null;
     get(): LocalStrage | null;
+    getProductJsonTextOf(productId: string): string | null;
     register(strage: LocalStrage): void;
     getCurrentProduct(): Product | null;
     registerCurrentProduct(product: Product): void;
