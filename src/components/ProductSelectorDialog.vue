@@ -22,6 +22,14 @@
       </v-card-actions>
 
       <v-card-actions>
+        <v-btn text
+          v-if="cancelable"
+          :disabled="!selectedProduct"
+          color="blue darken-1"
+          @click="onClickExportProduct"
+        >
+          選択中のものをエクスポート
+        </v-btn>
         <v-spacer></v-spacer>
         <v-btn text 
           v-if="cancelable"
@@ -106,6 +114,10 @@ export default class ProductSelectorDialog extends Vue {
       return;
     }
     location.reload();
+  }
+
+  public onClickExportProduct(): void {
+    alert("test, ちゃんと動いているのを確認。");
   }
 
   @Emit("onClose")
