@@ -46,7 +46,13 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
+    <v-navigation-drawer
+      v-model="rightDrawer"
+      :right="right"
+      temporary
+      fixed
+      width="280"
+    >
       <v-list>
 
         <v-list-item @click.native="right = !right">
@@ -61,6 +67,13 @@
             <v-icon>mdi-account-switch-outline</v-icon>
           </v-list-item-icon>
           <v-list-item-title>プロダクト切替え...</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item link @click="onClickImportProduct">
+          <v-list-item-icon>
+            <v-icon>mdi-account-switch-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>プロダクトのインポート...</v-list-item-title>
         </v-list-item>
 
         <v-list-item link @click="onClickDestryLocalStrage">
@@ -103,6 +116,11 @@
       @onClose="onCloseChangeProduct"
     />
 
+    <ProducntImportDialog
+      :visible="visibleProducntImportDialog"
+      @onClose="onCloseProducntImportDialog"
+    />
+
     <LocalStrageInitializeDialog
       :visible="visibleApplicationInitializationDialog"
       @onClose="onCloseApplicationInitializationDialog"
@@ -123,12 +141,14 @@ import StrageDatasource from '@/infrastructure/strage/StrageDatasource'
 import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import ClientDownloadTransfar from '@/infrastructure/client/ClientDownloadTransfar'
 import ProductSelectorDialog from '@/components/ProductSelectorDialog.vue'
+import ProducntImportDialog from  '@/components/ProducntImportDialog.vue'
 import LocalStrageInitializeDialog from '@/components/LocalStrageInitializeDialog.vue'
 import LocalStrageDestroyDialog from '@/components/LocalStrageDestroyDialog.vue'
 
 @Component({
   components: {
     ProductSelectorDialog,
+    ProducntImportDialog,
     LocalStrageInitializeDialog,
     LocalStrageDestroyDialog,
   },
@@ -182,6 +202,8 @@ export default class extends Vue {
   private visibleProductSelector = false;
   private productSelectorCancelable = false;
 
+  private visibleProducntImportDialog = false;
+
   private visibleLocalStrageDestroyDialog = false;
 
   public created() {
@@ -233,6 +255,15 @@ export default class extends Vue {
 
   private onCloseChangeProduct(): void {
     this.visibleProductSelector = false;
+  }
+
+  private onClickImportProduct(): void {
+    this.visibleProducntImportDialog = true;
+    this.rightDrawer = false;
+  }
+
+  private onCloseProducntImportDialog(): void {
+    this.visibleProducntImportDialog = false;
   }
 
   private onClickDestryLocalStrage(): void {
