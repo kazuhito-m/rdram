@@ -4122,12 +4122,12 @@ installComponents_default()(component, {VBtn: VBtn["a" /* default */],VCard: VCa
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LocalStrageDestroyDialog.vue?vue&type=template&id=920dcdfe&scoped=true&lang=html&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"persistent":"","max-width":"500"},model:{value:(_vm.visible),callback:function ($$v) {_vm.visible=$$v},expression:"visible"}},[_c('v-card',[_c('v-card-title',{staticClass:"headline"},[_c('v-icon',[_vm._v("mdi-delete-forever")]),_vm._v(" LocalStrageの破棄\n    ")],1),_vm._v(" "),_c('v-card-text',[_vm._v("\n      LocalStrageからデータ破棄します。"),_c('br'),_vm._v("\n      これは、"),_c('span',{staticClass:"red--text"},[_vm._v("全データの消去")]),_vm._v(" や "),_c('span',{staticClass:"red--text"},[_vm._v("システムの初期化")]),_vm._v(" と同様の操作です。"),_c('br'),_vm._v("\n      なお、安全措置として「実行」をクリックした際、LocalStrageの内容のファイルが自動的にダウンロードされます。"),_c('br'),_vm._v("\n      LocalStrageを破棄してよろしいですか。\n    ")]),_vm._v(" "),_c('v-card-text',[_c('v-checkbox',{attrs:{"label":"上記内容に同意する。"},model:{value:(_vm.consent),callback:function ($$v) {_vm.consent=$$v},expression:"consent"}})],1),_vm._v(" "),_c('v-card-actions',[_c('v-spacer'),_vm._v(" "),_c('v-btn',{attrs:{"text":"","color":"normal"},on:{"click":_vm.onClose}},[_vm._v("\n        キャンセル\n      ")]),_vm._v(" "),_c('v-btn',{attrs:{"text":"","disabled":!_vm.consent,"color":"green darken-1"},on:{"click":_vm.onClickDestroyExecute}},[_vm._v("\n          実行\n        ")])],1)],1)],1)}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LocalStrageDestroyDialog.vue?vue&type=template&id=2dc7f0f2&scoped=true&lang=html&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"persistent":"","max-width":"500"},model:{value:(_vm.visible),callback:function ($$v) {_vm.visible=$$v},expression:"visible"}},[_c('v-card',[_c('v-card-title',{staticClass:"headline"},[_c('v-icon',[_vm._v("mdi-delete-forever")]),_vm._v(" LocalStrageの破棄\n    ")],1),_vm._v(" "),_c('v-card-text',[_vm._v("\n      LocalStrageからデータ破棄します。"),_c('br'),_vm._v("\n      これは、"),_c('span',{staticClass:"red--text"},[_vm._v("全データの消去")]),_vm._v(" や "),_c('span',{staticClass:"red--text"},[_vm._v("システムの初期化")]),_vm._v(" と同様の操作です。"),_c('br'),_vm._v("\n      なお、安全措置として「実行」をクリックした際、LocalStrageの内容のファイルが自動的にダウンロードされます。"),_c('br'),_vm._v("\n      LocalStrageを破棄してよろしいですか。\n    ")]),_vm._v(" "),_c('v-card-text',[_c('v-checkbox',{attrs:{"label":"上記内容に同意する。"},model:{value:(_vm.consent),callback:function ($$v) {_vm.consent=$$v},expression:"consent"}})],1),_vm._v(" "),_c('v-card-actions',[_c('v-btn',{attrs:{"text":"","color":"blue darken-1"},on:{"click":_vm.onClickExportLocalStrage}},[_vm._v("\n        LocalStrageをエクスポート\n      ")]),_vm._v(" "),_c('v-spacer'),_vm._v(" "),_c('v-btn',{attrs:{"text":"","color":"normal"},on:{"click":_vm.onClose}},[_vm._v("\n        キャンセル\n      ")]),_vm._v(" "),_c('v-btn',{attrs:{"text":"","disabled":!_vm.consent,"color":"green darken-1"},on:{"click":_vm.onClickDestroyExecute}},[_vm._v("\n          実行\n        ")])],1)],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LocalStrageDestroyDialog.vue?vue&type=template&id=920dcdfe&scoped=true&lang=html&
+// CONCATENATED MODULE: ./src/components/LocalStrageDestroyDialog.vue?vue&type=template&id=2dc7f0f2&scoped=true&lang=html&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(29);
@@ -4225,6 +4225,12 @@ var LocalStrageDestroyDialogvue_type_script_lang_ts_LocalStrageDestroyDialog = /
       location.reload();
     }
   }, {
+    key: "onClickExportLocalStrage",
+    value: function onClickExportLocalStrage() {
+      if (this.downloadNowLocalStrageDateFile()) return;
+      alert("ダウンロードファイルの作成に失敗しました。");
+    }
+  }, {
     key: "downloadNowLocalStrageDateFile",
     value: function downloadNowLocalStrageDateFile() {
       var _a;
@@ -4295,7 +4301,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   null,
-  "920dcdfe",
+  "2dc7f0f2",
   null
   
 )
