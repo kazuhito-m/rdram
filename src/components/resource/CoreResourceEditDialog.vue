@@ -51,18 +51,13 @@ import {
   Component,
   Vue,
   Prop,
-  Inject,
   Emit,
   Watch
 } from "nuxt-property-decorator";
 import PropertiesSettingDialog from "@/components/PropertiesSettingDialog.vue";
-import StrageRepository from "@/domain/strage/StrageRepository";
-import Product from "@/domain/product/Product";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
-import Purpose from "@/domain/resource/Purpose";
 import Resources from "@/domain/resource/Resources";
-import HasContentResource from "@/domain/resource/HasContentResource";
 
 @Component({
   components: { PropertiesSettingDialog }
