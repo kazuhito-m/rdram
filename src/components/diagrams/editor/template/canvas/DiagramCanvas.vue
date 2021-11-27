@@ -51,8 +51,6 @@ import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
 import draw2d, { Figure, command, Connection, Port } from "draw2d";
 
-import moment from "moment/moment";
-
 import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
 import CanvasGuideType from "@/components/diagrams/editor/toolbar/CanvasGuideType";
 import RouterTypeDraw2dConverter from "@/components/diagrams/editor/template/RouterTypeDraw2dConverter";
@@ -68,6 +66,8 @@ import Relation from "@/domain/relation/Relation";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import Placement from "@/domain/diagram/placement/Placement";
 import DownloadFile from "@/domain/client/DownloadFile";
+import DownloadFileName from "@/domain/client/DownloadFileName";
+import RdramDownloadFileName from "@/domain/client/RdramDownloadFileName";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 
 import CoreResourceEditDialog from "@/components/resource/CoreResourceEditDialog.vue";
@@ -568,11 +568,9 @@ export default class DiagramCanvas extends Vue {
     return confirm(message);
   }
 
-  private makeDownloadFileName(diagram: Diagram, extension: string): string {
-    const namePart = diagram.name.replace(" ", "-").replace("　", "＿");
-    const ymdhms = moment().format("YYYYMMDDHHmmss");
-    const fileName = `rdram-${diagram.id}-${namePart}-${ymdhms}.${extension}`;
-    return fileName;
+  private makeDownloadFileName(diagram: Diagram, extension: string): DownloadFileName {
+    const namePart = `${diagram.id}-${diagram.name}`;
+    return new RdramDownloadFileName(namePart, extension);
   }
 
   private includeWebFont(svgContents: string): string {
