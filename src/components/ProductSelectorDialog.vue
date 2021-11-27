@@ -81,12 +81,8 @@ export default class ProductSelectorDialog extends Vue {
     const strage = this.repository?.get();
     if (!strage) return "";
 
-    if (!this.products) {
-      this.products = strage.products;
-    }
-    if (!this.selectedProduct) {
-      this.selectedProduct = strage.currentProduct();
-    }
+    if (!this.products) this.products = strage.products;
+    if (!this.selectedProduct) this.selectedProduct = strage.currentProduct();
     return "";
   }
 
@@ -157,7 +153,6 @@ export default class ProductSelectorDialog extends Vue {
     this.clientDownloadRepository.register(file);
     return true;
   }
-
 }
 </script>
 
