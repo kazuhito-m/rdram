@@ -71,7 +71,7 @@
 
         <v-list-item link @click="onClickImportProduct">
           <v-list-item-icon>
-            <v-icon>mdi-account-switch-outline</v-icon>
+            <v-icon>mdi-import</v-icon>
           </v-list-item-icon>
           <v-list-item-title>プロダクトのインポート...</v-list-item-title>
         </v-list-item>

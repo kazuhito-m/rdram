@@ -5,7 +5,7 @@
   >
     <v-card>
       <v-card-title class="headline">
-        <v-icon>mdi-account-switch-outline</v-icon> プロダクトのインポート
+        <v-icon>mdi-import</v-icon> プロダクトのインポート
       </v-card-title>
       <v-card-text>インポートする対象のファイルを指定してください。</v-card-text>
 
