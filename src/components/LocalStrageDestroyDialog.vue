@@ -41,10 +41,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
-import moment from "moment/moment";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import DownloadFile from "@/domain/client/DownloadFile";
+import RdramExportFileName from "@/domain/client/RdramExportFileName";
 
 @Component
 export default class LocalStrageDestroyDialog extends Vue {
@@ -75,12 +75,10 @@ export default class LocalStrageDestroyDialog extends Vue {
   private downloadNowLocalStrageDateFile(): boolean {
     const json = this.repository?.getJsonText();
     if (!json) return false;
-    const ymdhms = moment().format("YYYYMMDDHHmmss");
-    const fileName = `rdram_backup_${ymdhms}.json`;
 
-    const file = new DownloadFile(fileName, "text/json", json);
+    const fileName = new RdramExportFileName("localstrage_backup");
+    const file = new DownloadFile(fileName, fileName.contentType(), json);
     this.clientDownloadRepository.register(file);
-
     return true;
   }
 }
