@@ -55,8 +55,6 @@ import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
 import MessageBox from "@/presentation/MessageBox";
 import Product from "@/domain/product/Product";
 import Products from "@/domain/product/Products";
-import ProductIdentifier from "@/domain/product/ProductIdentifier";
-import LocalStrage from "@/domain/strage/LocalStrage";
 import StrageRepository from "@/domain/strage/StrageRepository";
 
 @Component
