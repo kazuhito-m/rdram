@@ -148,7 +148,7 @@ export default class ProductSelectorDialog extends Vue {
     const productJson = this.repository?.getProductJsonTextOf(product.id);
     if (!productJson) return false;
 
-    const fileName = new RdramExportFileName(`product_${product.name}`);
+    const fileName = new RdramExportFileName(`product-${product.name}`);
     const file = new DownloadFile(fileName, fileName.contentType(), productJson);
     this.clientDownloadRepository.register(file);
     return true;

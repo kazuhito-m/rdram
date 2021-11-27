@@ -1,12 +1,8 @@
-import moment from "moment/moment";
-import DownloadFileName from "./DownloadFileName";
+import RdramDownloadFileName from "./RdramDownloadFileName";
 
-export default class RdramExportFileName implements DownloadFileName {
-    constructor(public readonly name: string) { }
-
-    public toString(): string {
-        const ymdhms = moment().format("YYYYMMDDHHmmss");
-        return `rdram_${this.name}_${ymdhms}.json`;
+export default class RdramExportFileName extends RdramDownloadFileName {
+    constructor(name: string) {
+        super(name, "json");
     }
 
     public contentType(): string {

@@ -76,7 +76,7 @@ export default class LocalStrageDestroyDialog extends Vue {
     const json = this.repository?.getJsonText();
     if (!json) return false;
 
-    const fileName = new RdramExportFileName("localstrage_backup");
+    const fileName = new RdramExportFileName("localstrage-backup");
     const file = new DownloadFile(fileName, fileName.contentType(), json);
     this.clientDownloadRepository.register(file);
     return true;
