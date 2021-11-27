@@ -39,7 +39,9 @@ export default class UseCaseCompositeDiagram extends Diagram {
             ResourceType.イベント,
             ResourceType.バリエーション,
             ResourceType.条件,
-            ResourceType.表形式の条件
+            ResourceType.表形式の条件,
+            ResourceType.外部システム,
+            ResourceType.住宅
         ];
     }
 

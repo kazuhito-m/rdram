@@ -30,8 +30,8 @@ import EventIconGenerator from "@/components/diagrams/editor/template/icon/Event
 import VariationIconGenerator from "@/components/diagrams/editor/template/icon/VariationIconGenerator";
 import ConditionIconGenerator from "@/components/diagrams/editor/template/icon/ConditionIconGenerator";
 import TableTypeConditionIconGenerator from "@/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator";
-
-EventIconGenerator
+import OutsideSystemIconGenerator from "@/components/diagrams/editor/template/icon/OutsideSystemIconGenerator";
+import FacilityIconGenerator from "@/components/diagrams/editor/template/icon/FacilityIconGenerator";
 
 import Resource from "@/domain/resource/Resource";
 
@@ -68,7 +68,9 @@ export default class UseCaseCompositeDiagramEditor extends Vue {
     new EventIconGenerator(),
     new VariationIconGenerator(),
     new ConditionIconGenerator(),
-    new TableTypeConditionIconGenerator()
+    new TableTypeConditionIconGenerator(),
+    new OutsideSystemIconGenerator(),
+    new FacilityIconGenerator()
   ];
 
   // Emits
