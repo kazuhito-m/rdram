@@ -19,6 +19,13 @@
       ></v-checkbox>
       </v-card-text>
       <v-card-actions>
+        <v-btn text
+          color="blue darken-1"
+          @click="onClickExportLocalStrage"
+        >
+          LocalStrageをエクスポート
+        </v-btn>
+
         <v-spacer></v-spacer>
 
         <v-btn text 
@@ -70,6 +77,11 @@ export default class LocalStrageDestroyDialog extends Vue {
     }
     this.repository?.destroy();
     location.reload();
+  }
+
+  private onClickExportLocalStrage(): void {
+    if (this.downloadNowLocalStrageDateFile()) return;
+    alert("ダウンロードファイルの作成に失敗しました。");
   }
 
   private downloadNowLocalStrageDateFile(): boolean {
