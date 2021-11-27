@@ -6,7 +6,7 @@ import ResourceType from '@/domain/resource/ResourceType';
 import IconFontAndChar from '../../../icon/IconFontAndChar';
 import IconStatus from '../../../icon/IconStatus';
 
-export default class SystemIconGenerator implements IconGenerator<Resource> {
+export default class SystemForSystemContextIconGenerator implements IconGenerator<Resource> {
     public resourceType(): ResourceType {
         return ResourceType.システム;
     }
