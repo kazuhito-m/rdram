@@ -145,10 +145,11 @@ export default class ProducntImportDialog extends Vue {
   private onClickImportProduct(): void {
     this.changeEnableProgressArea(true);
     this.doImport();
-    this.changeEnableProgressArea(false);
+    // this.changeEnableProgressArea(false);
   }
 
   private changeEnableProgressArea(enable: boolean) {
+    console.log("changeEnableProgressArea()が呼ばれました。" + enable);
     if (enable) this.clearProgressArea();
     this.progressEnable = enable;
   }
@@ -173,21 +174,21 @@ export default class ProducntImportDialog extends Vue {
     this.clearProgressArea();
   }
 
-  private doImport(): void {
+  private async doImport(): Promise<void> {
     let count = 0;
-    const countUp = () =>{
+    const intervalId = setInterval(() =>{
       const e1 = new ImportProgressEvent(count * 10 , "インポート開始 " + count);
       this.noticeProgress(e1);
       count++;
-    }
-    const intervalId = setInterval(() =>{
-      countUp();
+
       if(count > 10){　
         clearInterval(intervalId);　//intervalIdをclearIntervalで指定している      
         const e2 = new ImportProgressEvent(100, "終了。");
         this.noticeProgress(e2);
+
+        this.changeEnableProgressArea(false);
       }
-    }, 1000);
+    }, 300);
   }
 
   private noticeProgress(event: ImportProgressEvent): void {
