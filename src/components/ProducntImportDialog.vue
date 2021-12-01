@@ -12,6 +12,7 @@
       <v-card-actions>
         <v-file-input
           v-model="selectedFile"
+          :disabled="progressEnable"
           :rules="[preValidate]"
           @update:error="onChangeErrorState"
           accept="application/json"
@@ -22,9 +23,39 @@
       </v-card-actions>
 
       <v-card-actions>
+        <v-container fluid>
+          <v-row>
+            <v-col>
+              <v-progress-linear 
+                v-model="progressPercentage"
+                value="15"
+                :disabled="!progressEnable"
+              >
+              </v-progress-linear>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-textarea
+                v-model="progressLogs"
+                :disabled="!progressEnable"
+                @input="onChangeProgressLogs"
+                ref="progressLogsTextarea"
+                label="インポート状況"
+                readonly
+                outlined
+                no-resize
+              ></v-textarea>        
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card-actions>
+
+      <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text
           color="normal"
+          :disabled="progressEnable"
           @click="onClose"
         >
           キャンセル
@@ -42,7 +73,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
+import { Component, Prop, Vue, Emit, Inject, Watch } from "vue-property-decorator";
+import ImportProgressEvent from "@/domain/product/import/ImportProgressEvent";
 
 @Component
 export default class ProducntImportDialog extends Vue {
@@ -52,12 +84,30 @@ export default class ProducntImportDialog extends Vue {
   private selectedFile: File | null = null;
   private preValidateError: boolean = false;
 
+  private progressEnable: boolean = false;
+  private progressPercentage: number = 0;
+  private progressLogs: string = " ";
+
+  @Watch('progressLogs')
+  private onChangeProgressLogs() {
+    const ta =  this.progressLogsTextarea;
+    ta.value = this.progressLogs;  // FIXME ライフサイクルを無視してHTMLElementに二重で設定してるのでやめたい。
+    ta.scrollTop = ta.scrollHeight;
+  }
+
+  private get progressLogsTextarea(): HTMLTextAreaElement {
+    const vuePart = this.$refs.progressLogsTextarea as Vue;
+    return vuePart.$el.querySelector('textarea') as HTMLTextAreaElement;
+  }
+
   private onOpen(): string {
     if (!this.visible) return "";
     return "";
   }
 
   private preValidate(file: File): string | boolean {
+    this.clearProgressArea();
+
     const MAX_MB = 100 * 1024 * 1024;
     const NAME_PATTERN = /^rdram-product-.*\.json$/;
 
@@ -93,7 +143,19 @@ export default class ProducntImportDialog extends Vue {
   }
 
   private onClickImportProduct(): void {
-    alert("TODO インポート実行するところ。");
+    this.changeEnableProgressArea(true);
+    this.doImport();
+    this.changeEnableProgressArea(false);
+  }
+
+  private changeEnableProgressArea(enable: boolean) {
+    if (enable) this.clearProgressArea();
+    this.progressEnable = enable;
+  }
+
+  private clearProgressArea(): void {
+    this.progressPercentage = 0;
+    this.progressLogs = " ";    
   }
 
   private onChangeErrorState(error: boolean): void {
@@ -101,13 +163,41 @@ export default class ProducntImportDialog extends Vue {
   }
 
   private notImportable(): boolean {
-    return this.preValidateError || !this.selectedFile;
+    return this.preValidateError || !this.selectedFile || this.progressEnable;
   }
 
   @Emit("onClose")
   public onClose(): void {
     this.selectedFile = null;
     this.preValidateError = false;
+    this.clearProgressArea();
+  }
+
+  private doImport(): void {
+    let count = 0;
+    const countUp = () =>{
+      const e1 = new ImportProgressEvent(count * 10 , "インポート開始 " + count);
+      this.noticeProgress(e1);
+      count++;
+    }
+    const intervalId = setInterval(() =>{
+      countUp();
+      if(count > 10){　
+        clearInterval(intervalId);　//intervalIdをclearIntervalで指定している      
+        const e2 = new ImportProgressEvent(100, "終了。");
+        this.noticeProgress(e2);
+      }
+    }, 1000);
+  }
+
+  private noticeProgress(event: ImportProgressEvent): void {
+    this.progressPercentage = event.percentage;
+
+    if (event.message.length === 0) return;
+    
+    if (this.progressLogs.trim().length === 0) this.progressLogs = "";
+    else this.progressLogs+="\n";
+    this.progressLogs+=event.message;
   }
 }
 </script>
