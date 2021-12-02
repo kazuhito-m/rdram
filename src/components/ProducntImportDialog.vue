@@ -114,16 +114,20 @@ export default class ProducntImportDialog extends Vue {
 
   private preValidate(file: File): string | boolean {
     this.clearProgressArea();
+    const result = this.validateOf(file);
+    return result.length === 0 ? true : result;
+  }
 
+  private validateOf(file: File): string {
     const MAX_MB = 100 * 1024 * 1024;
     const NAME_PATTERN = /^rdram-product-.*\.json$/;
 
-    if (!file) return true;
+    if (!file) return "";
     if (!NAME_PATTERN.test(file.name)) return "RDRAMシステムからエクスポートされたものではないファイル名です。";
     if (file.size > MAX_MB) return "ファイルが大きすぎます。";
-    if (!this.isJsonFile(file)) return "ファイル形式がRDRAMシステムのプロダクトエクスポートファイルではありません。"
+    if (!this.isJsonFile(file)) return "ファイル形式がRDRAMシステムのプロダクトエクスポートファイルではありません。";
 
-    return true;
+    return "";
   }
 
   private async isJsonFile(file: File) {
@@ -196,9 +200,9 @@ export default class ProducntImportDialog extends Vue {
 
     this.stepUpProgress("ファイルの読み込み。");
 
-    const preResult = this.preValidate(file);
-    if (preResult !== true) {
-      this.stepUpProgress(preResult as string);
+    const result = this.validateOf(file);
+    if (result.length > 0) {
+      this.stepUpProgress(result);
       this.errorEndProgress(`インポートが失敗しました。ファイル:${file.name}`);
       return;
     }
@@ -253,12 +257,14 @@ export default class ProducntImportDialog extends Vue {
 
   private noticeProgress(event: ImportProgressEvent): void {
     this.progressPercentage = event.percentage;
+    this.$nextTick(() => console.log(`UIが変更されたはず。%:${event.percentage}, message:${event.message}`));
 
     if (event.message.length === 0) return;
     
     if (this.progressLogs.trim().length === 0) this.progressLogs = "";
     else this.progressLogs+="\n";
     this.progressLogs+=event.message;
+    this.$nextTick(() => console.log(`UIが変更されたはず。%:${event.percentage}, message:${event.message}`));
   }
 }
 </script>
