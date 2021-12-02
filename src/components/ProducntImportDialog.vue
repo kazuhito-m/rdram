@@ -75,9 +75,16 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject, Watch } from "vue-property-decorator";
 import ImportProgressEvent from "@/domain/product/import/ImportProgressEvent";
+import Product from "@/domain/product/Product";
+import StrageRepository from "@/domain/strage/StrageRepository";
+import LocalStrage from "@/domain/strage/LocalStrage";
+import StrageDatasource from "~/infrastructure/strage/StrageDatasource";
 
 @Component
 export default class ProducntImportDialog extends Vue {
+  @Inject()
+  private readonly repository?: StrageRepository;
+
   @Prop()
   private visible?: boolean;
 
@@ -121,13 +128,18 @@ export default class ProducntImportDialog extends Vue {
 
   private async isJsonFile(file: File) {
     try {
-      const text = await this.readFile(file);
-      if (!text) return false;
-      JSON.parse(text as string);
+      const json = await this.parseJson<Product>(file);
+      if (!json) return false;
       return true;
     } catch (e) {
       return false;
     }
+  }
+
+  private async parseJson<T>(file: File): Promise<T | null> {
+      const text = await this.readFile(file);
+      if (!text) return null;
+      return JSON.parse(text as string) as T;
   }
 
   private readFile(file: File): Promise<string | ArrayBuffer | null> {
@@ -142,10 +154,10 @@ export default class ProducntImportDialog extends Vue {
     });
   }
 
-  private onClickImportProduct(): void {
+  private async onClickImportProduct(): Promise<void> {
     this.changeEnableProgressArea(true);
-    this.doImport();
-    // this.changeEnableProgressArea(false);
+    await this.doImport();
+    this.changeEnableProgressArea(false);
   }
 
   private changeEnableProgressArea(enable: boolean) {
@@ -174,21 +186,69 @@ export default class ProducntImportDialog extends Vue {
     this.clearProgressArea();
   }
 
+  private static readonly PROGRESS_END_STEP = 6;
+
   private async doImport(): Promise<void> {
-    let count = 0;
-    const intervalId = setInterval(() =>{
-      const e1 = new ImportProgressEvent(count * 10 , "インポート開始 " + count);
-      this.noticeProgress(e1);
-      count++;
+    const repository = this.repository as StrageRepository;
+    const file = this.selectedFile as File;
 
-      if(count > 10){　
-        clearInterval(intervalId);　//intervalIdをclearIntervalで指定している      
-        const e2 = new ImportProgressEvent(100, "終了。");
-        this.noticeProgress(e2);
+    this.stepUpProgress(`インポートを開始します。ファイル:${file.name}`);
 
-        this.changeEnableProgressArea(false);
+    this.stepUpProgress("ファイルの読み込み。");
+
+    const preResult = this.preValidate(file);
+    if (preResult !== true) {
+      this.stepUpProgress(preResult as string);
+      this.errorEndProgress(`インポートが失敗しました。ファイル:${file.name}`);
+      return;
+    }
+
+    const jsonText = await this.readFile(file) as string;
+    let product = repository.createProductByJsonOf(jsonText);
+
+    this.stepUpProgress("ファイル内容・形式のチェック。");
+
+    if (product.name.trim().length === 0) {
+      this.stepUpProgress("形式が不正です。プロダクト名が設定されていません。");
+      this.errorEndProgress(`インポートが失敗しました。ファイル:${file.name}`);
+    }
+
+    const strage = repository.get() as LocalStrage;
+
+    if (strage.existsProductNameOf(product.name)) {
+      let message = "既に同一の名前のプロダクトが存在します。名前を変えてインポートしますか？\n\n";
+      message+="名前を変更する場合は入力して下さい。\n";
+      message+="変更がなければ既存のプロダクトを上書きして保存します。"
+      const newName = prompt(message , product.name);
+
+      if (newName === null) {
+        this.errorEndProgress(`インポートがキャンセルされました。ファイル:${file.name}`);
+        return;
       }
-    }, 300);
+
+      product = product.renameOf(newName.trim());
+    }
+
+    this.stepUpProgress("プロダクトの追加・置き換え。");
+
+    const updatedStrage = strage.mergeByProductName(product);
+
+    this.stepUpProgress("LocalStrageへの保存。");
+
+    repository.register(updatedStrage);
+
+    this.stepUpProgress(`インポートが成功しました。\n  ファイル: "${file.name}"\n  プロダクト名: "${product.name}"`);
+}
+
+  private stepUpProgress(message: string) {
+    const percentage = this.progressPercentage + 100 / ProducntImportDialog.PROGRESS_END_STEP;
+    const event = new ImportProgressEvent(percentage, message);
+    this.noticeProgress(event);
+  }
+
+  private errorEndProgress(message: string) {
+    const event = new ImportProgressEvent(0, message);
+    this.noticeProgress(event);
   }
 
   private noticeProgress(event: ImportProgressEvent): void {

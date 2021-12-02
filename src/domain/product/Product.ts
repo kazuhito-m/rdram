@@ -150,6 +150,30 @@ export default class Product {
         );
     }
 
+    public replaceId(newProductId: string): Product {
+        return new Product(
+            this.updateAt,
+            newProductId,
+            this.name,
+            this.userSettings,
+            this.diagrams,
+            this.resources,
+            this.resourceIdSequence,
+        );
+    }
+
+    public renameOf(newName: string): Product {
+        return new Product(
+            new Date(),
+            this.id,
+            newName,
+            this.userSettings,
+            this.diagrams,
+            this.resources,
+            this.resourceIdSequence,
+        );
+    }
+
     public createAndAddResource(): Product {
         const factory = new ResourceFactory();
         const addedResources = this.resources

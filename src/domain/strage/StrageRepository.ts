@@ -13,4 +13,5 @@ export default interface StrageRepository {
     registerCurrentProduct(product: Product): void;
     clear(): void;
     generateResourceId(): number;
+    createProductByJsonOf(jsonText: string): Product;
 }

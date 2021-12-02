@@ -33,6 +33,15 @@ export default class Products {
         return new Products(newValues);
     }
 
+    public mergeByProductName(product: Product): Products {
+        const sameNameProduct = this.values
+            .find(p => p.name === product.name);
+        const targetProduct = sameNameProduct
+            ? product.replaceId(sameNameProduct.id)
+            : product;
+        return this.merge(targetProduct);
+    }
+
     public forEach(func: (product: Product) => void) {
         this.values.forEach(func);
     }

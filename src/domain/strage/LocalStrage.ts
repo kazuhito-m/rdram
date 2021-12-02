@@ -38,12 +38,15 @@ export default class LocalStrage {
     }
 
     public merge(product: Product): LocalStrage {
-        return new LocalStrage(
-            this.updateAt,
-            this.status,
-            this.products.merge(product),
-        );
+        const newProducts = this.products.merge(product);
+        return this.with(newProducts);
     }
+
+    public mergeByProductName(product: Product) {
+        const newProducts = this.products.mergeByProductName(product);
+        return this.with(newProducts);
+    }
+
 
     public changeCurrent(product: Product): LocalStrage {
         return new LocalStrage(
@@ -59,5 +62,9 @@ export default class LocalStrage {
             this.status,
             mearged,
         );
+    }
+
+    public existsProductNameOf(name: string): boolean {
+        return this.products.existsSomeName(name);
     }
 }

@@ -50,7 +50,7 @@ export default class StrageDatasource implements StrageRepository {
 
     public getProductJsonTextOf(productId: string): string | null {
         const strage = this.get();
-        const product = strage?.products.of(productId); 
+        const product = strage?.products.of(productId);
         if (!product) return null;
         return this.serializer.serialize(product);
     }
@@ -97,5 +97,10 @@ export default class StrageDatasource implements StrageRepository {
         const updated = product.moveNextResourceIdSequence();
         this.registerCurrentProduct(updated);
         return updated.resourceIdSequence;
+    }
+
+    public createProductByJsonOf(jsonText: string): Product {
+        return this.serializer
+            .deserialize(jsonText) as Product;
     }
 }
