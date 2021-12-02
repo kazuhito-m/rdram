@@ -25,21 +25,25 @@ export default class Products {
         const newValues = Array.from(this.values);
         const index = newValues
             .findIndex(p => p.id === product.id);
-        if (index < 0) {
+        if (index < 0)
             newValues.push(product);
-        } else {
+        else
             newValues[index] = product;
-        }
+
         return new Products(newValues);
     }
 
     public mergeByProductName(product: Product): Products {
         const sameNameProduct = this.values
             .find(p => p.name === product.name);
-        const targetProduct = sameNameProduct
-            ? product.replaceId(sameNameProduct.id)
-            : product;
-        return this.merge(targetProduct);
+
+        let mergeProduct = product;
+        if (sameNameProduct)
+            mergeProduct = product.replaceId(sameNameProduct.id);
+        else if (this.of(product.id))
+            mergeProduct = product.renewId();
+
+        return this.merge(mergeProduct);
     }
 
     public forEach(func: (product: Product) => void) {

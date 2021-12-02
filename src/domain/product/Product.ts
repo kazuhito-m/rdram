@@ -162,6 +162,11 @@ export default class Product {
         );
     }
 
+    public renewId(): Product {
+        const newId = ProductIdentifier.ganerate().toString();
+        return this.replaceId(newId);
+    }
+
     public renameOf(newName: string): Product {
         return new Product(
             new Date(),
