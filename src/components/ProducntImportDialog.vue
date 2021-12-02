@@ -244,13 +244,13 @@ export default class ProducntImportDialog extends Vue {
     this.stepUpProgress(`インポートが成功しました。\n  ファイル: "${file.name}"\n  プロダクト名: "${product.name}"`);
 }
 
-  private stepUpProgress(message: string) {
+  private stepUpProgress(message: string): void {
     const percentage = this.progressPercentage + 100 / ProducntImportDialog.PROGRESS_END_STEP;
     const event = new ImportProgressEvent(percentage, message);
     this.noticeProgress(event);
   }
 
-  private errorEndProgress(message: string) {
+  private errorEndProgress(message: string): void {
     const event = new ImportProgressEvent(0, message);
     this.noticeProgress(event);
   }
