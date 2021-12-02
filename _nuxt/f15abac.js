@@ -3703,12 +3703,12 @@ var Diagrams_Diagrams = /*#__PURE__*/function () {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ProducntImportDialog.vue?vue&type=template&id=e60dede6&scoped=true&lang=html&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ProducntImportDialog.vue?vue&type=template&id=593a2fb4&scoped=true&lang=html&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"persistent":"","max-width":"600","data-opend":_vm.onOpen()},model:{value:(_vm.visible),callback:function ($$v) {_vm.visible=$$v},expression:"visible"}},[_c('v-card',[_c('v-card-title',{staticClass:"headline"},[_c('v-icon',[_vm._v("mdi-import")]),_vm._v(" プロダクトのインポート\n    ")],1),_vm._v(" "),_c('v-card-text',[_vm._v("インポートする対象のファイルを指定してください。")]),_vm._v(" "),_c('v-card-actions',[_c('v-file-input',{attrs:{"disabled":_vm.progressEnable,"rules":[_vm.preValidate],"accept":"application/json","label":"RDRAM product exported file (json)","truncate-length":"50"},on:{"update:error":_vm.onChangeErrorState},model:{value:(_vm.selectedFile),callback:function ($$v) {_vm.selectedFile=$$v},expression:"selectedFile"}})],1),_vm._v(" "),_c('v-card-actions',[_c('v-container',{attrs:{"fluid":""}},[_c('v-row',[_c('v-col',[_c('v-progress-linear',{attrs:{"value":"15","disabled":!_vm.progressEnable},model:{value:(_vm.progressPercentage),callback:function ($$v) {_vm.progressPercentage=$$v},expression:"progressPercentage"}})],1)],1),_vm._v(" "),_c('v-row',[_c('v-col',[_c('v-textarea',{ref:"progressLogsTextarea",attrs:{"disabled":!_vm.progressEnable,"label":"インポート状況","readonly":"","outlined":"","no-resize":""},on:{"input":_vm.onChangeProgressLogs},model:{value:(_vm.progressLogs),callback:function ($$v) {_vm.progressLogs=$$v},expression:"progressLogs"}})],1)],1)],1)],1),_vm._v(" "),_c('v-card-actions',[_c('v-spacer'),_vm._v(" "),_c('v-btn',{attrs:{"text":"","color":"normal","disabled":_vm.progressEnable},on:{"click":_vm.onClose}},[_vm._v("\n        キャンセル\n      ")]),_vm._v(" "),_c('v-btn',{attrs:{"text":"","color":"green darken-1","disabled":_vm.notImportable()},on:{"click":_vm.onClickImportProduct}},[_vm._v("\n        実行\n      ")])],1)],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/ProducntImportDialog.vue?vue&type=template&id=e60dede6&scoped=true&lang=html&
+// CONCATENATED MODULE: ./src/components/ProducntImportDialog.vue?vue&type=template&id=593a2fb4&scoped=true&lang=html&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(28);
@@ -3844,13 +3844,19 @@ var ProducntImportDialogvue_type_script_lang_ts_ProducntImportDialog = ProducntI
     key: "preValidate",
     value: function preValidate(file) {
       this.clearProgressArea();
+      var result = this.validateOf(file);
+      return result.length === 0 ? true : result;
+    }
+  }, {
+    key: "validateOf",
+    value: function validateOf(file) {
       var MAX_MB = 100 * 1024 * 1024;
       var NAME_PATTERN = /^rdram-product-.*\.json$/;
-      if (!file) return true;
+      if (!file) return "";
       if (!NAME_PATTERN.test(file.name)) return "RDRAMシステムからエクスポートされたものではないファイル名です。";
       if (file.size > MAX_MB) return "ファイルが大きすぎます。";
       if (!this.isJsonFile(file)) return "ファイル形式がRDRAMシステムのプロダクトエクスポートファイルではありません。";
-      return true;
+      return "";
     }
   }, {
     key: "isJsonFile",
@@ -4017,7 +4023,7 @@ var ProducntImportDialogvue_type_script_lang_ts_ProducntImportDialog = ProducntI
     key: "doImport",
     value: function () {
       var _doImport = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-        var repository, file, preResult, jsonText, product, strage, message, newName, updatedStrage;
+        var repository, file, result, jsonText, product, strage, message, newName, updatedStrage;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
@@ -4026,14 +4032,14 @@ var ProducntImportDialogvue_type_script_lang_ts_ProducntImportDialog = ProducntI
                 file = this.selectedFile;
                 this.stepUpProgress("\u30A4\u30F3\u30DD\u30FC\u30C8\u3092\u958B\u59CB\u3057\u307E\u3059\u3002\u30D5\u30A1\u30A4\u30EB:".concat(file.name));
                 this.stepUpProgress("ファイルの読み込み。");
-                preResult = this.preValidate(file);
+                result = this.validateOf(file);
 
-                if (!(preResult !== true)) {
+                if (!(result.length > 0)) {
                   _context4.next = 9;
                   break;
                 }
 
-                this.stepUpProgress(preResult);
+                this.stepUpProgress(result);
                 this.errorEndProgress("\u30A4\u30F3\u30DD\u30FC\u30C8\u304C\u5931\u6557\u3057\u307E\u3057\u305F\u3002\u30D5\u30A1\u30A4\u30EB:".concat(file.name));
                 return _context4.abrupt("return");
 
@@ -4112,9 +4118,15 @@ var ProducntImportDialogvue_type_script_lang_ts_ProducntImportDialog = ProducntI
     key: "noticeProgress",
     value: function noticeProgress(event) {
       this.progressPercentage = event.percentage;
+      this.$nextTick(function () {
+        return console.log("UI\u304C\u5909\u66F4\u3055\u308C\u305F\u306F\u305A\u3002%:".concat(event.percentage, ", message:").concat(event.message));
+      });
       if (event.message.length === 0) return;
       if (this.progressLogs.trim().length === 0) this.progressLogs = "";else this.progressLogs += "\n";
       this.progressLogs += event.message;
+      this.$nextTick(function () {
+        return console.log("UI\u304C\u5909\u66F4\u3055\u308C\u305F\u306F\u305A\u3002%:".concat(event.percentage, ", message:").concat(event.message));
+      });
     }
   }]);
 
@@ -4192,7 +4204,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   null,
-  "e60dede6",
+  "593a2fb4",
   null
   
 )
