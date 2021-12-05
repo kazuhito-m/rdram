@@ -2,6 +2,7 @@ import ImportProgressEvent from "@/domain/product/import/ImportProgressEvent";
 import LocalStrage from "@/domain/strage/LocalStrage";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
+import Product from "@/domain/product/Product";
 
 export default class ProductImportService {
     constructor(
@@ -15,27 +16,27 @@ export default class ProductImportService {
         file: File,
         notifyProgress: (event: ImportProgressEvent) => void,
         confirmeProductName: (originalProductName: string) => string
-    ): Promise<boolean> {
+    ): Promise<Product | null> {
         notifyProgress(this.raise(1, "インポートを開始します。", file));
         try {
             const result = await this.doImport(file, notifyProgress, confirmeProductName);
             if (result) {
                 notifyProgress(this.raise(ProductImportService.PROGRESS_END_STEP, "インポートが成功しました。", file));
-                return true;
+                return null;
             }
             return result;
         } catch (e) {
             notifyProgress(this.raise(0, `予期せぬエラーが発生しました。\n  ${e}`));
         }
         notifyProgress(this.raise(0, "インポートが失敗しました。", file));
-        return false;
+        return null;
     }
 
     private async doImport(
         file: File,
         notifyProgress: (event: ImportProgressEvent) => void,
         confirmeProductName: (originalProductName: string) => string
-    ): Promise<boolean> {
+    ): Promise<Product | null> {
         let step = 1;
 
         notifyProgress(this.raise(++step, "ファイルの読み込み。"));
@@ -44,7 +45,7 @@ export default class ProductImportService {
         if (result.length > 0) {
             notifyProgress(this.raise(++step, result));
             notifyProgress(this.raise(0, "インポートが失敗しました。", file));
-            return false;
+            return null;
         }
 
         const json = await this.fileSystemRepository.readFile(file);
@@ -52,7 +53,7 @@ export default class ProductImportService {
         if (json === null) {
             notifyProgress(this.raise(++step, "ローカルファイルの読み込みに失敗しました。"));
             notifyProgress(this.raise(0, "インポートが失敗しました。", file));
-            return false;
+            return null;
         }
         const jsonText = json as string;
 
@@ -71,7 +72,7 @@ export default class ProductImportService {
             const newName = confirmeProductName(product.name);
             if (newName === "") {
                 notifyProgress(this.raise(0, "インポートがキャンセルされました。", file));
-                return false;
+                return null;
             }
 
             product = product.renameOf(newName.trim());
@@ -87,7 +88,7 @@ export default class ProductImportService {
 
         notifyProgress(this.raise(++step, `完了。プロダクト名: "${product.name}"`));
 
-        return true;
+        return product;
     }
 
     private raise(step: number, message: string, file?: File): ImportProgressEvent {

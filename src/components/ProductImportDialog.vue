@@ -91,6 +91,7 @@ export default class ProductImportDialog extends Vue {
   private progressEnable: boolean = false;
   private progressPercentage: number = 0;
   private progressLogs: string = " ";
+  private readonly importedProductIds: string[] = [];
 
   @Watch('progressLogs')
   private onChangeProgressLogs() {
@@ -144,16 +145,18 @@ export default class ProductImportDialog extends Vue {
   public onClose(): void {
     this.selectedFile = null;
     this.preValidateError = false;
+    this.importedProductIds.length = 0;
     this.clearProgressArea();
   }
 
   private async doImport(): Promise<void> {
     const service = this.productImportService as ProductImportService;
-    await service.importOf(
+    const imported = await service.importOf(
       this.selectedFile as File,
       this.notifyProgress,
       this.confirmeProductName
     );
+    if (imported) this.importedProductIds.push(imported.id);
   }
 
   private confirmeProductName(originalProductName: string) : string {
