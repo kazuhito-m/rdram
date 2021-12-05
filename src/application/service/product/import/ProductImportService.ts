@@ -10,7 +10,7 @@ export default class ProductImportService {
         private readonly fileSystemRepository: FileSystemRepository
     ) { }
 
-    private static readonly PROGRESS_END_STEP = 6;
+    private static readonly PROGRESS_END_STEP = 7;
 
     public async importOf(
         file: File,
