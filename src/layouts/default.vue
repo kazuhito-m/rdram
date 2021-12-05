@@ -116,9 +116,9 @@
       @onClose="onCloseChangeProduct"
     />
 
-    <ProducntImportDialog
-      :visible="visibleProducntImportDialog"
-      @onClose="onCloseProducntImportDialog"
+    <ProductImportDialog
+      :visible="visibleProductImportDialog"
+      @onClose="onCloseProductImportDialog"
     />
 
     <LocalStrageInitializeDialog
@@ -141,14 +141,14 @@ import StrageDatasource from '@/infrastructure/strage/StrageDatasource'
 import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import ClientDownloadTransfar from '@/infrastructure/client/ClientDownloadTransfar'
 import ProductSelectorDialog from '@/components/ProductSelectorDialog.vue'
-import ProducntImportDialog from  '@/components/ProducntImportDialog.vue'
+import ProductImportDialog from  '~/components/ProductImportDialog.vue'
 import LocalStrageInitializeDialog from '@/components/LocalStrageInitializeDialog.vue'
 import LocalStrageDestroyDialog from '@/components/LocalStrageDestroyDialog.vue'
 
 @Component({
   components: {
     ProductSelectorDialog,
-    ProducntImportDialog,
+    ProductImportDialog,
     LocalStrageInitializeDialog,
     LocalStrageDestroyDialog,
   },
@@ -202,7 +202,7 @@ export default class extends Vue {
   private visibleProductSelector = false;
   private productSelectorCancelable = false;
 
-  private visibleProducntImportDialog = false;
+  private visibleProductImportDialog = false;
 
   private visibleLocalStrageDestroyDialog = false;
 
@@ -258,12 +258,12 @@ export default class extends Vue {
   }
 
   private onClickImportProduct(): void {
-    this.visibleProducntImportDialog = true;
+    this.visibleProductImportDialog = true;
     this.rightDrawer = false;
   }
 
-  private onCloseProducntImportDialog(): void {
-    this.visibleProducntImportDialog = false;
+  private onCloseProductImportDialog(): void {
+    this.visibleProductImportDialog = false;
   }
 
   private onClickDestryLocalStrage(): void {

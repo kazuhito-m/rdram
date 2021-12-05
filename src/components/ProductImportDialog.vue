@@ -80,7 +80,7 @@ import StrageRepository from "@/domain/strage/StrageRepository";
 import LocalStrage from "@/domain/strage/LocalStrage";
 
 @Component
-export default class ProducntImportDialog extends Vue {
+export default class ProductImportDialog extends Vue {
   @Inject()
   private readonly repository?: StrageRepository;
 
@@ -244,7 +244,7 @@ export default class ProducntImportDialog extends Vue {
   }
 
   private stepUpProgress(message: string): void {
-    const percentage = this.progressPercentage + 100 / ProducntImportDialog.PROGRESS_END_STEP;
+    const percentage = this.progressPercentage + 100 / ProductImportDialog.PROGRESS_END_STEP;
     const event = new ImportProgressEvent(percentage, message);
     this.noticeProgress(event);
   }
