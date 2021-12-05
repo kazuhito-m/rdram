@@ -75,16 +75,10 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject, Watch } from "vue-property-decorator";
 import ImportProgressEvent from "@/domain/product/import/ImportProgressEvent";
-import Product from "@/domain/product/Product";
-import StrageRepository from "@/domain/strage/StrageRepository";
-import LocalStrage from "@/domain/strage/LocalStrage";
 import ProductImportService from "@/application/service/product/import/ProductImportService";
 
 @Component
 export default class ProductImportDialog extends Vue {
-  @Inject()
-  private readonly repository?: StrageRepository;
-
   @Inject()
   private readonly productImportService?: ProductImportService;
 
@@ -160,7 +154,7 @@ export default class ProductImportDialog extends Vue {
       this.notifyProgress,
       this.confirmeProductName
     );
- }
+  }
 
   private confirmeProductName(originalProductName: string) : string {
       let message = "既に同一の名前のプロダクトが存在します。名前を変えてインポートしますか？\n\n";
@@ -175,7 +169,6 @@ export default class ProductImportDialog extends Vue {
 
   private notifyProgress(event: ImportProgressEvent): void {
     this.progressPercentage = event.percentage;
-    this.$nextTick(() => console.log(`UIが変更されたはず。%:${event.percentage}, message:${event.message}`));
 
     if (event.message.length === 0) return;
     
