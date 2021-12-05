@@ -78,7 +78,6 @@ import ImportProgressEvent from "@/domain/product/import/ImportProgressEvent";
 import Product from "@/domain/product/Product";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import LocalStrage from "@/domain/strage/LocalStrage";
-import StrageDatasource from "~/infrastructure/strage/StrageDatasource";
 
 @Component
 export default class ProducntImportDialog extends Vue {
@@ -242,7 +241,7 @@ export default class ProducntImportDialog extends Vue {
     repository.register(updatedStrage);
 
     this.stepUpProgress(`インポートが成功しました。\n  ファイル: "${file.name}"\n  プロダクト名: "${product.name}"`);
-}
+  }
 
   private stepUpProgress(message: string): void {
     const percentage = this.progressPercentage + 100 / ProducntImportDialog.PROGRESS_END_STEP;
