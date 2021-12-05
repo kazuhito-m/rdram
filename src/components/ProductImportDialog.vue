@@ -161,7 +161,6 @@ export default class ProductImportDialog extends Vue {
       this.notifyProgress,
       this.confirmeProductName
     );
-    console.log("インポートの結果:" + imported);
     if (imported) this.importedProductIds.push(imported.id);
   }
 

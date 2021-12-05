@@ -111,16 +111,8 @@ export default class ProductImportService {
     }
 
     public hitCurrentProductOf(productIds: string[]): boolean {
-        console.log("hitCurrentProductOf() まで来た。");
         const currentProduct = this.strageRepository.getCurrentProduct();
-        console.log("currentProduct:" + currentProduct);
         if (!currentProduct) return false;
-        console.log("currentProduct.Id:" + currentProduct.id);
-        return productIds
-            .map(id => {
-                console.log("今回インポートしたプロダクトのID:" + id);
-                return id;
-            })
-            .some(id => id === currentProduct.id);
+        return productIds.some(id => currentProduct.id === id);
     }
 }
