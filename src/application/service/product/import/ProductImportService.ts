@@ -22,9 +22,8 @@ export default class ProductImportService {
             const result = await this.doImport(file, notifyProgress, confirmeProductName);
             if (result) {
                 notifyProgress(this.raise(ProductImportService.PROGRESS_END_STEP, "インポートが成功しました。", file));
-                return null;
+                return result;
             }
-            return result;
         } catch (e) {
             notifyProgress(this.raise(0, `予期せぬエラーが発生しました。\n  ${e}`));
         }
@@ -109,5 +108,19 @@ export default class ProductImportService {
         if (!this.fileSystemRepository.isJsonFile(file)) return "ファイル形式がRDRAMシステムのプロダクトエクスポートファイルではありません。";
 
         return "";
+    }
+
+    public hitCurrentProductOf(productIds: string[]): boolean {
+        console.log("hitCurrentProductOf() まで来た。");
+        const currentProduct = this.strageRepository.getCurrentProduct();
+        console.log("currentProduct:" + currentProduct);
+        if (!currentProduct) return false;
+        console.log("currentProduct.Id:" + currentProduct.id);
+        return productIds
+            .map(id => {
+                console.log("今回インポートしたプロダクトのID:" + id);
+                return id;
+            })
+            .some(id => id === currentProduct.id);
     }
 }

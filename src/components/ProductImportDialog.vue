@@ -143,6 +143,11 @@ export default class ProductImportDialog extends Vue {
 
   @Emit("onClose")
   public onClose(): void {
+    if (this.productImportService?.hitCurrentProductOf(this.importedProductIds)) {
+      alert("現在開いているプロダクトがインポートにより書き換えられました。\nプロダクトを開きなおします。");
+      location.reload();
+    }
+
     this.selectedFile = null;
     this.preValidateError = false;
     this.importedProductIds.length = 0;
@@ -156,6 +161,7 @@ export default class ProductImportDialog extends Vue {
       this.notifyProgress,
       this.confirmeProductName
     );
+    console.log("インポートの結果:" + imported);
     if (imported) this.importedProductIds.push(imported.id);
   }
 
