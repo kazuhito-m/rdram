@@ -9,18 +9,6 @@ export default class ProductImportService {
         private readonly fileSystemRepository: FileSystemRepository
     ) { }
 
-    private validateOf(file: File): string {
-        const MAX_MB = 100 * 1024 * 1024;
-        const NAME_PATTERN = /^rdram-product-.*\.json$/;
-
-        if (!file) return "";
-        if (!NAME_PATTERN.test(file.name)) return "RDRAMシステムからエクスポートされたものではないファイル名です。";
-        if (file.size > MAX_MB) return "ファイルが大きすぎます。";
-        if (!this.fileSystemRepository.isJsonFile(file)) return "ファイル形式がRDRAMシステムのプロダクトエクスポートファイルではありません。";
-
-        return "";
-    }
-
     private static readonly PROGRESS_END_STEP = 6;
 
     public async importOf(
@@ -103,10 +91,22 @@ export default class ProductImportService {
     }
 
     private raise(step: number, message: string, file?: File): ImportProgressEvent {
-        const fileCaption = file ? `ファイル:${file.name}` : "";
+        const fileCaption = file ? `ファイル: "${file.name}"` : "";
         return new ImportProgressEvent(
             step / ProductImportService.PROGRESS_END_STEP * 100,
             message + fileCaption
         );
+    }
+
+    public validateOf(file: File): string {
+        const MAX_MB = 100 * 1024 * 1024;
+        const NAME_PATTERN = /^rdram-product-.*\.json$/;
+
+        if (!file) return "";
+        if (!NAME_PATTERN.test(file.name)) return "RDRAMシステムからエクスポートされたものではないファイル名です。";
+        if (file.size > MAX_MB) return "ファイルが大きすぎます。";
+        if (!this.fileSystemRepository.isJsonFile(file)) return "ファイル形式がRDRAMシステムのプロダクトエクスポートファイルではありません。";
+
+        return "";
     }
 }

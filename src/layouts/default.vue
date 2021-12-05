@@ -144,6 +144,9 @@ import ProductSelectorDialog from '@/components/ProductSelectorDialog.vue'
 import ProductImportDialog from  '~/components/ProductImportDialog.vue'
 import LocalStrageInitializeDialog from '@/components/LocalStrageInitializeDialog.vue'
 import LocalStrageDestroyDialog from '@/components/LocalStrageDestroyDialog.vue'
+import ProductImportService from '~/application/service/product/import/ProductImportService'
+import FileSystemRepository from '~/domain/filesystem/FileSystemRepository'
+import FileSystemDatasouce from '~/infrastructure/filesystem/FileSystemDatasource'
 
 @Component({
   components: {
@@ -194,6 +197,10 @@ export default class extends Vue {
   private readonly repository: StrageRepository = new StrageDatasource();
   @Provide()
   private readonly clientDownloadRepository: ClientDownloadRepository = new ClientDownloadTransfar();
+  @Provide()
+  private readonly fileSystemRepository: FileSystemRepository = new FileSystemDatasouce();
+  @Provide()
+  private readonly productImportService: ProductImportService = new ProductImportService(this.repository, this.fileSystemRepository);
 
   // this classs property & functions.
 
