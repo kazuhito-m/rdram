@@ -1,11 +1,10 @@
 import draw2d, { Figure } from 'draw2d';
-import Placement from '@/domain/diagram/placement/Placement';
-import Resource from '@/domain/resource/Resource';
 import IconGenerator from '@/components/diagrams/icon/IconGenerator';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
+import IconStatus from '@/components/diagrams/icon/IconStatus';
+import Resource from '@/domain/resource/Resource';
 import ResourceType from '@/domain/resource/ResourceType';
-import TopAbsAndCenterLocator from '@/draw2d/custom/TopAbsAndCenterLocator';
-import IconFontAndChar from '../../../icon/IconFontAndChar';
-import IconStatus from '../../../icon/IconStatus';
+import Placement from '@/domain/diagram/placement/Placement';
 
 export default class ActorAndLaneIconGenerator implements IconGenerator<Resource> {
     public resourceType(): ResourceType {
@@ -16,7 +15,7 @@ export default class ActorAndLaneIconGenerator implements IconGenerator<Resource
         const id = String(placement.resourceId);
 
         const waku = new draw2d.shape.basic.Rectangle({
-            id: id,
+            id,
             x: placement.x,
             y: placement.y,
             width: placement.width,
