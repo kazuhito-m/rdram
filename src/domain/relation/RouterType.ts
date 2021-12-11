@@ -1,11 +1,11 @@
 export default class RouterType {
-    private static readonly vs: RouterType[] = [];
-
     static DIRECT = new RouterType(1, '直線');
     static MANHATTAN = new RouterType(2, 'マンハッタン');
     static CIRCUIT = new RouterType(3, 'サーキット');
     static SPLINE = new RouterType(4, 'スプライン');
     // static SKETCH = new RouterType(5, 'スケッチ');
+
+    private static readonly vs: any[] = [];
 
     private constructor(
         public readonly id: number,
@@ -18,10 +18,9 @@ export default class RouterType {
         return RouterType.vs;
     }
 
-    public static ofId(id: number): RouterType | null {
-        const found = this.vs
+    public static ofId(id: number): RouterType | undefined {
+        return this.vs
             .find(item => item.id === id);
-        return found ? found : null;
     }
 
     public equals(other: RouterType) {
