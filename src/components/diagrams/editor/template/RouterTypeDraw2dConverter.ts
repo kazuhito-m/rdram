@@ -1,5 +1,5 @@
-import RouterType from "@/domain/relation/RouterType";
 import draw2d from "draw2d";
+import RouterType from "@/domain/relation/RouterType";
 
 export default class RouterTypeDraw2dConverter {
     public draw2dRouterOf(routerType: RouterType): any {
