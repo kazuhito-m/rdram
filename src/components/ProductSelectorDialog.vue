@@ -1,7 +1,8 @@
 <template lang="html">
-  <v-dialog persistent max-width="600"
+  <v-dialog
     v-model="visibleProductSelectorDialog"
     :data-opend="onOpen()" 
+    persistent max-width="600"
   >
     <v-card>
       <v-card-title class="headline">
@@ -22,8 +23,9 @@
       </v-card-actions>
 
       <v-card-actions>
-        <v-btn text
+        <v-btn
           v-if="cancelable"
+          text
           :disabled="!selectedProduct"
           color="blue darken-1"
           @click="onClickExportProduct"
@@ -31,14 +33,16 @@
           選択中のものをエクスポート
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn text 
+        <v-btn
           v-if="cancelable"
+          text 
           color="normal" 
           @click="onClose"
         >
           キャンセル
         </v-btn>
-        <v-btn text 
+        <v-btn
+          text 
           :disabled="!selectedProduct"
           color="green darken-1" 
           @click="onClickOpenProduct"
@@ -64,11 +68,13 @@ import RdramExportFileName from "@/domain/client/RdramExportFileName";
 export default class ProductSelectorDialog extends Vue {
   @Inject()
   private readonly repository?: StrageRepository;
+
   @Inject()
   private clientDownloadRepository!: ClientDownloadRepository;
 
   @Prop()
   private visibleProductSelectorDialog?: boolean;
+
   @Prop()
   private cancelable = false;
 
