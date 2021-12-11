@@ -30,9 +30,9 @@ export default class Resources {
             .some(resource => resource.type.equals(type));
     }
 
-    public of(resourceId: number): Resource | null {
-        const found = this.values.find(resource => resource.resourceId === resourceId);
-        return found ? found : null;
+    public of(resourceId: number): Resource | undefined {
+        return this.values
+            .find(resource => resource.resourceId === resourceId);
     }
 
     public typeOf(resourceType: ResourceType): Resources {
