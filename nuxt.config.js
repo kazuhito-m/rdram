@@ -1,6 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
-const webpack = require('webpack')
+import {ProvidePlugin} from 'webpack';
 
 const routerBasePath = process.env.DEPLOY_ENV === 'GH_PAGES' ? '/rdram/' : '/';
 
@@ -86,14 +86,14 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     plugins: [
-      new webpack.ProvidePlugin({
+      new ProvidePlugin({
         '$': 'jquery',
         'jquery': 'jquery',
         'window.jQuery': 'jquery',
         'jQuery': 'jquery'
       })
     ],
-    extend (config, ctx) {
+    extend (config) {
       // config.devtool = 'source-map'
       config.optimization.minimize = false; // クラス名を利用しているところが動かなくなるので
     }
