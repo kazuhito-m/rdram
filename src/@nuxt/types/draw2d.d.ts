@@ -6,8 +6,7 @@ declare module 'draw2d' {
     class Canvas {
         constructor(...args: any[]);
 
-        add(figure: any, x: any, y: any): any;
-        add(connection: any): any;
+        add(...args: [figure: any, x: any, y: any] | [connection: any]): any;
 
         addSelection(object: any): any;
 
