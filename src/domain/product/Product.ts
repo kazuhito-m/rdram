@@ -114,6 +114,7 @@ export default class Product {
             this.resourceIdSequence,
         );
     }
+
     public withResources(newResources: Resources) {
         return new Product(
             this.updateAt,
