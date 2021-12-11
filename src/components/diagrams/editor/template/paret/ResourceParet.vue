@@ -21,8 +21,8 @@
                   dark
                   outlined
                   draggable
-                  @dragstart="onDragStartNewCompany"
                   :data-resource-type-id="resourceType.id"
+                  @dragstart="onDragStartNewCompany"
                 >
                   <v-icon>{{ resourceType.iconKey }}</v-icon>新規追加
                 </v-chip>
@@ -37,7 +37,7 @@
             <v-list-item-content>
               <v-list-item-title class="chip-container">
                 <v-chip
-                  v-bind:data-resource-id="resource.resourceId"
+                  :data-resource-id="resource.resourceId"
                   color="primary"
                   dark
                   draggable
@@ -70,7 +70,7 @@
               <v-list-item-title class="chip-container">
                 <v-chip
                   dark
-                  v-bind:data-resource-id="usedResource.resourceId"
+                  :data-resource-id="usedResource.resourceId"
                   data-resource-on-diagram="true"
                   @contextmenu="onRightClickResource"
                 >
@@ -95,15 +95,15 @@
     >
       <v-list>
         <v-list-item
-          link
           v-if="rightClickedResourceOnDiagram"
+          link
           @click="onClickMenuDeleteResourceOnDiagram"
         >
           <v-list-item-title>このダイアグラムから削除</v-list-item-title>
         </v-list-item>
         <v-list-item
-          link
           v-if="rightClickedResourceOnProduct"
+          link
           @click="onClickMenuDeleteResourceOnProduct"
         >
           <v-list-item-title>プロダクト全体から削除</v-list-item-title>
@@ -115,20 +115,22 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
+import { Component, Prop, Vue, Emit } from "vue-property-decorator";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Product from "@/domain/product/Product";
-import Diagram from "@/domain/diagram/Diagram";
 
 @Component
 export default class ResourceParet extends Vue {
   @Prop({ required: true })
   private readonly diagramId!: number;
+
   @Prop({ required: true })
   private readonly allResourcesOnCurrentProduct!: Resource[];
+
   @Prop({ required: true })
   private readonly usedResouceIds!: number;
+
   @Prop({ required: true })
   private readonly product!: Product;
 
@@ -142,10 +144,10 @@ export default class ResourceParet extends Vue {
   private rightClickedResourceY = 0;
 
   @Emit("onDeleteResourceOnDiagram")
-  private onDeleteResourceOnDiagram(resourceId: number): void {}
+  private onDeleteResourceOnDiagram(_resourceId: number): void {}
 
   @Emit("onDeleteResourceOnProduct")
-  private onDeleteResourceOnProduct(resourceId: number): void {}
+  private onDeleteResourceOnProduct(_resourceId: number): void {}
 
   public created(): void {
     const diagram = this.product.diagrams.of(this.diagramId);
