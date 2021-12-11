@@ -31,18 +31,25 @@ import { Component, Vue, Prop, Emit, Watch } from "nuxt-property-decorator";
 export default class PropertiesSettingDialog extends Vue {
   @Prop({ required: true })
   private readonly id: any | null;
+
   @Prop({ required: true })
   private title!: string;
+
   @Prop()
   private readonly iconKey!: string;
+
   @Prop()
   private readonly consent!: boolean;
+
   @Prop()
   private readonly subTitle!: string;
+
   @Prop()
   private readonly width!: number;
+
   @Prop()
   private readonly ignoreEscKey!: boolean;
+
   @Prop()
   private readonly ignoreEnterKey!: boolean;
 
