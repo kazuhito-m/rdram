@@ -195,10 +195,13 @@ export default class extends Vue {
 
   @Provide()
   private readonly repository: StrageRepository = new StrageDatasource();
+
   @Provide()
   private readonly clientDownloadRepository: ClientDownloadRepository = new ClientDownloadTransfar();
+ 
   @Provide()
   private readonly fileSystemRepository: FileSystemRepository = new FileSystemDatasouce();
+ 
   @Provide()
   private readonly productImportService: ProductImportService = new ProductImportService(this.repository, this.fileSystemRepository);
 
