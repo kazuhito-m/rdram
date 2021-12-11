@@ -15,7 +15,7 @@ import { Prop, Component, Vue, Emit } from "nuxt-property-decorator";
 import DiagramEditor from "@/components/diagrams/editor/template/DiagramEditor.vue";
 
 import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
-import BusinessFlowConnectPortsEvents from "./event/BusinessFlowConnectPortsEvents";
+import BusinessFlowConnectPortsEvents from "@/components/diagrams/editor/businessflowdiagram/event/BusinessFlowConnectPortsEvents";
 import GemerocDeleteShapeEvents from "@/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents";
 import GenericMoveShapeEvents from "@/components/diagrams/editor/template/event/events/GenericMoveShapeEvents";
 import GenericResizeShapeEvents from "@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents";
@@ -38,8 +38,10 @@ export default class BusinessFlowDiagramEditor extends Vue {
 
   @Prop({ required: true })
   private readonly diagramId!: number;
+
   @Prop({ required: true })
   private readonly allResourcesOnCurrentProduct!: Resource[];
+
   @Prop({ required: true })
   private readonly lastPropertiesUpdatedDiagramId?: number;
 
@@ -65,7 +67,7 @@ export default class BusinessFlowDiagramEditor extends Vue {
   private onUpdateResources(): void {}
 
   @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
+  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 }
 </script>
 
