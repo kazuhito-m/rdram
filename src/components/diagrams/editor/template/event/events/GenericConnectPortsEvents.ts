@@ -17,7 +17,7 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
     }
 
     public validate(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
-        for (let eventGist of this.eventGists) {
+        for (const eventGist of this.eventGists) {
             const srcResourceId = parseInt(eventGist.source?.getParent().id, 10);
             const distResourceId = parseInt(eventGist.target?.getParent().id, 10);
             if (!srcResourceId || !distResourceId) continue;
@@ -40,7 +40,7 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
 
     public apply(diagram: Diagram, product: Product, view: DiagramCanvas): Diagram {
         let modifiedDiagram = diagram;
-        for (let eventGist of this.eventGists) {
+        for (const eventGist of this.eventGists) {
             const srcResourceId = parseInt(eventGist.source?.getParent().id, 10);
             const distResourceId = parseInt(eventGist.target?.getParent().id, 10);
             if (!srcResourceId || !distResourceId) continue;
@@ -58,7 +58,7 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
         return modifiedDiagram;
     }
 
-    protected customizeRelation(original: Relation, product: Product): Relation {
+    protected customizeRelation(original: Relation, _product: Product): Relation {
         return original;
     }
 }
