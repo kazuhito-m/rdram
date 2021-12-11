@@ -1,7 +1,9 @@
 <template lang="html">
-  <v-dialog persistent max-width="600"
+  <v-dialog
     v-model="visible"
     :data-opend="onOpen()"
+    persistent
+    max-width="600"
   >
     <v-card>
       <v-card-title class="headline">
@@ -14,10 +16,10 @@
           v-model="selectedFile"
           :disabled="progressEnable"
           :rules="[preValidate]"
-          @update:error="onChangeErrorState"
-          accept="application/json"
           label="RDRAM product exported file (json)"
+          accept="application/json"
           truncate-length="50"
+          @update:error="onChangeErrorState"
         >
         </v-file-input>
       </v-card-actions>
@@ -37,14 +39,14 @@
           <v-row>
             <v-col>
               <v-textarea
+                ref="progressLogsTextarea"
                 v-model="progressLogs"
                 :disabled="!progressEnable"
-                @input="onChangeProgressLogs"
-                ref="progressLogsTextarea"
                 label="インポート状況"
                 readonly
                 outlined
                 no-resize
+                @input="onChangeProgressLogs"
               ></v-textarea>        
             </v-col>
           </v-row>
@@ -53,14 +55,16 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text
+        <v-btn
+          text
           color="normal"
           :disabled="progressEnable"
           @click="onClose"
         >
           キャンセル
         </v-btn>
-        <v-btn text
+        <v-btn
+          text
           color="green darken-1"
           :disabled="notImportable()"
           @click="onClickImportProduct"
