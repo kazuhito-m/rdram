@@ -13,12 +13,13 @@ export default class Products {
 
     public existsSomeName(name: string): boolean {
         return this.values
-            .some(product => product.name === name);
+            .map(product => product.name)
+            .includes(name);
     }
 
-    public of(productId: string): Product | null {
-        const found = this.values.find(product => product.id === productId);
-        return found ? found : null;
+    public of(productId: string): Product | undefined {
+        return this.values
+            .find(product => product.id === productId);
     }
 
     public merge(product: Product): Products {
