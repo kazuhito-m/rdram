@@ -1,10 +1,10 @@
 import draw2d, { Figure } from 'draw2d';
+import IconGenerator from '@/components/diagrams/icon/IconGenerator';
+import IconStatus from '@/components/diagrams/icon/IconStatus';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
+import Resource from '@/domain/resource/Resource';
+import ResourceType from '@/domain/resource/ResourceType';
 import Placement from "@/domain/diagram/placement/Placement";
-import Resource from '~/domain/resource/Resource';
-import IconGenerator from './IconGenerator';
-import ResourceType from '~/domain/resource/ResourceType';
-import IconFontAndChar from './IconFontAndChar';
-import IconStatus from './IconStatus';
 
 export default abstract class GenericSingleIconGenerator implements IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;
@@ -20,17 +20,17 @@ export default abstract class GenericSingleIconGenerator implements IconGenerato
             text: iconChar.charactor,
             fontSize: 40,
             stroke: 0,
-            padding: padding,
+            padding,
             bgColor: "#FFFFFF",
             resizable: false,
             alpha: 1, // opacityと一緒
-            id: id,
+            id
         });
 
         const name = new draw2d.shape.basic.Label({
             text: resource.name,
             stroke: 0,
-            padding: padding,
+            padding,
             resizable: false,
             selectable: false
         });
