@@ -15,8 +15,8 @@ export default class EventAnalyzer {
         if (eventGists.length === 0) return AnalyzeResutEvents.nothing();
 
         const eventsOfTypeMap: { [key: string]: EventsOfType<Diagram, Vue> } = {};
-        this.eventsOfTypeTemplates
-            .forEach(t => eventsOfTypeMap[t.eventType()] = t.prototype());
+        for (const template of this.eventsOfTypeTemplates)
+            eventsOfTypeMap[template.eventType()] = template.prototype();
 
         eventGists.filter(eventGist => eventsOfTypeMap[eventGist.eventType])
             .forEach(eventGist => eventsOfTypeMap[eventGist.eventType].eventGists.push(eventGist));
@@ -38,14 +38,14 @@ export default class EventAnalyzer {
             source: targetCommand.source,
             target: targetCommand.target,
             connection: targetCommand.connection,
-            rootCommand: rootCommand,
+            rootCommand,
         };
         const results: EventGist[] = [eventGist];
 
         if (!targetCommand || !targetCommand.commands) return results;
-        for (let subCommand of targetCommand.commands.data) {
+        for (const subCommand of targetCommand.commands.data) {
             const nestedEventGists = this.recursiveAnalyzeEvent(subCommand, rootCommand);
-            for (let nested of nestedEventGists) results.push(nested);
+            for (const nested of nestedEventGists) results.push(nested);
         }
         return results;
     }
