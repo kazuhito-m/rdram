@@ -82,7 +82,13 @@
             >
               <v-icon v-if="item.iconKey">{{ item.iconKey }}</v-icon>
               {{ item.name }}
-              <v-btn dark small icon @click="onClickCloseTab" v-bind:data-item-id="item.id">
+              <v-btn
+                :data-item-id="item.id"
+                dark
+                small
+                icon
+                @click="onClickCloseTab"
+              >
                 <v-icon
                   dark
                   :data-item-id="item.id"
@@ -120,6 +126,7 @@ import { Component, Vue, Inject } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
+import TreeItem from "@/presentation/tree/TreeItem"; 
 import DiagramType from "@/domain/diagram/DiagramType";
 import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
@@ -546,14 +553,6 @@ export default class extends Vue {
   private onCloseDiagramPropertiesEditDialog(): void {
     this.propertiesEditorDiagramId = 0;
   }
-}
-
-interface TreeItem {
-  id: number;
-  name: string;
-  children: TreeItem[];
-  disabled: boolean | undefined;
-  iconKey: string;
 }
 </script>
 
