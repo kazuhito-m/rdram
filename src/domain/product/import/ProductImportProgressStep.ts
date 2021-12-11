@@ -1,4 +1,4 @@
-export enum ImportProgressStep {
+export enum ProductImportProgressStep {
     失敗 = -1,
     キャンセル,
     ファイル読み込み,
