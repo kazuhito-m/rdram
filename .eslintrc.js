@@ -12,6 +12,9 @@ module.exports = {
   ],
   plugins: [
   ],
+  ignorePatterns: [
+    "doc/"
+  ],
   // add your custom rules here
   rules: {}
 }
