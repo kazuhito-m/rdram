@@ -13,7 +13,9 @@ module.exports = {
   plugins: [
   ],
   ignorePatterns: [
-    "doc/"
+    "doc/",
+    "src/pages/canvastest.vue",
+    "src/pages/layouttest.vue"
   ],
   // add your custom rules here
   rules: {
