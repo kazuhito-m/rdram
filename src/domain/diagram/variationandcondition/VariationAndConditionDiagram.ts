@@ -39,14 +39,11 @@ export default class VariationAndConditionDiagram extends Diagram {
 
     public createPlacement(resource: Resource, left: number, top: number): Placement | null {
         if (this.ngType(resource.type)) return null;
-
-        let width = 0;
-        let height = 0;
         return new Placement(
             left,
             top,
-            width,
-            height,
+            0,
+            0,
             resource.resourceId,
             false,
         );
