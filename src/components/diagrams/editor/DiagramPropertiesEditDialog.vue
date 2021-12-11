@@ -10,15 +10,15 @@
     @onClickOk="onClickUpdateExecute"
     @onShow="onShow"
   >
-    <template v-slot:inputPart>
+    <template #inputPart>
       <v-container>
         <v-row>
           <v-col>
             <v-text-field
+              v-model="name"
               label="名前"
               counter
               autofocus
-              v-model="name"
               :rules="[validateName]"
               :maxlength="nameMaxLength"
             ></v-text-field>
@@ -26,10 +26,22 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field label="横幅(px)" v-model="width" type="number" :rules="[validateWidith]"></v-text-field>
+            <v-text-field
+              v-model="width"
+              label="横幅(px)"
+              type="number"
+              :rules="[validateWidith]"
+            >
+            </v-text-field>
           </v-col>
           <v-col>
-            <v-text-field label="高さ(px)" v-model="height" type="number" :rules="[validateHeight]"></v-text-field>
+            <v-text-field
+              v-model="height"
+              label="高さ(px)"
+              type="number"
+              :rules="[validateHeight]"
+            >
+            </v-text-field>
           </v-col>
         </v-row>
       </v-container>
@@ -47,7 +59,6 @@ import {
   Watch
 } from "nuxt-property-decorator";
 import PropertiesSettingDialog from "@/components/PropertiesSettingDialog.vue";
-import Uuid from "@/domain/world/Uuid";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
@@ -60,7 +71,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
   private readonly diagramId!: number;
 
   @Emit("onUpdatedDiagramProperties")
-  private onUpdatedDiagramProperties(diagram: Diagram): void {}
+  private onUpdatedDiagramProperties(_diagram: Diagram): void {}
 
   @Emit("onClose")
   private onClose(): void {}
@@ -74,6 +85,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
 
   @Inject()
   private repository?: StrageRepository;
+
   private consent = false;
   private subTitle = "";
   private title = "";
@@ -98,8 +110,8 @@ export default class DiagramPropertiesEditDialog extends Vue {
 
   private loadDiagram(): Diagram | null {
     const product = this.repository?.getCurrentProduct();
-    const diagram = product?.diagrams.of(this.diagramId);
-    return diagram ? diagram : null;
+    if (!product) return null;
+    return product.diagrams.of(this.diagramId);
   }
 
   private showProperties(diagram: Diagram): void {
