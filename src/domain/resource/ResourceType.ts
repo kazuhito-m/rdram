@@ -1,6 +1,4 @@
 export default class ResourceType {
-    private static readonly vs: ResourceType[] = [];
-
     static システム = new ResourceType(1, 'システム', 'mdi-desktop-mac-dashboard');
     static 自社システム = new ResourceType(2, '自社システム', 'mdi-desktop-tower-monitor');
     static 外部システム = new ResourceType(3, '外部システム', 'mdi-server');
@@ -54,6 +52,8 @@ export default class ResourceType {
     static 背景 = new ResourceType(906, '背景', 'mdi-wallpaper');
     static お金 = new ResourceType(907, 'お金', 'mdi-cash-100');
 
+    private static readonly vs: any[] = [];
+
     private constructor(
         public readonly id: number,
         public readonly name: string,
@@ -71,9 +71,8 @@ export default class ResourceType {
         return ResourceType.vs;
     }
 
-    public static ofId(id: number): ResourceType | null {
-        const found = this.vs
+    public static ofId(id: number): ResourceType | undefined {
+        return this.vs
             .find(item => item.id === id);
-        return found ? found : null;
     }
 }
