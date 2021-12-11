@@ -1,9 +1,9 @@
+import { Figure } from "draw2d";
 import EventsOfType from "@/components/diagrams/editor/template/event/EventsOfType";
 import EventGist from "@/components/diagrams/editor/template/event/EventGist";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
-import Product from "~/domain/product/Product";
-import { Figure } from "draw2d";
-import Diagram from "~/domain/diagram/Diagram";
+import Product from "@/domain/product/Product";
+import Diagram from "@/domain/diagram/Diagram";
 
 export default class GenericMoveShapeEvents implements EventsOfType<Diagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
@@ -16,12 +16,13 @@ export default class GenericMoveShapeEvents implements EventsOfType<Diagram, Dia
         return new GenericMoveShapeEvents();
     }
 
-    public validate(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
+    public validate(_diagram: Diagram, _product: Product, _view: DiagramCanvas): boolean {
         return this.validTargetFigures().length > 0;
     }
-    public apply(diagram: Diagram, product: Product, view: DiagramCanvas): Diagram {
+
+    public apply(diagram: Diagram, _product: Product, _view: DiagramCanvas): Diagram {
         let modifiedDiagram = diagram;
-        for (let figure of this.validTargetFigures()) {
+        for (const figure of this.validTargetFigures()) {
             const resouceId = parseInt(figure.getId(), 10);
             const placement = diagram.placementOf(resouceId);
             if (!placement) continue;
