@@ -1,26 +1,24 @@
 <template>
   <div>
-    <div class="diagram-canvas" id="canvas01"></div>
+    <div id="canvas01" class="diagram-canvas"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "nuxt-property-decorator";
+import { Component, Vue } from "nuxt-property-decorator";
 
 import "jquery";
 import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
-import draw2d, { Figure, command, Canvas } from "draw2d";
-import { createWrapper } from "@vue/test-utils";
+import draw2d, { Figure } from "draw2d";
 
-import TopLeftLocator from "@/draw2d/custom/TopLeftLocator";
 import TopAbsAndCenterLocator from "@/draw2d/custom/TopAbsAndCenterLocator";
 
 @Component
 export default class extends Vue {
   public mounted() {
-    var canvas = new draw2d.Canvas("canvas01");
+    const canvas = new draw2d.Canvas("canvas01");
 
     canvas.installEditPolicy(
       new draw2d.policy.canvas.FadeoutDecorationPolicy()
@@ -53,8 +51,8 @@ export default class extends Vue {
 
     canvas.installEditPolicy(new draw2d.policy.canvas.SnapToGridEditPolicy());
 
-    var start = new draw2d.shape.node.Start({ x: 50, y: 450 });
-    var end = new draw2d.shape.node.End({ x: 230, y: 150 });
+    // const start = new draw2d.shape.node.Start({ x: 50, y: 450 });
+    // const end = new draw2d.shape.node.End({ x: 230, y: 150 });
 
     // canvas.add(start);
     // canvas.add(end);
@@ -93,7 +91,7 @@ export default class extends Vue {
       stroke: 0,
       selectable: true,
       resizable: false,
-      id: id
+      id
     });
     waku.setWidth(20);
     waku.setResizeable(false);
@@ -141,7 +139,7 @@ export default class extends Vue {
       stroke: 0,
       selectable: false,
       resizable: false,
-      id: id
+      id
     });
     center.setWidth(13);
     center.setResizeable(false);
@@ -170,8 +168,8 @@ export default class extends Vue {
     const charactor = alpha.charAt(Math.floor(Math.random() * alpha.length));
 
     const icon = new draw2d.shape.basic.Label({
-      x: x,
-      y: y,
+      x,
+      y,
       text: charactor,
       width: 50,
       fontSize: 40,
@@ -225,8 +223,8 @@ export default class extends Vue {
     });
 
     const waku = new draw2d.shape.basic.Rectangle({
-      x: x,
-      y: y,
+      x,
+      y,
       width: 280,
       height: 700,
       minWidth: 100,
