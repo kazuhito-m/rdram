@@ -18,6 +18,7 @@ module.exports = {
   // add your custom rules here
   rules: {
     "no-useless-constructor": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "vue/attribute-hyphenation": "off"
   }
 }
