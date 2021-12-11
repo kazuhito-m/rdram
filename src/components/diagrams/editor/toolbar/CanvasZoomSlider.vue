@@ -1,24 +1,25 @@
 <template lang="html">
-  <v-slider  class="zoom-slider"
-      v-model.number="zoomPercentage"
-      dence
-      append-icon="mdi-magnify-plus-outline"
-      prepend-icon="mdi-magnify-minus-outline"
-      :max="MAX"
-      :min="MIN"
-      @click:append="onClickZoomIn"
-      @click:prepend="onClickZoomOut"
+  <v-slider  
+    v-model.number="zoomPercentage"
+    dence
+    append-icon="mdi-magnify-plus-outline"
+    prepend-icon="mdi-magnify-minus-outline"
+    class="zoom-slider"
+    :max="MAX"
+    :min="MIN"
+    @click:append="onClickZoomIn"
+    @click:prepend="onClickZoomOut"
   />
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Watch } from "vue-property-decorator";
-import { Canvas, Figure } from "draw2d";
 
 @Component
 export default class CanvasZoomSlider extends Vue {
   @Prop({ required: true })
   private readonly canvasZoom!: number;
+
   private zoomPercentage: number = 100;
 
   private readonly MAX = 200;
@@ -26,7 +27,7 @@ export default class CanvasZoomSlider extends Vue {
   private readonly INCREMENTAL = 10;
 
   @Emit("onChangeZoomBySlider")
-  private onChangeZoomBySlider(zoom: number) {}
+  private onChangeZoomBySlider(_zoom: number) {}
 
   private canvasZoomToSlider(zoom: number) {
     this.zoomPercentage = 100 / zoom;
@@ -40,7 +41,7 @@ export default class CanvasZoomSlider extends Vue {
   @Watch("zoomPercentage")
   private onChangeSliderValue() {
     if (!isFinite(this.zoomPercentage)) return;
-    let base = Number(this.zoomPercentage);
+    const base = Number(this.zoomPercentage);
     let fix = base;
     if (base < this.MIN) fix = this.MIN;
     if (base > this.MAX) fix = this.MAX;
