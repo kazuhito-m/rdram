@@ -113,6 +113,6 @@ export default class ProductImportService {
     public hitCurrentProductOf(productIds: string[]): boolean {
         const currentProduct = this.strageRepository.getCurrentProduct();
         if (!currentProduct) return false;
-        return productIds.some(id => currentProduct.id === id);
+        return productIds.includes(currentProduct.id);
     }
 }
