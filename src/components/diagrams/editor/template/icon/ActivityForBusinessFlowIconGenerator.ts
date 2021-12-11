@@ -1,10 +1,10 @@
 import draw2d, { Figure } from 'draw2d';
-import Placement from '@/domain/diagram/placement/Placement';
 import IconGenerator from '@/components/diagrams/icon/IconGenerator';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
+import IconStatus from '@/components/diagrams/icon/IconStatus';
 import ResourceType from '@/domain/resource/ResourceType';
-import IconFontAndChar from '../../../icon/IconFontAndChar';
-import IconStatus from '../../../icon/IconStatus';
 import Resource from '@/domain/resource/Resource';
+import Placement from '@/domain/diagram/placement/Placement';
 
 export default class ActivityForBusinessFlowIconGenerator implements IconGenerator<Resource> {
     public resourceType(): ResourceType {
@@ -15,7 +15,7 @@ export default class ActivityForBusinessFlowIconGenerator implements IconGenerat
         const id = String(placement.resourceId);
 
         const outline = new draw2d.shape.basic.Rectangle({
-            id: id,
+            id,
             x: placement.x,
             y: placement.y,
             width: 40,
