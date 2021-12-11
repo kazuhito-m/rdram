@@ -2,8 +2,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Inject } from "nuxt-property-decorator";
-import Diagram from "@/domain/diagram/Diagram";
+import { Component, Vue } from "nuxt-property-decorator";
 
 @Component
 export default class DiagramsTreePane extends Vue { 
