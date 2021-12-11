@@ -1,13 +1,16 @@
 <template lang="html">
-  <v-dialog persistent max-width="500"
+  <v-dialog
     v-model="visibleTest"
+    persistent
+    max-width="500"
     :data-loaded="onVisible()"
   >
     <v-card>
       <v-card-text>これが表示されたらそういうこと。</v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text 
+        <v-btn
+          text
           color="green darken-1" 
           @click="onClose"
         >
