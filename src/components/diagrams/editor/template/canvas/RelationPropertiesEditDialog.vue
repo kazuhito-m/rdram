@@ -10,14 +10,14 @@
     @onClickOk="onClickUpdateExecute"
     @onShow="onShow"
   >
-    <template v-slot:inputPart>
+    <template #nputPart>
       <v-container>
         <v-row>
           <v-col>
             <v-text-field
+              v-model="meaning"
               label="意味(関連に表示されるラベル)"
               counter
-              v-model="meaning"
               autofocus
               :rules="[validateMeaning]"
               :maxlength="meaningMaxLength"
@@ -27,10 +27,15 @@
         <v-row>
           <v-col>
             <p>線形(軌跡の形状)</p>
-            <v-btn-toggle v-model="routerType.id" tile color="deep-purple accent-3" group>
+            <v-btn-toggle
+              v-model="routerType.id"
+              tile
+              color="deep-purple accent-3"
+              group
+            >
               <v-btn
                 v-for="itemRouterType in routerTypes"
-                v-bind:key="itemRouterType.id"
+                :key="itemRouterType.id"
                 :value="itemRouterType.id"
                 @click="onChangeRouterType(itemRouterType)"
               >{{ itemRouterType.name }}</v-btn>
@@ -47,12 +52,10 @@ import {
   Component,
   Vue,
   Prop,
-  Inject,
   Emit,
   Watch
 } from "nuxt-property-decorator";
 import PropertiesSettingDialog from "@/components/PropertiesSettingDialog.vue";
-import StrageRepository from "@/domain/strage/StrageRepository";
 import Relation from "@/domain/relation/Relation";
 import RouterType from "@/domain/relation/RouterType";
 
@@ -62,8 +65,10 @@ import RouterType from "@/domain/relation/RouterType";
 export default class RelationPropertiesEditDialog extends Vue {
   @Prop({ required: true })
   private readonly relation!: Relation | null;
+
   @Emit("onUpdateRelationProperties")
-  private onUpdateRelationProperties(relation: Relation): void {}
+  private onUpdateRelationProperties(_relation: Relation): void {}
+
   @Emit("onClose")
   private onClose(): void {}
 
