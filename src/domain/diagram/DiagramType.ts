@@ -1,4 +1,6 @@
 export default class DiagramType {
+    private static readonly vs: any[] = [];
+
     static システムコンテキスト図 = new DiagramType(1, 'システムコンテキスト図', "mdi-alpha-s-box");
     static 要求モデル図 = new DiagramType(2, '要求モデル図', "mdi-alpha-r-box");
     static ビジネスコンテキスト図 = new DiagramType(3, 'ビジネスコンテキスト図', "mdi-alpha-c-box");
@@ -9,8 +11,6 @@ export default class DiagramType {
     static 状態モデル図 = new DiagramType(6, '状態モデル図', "mdi-state-machine");
     static ユースケース複合図 = new DiagramType(7, 'ユースケース複合図', "mdi-set-none");
     static バリエーション条件 = new DiagramType(8, 'バリエーション・条件', "mdi-vector-combine");
-
-    private static readonly vs: any[] = [];
 
     private constructor(
         public readonly id: number,
