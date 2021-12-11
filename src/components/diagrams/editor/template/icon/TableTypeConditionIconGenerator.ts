@@ -1,12 +1,11 @@
-import draw2d from 'draw2d';
-import { Figure } from 'draw2d';
+import draw2d, { Figure } from 'draw2d';
 import TopLeftLocator from '@/draw2d/custom/TopLeftLocator';
 import GenericSingleIconGenerator from '@/components/diagrams/icon/GenericSingleIconGenerator';
+import IconStatus from '@/components/diagrams/icon/IconStatus';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
+import TableTypeCondition from '@/domain/resource/TableTypeCondition';
 import ResourceType from '@/domain/resource/ResourceType';
 import Placement from '@/domain/diagram/placement/Placement';
-import TableTypeCondition from '@/domain/resource/TableTypeCondition';
-import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
-import IconStatus from '@/components/diagrams/icon/IconStatus';
 
 export default class TableTypeConditionIconGenerator extends GenericSingleIconGenerator {
     public resourceType(): ResourceType {
@@ -22,7 +21,7 @@ export default class TableTypeConditionIconGenerator extends GenericSingleIconGe
         const id = String(placement.resourceId);
 
         const container = new draw2d.shape.layout.TableLayout({
-            id: id,
+            id,
             x: placement.x,
             y: placement.y,
             padding: 1,
