@@ -1,10 +1,10 @@
+import { Figure } from "draw2d";
+import FigureAnalyzer from "./FigureAnalyzer";
 import EventsOfType from "@/components/diagrams/editor/template/event/EventsOfType";
 import EventGist from "@/components/diagrams/editor/template/event/EventGist";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
-import Product from "~/domain/product/Product";
-import { Figure } from "draw2d";
-import FigureAnalyzer from "./FigureAnalyzer";
-import Diagram from "~/domain/diagram/Diagram";
+import Product from "@/domain/product/Product";
+import Diagram from "@/domain/diagram/Diagram";
 
 export default class GenericDeleteShapeEvents implements EventsOfType<Diagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
@@ -19,7 +19,7 @@ export default class GenericDeleteShapeEvents implements EventsOfType<Diagram, D
         return new GenericDeleteShapeEvents();
     }
 
-    public validate(diagram: Diagram, product: Product, view: DiagramCanvas): boolean {
+    public validate(diagram: Diagram, _product: Product, view: DiagramCanvas): boolean {
         // TODO なんども連打される問題について
         // ひょっとして「Rootじゃなく、子イベントを叩いてる」からかな？
         const resourceIds = this.figureAnalyzer.analyzeResourceIds(this.validTargetFigures());
@@ -30,7 +30,7 @@ export default class GenericDeleteShapeEvents implements EventsOfType<Diagram, D
         return false;
     }
 
-    public apply(diagram: Diagram, product: Product, view: DiagramCanvas): Diagram {
+    public apply(diagram: Diagram, _product: Product, _view: DiagramCanvas): Diagram {
         // 対象のFigure
         const validTargetFigures = this.validTargetFigures();
         // Iconと線に分ける
