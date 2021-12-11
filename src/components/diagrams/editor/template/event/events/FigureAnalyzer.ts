@@ -3,7 +3,7 @@ import { Figure } from "draw2d";
 export default class FigureAnalyzer {
     public isConnection(figure?: Figure): boolean {
         if (!figure) return false;
-        let id = figure.getId();
+        const id = figure.getId();
         if (!id) return false;
         return !id.search(/^[0-9]+$/);
     }
