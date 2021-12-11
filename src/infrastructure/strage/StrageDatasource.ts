@@ -56,16 +56,15 @@ export default class StrageDatasource implements StrageRepository {
     }
 
     public register(strage: LocalStrage): void {
-        const target = strage.renewTimeStamp();
-
         const startTime = performance.now();
 
-        const jsonText = this.serializer.serialize(strage);
+        const target = strage.renewTimeStamp();
+        const jsonText = this.serializer.serialize(target);
         localStorage.setItem(StrageDatasource.STRAGE_ID, jsonText);
 
         const ms = performance.now() - startTime;
         console.log('register: ' + jsonText)
-        console.log(strage);
+        console.log(target);
         console.log(`StrageDatasource.register(), ${(new Blob([jsonText])).size} byte保存。${ms.toFixed(3)} ms`);
         // alert('reg: ' + jsonText);
     }
