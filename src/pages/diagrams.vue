@@ -156,6 +156,7 @@ export default class extends Vue {
     disabled: true,
     iconKey: ""
   };
+
   private readonly DIAGRAM_FOLDER_ID_MASK: number = 1000000;
 
   @Inject()
@@ -201,7 +202,7 @@ export default class extends Vue {
     Object.keys(this.TOP_FOLDERS).forEach(tfName => {
       const id = this.TOP_FOLDERS[tfName];
       const item = {
-        id: id,
+        id,
         name: tfName,
         children: [] as TreeItem[],
         disabled: false,
@@ -256,7 +257,7 @@ export default class extends Vue {
     treeItemId: number,
     treeItems: TreeItem[]
   ): TreeItem | null {
-    for (let item of treeItems) {
+    for (const item of treeItems) {
       if (item.id === treeItemId) return item;
       const child = this.findTreeItemById(treeItemId, item.children);
       if (child) return child;
@@ -388,7 +389,8 @@ export default class extends Vue {
       if (exists) alert(`既に同名の ${diagramType.name} が在ります。`);
       return !exists;
     });
-    return name ? name : "";
+    if (name) return name;
+    return "";
   }
 
   public onClickMenuRemoveDiagram(): void {
@@ -477,10 +479,7 @@ export default class extends Vue {
       if (treeItems.length === 0) treeItems.push(this.EMPTY_ITEMS);
       return true;
     }
-    for (let item of treeItems) {
-      if (this.removeTreeItem(treeItemId, item.children)) return true;
-    }
-    return false;
+    return treeItems.some(item => this.removeTreeItem(treeItemId, item.children));
   }
 
   private activeTreeItemOf(treeItemId: number): void {
@@ -504,7 +503,7 @@ export default class extends Vue {
     if (!parentTreeItem) return;
     const parentTreeItemId = parentTreeItem.id;
     const openIds = this.treeOpenItemIds;
-    if (openIds.some(id => id === parentTreeItemId))
+    if (openIds.includes(parentTreeItemId))
       openIds.splice(openIds.indexOf(parentTreeItemId), 1);
     openIds.push(parentTreeItemId);
   }
