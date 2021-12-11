@@ -34,7 +34,7 @@
         <v-btn-toggle v-model="changedRouterTypeId" tile color="deep-purple accent-3" group>
           <v-btn
             v-for="routerType in routerTypes"
-            v-bind:key="routerType.id"
+            :key="routerType.id"
             :value="routerType.id"
             @click="onChangeRouterType(routerType)"
           >{{ routerType.name }}</v-btn>
@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import { Prop, Component, Vue, Inject, Emit } from "nuxt-property-decorator";
+import { Prop, Component, Vue, Emit } from "nuxt-property-decorator";
 import RelationPropertiesEditDialog from "./RelationPropertiesEditDialog.vue";
 import Relation from "@/domain/relation/Relation";
 import RouterType from "@/domain/relation/RouterType";
@@ -67,17 +67,21 @@ export default class ConnectorRightClickMenuAndEditor extends Vue {
 
   @Prop({ required: true })
   private visibleConnectorRightClickMenu?: boolean;
+
   @Prop({ required: true })
   private relation!: Relation | null;
+
   @Prop()
   private menuPositionX?: number;
+
   @Prop()
   private menuPositionY?: number;
 
   @Emit("onUpdateRelation")
-  private onUpdateRelation(relation: Relation): void {}
+  private onUpdateRelation(_relation: Relation): void {}
+
   @Emit("onDeleteRelation")
-  private onDeleteRelation(relation: Relation): void {}
+  private onDeleteRelation(_relation: Relation): void {}
 
   private changedRouterTypeId: number = 0;
 
