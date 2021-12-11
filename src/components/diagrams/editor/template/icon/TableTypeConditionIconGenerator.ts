@@ -77,7 +77,7 @@ export default class TableTypeConditionIconGenerator extends GenericSingleIconGe
     }
 
     private generateLabel(text: string, bold: boolean, fontColor: string, backColor: string): Figure {
-        const label = new draw2d.shape.basic.Label({ text: text });
+        const label = new draw2d.shape.basic.Label({ text });
         label.setResizeable(true);
         label.setBold(bold);
         label.setFontColor(fontColor);
