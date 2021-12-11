@@ -1,11 +1,10 @@
-import RouterType from "./RouterType";
-import Midpoint from "./Midpoint";
-import Resource from "../resource/Resource";
-import Relation from "./Relation";
-import ResourceType from "../resource/ResourceType";
+import RouterType from "@/domain/relation/RouterType";
+import Relation from "@/domain/relation/Relation";
+import Midpoint from "@/domain/relation/Midpoint";
+import Resource from "@/domain/resource/Resource";
+import ResourceType from "@/domain/resource/ResourceType";
 
 export default class RelationWithResources {
-
     constructor(
         public readonly id: string,
         public readonly fromResource: Resource,

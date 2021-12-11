@@ -1,5 +1,5 @@
-import Relation from "./Relation";
-import Resource from "../resource/Resource";
+import Relation from "@/domain/relation/Relation";
+import Resource from "@/domain/resource/Resource";
 
 export default class Relations {
     private readonly values: Relation[];
@@ -39,9 +39,9 @@ export default class Relations {
         return new Relations([]);
     }
 
-    public of(relationId: string): Relation | null {
-        const found = this.values.find(Relation => Relation.id === relationId);
-        return found ? found : null;
+    public of(relationId: string): Relation | undefined {
+        return this.values
+            .find(Relation => Relation.id === relationId);
     }
 
     public add(relation: Relation): Relations {
