@@ -42,21 +42,20 @@ import {
   Emit,
   Watch
 } from "nuxt-property-decorator";
-import PropertiesSettingDialog from "@/components/PropertiesSettingDialog.vue";
+import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
+import StandardResourceEditDialog from "./StandardResourceEditDialog.vue";
+import HasContentResourceEditDialog from "./HasContentResourceEditDialog.vue";
+import VariationEditDialog from "./VariationEditDialog.vue";
+import ConditionEditDialog from "./ConditionEditDialog.vue";
+import TableTypeConditionEditDialog from "./TableTypeConditionEditDialog.vue";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
 import HasContentResource from "@/domain/resource/HasContentResource";
-import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
-import StandardResourceEditDialog from "./StandardResourceEditDialog.vue";
-import HasContentResourceEditDialog from "./HasContentResourceEditDialog.vue";
-import VariationEditDialog from "./VariationEditDialog.vue";
 import Variation from "@/domain/resource/Variation";
-import ConditionEditDialog from "./ConditionEditDialog.vue";
 import Condition from "@/domain/resource/Condition";
 import TableTypeCondition from "@/domain/resource/TableTypeCondition";
-import TableTypeConditionEditDialog from "./TableTypeConditionEditDialog.vue";
 
 @Component({
   components: {
@@ -70,11 +69,12 @@ import TableTypeConditionEditDialog from "./TableTypeConditionEditDialog.vue";
 export default class ResourceEditDialog extends Vue {
   @Prop({ required: true })
   private readonly resourceId!: number;
+
   @Prop({ required: true })
   private readonly resourceType!: ResourceType;
 
   @Emit("onUpdatedResource")
-  private onUpdatedResource(resource: Resource): void {}
+  private onUpdatedResource(_resource: Resource): void {}
 
   @Emit("onClose")
   private onClose(): void {}
