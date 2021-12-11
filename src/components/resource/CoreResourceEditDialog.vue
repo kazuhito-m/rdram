@@ -12,14 +12,14 @@
     @onClickOk="onClickUpdateExecute"
     @onShow="onShow"
   >
-    <template v-slot:inputPart>
+    <template #inputPart>
       <v-container>
         <v-row>
           <v-col>
             <v-text-field
+              v-model="name"
               label="名前"
               counter
-              v-model="name"
               :autofocus="!notFocusSetName"
               :rules="[validateName]"
               :maxlength="nameMaxLength"
@@ -65,30 +65,36 @@ import Resources from "@/domain/resource/Resources";
 export default class CoreResourceEditDialog extends Vue {
   @Prop({ required: true })
   private readonly resource!: Resource;
+
   @Prop({ required: true })
   private readonly resources!: Resources;
+
   @Prop({ required: true })
   private readonly consent!: boolean;
+
   @Prop()
   private notFocusSetName!: boolean;
+
   @Prop()
   private readonly ignoreEscKey!: boolean;
+
   @Prop()
   private readonly ignoreEnterKey!: boolean;
+
   @Prop()
   private readonly dialogWidth!: number;
 
   @Emit("onModifyResource")
-  private onModifyResource(resource: Resource): void {}
+  private onModifyResource(_resource: Resource): void {}
 
   @Emit("onClose")
   private onClose(): void {}
 
   @Emit("showCustomProperties")
-  private showCustomProperties(resource: Resource): void {}
+  private showCustomProperties(_resource: Resource): void {}
 
   @Emit("changeConsent")
-  private changeConsent(newConsent: boolean): void {}
+  private changeConsent(_newConsent: boolean): void {}
 
   @Watch("resource")
   private onChangeResource(): void {
