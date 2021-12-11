@@ -1,12 +1,12 @@
 import draw2d, { Figure } from 'draw2d';
-import IconGenerator from '@/components/diagrams/icon/IconGenerator';
 import TopLeftLocator from '@/draw2d/custom/TopLeftLocator';
-import Placement from '@/domain/diagram/placement/Placement';
+import IconGenerator from '@/components/diagrams/icon/IconGenerator';
+import IconStatus from '@/components/diagrams/icon/IconStatus';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
 import Resource from '@/domain/resource/Resource';
 import ResourceType from '@/domain/resource/ResourceType';
-import IconFontAndChar from './IconFontAndChar';
 import Purpose from '@/domain/resource/Purpose';
-import IconStatus from './IconStatus';
+import Placement from '@/domain/diagram/placement/Placement';
 
 export default abstract class GenericTextCardIconGenerator implements IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;
@@ -28,7 +28,7 @@ export default abstract class GenericTextCardIconGenerator implements IconGenera
             padding: 0,
             bold: true,
             text: purpose.content,
-            id: id
+            id
         });
         text.setWidth(placement.width);
         text.setHeight(placement.height);
