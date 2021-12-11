@@ -1,8 +1,8 @@
 import { Figure } from "draw2d";
+import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
 import Resource from "@/domain/resource/Resource";
-import Placement from "@/domain/diagram/placement/Placement";
 import ResourceType from "@/domain/resource/ResourceType";
-import IconFontAndChar from "./IconFontAndChar";
+import Placement from "@/domain/diagram/placement/Placement";
 
 export default interface IconGenerator<T extends Resource> {
     resourceType(): ResourceType;
