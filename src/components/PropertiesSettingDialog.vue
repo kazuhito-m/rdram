@@ -55,8 +55,10 @@ export default class PropertiesSettingDialog extends Vue {
 
   @Emit("onClose")
   private onClose(): void {}
+
   @Emit("onClickOk")
   private onClickOk(): void {}
+
   @Emit("onShow")
   private onShow(): void {}
 
