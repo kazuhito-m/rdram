@@ -1,6 +1,12 @@
 <template lang="html">
-    <div class="canvas-container" ref="convasContainer">
-        <div class="diagram-canvas" :id="canvasId"/>
+    <div
+      ref="convasContainer"
+      class="canvas-container"
+    >
+        <div
+          :id="canvasId"
+          class="diagram-canvas"
+        />
 
         <CanvasSettingToolBar
             :diagramId="diagramId"
@@ -41,15 +47,16 @@ import {
   Inject,
   Watch
 } from "vue-property-decorator";
-import CanvasSettingToolBar from "@/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
-import ConnectorRightClickMenuAndEditor from "@/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue";
-import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
 
+import draw2d, { Figure } from "draw2d";
 import "jquery";
 import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
-import draw2d, { Figure, command, Connection, Port } from "draw2d";
+
+import CanvasSettingToolBar from "@/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
+import ConnectorRightClickMenuAndEditor from "@/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue";
+import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
 
 import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
 import CanvasGuideType from "@/components/diagrams/editor/toolbar/CanvasGuideType";
@@ -82,18 +89,25 @@ import CoreResourceEditDialog from "@/components/resource/CoreResourceEditDialog
 export default class DiagramCanvas extends Vue {
   @Prop({ required: true })
   private readonly diagramId!: number;
+
   @Prop({ required: true })
   private readonly product!: Product;
+
   @Prop({ required: true })
   private readonly usedResouceIds!: number[];
+
   @Prop({ required: true })
   private readonly allResourcesOnCurrentProduct!: Resource[];
+
   @Prop({ required: true })
   private readonly lastPropertiesUpdatedDiagramId!: number;
+
   @Prop({ required: true })
   private readonly iconMap!: { [key: string]: IconFontAndChar };
+
   @Prop({ required: true })
   private readonly eventAnalyzer!: EventAnalyzer;
+
   @Prop({ required: true })
   private readonly iconGenerators!: IconGenerator<Resource>[];
 
@@ -101,6 +115,7 @@ export default class DiagramCanvas extends Vue {
 
   @Inject()
   private repository!: StrageRepository;
+
   @Inject()
   private clientDownloadRepository!: ClientDownloadRepository;
 
@@ -131,13 +146,13 @@ export default class DiagramCanvas extends Vue {
   private onUpdateResources(): void {}
 
   @Emit("onMergePlacement")
-  private onMergePlacement(diffTarget: Placement[]) {}
+  private onMergePlacement(_diffTarget: Placement[]) {}
 
   @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
+  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   @Emit("onShowWarnBar")
-  private onShowWarnBar(text: string): void {}
+  private onShowWarnBar(_text: string): void {}
 
   // Watch event.
 
@@ -213,7 +228,7 @@ export default class DiagramCanvas extends Vue {
     const connection = this.canvas.getLine(relation.id);
     this.canvas.remove(connection);
 
-    this.transactionOf2((diagram, product) => {
+    this.transactionOf2((diagram, _product) => {
       return diagram.removeRelationsOf([relation.id]);
     });
   }
@@ -230,7 +245,7 @@ export default class DiagramCanvas extends Vue {
       .forEach((c: Figure) => connection.remove(c));
     this.addConnectionLabel(connection, relation);
 
-    this.transactionOf2((diagram, product) => {
+    this.transactionOf2((diagram, _product) => {
       return diagram.modifyRelationOf(relation);
     });
   }
@@ -292,7 +307,7 @@ export default class DiagramCanvas extends Vue {
 
   // Canvas Events
 
-  private onZoomChangeFromCanvas(emitterFigure: Figure, zoomData: any): void {
+  private onZoomChangeFromCanvas(_emitterFigure: Figure, zoomData: any): void {
     this.canvasZoom = zoomData.value;
   }
 
@@ -307,7 +322,7 @@ export default class DiagramCanvas extends Vue {
 
     const textData = event.dataTransfer?.getData("text");
     if (!textData) return;
-    let resourceId = parseInt(textData, 10);
+    const resourceId = parseInt(textData, 10);
     const isAddNew = resourceId < 0;
 
     // 新規追加時。
@@ -318,7 +333,7 @@ export default class DiagramCanvas extends Vue {
       return;
     }
 
-    let product = this.repository.getCurrentProduct() as Product;
+    const product = this.repository.getCurrentProduct() as Product;
     const diagram = product.diagrams.of(this.diagramId);
     if (!diagram) return;
 
@@ -389,22 +404,21 @@ export default class DiagramCanvas extends Vue {
     diagram.placements.forEach(p => this.usedResouceIds.push(p.resourceId));
 
     this.canvas.setDimension(diagram.width, diagram.height);
-    for (let placement of diagram.placements) {
+    for (const placement of diagram.placements) {
       const resource = this.findResource(placement.resourceId);
       if (!resource) continue;
       this.addResouceIconToCanvas(resource, placement);
     }
 
-    for (let relation of diagram.relations) {
+    for (const relation of diagram.relations) {
       this.addConnection(relation);
     }
   }
 
-  private findResource(resourceId: number): Resource | null {
-    const found = this.allResourcesOnCurrentProduct.find(
+  private findResource(resourceId: number): Resource | undefined {
+    return this.allResourcesOnCurrentProduct.find(
       r => r.resourceId === resourceId
     );
-    return found ? found : null;
   }
 
   // self decralation event.
@@ -465,20 +479,16 @@ export default class DiagramCanvas extends Vue {
 
   private choiceIconGenerator(
     resourceType: ResourceType
-  ): IconGenerator<Resource> | null {
-    const generator = this.iconGenerators.find(g =>
+  ): IconGenerator<Resource> | undefined {
+    return this.iconGenerators.find(g =>
       g.resourceType().equals(resourceType)
     );
-    return generator ? generator : null;
   }
 
   private addConnection(relation: Relation) {
     const canvas = this.canvas;
 
     const connection = new draw2d.Connection({ id: relation.id });
-
-    const start = canvas.getFigure(String(relation.fromResourceId));
-    const end = canvas.getFigure(String(relation.toResourceId));
 
     const startPort = this.getPort(relation.fromResourceId, canvas, true);
     if (startPort) connection.setSource(startPort);
@@ -496,18 +506,17 @@ export default class DiagramCanvas extends Vue {
     resourceId: number,
     canvas: draw2d.Canvas,
     fromPort: boolean
-  ): any | null {
+  ): any {
     const targetFigure = canvas.getFigure(String(resourceId));
     if (!targetFigure) return null;
     const portTypeName = fromPort ? "draw2d.OutputPort" : "draw2d.InputPort";
-    const foundPoft = targetFigure
+    return targetFigure
       .getPorts(false)
       .asArray()
       .find(
         (port: any) =>
           port.NAME === portTypeName || port.NAME === "draw2d.HybridPort"
       );
-    return foundPoft ? foundPoft : null;
   }
 
   private addConnectionLabel(connection: any, relation: Relation): void {
@@ -548,11 +557,11 @@ export default class DiagramCanvas extends Vue {
     const diagram = product.diagrams.of(this.diagramId) as Diagram;
 
     const canvas = this.canvas;
-    canvas.getLines().each((i: number, line: any) => {
+    canvas.getLines().each((_index: number, line: any) => {
       if (!diagram.existsRelationId(line.id.toString())) canvas.remove(line);
     });
 
-    canvas.getFigures().each((i: number, figure: any) => {
+    canvas.getFigures().each((_index: number, figure: any) => {
       const resourceId = Number(figure.id);
       if (!diagram.existsPlacementId(resourceId)) canvas.remove(figure);
     });
