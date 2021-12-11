@@ -21,6 +21,12 @@ module.exports = {
   rules: {
     "no-useless-constructor": "off",
     "no-console": "off",
-    "vue/attribute-hyphenation": "off"
+    "vue/attribute-hyphenation": "off",
+    "vue/multi-word-component-names": [
+      'error',
+      {
+        "ignores": [ "Index" ]
+      },
+    ]
   }
 }
