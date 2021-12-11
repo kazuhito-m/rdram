@@ -9,13 +9,13 @@
     @showCustomProperties="showCustomProperties"
     @changeConsent="changeConsent"
   >
-    <template v-slot:customInputFields>
+    <template #customInputFields>
       <v-row>
         <v-col>
           <v-text-field
+            v-model="value"
             label="条件の内容"
             counter
-            v-model="value"
             :rules="[validateValue]"
             :maxlength="valueMaxLength"
           ></v-text-field>
@@ -30,17 +30,13 @@ import {
   Component,
   Vue,
   Prop,
-  Inject,
-  Emit,
-  Watch
+  Emit
 } from "nuxt-property-decorator";
 
 import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
-import Purpose from "@/domain/resource/Purpose";
 import Condition from "@/domain/resource/Condition";
-import ResourceType from "@/domain/resource/ResourceType";
 
 @Component({
   components: {
@@ -50,11 +46,12 @@ import ResourceType from "@/domain/resource/ResourceType";
 export default class ConditionEditDialog extends Vue {
   @Prop({ required: true })
   private readonly resource!: Condition;
+
   @Prop({ required: true })
   private readonly resources!: Resources;
 
   @Emit("onModifyResource")
-  private onModifyResource(resource: Resource): void {}
+  private onModifyResource(_resource: Resource): void {}
 
   @Emit("onClose")
   private onClose(): void {}
