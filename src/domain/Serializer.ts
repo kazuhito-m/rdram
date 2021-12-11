@@ -28,9 +28,9 @@ import BusinessFlowDiagram from '@/domain/diagram/businessflow/BusinessFlowDiagr
 import UsageSceneDiagram from '@/domain/diagram/usagescene/UsageSceneDiagram';
 import UseCaseCompositeDiagram from '@/domain/diagram/usecasecomposite/UseCaseCompositeDiagram';
 import VariationAndConditionDiagram from '@/domain/diagram/variationandcondition/VariationAndConditionDiagram';
-import Variation from "./resource/Variation";
-import Condition from "./resource/Condition";
-import TableTypeCondition from "./resource/TableTypeCondition";
+import Variation from "@/domain/resource/Variation";
+import Condition from "@/domain/resource/Condition";
+import TableTypeCondition from "@/domain/resource/TableTypeCondition";
 
 
 export default class Serializer {
@@ -85,10 +85,13 @@ export default class Serializer {
 
     private addClassNameProperty(value: any): void {
         if (typeof value !== "object") return;
-        if (Array.isArray(value)) return value.forEach(i => this.addClassNameProperty(i));
+        if (Array.isArray(value)) {
+            value.forEach(i => this.addClassNameProperty(i));
+            return;
+        }
         value.__CLASS_NAME = value.constructor.name;
-        for (var key in value) {
-            if (value.hasOwnProperty(key)) {
+        for (const key in value) {
+            if (this.hasProperty(value, key)) {
                 this.addClassNameProperty(value[key]);
             }
         }
@@ -101,8 +104,8 @@ export default class Serializer {
         if (value.__CLASS_NAME === "Object") return value;
         const obj = this.createInstanceOf(value.__CLASS_NAME);
         if (!obj) return obj;
-        for (let key in value) {
-            if (value.hasOwnProperty(key)) {
+        for (const key in value) {
+            if (this.hasProperty(value, key)) {
                 const inValue = value[key];
                 obj[key] = this.toClassInstance(inValue);
             }
@@ -111,9 +114,13 @@ export default class Serializer {
     }
 
     private createInstanceOf(className: string): any {
-        const foundCons = this.constructors
+        const FoundCons = this.constructors
             .find(cons => className === cons.name);
-        if (!foundCons) return null;
-        return new foundCons();
+        if (!FoundCons) return null;
+        return new FoundCons();
+    }
+
+    private hasProperty(value: any, key: string) {
+        return !!(value) && Object.prototype.hasOwnProperty.call(value, key);
     }
 }

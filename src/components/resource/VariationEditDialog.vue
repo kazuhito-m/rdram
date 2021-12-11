@@ -11,10 +11,10 @@
     @showCustomProperties="showCustomProperties"
     @changeConsent="changeConsent"
   >
-    <template v-slot:customInputFields>
+    <template #customInputFields>
       <v-row>
         <v-col>
-          <div class="values-spread" ref="valuesSpreadDiv"></div>
+          <div ref="valuesSpreadDiv" class="values-spread"></div>
         </v-col>
       </v-row>
     </template>
@@ -26,19 +26,15 @@ import {
   Component,
   Vue,
   Prop,
-  Inject,
-  Emit,
-  Watch
+  Emit
 } from "nuxt-property-decorator";
-import jexcel, { JExcelElement, Options, CellValue } from "jexcel";
+import jexcel, { JExcelElement, CellValue } from "jexcel";
 import "jexcel/dist/jexcel.css";
 
 import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
-import Purpose from "@/domain/resource/Purpose";
 import Variation from "@/domain/resource/Variation";
-import ResourceType from "@/domain/resource/ResourceType";
 
 @Component({
   components: {
@@ -48,11 +44,12 @@ import ResourceType from "@/domain/resource/ResourceType";
 export default class VariationEditDialog extends Vue {
   @Prop({ required: true })
   private readonly resource!: Variation;
+
   @Prop({ required: true })
   private readonly resources!: Resources;
 
   @Emit("onModifyResource")
-  private onModifyResource(resource: Resource): void {}
+  private onModifyResource(_resource: Resource): void {}
 
   @Emit("onClose")
   private onClose(): void {}
@@ -69,7 +66,7 @@ export default class VariationEditDialog extends Vue {
     this.valuesSpread = this.createSpread(this.values, div);
   }
 
-  private createSpread(values: string[][], div: HTMLDivElement): JExcelElement {
+  private createSpread(_values: string[][], div: HTMLDivElement): JExcelElement {
     const options = {
       data: this.values,
       allowToolbar: true,
@@ -87,9 +84,9 @@ export default class VariationEditDialog extends Vue {
   }
 
   private onChangedCell(
-    instance: HTMLElement,
+    _instance: HTMLElement,
     cell: HTMLTableCellElement,
-    columnIndex: string,
+    _columnIndex: string,
     rowIndex: string,
     value: CellValue
   ): void {
