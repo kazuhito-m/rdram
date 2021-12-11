@@ -1,10 +1,10 @@
 import draw2d, { Figure } from 'draw2d';
+import IconGenerator from '@/components/diagrams/icon/IconGenerator';
+import IconStatus from '@/components/diagrams/icon/IconStatus';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
+import Resource from '@/domain/resource/Resource';
+import ResourceType from '@/domain/resource/ResourceType';
 import Placement from "@/domain/diagram/placement/Placement";
-import Resource from '~/domain/resource/Resource';
-import IconGenerator from './IconGenerator';
-import ResourceType from '~/domain/resource/ResourceType';
-import IconFontAndChar from './IconFontAndChar';
-import IconStatus from './IconStatus';
 
 /**
  * 「楕円のテキスト＋左上アイコン」ジェネレータ。
@@ -28,7 +28,7 @@ export default abstract class GenericTextEllipseIconGenerator implements IconGen
             selectable: true,
             resizable: true,
             padding: 0,
-            id: id
+            id
         });
 
         const moji = new draw2d.shape.basic.Label({
