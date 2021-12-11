@@ -129,7 +129,7 @@ export default class DiagramEditorContainer extends Vue {
   @Emit("onOpendDiagramPropertiesEditor")
   private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
-  private diagram: Diagram | null = null;
+  private diagram?: Diagram;
 
   public created(): void {
     this.diagram = this.diagramOf(this.diagramId);
@@ -143,9 +143,9 @@ export default class DiagramEditorContainer extends Vue {
   @Emit("onUpdateResoucesOnContainer")
   private onUpdateResoucesOnContainer(): void {}
 
-  private diagramOf(diagramId: number): Diagram | null {
+  private diagramOf(diagramId: number): Diagram | undefined {
     const product = this.repository.getCurrentProduct();
-    if (!product) return null;
+    if (!product) return undefined;
     return product.diagrams.of(diagramId);
   }
 

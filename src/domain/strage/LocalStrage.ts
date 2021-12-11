@@ -29,7 +29,7 @@ export default class LocalStrage {
         );
     }
 
-    public currentProduct(): Product | null {
+    public currentProduct(): Product | undefined {
         return this.products.of(this.status.currentProductId);
     }
 

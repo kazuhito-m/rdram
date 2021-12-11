@@ -326,7 +326,7 @@ export default class DiagramCanvas extends Vue {
     const isAddNew = resourceId < 0;
 
     // 新規追加時。
-    let resource: Resource | null = null;
+    let resource: Resource | undefined;
     if (isAddNew) {
       const resourceType = ResourceType.ofId(resourceId * -1) as ResourceType;
       this.showResourcePropertiesEditor(resourceType);

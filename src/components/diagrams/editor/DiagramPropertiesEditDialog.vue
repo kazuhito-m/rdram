@@ -108,12 +108,6 @@ export default class DiagramPropertiesEditDialog extends Vue {
     this.showProperties(diagram);
   }
 
-  private loadDiagram(): Diagram | null {
-    const product = this.repository?.getCurrentProduct();
-    if (!product) return null;
-    return product.diagrams.of(this.diagramId);
-  }
-
   private showProperties(diagram: Diagram): void {
     this.name = diagram.name;
     this.width = diagram.width.toString();

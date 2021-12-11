@@ -78,7 +78,7 @@ export default class ProductSelectorDialog extends Vue {
   @Prop()
   private cancelable = false;
 
-  private selectedProduct: Product | null = null;
+  private selectedProduct?: Product;
   private products?: Products | null = null;
 
   private onOpen(): string {
@@ -128,7 +128,7 @@ export default class ProductSelectorDialog extends Vue {
 
   @Emit("onClose")
   public onClose(): void {
-    this.selectedProduct = null;
+    this.selectedProduct = undefined;
     this.products = null;
   }
 

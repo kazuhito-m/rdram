@@ -69,9 +69,9 @@ export default class StrageDatasource implements StrageRepository {
         // alert('reg: ' + jsonText);
     }
 
-    public getCurrentProduct(): Product | null {
+    public getCurrentProduct(): Product | undefined {
         const strage = this.get();
-        if (!strage) return null;
+        if (!strage) return undefined;
         return strage.currentProduct();
     }
 
