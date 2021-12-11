@@ -12,7 +12,7 @@ export default class TopLeftLocator extends draw2d.layout.locator.TopLocator {
         this.padding = 0;
     }
 
-    public relocate(index: any, target: any) {
+    public relocate(_index: any, target: any) {
         const targetBoundingBox = target.getBoundingBox();
         let y = 0;
         if (!(target instanceof draw2d.Port)) y = -targetBoundingBox.h - 2;

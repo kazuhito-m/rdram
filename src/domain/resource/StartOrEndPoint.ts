@@ -14,7 +14,6 @@ export default class StartOrEndPoint extends Resource {
     ) { super(resourceId, ResourceType.始点終点.id, name, description); }
 
     public renewDefaultName(seq: number): StartOrEndPoint {
-        const type = this.type;
         const newName = '終点' + this.zeroPadding(seq, 2);
         return this.withName(newName) as StartOrEndPoint;
     }

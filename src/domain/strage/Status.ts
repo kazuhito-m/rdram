@@ -1,5 +1,3 @@
-import Product from "../product/Product";
-
 export default class Status {
     constructor(public readonly currentProductId: string) { }
 

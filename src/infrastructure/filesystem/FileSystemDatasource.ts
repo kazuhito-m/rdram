@@ -1,7 +1,7 @@
 import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
 
 export default class FileSystemDatasouce implements FileSystemRepository {
-    public async readFile(file: File): Promise<string | ArrayBuffer | null> {
+    public readFile(file: File): Promise<string | ArrayBuffer | null> {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = res => {
