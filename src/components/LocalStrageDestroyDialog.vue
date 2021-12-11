@@ -1,6 +1,8 @@
 <template lang="html">
-  <v-dialog persistent max-width="500"
+  <v-dialog
     v-model="visible"
+    persistent
+    max-width="500"
   >
     <v-card>
       <v-card-title class="headline">
@@ -19,7 +21,8 @@
       ></v-checkbox>
       </v-card-text>
       <v-card-actions>
-        <v-btn text
+        <v-btn 
+          text
           color="blue darken-1"
           @click="onClickExportLocalStrage"
         >
@@ -28,14 +31,16 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn text 
+        <v-btn
+          text 
           color="normal" 
           @click="onClose"
         >
           キャンセル
         </v-btn>
 
-        <v-btn text
+        <v-btn
+          text
           :disabled="!consent"
           color="green darken-1"
           @click="onClickDestroyExecute">
@@ -57,6 +62,7 @@ import RdramExportFileName from "@/domain/client/RdramExportFileName";
 export default class LocalStrageDestroyDialog extends Vue {
   @Inject()
   private readonly repository?: StrageRepository;
+
   @Inject()
   private clientDownloadRepository!: ClientDownloadRepository;
 
