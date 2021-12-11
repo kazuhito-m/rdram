@@ -1,12 +1,11 @@
-import draw2d from 'draw2d';
-import { Figure } from 'draw2d';
-import GenericSingleIconGenerator from '@/components/diagrams/icon/GenericSingleIconGenerator';
-import ResourceType from '~/domain/resource/ResourceType';
-import Placement from '~/domain/diagram/placement/Placement';
-import Condition from '~/domain/resource/Condition';
-import IconFontAndChar from '../../../icon/IconFontAndChar';
+import draw2d, { Figure } from 'draw2d';
 import TopLeftLocator from '@/draw2d/custom/TopLeftLocator';
-import IconStatus from '../../../icon/IconStatus';
+import GenericSingleIconGenerator from '@/components/diagrams/icon/GenericSingleIconGenerator';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
+import IconStatus from '@/components/diagrams/icon/IconStatus';
+import ResourceType from '@/domain/resource/ResourceType';
+import Placement from '@/domain/diagram/placement/Placement';
+import Condition from '@/domain/resource/Condition';
 
 export default class ConditionIconGenerator extends GenericSingleIconGenerator {
     public resourceType(): ResourceType {
@@ -31,7 +30,7 @@ export default class ConditionIconGenerator extends GenericSingleIconGenerator {
         label.setBackgroundColor("#2FA3EE");
 
         const container = new draw2d.shape.layout.TableLayout({
-            id: id,
+            id,
             x: placement.x,
             y: placement.y,
             padding: 1,
