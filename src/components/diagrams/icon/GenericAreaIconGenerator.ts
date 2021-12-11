@@ -1,11 +1,11 @@
 import draw2d, { Figure } from 'draw2d';
-import Placement from "@/domain/diagram/placement/Placement";
 import TopLeftLocator from "@/draw2d/custom/TopLeftLocator";
-import Resource from '~/domain/resource/Resource';
-import IconGenerator from './IconGenerator';
+import IconGenerator from '@/components/diagrams/icon/IconGenerator';
+import IconStatus from '@/components/diagrams/icon/IconStatus';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
+import Resource from '@/domain/resource/Resource';
 import ResourceType from '@/domain/resource/ResourceType';
-import IconFontAndChar from './IconFontAndChar';
-import IconStatus from './IconStatus';
+import Placement from "@/domain/diagram/placement/Placement";
 
 export default abstract class GenericAreaIconGenerator implements IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;
@@ -26,7 +26,7 @@ export default abstract class GenericAreaIconGenerator implements IconGenerator<
             resizable: true,
             padding: 0,
             keepAspectRatio: false,
-            id: id
+            id
         });
 
         const icon = new draw2d.shape.basic.Label({
