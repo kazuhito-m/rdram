@@ -15,6 +15,7 @@ export default class SystemForSystemContextIconGenerator implements IconGenerato
         const id = String(placement.resourceId);
 
         const oval = new draw2d.shape.basic.Oval({
+            id,
             x: placement.x,
             y: placement.y,
             bgColor: "#FFFFFF",
@@ -26,8 +27,7 @@ export default class SystemForSystemContextIconGenerator implements IconGenerato
             selectable: true,
             resizable: true,
             color: "#000000",
-            padding: 0,
-            id: id
+            padding: 0
         });
 
         const moji = new draw2d.shape.basic.Label({
