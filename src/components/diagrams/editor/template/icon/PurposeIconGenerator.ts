@@ -1,9 +1,9 @@
 import { Figure } from 'draw2d';
-import Placement from '@/domain/diagram/placement/Placement';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
+import GenericHasContentIconGenerator from '@/components/diagrams/icon/GenericHasContentIconGenerator';
 import ResourceType from '@/domain/resource/ResourceType';
-import IconFontAndChar from '../../../icon/IconFontAndChar';
+import Placement from '@/domain/diagram/placement/Placement';
 import Purpose from '@/domain/resource/Purpose';
-import GenericHasContentIconGenerator from '../../../icon/GenericHasContentIconGenerator';
 
 export default class PurposeIconGenerator extends GenericHasContentIconGenerator {
     public resourceType(): ResourceType {
