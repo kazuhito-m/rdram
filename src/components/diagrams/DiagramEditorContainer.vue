@@ -127,7 +127,7 @@ export default class DiagramEditorContainer extends Vue {
   private lastPropertiesUpdatedDiagramId?: number;
 
   @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
+  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   private diagram: Diagram | null = null;
 
@@ -146,8 +146,7 @@ export default class DiagramEditorContainer extends Vue {
   private diagramOf(diagramId: number): Diagram | null {
     const product = this.repository.getCurrentProduct();
     if (!product) return null;
-    const hitDiagram = product.diagrams.of(diagramId);
-    return hitDiagram ? hitDiagram : null;
+    return product.diagrams.of(diagramId);
   }
 
   public is(typeName: string): boolean {
