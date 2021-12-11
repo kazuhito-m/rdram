@@ -1,7 +1,7 @@
 <template>
   <div class="diagram-pain-container">
     <TwoPainWithSlideBarLayout adsorptionLeftWhenDoubleClick="true" defaultLeftPainWidth="80%">
-      <template v-slot:leftPain>
+      <template #leftPain>
         <DiagramCanvas
           :diagramId="diagramId"
           :product="product"
@@ -17,7 +17,7 @@
           @onShowWarnBar="onShowWarnBar"
         />
       </template>
-      <template v-slot:rightPain>
+      <template #rightPain>
         <ResourceParet
           :diagramId="diagramId"
           :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
@@ -31,7 +31,7 @@
 
     <v-snackbar v-model="warnBar" timeout="2000">
       {{ warnMessage }}
-      <template v-slot:action="{ attrs }">
+      <template #action="{ attrs }">
         <v-btn color="blue" text v-bind="attrs" @click="warnBar = false">Close</v-btn>
       </template>
     </v-snackbar>
@@ -44,16 +44,12 @@ import {
   Component,
   Vue,
   Inject,
-  Emit,
-  Watch
+  Emit
 } from "nuxt-property-decorator";
+
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import ResourceParet from "@/components/diagrams/editor/template/paret/ResourceParet.vue";
-import { ResizeObserver } from "resize-observer";
-import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
-
-import draw2d, { Figure, command } from "draw2d";
 
 import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
 import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
@@ -62,10 +58,8 @@ import IconGenerator from "@/components/diagrams/icon/IconGenerator";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
-import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Placement from "@/domain/diagram/placement/Placement";
-import Relation from "@/domain/relation/Relation";
 
 @Component({
   components: {
@@ -79,12 +73,16 @@ export default class DiagramEditor extends Vue {
 
   @Prop({ required: true })
   private readonly diagramId!: number;
+
   @Prop({ required: true })
   private readonly allResourcesOnCurrentProduct!: Resource[];
+
   @Prop({ required: true })
   private readonly lastPropertiesUpdatedDiagramId!: number;
+
   @Prop({ required: true })
   private readonly eventAnalyzer!: EventAnalyzer;
+
   @Prop({ required: true })
   private readonly iconGenerators!: IconGenerator<Resource>[];
 
@@ -94,11 +92,10 @@ export default class DiagramEditor extends Vue {
   private onUpdateResources(): void {}
 
   @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
+  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   public created(): void {
     this.product = this.getCurrentProduct();
-    const diagramId = this.diagramId;
   }
 
   // this class properties
@@ -228,16 +225,6 @@ export default class DiagramEditor extends Vue {
     );
     console.log(`---- ${prefix} Diagram情報 end ----`);
   }
-}
-
-interface Paret {
-  resourceType: ResourceType;
-  resources: Resource[];
-}
-
-interface CanvasSelections {
-  figures: Figure[];
-  connections: any[];
 }
 </script>
 
