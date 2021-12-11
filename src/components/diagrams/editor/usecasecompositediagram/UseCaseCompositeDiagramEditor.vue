@@ -46,8 +46,10 @@ export default class UseCaseCompositeDiagramEditor extends Vue {
 
   @Prop({ required: true })
   private readonly diagramId!: number;
+
   @Prop({ required: true })
   private readonly allResourcesOnCurrentProduct!: Resource[];
+
   @Prop({ required: true })
   private readonly lastPropertiesUpdatedDiagramId?: number;
 
@@ -81,7 +83,7 @@ export default class UseCaseCompositeDiagramEditor extends Vue {
   private onUpdateResources(): void {}
 
   @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
+  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 }
 </script>
 
