@@ -14,7 +14,7 @@ export default class ProductImportProgressEvent {
     public percentage(): number {
         const stepNubmer = this.stepNumber();
         if (stepNubmer <= 0) return 0;
-        const stepSize = EnumAnalyzer.enumLengthOf(ProductImportProgressEvent);
-        return stepNubmer / stepSize;
+        const endStep = EnumAnalyzer.muxNumberValueOf(ProductImportProgressStep);
+        return stepNubmer / endStep;
     }
 }
