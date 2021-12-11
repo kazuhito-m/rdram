@@ -1,9 +1,9 @@
-import GenericAreaIconGenerator from '../../../icon/GenericAreaIconGenerator';
-import Placement from '~/domain/diagram/placement/Placement';
-import Resource from '~/domain/resource/Resource';
 import draw2d, { Figure } from "draw2d";
-import ResourceType from '~/domain/resource/ResourceType';
-import IconFontAndChar from '../../../icon/IconFontAndChar';
+import GenericAreaIconGenerator from '@/components/diagrams/icon/GenericAreaIconGenerator';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
+import Resource from '@/domain/resource/Resource';
+import ResourceType from '@/domain/resource/ResourceType';
+import Placement from '@/domain/diagram/placement/Placement';
 
 export default class InformationGroupIconGenerator extends GenericAreaIconGenerator {
     public resourceType(): ResourceType {
