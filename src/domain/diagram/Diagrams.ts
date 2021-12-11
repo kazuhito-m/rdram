@@ -1,6 +1,6 @@
-import Diagram from "./Diagram";
-import DiagramType from "./DiagramType";
-import DiagramFactory from "./DiagramFactory";
+import Diagram from "@/domain/diagram/Diagram";
+import DiagramType from "@/domain/diagram/DiagramType";
+import DiagramFactory from "@/domain/diagram/DiagramFactory";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
 
@@ -38,9 +38,9 @@ export default class Diagrams {
             .some(d => d.name === name && d.type.equals(diagramType));
     }
 
-    public of(diagramId: number): Diagram | null {
-        const found = this.values.find(diagram => diagram.id === diagramId);
-        return found ? found : null;
+    public of(diagramId: number): Diagram | undefined {
+        return this.values
+            .find(diagram => diagram.id === diagramId);
     }
 
     public add(diagram: Diagram): Diagrams {
