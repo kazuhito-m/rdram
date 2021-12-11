@@ -23,13 +23,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Inject } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
 import Uuid from "@/domain/world/Uuid";
 
 @Component
 export default class TwoPainWithSlideBarLayout extends Vue {
   @Prop()
   private adsorptionLeftWhenDoubleClick?: boolean;
+
   @Prop()
   private readonly defaultLeftPainWidth?: string;
 
