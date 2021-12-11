@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <TwoPainWithSlideBarLayout>
-      <template v-slot:leftPain>
+      <template #leftPain>
         <div class="treeview-container">
           <v-treeview
             :items="treeItems"
@@ -14,11 +14,11 @@
             dense
             @update:active="onClickTreeItem"
           >
-            <template v-slot:label="{item}">
+            <template #label="{item}">
               <div
+                :data-item-id="item.id"
                 class="right-click-area"
                 @click.right.prevent="onRightClickTreeItem"
-                v-bind:data-item-id="item.id"
               >
                 <v-icon v-if="item.iconKey">{{ item.iconKey }}</v-icon>
                 {{ item.name }}
@@ -65,21 +65,28 @@
           </v-menu>
         </div>
       </template>
-      <template v-slot:rightPain>
+      <template #rightPain>
         <div class="tabview-container">
           <v-tabs
-            v-model="currentTabIndex"
             v-show="openTabs.length > 0"
+            v-model="currentTabIndex"
             background-color="primary"
             show-arrows
             dark
             @change="onChangeActiveTab"
           >
-            <v-tab class="tab-title" v-for="item in openTabs" :key="item.id">
+            <v-tab
+              v-for="item in openTabs"
+              :key="item.id"
+              class="tab-title"
+            >
               <v-icon v-if="item.iconKey">{{ item.iconKey }}</v-icon>
               {{ item.name }}
               <v-btn dark small icon @click="onClickCloseTab" v-bind:data-item-id="item.id">
-                <v-icon dark v-bind:data-item-id="item.id">mdi-close-box</v-icon>
+                <v-icon
+                  dark
+                  :data-item-id="item.id"
+                >mdi-close-box</v-icon>
               </v-btn>
             </v-tab>
           </v-tabs>
@@ -109,18 +116,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Inject } from "nuxt-property-decorator";
+import { Component, Vue, Inject } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
-import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import MessageBox from "@/presentation/MessageBox";
-import Resources from "@/domain/resource/Resources";
-import BusinessContextDiagramEditor from "@/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import Diagrams from "@/domain/diagram/Diagrams";
 
