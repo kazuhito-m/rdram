@@ -25,7 +25,6 @@ import BusinessUseCaseIconGenerator from "@/components/diagrams/editor/template/
 import CompanyIconGenerator from "@/components/diagrams/editor/template/icon/CompanyIconGenerator";
 import ActorIconGenerator from "@/components/diagrams/editor/template/icon/ActorIconGenerator";
 import RoomIconGenerator from "@/components/diagrams/editor/template/icon/RoomIconGenerator";
-import BusinessIconGenerator from "@/components/diagrams/editor/template/icon/BusinessIconGenerator";
 import GoodsIconGenerator from "@/components/diagrams/editor/template/icon/GoodsIconGenerator";
 import ServiceIconGenerator from "@/components/diagrams/editor/template/icon/ServiceIconGenerator";
 import FacilityIconGenerator from "@/components/diagrams/editor/template/icon/FacilityIconGenerator";
@@ -47,8 +46,10 @@ export default class BusinessUseCaseDiagramEditor extends Vue {
 
   @Prop({ required: true })
   private readonly diagramId!: number;
+
   @Prop({ required: true })
   private readonly allResourcesOnCurrentProduct!: Resource[];
+
   @Prop({ required: true })
   private readonly lastPropertiesUpdatedDiagramId?: number;
 
@@ -82,7 +83,7 @@ export default class BusinessUseCaseDiagramEditor extends Vue {
   private onUpdateResources(): void {}
 
   @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
+  private onOpendDiagramPropertiesEditor_(_diagramId: number): void {}
 }
 </script>
 
