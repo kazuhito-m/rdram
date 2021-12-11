@@ -1,10 +1,10 @@
-import DiagramType from "./DiagramType";
-import Placement from "./placement/Placement";
-import CanvasGuideType from "@/components/diagrams/editor/toolbar/CanvasGuideType";
+import DiagramType from "@/domain/diagram/DiagramType";
+import Placement from "@/domain/diagram/placement/Placement";
 import Relation from "@/domain/relation/Relation";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
+import CanvasGuideType from "@/components/diagrams/editor/toolbar/CanvasGuideType";
 
 export default class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;
@@ -27,7 +27,7 @@ export default class Diagram {
         return [];
     }
 
-    public createPlacement(resource: Resource, left: number, top: number): Placement | null {
+    public createPlacement(_resource: Resource, _left: number, _top: number): Placement | null {
         throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
     }
 
@@ -41,10 +41,9 @@ export default class Diagram {
         return modifiedPlacement;
     }
 
-    public placementOf(resourceId: number): Placement | null {
-        const found = this.placements
+    public placementOf(resourceId: number): Placement | undefined {
+        return this.placements
             .find(placement => placement.resourceId === resourceId);
-        return found ? found : null;
     }
 
     public defaultNameWhenCopy(): string {
@@ -53,8 +52,8 @@ export default class Diagram {
 
     public relationIdsOfDeleteTargetResouce(deleteTargetResourceIds: number[]): string[] {
         return this.relations
-            .filter(relation => deleteTargetResourceIds.some(id => id === relation.fromResourceId)
-                || deleteTargetResourceIds.some(id => id === relation.toResourceId))
+            .filter(relation => deleteTargetResourceIds.includes(relation.fromResourceId)
+                || deleteTargetResourceIds.includes(relation.toResourceId))
             .map(relation => relation.id);
     }
 
@@ -101,7 +100,7 @@ export default class Diagram {
         return this.replaceRelations(newValues);
     }
 
-    protected replaceRelations(relations: Relation[]): Diagram {
+    protected replaceRelations(_relations: Relation[]): Diagram {
         throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
     }
 
@@ -111,7 +110,7 @@ export default class Diagram {
         return this.replacePlacement(newValues);
     }
 
-    protected replacePlacement(placements: Placement[]): Diagram {
+    protected replacePlacement(_placements: Placement[]): Diagram {
         throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
     }
 
@@ -120,10 +119,9 @@ export default class Diagram {
             .some(r => r.equalRouteReversivle(relation));
     }
 
-    public relationOf(relationId: string): Relation | null {
-        const found = this.relations
+    public relationOf(relationId: string): Relation | undefined {
+        return this.relations
             .find(r => r.id === relationId);
-        return found ? found : null;
     }
 
     public existsStickOutPlacements(): boolean {
@@ -205,7 +203,7 @@ export default class Diagram {
     public fixStickOuts(): Diagram {
         const deletePlacements: Placement[] = [];
         const survivePlacements: Placement[] = [];
-        for (let placement of this.placements) {
+        for (const placement of this.placements) {
             if (this.isStickOut(placement)) deletePlacements.push(placement)
             else survivePlacements.push(placement);
         }
@@ -230,7 +228,7 @@ export default class Diagram {
         );
     }
 
-    public static genericPrototypeOf(newDiagramId: number, name: string, diagramType: DiagramType, resources: Resources): Diagram {
+    public static genericPrototypeOf(newDiagramId: number, name: string, diagramType: DiagramType, _resources: Resources): Diagram {
         return new Diagram(
             newDiagramId,
             diagramType.id,
