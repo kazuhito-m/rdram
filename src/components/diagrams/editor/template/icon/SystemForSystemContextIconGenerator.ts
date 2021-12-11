@@ -1,10 +1,10 @@
 import draw2d, { Figure } from 'draw2d';
-import Placement from '@/domain/diagram/placement/Placement';
-import Resource from '@/domain/resource/Resource';
 import IconGenerator from '@/components/diagrams/icon/IconGenerator';
+import IconStatus from '@/components/diagrams/icon/IconStatus';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
+import Resource from '@/domain/resource/Resource';
 import ResourceType from '@/domain/resource/ResourceType';
-import IconFontAndChar from '../../../icon/IconFontAndChar';
-import IconStatus from '../../../icon/IconStatus';
+import Placement from '@/domain/diagram/placement/Placement';
 
 export default class SystemForSystemContextIconGenerator implements IconGenerator<Resource> {
     public resourceType(): ResourceType {

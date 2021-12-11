@@ -1,12 +1,11 @@
-import { Figure } from 'draw2d';
-import draw2d from 'draw2d';
-import GenericSingleIconGenerator from '../../../icon/GenericSingleIconGenerator';
-import IconFontAndChar from '../../../icon/IconFontAndChar';
-import IconStatus from '../../../icon/IconStatus';
+import draw2d, { Figure } from 'draw2d';
+import TopLeftLocator from '@/draw2d/custom/TopLeftLocator';
+import GenericSingleIconGenerator from '@/components/diagrams/icon/GenericSingleIconGenerator';
+import IconStatus from '@/components/diagrams/icon/IconStatus';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
+import Variation from '@/domain/resource/Variation';
 import ResourceType from "@/domain/resource/ResourceType";
 import Placement from '@/domain/diagram/placement/Placement';
-import Variation from '@/domain/resource/Variation';
-import TopLeftLocator from '@/draw2d/custom/TopLeftLocator';
 
 export default class VariationIconGenerator extends GenericSingleIconGenerator {
     public resourceType(): ResourceType {
@@ -31,7 +30,7 @@ export default class VariationIconGenerator extends GenericSingleIconGenerator {
         label.setBackgroundColor("#F69747");
 
         const container = new draw2d.shape.layout.TableLayout({
-            id: id,
+            id,
             x: placement.x,
             y: placement.y,
             padding: 1,

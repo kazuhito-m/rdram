@@ -1,9 +1,9 @@
 import draw2d, { Figure } from 'draw2d';
-import Placement from '@/domain/diagram/placement/Placement';
-import ResourceType from '@/domain/resource/ResourceType';
-import IconFontAndChar from '../../../icon/IconFontAndChar';
+import GenericTextEllipseIconGenerator from '@/components/diagrams/icon/GenericTextEllipseIconGenerator';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
 import Resource from '@/domain/resource/Resource';
-import GenericTextEllipseIconGenerator from '../../../icon/GenericTextEllipseIconGenerator';
+import ResourceType from '@/domain/resource/ResourceType';
+import Placement from '@/domain/diagram/placement/Placement';
 
 export default class StateIconGenerator extends GenericTextEllipseIconGenerator {
     public resourceType(): ResourceType {

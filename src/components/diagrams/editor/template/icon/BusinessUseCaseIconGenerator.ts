@@ -1,9 +1,9 @@
 import { Figure } from 'draw2d';
-import IconFontAndChar from '../../../icon/IconFontAndChar';
-import GenericTextEllipseIconGenerator from '../../../icon/GenericTextEllipseIconGenerator';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
+import GenericTextEllipseIconGenerator from '@/components/diagrams/icon/GenericTextEllipseIconGenerator';
 import ResourceType from '@/domain/resource/ResourceType';
-import Placement from '~/domain/diagram/placement/Placement';
-import Resource from '~/domain/resource/Resource';
+import Placement from '@/domain/diagram/placement/Placement';
+import Resource from '@/domain/resource/Resource';
 
 export default class BusinessUseCaseIconGenerator extends GenericTextEllipseIconGenerator {
     public resourceType(): ResourceType {

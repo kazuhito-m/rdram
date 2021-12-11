@@ -1,9 +1,9 @@
 import draw2d, { Figure } from 'draw2d';
-import Placement from '@/domain/diagram/placement/Placement';
 import IconGenerator from '@/components/diagrams/icon/IconGenerator';
+import IconStatus from '@/components/diagrams/icon/IconStatus';
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
 import ResourceType from '@/domain/resource/ResourceType';
-import IconFontAndChar from '../../../icon/IconFontAndChar';
-import IconStatus from '../../../icon/IconStatus';
+import Placement from '@/domain/diagram/placement/Placement';
 import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
 
 export default class StartOrEndPointIconGenerator implements IconGenerator<StartOrEndPoint> {
@@ -11,11 +11,11 @@ export default class StartOrEndPointIconGenerator implements IconGenerator<Start
         return ResourceType.始点終点;
     }
 
-    public generate(placement: Placement, point: StartOrEndPoint, iconChar: IconFontAndChar): Figure {
+    public generate(placement: Placement, point: StartOrEndPoint, _iconChar: IconFontAndChar): Figure {
         const id = String(placement.resourceId);
 
         const outline = new draw2d.shape.basic.Rectangle({
-            id: id,
+            id,
             x: placement.x,
             y: placement.y,
             width: 40,
