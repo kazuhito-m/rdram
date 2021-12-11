@@ -25,8 +25,12 @@
 
     <span v-if="!toolBarCollapse" @dblclick="onDblClickZoomPercentage()">{{ calcZoomPercentage() }}</span>
 
-    <v-menu top offset-y v-if="!toolBarCollapse">
-      <template v-slot:activator="{ on, attrs }">
+    <v-menu
+      v-if="!toolBarCollapse"
+      top 
+      offset-y 
+    >
+      <template #activator="{ on, attrs }">
         <v-btn dark small icon v-bind="attrs" v-on="on">
           <v-icon>{{ canvasGuideType.iconKey }}</v-icon>
         </v-btn>
@@ -46,20 +50,21 @@
       </v-list>
     </v-menu>
 
-    <v-btn dark small icon v-if="!toolBarCollapse">
+    <v-btn v-if="!toolBarCollapse" dark small icon>
       <v-icon @click="onPngDownload">mdi-image</v-icon>
     </v-btn>
 
-    <v-btn dark small icon v-if="!toolBarCollapse">
+    <v-btn v-if="!toolBarCollapse" dark small icon>
       <v-icon @click="onClickSvgDownload">mdi-image-outline</v-icon>
     </v-btn>
 
     <v-spacer></v-spacer>
 
-    <v-btn dark icon v-if="!toolBarCollapse" @click="onClickBarCollapseToggle">
+    <v-btn v-if="!toolBarCollapse" dark icon @click="onClickBarCollapseToggle">
       <v-icon>mdi-arrow-collapse-horizontal</v-icon>
     </v-btn>
-    <v-btn dark icon v-if="toolBarCollapse" @click="onClickBarCollapseToggle">
+
+    <v-btn v-if="toolBarCollapse" dark icon @click="onClickBarCollapseToggle">
       <v-icon>mdi-arrow-expand-horizontal</v-icon>
     </v-btn>
   </v-toolbar>
@@ -69,10 +74,8 @@
 import { Prop, Component, Vue, Emit } from "nuxt-property-decorator";
 import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 import { ResizeObserver } from "resize-observer";
-import { Canvas } from "draw2d";
 import CanvasZoomSlider from "./CanvasZoomSlider.vue";
 import CanvasGuideType from "./CanvasGuideType";
-import Diagram from "@/domain/diagram/Diagram";
 
 @Component({
   components: {
@@ -80,7 +83,7 @@ import Diagram from "@/domain/diagram/Diagram";
   }
 })
 export default class CanvasSettingToolBar extends Vue {
-  private readonly TOOLBAR_PADDING = 10;
+  private static readonly TOOLBAR_PADDING = 10;
 
   @Prop({ required: true })
   private readonly diagramId!: number;
@@ -92,7 +95,7 @@ export default class CanvasSettingToolBar extends Vue {
   private canvasGuideType!: CanvasGuideType;
 
   @Emit("onChangeCanvasGuideType")
-  private onChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {}
+  private onChangeCanvasGuideType(_canvasGuideType: CanvasGuideType): void {}
 
   @Emit("onPngDownload")
   private onPngDownload(): void {}
@@ -101,7 +104,7 @@ export default class CanvasSettingToolBar extends Vue {
   private onSvgDownLoad(): void {}
 
   @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
+  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   private toolBarId!: string;
   private toolBarCollapse = false;
@@ -129,7 +132,7 @@ export default class CanvasSettingToolBar extends Vue {
   }
 
   @Emit("onChangeZoomBySlider")
-  private onChangeZoomParent(zoom: number) {}
+  private onChangeZoomParent(_zoom: number) {}
 
   private onResizeEditorPain(event: ResizeObserverEntry[]): void {
     // FIXME Tabの非アクティブ時に裏で無限呼び出され、することへの対策。今の所「ResizeObzerverを削除」くらいしか手がないが…。
@@ -169,8 +172,7 @@ export default class CanvasSettingToolBar extends Vue {
     this.lastContainerWidth = c.clientWidth;
     this.lastContainerHeight = c.clientHeight;
 
-    const padding = this.TOOLBAR_PADDING;
-    const scrollBarHeight = c.offsetHeight - c.clientHeight;
+    const padding = CanvasSettingToolBar.TOOLBAR_PADDING;
     const left = c.clientWidth - toolBar.offsetWidth - padding;
     const top = c.clientHeight - toolBar.offsetHeight - padding;
 
@@ -215,8 +217,8 @@ export default class CanvasSettingToolBar extends Vue {
   private fixAreaOverToolBar(left: number, top: number, toolBar: HTMLElement) {
     const container = this.getCanvasContainer();
     if (!container) return;
-    let toolBarWidth = toolBar.offsetWidth;
-    let toolBarHeight = toolBar.offsetHeight;
+    const toolBarWidth = toolBar.offsetWidth;
+    const toolBarHeight = toolBar.offsetHeight;
 
     const leftOver = left + toolBarWidth - container.clientWidth;
     if (leftOver > 0) left = container.clientWidth - toolBarWidth;
