@@ -16,5 +16,7 @@ module.exports = {
     "doc/"
   ],
   // add your custom rules here
-  rules: {}
+  rules: {
+    "no-useless-constructor": "off"
+  }
 }
