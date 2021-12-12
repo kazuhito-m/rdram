@@ -78,8 +78,8 @@ export default class ProductSelectorDialog extends Vue {
   @Prop()
   private cancelable = false;
 
-  private selectedProduct?: Product;
-  private products?: Products | null = null;
+  private selectedProduct: Product | null = null;
+  private products: Products = Products.prototypeOf();
 
   private onOpen(): string {
     if (!this.visibleProductSelectorDialog) return "";
@@ -87,8 +87,12 @@ export default class ProductSelectorDialog extends Vue {
     const strage = this.repository?.get();
     if (!strage) return "";
 
-    if (!this.products) this.products = strage.products;
-    if (!this.selectedProduct) this.selectedProduct = strage.currentProduct();
+    if (this.products.isEmpty()) this.products = strage.products;
+    if (this.selectedProduct) return "";
+
+    const product = strage.currentProduct();
+    if (product) this.selectedProduct = product;
+
     return "";
   }
 
@@ -128,8 +132,8 @@ export default class ProductSelectorDialog extends Vue {
 
   @Emit("onClose")
   public onClose(): void {
-    this.selectedProduct = undefined;
-    this.products = null;
+    this.selectedProduct = null;
+    this.products = Products.prototypeOf();
   }
 
   private saveAddProduct(product: Product): void {

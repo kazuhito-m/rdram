@@ -55,4 +55,8 @@ export default class Products {
         const result = Array.from(this.values);
         return result;
     }
+
+    public isEmpty(): boolean {
+        return this.values.length <= 0;
+    }
 }
