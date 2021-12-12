@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[19,63,64,79,80,81,82,83,84,85,86],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[17,16,18,63,64,79,80,81,82,83,84,85,86],{
 
 /***/ 700:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -597,443 +597,6 @@ var update = add("4d49831c", content, true, {"sourceMap":false});
 
 /***/ }),
 
-/***/ 715:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/DiagramEditor.vue?vue&type=template&id=0e0dafcf&scoped=true&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"diagram-pain-container"},[_c('TwoPainWithSlideBarLayout',{attrs:{"adsorptionLeftWhenDoubleClick":"true","defaultLeftPainWidth":"80%"},scopedSlots:_vm._u([{key:"leftPain",fn:function(){return [_c('DiagramCanvas',{attrs:{"diagramId":_vm.diagramId,"product":_vm.product,"usedResouceIds":_vm.usedResouceIds,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"iconMap":_vm.iconMap,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onMergePlacement":_vm.onMergePlacement,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onShowWarnBar":_vm.onShowWarnBar}})]},proxy:true},{key:"rightPain",fn:function(){return [_c('ResourceParet',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"usedResouceIds":_vm.usedResouceIds,"product":_vm.product},on:{"onDeleteResourceOnDiagram":_vm.onDeleteResourceOnDiagram,"onDeleteResourceOnProduct":_vm.onDeleteResourceOnProduct}})]},proxy:true}])}),_vm._v(" "),_c('v-snackbar',{attrs:{"timeout":"2000"},scopedSlots:_vm._u([{key:"action",fn:function(ref){
-var attrs = ref.attrs;
-return [_c('v-btn',_vm._b({attrs:{"color":"blue","text":""},on:{"click":function($event){_vm.warnBar = false}}},'v-btn',attrs,false),[_vm._v("Close")])]}}]),model:{value:(_vm.warnBar),callback:function ($$v) {_vm.warnBar=$$v},expression:"warnBar"}},[_vm._v("\n    "+_vm._s(_vm.warnMessage)+"\n    ")])],1)}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue?vue&type=template&id=0e0dafcf&scoped=true&
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
-var es_reflect_construct = __webpack_require__(28);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
-var possibleConstructorReturn = __webpack_require__(8);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(7);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(19);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
-var es_object_get_own_property_descriptor = __webpack_require__(15);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__(23);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.set.js
-var es_set = __webpack_require__(766);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.iterator.js
-var es_string_iterator = __webpack_require__(44);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.add-all.js
-var esnext_set_add_all = __webpack_require__(767);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.delete-all.js
-var esnext_set_delete_all = __webpack_require__(768);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.difference.js
-var esnext_set_difference = __webpack_require__(769);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.every.js
-var esnext_set_every = __webpack_require__(770);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.filter.js
-var esnext_set_filter = __webpack_require__(771);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.find.js
-var esnext_set_find = __webpack_require__(772);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.intersection.js
-var esnext_set_intersection = __webpack_require__(773);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.is-disjoint-from.js
-var esnext_set_is_disjoint_from = __webpack_require__(774);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.is-subset-of.js
-var esnext_set_is_subset_of = __webpack_require__(775);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.is-superset-of.js
-var esnext_set_is_superset_of = __webpack_require__(776);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.join.js
-var esnext_set_join = __webpack_require__(777);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.map.js
-var esnext_set_map = __webpack_require__(778);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.reduce.js
-var esnext_set_reduce = __webpack_require__(779);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.some.js
-var esnext_set_some = __webpack_require__(780);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.symmetric-difference.js
-var esnext_set_symmetric_difference = __webpack_require__(781);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.union.js
-var esnext_set_union = __webpack_require__(782);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.iterator.js
-var web_dom_collections_iterator = __webpack_require__(43);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.map.js
-var es_array_map = __webpack_require__(36);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.splice.js
-var es_array_splice = __webpack_require__(152);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.for-each.js
-var web_dom_collections_for_each = __webpack_require__(13);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
-var es_array_concat = __webpack_require__(33);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
-var es_function_name = __webpack_require__(21);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
-var es_regexp_exec = __webpack_require__(49);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.replace.js
-var es_string_replace = __webpack_require__(84);
-
-// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
-var nuxt_property_decorator_umd = __webpack_require__(95);
-
-// EXTERNAL MODULE: ./src/components/TwoPainWithSlideBarLayout.vue + 4 modules
-var TwoPainWithSlideBarLayout = __webpack_require__(720);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/canvas/DiagramCanvas.vue + 4 modules
-var DiagramCanvas = __webpack_require__(753);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/paret/ResourceParet.vue + 4 modules
-var ResourceParet = __webpack_require__(754);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/DiagramEditor.vue?vue&type=script&lang=ts&
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-  var c = arguments.length,
-      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-      d;
-  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  }
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-var DiagramEditorvue_type_script_lang_ts_DiagramEditor = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(DiagramEditor, _Vue);
-
-  var _super = _createSuper(DiagramEditor);
-
-  function DiagramEditor() {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, DiagramEditor);
-
-    // Props
-    _this = _super.apply(this, arguments);
-    _this.usedResouceIds = [];
-    _this.iconMap = {};
-    _this.warnBar = false;
-    _this.warnMessage = "";
-    return _this;
-  } // Emits
-
-
-  Object(createClass["a" /* default */])(DiagramEditor, [{
-    key: "onUpdateResources",
-    value: function onUpdateResources() {}
-  }, {
-    key: "onOpendDiagramPropertiesEditor",
-    value: function onOpendDiagramPropertiesEditor(_diagramId) {}
-  }, {
-    key: "created",
-    value: function created() {
-      this.product = this.getCurrentProduct();
-    } // Vue events(life cycle events)
-
-  }, {
-    key: "mounted",
-    value: function mounted() {
-      var diagram = this.product.diagrams.of(this.diagramId);
-      this.intializeIconCharMap(diagram);
-    }
-  }, {
-    key: "onShowWarnBar",
-    value: function onShowWarnBar(text) {
-      this.warnMessage = text;
-      this.warnBar = true;
-    } // children component events.
-
-  }, {
-    key: "onDeleteResourceOnDiagram",
-    value: function onDeleteResourceOnDiagram(resourceId) {
-      var diagram = this.deleteResourceOnDiagram(resourceId);
-      if (!diagram) return;
-      this.onMergePlacement(diagram.placements);
-    }
-  }, {
-    key: "onDeleteResourceOnProduct",
-    value: function onDeleteResourceOnProduct(resourceId) {
-      this.deleteResourceOnProduct(resourceId);
-      this.onUpdateResources();
-    }
-  }, {
-    key: "onMergePlacement",
-    value: function onMergePlacement(diffTarget) {
-      var usedResouceIds = this.usedResouceIds;
-      var idSet = new Set(diffTarget.map(function (p) {
-        return p.resourceId;
-      }));
-
-      for (var i = usedResouceIds.length - 1; i >= 0; i--) {
-        var usedResouceId = usedResouceIds[i];
-        if (idSet.has(usedResouceId)) idSet.delete(usedResouceId);else usedResouceIds.splice(i, 1);
-      }
-
-      idSet.forEach(function (id) {
-        return usedResouceIds.push(id);
-      });
-    } // private methods.
-
-  }, {
-    key: "deleteResourceOnDiagram",
-    value: function deleteResourceOnDiagram(resourceId) {
-      var product = this.getCurrentProduct();
-      var diagram = product.diagrams.of(this.diagramId);
-      var resource = product.resources.of(resourceId);
-      if (!resource) return null;
-      if (!this.confirmResourceDelete([resourceId], diagram)) return null;
-      var modifiedDiagram = diagram.removeResouceOf(resource);
-      var diagrams = product.diagrams.meage(modifiedDiagram);
-      var modifiedProduct = product.with(diagrams);
-      this.repository.registerCurrentProduct(modifiedProduct);
-      this.product = modifiedProduct;
-      return modifiedDiagram;
-    }
-  }, {
-    key: "confirmResourceDelete",
-    value: function confirmResourceDelete(resourceIds, diagram) {
-      var relationIds = diagram.relationIdsOfDeleteTargetResouce(resourceIds);
-      if (relationIds.length === 0) return true;
-      var message = "\u9078\u629E\u3055\u308C\u305F\u8981\u7D20\u306B\u306F\u3001\u4ED6\u306E\u8981\u7D20\u3078\u306E\u95A2\u9023\u304C\u3042\u308A\u307E\u3059\u3002\u305D\u308C\u3089\u3092\u542B\u3081\u524A\u9664\u3057\u3066\u3088\u308D\u3057\u3044\u3067\u3059\u304B\u3002";
-      return confirm(message);
-    }
-  }, {
-    key: "getCurrentProduct",
-    value: function getCurrentProduct() {
-      return this.repository.getCurrentProduct();
-    }
-  }, {
-    key: "deleteResourceOnProduct",
-    value: function deleteResourceOnProduct(resourceId) {
-      var product = this.getCurrentProduct();
-      var resource = product.resources.of(resourceId);
-      if (!resource) return;
-      var usedCount = product.diagrams.countOfUsingOf(resource);
-
-      if (usedCount > 0) {
-        var message = "\u300C".concat(resource.name, "\u300D\u306F\u3001\u73FE\u5728 ").concat(usedCount, "\u500B \u306E\u30C0\u30A4\u30A2\u30B0\u30E9\u30E0\u3067\u53C2\u7167\u3055\u308C\u3066\u3044\u307E\u3059\u3002\n") + "削除する場合、それらのダイアログのアイコンや関連のすべては削除されます。\n" + "".concat(resource.name, " \u3092\u524A\u9664\u3057\u3066\u3082\u3088\u308D\u3057\u3044\u3067\u3059\u304B\u3002");
-        if (!window.confirm(message)) return;
-      }
-
-      var modifiedProduct = product.removeOf(resource);
-      this.repository.registerCurrentProduct(modifiedProduct);
-      this.product = modifiedProduct;
-    }
-  }, {
-    key: "intializeIconCharMap",
-    value: function intializeIconCharMap(diagram) {
-      var _this2 = this;
-
-      diagram.availableResourceTypes().map(function (resourceType) {
-        return resourceType.iconKey;
-      }).forEach(function (i) {
-        return _this2.iconMap[i] = _this2.analyzeMdiIconCharOf(i);
-      });
-    }
-  }, {
-    key: "analyzeMdiIconCharOf",
-    value: function analyzeMdiIconCharOf(iconKey) {
-      var e = document.getElementById(iconKey);
-      var style = window.getComputedStyle(e, "::before");
-      var content = style.content;
-      return {
-        fontFamily: style.fontFamily,
-        charactor: content.replace(/"/g, "")
-      };
-    }
-  }, {
-    key: "dumpDiagram",
-    value: function dumpDiagram(diagram, prefix) {
-      console.log("---- ".concat(prefix, " Diagram\u60C5\u5831 start ----"));
-      diagram.placements.forEach(function (i) {
-        return console.log("\u4F4D\u7F6E;".concat(i.resourceId));
-      });
-      diagram.relations.forEach(function (i) {
-        return console.log("\u7DDA;".concat(i.id, ", from:").concat(i.fromResourceId, ", to:").concat(i.toResourceId));
-      });
-      console.log("---- ".concat(prefix, " Diagram\u60C5\u5831 end ----"));
-    }
-  }]);
-
-  return DiagramEditor;
-}(nuxt_property_decorator_umd["Vue"]);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], DiagramEditorvue_type_script_lang_ts_DiagramEditor.prototype, "diagramId", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], DiagramEditorvue_type_script_lang_ts_DiagramEditor.prototype, "allResourcesOnCurrentProduct", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], DiagramEditorvue_type_script_lang_ts_DiagramEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], DiagramEditorvue_type_script_lang_ts_DiagramEditor.prototype, "eventAnalyzer", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], DiagramEditorvue_type_script_lang_ts_DiagramEditor.prototype, "iconGenerators", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])("onUpdateResources")], DiagramEditorvue_type_script_lang_ts_DiagramEditor.prototype, "onUpdateResources", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])("onOpendDiagramPropertiesEditor")], DiagramEditorvue_type_script_lang_ts_DiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Inject"])()], DiagramEditorvue_type_script_lang_ts_DiagramEditor.prototype, "repository", void 0);
-
-DiagramEditorvue_type_script_lang_ts_DiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
-  components: {
-    TwoPainWithSlideBarLayout: TwoPainWithSlideBarLayout["default"],
-    DiagramCanvas: DiagramCanvas["default"],
-    ResourceParet: ResourceParet["default"]
-  }
-})], DiagramEditorvue_type_script_lang_ts_DiagramEditor);
-/* harmony default export */ var DiagramEditorvue_type_script_lang_ts_ = (DiagramEditorvue_type_script_lang_ts_DiagramEditor);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue?vue&type=script&lang=ts&
- /* harmony default export */ var template_DiagramEditorvue_type_script_lang_ts_ = (DiagramEditorvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue?vue&type=style&index=0&id=0e0dafcf&scoped=true&lang=css&
-var DiagramEditorvue_type_style_index_0_id_0e0dafcf_scoped_true_lang_css_ = __webpack_require__(755);
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(75);
-
-// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installComponents.js
-var installComponents = __webpack_require__(71);
-var installComponents_default = /*#__PURE__*/__webpack_require__.n(installComponents);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(315);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js
-var VSnackbar = __webpack_require__(895);
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue
-
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  template_DiagramEditorvue_type_script_lang_ts_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "0e0dafcf",
-  null
-  
-)
-
-/* harmony default export */ var template_DiagramEditor = __webpack_exports__["default"] = (component.exports);
-
-/* nuxt-component-imports */
-installComponents_default()(component, {TwoPainWithSlideBarLayout: __webpack_require__(720).default})
-
-
-/* vuetify-loader */
-
-
-
-installComponents_default()(component, {VBtn: VBtn["a" /* default */],VSnackbar: VSnackbar["a" /* default */]})
-
-
-/***/ }),
-
 /***/ 716:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1365,22 +928,6 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 717:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(745);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(25).default
-var update = add("06af3092", content, true, {"sourceMap":false});
-
-/***/ }),
-
 /***/ 718:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1393,257 +940,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(25).default
-var update = add("d52b7aa6", content, true, {"sourceMap":false});
-
-/***/ }),
-
-/***/ 719:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(749);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(25).default
-var update = add("3950c51e", content, true, {"sourceMap":false});
-
-/***/ }),
-
-/***/ 720:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/TwoPainWithSlideBarLayout.vue?vue&type=template&id=7daee766&scoped=true&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-flex',{staticClass:"text-center"},[_c('div',{staticClass:"pain-container",on:{"dragover":_vm.onDragOverMasterPainSlideBar,"drop":_vm.onDropMasterPainSlideBar}},[_c('div',{ref:"leftPain",staticClass:"left-pain"},[_vm._t("leftPain")],2),_vm._v(" "),_c('div',{staticClass:"slidebar",attrs:{"id":"slideBar","draggable":"true"},on:{"dblclick":_vm.onDoubleClickSlideBar,"dragstart":_vm.onDragStartMasterPainSlideBar}}),_vm._v(" "),_c('div',{ref:"rightPain",staticClass:"right-pain"},[_vm._t("rightPain")],2)])])}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/TwoPainWithSlideBarLayout.vue?vue&type=template&id=7daee766&scoped=true&
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
-var es_reflect_construct = __webpack_require__(28);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
-var possibleConstructorReturn = __webpack_require__(8);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(7);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(19);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
-var es_object_get_own_property_descriptor = __webpack_require__(15);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
-var es_regexp_exec = __webpack_require__(49);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.match.js
-var es_string_match = __webpack_require__(178);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.replace.js
-var es_string_replace = __webpack_require__(84);
-
-// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
-var nuxt_property_decorator_umd = __webpack_require__(95);
-
-// EXTERNAL MODULE: ./src/domain/world/Uuid.ts
-var Uuid = __webpack_require__(310);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/TwoPainWithSlideBarLayout.vue?vue&type=script&lang=ts&
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-  var c = arguments.length,
-      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-      d;
-  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  }
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-var TwoPainWithSlideBarLayoutvue_type_script_lang_ts_TwoPainWithSlideBarLayout = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(TwoPainWithSlideBarLayout, _Vue);
-
-  var _super = _createSuper(TwoPainWithSlideBarLayout);
-
-  function TwoPainWithSlideBarLayout() {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, TwoPainWithSlideBarLayout);
-
-    _this = _super.apply(this, arguments);
-    _this.leftPainWidth = null;
-    return _this;
-  }
-
-  Object(createClass["a" /* default */])(TwoPainWithSlideBarLayout, [{
-    key: "mounted",
-    value: function mounted() {
-      if (!this.defaultLeftPainWidth) return;
-      var leftPain = this.$refs.leftPain;
-      leftPain.style.width = this.defaultLeftPainWidth;
-    }
-  }, {
-    key: "onDoubleClickSlideBar",
-    value: function onDoubleClickSlideBar() {
-      var leftPain = this.$refs.leftPain;
-      var leftPainStyle = leftPain.style;
-
-      if (this.adsorptionLeftWhenDoubleClick) {
-        var rightPain = this.$refs.rightPain;
-        var rightPainStyle = rightPain.style;
-
-        if (this.leftPainWidth === null) {
-          rightPainStyle.display = "none";
-          this.leftPainWidth = leftPainStyle.width;
-          leftPainStyle.width = "100%";
-          leftPainStyle.resize = "none";
-        } else {
-          rightPainStyle.display = "inline";
-          leftPainStyle.resize = "horizontal";
-          leftPainStyle.width = this.leftPainWidth;
-          this.leftPainWidth = null;
-        }
-      } else {
-        leftPainStyle.display = leftPainStyle.display === "none" ? "inline" : "none";
-      }
-    }
-  }, {
-    key: "onDragStartMasterPainSlideBar",
-    value: function onDragStartMasterPainSlideBar(event) {
-      var _a;
-
-      this.dragId = Uuid["a" /* default */].generate();
-      (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text", this.dragId);
-    }
-  }, {
-    key: "onDragOverMasterPainSlideBar",
-    value: function onDragOverMasterPainSlideBar(event) {
-      event === null || event === void 0 ? void 0 : event.preventDefault();
-    }
-  }, {
-    key: "onDropMasterPainSlideBar",
-    value: function onDropMasterPainSlideBar(event) {
-      var _a;
-
-      event.preventDefault();
-      if (((_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.getData("text")) !== this.dragId) return;
-      var leftPain = this.$refs.leftPain;
-      var style = leftPain.style;
-      var painLeft = 0;
-
-      if (style.left) {
-        var left = style.left;
-        if (left.match("px$")) painLeft = parseInt(left.replace("px", ""), 10);
-      }
-
-      style.width = event.x - painLeft + "px";
-    }
-  }]);
-
-  return TwoPainWithSlideBarLayout;
-}(nuxt_property_decorator_umd["Vue"]);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])()], TwoPainWithSlideBarLayoutvue_type_script_lang_ts_TwoPainWithSlideBarLayout.prototype, "adsorptionLeftWhenDoubleClick", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])()], TwoPainWithSlideBarLayoutvue_type_script_lang_ts_TwoPainWithSlideBarLayout.prototype, "defaultLeftPainWidth", void 0);
-
-TwoPainWithSlideBarLayoutvue_type_script_lang_ts_TwoPainWithSlideBarLayout = __decorate([nuxt_property_decorator_umd["Component"]], TwoPainWithSlideBarLayoutvue_type_script_lang_ts_TwoPainWithSlideBarLayout);
-/* harmony default export */ var TwoPainWithSlideBarLayoutvue_type_script_lang_ts_ = (TwoPainWithSlideBarLayoutvue_type_script_lang_ts_TwoPainWithSlideBarLayout);
-// CONCATENATED MODULE: ./src/components/TwoPainWithSlideBarLayout.vue?vue&type=script&lang=ts&
- /* harmony default export */ var components_TwoPainWithSlideBarLayoutvue_type_script_lang_ts_ = (TwoPainWithSlideBarLayoutvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./src/components/TwoPainWithSlideBarLayout.vue?vue&type=style&index=0&id=7daee766&scoped=true&lang=css&
-var TwoPainWithSlideBarLayoutvue_type_style_index_0_id_7daee766_scoped_true_lang_css_ = __webpack_require__(744);
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(75);
-
-// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installComponents.js
-var installComponents = __webpack_require__(71);
-var installComponents_default = /*#__PURE__*/__webpack_require__.n(installComponents);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VFlex.js
-var VFlex = __webpack_require__(867);
-
-// CONCATENATED MODULE: ./src/components/TwoPainWithSlideBarLayout.vue
-
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_TwoPainWithSlideBarLayoutvue_type_script_lang_ts_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "7daee766",
-  null
-  
-)
-
-/* harmony default export */ var components_TwoPainWithSlideBarLayout = __webpack_exports__["default"] = (component.exports);
-
-/* vuetify-loader */
-
-
-installComponents_default()(component, {VFlex: VFlex["a" /* default */]})
-
-
-/***/ }),
-
-/***/ 721:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(756);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(25).default
-var update = add("27a4c7f3", content, true, {"sourceMap":false});
+var update = add("64f5aedd", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -4018,37 +3315,12 @@ installComponents_default()(component, {VBottomSheet: VBottomSheet["a" /* defaul
 
 /***/ }),
 
-/***/ 744:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TwoPainWithSlideBarLayout_vue_vue_type_style_index_0_id_7daee766_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(717);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TwoPainWithSlideBarLayout_vue_vue_type_style_index_0_id_7daee766_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TwoPainWithSlideBarLayout_vue_vue_type_style_index_0_id_7daee766_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
-
-/***/ }),
-
-/***/ 745:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(24);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".pain-container[data-v-7daee766]{display:flex;height:100%;width:100%;max-width:none;padding-right:0;padding-left:0;margin-right:unset;margin-left:unset}.left-pain[data-v-7daee766]{overflow:hidden;text-align:left;resize:both;width:250px}.right-pain[data-v-7daee766]{flex-grow:1;width:0;min-width:0;overflow:hidden}.slidebar[data-v-7daee766]{width:8px;background-color:grey;cursor:col-resize}", ""]);
-// Exports
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
 /***/ 746:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramCanvas_vue_vue_type_style_index_0_id_727293c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(718);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramCanvas_vue_vue_type_style_index_0_id_727293c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramCanvas_vue_vue_type_style_index_0_id_727293c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramCanvas_vue_vue_type_style_index_0_id_8dc9e686_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(718);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramCanvas_vue_vue_type_style_index_0_id_8dc9e686_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramCanvas_vue_vue_type_style_index_0_id_8dc9e686_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
 
@@ -4061,32 +3333,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(24);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".canvas-container[data-v-727293c4]{width:100%;height:100%;min-width:0;overflow:auto;text-align:left}.diagram-canvas[data-v-727293c4]{width:1px;height:1px;margin:0;border-radius:5px;filter:drop-shadow(10px 10px 10px rgba(0,0,0,.6));position:relative}", ""]);
-// Exports
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 748:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ResourceParet_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(719);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ResourceParet_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ResourceParet_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
-
-/***/ }),
-
-/***/ 749:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(24);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".paret-panel{overflow-x:hidden;overflow-y:auto;width:100%;height:100%}.omit-long-text{position:absolute;text-align:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:100%;padding:0}.ignore-padding{padding:0}.chip-container{position:absolute;text-align:left;width:100%}.v-expansion-panel-content__wrap{padding:0;flex:auto}.v-expansion-panel--next-active{padding:0}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".canvas-container[data-v-8dc9e686]{width:100%;height:100%;min-width:0;overflow:auto;text-align:left}.diagram-canvas[data-v-8dc9e686]{width:1px;height:1px;margin:0;border-radius:5px;filter:drop-shadow(10px 10px 10px rgba(0,0,0,.6));position:relative}", ""]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
@@ -4100,12 +3347,12 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/canvas/DiagramCanvas.vue?vue&type=template&id=727293c4&scoped=true&lang=html&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/canvas/DiagramCanvas.vue?vue&type=template&id=8dc9e686&scoped=true&lang=html&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"convasContainer",staticClass:"canvas-container"},[_c('div',{staticClass:"diagram-canvas",attrs:{"id":_vm.canvasId}}),_vm._v(" "),_c('CanvasSettingToolBar',{attrs:{"diagramId":_vm.diagramId,"canvasZoom":_vm.canvasZoom,"canvasGuideType":_vm.canvasGuideType},on:{"onChangeZoomBySlider":_vm.onChangeZoomBySlider,"onChangeCanvasGuideType":_vm.onChangeCanvasGuideType,"onPngDownload":_vm.onPngDownload,"onSvgDownload":_vm.onSvgDownload,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor}}),_vm._v(" "),_c('ConnectorRightClickMenuAndEditor',{attrs:{"visibleConnectorRightClickMenu":_vm.visibleConnectorMenu,"relation":_vm.targetRelation,"menuPositionX":_vm.menuX,"menuPositionY":_vm.menuY},on:{"onUpdateRelation":_vm.onUpdateRelation,"onDeleteRelation":_vm.onDeleteRelation}}),_vm._v(" "),_c('ResourceEditDialog',{attrs:{"resourceId":_vm.editResourceId,"resourceType":_vm.editResourceType},on:{"onUpdatedResource":_vm.onUpdatedResource,"onClose":_vm.onCloseResourceEditor}})],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/template/canvas/DiagramCanvas.vue?vue&type=template&id=727293c4&scoped=true&lang=html&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/template/canvas/DiagramCanvas.vue?vue&type=template&id=8dc9e686&scoped=true&lang=html&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(28);
@@ -4511,8 +3758,6 @@ var DiagramCanvasvue_type_script_lang_ts_DiagramCanvas = /*#__PURE__*/function (
       var resourceId = parseInt(textData, 10);
       var isAddNew = resourceId < 0; // 新規追加時。
 
-      var resource;
-
       if (isAddNew) {
         var resourceType = ResourceType["a" /* default */].ofId(resourceId * -1);
         this.showResourcePropertiesEditor(resourceType);
@@ -4522,7 +3767,7 @@ var DiagramCanvasvue_type_script_lang_ts_DiagramCanvas = /*#__PURE__*/function (
       var product = this.repository.getCurrentProduct();
       var diagram = product.diagrams.of(this.diagramId);
       if (!diagram) return;
-      resource = product.resources.of(resourceId);
+      var resource = product.resources.of(resourceId);
       if (!resource) return;
       this.addPlacement(resource);
     }
@@ -4947,8 +4192,8 @@ DiagramCanvasvue_type_script_lang_ts_DiagramCanvas = __decorate([Object(lib["Com
 /* harmony default export */ var DiagramCanvasvue_type_script_lang_ts_ = (DiagramCanvasvue_type_script_lang_ts_DiagramCanvas);
 // CONCATENATED MODULE: ./src/components/diagrams/editor/template/canvas/DiagramCanvas.vue?vue&type=script&lang=ts&
  /* harmony default export */ var canvas_DiagramCanvasvue_type_script_lang_ts_ = (DiagramCanvasvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/canvas/DiagramCanvas.vue?vue&type=style&index=0&id=727293c4&scoped=true&lang=css&
-var DiagramCanvasvue_type_style_index_0_id_727293c4_scoped_true_lang_css_ = __webpack_require__(746);
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/canvas/DiagramCanvas.vue?vue&type=style&index=0&id=8dc9e686&scoped=true&lang=css&
+var DiagramCanvasvue_type_style_index_0_id_8dc9e686_scoped_true_lang_css_ = __webpack_require__(746);
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(75);
@@ -4968,7 +4213,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   null,
-  "727293c4",
+  "8dc9e686",
   null
   
 )
@@ -4981,40 +4226,79 @@ installComponents(component, {ResourceEditDialog: __webpack_require__(716).defau
 
 /***/ }),
 
-/***/ 754:
+/***/ 800:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(801);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(25).default
+var update = add("01907af4", content, true, {"sourceMap":false});
+
+/***/ }),
+
+/***/ 801:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(24);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-btn-toggle:not(.v-btn-toggle--group){background:#fff;color:rgba(0,0,0,.87)}.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn{border-color:rgba(0,0,0,.12)!important}.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn:focus:not(:active){border-color:rgba(0,0,0,.26)}.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn .v-icon{color:#000}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group){background:#1e1e1e;color:#fff}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn{border-color:hsla(0,0%,100%,.12)!important}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn:focus:not(:active){border-color:hsla(0,0%,100%,.3)}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn .v-icon{color:#fff}.v-btn-toggle{border-radius:4px;display:inline-flex;max-width:100%}.v-btn-toggle>.v-btn.v-btn{border-radius:0;border-style:solid;border-width:thin;box-shadow:none;opacity:.8;padding:0 12px}.v-application--is-ltr .v-btn-toggle>.v-btn.v-btn:first-child{border-top-left-radius:inherit;border-bottom-left-radius:inherit}.v-application--is-ltr .v-btn-toggle>.v-btn.v-btn:last-child,.v-application--is-rtl .v-btn-toggle>.v-btn.v-btn:first-child{border-top-right-radius:inherit;border-bottom-right-radius:inherit}.v-application--is-rtl .v-btn-toggle>.v-btn.v-btn:last-child{border-top-left-radius:inherit;border-bottom-left-radius:inherit}.v-btn-toggle>.v-btn.v-btn--active{color:inherit;opacity:1}.v-btn-toggle>.v-btn.v-btn:after{display:none}.v-application--is-ltr .v-btn-toggle>.v-btn.v-btn:not(:first-child),.v-application--is-rtl .v-btn-toggle>.v-btn.v-btn:not(:last-child){border-left-width:0}.v-btn-toggle .v-btn.v-btn.v-size--default{min-width:48px;min-height:0}.v-btn-toggle:not(.v-btn-toggle--dense) .v-btn.v-btn.v-size--default{height:48px}.v-btn-toggle--borderless>.v-btn.v-btn{border-width:0}.v-btn-toggle--dense>.v-btn.v-btn{padding:0 8px}.v-btn-toggle--group{border-radius:0}.v-btn-toggle--group>.v-btn.v-btn{background-color:transparent!important;border-color:transparent;margin:4px;min-width:auto}.v-btn-toggle--rounded{border-radius:24px}.v-btn-toggle--shaped{border-radius:24px 4px}.v-btn-toggle--tile{border-radius:0}", ""]);
+// Exports
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 823:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(824);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(25).default
+var update = add("1d31a8d0", content, true, {"sourceMap":false});
+
+/***/ }),
+
+/***/ 824:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(24);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".bottom-sheet-transition-enter,.bottom-sheet-transition-leave-to{transform:translateY(100%)}.v-bottom-sheet.v-dialog{align-self:flex-end;border-radius:0;flex:0 1 auto;margin:0;overflow:visible}.v-bottom-sheet.v-dialog.v-bottom-sheet--inset{max-width:70%}@media only screen and (max-width:599px){.v-bottom-sheet.v-dialog.v-bottom-sheet--inset{max-width:none}}", ""]);
+// Exports
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 847:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/paret/ResourceParet.vue?vue&type=template&id=3dc2124c&lang=html&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"paret-panel"},[_c('v-expansion-panels',{attrs:{"multiple":"","focusable":"","dark":""},model:{value:(_vm.paretsOpen),callback:function ($$v) {_vm.paretsOpen=$$v},expression:"paretsOpen"}},[_vm._l((_vm.availableResourceTypes),function(resourceType){return _c('v-expansion-panel',{key:resourceType.id},[_c('v-expansion-panel-header',[_c('div',{staticClass:"omit-long-text"},[_c('v-icon',{attrs:{"id":resourceType.iconKey}},[_vm._v(_vm._s(resourceType.iconKey))]),_vm._v("\n        "+_vm._s(resourceType.name)+"\n      ")],1)]),_vm._v(" "),_c('v-expansion-panel-content',[_c('v-list',{attrs:{"dark":"","dence":""}},[_c('v-list-item',[_c('v-list-item-content',[_c('v-list-item-title',{staticClass:"chip-container"},[_c('v-chip',{attrs:{"color":"primary","dark":"","outlined":"","draggable":"","data-resource-type-id":resourceType.id},on:{"dragstart":_vm.onDragStartNewCompany}},[_c('v-icon',[_vm._v(_vm._s(resourceType.iconKey))]),_vm._v("新規追加\n              ")],1)],1)],1)],1),_vm._v(" "),_vm._l((_vm.allResourcesOnCurrentProduct.filter(function (r) { return _vm.filterDisplayParet(r, resourceType, _vm.usedResouceIds); })),function(resource){return _c('v-list-item',{key:resource.resourceId},[_c('v-list-item-content',[_c('v-list-item-title',{staticClass:"chip-container"},[_c('v-chip',{attrs:{"data-resource-id":resource.resourceId,"color":"primary","dark":"","draggable":""},on:{"dragstart":_vm.onDragStartResource,"contextmenu":_vm.onRightClickResource}},[_c('v-icon',[_vm._v(_vm._s(resourceType.iconKey))]),_vm._v("\n                "+_vm._s(resource.name)+"\n              ")],1)],1)],1)],1)})],2)],1)],1)}),_vm._v(" "),_c('v-expansion-panel',[_c('v-expansion-panel-header',[_c('div',{staticClass:"omit-long-text"},[_c('v-icon',[_vm._v("mdi-clipboard-check-multiple-outline")]),_vm._v("この図で使用済\n      ")],1)]),_vm._v(" "),_c('v-expansion-panel-content',[_c('v-list',{attrs:{"dark":"","dence":""}},_vm._l((_vm.allResourcesOnCurrentProduct.filter(function (r) { return _vm.filterUsedList(r, _vm.usedResouceIds); })),function(usedResource){return _c('v-list-item',{key:usedResource.id},[_c('v-list-item-content',[_c('v-list-item-title',{staticClass:"chip-container"},[_c('v-chip',{attrs:{"dark":"","data-resource-id":usedResource.resourceId,"data-resource-on-diagram":"true"},on:{"contextmenu":_vm.onRightClickResource}},[_c('v-icon',[_vm._v(_vm._s(_vm.iconKeyOf(usedResource)))]),_vm._v("\n                "+_vm._s(usedResource.name)+"\n              ")],1)],1)],1)],1)}),1)],1)],1),_vm._v(" "),_c('v-menu',{attrs:{"value":_vm.rightClickedResourceId,"close-on-click":true,"close-on-content-click":true,"offset-x":true,"rounded":true,"position-x":_vm.rightClickedResourceX,"position-y":_vm.rightClickedResourceY}},[_c('v-list',[(_vm.rightClickedResourceOnDiagram)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuDeleteResourceOnDiagram}},[_c('v-list-item-title',[_vm._v("このダイアグラムから削除")])],1):_vm._e(),_vm._v(" "),(_vm.rightClickedResourceOnProduct)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuDeleteResourceOnProduct}},[_c('v-list-item-title',[_vm._v("プロダクト全体から削除")])],1):_vm._e()],1)],1)],2)],1)}
-var staticRenderFns = []
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
+var es_object_keys = __webpack_require__(18);
 
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
+var es_symbol = __webpack_require__(14);
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/template/paret/ResourceParet.vue?vue&type=template&id=3dc2124c&lang=html&
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
-var es_reflect_construct = __webpack_require__(28);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
-var possibleConstructorReturn = __webpack_require__(8);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(7);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(19);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
+var es_array_filter = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
 var es_object_get_own_property_descriptor = __webpack_require__(15);
@@ -5022,305 +4306,165 @@ var es_object_get_own_property_descriptor = __webpack_require__(15);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.for-each.js
 var web_dom_collections_for_each = __webpack_require__(13);
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
-var es_number_constructor = __webpack_require__(29);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptors.js
+var es_object_get_own_property_descriptors = __webpack_require__(22);
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.find.js
-var es_array_find = __webpack_require__(61);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
+var defineProperty = __webpack_require__(1);
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.includes.js
-var es_array_includes = __webpack_require__(47);
+// EXTERNAL MODULE: ./node_modules/vuetify/src/components/VBtnToggle/VBtnToggle.sass
+var VBtnToggle = __webpack_require__(800);
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.includes.js
-var es_string_includes = __webpack_require__(63);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VItemGroup/VItemGroup.js
+var VItemGroup = __webpack_require__(181);
 
-// EXTERNAL MODULE: ./node_modules/vue-property-decorator/lib/index.js + 14 modules
-var lib = __webpack_require__(35);
+// CONCATENATED MODULE: ./node_modules/vuetify/lib/mixins/button-group/index.js
+// Extensions
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/paret/ResourceParet.vue?vue&type=script&lang=ts&
+/* @vue/component */
 
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-
-
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-  var c = arguments.length,
-      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-      d;
-  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+/* harmony default export */ var button_group = (VItemGroup["a" /* BaseItemGroup */].extend({
+  name: 'button-group',
+  provide: function provide() {
+    return {
+      btnToggle: this
+    };
+  },
+  computed: {
+    classes: function classes() {
+      return VItemGroup["a" /* BaseItemGroup */].options.computed.classes.call(this);
+    }
+  },
+  methods: {
+    // Isn't being passed down through types
+    genData: VItemGroup["a" /* BaseItemGroup */].options.methods.genData
   }
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
+}));
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/colorable/index.js
+var colorable = __webpack_require__(32);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/mixins.js
+var mixins = __webpack_require__(9);
+
+// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VBtnToggle/VBtnToggle.js
 
 
 
-var ResourceParetvue_type_script_lang_ts_ResourceParet = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(ResourceParet, _Vue);
 
-  var _super = _createSuper(ResourceParet);
 
-  function ResourceParet() {
-    var _this;
 
-    Object(classCallCheck["a" /* default */])(this, ResourceParet);
 
-    _this = _super.apply(this, arguments);
-    _this.availableResourceTypes = [];
-    _this.paretsOpen = [];
-    _this.rightClickedResourceId = 0;
-    _this.rightClickedResourceOnDiagram = false;
-    _this.rightClickedResourceOnProduct = false;
-    _this.rightClickedResourceX = 0;
-    _this.rightClickedResourceY = 0;
-    return _this;
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { Object(defineProperty["a" /* default */])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+// Styles
+ // Mixins
+
+
+ // Utilities
+
+
+/* @vue/component */
+
+/* harmony default export */ var VBtnToggle_VBtnToggle = __webpack_exports__["a"] = (Object(mixins["a" /* default */])(button_group, colorable["a" /* default */]).extend({
+  name: 'v-btn-toggle',
+  props: {
+    backgroundColor: String,
+    borderless: Boolean,
+    dense: Boolean,
+    group: Boolean,
+    rounded: Boolean,
+    shaped: Boolean,
+    tile: Boolean
+  },
+  computed: {
+    classes: function classes() {
+      return _objectSpread(_objectSpread({}, button_group.options.computed.classes.call(this)), {}, {
+        'v-btn-toggle': true,
+        'v-btn-toggle--borderless': this.borderless,
+        'v-btn-toggle--dense': this.dense,
+        'v-btn-toggle--group': this.group,
+        'v-btn-toggle--rounded': this.rounded,
+        'v-btn-toggle--shaped': this.shaped,
+        'v-btn-toggle--tile': this.tile
+      }, this.themeClasses);
+    }
+  },
+  methods: {
+    genData: function genData() {
+      var data = this.setTextColor(this.color, _objectSpread({}, button_group.options.methods.genData.call(this)));
+      if (this.group) return data;
+      return this.setBackgroundColor(this.backgroundColor, data);
+    }
   }
-
-  Object(createClass["a" /* default */])(ResourceParet, [{
-    key: "onDeleteResourceOnDiagram",
-    value: function onDeleteResourceOnDiagram(_resourceId) {}
-  }, {
-    key: "onDeleteResourceOnProduct",
-    value: function onDeleteResourceOnProduct(_resourceId) {}
-  }, {
-    key: "created",
-    value: function created() {
-      var _this2 = this;
-
-      var diagram = this.product.diagrams.of(this.diagramId);
-      if (!diagram) return;
-      diagram.availableResourceTypes().forEach(function (resourceType) {
-        return _this2.availableResourceTypes.push(resourceType);
-      });
-
-      for (var i = 0; i < this.availableResourceTypes.length + 1; i++) {
-        this.paretsOpen.push(i);
-      }
-    }
-  }, {
-    key: "onDragStartNewCompany",
-    value: function onDragStartNewCompany(event) {
-      var _a;
-
-      if (!event.target) return;
-      var target = event.target;
-      var text = target.getAttribute("data-resource-type-id");
-      if (!text) return;
-      var resourceTypeId = parseInt(text, 10);
-      (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text", "-" + resourceTypeId);
-    }
-  }, {
-    key: "onDragStartResource",
-    value: function onDragStartResource(event) {
-      var _a;
-
-      var chip = event.srcElement;
-      var resourceIdText = chip.getAttribute("data-resource-id");
-      (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text", resourceIdText);
-    }
-  }, {
-    key: "onRightClickResource",
-    value: function onRightClickResource(event) {
-      var _this3 = this;
-
-      event.preventDefault();
-      var src = event.srcElement;
-      var resourceIdText = src.getAttribute("data-resource-id");
-      var chip = src.parentElement; // FIXME ちょっと「Veutifyの構造を知りすぎてる」気がする。手が在れば変えたい。
-
-      resourceIdText = chip.getAttribute("data-resource-id");
-      if (!resourceIdText) return;
-      var resourceId = Number(resourceIdText);
-      var onDinagram = chip.getAttribute("data-resource-on-diagram");
-      var resource = this.allResourcesOnCurrentProduct.find(function (r) {
-        return r.resourceId === resourceId;
-      });
-      if (!resource) return;
-      this.rightClickedResourceOnDiagram = onDinagram === "true";
-      this.rightClickedResourceOnProduct = resource.deletable;
-      this.rightClickedResourceId = 0;
-      this.rightClickedResourceX = event.x;
-      this.rightClickedResourceY = event.y;
-      this.$nextTick(function () {
-        _this3.rightClickedResourceId = resourceId;
-      });
-    }
-  }, {
-    key: "onClickMenuDeleteResourceOnDiagram",
-    value: function onClickMenuDeleteResourceOnDiagram() {
-      var resourceId = Number(this.rightClickedResourceId);
-      this.onDeleteResourceOnDiagram(resourceId);
-    }
-  }, {
-    key: "onClickMenuDeleteResourceOnProduct",
-    value: function onClickMenuDeleteResourceOnProduct() {
-      var resourceId = Number(this.rightClickedResourceId);
-      this.onDeleteResourceOnProduct(resourceId);
-    }
-  }, {
-    key: "filterDisplayParet",
-    value: function filterDisplayParet(resource, resourceType, usedResouceIds) {
-      var diagram = this.product.diagrams.of(this.diagramId);
-      if (!diagram) return false;
-      if (!resource.type.equals(resourceType)) return false;
-      return !usedResouceIds.includes(resource.resourceId);
-    }
-  }, {
-    key: "filterUsedList",
-    value: function filterUsedList(resource, usedResouceIds) {
-      return usedResouceIds.includes(resource.resourceId);
-    }
-  }, {
-    key: "iconKeyOf",
-    value: function iconKeyOf(resource) {
-      if (!resource) return "";
-      return resource.type.iconKey;
-    }
-  }]);
-
-  return ResourceParet;
-}(lib["Vue"]);
-
-__decorate([Object(lib["Prop"])({
-  required: true
-})], ResourceParetvue_type_script_lang_ts_ResourceParet.prototype, "diagramId", void 0);
-
-__decorate([Object(lib["Prop"])({
-  required: true
-})], ResourceParetvue_type_script_lang_ts_ResourceParet.prototype, "allResourcesOnCurrentProduct", void 0);
-
-__decorate([Object(lib["Prop"])({
-  required: true
-})], ResourceParetvue_type_script_lang_ts_ResourceParet.prototype, "usedResouceIds", void 0);
-
-__decorate([Object(lib["Prop"])({
-  required: true
-})], ResourceParetvue_type_script_lang_ts_ResourceParet.prototype, "product", void 0);
-
-__decorate([Object(lib["Emit"])("onDeleteResourceOnDiagram")], ResourceParetvue_type_script_lang_ts_ResourceParet.prototype, "onDeleteResourceOnDiagram", null);
-
-__decorate([Object(lib["Emit"])("onDeleteResourceOnProduct")], ResourceParetvue_type_script_lang_ts_ResourceParet.prototype, "onDeleteResourceOnProduct", null);
-
-ResourceParetvue_type_script_lang_ts_ResourceParet = __decorate([lib["Component"]], ResourceParetvue_type_script_lang_ts_ResourceParet);
-/* harmony default export */ var ResourceParetvue_type_script_lang_ts_ = (ResourceParetvue_type_script_lang_ts_ResourceParet);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/template/paret/ResourceParet.vue?vue&type=script&lang=ts&
- /* harmony default export */ var paret_ResourceParetvue_type_script_lang_ts_ = (ResourceParetvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/paret/ResourceParet.vue?vue&type=style&index=0&lang=css&
-var ResourceParetvue_type_style_index_0_lang_css_ = __webpack_require__(748);
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(75);
-
-// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installComponents.js
-var installComponents = __webpack_require__(71);
-var installComponents_default = /*#__PURE__*/__webpack_require__.n(installComponents);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(231);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanel.js
-var VExpansionPanel = __webpack_require__(875);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelContent.js
-var VExpansionPanelContent = __webpack_require__(876);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelHeader.js
-var VExpansionPanelHeader = __webpack_require__(877);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanels.js
-var VExpansionPanels = __webpack_require__(878);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(290);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VList.js
-var VList = __webpack_require__(292);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItem.js
-var VListItem = __webpack_require__(166);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js + 5 modules
-var components_VList = __webpack_require__(92);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js + 1 modules
-var VMenu = __webpack_require__(298);
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/template/paret/ResourceParet.vue
-
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  paret_ResourceParetvue_type_script_lang_ts_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var paret_ResourceParet = __webpack_exports__["default"] = (component.exports);
-
-/* vuetify-loader */
-
-
-
-
-
-
-
-
-
-
-
-
-installComponents_default()(component, {VChip: VChip["a" /* default */],VExpansionPanel: VExpansionPanel["a" /* default */],VExpansionPanelContent: VExpansionPanelContent["a" /* default */],VExpansionPanelHeader: VExpansionPanelHeader["a" /* default */],VExpansionPanels: VExpansionPanels["a" /* default */],VIcon: VIcon["a" /* default */],VList: VList["a" /* default */],VListItem: VListItem["a" /* default */],VListItemContent: components_VList["a" /* VListItemContent */],VListItemTitle: components_VList["b" /* VListItemTitle */],VMenu: VMenu["a" /* default */]})
-
+}));
 
 /***/ }),
 
-/***/ 755:
+/***/ 852:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramEditor_vue_vue_type_style_index_0_id_0e0dafcf_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(721);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramEditor_vue_vue_type_style_index_0_id_0e0dafcf_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramEditor_vue_vue_type_style_index_0_id_0e0dafcf_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
+/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(18);
+/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(14);
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
+/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
+/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(22);
+/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(1);
+/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(29);
+/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _src_components_VBottomSheet_VBottomSheet_sass__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(823);
+/* harmony import */ var _src_components_VBottomSheet_VBottomSheet_sass__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_src_components_VBottomSheet_VBottomSheet_sass__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _VDialog_VDialog__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(674);
 
 
-/***/ }),
 
-/***/ 756:
-/***/ (function(module, exports, __webpack_require__) {
 
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(24);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".diagram-pain-container[data-v-0e0dafcf]{display:flex;position:absolute;height:100%;width:100%}", ""]);
-// Exports
-module.exports = ___CSS_LOADER_EXPORT___;
 
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+
+ // Extensions
+
+
+/* @vue/component */
+
+/* harmony default export */ __webpack_exports__["a"] = (_VDialog_VDialog__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].extend({
+  name: 'v-bottom-sheet',
+  props: {
+    inset: Boolean,
+    maxWidth: {
+      type: [String, Number],
+      default: 'auto'
+    },
+    transition: {
+      type: String,
+      default: 'bottom-sheet-transition'
+    }
+  },
+  computed: {
+    classes: function classes() {
+      return _objectSpread(_objectSpread({}, _VDialog_VDialog__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].options.computed.classes.call(this)), {}, {
+        'v-bottom-sheet': true,
+        'v-bottom-sheet--inset': this.inset
+      });
+    }
+  }
+}));
 
 /***/ })
 
