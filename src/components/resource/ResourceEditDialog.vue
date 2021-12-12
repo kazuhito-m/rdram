@@ -86,8 +86,8 @@ export default class ResourceEditDialog extends Vue {
     if (id !== 0) this.onShow();
   }
 
-  private latestResources?: Resources;
-  private targetStandaerdResource?: Resource;
+  private latestResources: Resources = Resources.prototypeOf();
+  private targetStandaerdResource: Resource | null = null;
   private targetHasContentResource: HasContentResource | null = null;
   private targetVariation: Variation | null = null;
   private targetCondition: Condition | null = null;
@@ -125,7 +125,11 @@ export default class ResourceEditDialog extends Vue {
       return;
     }
 
-    this.targetStandaerdResource = resource;
+    if (resource) {
+      this.targetStandaerdResource = resource;
+      return;
+    }
+    this.targetStandaerdResource = null;
   }
 
   private onModifyStandardResource(resource: Resource): void {
@@ -134,7 +138,7 @@ export default class ResourceEditDialog extends Vue {
   }
 
   private onCloseStandardResourceEditDialog(): void {
-    this.targetStandaerdResource = undefined;
+    this.targetStandaerdResource = null;
     this.onClose();
   }
 
