@@ -78,9 +78,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject, Watch } from "vue-property-decorator";
+import ProductImportMessageConverter from "./ProductImportMessageConverter";
 import ImportProgressEvent from "@/domain/product/import/ImportProgressEvent";
 import ProductImportService from "@/application/service/product/import/ProductImportService";
-import ProductImportMessageConverter from "./ProductImportMessageConverter";
 
 @Component
 export default class ProductImportDialog extends Vue {
