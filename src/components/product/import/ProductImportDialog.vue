@@ -80,11 +80,15 @@
 import { Component, Prop, Vue, Emit, Inject, Watch } from "vue-property-decorator";
 import ImportProgressEvent from "@/domain/product/import/ImportProgressEvent";
 import ProductImportService from "@/application/service/product/import/ProductImportService";
+import ProductImportMessageConverter from "./ProductImportMessageConverter";
 
 @Component
 export default class ProductImportDialog extends Vue {
   @Inject()
   private readonly productImportService?: ProductImportService;
+
+  @Inject()
+  private readonly messageConverter?: ProductImportMessageConverter;
 
   @Prop()
   private visible?: boolean;
