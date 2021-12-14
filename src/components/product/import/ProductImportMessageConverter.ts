@@ -19,6 +19,9 @@ export default class ProductImportMessageConverter {
     }
 
     public makeMessage(event: ProductImportProgressEvent): string {
+        if (event.step === ProductImportProgressStep.失敗 && event.optionalMessage)
+            return event.optionalMessage;
+
         const message = ProductImportMessageConverter.MESSAGE_DIC[event.step];
         if (!message) return "";
         return message + event.optionalMessage;
