@@ -87,8 +87,7 @@ export default class ProductImportDialog extends Vue {
   @Inject()
   private readonly productImportService?: ProductImportService;
 
-  @Inject()
-  private readonly messageConverter?: ProductImportMessageConverter;
+  private readonly messageConverter = new ProductImportMessageConverter();
 
   @Prop()
   private visible?: boolean;
@@ -193,7 +192,7 @@ export default class ProductImportDialog extends Vue {
     if (this.progressLogs.trim().length === 0) this.progressLogs = "";
     else this.progressLogs+="\n";
     this.progressLogs+=message;
-    this.$nextTick(() => console.log(`UIが変更されたはず。%:${event.percentage}, message:${message}`));
+    this.$nextTick(() => console.log(`UIが変更されたはず。progress:${event.percentage()}%, message:${message}`));
   }
 }
 </script>
