@@ -6,5 +6,6 @@ export enum ProductImportProgressStep {
     形式チェック,
     追加,
     保存,
-    完了
+    完了,
+    成功
 }

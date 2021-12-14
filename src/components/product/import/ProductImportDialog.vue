@@ -79,7 +79,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject, Watch } from "vue-property-decorator";
 import ProductImportMessageConverter from "./ProductImportMessageConverter";
-import ImportProgressEvent from "@/domain/product/import/ImportProgressEvent";
+import ProductImportProgressEvent from "@/domain/product/import/ProductImportProgressEvent";
 import ProductImportService from "@/application/service/product/import/ProductImportService";
 
 @Component
@@ -183,15 +183,17 @@ export default class ProductImportDialog extends Vue {
       return newName;
   }
 
-  private notifyProgress(event: ImportProgressEvent): void {
-    this.progressPercentage = event.percentage;
+  private notifyProgress(event: ProductImportProgressEvent): void {
+    this.progressPercentage = event.percentage();
 
-    if (event.message.length === 0) return;
+    const message = this.messageConverter?.makeMessage(event);
+
+    if (message && message.length === 0) return;
     
     if (this.progressLogs.trim().length === 0) this.progressLogs = "";
     else this.progressLogs+="\n";
-    this.progressLogs+=event.message;
-    this.$nextTick(() => console.log(`UIが変更されたはず。%:${event.percentage}, message:${event.message}`));
+    this.progressLogs+=message;
+    this.$nextTick(() => console.log(`UIが変更されたはず。%:${event.percentage}, message:${message}`));
   }
 }
 </script>

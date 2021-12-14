@@ -1,4 +1,5 @@
-import ImportProgressEvent from "@/domain/product/import/ImportProgressEvent";
+import { ProductImportProgressStep } from "@/domain/product/import/ProductImportProgressStep";
+import ProductImportProgressEvent from "@/domain/product/import/ProductImportProgressEvent";
 import LocalStrage from "@/domain/strage/LocalStrage";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
@@ -10,59 +11,55 @@ export default class ProductImportService {
         private readonly fileSystemRepository: FileSystemRepository
     ) { }
 
-    private static readonly PROGRESS_END_STEP = 7;
-
     public async importOf(
         file: File,
-        notifyProgress: (event: ImportProgressEvent) => void,
+        notifyProgress: (event: ProductImportProgressEvent) => void,
         confirmeProductName: (originalProductName: string) => string
     ): Promise<Product | null> {
         notifyProgress(this.raise(1, "インポートを開始します。", file));
         try {
             const result = await this.doImport(file, notifyProgress, confirmeProductName);
             if (result) {
-                notifyProgress(this.raise(ProductImportService.PROGRESS_END_STEP, "インポートが成功しました。", file));
+                notifyProgress(this.raise(ProductImportProgressStep.成功, "", file));
                 return result;
             }
         } catch (e) {
-            notifyProgress(this.raise(0, `予期せぬエラーが発生しました。\n  ${e}`));
+            notifyProgress(this.raise(ProductImportProgressStep.失敗, `予期せぬエラーが発生しました。\n  ${e}`));
         }
-        notifyProgress(this.raise(0, "インポートが失敗しました。", file));
+        notifyProgress(this.raise(ProductImportProgressStep.失敗, "", file));
         return null;
     }
 
     private async doImport(
         file: File,
-        notifyProgress: (event: ImportProgressEvent) => void,
+        notifyProgress: (event: ProductImportProgressEvent) => void,
         confirmeProductName: (originalProductName: string) => string
     ): Promise<Product | null> {
-        let step = 1;
-
-        notifyProgress(this.raise(++step, "ファイルの読み込み。"));
+        notifyProgress(this.raise(ProductImportProgressStep.ファイル読み込み));
 
         const result = this.validateOf(file);
         if (result.length > 0) {
-            notifyProgress(this.raise(++step, result));
-            notifyProgress(this.raise(0, "インポートが失敗しました。", file));
+            notifyProgress(this.raise(ProductImportProgressStep.失敗, result));
+            notifyProgress(this.raise(ProductImportProgressStep.失敗, "", file));
             return null;
         }
 
         const json = await this.fileSystemRepository.readFile(file);
 
         if (json === null) {
-            notifyProgress(this.raise(++step, "ローカルファイルの読み込みに失敗しました。"));
-            notifyProgress(this.raise(0, "インポートが失敗しました。", file));
+            notifyProgress(this.raise(ProductImportProgressStep.失敗, "ローカルファイルの読み込みに失敗しました。"));
+            notifyProgress(this.raise(ProductImportProgressStep.失敗, "", file));
             return null;
         }
         const jsonText = json as string;
 
         let product = this.strageRepository.createProductByJsonOf(jsonText);
 
-        notifyProgress(this.raise(++step, "ファイル内容・形式のチェック。"));
+        notifyProgress(this.raise(ProductImportProgressStep.形式チェック));
 
         if (product.name.trim().length === 0) {
-            notifyProgress(this.raise(++step, "形式が不正です。プロダクト名が設定されていません。"));
-            notifyProgress(this.raise(0, "インポートが失敗しました。", file));
+            notifyProgress(this.raise(ProductImportProgressStep.失敗, "形式が不正です。プロダクト名が設定されていません。"));
+            notifyProgress(this.raise(ProductImportProgressStep.失敗, "", file));
         }
 
         const strage = this.strageRepository.get() as LocalStrage;
@@ -70,30 +67,30 @@ export default class ProductImportService {
         if (strage.existsProductNameOf(product.name)) {
             const newName = confirmeProductName(product.name);
             if (newName === "") {
-                notifyProgress(this.raise(0, "インポートがキャンセルされました。", file));
+                notifyProgress(this.raise(ProductImportProgressStep.キャンセル, "", file));
                 return null;
             }
 
             product = product.renameOf(newName.trim());
         }
 
-        notifyProgress(this.raise(++step, "プロダクトの追加・置き換え。"));
+        notifyProgress(this.raise(ProductImportProgressStep.追加));
 
         const updatedStrage = strage.mergeByProductName(product);
 
-        notifyProgress(this.raise(++step, "LocalStrageへの保存。"));
+        notifyProgress(this.raise(ProductImportProgressStep.保存));
 
         this.strageRepository.register(updatedStrage);
 
-        notifyProgress(this.raise(++step, `完了。プロダクト名: "${product.name}"`));
+        notifyProgress(this.raise(ProductImportProgressStep.完了, `プロダクト名: "${product.name}"`));
 
         return product;
     }
 
-    private raise(step: number, message: string, file?: File): ImportProgressEvent {
+    private raise(step: ProductImportProgressStep, message: string = "", file?: File): ProductImportProgressEvent {
         const fileCaption = file ? `ファイル: "${file.name}"` : "";
-        return new ImportProgressEvent(
-            step / ProductImportService.PROGRESS_END_STEP * 100,
+        return new ProductImportProgressEvent(
+            step,
             message + fileCaption
         );
     }
