@@ -30,7 +30,16 @@
           color="blue darken-1"
           @click="onClickExportProduct"
         >
-          選択中のものをエクスポート
+          エクスポート
+        </v-btn>
+        <v-btn
+          v-if="cancelable"
+          text
+          :disabled="isSelectedCurrentProduct()"
+          color="red darken-1"
+          @click="onClickRemoveProduct"
+        >
+          削除
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn
@@ -79,6 +88,7 @@ export default class ProductSelectorDialog extends Vue {
   private cancelable = false;
 
   private selectedProduct: Product | null = null;
+  private currentProduct: Product | null = null;
   private products: Products = Products.prototypeOf();
 
   private onOpen(): string {
@@ -91,7 +101,10 @@ export default class ProductSelectorDialog extends Vue {
     if (this.selectedProduct) return "";
 
     const product = strage.currentProduct();
-    if (product) this.selectedProduct = product;
+    if (!product) return "";
+
+    this.currentProduct = product;
+    this.selectedProduct = this.currentProduct;
 
     return "";
   }
@@ -130,10 +143,21 @@ export default class ProductSelectorDialog extends Vue {
     alert("プロダクトのエクスポートダウンロードファイルの作成に失敗しました。");
   }
 
+  public onClickRemoveProduct(): void {
+    if (this.downloadProductExportFile()) return;
+    alert("プロダクトのエクスポートダウンロードファイルの作成に失敗しました。");
+  }
+
   @Emit("onClose")
   public onClose(): void {
     this.selectedProduct = null;
+    this.currentProduct = null;
     this.products = Products.prototypeOf();
+  }
+
+  private isSelectedCurrentProduct(): boolean {
+    if (!(this.currentProduct && this.selectedProduct)) return false;
+    return this.currentProduct.id === this.selectedProduct.id;
   }
 
   private saveAddProduct(product: Product): void {
@@ -144,11 +168,14 @@ export default class ProductSelectorDialog extends Vue {
   }
 
   private saveCurrentProduct(): boolean {
+    if (this.isSelectedCurrentProduct()) return false;
+
     const strage = this.repository?.get();
     if (!strage || !this.selectedProduct) return false;
-    if (strage.isCurrentProduct(this.selectedProduct)) return false;
+
     const changed = strage.changeCurrent(this.selectedProduct); 
     this.repository?.register(changed);
+    
     return true;
   }
 
