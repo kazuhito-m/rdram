@@ -65,7 +65,7 @@ export default class ProductImportService {
         if (strage.existsProductNameOf(product.name)) {
             const newName = confirmeProductName(product.name);
             if (newName === "") {
-                notifyProgress(this.raise(ProductImportProgressStep.キャンセル, "", file));
+                notifyProgress(this.raise(ProductImportProgressStep.キャンセル));
                 return null;
             }
 
