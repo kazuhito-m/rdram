@@ -16,7 +16,7 @@ export default class ProductImportService {
         notifyProgress: (event: ProductImportProgressEvent) => void,
         confirmeProductName: (originalProductName: string) => string
     ): Promise<Product | null> {
-        notifyProgress(this.raise(1, "インポートを開始します。", file));
+        notifyProgress(this.raise(ProductImportProgressStep.開始, "", file));
         try {
             const result = await this.doImport(file, notifyProgress, confirmeProductName);
             if (result) {
@@ -24,9 +24,9 @@ export default class ProductImportService {
                 return result;
             }
         } catch (e) {
-            notifyProgress(this.raise(ProductImportProgressStep.失敗, `予期せぬエラーが発生しました。\n  ${e}`));
+            notifyProgress(this.raiseError(`予期せぬエラーが発生しました。\n  ${e}`));
         }
-        notifyProgress(this.raise(ProductImportProgressStep.失敗, "", file));
+        notifyProgress(this.raiseError("", file));
         return null;
     }
 
@@ -39,16 +39,16 @@ export default class ProductImportService {
 
         const result = this.validateOf(file);
         if (result.length > 0) {
-            notifyProgress(this.raise(ProductImportProgressStep.失敗, result));
-            notifyProgress(this.raise(ProductImportProgressStep.失敗, "", file));
+            notifyProgress(this.raiseError(result));
+            notifyProgress(this.raiseError("", file));
             return null;
         }
 
         const json = await this.fileSystemRepository.readFile(file);
 
         if (json === null) {
-            notifyProgress(this.raise(ProductImportProgressStep.失敗, "ローカルファイルの読み込みに失敗しました。"));
-            notifyProgress(this.raise(ProductImportProgressStep.失敗, "", file));
+            notifyProgress(this.raiseError("ローカルファイルの読み込みに失敗しました。"));
+            notifyProgress(this.raiseError("", file));
             return null;
         }
         const jsonText = json as string;
@@ -58,8 +58,8 @@ export default class ProductImportService {
         notifyProgress(this.raise(ProductImportProgressStep.形式チェック));
 
         if (product.name.trim().length === 0) {
-            notifyProgress(this.raise(ProductImportProgressStep.失敗, "形式が不正です。プロダクト名が設定されていません。"));
-            notifyProgress(this.raise(ProductImportProgressStep.失敗, "", file));
+            notifyProgress(this.raiseError("形式が不正です。プロダクト名が設定されていません。"));
+            notifyProgress(this.raiseError("", file));
         }
 
         const strage = this.strageRepository.get() as LocalStrage;
@@ -82,17 +82,21 @@ export default class ProductImportService {
 
         this.strageRepository.register(updatedStrage);
 
-        notifyProgress(this.raise(ProductImportProgressStep.完了, `プロダクト名: "${product.name}"`));
+        notifyProgress(this.raise(ProductImportProgressStep.完了, `product name: "${product.name}"`));
 
         return product;
     }
 
     private raise(step: ProductImportProgressStep, message: string = "", file?: File): ProductImportProgressEvent {
-        const fileCaption = file ? `ファイル: "${file.name}"` : "";
+        const fileCaption = file ? `file: "${file.name}"` : "";
         return new ProductImportProgressEvent(
             step,
             message + fileCaption
         );
+    }
+
+    private raiseError(message: string = "", file?: File): ProductImportProgressEvent {
+        return this.raiseError(message, file);
     }
 
     public validateOf(file: File): string {
