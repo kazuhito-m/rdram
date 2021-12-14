@@ -47,6 +47,12 @@ export default class Products {
         return this.merge(mergeProduct);
     }
 
+    public removeOf(product: Product): Products {
+        const newValues = this.values
+            .filter(p => p.id !== product.id);
+        return new Products(newValues);
+    }
+
     public forEach(func: (product: Product) => void) {
         this.values.forEach(func);
     }

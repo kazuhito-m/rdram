@@ -144,8 +144,17 @@ export default class ProductSelectorDialog extends Vue {
   }
 
   public onClickRemoveProduct(): void {
-    if (this.downloadProductExportFile()) return;
-    alert("プロダクトのエクスポートダウンロードファイルの作成に失敗しました。");
+    const removeTarget = this.selectedProduct;
+    if (!removeTarget) return;
+
+    if (!this.downloadProductExportFile()) {
+      alert("プロダクトのエクスポートダウンロードファイルの作成に失敗しました。削除を取りやめます。");
+      return;
+    }
+
+    this.saveRemoveProduct(removeTarget);
+    this.products = this.products?.removeOf(removeTarget);
+    this.selectedProduct = null;
   }
 
   @Emit("onClose")
@@ -164,6 +173,13 @@ export default class ProductSelectorDialog extends Vue {
     const strage = this.repository?.get();
     if (!strage) return;
     const added = strage.merge(product);
+    this.repository?.register(added);
+  }
+
+  private saveRemoveProduct(product: Product): void {
+    const strage = this.repository?.get();
+    if (!strage) return;
+    const added = strage.removeOf(product);
     this.repository?.register(added);
   }
 

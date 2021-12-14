@@ -47,6 +47,10 @@ export default class LocalStrage {
         return this.with(newProducts);
     }
 
+    public removeOf(product: Product): LocalStrage {
+        const newProducts = this.products.removeOf(product);
+        return this.with(newProducts);
+    }
 
     public changeCurrent(product: Product): LocalStrage {
         return new LocalStrage(
