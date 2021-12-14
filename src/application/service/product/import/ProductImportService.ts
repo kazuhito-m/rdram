@@ -26,7 +26,7 @@ export default class ProductImportService {
         } catch (e) {
             notifyProgress(this.raiseError(`予期せぬエラーが発生しました。\n  ${e}`));
         }
-        notifyProgress(this.raiseError("", file));
+        notifyProgress(this.raise(ProductImportProgressStep.失敗, "", file));
         return null;
     }
 
@@ -40,7 +40,6 @@ export default class ProductImportService {
         const result = this.validateOf(file);
         if (result.length > 0) {
             notifyProgress(this.raiseError(result));
-            notifyProgress(this.raiseError("", file));
             return null;
         }
 
@@ -48,7 +47,6 @@ export default class ProductImportService {
 
         if (json === null) {
             notifyProgress(this.raiseError("ローカルファイルの読み込みに失敗しました。"));
-            notifyProgress(this.raiseError("", file));
             return null;
         }
         const jsonText = json as string;
@@ -59,7 +57,7 @@ export default class ProductImportService {
 
         if (product.name.trim().length === 0) {
             notifyProgress(this.raiseError("形式が不正です。プロダクト名が設定されていません。"));
-            notifyProgress(this.raiseError("", file));
+            return null;
         }
 
         const strage = this.strageRepository.get() as LocalStrage;
@@ -96,7 +94,7 @@ export default class ProductImportService {
     }
 
     private raiseError(message: string = "", file?: File): ProductImportProgressEvent {
-        return this.raiseError(message, file);
+        return this.raise(ProductImportProgressStep.エラー, message, file);
     }
 
     public validateOf(file: File): string {

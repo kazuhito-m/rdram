@@ -1,5 +1,6 @@
 export enum ProductImportProgressStep {
-    失敗 = -1,
+    エラー = -2,
+    失敗,
     キャンセル,
     開始,
     ファイル読み込み,

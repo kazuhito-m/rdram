@@ -7,6 +7,7 @@ export default class ProductImportMessageConverter {
     private static initMap(): { [key: number]: string } {
         const m: { [key: number]: string } = {};
         m[ProductImportProgressStep.失敗] = "インポートが失敗しました。";
+        m[ProductImportProgressStep.エラー] = "エラー : ";
         m[ProductImportProgressStep.キャンセル] = "インポートがキャンセルされました。";
         m[ProductImportProgressStep.開始] = "インポートを開始します。";
         m[ProductImportProgressStep.ファイル読み込み] = "ファイルの読み込み。";
@@ -19,9 +20,6 @@ export default class ProductImportMessageConverter {
     }
 
     public makeMessage(event: ProductImportProgressEvent): string {
-        if (event.step === ProductImportProgressStep.失敗 && event.optionalMessage)
-            return event.optionalMessage;
-
         const message = ProductImportMessageConverter.MESSAGE_DIC[event.step];
         if (!message) return "";
         return message + event.optionalMessage;
