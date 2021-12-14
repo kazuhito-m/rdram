@@ -5541,6 +5541,7 @@ var ProductImportMessageConverter = /*#__PURE__*/function () {
   Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(ProductImportMessageConverter, [{
     key: "makeMessage",
     value: function makeMessage(event) {
+      if (event.step === _domain_product_import_ProductImportProgressStep__WEBPACK_IMPORTED_MODULE_2__[/* ProductImportProgressStep */ "a"].失敗 && event.optionalMessage) return event.optionalMessage;
       var message = ProductImportMessageConverter.MESSAGE_DIC[event.step];
       if (!message) return "";
       return message + event.optionalMessage;
@@ -5556,7 +5557,7 @@ var ProductImportMessageConverter = /*#__PURE__*/function () {
       m[_domain_product_import_ProductImportProgressStep__WEBPACK_IMPORTED_MODULE_2__[/* ProductImportProgressStep */ "a"].形式チェック] = "ファイル内容・形式のチェック。";
       m[_domain_product_import_ProductImportProgressStep__WEBPACK_IMPORTED_MODULE_2__[/* ProductImportProgressStep */ "a"].追加] = "プロダクトの追加・置き換え。";
       m[_domain_product_import_ProductImportProgressStep__WEBPACK_IMPORTED_MODULE_2__[/* ProductImportProgressStep */ "a"].保存] = "LocalStrageへの保存。";
-      m[_domain_product_import_ProductImportProgressStep__WEBPACK_IMPORTED_MODULE_2__[/* ProductImportProgressStep */ "a"].完了] = "インポート完了。";
+      m[_domain_product_import_ProductImportProgressStep__WEBPACK_IMPORTED_MODULE_2__[/* ProductImportProgressStep */ "a"].完了] = "完了。";
       m[_domain_product_import_ProductImportProgressStep__WEBPACK_IMPORTED_MODULE_2__[/* ProductImportProgressStep */ "a"].成功] = "インポートが成功しました。";
       return m;
     }
