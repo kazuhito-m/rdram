@@ -9,6 +9,6 @@ describe('ProductImportProgressEvent', () => {
 
   test('stepの最大数(要素数)から現在stepで進捗率(パーセンテージ)が出せる', () => {
     const sut = new ProductImportProgressEvent(ProductImportProgressStep.形式チェック, "");
-    expect(sut.percentage()).toEqual(50);
+    expect(sut.percentage()).toEqual(42.857142857142854);
   });
 })
