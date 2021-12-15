@@ -81,6 +81,7 @@ import { Component, Prop, Vue, Emit, Inject, Watch } from "vue-property-decorato
 import ProductImportMessageConverter from "./ProductImportMessageConverter";
 import ProductImportProgressEvent from "@/domain/product/import/ProductImportProgressEvent";
 import ProductImportService from "@/application/service/product/import/ProductImportService";
+import { ProductImportError } from "@/domain/product/import/ProductImportError";
 
 @Component
 export default class ProductImportDialog extends Vue {
@@ -121,7 +122,8 @@ export default class ProductImportDialog extends Vue {
     const service = this.productImportService as ProductImportService;
     this.clearProgressArea();
     const result = service.validateOf(file);
-    return result.length === 0 ? true : result;
+    if (result === ProductImportError.なし) return true;
+    return this.messageConverter.errorMessageOf(result);
   }
 
   private async onClickImportProduct(): Promise<void> {

@@ -1,7 +1,11 @@
+import ProductImportErrorMessageConverter from "./ProductImportErrorMessageConverter";
 import { ProductImportProgressStep } from "@/domain/product/import/ProductImportProgressStep";
+import { ProductImportError } from "~/domain/product/import/ProductImportError";
 import ProductImportProgressEvent from "@/domain/product/import/ProductImportProgressEvent";
 
 export default class ProductImportMessageConverter {
+    private readonly errorMessageConverter = new ProductImportErrorMessageConverter();
+
     private static readonly MESSAGE_DIC = ProductImportMessageConverter.initMap();
 
     private static initMap(): { [key: number]: string } {
@@ -20,8 +24,12 @@ export default class ProductImportMessageConverter {
     }
 
     public makeMessage(event: ProductImportProgressEvent): string {
-        const message = ProductImportMessageConverter.MESSAGE_DIC[event.step];
-        if (!message) return "";
-        return message + event.optionalMessage;
+        const main = ProductImportMessageConverter.MESSAGE_DIC[event.step];
+        const error = this.errorMessageOf(event.error);
+        return main + error + event.optionalMessage;
+    }
+
+    public errorMessageOf(error: ProductImportError) {
+        return this.errorMessageConverter.messageOf(error);
     }
 }

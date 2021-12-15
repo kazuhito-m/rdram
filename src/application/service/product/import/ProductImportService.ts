@@ -1,4 +1,5 @@
 import { ProductImportProgressStep } from "@/domain/product/import/ProductImportProgressStep";
+import { ProductImportError } from "@/domain/product/import/ProductImportError";
 import ProductImportProgressEvent from "@/domain/product/import/ProductImportProgressEvent";
 import LocalStrage from "@/domain/strage/LocalStrage";
 import StrageRepository from "@/domain/strage/StrageRepository";
@@ -24,7 +25,7 @@ export default class ProductImportService {
                 return result;
             }
         } catch (e) {
-            notifyProgress(this.raiseError(`予期せぬエラーが発生しました。\n  ${e}`));
+            notifyProgress(this.raiseError(ProductImportError.予期せぬエラー, `\n  ${e}`));
         }
         notifyProgress(this.raise(ProductImportProgressStep.失敗, "", file));
         return null;
@@ -38,7 +39,7 @@ export default class ProductImportService {
         notifyProgress(this.raise(ProductImportProgressStep.ファイル読み込み));
 
         const result = this.validateOf(file);
-        if (result.length > 0) {
+        if (result !== ProductImportError.なし) {
             notifyProgress(this.raiseError(result));
             return null;
         }
@@ -46,7 +47,7 @@ export default class ProductImportService {
         const json = await this.fileSystemRepository.readFile(file);
 
         if (json === null) {
-            notifyProgress(this.raiseError("ローカルファイルの読み込みに失敗しました。"));
+            notifyProgress(this.raiseError(ProductImportError.読込失敗));
             return null;
         }
         const jsonText = json as string;
@@ -56,7 +57,7 @@ export default class ProductImportService {
         notifyProgress(this.raise(ProductImportProgressStep.形式チェック));
 
         if (product.name.trim().length === 0) {
-            notifyProgress(this.raiseError("形式が不正です。プロダクト名が設定されていません。"));
+            notifyProgress(this.raiseError(ProductImportError.プロダクト名不明));
             return null;
         }
 
@@ -89,24 +90,29 @@ export default class ProductImportService {
         const fileCaption = file ? `file: "${file.name}"` : "";
         return new ProductImportProgressEvent(
             step,
+            ProductImportError.なし,
             message + fileCaption
         );
     }
 
-    private raiseError(message: string = "", file?: File): ProductImportProgressEvent {
-        return this.raise(ProductImportProgressStep.エラー, message, file);
+    private raiseError(error: ProductImportError, message: string = ""): ProductImportProgressEvent {
+        return new ProductImportProgressEvent(
+            ProductImportProgressStep.エラー,
+            error,
+            message
+        );
     }
 
-    public validateOf(file: File): string {
+    public validateOf(file: File): ProductImportError {
         const MAX_MB = 100 * 1024 * 1024;
         const NAME_PATTERN = /^rdram-product-.*\.json$/;
 
-        if (!file) return "";
-        if (!NAME_PATTERN.test(file.name)) return "RDRAMシステムからエクスポートされたものではないファイル名です。";
-        if (file.size > MAX_MB) return "ファイルが大きすぎます。";
-        if (!this.fileSystemRepository.isJsonFile(file)) return "ファイル形式がRDRAMシステムのプロダクトエクスポートファイルではありません。";
+        if (!file) return ProductImportError.なし;
+        if (!NAME_PATTERN.test(file.name)) return ProductImportError.ファイル名不正;
+        if (file.size > MAX_MB) return ProductImportError.サイズ超過;
+        if (!this.fileSystemRepository.isJsonFile(file)) return ProductImportError.非JSON形式;
 
-        return "";
+        return ProductImportError.なし;
     }
 
     public hitCurrentProductOf(productIds: string[]): boolean {

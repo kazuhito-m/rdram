@@ -1,9 +1,11 @@
 import { ProductImportProgressStep } from "./ProductImportProgressStep";
+import { ProductImportError } from "./ProductImportError";
 import EnumAnalyzer from "@/domain/basic/enum/EnumAnalyzer";
 
 export default class ProductImportProgressEvent {
     constructor(
         public readonly step: ProductImportProgressStep,
+        public readonly error: ProductImportError,
         public readonly optionalMessage: string
     ) { }
 
