@@ -169,8 +169,6 @@ export default class ProductSelectorDialog extends Vue {
   }
 
   private isSelectedCurrentProduct(): boolean {
-    console.log("isSelectedCurrentProduct() が呼ばれた。");
-
     if (!(this.currentProduct && this.selectedProduct)) return false;
     return this.currentProduct.id === this.selectedProduct.id;
   }
