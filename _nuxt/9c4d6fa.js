@@ -3637,12 +3637,12 @@ var Diagrams_Diagrams = /*#__PURE__*/function () {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ProductSelectorDialog.vue?vue&type=template&id=45c3f6c5&scoped=true&lang=html&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ProductSelectorDialog.vue?vue&type=template&id=0a352767&scoped=true&lang=html&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"data-opend":_vm.onOpen(),"persistent":"","max-width":"600"},model:{value:(_vm.visibleProductSelectorDialog),callback:function ($$v) {_vm.visibleProductSelectorDialog=$$v},expression:"visibleProductSelectorDialog"}},[_c('v-card',[_c('v-card-title',{staticClass:"headline"},[_c('v-icon',[_vm._v("mdi-account-switch-outline")]),_vm._v(" プロダクト切替え\n    ")],1),_vm._v(" "),_c('v-card-text',[_vm._v("編集対象となるプロダクトを選択してください。")]),_vm._v(" "),_c('v-card-actions',[_c('v-select',{attrs:{"items":_vm.productsList(),"item-text":"name","label":"Product","return-object":""},model:{value:(_vm.selectedProduct),callback:function ($$v) {_vm.selectedProduct=$$v},expression:"selectedProduct"}}),_vm._v(" "),_c('v-btn',{attrs:{"text":"","color":"primary"},on:{"click":_vm.onClickAddProduct}},[_vm._v("追加")])],1),_vm._v(" "),_c('v-card-actions',[(_vm.cancelable)?_c('v-btn',{attrs:{"text":"","disabled":!_vm.selectedProduct,"color":"blue darken-1"},on:{"click":_vm.onClickExportProduct}},[_vm._v("\n        エクスポート\n      ")]):_vm._e(),_vm._v(" "),(_vm.cancelable)?_c('v-btn',{attrs:{"text":"","disabled":_vm.isSelectedCurrentProduct(),"color":"red darken-1"},on:{"click":_vm.onClickRemoveProduct}},[_vm._v("\n        削除\n      ")]):_vm._e(),_vm._v(" "),_c('v-spacer'),_vm._v(" "),(_vm.cancelable)?_c('v-btn',{attrs:{"text":"","color":"normal"},on:{"click":_vm.onClose}},[_vm._v("\n        キャンセル\n      ")]):_vm._e(),_vm._v(" "),_c('v-btn',{attrs:{"text":"","disabled":!_vm.selectedProduct,"color":"green darken-1"},on:{"click":_vm.onClickOpenProduct}},[_vm._v("\n        プロダクトを開く\n      ")])],1)],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/ProductSelectorDialog.vue?vue&type=template&id=45c3f6c5&scoped=true&lang=html&
+// CONCATENATED MODULE: ./src/components/ProductSelectorDialog.vue?vue&type=template&id=0a352767&scoped=true&lang=html&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(29);
@@ -3829,7 +3829,6 @@ var ProductSelectorDialogvue_type_script_lang_ts_ProductSelectorDialog = /*#__PU
   }, {
     key: "isSelectedCurrentProduct",
     value: function isSelectedCurrentProduct() {
-      console.log("isSelectedCurrentProduct() が呼ばれた。");
       if (!(this.currentProduct && this.selectedProduct)) return false;
       return this.currentProduct.id === this.selectedProduct.id;
     }
@@ -3940,7 +3939,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   null,
-  "45c3f6c5",
+  "0a352767",
   null
   
 )
