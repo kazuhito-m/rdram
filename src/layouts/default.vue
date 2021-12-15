@@ -140,13 +140,13 @@ import StrageRepository from '@/domain/strage/StrageRepository'
 import StrageDatasource from '@/infrastructure/strage/StrageDatasource'
 import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import ClientDownloadTransfar from '@/infrastructure/client/ClientDownloadTransfar'
-import ProductSelectorDialog from '@/components/ProductSelectorDialog.vue'
+import ProductSelectorDialog from '@/components/product/ProductSelectorDialog.vue'
 import ProductImportDialog from  '@/components/product/import/ProductImportDialog.vue'
 import LocalStrageInitializeDialog from '@/components/LocalStrageInitializeDialog.vue'
 import LocalStrageDestroyDialog from '@/components/LocalStrageDestroyDialog.vue'
-import ProductImportService from '~/application/service/product/import/ProductImportService'
-import FileSystemRepository from '~/domain/filesystem/FileSystemRepository'
-import FileSystemDatasouce from '~/infrastructure/filesystem/FileSystemDatasource'
+import ProductImportService from '@/application/service/product/import/ProductImportService'
+import FileSystemRepository from '@/domain/filesystem/FileSystemRepository'
+import FileSystemDatasouce from '@/infrastructure/filesystem/FileSystemDatasource'
 
 @Component({
   components: {
