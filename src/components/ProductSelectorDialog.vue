@@ -89,7 +89,7 @@ export default class ProductSelectorDialog extends Vue {
 
   private selectedProduct: Product | null = null;
   private currentProduct: Product | null = null;
-  private products: Products = Products.prototypeOf();
+  private products: Products | null = null;
 
   private onOpen(): string {
     if (!this.visibleProductSelectorDialog) return "";
@@ -97,7 +97,7 @@ export default class ProductSelectorDialog extends Vue {
     const strage = this.repository?.get();
     if (!strage) return "";
 
-    if (this.products.isEmpty()) this.products = strage.products;
+    if (!this.products) this.products = strage.products;
     if (this.selectedProduct) return "";
 
     const product = strage.currentProduct();
@@ -124,7 +124,9 @@ export default class ProductSelectorDialog extends Vue {
     });
     if (!name) return;
     const product = Product.prototypeOf(name);
-    this.products = this.products?.merge(product);
+    const products = this.products?.merge(product);
+    if (!products) return;
+    this.products = products;
     this.selectedProduct = product;
     this.saveAddProduct(product);
   }
@@ -153,7 +155,9 @@ export default class ProductSelectorDialog extends Vue {
     }
 
     this.saveRemoveProduct(removeTarget);
-    this.products = this.products?.removeOf(removeTarget);
+    const products = this.products?.removeOf(removeTarget);
+    if (!products) return;
+    this.products = products;
     this.selectedProduct = null;
   }
 
@@ -161,10 +165,12 @@ export default class ProductSelectorDialog extends Vue {
   public onClose(): void {
     this.selectedProduct = null;
     this.currentProduct = null;
-    this.products = Products.prototypeOf();
+    this.products = null;
   }
 
   private isSelectedCurrentProduct(): boolean {
+    console.log("isSelectedCurrentProduct() が呼ばれた。");
+
     if (!(this.currentProduct && this.selectedProduct)) return false;
     return this.currentProduct.id === this.selectedProduct.id;
   }
