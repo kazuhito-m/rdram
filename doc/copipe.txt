@@ -1,0 +1,84 @@
+
+    <!--
+    <script type="text/javascript">
+      function load() {
+        console.log("読まれるたイミング。");
+
+        var canvas = new draw2d.Canvas("{{ canvasId }}");
+
+        console.log("canvas:" + canvas);
+
+        canvas.add(
+          new draw2d.shape.widget.Slider({ width: 90, height: 20 }),
+          50,
+          50
+        );
+      }
+      load();
+    </script>
+    -->
+
+<script src="/js/jquery.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/draw2d.js"></script>
+
+
+
+        <v-expansion-panel>
+          <v-expansion-panel-header>組織</v-expansion-panel-header>
+          <v-expansion-panel-content>ここに要素を</v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header>アクター</v-expansion-panel-header>
+          <v-expansion-panel-content>ここに要素を</v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header>業務</v-expansion-panel-header>
+          <v-expansion-panel-content>ここに要素を</v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header>会社・企業等</v-expansion-panel-header>
+          <v-expansion-panel-content>ここに要素を</v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header>使用済</v-expansion-panel-header>
+          <v-expansion-panel-content>ここに要素を</v-expansion-panel-content>
+        </v-expansion-panel>/*  */
+
+---
+
+  private createStandardIconPort(icon: any) {
+    icon.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
+  }
+
+
+----
+
+
+countertops
+storefront
+foundation
+fence
+groups
+account-group
+barn
+cube
+cube-outline
+sitemap
+
+arrow-expand-horizontal
+application-export
+application-import
+arrow-collapse-horizontal
+
+
+「要求」候補
+
+chat-outline
+clipboard-text-outline
+comment-text-outline
+hand-heart-outline
