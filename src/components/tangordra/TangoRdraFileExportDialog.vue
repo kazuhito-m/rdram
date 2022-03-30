@@ -46,13 +46,13 @@ import RdramExportFileName from '@/domain/client/RdramExportFileName'
 @Component
 export default class TangoRdraFileExportDialog extends Vue {
   @Inject()
-  private readonly angoRdraFileService?: TangoRdraFileService
+  private readonly tangoRdraFileService?: TangoRdraFileService
 
   @Inject()
   private clientDownloadRepository!: ClientDownloadRepository
 
   @Prop()
-  private?: boolean
+  private visible?: boolean;
 
   @Emit('onClose')
   private onClose(): void {}
