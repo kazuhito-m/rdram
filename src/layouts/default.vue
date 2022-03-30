@@ -151,10 +151,11 @@ import ProductSelectorDialog from '@/components/product/ProductSelectorDialog.vu
 import ProductImportDialog from  '@/components/product/import/ProductImportDialog.vue'
 import LocalStrageInitializeDialog from '@/components/LocalStrageInitializeDialog.vue'
 import LocalStrageDestroyDialog from '@/components/LocalStrageDestroyDialog.vue'
-import TangoRdraFileExportDialog from '@/components/TangoRdraFileExportDialog.vue'
+import TangoRdraFileExportDialog from '@/components/tangordra/TangoRdraFileExportDialog.vue'
 import ProductImportService from '@/application/service/product/import/ProductImportService'
 import FileSystemRepository from '@/domain/filesystem/FileSystemRepository'
 import FileSystemDatasouce from '@/infrastructure/filesystem/FileSystemDatasource'
+import TangoRdraFileService from '@/application/service/tangordra/TangoRdraFileService'
 
 @Component({
   components: {
@@ -213,6 +214,9 @@ export default class extends Vue {
  
   @Provide()
   private readonly productImportService: ProductImportService = new ProductImportService(this.repository, this.fileSystemRepository);
+
+  @Provide()
+  private readonly tangoRdraFileService: TangoRdraFileService = new TangoRdraFileService(this.repository);
 
   // this classs property & functions.
 
