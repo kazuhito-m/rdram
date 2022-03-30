@@ -66,13 +66,15 @@ export default class TangoRdraFileExportDialog extends Vue {
   }
 
   private downloadTangoRdraFile(): boolean {
+    const service = this.tangoRdraFileService as TangoRdraFileService;
+    const result = service.exportOf();
     // const json = this.repository?.getJsonText()
     // if (!json) return false
 
     // const fileName = new RdramExportFileName('localstrage-backup')
     // const file = new DownloadFile(fileName, fileName.contentType(), json)
     // this.clientDownloadRepository.register(file)
-    return true
+    return result;
   }
 }
 </script>

@@ -5,6 +5,8 @@ export default class TangoRdraFileService {
         private readonly strageRepository: StrageRepository,
     ) { }
 
-    public exportOf(): void {
+    public exportOf(): boolean {
+        alert('test');
+        return true;
     }
 }
