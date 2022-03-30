@@ -9,16 +9,10 @@
         <v-icon>mdi-delete-forever</v-icon> tango/rdra形式エクスポート
       </v-card-title>
       <v-card-text>
-        LocalStrageからデータ破棄します。<br>
-        これは、<span class="red--text">全データの消去</span> や <span class="red--text">システムの初期化</span> と同様の操作です。<br>
-        なお、安全措置として「実行」をクリックした際、LocalStrageの内容のファイルが自動的にダウンロードされます。<br>
-        LocalStrageを破棄してよろしいですか。
-      </v-card-text>
-      <v-card-text>
-        <v-checkbox
-        v-model="consent"
-        label="上記内容に同意する。"
-      ></v-checkbox>
+        現在のプロダクト<br/>
+        XXX<br/>
+        を、tango/rdra 形式のYAMLファイルに出力します。<br/>
+        よろしいですか。
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -33,7 +27,6 @@
 
         <v-btn
           text
-          :disabled="!consent"
           color="green darken-1"
           @click="onClickDestroyExecute">
             実行
@@ -61,11 +54,8 @@ export default class TangoRdraFileExportDialog extends Vue {
   @Prop()
   private visible?: boolean;
 
-  private consent = false;
-
   @Emit("onClose")
   private onClose(): void {
-    this.consent = false;
   }
 
   private onClickDestroyExecute(): void {
