@@ -151,6 +151,7 @@ import ProductSelectorDialog from '@/components/product/ProductSelectorDialog.vu
 import ProductImportDialog from  '@/components/product/import/ProductImportDialog.vue'
 import LocalStrageInitializeDialog from '@/components/LocalStrageInitializeDialog.vue'
 import LocalStrageDestroyDialog from '@/components/LocalStrageDestroyDialog.vue'
+import TangoRdraFileExportDialog from '@/components/TangoRdraFileExportDialog.vue'
 import ProductImportService from '@/application/service/product/import/ProductImportService'
 import FileSystemRepository from '@/domain/filesystem/FileSystemRepository'
 import FileSystemDatasouce from '@/infrastructure/filesystem/FileSystemDatasource'
@@ -161,6 +162,7 @@ import FileSystemDatasouce from '@/infrastructure/filesystem/FileSystemDatasourc
     ProductImportDialog,
     LocalStrageInitializeDialog,
     LocalStrageDestroyDialog,
+    TangoRdraFileExportDialog
   },
 })
 export default class extends Vue {
