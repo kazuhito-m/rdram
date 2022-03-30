@@ -51,7 +51,7 @@
       :right="right"
       temporary
       fixed
-      width="280"
+      width="320"
     >
       <v-list>
 
@@ -87,7 +87,7 @@
           <v-list-item-icon>
             <v-icon>mdi-delete-forever</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>tango238/rdra 形式でエクスポート...</v-list-item-title>
+          <v-list-item-title>tango/rdra形式エクスポート...</v-list-item-title>
         </v-list-item>
 
       </v-list>
