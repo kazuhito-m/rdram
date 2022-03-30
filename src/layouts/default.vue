@@ -83,6 +83,13 @@
           <v-list-item-title>LocalStrageの破棄...</v-list-item-title>
         </v-list-item>
 
+        <v-list-item link @click="onClickExportOfTango238RdraFile">
+          <v-list-item-icon>
+            <v-icon>mdi-delete-forever</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>tango238/rdra 形式でエクスポート...</v-list-item-title>
+        </v-list-item>
+
       </v-list>
     </v-navigation-drawer>
     <v-footer :absolute="!fixed" app>
@@ -216,6 +223,8 @@ export default class extends Vue {
 
   private visibleLocalStrageDestroyDialog = false;
 
+  private visibleExportOfTango238RdraFileDialog = false;
+
   public created() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
@@ -273,6 +282,15 @@ export default class extends Vue {
   }
 
   private onCloseProductImportDialog(): void {
+    this.visibleProductImportDialog = false;
+  }
+
+  private onClickExportOfTango238RdraFile(): void {
+    this.visibleExportOfTango238RdraFileDialog = true;
+    this.rightDrawer = false;
+  }
+
+  private onCloseExportOfTango238RdraFile(): void {
     this.visibleProductImportDialog = false;
   }
 
