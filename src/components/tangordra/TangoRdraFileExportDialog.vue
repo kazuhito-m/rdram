@@ -52,7 +52,7 @@ export default class TangoRdraFileExportDialog extends Vue {
   private clientDownloadRepository!: ClientDownloadRepository
 
   @Prop()
-  private visible?: boolean;
+  private visible?: boolean
 
   @Emit('onClose')
   private onClose(): void {}
@@ -62,18 +62,18 @@ export default class TangoRdraFileExportDialog extends Vue {
       alert('ダウンロードファイルの作成に失敗しました。処理を中断します。')
       return
     }
-    this.onClose();
+    this.onClose()
   }
 
   private downloadTangoRdraFile(): boolean {
-    const service = this.tangoRdraFileService as TangoRdraFileService;
-    const yaml = service.exportOf();
-    if (!yaml) return false;
+    const service = this.tangoRdraFileService as TangoRdraFileService
+    const yaml = service.exportOf()
+    if (!yaml) return false
 
-    const fileName = new RdramExportFileName('tango-rdra')
+    const fileName = new RdramExportFileName('tango-rdra') // TODO ちゃんとした名前にする(ymlかつプロダクト名を冠する)
     const file = new DownloadFile(fileName, fileName.contentType(), yaml)
     this.clientDownloadRepository.register(file)
-    return true;
+    return true
   }
 }
 </script>
