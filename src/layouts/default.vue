@@ -83,7 +83,7 @@
           <v-list-item-title>LocalStrageの破棄...</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link @click="onClickExportOfTango238RdraFile">
+        <v-list-item link @click="onClickExportOfTangoRdraFile">
           <v-list-item-icon>
             <v-icon>mdi-delete-forever</v-icon>
           </v-list-item-icon>
@@ -223,7 +223,7 @@ export default class extends Vue {
 
   private visibleLocalStrageDestroyDialog = false;
 
-  private visibleExportOfTango238RdraFileDialog = false;
+  private visibleExportOfTangoRdraFileDialog = false;
 
   public created() {
     this.$nextTick(() => {
@@ -285,12 +285,12 @@ export default class extends Vue {
     this.visibleProductImportDialog = false;
   }
 
-  private onClickExportOfTango238RdraFile(): void {
-    this.visibleExportOfTango238RdraFileDialog = true;
+  private onClickExportOfTangoRdraFile(): void {
+    this.visibleExportOfTangoRdraFileDialog = true;
     this.rightDrawer = false;
   }
 
-  private onCloseExportOfTango238RdraFile(): void {
+  private onCloseExportOfTangoRdraFile(): void {
     this.visibleProductImportDialog = false;
   }
 
