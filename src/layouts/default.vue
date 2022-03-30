@@ -133,9 +133,9 @@
       @onClose="onCloseApplicationInitializationDialog"
     />
 
-    <LocalStrageDestroyDialog
-      :visible="visibleLocalStrageDestroyDialog"
-      @onClose="onCloseLocalStrageDestroyDialog"
+    <TangoRdraFileExportDialog
+      :visible="visibleExportTangoRdraFileDialog"
+      @onClose="onCloseTangoRdraFileExportDialog"
     />
 
   </v-app>
@@ -223,7 +223,7 @@ export default class extends Vue {
 
   private visibleLocalStrageDestroyDialog = false;
 
-  private visibleExportOfTangoRdraFileDialog = false;
+  private visibleExportTangoRdraFileDialog = false;
 
   public created() {
     this.$nextTick(() => {
@@ -286,12 +286,12 @@ export default class extends Vue {
   }
 
   private onClickExportOfTangoRdraFile(): void {
-    this.visibleExportOfTangoRdraFileDialog = true;
+    this.visibleExportTangoRdraFileDialog = true;
     this.rightDrawer = false;
   }
 
-  private onCloseExportOfTangoRdraFile(): void {
-    this.visibleProductImportDialog = false;
+  private onCloseTangoRdraFileExportDialog(): void {
+    this.visibleExportTangoRdraFileDialog = false;
   }
 
   private onClickDestryLocalStrage(): void {
