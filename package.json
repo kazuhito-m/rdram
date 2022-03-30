@@ -50,7 +50,7 @@
     "jest": "^27.5.1",
     "prettier": "^2.6.1",
     "push-dir": "^0.4.1",
-    "resize-observer": "^1.0.2",
+    "resize-observer": "^1.0.4",
     "ts-jest": "^27.0.7",
     "vue-jest": "^3.0.7"
   }
