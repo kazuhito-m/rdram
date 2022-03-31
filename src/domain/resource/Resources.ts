@@ -35,9 +35,13 @@ export default class Resources {
             .find(resource => resource.resourceId === resourceId);
     }
 
-    public typeOf(resourceType: ResourceType): Resources {
-        const newValues = this.values.filter(r => resourceType.equals(r.type));
+    public typesOf(...resourceTypes: ResourceType[]): Resources {
+        const newValues = this.values.filter(r => resourceTypes.includes(r.type));
         return new Resources(newValues);
+    }
+
+    public typeOf(resourceType: ResourceType): Resources {
+        return this.typesOf(resourceType);
     }
 
     public add(resource: Resource): Resources {
