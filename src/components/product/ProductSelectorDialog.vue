@@ -70,7 +70,7 @@ import Product from "@/domain/product/Product";
 import Products from "@/domain/product/Products";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
-import DownloadFile from "@/domain/client/DownloadFile";
+import DownloadCustomFile from "@/domain/client/DownloadCustomFile";
 import RdramExportFileName from "@/domain/client/RdramExportFileName";
 
 @Component
@@ -206,7 +206,7 @@ export default class ProductSelectorDialog extends Vue {
     if (!productJson) return false;
 
     const fileName = new RdramExportFileName(`product-${product.name}`);
-    const file = new DownloadFile(fileName, fileName.contentType(), productJson);
+    const file = new DownloadCustomFile(fileName, fileName.contentType(), productJson);
     this.clientDownloadRepository.register(file);
     return true;
   }

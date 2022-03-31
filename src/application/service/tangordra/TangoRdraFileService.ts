@@ -1,12 +1,14 @@
 import StrageRepository from "@/domain/strage/StrageRepository";
+import TangoRdraExportFile from "@/domain/tangordra/export/TangoRdraExportFile";
+import TangoRdraExportFileName from "~/domain/tangordra/export/TangoRdraExportFileName";
 
 export default class TangoRdraFileService {
     constructor(
         private readonly strageRepository: StrageRepository,
     ) { }
 
-    public exportOf(): string {
+    public exportOf(): TangoRdraExportFile {
         // TODO 本実装。
-        return "key: 1";
+        return new TangoRdraExportFile("key: 1", new TangoRdraExportFileName("プロダクト名は仮"));
     }
 }
