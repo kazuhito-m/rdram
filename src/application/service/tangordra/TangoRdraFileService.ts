@@ -7,7 +7,7 @@ export default class TangoRdraFileService {
         private readonly strageRepository: StrageRepository,
     ) { }
 
-    public exportOf(): TangoRdraExportFile {
+    public generateExportFile(): TangoRdraExportFile {
         // TODO 本実装。
         return new TangoRdraExportFile("key: 1", new TangoRdraExportFileName("プロダクト名は仮"));
     }

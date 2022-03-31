@@ -67,11 +67,10 @@ export default class TangoRdraFileExportDialog extends Vue {
 
   private downloadTangoRdraFile(): boolean {
     const service = this.tangoRdraFileService as TangoRdraFileService
-    const exportFile = service.exportOf()
+    const exportFile = service.generateExportFile()
     if (exportFile.isEmpty()) return false
 
-    const file = new DownloadFile(exportFile.name, exportFile.name.contentType(), exportFile.yaml)
-    this.clientDownloadRepository.register(file)
+    this.clientDownloadRepository.register(exportFile)
     return true
   }
 }
