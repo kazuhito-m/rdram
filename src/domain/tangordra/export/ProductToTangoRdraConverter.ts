@@ -9,8 +9,11 @@ export default class ProductToTangoRdraConverter {
 
         tangoRdra.overview = this.makeOverviewPart(product);
 
-        const actors = this.makeActorsPart(product);
+        const actors = this.makeActorsPart(product, ResourceType.アクター);
         if (actors.length > 0) tangoRdra.actor = actors;
+
+        const externalActor = this.makeActorsPart(product, ResourceType.外部システム, ResourceType.自社システム);
+        if (externalActor.length > 0) tangoRdra.externalActor = externalActor;
 
         return tangoRdra;
     }
@@ -28,8 +31,8 @@ export default class ProductToTangoRdraConverter {
         return overview;
     }
 
-    private makeActorsPart(product: Product): any[] {
-        const actors = product.resources.typeOf(ResourceType.アクター);
+    private makeActorsPart(product: Product, ...targetTypes: ResourceType[]): any[] {
+        const actors = product.resources.typesOf(...targetTypes);
         if (actors.isEmpty()) return [];
         return actors.map(actor => this.convertNameOrActor(actor));
     }
