@@ -40,8 +40,6 @@
 import { Component, Prop, Vue, Emit, Inject } from 'vue-property-decorator'
 import TangoRdraFileService from '@/application/service/tangordra/TangoRdraFileService'
 import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
-import DownloadFile from '@/domain/client/DownloadFile'
-import RdramExportFileName from '@/domain/client/RdramExportFileName'
 
 @Component
 export default class TangoRdraFileExportDialog extends Vue {

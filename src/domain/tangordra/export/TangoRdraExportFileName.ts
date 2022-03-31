@@ -1,4 +1,4 @@
-import RdramDownloadFileName from "@/domain/client/RdramDownloadFileName";
+import RdramDownloadFileName from "@/domain/client/WithTimestampFileName";
 
 export default class TangoRdraExportFileName extends RdramDownloadFileName {
     constructor(productName: string) {
