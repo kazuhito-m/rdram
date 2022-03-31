@@ -1,6 +1,6 @@
 export type TangoRdra = {
     overview: Overview
-    // actor: Actor
+    actor: any[]
     // externalActor: ExternalActor | null
     // information: Information | null
     // state: State | null
@@ -14,4 +14,9 @@ export type TangoRdra = {
 export type Overview = {
     bussiness: string
     system: string
+}
+
+export type Actor = {
+    name: string
+    description: string
 }

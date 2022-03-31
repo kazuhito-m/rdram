@@ -1,11 +1,17 @@
-import { TangoRdra, Overview } from '@/domain/tangordra/export/structure/TangoRdra';
+import { TangoRdra, Overview, Actor } from '@/domain/tangordra/export/structure/TangoRdra';
 import Product from "@/domain/product/Product";
+import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
 
 export default class ProductToTangoRdraConverter {
     public convert(product: Product): TangoRdra {
         const tangoRdra = {} as TangoRdra;
+
         tangoRdra.overview = this.makeOverviewPart(product);
+
+        const actors = this.makeActorsPart(product);
+        if (actors.length > 0) tangoRdra.actor = actors;
+
         return tangoRdra;
     }
 
@@ -20,5 +26,19 @@ export default class ProductToTangoRdraConverter {
         overview.system = primarySystem.name;
 
         return overview;
+    }
+
+    private makeActorsPart(product: Product): any[] {
+        const actors = product.resources.typeOf(ResourceType.アクター);
+        if (actors.isEmpty()) return [];
+        return actors.map(actor => this.convertNameOrActor(actor));
+    }
+
+    private convertNameOrActor(actor: Resource): Actor | string {
+        if (actor.description.trim().length === 0) return actor.name;
+        return {
+            name: actor.name,
+            description: actor.description
+        };
     }
 }
