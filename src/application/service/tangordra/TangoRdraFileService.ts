@@ -3,6 +3,7 @@ import TangoRdraExportFile from "@/domain/tangordra/export/TangoRdraExportFile";
 import Product from "@/domain/product/Product";
 import { prototypeTangoRdra, TangoRdra, Overview } from '@/domain/tangordra/export/structure/TangoRdra';
 import YAML from 'yaml';
+import ResourceType from "~/domain/resource/ResourceType";
 
 export default class TangoRdraFileService {
     constructor(
@@ -30,7 +31,12 @@ export default class TangoRdraFileService {
     }
 
     private makeOverviewPart(product: Product, overview: Overview) {
-        overview.bussiness = 'test';
-        overview.system = 'systetst';
+        overview.bussiness = product.name;
+
+        const systems = product.resources.typeOf(ResourceType.システム);
+        if (systems.isEmpty()) return;
+        const primarySystem = systems.first();
+
+        overview.system = primarySystem.name;
     }
 }

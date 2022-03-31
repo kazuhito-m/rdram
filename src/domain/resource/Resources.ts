@@ -87,7 +87,15 @@ export default class Resources {
         return this.values.length;
     }
 
+    public isEmpty(): boolean {
+        return this.length == 0;
+    }
+
     public last(): Resource {
         return this.values[this.length - 1];
+    }
+
+    public first(): Resource {
+        return this.values[0];
     }
 }
