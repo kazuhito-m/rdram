@@ -13,7 +13,7 @@ export default class ProductToTangoRdraConverter {
         if (actors.length > 0) tangoRdra.actor = actors;
 
         const externalActor = this.makeActorsPart(product, ResourceType.外部システム, ResourceType.自社システム);
-        if (externalActor.length > 0) tangoRdra.externalActor = externalActor;
+        if (externalActor.length > 0) tangoRdra.external_actor = externalActor;
 
         return tangoRdra;
     }

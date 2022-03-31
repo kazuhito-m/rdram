@@ -1,7 +1,7 @@
 export type TangoRdra = {
     overview: Overview
     actor: any[]
-    externalActor: any[]
+    external_actor: any[]
     // information: Information | null
     // state: State | null
     // transition: StateTransition | null
