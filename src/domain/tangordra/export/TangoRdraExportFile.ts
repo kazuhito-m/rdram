@@ -1,10 +1,10 @@
-import DownloadFile from "~/domain/client/DownloadFile";
+import DownloadFile from "@/domain/client/DownloadFile";
 import TangoRdraExportFileName from "./TangoRdraExportFileName";
 
 export default class TangoRdraExportFile implements DownloadFile {
     constructor(
         public readonly yaml: string,
-        public readonly name: TangoRdraExportFileName
+        public readonly productName: string,
     ) { }
 
     public isEmpty(): boolean {
@@ -12,11 +12,11 @@ export default class TangoRdraExportFile implements DownloadFile {
     }
 
     public static empty(): TangoRdraExportFile {
-        return new TangoRdraExportFile("", new TangoRdraExportFileName(""));
+        return new TangoRdraExportFile("", "");
     }
 
     public get clientFileName(): TangoRdraExportFileName {
-        return this.name;
+        return new TangoRdraExportFileName(this.productName);
     }
 
     public get contentType(): string {
