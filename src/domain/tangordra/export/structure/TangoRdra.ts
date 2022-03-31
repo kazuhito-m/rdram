@@ -15,9 +15,3 @@ export type Overview = {
     bussiness: string
     system: string
 }
-
-export function prototypeTangoRdra(): TangoRdra {
-    return {
-        overview: {} as Overview
-    } as TangoRdra;
-} 

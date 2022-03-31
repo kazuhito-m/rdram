@@ -1,9 +1,8 @@
 import StrageRepository from "@/domain/strage/StrageRepository";
-import TangoRdraExportFile from "@/domain/tangordra/export/TangoRdraExportFile";
+import TangoRdraExportFile from "@/domain/tangordra/export/file/TangoRdraExportFile";
 import Product from "@/domain/product/Product";
-import { prototypeTangoRdra, TangoRdra, Overview } from '@/domain/tangordra/export/structure/TangoRdra';
+import ProductToTangoRdraConverter from "@/domain/tangordra/export/ProductToTangoRdraConverter";
 import YAML from 'yaml';
-import ResourceType from "~/domain/resource/ResourceType";
 
 export default class TangoRdraFileService {
     constructor(
@@ -20,23 +19,10 @@ export default class TangoRdraFileService {
     }
 
     private generateTangoRdraOf(producet: Product): string {
-        const tangoRdra = this.convert(producet);
+        const converter = new ProductToTangoRdraConverter();
+
+        const tangoRdra = converter.convert(producet);
+
         return YAML.stringify(tangoRdra);
-    }
-
-    private convert(product: Product): TangoRdra {
-        const tangoRdra = prototypeTangoRdra();
-        this.makeOverviewPart(product, tangoRdra.overview);
-        return tangoRdra;
-    }
-
-    private makeOverviewPart(product: Product, overview: Overview) {
-        overview.bussiness = product.name;
-
-        const systems = product.resources.typeOf(ResourceType.システム);
-        if (systems.isEmpty()) return;
-        const primarySystem = systems.first();
-
-        overview.system = primarySystem.name;
     }
 }
