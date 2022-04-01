@@ -1,7 +1,7 @@
 export type TangoRdra = {
     overview: Overview
-    // actor: Actor
-    // externalActor: ExternalActor | null
+    actor: any[]
+    external_actor: any[]
     // information: Information | null
     // state: State | null
     // transition: StateTransition | null
@@ -16,8 +16,7 @@ export type Overview = {
     system: string
 }
 
-export function prototypeTangoRdra(): TangoRdra {
-    return {
-        overview: {} as Overview
-    } as TangoRdra;
-} 
+export type Actor = {
+    name: string
+    description: string
+}
