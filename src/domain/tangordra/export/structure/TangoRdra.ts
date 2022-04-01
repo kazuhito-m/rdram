@@ -2,7 +2,7 @@ export type TangoRdra = {
     overview: Overview
     actor: any[]
     external_actor: any[]
-    // information: Information | null
+    information: Infomations[]
     // state: State | null
     // transition: StateTransition | null
     // variation: Variation | null
@@ -19,4 +19,15 @@ export type Overview = {
 export type Actor = {
     name: string
     description: string
+}
+
+export type Infomations = {
+    context: string
+    value: Infomation[]
+}
+
+export type Infomation = {
+    name: string
+    related: string[]
+    variation: string
 }

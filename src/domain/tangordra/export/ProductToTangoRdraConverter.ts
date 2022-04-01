@@ -1,4 +1,4 @@
-import { TangoRdra, Overview, Actor } from '@/domain/tangordra/export/structure/TangoRdra';
+import { TangoRdra, Overview, Actor, Infomations } from '@/domain/tangordra/export/structure/TangoRdra';
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
@@ -14,6 +14,9 @@ export default class ProductToTangoRdraConverter {
 
         const externalActor = this.makeActorsPart(product, ResourceType.外部システム, ResourceType.自社システム);
         if (externalActor.length > 0) tangoRdra.external_actor = externalActor;
+
+        const infomations = this.makeInfomationsPart(product);
+        if (infomations.length > 0) tangoRdra.information = infomations;
 
         return tangoRdra;
     }
@@ -43,5 +46,21 @@ export default class ProductToTangoRdraConverter {
             name: actor.name,
             description: actor.description
         };
+    }
+
+    private makeInfomationsPart(product: Product): Infomations[] {
+        return [{
+            context: 'test',
+            value: [
+                {
+                    name: 'test1',
+                    related: [
+                        'relations1',
+                        'relations2'
+                    ],
+                    variation: 'なし'
+                }
+            ]
+        }];
     }
 }
