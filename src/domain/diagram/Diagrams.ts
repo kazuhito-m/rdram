@@ -3,6 +3,7 @@ import DiagramType from "@/domain/diagram/DiagramType";
 import DiagramFactory from "@/domain/diagram/DiagramFactory";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
+import { TargetPropValues } from "vuetify/types/services/application";
 
 export default class Diagrams {
     private readonly values: Diagram[];
@@ -75,6 +76,10 @@ export default class Diagrams {
     public forEach(func: (diagram: Diagram) => void) {
         this.values.forEach(func);
     }
+
+    public map<U>(callbackfn: (value: Diagram, index: number)=>U): U[] {
+        return this.values.map(callbackfn);
+    } 
 
     public static empty(): Diagrams {
         return new Diagrams([]);

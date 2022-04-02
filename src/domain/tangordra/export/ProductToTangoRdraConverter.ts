@@ -1,7 +1,9 @@
-import { TangoRdra, Overview, Actor, Infomations } from '@/domain/tangordra/export/structure/TangoRdra';
+import { TangoRdra, Overview, Actor, ContextOfInfomation } from '@/domain/tangordra/export/structure/TangoRdra';
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
+import Diagram from '~/domain/diagram/Diagram';
+import Resources from '~/domain/resource/Resources';
 
 export default class ProductToTangoRdraConverter {
     public convert(product: Product): TangoRdra {
@@ -48,8 +50,36 @@ export default class ProductToTangoRdraConverter {
         };
     }
 
-    private makeInfomationsPart(product: Product): Infomations[] {
-        return [{
+    private makeInfomationsPart(product: Product): ContextOfInfomation[] {
+        const infomations = product.resources.typesOf(ResourceType.情報);
+        const variations = product.resources.typeOf(ResourceType.バリエーション);
+
+        // TODO ダイアグラムを回す
+
+        return product.diagrams
+            .map(diagram => this.makeInfomationsOf(diagram, infomations, variations));
+
+        // TODO ダイアグラム上から「情報」を抜き出す
+        // TODO 情報を回して「関連」を探す
+        // TODO 情報から「バリエーション」がつながってたらそれも出す
+
+        // return [{
+        //     context: 'test',
+        //     value: [
+        //         {
+        //             name: 'test1',
+        //             related: [
+        //                 'relations1',
+        //                 'relations2'
+        //             ],
+        //             variation: 'なし'
+        //         }
+        //     ]
+        // }];
+    }
+
+    private makeInfomationsOf(diagram: Diagram, infomations: Resources, variations: Resources): ContextOfInfomation {
+        return {
             context: 'test',
             value: [
                 {
@@ -61,6 +91,6 @@ export default class ProductToTangoRdraConverter {
                     variation: 'なし'
                 }
             ]
-        }];
+        ];
     }
 }
