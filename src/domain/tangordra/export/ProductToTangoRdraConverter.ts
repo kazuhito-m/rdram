@@ -129,18 +129,22 @@ export default class ProductToTangoRdraConverter {
 
     private makeConditionsPart(product: Product): ConditionTango[] {
         const allVariations = product.resources
-            .typeOf(ResourceType.バリエーション);
+            .typesOf(ResourceType.バリエーション);
 
-        return product.resources.typesOf(ResourceType.条件) // TODO 「表形式の条件」をサポートするか
-            .map(resource => resource as Condition)
+        return product.resources.typesOf(ResourceType.条件, ResourceType.表形式の条件)
+            .map(resource => resource)
             .map(condition => this.makeConditionTango(condition, product, allVariations));
     }
 
-    private makeConditionTango(condition: Condition, product: Product, allVariations: Resources): ConditionTango {
+    private makeConditionTango(condition: Resource, product: Product, allVariations: Resources): ConditionTango {
         const result = {
             name: condition.name,
-            descripion: condition.value
         } as ConditionTango;
+
+        let description = condition.description;
+        if (condition.type === ResourceType.条件)
+            description = (condition as Condition).value;
+        if (description) result.descripion = description;
 
         const variationNames = this.makeVariationNamesRelationFrom(condition, allVariations, product);
         if (variationNames.length > 0) result.variation = variationNames;
@@ -148,7 +152,7 @@ export default class ProductToTangoRdraConverter {
         return result;
     }
 
-    private makeVariationNamesRelationFrom(condition: Condition, allVariations: Resources, product: Product): string[] {
+    private makeVariationNamesRelationFrom(condition: Resource, allVariations: Resources, product: Product): string[] {
         const otherSideResourceIds = product.diagrams
             .allRelations()
             .uniqueIgnoreDirection()
