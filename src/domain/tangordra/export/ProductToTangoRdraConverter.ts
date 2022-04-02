@@ -91,6 +91,6 @@ export default class ProductToTangoRdraConverter {
                     variation: 'なし'
                 }
             ]
-        ];
+        };
     }
 }
