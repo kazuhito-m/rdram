@@ -4,6 +4,7 @@ import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
 import Diagram from '~/domain/diagram/Diagram';
 import Resources from '~/domain/resource/Resources';
+import { Raphael } from 'draw2d';
 
 export default class ProductToTangoRdraConverter {
     public convert(product: Product): TangoRdra {
@@ -66,7 +67,7 @@ export default class ProductToTangoRdraConverter {
             .filter(resource => resourceIds.includes(resource.resourceId));
 
         const values = foundInfomations
-            .map(infomation => this.makeInfomationOf(infomation, diagram, allInfomations, ));
+            .map(infomation => this.makeInfomationOf(infomation, diagram, allInfomations, allVariations));
         
         return {
             context: diagram.name,
@@ -75,16 +76,20 @@ export default class ProductToTangoRdraConverter {
     }
 
     private makeInfomationOf(infomation: Resource, diagram: Diagram, allInfoamations: Resources, allInfomations: Resources): Infomation {
-        // TODO 情報を回して「関連」を探す
+        const relations = diagram.relations
+            .filter(relation => relation.fromResourceId === infomation.resourceId);
+
+        const relateds = relations.map(relation => allInfomations.of(relation.toResourceId))
+            .filter(toInfomation => toInfomation !== undefined)
+            .map(toInfomation => toInfomation?.name) as string[];
+
+
         // TODO 情報から「バリエーション」がつながってたらそれも出す
 
-        return {
+        const result = {
                     name: infomation.name,
-                    related: [
-                        'relations1',
-                        'relations2'
-                    ],
+                    related : undefined,
                     variation: 'なし'
-                }
+        }
     }
 }
