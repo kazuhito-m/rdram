@@ -1,4 +1,4 @@
-import { TangoRdra, Overview, Actor, ContextOfInfomation } from '@/domain/tangordra/export/structure/TangoRdra';
+import { TangoRdra, Overview, Actor, ContextOfInfomation, Infomation } from '@/domain/tangordra/export/structure/TangoRdra';
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
@@ -65,27 +65,26 @@ export default class ProductToTangoRdraConverter {
         const foundInfomations = allInfomations
             .filter(resource => resourceIds.includes(resource.resourceId));
 
-        // TODO 情報を回して「関連」を探す
+        const values = foundInfomations
+            .map(infomation => this.makeInfomationOf(infomation, diagram, allInfomations, ));
         
+        return {
+            context: diagram.name,
+            value: values
+        };
+    }
+
+    private makeInfomationOf(infomation: Resource, diagram: Diagram, allInfoamations: Resources, allInfomations: Resources): Infomation {
+        // TODO 情報を回して「関連」を探す
         // TODO 情報から「バリエーション」がつながってたらそれも出す
 
         return {
-            context: diagram.name,
-            value: []
-        };
-
-        // return [{
-        //     context: 'test',
-        //     value: [
-        //         {
-        //             name: 'test1',
-        //             related: [
-        //                 'relations1',
-        //                 'relations2'
-        //             ],
-        //             variation: 'なし'
-        //         }
-        //     ]
-        // }];
+                    name: infomation.name,
+                    related: [
+                        'relations1',
+                        'relations2'
+                    ],
+                    variation: 'なし'
+                }
     }
 }
