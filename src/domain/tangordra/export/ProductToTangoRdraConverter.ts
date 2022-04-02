@@ -26,7 +26,7 @@ export default class ProductToTangoRdraConverter {
         if (variations.length > 0) tangoRdra.variation = variations;
 
         const conditions = this.makeConditionsPart(product);
-        if (conditions.length > 0) tangoRdra.conditon = conditions;
+        if (conditions.length > 0) tangoRdra.condition = conditions;
 
         return tangoRdra;
     }
@@ -130,14 +130,22 @@ export default class ProductToTangoRdraConverter {
     private makeConditionsPart(product: Product): ConditionTango[] {
         return product.resources.typesOf(ResourceType.条件) // TODO 「表形式の条件」をサポートするか
             .map(resource => resource as Condition)
-            .map(this.makeConditionTango);
+            .map(condition => this.makeConditionTango(condition, product));
     }
 
-    private makeConditionTango(condition: Condition): ConditionTango {
+    private makeConditionTango(condition: Condition, product: Product): ConditionTango {
         const result = {
             name: condition.name,
             descripion: condition.value
         } as ConditionTango;
+
+        const variationNames = this.makeVariationNamesRelationFrom(condition, product);
+        if (variationNames.length > 0) result.variation = variationNames;
+
         return result;
+    }
+
+    private makeVariationNamesRelationFrom(condition: Condition, product: Product): string[] {
+        return [];
     }
 }
