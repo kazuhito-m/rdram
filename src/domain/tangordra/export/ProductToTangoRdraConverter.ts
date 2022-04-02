@@ -100,7 +100,6 @@ export default class ProductToTangoRdraConverter {
     private makeVariationOf(infomation: Resource, diagram: Diagram, allVariations: Resources): string {
         const relationVariationNames = diagram.relations
             .filter(relation => relation.isRelatedTo(infomation.resourceId))
-            .map(i => { console.log("ヒットしたリレーション", i); return i })
             .map(relation => relation.otherSideOf(infomation.resourceId))
             .map(pairResouceId => allVariations.of(pairResouceId))
             .filter(foundVariation => foundVariation)
