@@ -128,24 +128,35 @@ export default class ProductToTangoRdraConverter {
     }
 
     private makeConditionsPart(product: Product): ConditionTango[] {
+        const allVariations = product.resources
+            .typeOf(ResourceType.バリエーション);
+
         return product.resources.typesOf(ResourceType.条件) // TODO 「表形式の条件」をサポートするか
             .map(resource => resource as Condition)
-            .map(condition => this.makeConditionTango(condition, product));
+            .map(condition => this.makeConditionTango(condition, product, allVariations));
     }
 
-    private makeConditionTango(condition: Condition, product: Product): ConditionTango {
+    private makeConditionTango(condition: Condition, product: Product, allVariations: Resources): ConditionTango {
         const result = {
             name: condition.name,
             descripion: condition.value
         } as ConditionTango;
 
-        const variationNames = this.makeVariationNamesRelationFrom(condition, product);
+        const variationNames = this.makeVariationNamesRelationFrom(condition, allVariations, product);
         if (variationNames.length > 0) result.variation = variationNames;
 
         return result;
     }
 
-    private makeVariationNamesRelationFrom(condition: Condition, product: Product): string[] {
-        return [];
+    private makeVariationNamesRelationFrom(condition: Condition, allVariations: Resources, product: Product): string[] {
+        const otherSideResourceIds = product.diagrams
+            .allRelations()
+            .uniqueIgnoreDirection()
+            .onlyRelatedOf(condition)
+            .map(relation => relation.otherSideOf(condition.resourceId));
+        return otherSideResourceIds
+            .map(otherSideResourceId => allVariations.of(otherSideResourceId))
+            .filter(variation => variation)
+            .map(foundVariation => foundVariation?.name as string);
     }
 }

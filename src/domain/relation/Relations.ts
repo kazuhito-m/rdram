@@ -1,5 +1,6 @@
 import Relation from "@/domain/relation/Relation";
 import Resource from "@/domain/resource/Resource";
+import { relativeTimeRounding } from "moment";
 
 export default class Relations {
     private readonly values: Relation[];
@@ -77,5 +78,27 @@ export default class Relations {
 
     public last(): Relation {
         return this.values[this.values.length - 1];
+    }
+
+    public uniqueIgnoreDirection(): Relations {
+        const dic = new Map();
+        for (const relation of this.values) {
+            const key = this.makeKeyIgnoreDirectionOf(relation);
+            dic.set(key, relation);
+        }
+        const relations = Array.from(dic.values());
+        return new Relations(relations);
+    }
+
+    private makeKeyIgnoreDirectionOf(relation: Relation): string {
+        return [relation.fromResourceId, relation.toResourceId]
+            .sort()
+            .join(":");
+    }
+
+    public onlyRelatedOf(resource: Resource): Relation[] {
+        const resourceId = resource.resourceId;
+        return this.values
+            .filter(relation => relation.isRelatedTo(resourceId))
     }
 }

@@ -3,7 +3,8 @@ import DiagramType from "@/domain/diagram/DiagramType";
 import DiagramFactory from "@/domain/diagram/DiagramFactory";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
-import { TargetPropValues } from "vuetify/types/services/application";
+import Relation from "../relation/Relation";
+import Relations from "../relation/Relations";
 
 export default class Diagrams {
     private readonly values: Diagram[];
@@ -77,9 +78,9 @@ export default class Diagrams {
         this.values.forEach(func);
     }
 
-    public map<U>(callbackfn: (value: Diagram, index: number)=>U): U[] {
+    public map<U>(callbackfn: (value: Diagram, index: number) => U): U[] {
         return this.values.map(callbackfn);
-    } 
+    }
 
     public static empty(): Diagrams {
         return new Diagrams([]);
@@ -94,5 +95,12 @@ export default class Diagrams {
 
     public last(): Diagram {
         return this.values[this.values.length - 1];
+    }
+
+    public allRelations(): Relations {
+        const all = this.values
+            .map(diaglam => diaglam.relations)
+            .flat();
+        return new Relations(all);
     }
 }
