@@ -409,9 +409,8 @@ export default class DiagramCanvas extends Vue {
       this.addResouceIconToCanvas(resource, placement);
     }
 
-    for (const relation of diagram.relations) {
-      this.addConnection(relation);
-    }
+    diagram.allRelations()
+      .forEach(this.addConnection);
   }
 
   private findResource(resourceId: number): Resource | undefined {

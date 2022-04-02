@@ -9,7 +9,6 @@ import ResourceFactory from '@/domain/resource/ResourceFactory';
 import DiagramType from '@/domain/diagram/DiagramType';
 import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
 import Relation from '@/domain/relation/Relation';
-import Relations from '@/domain/relation/Relations';
 
 export default class Product {
     constructor(
@@ -29,7 +28,7 @@ export default class Product {
         const relationPlus = this.resources.relationWithResourcesOf(relation);
         if (!relationPlus) return "対応するリソースがありません。";
 
-        const relations = new Relations(diagram.relations); // TODO Diagram側にこれをつけたい。
+        const relations = diagram.allRelations() ; // TODO Diagram側にこれをつけたい。
         if (relations.exists(relation)) return "すでに関連が存在します。";
 
         if (relationPlus.fromType.equals(ResourceType.始点終点)) {

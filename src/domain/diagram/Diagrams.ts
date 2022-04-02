@@ -98,9 +98,8 @@ export default class Diagrams {
     }
 
     public allRelations(): Relations {
-        const all = this.values
-            .map(diaglam => diaglam.relations)
-            .flat();
-        return new Relations(all);
+        return this.values
+            .map(diaglam => diaglam.allRelations())
+            .reduce((left, right) => left.concat(right));
     }
 }

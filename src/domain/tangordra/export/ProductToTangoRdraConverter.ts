@@ -96,16 +96,16 @@ export default class ProductToTangoRdraConverter {
         return result;
     }
     private makeRelatedsOf(infomation: Resource, diagram: Diagram, allInformations: Resources) {
-        const relations = diagram.relations
-            .filter(relation => relation.fromResourceId === infomation.resourceId);
+        const relations = diagram.allRelations()
+            .onlyFromRelatedOf(infomation);
         return relations.map(relation => allInformations.of(relation.toResourceId))
             .filter(toInfomation => toInfomation)
             .map(toInfomation => toInfomation?.name) as string[];
     }
 
     private makeVariationOf(infomation: Resource, diagram: Diagram, allVariations: Resources): string {
-        const relationVariationNames = diagram.relations
-            .filter(relation => relation.isRelatedTo(infomation.resourceId))
+        const relationVariationNames = diagram.allRelations()
+            .onlyRelatedOf(infomation)
             .map(relation => relation.otherSideOf(infomation.resourceId))
             .map(pairResouceId => allVariations.of(pairResouceId))
             .filter(foundVariation => foundVariation)
