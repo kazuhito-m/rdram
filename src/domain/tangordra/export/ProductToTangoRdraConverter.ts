@@ -1,10 +1,11 @@
-import { TangoRdra, Overview, Actor, ContextOfInfomation, Infomation, VariationTango, Condition } from '@/domain/tangordra/export/structure/TangoRdra';
+import { TangoRdra, Overview, Actor, ContextOfInfomation, Infomation, VariationTango, ConditionTango } from '@/domain/tangordra/export/structure/TangoRdra';
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
 import Diagram from '@/domain/diagram/Diagram';
 import Resources from '@/domain/resource/Resources';
 import Variation from '~/domain/resource/Variation';
+import Condition from '~/domain/resource/Condition';
 
 export default class ProductToTangoRdraConverter {
     public convert(product: Product): TangoRdra {
@@ -126,7 +127,17 @@ export default class ProductToTangoRdraConverter {
         };
     }
 
-    private makeConditionsPart(product: Product): Condition[] {
-        return [];
+    private makeConditionsPart(product: Product): ConditionTango[] {
+        return product.resources.typesOf(ResourceType.条件) // TODO 「表形式の条件」をサポートするか
+            .map(resource => resource as Condition)
+            .map(this.makeConditionTango);
+    }
+
+    private makeConditionTango(condition: Condition): ConditionTango {
+        const result = {
+            name: condition.name,
+            descripion: condition.value
+        } as ConditionTango;
+        return result;
     }
 }
