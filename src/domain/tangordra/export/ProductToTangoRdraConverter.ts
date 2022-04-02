@@ -76,7 +76,7 @@ export default class ProductToTangoRdraConverter {
         };
     }
 
-    private makeInfomationOf(infomation: Resource, diagram: Diagram, allInformations: Resources, allInfomations: Resources): Infomation {
+    private makeInfomationOf(infomation: Resource, diagram: Diagram, allInformations: Resources, allVariations: Resources): Infomation {
         const relations = diagram.relations
             .filter(relation => relation.fromResourceId === infomation.resourceId);
 
@@ -90,12 +90,18 @@ export default class ProductToTangoRdraConverter {
         const relateds = this.makeRelatedsOf(relations, allInformations);
         if (relateds.length > 0) result.related = relateds;
 
+        const variation = this.makeVariationOf(infomation, relations, allVariations);
+        if (variation) result.variation = variation;
+
         return result;
     }
-
     private makeRelatedsOf(relations: Relation[], allInformations: Resources) {
         return relations.map(relation => allInformations.of(relation.toResourceId))
             .filter(toInfomation => toInfomation)
             .map(toInfomation => toInfomation?.name) as string[];
+    }
+
+    private makeVariationOf(infomation: Resource, relations: Relation[], allVariations: Resources): string {
+        return "";
     }
 }
