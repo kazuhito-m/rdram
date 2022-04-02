@@ -5,7 +5,7 @@ export type TangoRdra = {
     information: ContextOfInfomation[]
     // state: State | null
     // transition: StateTransition | null
-    // variation: Variation | null
+    variation: VariationTango[] 
     // condition: Condition | null
     // business: Business | null
     // usecase: Usecase | null
@@ -30,4 +30,9 @@ export type Infomation = {
     name: string
     related: string[]
     variation: string
+}
+
+export type VariationTango = {
+    name: string
+    value: string[]
 }

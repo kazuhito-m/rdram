@@ -1,9 +1,9 @@
-import { TangoRdra, Overview, Actor, ContextOfInfomation, Infomation } from '@/domain/tangordra/export/structure/TangoRdra';
+import { TangoRdra, Overview, Actor, ContextOfInfomation, Infomation, VariationTango } from '@/domain/tangordra/export/structure/TangoRdra';
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
-import Diagram from '~/domain/diagram/Diagram';
-import Resources from '~/domain/resource/Resources';
+import Diagram from '@/domain/diagram/Diagram';
+import Resources from '@/domain/resource/Resources';
 
 export default class ProductToTangoRdraConverter {
     public convert(product: Product): TangoRdra {
@@ -19,6 +19,9 @@ export default class ProductToTangoRdraConverter {
 
         const infomations = this.makeInfomationsPart(product);
         if (infomations.length > 0) tangoRdra.information = infomations;
+
+        const variations = this.makeVariationsPart(product);
+        if (variations.length > 0) tangoRdra.variation = variations;
 
         return tangoRdra;
     }
@@ -104,5 +107,9 @@ export default class ProductToTangoRdraConverter {
             .map(foundVariation => foundVariation?.name as string);
         if (relationVariationNames.length === 0) return "";
         return relationVariationNames[0];
+    }
+
+    private makeVariationsPart(product: Product): VariationTango[] {
+        return [];
     }
 }
