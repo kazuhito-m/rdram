@@ -4,8 +4,6 @@ import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
 import Diagram from '~/domain/diagram/Diagram';
 import Resources from '~/domain/resource/Resources';
-import { Raphael } from 'draw2d';
-import Relation from '~/domain/relation/Relation';
 
 export default class ProductToTangoRdraConverter {
     public convert(product: Product): TangoRdra {
