@@ -42,6 +42,13 @@ export default class Relation {
         );
     }
 
+    public otherSideOf(resourceId: number): number {
+        if (!this.isRelatedTo(resourceId)) return 0;
+        return this.fromResourceId === resourceId
+            ? this.toResourceId
+            : this.fromResourceId;
+    }
+
     public isRelatedTo(resourceId: number): boolean {
         return this.fromResourceId === resourceId
             || this.toResourceId === resourceId;

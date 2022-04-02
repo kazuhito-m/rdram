@@ -80,11 +80,8 @@ export default class ProductToTangoRdraConverter {
         const relations = diagram.relations
             .filter(relation => relation.fromResourceId === infomation.resourceId);
 
-        // TODO 情報から「バリエーション」がつながってたらそれも出す
-
         const result = {
             name: infomation.name,
-            variation: 'なし'
         } as Infomation;
 
         const relateds = this.makeRelatedsOf(relations, allInformations);
@@ -102,6 +99,13 @@ export default class ProductToTangoRdraConverter {
     }
 
     private makeVariationOf(infomation: Resource, relations: Relation[], allVariations: Resources): string {
-        return "";
+        const relationVariationNames = relations
+            .filter(relation => relation.isRelatedTo(infomation.resourceId))
+            .map(relation => relation.otherSideOf(infomation.resourceId))
+            .map(pairResouceId => allVariations.of(pairResouceId))
+            .filter(foundVariation => foundVariation)
+            .map(foundVariation => foundVariation?.name as string);
+        if (relationVariationNames.length === 0) return "";
+        return relationVariationNames[0];
     }
 }
