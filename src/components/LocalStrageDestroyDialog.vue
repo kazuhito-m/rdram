@@ -56,7 +56,7 @@ import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import RdramExportFile from "@/domain/client/export/RdramExportFile";
-import RdramExportFileName from "~/domain/client/export/RdramExportFileName";
+import RdramExportFileName from "@/domain/client/export/RdramExportFileName";
 
 @Component
 export default class LocalStrageDestroyDialog extends Vue {

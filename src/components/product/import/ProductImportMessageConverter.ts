@@ -1,6 +1,6 @@
 import ProductImportErrorMessageConverter from "./ProductImportErrorMessageConverter";
 import { ProductImportProgressStep } from "@/domain/product/import/ProductImportProgressStep";
-import { ProductImportError } from "~/domain/product/import/ProductImportError";
+import { ProductImportError } from "@/domain/product/import/ProductImportError";
 import ProductImportProgressEvent from "@/domain/product/import/ProductImportProgressEvent";
 
 export default class ProductImportMessageConverter {

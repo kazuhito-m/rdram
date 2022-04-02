@@ -1,10 +1,9 @@
+import Relations from "@/domain/relation/Relations";
 import Diagram from "@/domain/diagram/Diagram";
 import DiagramType from "@/domain/diagram/DiagramType";
 import DiagramFactory from "@/domain/diagram/DiagramFactory";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
-import Relation from "../relation/Relation";
-import Relations from "../relation/Relations";
 
 export default class Diagrams {
     private readonly values: Diagram[];

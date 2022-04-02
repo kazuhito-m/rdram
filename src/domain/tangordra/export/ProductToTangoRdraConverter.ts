@@ -4,8 +4,8 @@ import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
 import Diagram from '@/domain/diagram/Diagram';
 import Resources from '@/domain/resource/Resources';
-import Variation from '~/domain/resource/Variation';
-import Condition from '~/domain/resource/Condition';
+import Variation from '@/domain/resource/Variation';
+import Condition from '@/domain/resource/Condition';
 
 export default class ProductToTangoRdraConverter {
     public convert(product: Product): TangoRdra {
@@ -95,6 +95,7 @@ export default class ProductToTangoRdraConverter {
 
         return result;
     }
+
     private makeRelatedsOf(infomation: Resource, diagram: Diagram, allInformations: Resources) {
         const relations = diagram.allRelations()
             .onlyFromRelatedOf(infomation);

@@ -1,4 +1,4 @@
-import WithTimestampFileName from "../WithTimestampFileName";
+import WithTimestampFileName from "@/domain/client/WithTimestampFileName";
 
 export default class RdramExportFileName extends WithTimestampFileName {
     constructor(name: string) {

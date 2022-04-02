@@ -1,5 +1,5 @@
-import DownloadFile from "@/domain/client/DownloadFile";
 import TangoRdraExportFileName from "./TangoRdraExportFileName";
+import DownloadFile from "@/domain/client/DownloadFile";
 
 export default class TangoRdraExportFile implements DownloadFile {
     constructor(

@@ -1,3 +1,4 @@
+import Relations from "../relation/Relations";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Placement from "@/domain/diagram/placement/Placement";
 import Relation from "@/domain/relation/Relation";
@@ -5,7 +6,6 @@ import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
 import CanvasGuideType from "@/components/diagrams/editor/toolbar/CanvasGuideType";
-import Relations from "../relation/Relations";
 
 export default class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;

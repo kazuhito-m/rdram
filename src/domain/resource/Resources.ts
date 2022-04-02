@@ -92,7 +92,7 @@ export default class Resources {
     }
 
     public isEmpty(): boolean {
-        return this.length == 0;
+        return this.length === 0;
     }
 
     public last(): Resource {

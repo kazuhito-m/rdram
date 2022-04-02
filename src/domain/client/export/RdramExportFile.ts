@@ -1,5 +1,5 @@
-import DownloadFile from "~/domain/client/DownloadFile";
 import RdramExportFileName from "./RdramExportFileName";
+import DownloadFile from "@/domain/client/DownloadFile";
 
 export default class RdramExportFile implements DownloadFile {
     constructor(

@@ -1,8 +1,8 @@
+import YAML from 'yaml';
 import StrageRepository from "@/domain/strage/StrageRepository";
 import TangoRdraExportFile from "@/domain/tangordra/export/file/TangoRdraExportFile";
 import Product from "@/domain/product/Product";
 import ProductToTangoRdraConverter from "@/domain/tangordra/export/ProductToTangoRdraConverter";
-import YAML from 'yaml';
 
 export default class TangoRdraFileService {
     constructor(

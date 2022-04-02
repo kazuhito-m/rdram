@@ -74,7 +74,7 @@ import StrageRepository from "@/domain/strage/StrageRepository";
 import Placement from "@/domain/diagram/placement/Placement";
 import DownloadCustomFile from "@/domain/client/DownloadCustomFile";
 import DownloadFileName from "@/domain/client/DownloadFileName";
-import RdramDownloadFileName from "~/domain/client/WithTimestampFileName";
+import RdramDownloadFileName from "@/domain/client/WithTimestampFileName";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 
 import CoreResourceEditDialog from "@/components/resource/CoreResourceEditDialog.vue";
