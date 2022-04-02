@@ -4,6 +4,7 @@ import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
 import Diagram from '@/domain/diagram/Diagram';
 import Resources from '@/domain/resource/Resources';
+import Variation from '~/domain/resource/Variation';
 
 export default class ProductToTangoRdraConverter {
     public convert(product: Product): TangoRdra {
@@ -110,6 +111,15 @@ export default class ProductToTangoRdraConverter {
     }
 
     private makeVariationsPart(product: Product): VariationTango[] {
-        return [];
+        return product.resources.typesOf(ResourceType.バリエーション)
+            .map(resource => resource as Variation)
+            .map(this.makeVariationTango);
+    }
+
+    private makeVariationTango(variation: Variation): VariationTango {
+        return {
+            name: variation.name,
+            value: variation.valuesOf()
+        };
     }
 }
