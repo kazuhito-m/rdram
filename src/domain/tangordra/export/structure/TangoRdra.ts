@@ -6,7 +6,7 @@ export type TangoRdra = {
     // state: State | null
     // transition: StateTransition | null
     variation: VariationTango[] 
-    // condition: Condition | null
+    condition: ConditionTango[]
     // business: Business | null
     // usecase: Usecase | null
 }
@@ -35,4 +35,10 @@ export type Infomation = {
 export type VariationTango = {
     name: string
     value: string[]
+}
+
+export type ConditionTango = {
+    name: string
+    descripion: string
+    variation: string[]
 }

@@ -1,4 +1,4 @@
-import { TangoRdra, Overview, Actor, ContextOfInfomation, Infomation, VariationTango } from '@/domain/tangordra/export/structure/TangoRdra';
+import { TangoRdra, Overview, Actor, ContextOfInfomation, Infomation, VariationTango, Condition } from '@/domain/tangordra/export/structure/TangoRdra';
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
@@ -23,6 +23,9 @@ export default class ProductToTangoRdraConverter {
 
         const variations = this.makeVariationsPart(product);
         if (variations.length > 0) tangoRdra.variation = variations;
+
+        const conditions = this.makeConditionsPart(product);
+        if (conditions.length > 0) tangoRdra.conditon = conditions;
 
         return tangoRdra;
     }
@@ -121,5 +124,9 @@ export default class ProductToTangoRdraConverter {
             name: variation.name,
             value: variation.valuesOf()
         };
+    }
+
+    private makeConditionsPart(product: Product): Condition[] {
+        return [];
     }
 }
