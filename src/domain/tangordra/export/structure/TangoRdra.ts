@@ -28,6 +28,6 @@ export type ContextOfInfomation = {
 
 export type Infomation = {
     name: string
-    related: string[] | undefined
+    related: string[]
     variation: string
 }

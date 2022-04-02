@@ -68,28 +68,30 @@ export default class ProductToTangoRdraConverter {
 
         const values = foundInfomations
             .map(infomation => this.makeInfomationOf(infomation, diagram, allInfomations, allVariations));
-        
+
         return {
             context: diagram.name,
             value: values
         };
     }
 
-    private makeInfomationOf(infomation: Resource, diagram: Diagram, allInfoamations: Resources, allInfomations: Resources): Infomation {
+    private makeInfomationOf(infomation: Resource, diagram: Diagram, allInformations: Resources, allInfomations: Resources): Infomation {
         const relations = diagram.relations
             .filter(relation => relation.fromResourceId === infomation.resourceId);
 
-        const relateds = relations.map(relation => allInfomations.of(relation.toResourceId))
-            .filter(toInfomation => toInfomation !== undefined)
+        const relateds = relations.map(relation => allInformations.of(relation.toResourceId))
+            .filter(toInfomation => toInfomation)
             .map(toInfomation => toInfomation?.name) as string[];
-
 
         // TODO 情報から「バリエーション」がつながってたらそれも出す
 
         const result = {
-                    name: infomation.name,
-                    related : undefined,
-                    variation: 'なし'
-        }
+            name: infomation.name,
+            variation: 'なし'
+        } as Infomation;
+
+        if (relateds.length > 0) result.related = relateds;
+
+        return result;
     }
 }
