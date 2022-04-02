@@ -84,10 +84,7 @@ export default class ProductToTangoRdraConverter {
             value: [
                 {
                     name: 'test1',
-                    related: [
-                        'relations1',
-                        'relations2'
-                    ],
+                    related: undefined,
                     variation: 'なし'
                 }
             ]
