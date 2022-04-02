@@ -59,9 +59,14 @@ export default class ProductToTangoRdraConverter {
             .filter(context => context.value.length > 0);
     }
 
-    private makeInfomationsOf(diagram: Diagram, infomations: Resources, variations: Resources): ContextOfInfomation {
-        // TODO ダイアグラム上から「情報」を抜き出す
+    private makeInfomationsOf(diagram: Diagram, allInfomations: Resources, allVariations: Resources): ContextOfInfomation {
+        const resourceIds = diagram.placements
+            .map(placement => placement.resourceId);
+        const foundInfomations = allInfomations
+            .filter(resource => resourceIds.includes(resource.resourceId));
+
         // TODO 情報を回して「関連」を探す
+        
         // TODO 情報から「バリエーション」がつながってたらそれも出す
 
         return {
