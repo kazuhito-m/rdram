@@ -54,15 +54,20 @@ export default class ProductToTangoRdraConverter {
         const infomations = product.resources.typesOf(ResourceType.情報);
         const variations = product.resources.typeOf(ResourceType.バリエーション);
 
-        // TODO ダイアグラムを回す
-
         return product.diagrams
             .map(diagram => this.makeInfomationsOf(diagram, infomations, variations))
             .filter(context => context.value.length > 0);
+    }
 
+    private makeInfomationsOf(diagram: Diagram, infomations: Resources, variations: Resources): ContextOfInfomation {
         // TODO ダイアグラム上から「情報」を抜き出す
         // TODO 情報を回して「関連」を探す
         // TODO 情報から「バリエーション」がつながってたらそれも出す
+
+        return {
+            context: diagram.name,
+            value: []
+        };
 
         // return [{
         //     context: 'test',
@@ -77,12 +82,5 @@ export default class ProductToTangoRdraConverter {
         //         }
         //     ]
         // }];
-    }
-
-    private makeInfomationsOf(diagram: Diagram, infomations: Resources, variations: Resources): ContextOfInfomation {
-        return {
-            context: diagram.name,
-            value: []
-        };
     }
 }
