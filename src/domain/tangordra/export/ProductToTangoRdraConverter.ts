@@ -57,7 +57,8 @@ export default class ProductToTangoRdraConverter {
         // TODO ダイアグラムを回す
 
         return product.diagrams
-            .map(diagram => this.makeInfomationsOf(diagram, infomations, variations));
+            .map(diagram => this.makeInfomationsOf(diagram, infomations, variations))
+            .filter(context => context.value.length > 0);
 
         // TODO ダイアグラム上から「情報」を抜き出す
         // TODO 情報を回して「関連」を探す
@@ -80,14 +81,8 @@ export default class ProductToTangoRdraConverter {
 
     private makeInfomationsOf(diagram: Diagram, infomations: Resources, variations: Resources): ContextOfInfomation {
         return {
-            context: 'test',
-            value: [
-                {
-                    name: 'test1',
-                    related: undefined,
-                    variation: 'なし'
-                }
-            ]
+            context: diagram.name,
+            value: []
         };
     }
 }
