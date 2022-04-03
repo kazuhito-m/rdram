@@ -1,5 +1,5 @@
 {
-    "updateAt": "2022-03-29T10:01:10.485Z",
+    "updateAt": "2022-04-03T08:08:38.377Z",
     "id": "6a0375a9-fb91-4803-a514-de073c54f3e5",
     "name": "図書館システム",
     "userSettings": {
@@ -57,8 +57,8 @@
                 ],
                 "placements": [
                     {
-                        "x": 337,
-                        "y": 346,
+                        "x": 353,
+                        "y": 332,
                         "width": 350,
                         "height": 75,
                         "resourceId": 1,
@@ -174,8 +174,8 @@
                         "__CLASS_NAME": "Placement"
                     },
                     {
-                        "x": 312,
-                        "y": 136,
+                        "x": 340,
+                        "y": 138,
                         "width": 200,
                         "height": 37,
                         "resourceId": 8,
@@ -228,8 +228,8 @@
                         "__CLASS_NAME": "Placement"
                     },
                     {
-                        "x": 346,
-                        "y": 548,
+                        "x": 350,
+                        "y": 559,
                         "width": 200,
                         "height": 37,
                         "resourceId": 13,
@@ -414,8 +414,8 @@
                     {
                         "x": 176,
                         "y": 127,
-                        "width": 621,
-                        "height": 497,
+                        "width": 640,
+                        "height": 508,
                         "resourceId": 17,
                         "alias": false,
                         "__CLASS_NAME": "Placement"
@@ -452,49 +452,9 @@
                         "__CLASS_NAME": "Relation"
                     },
                     {
-                        "id": "3e0adca5-af00-d35a-ca1f-16a820b2b673",
-                        "fromResourceId": 24,
-                        "toResourceId": 7,
-                        "routerTypeId": 1,
-                        "tipAllow": false,
-                        "meaning": "",
-                        "midpoints": [],
-                        "__CLASS_NAME": "Relation"
-                    },
-                    {
-                        "id": "d75be39b-e5b9-1008-000b-840721aed4ca",
-                        "fromResourceId": 24,
-                        "toResourceId": 19,
-                        "routerTypeId": 1,
-                        "tipAllow": false,
-                        "meaning": "",
-                        "midpoints": [],
-                        "__CLASS_NAME": "Relation"
-                    },
-                    {
                         "id": "7df7fb16-a4ec-1443-9d70-12272260e049",
                         "fromResourceId": 23,
                         "toResourceId": 19,
-                        "routerTypeId": 1,
-                        "tipAllow": false,
-                        "meaning": "",
-                        "midpoints": [],
-                        "__CLASS_NAME": "Relation"
-                    },
-                    {
-                        "id": "cfd0eed3-e948-22d6-50e6-625e75d9f35f",
-                        "fromResourceId": 18,
-                        "toResourceId": 24,
-                        "routerTypeId": 1,
-                        "tipAllow": false,
-                        "meaning": "",
-                        "midpoints": [],
-                        "__CLASS_NAME": "Relation"
-                    },
-                    {
-                        "id": "3ddc1447-c468-1914-d5be-e8dfe24715a2",
-                        "fromResourceId": 21,
-                        "toResourceId": 24,
                         "routerTypeId": 1,
                         "tipAllow": false,
                         "meaning": "",
@@ -535,7 +495,7 @@
                         "id": "1a258cc0-a62e-eb8f-4f65-e4b316418df1",
                         "fromResourceId": 25,
                         "toResourceId": 18,
-                        "routerTypeId": 1,
+                        "routerTypeId": 4,
                         "tipAllow": false,
                         "meaning": "",
                         "midpoints": [],
@@ -571,17 +531,8 @@
                         "__CLASS_NAME": "Placement"
                     },
                     {
-                        "x": 544,
-                        "y": 73,
-                        "width": 105,
-                        "height": 35,
-                        "resourceId": 24,
-                        "alias": false,
-                        "__CLASS_NAME": "Placement"
-                    },
-                    {
-                        "x": 511,
-                        "y": 329,
+                        "x": 527,
+                        "y": 289,
                         "width": 0,
                         "height": 0,
                         "resourceId": 19,
@@ -729,8 +680,8 @@
                 ],
                 "placements": [
                     {
-                        "x": 189,
-                        "y": 179,
+                        "x": 220,
+                        "y": 146,
                         "width": 0,
                         "height": 0,
                         "resourceId": 6,
@@ -756,8 +707,8 @@
                         "__CLASS_NAME": "Placement"
                     },
                     {
-                        "x": 389,
-                        "y": 527,
+                        "x": 317,
+                        "y": 526,
                         "width": 0,
                         "height": 0,
                         "resourceId": 27,
@@ -765,8 +716,8 @@
                         "__CLASS_NAME": "Placement"
                     },
                     {
-                        "x": 565,
-                        "y": 308,
+                        "x": 543,
+                        "y": 311,
                         "width": 162,
                         "height": 50,
                         "resourceId": 28,
@@ -1221,8 +1172,8 @@
                 ],
                 "placements": [
                     {
-                        "x": 295,
-                        "y": 188,
+                        "x": 296,
+                        "y": 246,
                         "width": 0,
                         "height": 0,
                         "resourceId": 46,
@@ -1248,8 +1199,8 @@
                         "__CLASS_NAME": "Placement"
                     },
                     {
-                        "x": 510,
-                        "y": 418,
+                        "x": 497,
+                        "y": 452,
                         "width": 0,
                         "height": 0,
                         "resourceId": 50,
@@ -1270,6 +1221,255 @@
                 "height": 768,
                 "canvasGuideTypeId": 1,
                 "__CLASS_NAME": "VariationAndConditionDiagram"
+            },
+            {
+                "id": 9,
+                "typeId": 11,
+                "name": "業務フロー",
+                "relations": [
+                    {
+                        "id": "d23699b5-02ff-f2fe-17ef-e7fc1a059361",
+                        "fromResourceId": 26,
+                        "toResourceId": 28,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "4f755f41-f1bc-4a1d-afad-e3ded188137f",
+                        "fromResourceId": 26,
+                        "toResourceId": 27,
+                        "routerTypeId": 2,
+                        "tipAllow": true,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "33f1d3ab-b30a-c0fa-8edc-ca749cd38646",
+                        "fromResourceId": 33,
+                        "toResourceId": 27,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "9c2e7f02-e12d-8dcb-b6f3-a404d6782213",
+                        "fromResourceId": 2,
+                        "toResourceId": 26,
+                        "routerTypeId": 2,
+                        "tipAllow": true,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "8aed80b3-b735-ae9c-1827-01181664420d",
+                        "fromResourceId": 27,
+                        "toResourceId": 3,
+                        "routerTypeId": 2,
+                        "tipAllow": true,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    }
+                ],
+                "placements": [
+                    {
+                        "x": 35,
+                        "y": 26,
+                        "width": 280,
+                        "height": 700,
+                        "resourceId": 6,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 315,
+                        "y": 26,
+                        "width": 280,
+                        "height": 700,
+                        "resourceId": 7,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 196,
+                        "y": 192,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 26,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 56,
+                        "y": 272,
+                        "width": 160,
+                        "height": 40,
+                        "resourceId": 28,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 451,
+                        "y": 413,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 27,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 560,
+                        "y": 380,
+                        "width": 146,
+                        "height": 35,
+                        "resourceId": 33,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 184,
+                        "y": 113,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 2,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 456,
+                        "y": 680,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 3,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 600,
+                        "y": 20,
+                        "width": 280,
+                        "height": 700,
+                        "resourceId": 12,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    }
+                ],
+                "width": 2021,
+                "height": 1024,
+                "canvasGuideTypeId": 2,
+                "__CLASS_NAME": "BusinessFlowDiagram"
+            },
+            {
+                "id": 10,
+                "typeId": 12,
+                "name": "利用シーン図",
+                "relations": [
+                    {
+                        "id": "3b3c491b-bb56-ede9-1473-53b04733c767",
+                        "fromResourceId": 52,
+                        "toResourceId": 33,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "174901b4-1423-7a54-f6f8-e3c7a7a3baa5",
+                        "fromResourceId": 53,
+                        "toResourceId": 52,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    }
+                ],
+                "placements": [
+                    {
+                        "x": 380,
+                        "y": 169,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 52,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 163,
+                        "y": 367,
+                        "width": 105,
+                        "height": 35,
+                        "resourceId": 28,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 825,
+                        "y": 462,
+                        "width": 105,
+                        "height": 35,
+                        "resourceId": 39,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 672,
+                        "y": 317,
+                        "width": 105,
+                        "height": 35,
+                        "resourceId": 33,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 514,
+                        "y": 552,
+                        "width": 105,
+                        "height": 35,
+                        "resourceId": 44,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 478,
+                        "y": 372,
+                        "width": 105,
+                        "height": 35,
+                        "resourceId": 45,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 697,
+                        "y": 166,
+                        "width": 105,
+                        "height": 35,
+                        "resourceId": 42,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 109,
+                        "y": 53,
+                        "width": 197,
+                        "height": 25,
+                        "resourceId": 53,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    }
+                ],
+                "width": 1024,
+                "height": 768,
+                "canvasGuideTypeId": 1,
+                "__CLASS_NAME": "UsageSceneDiagram"
             }
         ],
         "__CLASS_NAME": "Diagrams"
@@ -1719,10 +1919,27 @@
                 "deletable": true,
                 "value": "貸出日＋１４日",
                 "__CLASS_NAME": "Condition"
+            },
+            {
+                "resourceId": 52,
+                "resourceTypeId": 25,
+                "name": "図書館内で本を物色",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 53,
+                "resourceTypeId": 32,
+                "name": "シナリオ01",
+                "description": "",
+                "deletable": true,
+                "content": "どんなヤツやったっけ？",
+                "__CLASS_NAME": "Scenario"
             }
         ],
         "__CLASS_NAME": "Resources"
     },
-    "resourceIdSequence": 52,
+    "resourceIdSequence": 55,
     "__CLASS_NAME": "Product"
 }
