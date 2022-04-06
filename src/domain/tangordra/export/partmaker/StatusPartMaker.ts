@@ -68,10 +68,7 @@ export default class StatusPartMaker {
             const state = states.of(fromStateResouceIds[0]);
             const oneState = {
                 name: state?.name as string,
-                usecase: [{
-                    name: usecases.of(remainRelation.fromResourceId)?.name,
-                    next_state: states.of(remainRelation.toResourceId)?.name
-                }]
+                usecase: [this.makeUseCase(remainRelation.fromResourceId, remainRelations, usecases, states)]
             } as State;
 
             resultStatus.push(oneState)
