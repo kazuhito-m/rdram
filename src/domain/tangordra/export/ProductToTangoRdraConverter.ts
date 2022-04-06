@@ -177,7 +177,7 @@ export default class ProductToTangoRdraConverter {
         const startOrEndPoints = allResources.typeOf(ResourceType.始点終点);
 
         return product.diagrams
-            .typeOf(DiagramType.情報モデル図)
+            .typeOf(DiagramType.状態モデル図)
             .map(diagram => this.makeStateGroup(diagram, states, usecases, startOrEndPoints))
             .filter(stateGroup => stateGroup.value.length > 0);
     }
