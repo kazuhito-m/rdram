@@ -26,13 +26,11 @@ export default class StatusPartMaker {
     ): StateGroup {
         const resultStatus: State[] = [];
 
-        const relations = new Map<string, Relation>();
+        const remainRelations = new Map<string, Relation>();
         diagram.allRelations()
-            .forEach(r => relations.set(r.id, r));
+            .forEach(r => remainRelations.set(r.id, r));
 
-        const remainRelations = new Map(relations);
-
-        const stateResourceIdsOfFromOnlyUnique = Array.from(relations.values())
+        const stateResourceIdsOfFromOnlyUnique = Array.from(remainRelations.values())
             .map(r => r.fromResourceId)
             .filter(fromId => states.existsIdOf(fromId))
             .reduce((uniqueSet, fromId) => uniqueSet.add(fromId), new Set<number>());
@@ -44,7 +42,10 @@ export default class StatusPartMaker {
             relationsOfConnectUsecase.forEach(r => remainRelations.delete(r.id));
 
             const usecaseResourceIds = relationsOfConnectUsecase
-                .map(r => r.toResourceId);
+                .map(r => r.toResourceId)
+                .filter(toResoureId => usecases.existsIdOf(toResoureId));
+
+            if (usecaseResourceIds.length === 0) continue;
 
             const state = states.of(stateResourceId);
             const oneState = {
@@ -57,13 +58,23 @@ export default class StatusPartMaker {
 
         for (const remainRelation of remainRelations.values()) {
             if (!usecases.existsIdOf(remainRelation.fromResourceId)) continue;
-            // debug
-            const fr = allResources.of(remainRelation.fromResourceId);
-            const tr = allResources.of(remainRelation.toResourceId);
-            console.log('残りrelation id:%s, from:%s.%s, to:%s.%s',
-                remainRelation.id,
-                remainRelation.fromResourceId, fr?.name,
-                remainRelation.toResourceId, tr?.name);
+
+            const fromStateResouceIds = diagram.allRelations()
+                .map(r => r)
+                .filter(r => r.toResourceId === remainRelation.fromResourceId)
+                .map(r => r.fromResourceId);
+            if (fromStateResouceIds.length === 0) continue;
+
+            const state = states.of(fromStateResouceIds[0]);
+            const oneState = {
+                name: state?.name as string,
+                usecase: [{
+                    name: usecases.of(remainRelation.fromResourceId)?.name,
+                    next_state: states.of(remainRelation.toResourceId)?.name
+                }]
+            } as State;
+
+            resultStatus.push(oneState)
         }
 
         const result = {
