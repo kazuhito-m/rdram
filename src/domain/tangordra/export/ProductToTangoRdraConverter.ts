@@ -1,4 +1,4 @@
-import { TangoRdra, Overview } from '@/domain/tangordra/export/structure/TangoRdra';
+import { TangoRdra } from '@/domain/tangordra/export/structure/TangoRdra';
 import Product from "@/domain/product/Product";
 import ResourceType from "@/domain/resource/ResourceType";
 import StatusPartMaker from './partmaker/StatusPartMaker';
