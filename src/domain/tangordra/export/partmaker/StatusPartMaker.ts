@@ -51,28 +51,15 @@ export default class StatusPartMaker {
             relations.delete(relation.id);
 
             const fromId = relation.fromResourceId;
-            if (startOrEndPoints.existsIdOf(fromId)) {
-                console.log("Fromが始点:%s", relation.id);
-                continue;
-            }
-            if (usecases.existsIdOf(fromId)) {
-                console.log("Fromがユースケース:%s", relation.id);
-                relations.set(relation.id, relation);
-                continue;
-            }
-
-            if (!states.existsIdOf(fromId)) {
-                console.log("Fromが状態じゃない:%s", relation.id);
-                continue;
-            }
-
             const toId = relation.toResourceId;
-            if (startOrEndPoints.existsIdOf(toId)) {
-                console.log("Toが終点:%s", relation.id);
+            if (startOrEndPoints.existsIdOf(fromId)
+                || usecases.existsIdOf(fromId)
+                || !states.existsIdOf(fromId)
+                || startOrEndPoints.existsIdOf(toId)
+            ) {
+                if (usecases.existsIdOf(fromId)) relations.set(relation.id, relation);
                 continue;
             }
-
-            const state = states.of(fromId);
 
             const relationsOfConnectUsecase = Array.from(relations.values())
                 .filter(r => r.fromResourceId === fromId);
@@ -83,7 +70,7 @@ export default class StatusPartMaker {
                 .map(r => r.toResourceId);
 
             const oneState = {
-                name: state?.name,
+                name: states.of(fromId)?.name,
                 usecase: useCaseResourceIds.map(resourceId => this.makeUseCase(resourceId, relations, usecases, states))
             } as State;
 
