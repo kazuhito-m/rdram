@@ -188,14 +188,14 @@ export default class ProductToTangoRdraConverter {
         usecases: Resources,
         startOrEndPoints: Resources
     ): StateGroup {
-        const all = diagram.allRelations()
-            .map(r => r);
-        const confirmed = new Map<string, Relation>();
-
-        for (const relation of all) {
+        const relations = new Map<string, Relation>();
+        diagram.allRelations()
+            .forEach(relation => relations.set(relation.id, relation));
+        while (relations.size > 0) {
+            const relation = relations.values().next().value;
             const fromId = relation.fromResourceId;
             if (startOrEndPoints.existsIdOf(fromId)) {
-                confirmed.set(relation.id, relation);
+                relations.delete(relation.id);
                 continue;
             }
             if (usecases.existsIdOf(fromId)) {
@@ -203,7 +203,7 @@ export default class ProductToTangoRdraConverter {
             }
 
             if (!states.existsIdOf(fromId)) {
-                confirmed.set(relation.id, relation);
+                relations.delete(relation.id);
                 continue;
             }
 
