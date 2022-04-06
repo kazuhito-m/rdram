@@ -1,4 +1,4 @@
-import { TangoRdra, Overview, Actor, ContextOfInfomation, Infomation, VariationTango, ConditionTango } from '@/domain/tangordra/export/structure/TangoRdra';
+import { TangoRdra, Overview, Actor, ContextOfInfomation, Infomation, VariationTango, ConditionTango, StateGroup } from '@/domain/tangordra/export/structure/TangoRdra';
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
@@ -27,6 +27,9 @@ export default class ProductToTangoRdraConverter {
 
         const conditions = this.makeConditionsPart(product);
         if (conditions.length > 0) tangoRdra.condition = conditions;
+
+        const states = this.makeStatesPart(product);
+        if (states.length > 0) tangoRdra.state = states;
 
         return tangoRdra;
     }
@@ -163,5 +166,25 @@ export default class ProductToTangoRdraConverter {
             .map(otherSideResourceId => allVariations.of(otherSideResourceId))
             .filter(variation => variation)
             .map(foundVariation => foundVariation?.name as string);
+    }
+
+    private makeStatesPart(product: Product): StateGroup[] {
+        const allResources = product.resources;
+        const states = allResources.typeOf(ResourceType.情報);
+        const usecases = allResources.typeOf(ResourceType.ユースケース);
+        const startOrEndPoints = allResources.typeOf(ResourceType.始点終点);
+
+        return product.diagrams
+            .map(diagram => this.makeStateGroup(diagram, states, usecases, startOrEndPoints))
+            .filter(stateGroup => stateGroup.value.length > 0);
+    }
+
+    private makeStateGroup(
+        diagram: Diagram,
+        states: Resources,
+        usecases: Resources,
+        startOrEndPoints: Resources
+    ): StateGroup {
+        throw new Error('Method not implemented.');
     }
 }
