@@ -1,4 +1,4 @@
-import { TangoRdra, Overview, Actor, ContextOfInfomation, Infomation, VariationTango, ConditionTango, StateGroup } from '@/domain/tangordra/export/structure/TangoRdra';
+import { TangoRdra, Overview, Actor, ContextOfInfomation, Infomation, VariationTango, ConditionTango, StateGroup, UseCase, State } from '@/domain/tangordra/export/structure/TangoRdra';
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
@@ -188,6 +188,8 @@ export default class ProductToTangoRdraConverter {
         usecases: Resources,
         startOrEndPoints: Resources
     ): StateGroup {
+        const statesTango: State[] = [];
+
         const relations = new Map<string, Relation>();
         diagram.allRelations()
             .forEach(relation => relations.set(relation.id, relation));
@@ -207,12 +209,60 @@ export default class ProductToTangoRdraConverter {
                 continue;
             }
 
-            // TODO 本処理
+            const toId = relation.toResourceId;
+            if (startOrEndPoints.existsIdOf(toId)) {
+                relations.delete(relation.id);
+                continue;
+            }
+
+            relations.delete(relation.id);
+
+            const state = states.of(fromId);
+
+            const relationsOfConnectUsecase = Array.from(relations.values())
+                .filter(r => r.fromResourceId === fromId);
+            relationsOfConnectUsecase.forEach(r => relations.delete(r.id));
+            relationsOfConnectUsecase.push(relation);
+
+            const useCaseResourceIds = relationsOfConnectUsecase
+                .map(r => r.toResourceId);
+
+            const oneState = {
+                name: state?.name,
+                usecase: useCaseResourceIds.map(resourceId => this.makeUseCase(resourceId, relations, usecases, states))
+            } as State;
+
+            statesTango.push(oneState)
         }
+
         const result = {
             group: diagram.name,
-            value: []
+            value: statesTango
         } as StateGroup;
         return result;
     }
+
+    private makeUseCase(
+        useCaseResourceId: number,
+        relations: Map<string, Relation>,
+        usecases: Resources,
+        states: Resources
+    ): UseCase {
+        const result = {
+            name: usecases.of(useCaseResourceId)?.name
+        } as UseCase;
+
+        const relationsOfConnectState = Array.from(relations.values())
+            .filter(r => r.fromResourceId === useCaseResourceId);
+        for (const relation of relationsOfConnectState) {
+            relations.delete(relation.id);
+            if (!states.existsIdOf(relation.toResourceId)) continue;
+            const stateName = states.of(relation.toResourceId)?.name;
+            if (!stateName) continue;
+            result.next_state = stateName;
+        }
+        
+        return result;
+    }
 }
+ 
