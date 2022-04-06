@@ -1,5 +1,5 @@
 {
-    "updateAt": "2022-04-03T13:51:41.798Z",
+    "updateAt": "2022-04-06T07:40:35.657Z",
     "id": "25ec5905-4e32-4802-9ae3-62349e9f1dca",
     "name": "基幹システム",
     "userSettings": {
@@ -1622,6 +1622,16 @@
                         "id": "5d4129ff-44cc-3029-d605-03b35a011e91",
                         "fromResourceId": 121,
                         "toResourceId": 3,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "fec84e49-6dd4-ee32-f8a2-323d6467f76b",
+                        "fromResourceId": 112,
+                        "toResourceId": 113,
                         "routerTypeId": 1,
                         "tipAllow": false,
                         "meaning": "",
