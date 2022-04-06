@@ -6,10 +6,13 @@ import Diagram from '@/domain/diagram/Diagram';
 import Resources from '@/domain/resource/Resources';
 import Variation from '@/domain/resource/Variation';
 import Condition from '@/domain/resource/Condition';
-import Relation from '~/domain/relation/Relation';
-import DiagramType from '~/domain/diagram/DiagramType';
+import Relation from '@/domain/relation/Relation';
+import DiagramType from '@/domain/diagram/DiagramType';
+import StatusPartMaker from './partmaker/StatusPartMaker';
 
 export default class ProductToTangoRdraConverter {
+    private readonly statusPartMaker = new StatusPartMaker();
+
     public convert(product: Product): TangoRdra {
         const tangoRdra = {} as TangoRdra;
 
@@ -30,7 +33,7 @@ export default class ProductToTangoRdraConverter {
         const conditions = this.makeConditionsPart(product);
         if (conditions.length > 0) tangoRdra.condition = conditions;
 
-        const states = this.makeStatesPart(product);
+        const states = this.statusPartMaker.make(product);
         if (states.length > 0) tangoRdra.state = states;
 
         return tangoRdra;
@@ -168,118 +171,5 @@ export default class ProductToTangoRdraConverter {
             .map(otherSideResourceId => allVariations.of(otherSideResourceId))
             .filter(variation => variation)
             .map(foundVariation => foundVariation?.name as string);
-    }
-
-    private makeStatesPart(product: Product): StateGroup[] {
-        const allResources = product.resources;
-        const states = allResources.typeOf(ResourceType.状態);
-        const usecases = allResources.typeOf(ResourceType.ユースケース);
-        const startOrEndPoints = allResources.typeOf(ResourceType.始点終点);
-
-        return product.diagrams
-            .typeOf(DiagramType.状態モデル図)
-            .map(diagram => this.makeStateGroup(diagram, states, usecases, startOrEndPoints, allResources))
-            .filter(stateGroup => stateGroup.value.length > 0);
-    }
-
-    private makeStateGroup(
-        diagram: Diagram,
-        states: Resources,
-        usecases: Resources,
-        startOrEndPoints: Resources,
-        allResources: Resources
-    ): StateGroup {
-        const resultStatus: State[] = [];
-
-        const relations = new Map<string, Relation>();
-        diagram.allRelations()
-            .forEach(relation => relations.set(relation.id, relation));
-        while (relations.size > 0) {
-            const relation = relations.values().next().value;
-
-
-            // debug
-            const fr = allResources.of(relation.fromResourceId);
-            const tr = allResources.of(relation.toResourceId);
-            console.log('count:%s, size:%s, id:%s, from:%s.%s, to:%s.%s',
-                count++, relations.size, relation.id,
-                relation.fromResourceId, fr?.name,
-                relation.toResourceId, tr?.name);
-            if (count > 100) break;
-
-
-            relations.delete(relation.id);
-
-            const fromId = relation.fromResourceId;
-            if (startOrEndPoints.existsIdOf(fromId)) {
-                console.log("Fromが始点:%s", relation.id);
-                continue;
-            }
-            if (usecases.existsIdOf(fromId)) {
-                console.log("Fromがユースケース:%s", relation.id);
-                relations.set(relation.id, relation);
-                continue;
-            }
-
-            if (!states.existsIdOf(fromId)) {
-                console.log("Fromが状態じゃない:%s", relation.id);
-                continue;
-            }
-
-            const toId = relation.toResourceId;
-            if (startOrEndPoints.existsIdOf(toId)) {
-                console.log("Toが終点:%s", relation.id);
-                continue;
-            }
-
-            const state = states.of(fromId);
-
-            const relationsOfConnectUsecase = Array.from(relations.values())
-                .filter(r => r.fromResourceId === fromId);
-            relationsOfConnectUsecase.forEach(r => relations.delete(r.id));
-            relationsOfConnectUsecase.push(relation);
-
-            const useCaseResourceIds = relationsOfConnectUsecase
-                .map(r => r.toResourceId);
-
-            const oneState = {
-                name: state?.name,
-                usecase: useCaseResourceIds.map(resourceId => this.makeUseCase(resourceId, relations, usecases, states))
-            } as State;
-
-            resultStatus.push(oneState)
-            console.log("pushの直後-出力用のStatus数:%s", resultStatus.length);
-            console.log("残りRelation数:%s", relations.size);
-        }
-
-        const result = {
-            group: diagram.name,
-            value: resultStatus
-        } as StateGroup;
-        return result;
-    }
-
-    private makeUseCase(
-        useCaseResourceId: number,
-        relations: Map<string, Relation>,
-        usecases: Resources,
-        states: Resources
-    ): UseCase {
-        const result = {
-            name: usecases.of(useCaseResourceId)?.name
-        } as UseCase;
-
-        const relationsOfConnectState = Array.from(relations.values())
-            .filter(r => r.fromResourceId === useCaseResourceId);
-        for (const relation of relationsOfConnectState) {
-            relations.delete(relation.id);
-            if (!states.existsIdOf(relation.toResourceId)) continue;
-            const stateName = states.of(relation.toResourceId)?.name;
-            if (!stateName) continue;
-            result.next_state = stateName;
-            break;
-        }
-
-        return result;
     }
 }
