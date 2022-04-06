@@ -30,13 +30,27 @@ export type ConditionTango = {
     variation: string[]
 }
 
+export type StateGroup = {
+    group: string
+    value: State[]
+}
+
+export type State = {
+    name: string
+    usecase: UseCase[]
+}
+
+export type UseCase = {
+    name: string
+    next_state: string
+}
 
 export type TangoRdra = {
     overview: Overview
     actor: any[]
     external_actor: any[]
     information: ContextOfInfomation[]
-    // state: State | null
+    state: StateGroup[]
     // transition: StateTransition | null
     variation: VariationTango[]
     condition: ConditionTango[]
