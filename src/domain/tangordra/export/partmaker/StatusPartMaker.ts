@@ -5,6 +5,7 @@ import Product from '@/domain/product/Product';
 import Relation from '@/domain/relation/Relation';
 import Resources from '@/domain/resource/Resources';
 import ResourceType from '@/domain/resource/ResourceType';
+import Resource from '~/domain/resource/Resource';
 
 export default class StatusPartMaker {
     public make(product: Product): StateGroup[] {
@@ -73,6 +74,9 @@ export default class StatusPartMaker {
             resultStatus.push(oneState)
         }
 
+        this.findNonRelationStatus(diagram, states)
+            .forEach(state => resultStatus.push(state));
+
         const result = {
             group: diagram.name,
             value: resultStatus
@@ -102,5 +106,15 @@ export default class StatusPartMaker {
         }
 
         return result;
+    }
+
+    private findNonRelationStatus(diagram: Diagram, status: Resources): State[] {
+        const allRelations = diagram.allRelations();
+        return diagram.placements
+            .map(placement => placement.resourceId)
+            .filter(resourceId => status.existsIdOf(resourceId))
+            .map(resourceId => status.of(resourceId))
+            .filter(state => !allRelations.isUsedOf(state as Resource))
+            .map(state => { return { name: state?.name } as State });
     }
 }

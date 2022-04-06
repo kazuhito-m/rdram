@@ -22,7 +22,8 @@ export default class Relations {
      * ルートが逆も含め(f->t,t->f のどちらか)在る場合。
      */
     public existsOrReversivle(relation: Relation) {
-        return this.values.some(i => i.equalRouteReversivle(relation));
+        return this.values
+            .some(i => i.equalRouteReversivle(relation));
     }
 
     /**
@@ -33,6 +34,11 @@ export default class Relations {
         const reverse: Relation = relation.reverse();
         return rs.some(i => i.equalRoute(relation))
             && rs.some(i => i.equalRoute(reverse));
+    }
+
+    public isUsedOf(resource : Resource) {
+        return this.values
+            .some(i => i.isRelatedTo(resource.resourceId));
     }
 
     public static prototypeOf(): Relations {
