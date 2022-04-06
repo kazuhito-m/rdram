@@ -71,6 +71,10 @@ export default class Relations {
         this.values.forEach(func);
     }
 
+    public map<T>(func: (resoruce: Relation) => T): T[] {
+        return this.values.map(func);
+    }
+
     public static empty(): Relations {
         return new Relations([]);
     }

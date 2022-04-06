@@ -6,6 +6,8 @@ import Diagram from '@/domain/diagram/Diagram';
 import Resources from '@/domain/resource/Resources';
 import Variation from '@/domain/resource/Variation';
 import Condition from '@/domain/resource/Condition';
+import Relation from '~/domain/relation/Relation';
+import DiagramType from '~/domain/diagram/DiagramType';
 
 export default class ProductToTangoRdraConverter {
     public convert(product: Product): TangoRdra {
@@ -175,6 +177,7 @@ export default class ProductToTangoRdraConverter {
         const startOrEndPoints = allResources.typeOf(ResourceType.始点終点);
 
         return product.diagrams
+            .typeOf(DiagramType.情報モデル図)
             .map(diagram => this.makeStateGroup(diagram, states, usecases, startOrEndPoints))
             .filter(stateGroup => stateGroup.value.length > 0);
     }
@@ -185,6 +188,31 @@ export default class ProductToTangoRdraConverter {
         usecases: Resources,
         startOrEndPoints: Resources
     ): StateGroup {
-        throw new Error('Method not implemented.');
+        const all = diagram.allRelations()
+            .map(r => r);
+        const confirmed = new Map<string, Relation>();
+
+        for (const relation of all) {
+            const fromId = relation.fromResourceId;
+            if (startOrEndPoints.existsIdOf(fromId)) {
+                confirmed.set(relation.id, relation);
+                continue;
+            }
+            if (usecases.existsIdOf(fromId)) {
+                continue;
+            }
+
+            if (!states.existsIdOf(fromId)) {
+                confirmed.set(relation.id, relation);
+                continue;
+            }
+
+            // TODO 本処理
+        }
+        const result = {
+            group: diagram.name,
+            value: []
+        } as StateGroup;
+        return result;
     }
 }

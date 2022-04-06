@@ -24,6 +24,11 @@ export default class Resources {
         return this.createResourceOf("", resourceType, Resource.YET_NUMBERING_ID);
     }
 
+    public existsIdOf(resourceId: number): boolean {
+        return this.values
+            .some(resource => resource.resourceId === resourceId);
+    }
+
     public existsSomeName(name: string, type: ResourceType): boolean {
         return this.values
             .filter(resource => resource.name === name)

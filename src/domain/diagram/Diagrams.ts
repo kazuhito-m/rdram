@@ -73,6 +73,12 @@ export default class Diagrams {
         return new Diagrams(newValues);
     }
 
+    public typeOf(type: DiagramType): Diagrams {
+        const filterd = this.values
+            .filter(diagram => diagram.type === type);
+        return new Diagrams(filterd);
+    }
+
     public forEach(func: (diagram: Diagram) => void) {
         this.values.forEach(func);
     }
