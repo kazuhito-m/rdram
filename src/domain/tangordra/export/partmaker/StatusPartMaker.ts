@@ -14,15 +14,14 @@ export default class StatusPartMaker {
 
         return product.diagrams
             .typeOf(DiagramType.状態モデル図)
-            .map(diagram => this.makeStateGroup(diagram, states, usecases, allResources))
+            .map(diagram => this.makeStateGroup(diagram, states, usecases))
             .filter(stateGroup => stateGroup.value.length > 0);
     }
 
     private makeStateGroup(
         diagram: Diagram,
         states: Resources,
-        usecases: Resources,
-        allResources: Resources
+        usecases: Resources
     ): StateGroup {
         const resultStatus: State[] = [];
 
