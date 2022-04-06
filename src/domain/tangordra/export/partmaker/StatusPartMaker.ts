@@ -11,11 +11,10 @@ export default class StatusPartMaker {
         const allResources = product.resources;
         const states = allResources.typeOf(ResourceType.状態);
         const usecases = allResources.typeOf(ResourceType.ユースケース);
-        const startOrEndPoints = allResources.typeOf(ResourceType.始点終点);
 
         return product.diagrams
             .typeOf(DiagramType.状態モデル図)
-            .map(diagram => this.makeStateGroup(diagram, states, usecases, startOrEndPoints, allResources))
+            .map(diagram => this.makeStateGroup(diagram, states, usecases, allResources))
             .filter(stateGroup => stateGroup.value.length > 0);
     }
 
@@ -23,60 +22,48 @@ export default class StatusPartMaker {
         diagram: Diagram,
         states: Resources,
         usecases: Resources,
-        startOrEndPoints: Resources,
         allResources: Resources
     ): StateGroup {
         const resultStatus: State[] = [];
 
-        //debug
-        let count = 1;
-
         const relations = new Map<string, Relation>();
         diagram.allRelations()
-            .forEach(relation => relations.set(relation.id, relation));
-        while (relations.size > 0) {
-            const relation = relations.values().next().value;
+            .forEach(r => relations.set(r.id, r));
+
+        const remainRelations = new Map(relations);
+
+        const stateResourceIdsOfFromOnlyUnique = Array.from(relations.values())
+            .map(r => r.fromResourceId)
+            .filter(fromId => states.existsIdOf(fromId))
+            .reduce((uniqueSet, fromId) => uniqueSet.add(fromId), new Set<number>());
 
 
-            // debug
-            const fr = allResources.of(relation.fromResourceId);
-            const tr = allResources.of(relation.toResourceId);
-            console.log('count:%s, size:%s, id:%s, from:%s.%s, to:%s.%s',
-                count++, relations.size, relation.id,
-                relation.fromResourceId, fr?.name,
-                relation.toResourceId, tr?.name);
-            if (count > 100) break;
+        for (const stateResourceId of stateResourceIdsOfFromOnlyUnique) {
+            const relationsOfConnectUsecase = Array.from(remainRelations.values())
+                .filter(r => r.fromResourceId === stateResourceId);
+            relationsOfConnectUsecase.forEach(r => remainRelations.delete(r.id));
 
-
-            relations.delete(relation.id);
-
-            const fromId = relation.fromResourceId;
-            const toId = relation.toResourceId;
-            if (startOrEndPoints.existsIdOf(fromId)
-                || usecases.existsIdOf(fromId)
-                || !states.existsIdOf(fromId)
-                || startOrEndPoints.existsIdOf(toId)
-            ) {
-                if (usecases.existsIdOf(fromId)) relations.set(relation.id, relation);
-                continue;
-            }
-
-            const relationsOfConnectUsecase = Array.from(relations.values())
-                .filter(r => r.fromResourceId === fromId);
-            relationsOfConnectUsecase.forEach(r => relations.delete(r.id));
-            relationsOfConnectUsecase.push(relation);
-
-            const useCaseResourceIds = relationsOfConnectUsecase
+            const usecaseResourceIds = relationsOfConnectUsecase
                 .map(r => r.toResourceId);
 
+            const state = states.of(stateResourceId);
             const oneState = {
-                name: states.of(fromId)?.name,
-                usecase: useCaseResourceIds.map(resourceId => this.makeUseCase(resourceId, relations, usecases, states))
+                name: state?.name,
+                usecase: usecaseResourceIds.map(resourceId => this.makeUseCase(resourceId, remainRelations, usecases, states))
             } as State;
 
             resultStatus.push(oneState)
-            console.log("pushの直後-出力用のStatus数:%s", resultStatus.length);
-            console.log("残りRelation数:%s", relations.size);
+        }
+
+        for (const remainRelation of remainRelations.values()) {
+            if (!usecases.existsIdOf(remainRelation.fromResourceId)) continue;
+            // debug
+            const fr = allResources.of(remainRelation.fromResourceId);
+            const tr = allResources.of(remainRelation.toResourceId);
+            console.log('残りrelation id:%s, from:%s.%s, to:%s.%s',
+                remainRelation.id,
+                remainRelation.fromResourceId, fr?.name,
+                remainRelation.toResourceId, tr?.name);
         }
 
         const result = {
@@ -88,7 +75,7 @@ export default class StatusPartMaker {
 
     private makeUseCase(
         useCaseResourceId: number,
-        relations: Map<string, Relation>,
+        remainRelations: Map<string, Relation>,
         usecases: Resources,
         states: Resources
     ): UseCase {
@@ -96,10 +83,10 @@ export default class StatusPartMaker {
             name: usecases.of(useCaseResourceId)?.name
         } as UseCase;
 
-        const relationsOfConnectState = Array.from(relations.values())
+        const relationsOfConnectState = Array.from(remainRelations.values())
             .filter(r => r.fromResourceId === useCaseResourceId);
         for (const relation of relationsOfConnectState) {
-            relations.delete(relation.id);
+            remainRelations.delete(relation.id);
             if (!states.existsIdOf(relation.toResourceId)) continue;
             const stateName = states.of(relation.toResourceId)?.name;
             if (!stateName) continue;

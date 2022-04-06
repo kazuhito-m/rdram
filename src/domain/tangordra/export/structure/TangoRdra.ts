@@ -25,7 +25,7 @@ export type VariationTango = {
 }
 
 export type ConditionTango = {
-    name: string
+name: string
     descripion: string
     variation: string[]
 }
