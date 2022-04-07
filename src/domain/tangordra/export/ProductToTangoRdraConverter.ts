@@ -1,12 +1,12 @@
-import { TangoRdra } from '@/domain/tangordra/export/structure/TangoRdra';
-import Product from "@/domain/product/Product";
-import ResourceType from "@/domain/resource/ResourceType";
 import StatusPartMaker from './partmaker/StatusPartMaker';
 import ConditionsPartMaker from './partmaker/ConditionsPartMaker';
 import VariationsPartMaker from './partmaker/VariationsPartMaker';
 import InfomationsPartMaker from './partmaker/InfomationsPartMaker';
 import ActorsPartMaker from './partmaker/ActorsPartMaker';
 import OverviewPartMaker from './partmaker/OverviewPartMaker';
+import ResourceType from "@/domain/resource/ResourceType";
+import Product from "@/domain/product/Product";
+import { TangoRdra } from '@/domain/tangordra/export/structure/TangoRdra';
 
 export default class ProductToTangoRdraConverter {
     private readonly overviewPartMaker = new OverviewPartMaker();

@@ -30,9 +30,9 @@ name: string
     variation: string[]
 }
 
-export type StateGroup = {
-    group: string
-    value: State[]
+export type UseCase = {
+    name: string
+    next_state: string
 }
 
 export type State = {
@@ -40,9 +40,9 @@ export type State = {
     usecase: UseCase[]
 }
 
-export type UseCase = {
-    name: string
-    next_state: string
+export type StateGroup = {
+    group: string
+    value: State[]
 }
 
 export type TangoRdra = {
