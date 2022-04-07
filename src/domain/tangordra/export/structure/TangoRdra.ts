@@ -62,6 +62,15 @@ export type Business = {
     buc: BUC[]
 }
 
+export type Usecase = {
+    name: string
+    timer: string[]
+    view: string[]
+    information: string[]
+    condition: string[]
+    event: string[]
+}
+
 export type TangoRdra = {
     overview: Overview
     actor: any[]
@@ -72,5 +81,5 @@ export type TangoRdra = {
     variation: VariationTango[]
     condition: ConditionTango[]
     business: Business[]
-    // usecase: Usecase | null
+    usecase: Usecase[]
 }
