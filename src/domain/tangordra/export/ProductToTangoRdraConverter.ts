@@ -4,6 +4,8 @@ import VariationsPartMaker from './partmaker/VariationsPartMaker';
 import InfomationsPartMaker from './partmaker/InfomationsPartMaker';
 import ActorsPartMaker from './partmaker/ActorsPartMaker';
 import OverviewPartMaker from './partmaker/OverviewPartMaker';
+import BusinessesPartMaker from './partmaker/BusinessesPartMaker';
+import UsecasesPartMaker from './partmaker/UsecasesPartMaker';
 import ResourceType from "@/domain/resource/ResourceType";
 import Product from "@/domain/product/Product";
 import { TangoRdra } from '@/domain/tangordra/export/structure/TangoRdra';
@@ -15,6 +17,8 @@ export default class ProductToTangoRdraConverter {
     private readonly variationsPartMaker = new VariationsPartMaker();
     private readonly conditionsPartMaker = new ConditionsPartMaker();
     private readonly statusPartMaker = new StatusPartMaker();
+    private readonly businessesPartMaker = new BusinessesPartMaker();
+    private readonly usecasesPartMaker = new UsecasesPartMaker();
 
     public convert(product: Product): TangoRdra {
         const tangoRdra = {} as TangoRdra;
@@ -38,6 +42,12 @@ export default class ProductToTangoRdraConverter {
 
         const states = this.statusPartMaker.make(product);
         if (states.length > 0) tangoRdra.state = states;
+
+        const businesses = this.businessesPartMaker.make(product);
+        if (businesses.length > 0) tangoRdra.business = businesses;
+
+        const usecases = this.usecasesPartMaker.make(product);
+        if (usecases.length > 0) tangoRdra.usecase = usecases;
 
         return tangoRdra;
     }
