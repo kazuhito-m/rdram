@@ -73,8 +73,8 @@ export type Usecase = {
 
 export type TangoRdra = {
     overview: Overview
-    actor: any[]
-    external_actor: any[]
+    actor: string[]
+    external_actor: string[]
     information: ContextOfInfomation[]
     state: StateGroup[]
     // transition: StateTransition | null
