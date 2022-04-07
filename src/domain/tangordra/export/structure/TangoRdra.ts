@@ -45,6 +45,23 @@ export type StateGroup = {
     value: State[]
 }
 
+export type Activity = {
+    name: string
+    used_by: string[]
+    usecase: string[]
+}
+
+export type BUC = {
+    name: string
+    activity: Activity[]
+}
+
+export type Business = {
+    name: string
+    main_actor: string[]
+    buc: BUC[]
+}
+
 export type TangoRdra = {
     overview: Overview
     actor: any[]
@@ -54,6 +71,6 @@ export type TangoRdra = {
     // transition: StateTransition | null
     variation: VariationTango[]
     condition: ConditionTango[]
-    // business: Business | null
+    business: Business[]
     // usecase: Usecase | null
 }
