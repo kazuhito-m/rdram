@@ -4,6 +4,7 @@ import DiagramType from "@/domain/diagram/DiagramType";
 import DiagramFactory from "@/domain/diagram/DiagramFactory";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
+import { findPair } from "yaml/util";
 
 export default class Diagrams {
     private readonly values: Diagram[];
@@ -42,6 +43,11 @@ export default class Diagrams {
     public of(diagramId: number): Diagram | undefined {
         return this.values
             .find(diagram => diagram.id === diagramId);
+    }
+
+    public nameOf(name: string): Diagram | undefined {
+        return this.values
+            .find(diagram => diagram.name === name);
     }
 
     public add(diagram: Diagram): Diagrams {

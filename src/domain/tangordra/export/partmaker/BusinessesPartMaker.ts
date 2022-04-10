@@ -1,4 +1,4 @@
-import { BUC, Business } from "../structure/TangoRdra";
+import { Activity, BUC, Business } from "../structure/TangoRdra";
 import Product from "@/domain/product/Product";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagram from "@/domain/diagram/Diagram";
@@ -13,14 +13,14 @@ export default class BusinessesPartMaker {
             .map(diagram => this.makeBusiness(diagram, product));
     }
 
-    private makeBusiness(diagram: Diagram,  product: Product): Business {
+    private makeBusiness(diagram: Diagram, product: Product): Business {
         const allResouses = product.resources;
         const maybeUse = diagram.placements
             .map(placement => allResouses.of(placement.resourceId))
             .filter(resource => resource !== undefined) as Resource[];
         const useResources = new Resources(maybeUse);
 
-        const result =  {
+        const result = {
             name: diagram.name,
         } as Business;
 
@@ -36,8 +36,22 @@ export default class BusinessesPartMaker {
     }
 
     private makeBucs(buc: Resource, product: Product): BUC {
-        return {
+        const result = {
             name: buc.name
         } as BUC;
+
+        const ucDiagram = product.diagrams
+            .typeOf(DiagramType.ユースケース複合図)
+            .nameOf(buc.name);
+        if (!ucDiagram) return result;
+
+        const activities = this.makeActivties(ucDiagram, product);
+        if (activities.length > 0) result.activity = activities;
+
+        return result;
+    }
+
+    private makeActivties(ucDiagram: Diagram, product: Product): Activity[] {
+        return [];
     }
 }
