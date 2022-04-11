@@ -78,10 +78,14 @@ export default class Diagrams {
         return new Diagrams(newValues);
     }
 
-    public typeOf(type: DiagramType): Diagrams {
+    public typesOf(...types: DiagramType[]): Diagrams {
         const filterd = this.values
-            .filter(diagram => diagram.type === type);
+            .filter(diagram => types.includes(diagram.type));
         return new Diagrams(filterd);
+    }
+
+    public typeOf(type: DiagramType): Diagrams {
+        return this.typesOf(type);
     }
 
     public forEach(func: (diagram: Diagram) => void) {
