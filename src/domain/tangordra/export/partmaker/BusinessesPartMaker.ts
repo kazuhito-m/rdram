@@ -48,7 +48,17 @@ export default class BusinessesPartMaker {
     }
 
     private makeActivties(ucDiagram: Diagram, product: Product): Activity[] {
-        return [];
+        const useResources = this.useResourcesOf(ucDiagram, product);
+        return useResources.typeOf(ResourceType.アクティビティ)
+            .map(activity => this.makeActivity(activity, useResources, ucDiagram));
+    }
+
+    private makeActivity(activity: Resource, useResources: Resources, ucDiagram: Diagram): Activity {
+        const result = {
+            name: activity.name
+        } as Activity;
+
+        return result;
     }
 
     private useResourcesOf(diagram: Diagram, product: Product): Resources {
