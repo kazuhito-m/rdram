@@ -3,7 +3,6 @@ import ResourceType from "./ResourceType";
 import ResourceFactory from "./ResourceFactory";
 import Relation from "@/domain/relation/Relation";
 import RelationWithResources from "@/domain/relation/RelationWithResources";
-import RequestIconGenerator from "~/components/diagrams/editor/template/icon/RequestIconGenerator";
 
 export default class Resources {
     private readonly values: Resource[];
