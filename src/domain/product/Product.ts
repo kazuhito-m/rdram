@@ -28,7 +28,7 @@ export default class Product {
         const relationPlus = this.resources.relationWithResourcesOf(relation);
         if (!relationPlus) return "対応するリソースがありません。";
 
-        const relations = diagram.allRelations() ; // TODO Diagram側にこれをつけたい。
+        const relations = diagram.allRelations(); // TODO Diagram側にこれをつけたい。
         if (relations.exists(relation)) return "すでに関連が存在します。";
 
         if (relationPlus.fromType.equals(ResourceType.始点終点)) {
@@ -203,5 +203,13 @@ export default class Product {
         const relationPlus = this.resources.relationWithResourcesOf(relation);
         if (!relationPlus) return false;
         return relationPlus.isFlowRelation();
+    }
+
+    // get or filter methods
+
+    public useResourcesOf(diagram: Diagram): Resources {
+        const useRecourceIds = diagram.placements
+            .map(placement => placement.resourceId);
+        return this.resources.findOf(useRecourceIds);
     }
 }

@@ -14,7 +14,7 @@ export default class BusinessesPartMaker {
     }
 
     private makeBusiness(diagram: Diagram, product: Product): Business {
-        const useResources = this.useResourcesOf(diagram, product);
+        const useResources = product.useResourcesOf(diagram);
 
         const result = {
             name: diagram.name,
@@ -48,7 +48,7 @@ export default class BusinessesPartMaker {
     }
 
     private makeActivties(ucDiagram: Diagram, product: Product): Activity[] {
-        const useResources = this.useResourcesOf(ucDiagram, product);
+        const useResources = product.useResourcesOf(ucDiagram);
         return useResources.typeOf(ResourceType.アクティビティ)
             .map(activity => this.makeActivity(activity, useResources, ucDiagram));
     }
@@ -73,13 +73,5 @@ export default class BusinessesPartMaker {
         if (usecaseNames.length > 0) result.usecase = usecaseNames;
 
         return result;
-    }
-
-    private useResourcesOf(diagram: Diagram, product: Product): Resources {
-        const allResouses = product.resources;
-        const maybeUse = diagram.placements
-            .map(placement => allResouses.of(placement.resourceId))
-            .filter(resource => resource !== undefined) as Resource[];
-        return new Resources(maybeUse);
     }
 }

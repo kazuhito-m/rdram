@@ -3,6 +3,7 @@ import ResourceType from "./ResourceType";
 import ResourceFactory from "./ResourceFactory";
 import Relation from "@/domain/relation/Relation";
 import RelationWithResources from "@/domain/relation/RelationWithResources";
+import RequestIconGenerator from "~/components/diagrams/editor/template/icon/RequestIconGenerator";
 
 export default class Resources {
     private readonly values: Resource[];
@@ -40,8 +41,15 @@ export default class Resources {
             .find(resource => resource.resourceId === resourceId);
     }
 
+    public findOf(resourceIds: number[]): Resources {
+        const founds = this.values
+            .filter(resource => resourceIds.includes(resource.resourceId));
+        return new Resources(founds);
+    }
+
     public typesOf(...resourceTypes: ResourceType[]): Resources {
-        const newValues = this.values.filter(r => resourceTypes.includes(r.type));
+        const newValues = this.values
+            .filter(r => resourceTypes.includes(r.type));
         return new Resources(newValues);
     }
 
