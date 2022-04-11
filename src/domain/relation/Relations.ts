@@ -36,7 +36,7 @@ export default class Relations {
             && rs.some(i => i.equalRoute(reverse));
     }
 
-    public isUsedOf(resource : Resource) {
+    public isUsedOf(resource: Resource) {
         return this.values
             .some(i => i.isRelatedTo(resource.resourceId));
     }
@@ -79,6 +79,10 @@ export default class Relations {
 
     public map<T>(func: (resoruce: Relation) => T): T[] {
         return this.values.map(func);
+    }
+
+    public filter(func: (relation: Relation) => boolean): Relation[] {
+        return this.values.filter(func);
     }
 
     public static empty(): Relations {

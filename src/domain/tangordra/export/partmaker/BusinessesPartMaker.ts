@@ -20,7 +20,7 @@ export default class BusinessesPartMaker {
             name: diagram.name,
         } as Business;
 
-        const actorNames = useResources.typeOf(ResourceType.アクター)
+        const actorNames = useResources.typesOf(ResourceType.アクター, ResourceType.自社システム, ResourceType.外部システム)
             .map(actor => actor.name);
         if (actorNames.length > 0) result.main_actor = actorNames;
 
@@ -57,6 +57,20 @@ export default class BusinessesPartMaker {
         const result = {
             name: activity.name
         } as Activity;
+
+        const maybeRelatedResouces = ucDiagram.allRelations()
+            .filter(lelation => lelation.isRelatedTo(activity.resourceId))
+            .map(lelation => lelation.otherSideOf(activity.resourceId))
+            .map(relatedResouceId => useResources.of(relatedResouceId)) as Resource[];
+        const relatedResouces = new Resources(maybeRelatedResouces);
+
+        const actorNames = relatedResouces.typesOf(ResourceType.アクター, ResourceType.自社システム, ResourceType.外部システム)
+            .map(actor => actor.name);
+        if (actorNames.length > 0) result.used_by = actorNames;
+
+        const usecaseNames = relatedResouces.typeOf(ResourceType.ユースケース)
+            .map(usecase => usecase.name);
+        if (usecaseNames.length > 0) result.usecase = usecaseNames;
 
         return result;
     }
