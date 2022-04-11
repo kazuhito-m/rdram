@@ -14,11 +14,7 @@ export default class BusinessesPartMaker {
     }
 
     private makeBusiness(diagram: Diagram, product: Product): Business {
-        const allResouses = product.resources;
-        const maybeUse = diagram.placements
-            .map(placement => allResouses.of(placement.resourceId))
-            .filter(resource => resource !== undefined) as Resource[];
-        const useResources = new Resources(maybeUse);
+        const useResources = this.useResourcesOf(diagram, product);
 
         const result = {
             name: diagram.name,
@@ -53,5 +49,13 @@ export default class BusinessesPartMaker {
 
     private makeActivties(ucDiagram: Diagram, product: Product): Activity[] {
         return [];
+    }
+
+    private useResourcesOf(diagram: Diagram, product: Product): Resources {
+        const allResouses = product.resources;
+        const maybeUse = diagram.placements
+            .map(placement => allResouses.of(placement.resourceId))
+            .filter(resource => resource !== undefined) as Resource[];
+        return new Resources(maybeUse);
     }
 }
