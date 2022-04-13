@@ -85,7 +85,7 @@
 
         <v-list-item link @click="onClickExportOfTangoRdraFile">
           <v-list-item-icon>
-            <v-icon>mdi-delete-forever</v-icon>
+            <v-icon>mdi-alpha-t-circle</v-icon>
           </v-list-item-icon>
           <v-list-item-title>tango/rdra形式エクスポート...</v-list-item-title>
         </v-list-item>
