@@ -52,7 +52,7 @@ export default class ActivityForBusinessFlowIconGenerator implements IconGenerat
         const port = outline.getOutputPorts().last() as any;
         port.setConnectionAnchor(anchor);
 
-        outline.setUserData(new IconStatus(false));
+        outline.setUserData(new IconStatus());
 
         return outline;
     }
