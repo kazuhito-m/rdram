@@ -20,7 +20,7 @@ export default class StateGroupIconGenerator implements IconGenerator<Resource> 
             y: placement.y,
             width: placement.width,
             height: placement.height,
-            minWidth: 200,
+            minWidth: 40,
             minHeight: 40,
             bgColor: "#FFE0AF",
             color: "#000000",
