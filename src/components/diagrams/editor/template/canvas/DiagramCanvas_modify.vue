@@ -489,7 +489,7 @@ export default class DiagramCanvas extends Vue {
     sortedFigures
       .forEach(i => console.log("ID:", i.getId(), ", key:", this.makeCompareNumber(i)));
 
-    let i = 0;
+    const i = 0;
     let lastIcon: Figure | undefined;
     for (const icon of sortedFigures) {
       if (lastIcon) lastIcon.toFront(icon);

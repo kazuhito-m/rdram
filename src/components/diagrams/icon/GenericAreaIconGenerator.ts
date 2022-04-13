@@ -1,4 +1,5 @@
 import draw2d, { Figure } from 'draw2d';
+import IconZOrderLevel from './IconZOrderLevel';
 import TopLeftLocator from "@/draw2d/custom/TopLeftLocator";
 import IconGenerator from '@/components/diagrams/icon/IconGenerator';
 import IconStatus from '@/components/diagrams/icon/IconStatus';
@@ -6,7 +7,6 @@ import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
 import Resource from '@/domain/resource/Resource';
 import ResourceType from '@/domain/resource/ResourceType';
 import Placement from "@/domain/diagram/placement/Placement";
-import IconZOrderLevel from './IconZOrderLevel';
 
 export default abstract class GenericAreaIconGenerator implements IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;

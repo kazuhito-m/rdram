@@ -1,6 +1,6 @@
+import { Figure } from 'draw2d';
 import GenericAreaIconGenerator from '@/components/diagrams/icon/GenericAreaIconGenerator';
 import ResourceType from '@/domain/resource/ResourceType';
-import { Figure } from 'draw2d';
 import IconFontAndChar from '~/components/diagrams/icon/IconFontAndChar';
 import IconStatus from '~/components/diagrams/icon/IconStatus';
 import IconZOrderLevel from '~/components/diagrams/icon/IconZOrderLevel';

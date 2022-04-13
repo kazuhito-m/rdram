@@ -54,6 +54,7 @@ import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
 
+import IconViewModel from "./IconViewModel";
 import CanvasSettingToolBar from "@/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import ConnectorRightClickMenuAndEditor from "@/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue";
 import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
@@ -79,7 +80,6 @@ import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 
 import CoreResourceEditDialog from "@/components/resource/CoreResourceEditDialog.vue";
 import IconZOrderLevel from "@/components/diagrams/icon/IconZOrderLevel";
-import IconViewModel from "./IconViewModel";
 import Resources from "~/domain/resource/Resources";
 
 @Component({
