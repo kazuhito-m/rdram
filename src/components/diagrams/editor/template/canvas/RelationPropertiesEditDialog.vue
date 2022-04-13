@@ -10,7 +10,7 @@
     @onClickOk="onClickUpdateExecute"
     @onShow="onShow"
   >
-    <template #nputPart>
+    <template #inputPart>
       <v-container>
         <v-row>
           <v-col>
