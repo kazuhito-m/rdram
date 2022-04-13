@@ -422,7 +422,7 @@ export default class DiagramCanvas extends Vue {
 
     iconViewModels
       .sort(IconViewModel.compare)
-      // .map(i => { console.log(i); return i;}) // Debug
+      // .map(i => { console.log(i.toString()); return i;}) // Debug
       .map(vm => vm.icon)
       .forEach(icon => this.canvas.add(icon));
 
