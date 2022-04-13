@@ -25,4 +25,9 @@ export default class TangoRdraFileService {
 
         return YAML.stringify(tangoRdra);
     }
+
+    public currentProductName(): string {
+        const currentProduct = this.strageRepository.getCurrentProduct();
+        return currentProduct?.name as string;
+    }
 }

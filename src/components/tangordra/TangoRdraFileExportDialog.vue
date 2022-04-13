@@ -10,7 +10,7 @@
       </v-card-title>
       <v-card-text>
         現在のプロダクト<br/>
-        XXX<br/>
+        <div class="text-md-body-1" v-text="productName"></div> 
         を、tango/rdra 形式のYAMLファイルに出力します。<br/>
         よろしいですか。
       </v-card-text>
@@ -70,6 +70,11 @@ export default class TangoRdraFileExportDialog extends Vue {
 
     this.clientDownloadRepository.register(exportFile)
     return true
+  }
+
+  private get productName(): string {
+    const service = this.tangoRdraFileService as TangoRdraFileService
+    return service.currentProductName()
   }
 }
 </script>
