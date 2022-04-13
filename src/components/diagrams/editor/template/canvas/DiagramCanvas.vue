@@ -78,6 +78,7 @@ import RdramDownloadFileName from "@/domain/client/WithTimestampFileName";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 
 import CoreResourceEditDialog from "@/components/resource/CoreResourceEditDialog.vue";
+import IconZOrderLevel from "~/components/diagrams/icon/IconZOrderLevel";
 
 @Component({
   components: {
@@ -406,6 +407,8 @@ export default class DiagramCanvas extends Vue {
     for (const placement of diagram.placements) {
       const resource = this.findResource(placement.resourceId);
       if (!resource) continue;
+      console.log("------------------------------------------------------");
+      console.log("ResourceName:", resource.name);
       this.addResouceIconToCanvas(resource, placement);
     }
 
@@ -448,31 +451,69 @@ export default class DiagramCanvas extends Vue {
    * TODO IconGeneratorでsetUserData()してるので、このロジックもそこらへんに移動したい。
    */
   private fixZOrder(icon: Figure): void {
-    const allFigures = this.canvas.getFigures().asArray();
-    const lastAdded = allFigures.find(
-      (i: Figure) => i.getId() === icon.getId()
-    );
-    if (!lastAdded || !this.isAreaIcon(lastAdded)) return;
-    let lastZOrder = null;
-    for (const figure of allFigures) {
-      if (figure.getId() === lastAdded.getId()) continue;
-      if (!lastZOrder) {
-        lastZOrder = figure;
-        continue;
-      }
-      if (this.isAreaIcon(figure)) continue;
-      if (lastZOrder.getZOrder() < figure.getZOrder()) continue;
-      lastZOrder = figure;
+    // const allFigures = this.canvas
+    //   .getFigures()
+    //   .asArray() as Figure[];
+    // const sortedFigures = allFigures
+    //   .sort((left, right) => left.getZOrder() - right.getZOrder());
+
+    // const lastAdded = sortedFigures
+    //   .find(i => i.getId() === icon.getId());
+    // if (!lastAdded) return;
+    // const lastAddedZOrderLevel = this.zOrderLevelOf(lastAdded);
+    // console.log("自分のID:", icon.getId() , ",zOrder:", icon.getZOrder(), ",zOrderLevel:", lastAddedZOrderLevel);
+
+    // console.log("現在のFigure数:", sortedFigures.length);
+
+    // let lastFigure = null;
+    // for (const figure of sortedFigures) {
+    //   const currentZorderLevel = this.zOrderLevelOf(figure);
+
+    //   console.log("ID:", figure.getId(), "zOrder:", figure.getZOrder(), ",zOrderLevel:", currentZorderLevel);
+
+    //   if (currentZorderLevel > lastAddedZOrderLevel) break;
+
+    //   lastFigure = figure;
+    // }
+    // if (lastFigure && lastFigure.getId() !== lastAdded.getId()) {
+    //   console.log("lastFigure:" , lastFigure.getZOrder(), " の後ろに lastAdded:" , lastAdded.getZOrder(), " を追加。" )
+    //   lastFigure.toBack(lastAdded);
+    // }
+
+    const allFigures = this.canvas
+      .getFigures()
+      .asArray() as Figure[];
+    const sortedFigures = allFigures
+      .sort(this.compare);
+
+    sortedFigures
+      .forEach(i => console.log("ID:", i.getId(), ", key:", this.makeCompareNumber(i)));
+
+    let i = 0;
+    let lastIcon: Figure | undefined;
+    for (const icon of sortedFigures) {
+      if (lastIcon) lastIcon.toFront(icon);
+      lastIcon = icon;
     }
-    if (!lastZOrder) return;
-    lastAdded.toBack(lastZOrder);
   }
 
-  private isAreaIcon(icon: Figure): boolean {
-    if (!icon.getUserData()) return false;
+
+
+  private compare(left: Figure, right: Figure) {
+    return this.makeCompareNumber(left) - this.makeCompareNumber(right)  ;
+  }
+
+  private makeCompareNumber(icon: Figure) {
+    const maybeNo = Number(icon.getId());
+    const id = maybeNo === NaN ? 0 : maybeNo;
+    const zOrderLevel = this.zOrderLevelOf(icon);
+    return (2 - zOrderLevel) * 1000000 + id;
+  }
+
+  private zOrderLevelOf(icon: Figure): IconZOrderLevel {
     const iconStatus: IconStatus = icon.getUserData();
-    if (iconStatus.area) return true;
-    return false;
+    if (!iconStatus) return IconZOrderLevel.NORMAL;
+    return iconStatus.zOrder;
   }
 
   private choiceIconGenerator(

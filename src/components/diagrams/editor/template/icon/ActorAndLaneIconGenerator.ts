@@ -5,6 +5,7 @@ import IconStatus from '@/components/diagrams/icon/IconStatus';
 import Resource from '@/domain/resource/Resource';
 import ResourceType from '@/domain/resource/ResourceType';
 import Placement from '@/domain/diagram/placement/Placement';
+import IconZOrderLevel from '~/components/diagrams/icon/IconZOrderLevel';
 
 export default class ActorAndLaneIconGenerator implements IconGenerator<Resource> {
     public resourceType(): ResourceType {
@@ -73,7 +74,7 @@ export default class ActorAndLaneIconGenerator implements IconGenerator<Resource
         topBox.add(container, new draw2d.layout.locator.CenterLocator());
         waku.add(topBox, new draw2d.layout.locator.XYAbsPortLocator(0, 0));
 
-        waku.setUserData(new IconStatus(true));
+        waku.setUserData(new IconStatus(IconZOrderLevel.AREA));
 
         return waku;
     }

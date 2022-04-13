@@ -46,7 +46,7 @@ export default abstract class GenericSingleIconGenerator implements IconGenerato
 
         icon.add(name, new draw2d.layout.locator.BottomLocator());
 
-        icon.setUserData(new IconStatus(false));
+        icon.setUserData(new IconStatus());
 
         return icon;
     }

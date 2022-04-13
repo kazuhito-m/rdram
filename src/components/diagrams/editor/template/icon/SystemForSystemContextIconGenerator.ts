@@ -57,7 +57,7 @@ export default class SystemForSystemContextIconGenerator implements IconGenerato
         const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(oval);
         port.setConnectionAnchor(anchor);
 
-        oval.setUserData(new IconStatus(false));
+        oval.setUserData(new IconStatus());
 
         return oval;
     }

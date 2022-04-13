@@ -60,7 +60,7 @@ export default abstract class GenericTextCardIconGenerator implements IconGenera
         const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(text);
         port.setConnectionAnchor(anchor);
 
-        text.setUserData(new IconStatus(false));
+        text.setUserData(new IconStatus());
 
         return text;
     }

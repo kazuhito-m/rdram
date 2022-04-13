@@ -6,6 +6,7 @@ import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
 import Resource from '@/domain/resource/Resource';
 import ResourceType from '@/domain/resource/ResourceType';
 import Placement from "@/domain/diagram/placement/Placement";
+import IconZOrderLevel from './IconZOrderLevel';
 
 export default abstract class GenericAreaIconGenerator implements IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;
@@ -55,7 +56,7 @@ export default abstract class GenericAreaIconGenerator implements IconGenerator<
         icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 105, y: 27 }));
         waku.add(icon, new TopLeftLocator());
 
-        waku.setUserData(new IconStatus(true));
+        waku.setUserData(new IconStatus(IconZOrderLevel.AREA));
 
         return waku;
     }

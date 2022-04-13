@@ -59,7 +59,7 @@ export default abstract class GenericTextEllipseIconGenerator implements IconGen
         const anchor = new draw2d.layout.anchor.FanConnectionAnchor(oval);
         port.setConnectionAnchor(anchor);
 
-        oval.setUserData(new IconStatus(false));
+        oval.setUserData(new IconStatus());
 
         return oval;
     }
