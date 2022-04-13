@@ -101,17 +101,23 @@ export default class TableTypeConditionEditDialog extends Vue {
   private onChangedCell(
     _instance: HTMLElement,
     cell: HTMLTableCellElement,
-    _columnIndex: string,
+    columnIndex: string,
     rowIndex: string,
     value: CellValue
   ): void {
-    const rowIndexNumber = Number(rowIndex);
-    const changeValue = value as string;
-    const fixedValue = changeValue
+    const row = Number(rowIndex);
+    const col = Number(columnIndex);
+
+    const fixedValue = this.fixInputValue(value as string);
+
+    this.values[row][col] = fixedValue;
+    cell.textContent = fixedValue;
+  }
+
+  private fixInputValue(value: string): string {
+    return value
       .trim()
       .substring(0, Condition.CONDITION_VALUE_MAX_LENGTH);
-    this.values[rowIndexNumber][0] = fixedValue;
-    cell.textContent = fixedValue;
   }
 
   private onModifyResourceInner(resource: TableTypeCondition): void {
