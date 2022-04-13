@@ -1,3 +1,4 @@
+import Relations from "@/domain/relation/Relations";
 import Diagram from "@/domain/diagram/Diagram";
 import DiagramType from "@/domain/diagram/DiagramType";
 import DiagramFactory from "@/domain/diagram/DiagramFactory";
@@ -43,6 +44,11 @@ export default class Diagrams {
             .find(diagram => diagram.id === diagramId);
     }
 
+    public nameOf(name: string): Diagram | undefined {
+        return this.values
+            .find(diagram => diagram.name === name);
+    }
+
     public add(diagram: Diagram): Diagrams {
         const newValues = Array.from(this.values);
         newValues.push(diagram);
@@ -72,8 +78,22 @@ export default class Diagrams {
         return new Diagrams(newValues);
     }
 
+    public typesOf(...types: DiagramType[]): Diagrams {
+        const filterd = this.values
+            .filter(diagram => types.includes(diagram.type));
+        return new Diagrams(filterd);
+    }
+
+    public typeOf(type: DiagramType): Diagrams {
+        return this.typesOf(type);
+    }
+
     public forEach(func: (diagram: Diagram) => void) {
         this.values.forEach(func);
+    }
+
+    public map<U>(callbackfn: (value: Diagram, index: number) => U): U[] {
+        return this.values.map(callbackfn);
     }
 
     public static empty(): Diagrams {
@@ -89,5 +109,12 @@ export default class Diagrams {
 
     public last(): Diagram {
         return this.values[this.values.length - 1];
+    }
+
+    public allRelations(): Relations {
+        return this.values
+            .map(diaglam => diaglam.allRelations())
+            .reduce((left, right) => left.concat(right),
+                Relations.empty());
     }
 }

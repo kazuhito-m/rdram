@@ -1,3 +1,4 @@
+import Relations from "../relation/Relations";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Placement from "@/domain/diagram/placement/Placement";
 import Relation from "@/domain/relation/Relation";
@@ -15,7 +16,7 @@ export default class Diagram {
         public readonly id: number,
         protected readonly typeId: number,
         public readonly name: string,
-        public readonly relations: Relation[],   // TODO Relationsに置き換えたい
+        protected readonly relations: Relation[],   // TODO Relationsに置き換えたい
         public readonly placements: Placement[],
         public readonly width: number,
         public readonly height: number,
@@ -156,6 +157,10 @@ export default class Diagram {
     protected ngType(resourceType: ResourceType): boolean {
         return !this.availableResourceTypes()
             .some(type => type.equals(resourceType));
+    }
+
+    public allRelations(): Relations {
+        return new Relations(this.relations.slice())
     }
 
     public with(name: string): Diagram {

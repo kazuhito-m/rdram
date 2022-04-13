@@ -8,6 +8,10 @@ export default class Relations {
         this.values = values;
     }
 
+    public get length(): number {
+        return this.values.length;
+    }
+
     public exists(relation: Relation): boolean {
         return this.values
             .some(i => i.equalRoute(relation));
@@ -22,7 +26,8 @@ export default class Relations {
      * ルートが逆も含め(f->t,t->f のどちらか)在る場合。
      */
     public existsOrReversivle(relation: Relation) {
-        return this.values.some(i => i.equalRouteReversivle(relation));
+        return this.values
+            .some(i => i.equalRouteReversivle(relation));
     }
 
     /**
@@ -33,6 +38,11 @@ export default class Relations {
         const reverse: Relation = relation.reverse();
         return rs.some(i => i.equalRoute(relation))
             && rs.some(i => i.equalRoute(reverse));
+    }
+
+    public isUsedOf(resource: Resource) {
+        return this.values
+            .some(i => i.isRelatedTo(resource.resourceId));
     }
 
     public static prototypeOf(): Relations {
@@ -71,11 +81,51 @@ export default class Relations {
         this.values.forEach(func);
     }
 
+    public map<T>(func: (resoruce: Relation) => T): T[] {
+        return this.values.map(func);
+    }
+
+    public filter(func: (relation: Relation) => boolean): Relation[] {
+        return this.values.filter(func);
+    }
+
     public static empty(): Relations {
         return new Relations([]);
     }
 
     public last(): Relation {
         return this.values[this.values.length - 1];
+    }
+
+    public uniqueIgnoreDirection(): Relations {
+        const dic = new Map();
+        for (const relation of this.values) {
+            const key = this.makeKeyIgnoreDirectionOf(relation);
+            dic.set(key, relation);
+        }
+        const relations = Array.from(dic.values());
+        return new Relations(relations);
+    }
+
+    private makeKeyIgnoreDirectionOf(relation: Relation): string {
+        return [relation.fromResourceId, relation.toResourceId]
+            .sort()
+            .join(":");
+    }
+
+    public onlyFromRelatedOf(resource: Resource): Relation[] {
+        const resourceId = resource.resourceId;
+        return this.values
+            .filter(relation => relation.fromResourceId === resourceId);
+    }
+
+    public onlyRelatedOf(resource: Resource): Relation[] {
+        const resourceId = resource.resourceId;
+        return this.values
+            .filter(relation => relation.isRelatedTo(resourceId));
+    }
+
+    public concat(relations: Relations): Relations {
+        return new Relations(this.values.concat(relations.values));
     }
 }

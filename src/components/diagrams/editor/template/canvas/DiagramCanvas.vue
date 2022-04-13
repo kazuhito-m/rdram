@@ -72,9 +72,9 @@ import ResourceType from "@/domain/resource/ResourceType";
 import Relation from "@/domain/relation/Relation";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import Placement from "@/domain/diagram/placement/Placement";
-import DownloadFile from "@/domain/client/DownloadFile";
+import DownloadCustomFile from "@/domain/client/DownloadCustomFile";
 import DownloadFileName from "@/domain/client/DownloadFileName";
-import RdramDownloadFileName from "@/domain/client/RdramDownloadFileName";
+import RdramDownloadFileName from "@/domain/client/WithTimestampFileName";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 
 import CoreResourceEditDialog from "@/components/resource/CoreResourceEditDialog.vue";
@@ -289,7 +289,7 @@ export default class DiagramCanvas extends Vue {
     const writer = new draw2d.io.svg.Writer();
     writer.marshal(this.canvas, (svg: string) => {
       const withFontSvg = this.includeWebFont(svg);
-      const file = new DownloadFile(fileName, "image/svg+xml", withFontSvg);
+      const file = new DownloadCustomFile(fileName, "image/svg+xml", withFontSvg);
       this.clientDownloadRepository.register(file);
     });
   }
@@ -409,9 +409,8 @@ export default class DiagramCanvas extends Vue {
       this.addResouceIconToCanvas(resource, placement);
     }
 
-    for (const relation of diagram.relations) {
-      this.addConnection(relation);
-    }
+    diagram.allRelations()
+      .forEach(this.addConnection);
   }
 
   private findResource(resourceId: number): Resource | undefined {

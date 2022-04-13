@@ -220,7 +220,7 @@ export default class DiagramEditor extends Vue {
   private dumpDiagram(diagram: Diagram, prefix: string) {
     console.log(`---- ${prefix} Diagram情報 start ----`);
     diagram.placements.forEach(i => console.log(`位置;${i.resourceId}`));
-    diagram.relations.forEach(i =>
+    diagram.allRelations().forEach(i =>
       console.log(`線;${i.id}, from:${i.fromResourceId}, to:${i.toResourceId}`)
     );
     console.log(`---- ${prefix} Diagram情報 end ----`);

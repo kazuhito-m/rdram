@@ -1,5 +1,5 @@
-import Serializer from "../Serializer";
 import ResourceType from "./ResourceType";
+import Serializer from "@/domain/Serializer";
 
 export default class Resource {
     public static readonly YET_NUMBERING_ID = 0;

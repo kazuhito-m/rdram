@@ -1,6 +1,6 @@
 import ProductImportProgressEvent from "@/domain/product/import/ProductImportProgressEvent";
 import { ProductImportProgressStep } from "@/domain/product/import/ProductImportProgressStep";
-import { ProductImportError } from "~/domain/product/import/ProductImportError";
+import { ProductImportError } from "@/domain/product/import/ProductImportError";
 
 describe('ProductImportProgressEvent', () => {
   test('stepの順序番号との相互変換が出来る', () => {

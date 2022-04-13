@@ -1,0 +1,606 @@
+{
+    "updateAt": "2021-12-14T17:20:17.509Z",
+    "id": "9d94821b-4992-47ea-8369-269d5a350bb6",
+    "name": "不動産サンプルの手習い",
+    "userSettings": {
+        "autoSave": true,
+        "darkMode": true,
+        "__CLASS_NAME": "UserSettings"
+    },
+    "diagrams": {
+        "values": [
+            {
+                "id": 1,
+                "typeId": 7,
+                "name": "経費支払",
+                "relations": [
+                    {
+                        "id": "d86e957f-ae21-19cd-c1da-ba2facb8aa79",
+                        "fromResourceId": 4,
+                        "toResourceId": 5,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "bd8b4738-2f38-2bd4-6d03-bdfefd41021a",
+                        "fromResourceId": 4,
+                        "toResourceId": 6,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "bb3de865-d80b-813f-3a4d-f7b6ca141032",
+                        "fromResourceId": 4,
+                        "toResourceId": 8,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "49d4cdfa-827a-9910-d5c9-c35ed2a8bd43",
+                        "fromResourceId": 5,
+                        "toResourceId": 6,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "d12ae09d-52e8-ec6b-aa5f-41ad7c9d6a82",
+                        "fromResourceId": 6,
+                        "toResourceId": 8,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "ed3e5fcc-be69-035d-960e-f032afb99a1f",
+                        "fromResourceId": 5,
+                        "toResourceId": 9,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "96d55c8d-cb4c-749a-75d2-a33df4d0ec67",
+                        "fromResourceId": 10,
+                        "toResourceId": 6,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "56fd23d7-5573-d26f-1d48-e9e60f1ad8f1",
+                        "fromResourceId": 11,
+                        "toResourceId": 8,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "269b7fdb-91ab-c84f-6e69-60300c76ca8e",
+                        "fromResourceId": 9,
+                        "toResourceId": 12,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "488fdd38-c1ee-63ca-252f-6e0f878fa806",
+                        "fromResourceId": 14,
+                        "toResourceId": 9,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "ecfe04b4-b80f-74a2-cbef-06ac12e726c2",
+                        "fromResourceId": 9,
+                        "toResourceId": 16,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "e02c5f5b-603d-b8d7-1134-ec6b3311633f",
+                        "fromResourceId": 18,
+                        "toResourceId": 10,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "698312a6-b0e6-a2c7-3fb7-88b1b9176cf5",
+                        "fromResourceId": 10,
+                        "toResourceId": 14,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "d53924bb-a002-501f-b5b8-5142d3883639",
+                        "fromResourceId": 11,
+                        "toResourceId": 14,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "8604ec1b-d412-cef0-8742-597879e84756",
+                        "fromResourceId": 11,
+                        "toResourceId": 19,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "64ad3d08-9a27-67b3-bfdc-1284985fb4ec",
+                        "fromResourceId": 11,
+                        "toResourceId": 20,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "685abf88-8697-b623-1fee-60a996878c47",
+                        "fromResourceId": 20,
+                        "toResourceId": 22,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "8002f05e-0ad9-6f7c-14ac-9133f3f5e43a",
+                        "fromResourceId": 9,
+                        "toResourceId": 13,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "ed78cc65-9b68-bdc8-ac19-3897a65fe971",
+                        "fromResourceId": 13,
+                        "toResourceId": 11,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "3774cbf7-1458-f01c-a41d-7f05ebbef62f",
+                        "fromResourceId": 16,
+                        "toResourceId": 21,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    }
+                ],
+                "placements": [
+                    {
+                        "x": 11,
+                        "y": 328,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 4,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 165,
+                        "y": 102,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 5,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 159,
+                        "y": 331,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 6,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 160,
+                        "y": 567,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 8,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 326,
+                        "y": 106,
+                        "width": 112,
+                        "height": 35,
+                        "resourceId": 9,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 316,
+                        "y": 339,
+                        "width": 116,
+                        "height": 35,
+                        "resourceId": 10,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 318,
+                        "y": 574,
+                        "width": 105,
+                        "height": 35,
+                        "resourceId": 11,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 425,
+                        "y": 19,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 12,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 649,
+                        "y": 321,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 14,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 646,
+                        "y": 78,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 16,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 400,
+                        "y": 237,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 18,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 341,
+                        "y": 464,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 19,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 692,
+                        "y": 613,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 20,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 871,
+                        "y": 615,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 22,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 864,
+                        "y": 346,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 13,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 875,
+                        "y": 41,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 21,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    }
+                ],
+                "width": 1024,
+                "height": 768,
+                "canvasGuideTypeId": 1,
+                "__CLASS_NAME": "UseCaseCompositeDiagram"
+            },
+            {
+                "id": 2,
+                "typeId": 1,
+                "name": "システムコンテキスト図",
+                "relations": [
+                    {
+                        "id": "8f86248d-5360-5e56-ed66-d005b4c94e1b",
+                        "fromResourceId": 21,
+                        "toResourceId": 22,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "acd40b38-40ee-435b-02a7-c0a23c1e7a0e",
+                        "fromResourceId": 4,
+                        "toResourceId": 21,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    }
+                ],
+                "placements": [
+                    {
+                        "x": 337,
+                        "y": 304,
+                        "width": 350,
+                        "height": 75,
+                        "resourceId": 21,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 849,
+                        "y": 170,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 22,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 233,
+                        "y": 197,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 4,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    }
+                ],
+                "width": 1024,
+                "height": 768,
+                "canvasGuideTypeId": 1,
+                "__CLASS_NAME": "SystemContextDiagram"
+            },
+            {
+                "id": 3,
+                "typeId": 11,
+                "name": "経費関連のフロー",
+                "relations": [],
+                "placements": [
+                    {
+                        "x": 140,
+                        "y": 20,
+                        "width": 280,
+                        "height": 700,
+                        "resourceId": 4,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    }
+                ],
+                "width": 768,
+                "height": 1024,
+                "canvasGuideTypeId": 2,
+                "__CLASS_NAME": "BusinessFlowDiagram"
+            }
+        ],
+        "__CLASS_NAME": "Diagrams"
+    },
+    "resources": {
+        "values": [
+            {
+                "resourceId": 2,
+                "resourceTypeId": 102,
+                "name": "始点",
+                "description": "",
+                "deletable": false,
+                "startPoint": true,
+                "__CLASS_NAME": "StartOrEndPoint"
+            },
+            {
+                "resourceId": 3,
+                "resourceTypeId": 102,
+                "name": "終点",
+                "description": "",
+                "deletable": false,
+                "startPoint": false,
+                "__CLASS_NAME": "StartOrEndPoint"
+            },
+            {
+                "resourceId": 4,
+                "resourceTypeId": 5,
+                "name": "経理",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 5,
+                "resourceTypeId": 21,
+                "name": "債権残高計算",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 6,
+                "resourceTypeId": 21,
+                "name": "支払予定",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 8,
+                "resourceTypeId": 21,
+                "name": "支払",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 9,
+                "resourceTypeId": 23,
+                "name": "債権残高を計算する",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 10,
+                "resourceTypeId": 23,
+                "name": "支払予定を作成する",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 11,
+                "resourceTypeId": 23,
+                "name": "支払を登録する",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 12,
+                "resourceTypeId": 18,
+                "name": "債務",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 13,
+                "resourceTypeId": 18,
+                "name": "支払",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 14,
+                "resourceTypeId": 18,
+                "name": "債務残高",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 16,
+                "resourceTypeId": 22,
+                "name": "経費計上",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 18,
+                "resourceTypeId": 20,
+                "name": "支払予定発行",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 19,
+                "resourceTypeId": 20,
+                "name": "支払登録",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 20,
+                "resourceTypeId": 22,
+                "name": "支払依頼",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 21,
+                "resourceTypeId": 1,
+                "name": "経理システム",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 22,
+                "resourceTypeId": 3,
+                "name": "決済システム",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            }
+        ],
+        "__CLASS_NAME": "Resources"
+    },
+    "resourceIdSequence": 24,
+    "__CLASS_NAME": "Product"
+}

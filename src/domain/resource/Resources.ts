@@ -24,6 +24,11 @@ export default class Resources {
         return this.createResourceOf("", resourceType, Resource.YET_NUMBERING_ID);
     }
 
+    public existsIdOf(resourceId: number): boolean {
+        return this.values
+            .some(resource => resource.resourceId === resourceId);
+    }
+
     public existsSomeName(name: string, type: ResourceType): boolean {
         return this.values
             .filter(resource => resource.name === name)
@@ -35,9 +40,20 @@ export default class Resources {
             .find(resource => resource.resourceId === resourceId);
     }
 
-    public typeOf(resourceType: ResourceType): Resources {
-        const newValues = this.values.filter(r => resourceType.equals(r.type));
+    public findOf(resourceIds: number[]): Resources {
+        const founds = this.values
+            .filter(resource => resourceIds.includes(resource.resourceId));
+        return new Resources(founds);
+    }
+
+    public typesOf(...resourceTypes: ResourceType[]): Resources {
+        const newValues = this.values
+            .filter(r => resourceTypes.includes(r.type));
         return new Resources(newValues);
+    }
+
+    public typeOf(resourceType: ResourceType): Resources {
+        return this.typesOf(resourceType);
     }
 
     public add(resource: Resource): Resources {
@@ -87,7 +103,15 @@ export default class Resources {
         return this.values.length;
     }
 
+    public isEmpty(): boolean {
+        return this.length === 0;
+    }
+
     public last(): Resource {
         return this.values[this.length - 1];
+    }
+
+    public first(): Resource {
+        return this.values[0];
     }
 }

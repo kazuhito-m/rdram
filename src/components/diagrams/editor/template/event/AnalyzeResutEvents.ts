@@ -1,6 +1,6 @@
 import EventsOfType from "./EventsOfType";
-import Product from "~/domain/product/Product";
-import Diagram from "~/domain/diagram/Diagram";
+import Product from "@/domain/product/Product";
+import Diagram from "@/domain/diagram/Diagram";
 
 export default class AnalyzeResutEvents {
     constructor(private eventsOfTypes: EventsOfType<Diagram, Vue>[]) { }
