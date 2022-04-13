@@ -28,6 +28,8 @@ export default abstract class GenericTextEllipseIconGenerator implements IconGen
             selectable: true,
             resizable: true,
             padding: 0,
+            minWidth: 20,
+            minHeight: 20,
             id
         });
 
