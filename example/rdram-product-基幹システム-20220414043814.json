@@ -1,5 +1,5 @@
 {
-    "updateAt": "2022-04-06T07:40:35.657Z",
+    "updateAt": "2022-04-13T19:37:43.237Z",
     "id": "25ec5905-4e32-4802-9ae3-62349e9f1dca",
     "name": "基幹システム",
     "userSettings": {
@@ -125,29 +125,9 @@
                         "__CLASS_NAME": "Relation"
                     },
                     {
-                        "id": "4f23b489-4f6a-142c-6100-1dda9149f3e0",
-                        "fromResourceId": 12,
-                        "toResourceId": 28,
-                        "routerTypeId": 1,
-                        "tipAllow": false,
-                        "meaning": "",
-                        "midpoints": [],
-                        "__CLASS_NAME": "Relation"
-                    },
-                    {
                         "id": "b840b58c-ec75-b369-d624-7e1fb5a9b278",
                         "fromResourceId": 22,
                         "toResourceId": 29,
-                        "routerTypeId": 1,
-                        "tipAllow": false,
-                        "meaning": "",
-                        "midpoints": [],
-                        "__CLASS_NAME": "Relation"
-                    },
-                    {
-                        "id": "58d3a853-cdd6-8fb9-e088-16c412ac6615",
-                        "fromResourceId": 31,
-                        "toResourceId": 22,
                         "routerTypeId": 1,
                         "tipAllow": false,
                         "meaning": "",
@@ -218,6 +198,26 @@
                         "id": "f958da15-c4d7-e0c5-50e9-a2e6c398feb3",
                         "fromResourceId": 48,
                         "toResourceId": 36,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "f09ec528-29a4-5956-38d0-6a7c12cb6ac9",
+                        "fromResourceId": 171,
+                        "toResourceId": 12,
+                        "routerTypeId": 1,
+                        "tipAllow": false,
+                        "meaning": "",
+                        "midpoints": [],
+                        "__CLASS_NAME": "Relation"
+                    },
+                    {
+                        "id": "1fb59ba5-648a-98e4-8047-bc369bcd66d0",
+                        "fromResourceId": 84,
+                        "toResourceId": 22,
                         "routerTypeId": 1,
                         "tipAllow": false,
                         "meaning": "",
@@ -371,15 +371,6 @@
                         "__CLASS_NAME": "Placement"
                     },
                     {
-                        "x": 777,
-                        "y": 257,
-                        "width": 0,
-                        "height": 0,
-                        "resourceId": 24,
-                        "alias": false,
-                        "__CLASS_NAME": "Placement"
-                    },
-                    {
                         "x": 896,
                         "y": 132,
                         "width": 92,
@@ -398,29 +389,11 @@
                         "__CLASS_NAME": "Placement"
                     },
                     {
-                        "x": 730,
-                        "y": 312,
-                        "width": 0,
-                        "height": 0,
-                        "resourceId": 28,
-                        "alias": false,
-                        "__CLASS_NAME": "Placement"
-                    },
-                    {
                         "x": 660,
                         "y": 535,
                         "width": 213,
                         "height": 110,
                         "resourceId": 29,
-                        "alias": false,
-                        "__CLASS_NAME": "Placement"
-                    },
-                    {
-                        "x": 746,
-                        "y": 544,
-                        "width": 0,
-                        "height": 0,
-                        "resourceId": 31,
                         "alias": false,
                         "__CLASS_NAME": "Placement"
                     },
@@ -565,6 +538,24 @@
                         "width": 0,
                         "height": 0,
                         "resourceId": 49,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 741,
+                        "y": 323,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 171,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 755,
+                        "y": 564,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 84,
                         "alias": false,
                         "__CLASS_NAME": "Placement"
                     }
@@ -815,26 +806,6 @@
                         "__CLASS_NAME": "Relation"
                     },
                     {
-                        "id": "81a9a974-6776-d064-234b-412999e33e44",
-                        "fromResourceId": 83,
-                        "toResourceId": 82,
-                        "routerTypeId": 1,
-                        "tipAllow": false,
-                        "meaning": "",
-                        "midpoints": [],
-                        "__CLASS_NAME": "Relation"
-                    },
-                    {
-                        "id": "5f87a2c6-0b1c-6c11-50fa-480f24888e68",
-                        "fromResourceId": 82,
-                        "toResourceId": 74,
-                        "routerTypeId": 1,
-                        "tipAllow": false,
-                        "meaning": "",
-                        "midpoints": [],
-                        "__CLASS_NAME": "Relation"
-                    },
-                    {
                         "id": "44b1ad6b-985e-53b3-2726-fe01689aa97f",
                         "fromResourceId": 86,
                         "toResourceId": 84,
@@ -938,16 +909,6 @@
                         "id": "979a49da-aa60-fe85-b90d-ae522c9d8e9a",
                         "fromResourceId": 97,
                         "toResourceId": 96,
-                        "routerTypeId": 1,
-                        "tipAllow": false,
-                        "meaning": "",
-                        "midpoints": [],
-                        "__CLASS_NAME": "Relation"
-                    },
-                    {
-                        "id": "3e6649ae-ab92-32f1-d391-c51bca2097ad",
-                        "fromResourceId": 82,
-                        "toResourceId": 98,
                         "routerTypeId": 1,
                         "tipAllow": false,
                         "meaning": "",
@@ -1240,15 +1201,6 @@
                         "width": 126,
                         "height": 135,
                         "resourceId": 81,
-                        "alias": false,
-                        "__CLASS_NAME": "Placement"
-                    },
-                    {
-                        "x": 687,
-                        "y": 298,
-                        "width": 0,
-                        "height": 0,
-                        "resourceId": 82,
                         "alias": false,
                         "__CLASS_NAME": "Placement"
                     },
@@ -5245,9 +5197,9 @@
                         "__CLASS_NAME": "Relation"
                     },
                     {
-                        "id": "4f5ec239-796a-866d-f3c3-4155c4d49817",
-                        "fromResourceId": 82,
-                        "toResourceId": 197,
+                        "id": "3ce0c217-626e-e4ee-1267-ad7f32ff83d5",
+                        "fromResourceId": 197,
+                        "toResourceId": 198,
                         "routerTypeId": 1,
                         "tipAllow": false,
                         "meaning": "",
@@ -5255,9 +5207,9 @@
                         "__CLASS_NAME": "Relation"
                     },
                     {
-                        "id": "3ce0c217-626e-e4ee-1267-ad7f32ff83d5",
+                        "id": "d847e770-94ef-c67f-12df-6c2bfd5e6573",
                         "fromResourceId": 197,
-                        "toResourceId": 198,
+                        "toResourceId": 171,
                         "routerTypeId": 1,
                         "tipAllow": false,
                         "meaning": "",
@@ -5312,20 +5264,20 @@
                         "__CLASS_NAME": "Placement"
                     },
                     {
-                        "x": 831,
-                        "y": 258,
-                        "width": 0,
-                        "height": 0,
-                        "resourceId": 82,
-                        "alias": false,
-                        "__CLASS_NAME": "Placement"
-                    },
-                    {
                         "x": 805,
                         "y": 353,
                         "width": 0,
                         "height": 0,
                         "resourceId": 198,
+                        "alias": false,
+                        "__CLASS_NAME": "Placement"
+                    },
+                    {
+                        "x": 805,
+                        "y": 234,
+                        "width": 0,
+                        "height": 0,
+                        "resourceId": 171,
                         "alias": false,
                         "__CLASS_NAME": "Placement"
                     }
@@ -9369,25 +9321,9 @@
                 "__CLASS_NAME": "Resource"
             },
             {
-                "resourceId": 28,
-                "resourceTypeId": 2,
-                "name": "論理在庫",
-                "description": "",
-                "deletable": true,
-                "__CLASS_NAME": "Resource"
-            },
-            {
                 "resourceId": 29,
                 "resourceTypeId": 13,
                 "name": "物流部",
-                "description": "",
-                "deletable": true,
-                "__CLASS_NAME": "Resource"
-            },
-            {
-                "resourceId": 31,
-                "resourceTypeId": 2,
-                "name": "物理在庫",
                 "description": "",
                 "deletable": true,
                 "__CLASS_NAME": "Resource"
@@ -9803,14 +9739,6 @@
                 "resourceId": 81,
                 "resourceTypeId": 19,
                 "name": "返品",
-                "description": "",
-                "deletable": true,
-                "__CLASS_NAME": "Resource"
-            },
-            {
-                "resourceId": 82,
-                "resourceTypeId": 18,
-                "name": "論理在庫",
                 "description": "",
                 "deletable": true,
                 "__CLASS_NAME": "Resource"
