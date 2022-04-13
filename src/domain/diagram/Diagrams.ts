@@ -114,6 +114,7 @@ export default class Diagrams {
     public allRelations(): Relations {
         return this.values
             .map(diaglam => diaglam.allRelations())
-            .reduce((left, right) => left.concat(right));
+            .reduce((left, right) => left.concat(right),
+                Relations.empty());
     }
 }

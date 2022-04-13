@@ -8,6 +8,10 @@ export default class Relations {
         this.values = values;
     }
 
+    public get length(): number {
+        return this.values.length;
+    }
+
     public exists(relation: Relation): boolean {
         return this.values
             .some(i => i.equalRoute(relation));
