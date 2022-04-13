@@ -78,9 +78,7 @@ import RdramDownloadFileName from "@/domain/client/WithTimestampFileName";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 
 import CoreResourceEditDialog from "@/components/resource/CoreResourceEditDialog.vue";
-import IconZOrderLevel from "@/components/diagrams/icon/IconZOrderLevel";
-import IconViewModel from "./IconViewModel";
-import Resources from "~/domain/resource/Resources";
+import IconZOrderLevel from "~/components/diagrams/icon/IconZOrderLevel";
 
 @Component({
   components: {
@@ -405,29 +403,21 @@ export default class DiagramCanvas extends Vue {
   private drawDiagram(diagram: Diagram) {
     diagram.placements.forEach(p => this.usedResouceIds.push(p.resourceId));
 
-    const allResources = new Resources(this.allResourcesOnCurrentProduct);
-
-    const iconViewModels: IconViewModel[] = [];
-    for (const placement of diagram.placements) {
-      const resource = allResources.of(placement.resourceId);
-      if (!resource) continue;
-
-      const icon = this.generateIcon(resource, placement);
-      if (!icon) continue;
-
-      iconViewModels.push(new IconViewModel(resource, icon));
-    }
-
     this.canvas.setDimension(diagram.width, diagram.height);
-
-    iconViewModels
-      .sort(IconViewModel.compare)
-      // .map(i => { console.log(i); return i;}) // Debug
-      .map(vm => vm.icon)
-      .forEach(icon => this.canvas.add(icon));
+    for (const placement of diagram.placements) {
+      const resource = this.findResource(placement.resourceId);
+      if (!resource) continue;
+      this.addResouceIconToCanvas(resource, placement);
+    }
 
     diagram.allRelations()
       .forEach(this.addConnection);
+  }
+
+  private findResource(resourceId: number): Resource | undefined {
+    return this.allResourcesOnCurrentProduct.find(
+      r => r.resourceId === resourceId
+    );
   }
 
   // self decralation event.
@@ -438,26 +428,19 @@ export default class DiagramCanvas extends Vue {
     resource: Resource,
     placement: Placement
   ): void {
-    const icon = this.generateIcon(resource, placement);
-    if (!icon) return;
-
-    this.canvas.add(icon);
-    this.fixZOrder(icon);
-  }
-
-  private generateIcon(resource: Resource, placement: Placement): Figure | null {
     const type = resource.type;
     const generator = this.choiceIconGenerator(type) as IconGenerator<Resource>;
     if (!generator) {
-      alert(`ジェネレータ無しアイコン生成不能:${type.name}`);
-      return null;
-    } 
-
-    return generator.generate(
+      alert("ジェネレータ無しアイコン生成不能:" + type.name);
+      return;
+    }
+    const icon = generator.generate(
       placement,
       resource,
       this.iconStyleOf(type)
     );
+    this.canvas.add(icon);
+    this.fixZOrder(icon);
   }
 
   /**

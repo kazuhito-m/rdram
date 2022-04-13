@@ -1,7 +1,7 @@
-const enum IconZOrderLevel {
-    NORMAL = 0,
-    AREA = 1,
-    BACKGROUND_AREA = 2
+enum IconZOrderLevel {
+    NORMAL = 3,
+    AREA = 2,
+    BACKGROUND_AREA = 1
 }
 
 export default IconZOrderLevel;
