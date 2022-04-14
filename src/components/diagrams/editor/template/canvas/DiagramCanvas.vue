@@ -437,8 +437,7 @@ export default class DiagramCanvas extends Vue {
     if (!icon) return;
 
     this.canvas.add(icon);
-    this.fixZOrder2(icon);
-    // this.fixZOrder(icon);
+    this.fixZOrder(icon);
   }
 
   private generateIcon(resource: Resource, placement: Placement): Figure | null {
@@ -459,41 +458,14 @@ export default class DiagramCanvas extends Vue {
   /**
    * 最後に追加したのが「範囲アイコン」なら、通常アイコンよりZOrder後ろにもっていく。
    *
+   * 「範囲アイコン」でなければ、Draw2D的なZOrderは触らない。
+   * (初期表示とは動きが異なるので、通常アイコン同士の重なりは後勝ちになるかも)
+   *
    * TODO IconGeneratorでsetUserData()してるので、このロジックもそこらへんに移動したい。
    */
   private fixZOrder(icon: Figure): void {
-    const allFigures = this.canvas.getFigures().asArray();
-    const lastAdded = allFigures.find(
-      (i: Figure) => i.getId() === icon.getId()
-    );
-    if (!lastAdded || !this.isAreaIcon(lastAdded)) return;
-    let lastZOrder = null;
-    for (const figure of allFigures) {
-      if (figure.getId() === lastAdded.getId()) continue;
-      if (!lastZOrder) {
-        lastZOrder = figure;
-        continue;
-      }
-      if (this.isAreaIcon(figure)) continue;
-      if (lastZOrder.getZOrder() < figure.getZOrder()) continue;
-      lastZOrder = figure;
-    }
-    if (!lastZOrder) return;
-    lastAdded.toBack(lastZOrder);
-  }
-
-  private isAreaIcon(icon: Figure): boolean {
-    if (!icon.getUserData()) return false;
-    const iconStatus: IconStatus = icon.getUserData();
-    return iconStatus.zOrder === IconZOrderLevel.AREA
-      || iconStatus.zOrder === IconZOrderLevel.BACKGROUND_AREA;
-  }
-
-  private fixZOrder2(icon: Figure): void {
     const targetIconVM = new IconViewModel(icon);
 
-    // 「範囲アイコン」でなければ、Draw2D的なZOrderは触らない。
-    // (初期表示とは動きが異なるので、通常アイコン同士の重なりは後勝ちになるかも)
     if (targetIconVM.isNotAreaIcon()) return;
 
     const allIcons = this.canvas
@@ -512,20 +484,20 @@ export default class DiagramCanvas extends Vue {
     icon.toBack(afterIcon);
 
     // Debug
-    const allResources = new Resources(this.allResourcesOnCurrentProduct);
+    // const allResources = new Resources(this.allResourcesOnCurrentProduct);
     // console.log("対象のIcon:", targetIconVM.toString(allResources));
     // sortedIconVMs
     //   .forEach(i => console.log(i.toString(allResources)));
     // console.log("めっかったやつ:", compareNumberOverItem?.toString(allResources));
     // 
-    const figures = this.canvas
-      .getFigures()
-      .asArray() as Figure[];
-    console.log("最終的なZOrderを含めた結果。");
-    figures
-      .sort((l,r) => l.getZOrder() - r.getZOrder())
-      .map(i => new IconViewModel(i))
-      .forEach(i => console.log("ZOrder:",i.icon.getZOrder(), ", ID:", i.toString(allResources)));
+    // const figures = this.canvas
+    //   .getFigures()
+    //   .asArray() as Figure[];
+    // console.log("最終的なZOrderを含めた結果。");
+    // figures
+    //   .sort((l,r) => l.getZOrder() - r.getZOrder())
+    //   .map(i => new IconViewModel(i))
+    //   .forEach(i => console.log("ZOrder:",i.icon.getZOrder(), ", ID:", i.toString(allResources)));
   }
 
   private choiceIconGenerator(
