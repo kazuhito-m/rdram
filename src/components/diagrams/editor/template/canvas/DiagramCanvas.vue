@@ -437,7 +437,8 @@ export default class DiagramCanvas extends Vue {
     if (!icon) return;
 
     this.canvas.add(icon);
-    this.fixZOrder(icon);
+    this.fixZOrder2(icon);
+    // this.fixZOrder(icon);
   }
 
   private generateIcon(resource: Resource, placement: Placement): Figure | null {
@@ -486,6 +487,32 @@ export default class DiagramCanvas extends Vue {
     const iconStatus: IconStatus = icon.getUserData();
     return iconStatus.zOrder === IconZOrderLevel.AREA
       || iconStatus.zOrder === IconZOrderLevel.BACKGROUND_AREA;
+  }
+
+  private fixZOrder2(icon: Figure): void {
+    const allIcons = this.canvas
+      .getFigures()
+      .asArray() as Figure[];
+    const sortedIconVMs = allIcons
+      .map(i => new IconViewModel(i))
+      .sort(IconViewModel.compare);
+
+    const targetIconVM = new IconViewModel(icon);
+
+    const compareNumberOverItem = sortedIconVMs
+      .find(vm => vm.compareNumber() > targetIconVM.compareNumber());
+
+    // Debug
+    const allResources = new Resources(this.allResourcesOnCurrentProduct);
+    console.log("対象のIcon:", targetIconVM.toString(allResources));
+    sortedIconVMs
+      .forEach(i => console.log(i.toString(allResources)));
+    console.log("めっかったやつ:", compareNumberOverItem?.toString(allResources));
+
+    if (!compareNumberOverItem) return;
+
+    const afterIcon = compareNumberOverItem.icon;
+    afterIcon.toFront(icon);
   }
 
   private choiceIconGenerator(
