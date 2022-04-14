@@ -490,14 +490,18 @@ export default class DiagramCanvas extends Vue {
   }
 
   private fixZOrder2(icon: Figure): void {
+    const targetIconVM = new IconViewModel(icon);
+
+    // 「範囲アイコン」でなければ、Draw2D的なZOrderは触らない。
+    // (初期表示とは動きが異なるので、通常アイコン同士の重なりは後勝ちになるかも)
+    if (targetIconVM.isNotAreaIcon()) return;
+
     const allIcons = this.canvas
       .getFigures()
       .asArray() as Figure[];
     const sortedIconVMs = allIcons
       .map(i => new IconViewModel(i))
       .sort(IconViewModel.compare);
-
-    const targetIconVM = new IconViewModel(icon);
 
     const compareNumberOverItem = sortedIconVMs
       .find(vm => vm.compareNumber() > targetIconVM.compareNumber());

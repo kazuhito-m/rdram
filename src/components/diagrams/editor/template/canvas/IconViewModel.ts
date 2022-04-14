@@ -8,6 +8,11 @@ export default class IconViewModel {
         public readonly icon: Figure
     ) { }
 
+    public isNotAreaIcon() {
+        const status = this.icon.getUserData() as IconStatus;
+        return status.zOrder === IconZOrderLevel.NORMAL;
+    }
+
     public static compare(left: IconViewModel, right: IconViewModel) {
         return left.compareNumber() - right.compareNumber();
     }
