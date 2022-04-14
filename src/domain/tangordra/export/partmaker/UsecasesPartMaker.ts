@@ -1,9 +1,9 @@
 import { Usecase } from "../structure/TangoRdra";
-import Product from "~/domain/product/Product";
-import DiagramType from "~/domain/diagram/DiagramType";
-import ResourceType from "~/domain/resource/ResourceType";
-import Resources from "~/domain/resource/Resources";
-import Resource from "~/domain/resource/Resource";
+import Product from "@/domain/product/Product";
+import DiagramType from "@/domain/diagram/DiagramType";
+import ResourceType from "@/domain/resource/ResourceType";
+import Resources from "@/domain/resource/Resources";
+import Resource from "@/domain/resource/Resource";
 
 export default class UsecasesPartMaker {
     public make(product: Product): Usecase[] {
