@@ -32,7 +32,7 @@ export default class ResourceType {
     static アクティビティ = new ResourceType(21, 'アクティビティ', 'mdi-alpha-a-box-outline');
     static イベント = new ResourceType(22, 'イベント', 'mdi-lightning-bolt');
     static ビジネスユースケース = new ResourceType(24, 'ビジネスユースケース', 'mdi-alpha-b-circle-outline');
-    static タイマー = new ResourceType(26, 'タイマー', 'mdi-alarm');
+    static タイマー = new ResourceType(26, 'タイマー', 'mdi-clock-outline');
 
     static 状態 = new ResourceType(27, '状態', 'mdi-circle-slice-4');
     static 状態グループ = new ResourceType(28, '状態グループ', 'mdi-circle-slice-4');
