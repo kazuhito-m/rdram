@@ -1,11 +1,10 @@
 import { Figure } from "draw2d";
-import Resource from "@/domain/resource/Resource";
 import IconStatus from "@/components/diagrams/icon/IconStatus";
 import IconZOrderLevel from "@/components/diagrams/icon/IconZOrderLevel";
+import Resources from "@/domain/resource/Resources";
 
 export default class IconViewModel {
     constructor(
-        public readonly resource: Resource,
         public readonly icon: Figure
     ) { }
 
@@ -16,7 +15,7 @@ export default class IconViewModel {
     public compareNumber(): number {
         const zOrderLevel = this.zOrderLevelOf(this.icon);
         return zOrderLevel * 1000000
-            + this.resource.resourceId;
+            + this.resourceId();
     }
 
     private zOrderLevelOf(icon: Figure): IconZOrderLevel {
@@ -25,7 +24,12 @@ export default class IconViewModel {
         return iconStatus.zOrder;
     }
 
-    public toString(): string {
-        return [this.compareNumber(), this.resource.name].join(", ");
+    private resourceId(): number {
+        return Number(this.icon.getId());
+    }
+
+    public toString(resources: Resources): string {
+        const resource = resources.of(this.resourceId());
+        return [this.compareNumber(), resource?.name].join(", ");
     }
 }

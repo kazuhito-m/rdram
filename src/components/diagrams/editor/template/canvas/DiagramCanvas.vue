@@ -415,14 +415,13 @@ export default class DiagramCanvas extends Vue {
       const icon = this.generateIcon(resource, placement);
       if (!icon) continue;
 
-      iconViewModels.push(new IconViewModel(resource, icon));
+      iconViewModels.push(new IconViewModel(icon));
     }
 
     this.canvas.setDimension(diagram.width, diagram.height);
 
     iconViewModels
       .sort(IconViewModel.compare)
-      // .map(i => { console.log(i.toString()); return i;}) // Debug
       .map(vm => vm.icon)
       .forEach(icon => this.canvas.add(icon));
 
