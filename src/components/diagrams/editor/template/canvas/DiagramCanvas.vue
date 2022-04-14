@@ -512,7 +512,7 @@ export default class DiagramCanvas extends Vue {
     if (!compareNumberOverItem) return;
 
     const afterIcon = compareNumberOverItem.icon;
-    afterIcon.toFront(icon);
+    icon.toFront(afterIcon);
   }
 
   private choiceIconGenerator(
