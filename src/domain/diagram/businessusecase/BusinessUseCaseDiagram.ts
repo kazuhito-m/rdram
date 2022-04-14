@@ -43,6 +43,7 @@ export default class BusinessUseCaseDiagram extends Diagram {
             ResourceType.外部システム,
             ResourceType.情報,
             ResourceType.条件,
+            ResourceType.表形式の条件,
         ];
     }
 
