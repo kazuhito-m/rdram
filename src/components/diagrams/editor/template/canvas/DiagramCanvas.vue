@@ -407,16 +407,22 @@ export default class DiagramCanvas extends Vue {
 
     const allResources = new Resources(this.allResourcesOnCurrentProduct);
 
-    const iconViewModels: IconViewModel[] = [];
-    for (const placement of diagram.placements) {
-      const resource = allResources.of(placement.resourceId);
-      if (!resource) continue;
+    const iconViewModels = diagram.placements
+      .filter(placement => allResources.existsIdOf(placement.resourceId))
+      .map(placement => this.generateIcon(allResources.of(placement.resourceId) as Resource, placement))
+      .filter(icon => icon)
+      .map(icon => new IconViewModel(icon as Figure));
 
-      const icon = this.generateIcon(resource, placement);
-      if (!icon) continue;
+      // const iconViewModels: IconViewModel[] = [];
+      // for (const placement of diagram.placements) {
+      //   const resource = allResources.of(placement.resourceId);
+      //   if (!resource) continue;
 
-      iconViewModels.push(new IconViewModel(icon));
-    }
+      //   const icon = this.generateIcon(resource, placement);
+      //   if (!icon) continue;
+
+      //   iconViewModels.push(new IconViewModel(icon));
+      // }
 
     this.canvas.setDimension(diagram.width, diagram.height);
 
