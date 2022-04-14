@@ -37,11 +37,13 @@ export default class UseCaseCompositeDiagram extends Diagram {
             ResourceType.情報,
             ResourceType.画面,
             ResourceType.イベント,
+            ResourceType.タイマー,
             ResourceType.バリエーション,
             ResourceType.条件,
             ResourceType.表形式の条件,
             ResourceType.システム,
             ResourceType.外部システム,
+            ResourceType.自社システム,
             ResourceType.住宅
         ];
     }
