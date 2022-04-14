@@ -64,7 +64,6 @@ import CanvasGuideType from "@/components/diagrams/editor/toolbar/CanvasGuideTyp
 import RouterTypeDraw2dConverter from "@/components/diagrams/editor/template/RouterTypeDraw2dConverter";
 import IconGenerator from "@/components/diagrams/icon/IconGenerator";
 import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
-import IconStatus from "@/components/diagrams/icon/IconStatus";
 
 import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
@@ -79,7 +78,6 @@ import RdramDownloadFileName from "@/domain/client/WithTimestampFileName";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 
 import CoreResourceEditDialog from "@/components/resource/CoreResourceEditDialog.vue";
-import IconZOrderLevel from "@/components/diagrams/icon/IconZOrderLevel";
 import Resources from "~/domain/resource/Resources";
 
 @Component({
