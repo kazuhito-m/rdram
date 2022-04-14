@@ -403,7 +403,8 @@ export default class DiagramCanvas extends Vue {
   }
 
   private drawDiagram(diagram: Diagram) {
-    diagram.placements.forEach(p => this.usedResouceIds.push(p.resourceId));
+    diagram.placements
+      .forEach(p => this.usedResouceIds.push(p.resourceId));
 
     const allResources = new Resources(this.allResourcesOnCurrentProduct);
 
@@ -412,17 +413,6 @@ export default class DiagramCanvas extends Vue {
       .map(placement => this.generateIcon(allResources.of(placement.resourceId) as Resource, placement))
       .filter(icon => icon)
       .map(icon => new IconViewModel(icon as Figure));
-
-      // const iconViewModels: IconViewModel[] = [];
-      // for (const placement of diagram.placements) {
-      //   const resource = allResources.of(placement.resourceId);
-      //   if (!resource) continue;
-
-      //   const icon = this.generateIcon(resource, placement);
-      //   if (!icon) continue;
-
-      //   iconViewModels.push(new IconViewModel(icon));
-      // }
 
     this.canvas.setDimension(diagram.width, diagram.height);
 
