@@ -5,6 +5,7 @@ import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
 import Resource from '@/domain/resource/Resource';
 import ResourceType from '@/domain/resource/ResourceType';
 import Placement from '@/domain/diagram/placement/Placement';
+import IconZOrderLevel from '~/components/diagrams/icon/IconZOrderLevel';
 
 export default class StateGroupIconGenerator implements IconGenerator<Resource> {
     public resourceType(): ResourceType {
@@ -20,7 +21,7 @@ export default class StateGroupIconGenerator implements IconGenerator<Resource> 
             y: placement.y,
             width: placement.width,
             height: placement.height,
-            minWidth: 200,
+            minWidth: 40,
             minHeight: 40,
             bgColor: "#FFE0AF",
             color: "#000000",
@@ -81,7 +82,7 @@ export default class StateGroupIconGenerator implements IconGenerator<Resource> 
         const port = waku.getOutputPorts().last() as any;
         port.setConnectionAnchor(anchor);
 
-        waku.setUserData(new IconStatus(true));
+        waku.setUserData(new IconStatus(IconZOrderLevel.AREA));
 
         return waku;
     }

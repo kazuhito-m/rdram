@@ -75,7 +75,7 @@ export default class VariationIconGenerator extends GenericSingleIconGenerator {
         const anchor = new draw2d.layout.anchor.FanConnectionAnchor(container);
         port.setConnectionAnchor(anchor);
 
-        container.setUserData(new IconStatus(false));
+        container.setUserData(new IconStatus());
 
         return container;
     }

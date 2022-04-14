@@ -1,4 +1,5 @@
 import draw2d, { Figure } from 'draw2d';
+import IconZOrderLevel from './IconZOrderLevel';
 import TopLeftLocator from "@/draw2d/custom/TopLeftLocator";
 import IconGenerator from '@/components/diagrams/icon/IconGenerator';
 import IconStatus from '@/components/diagrams/icon/IconStatus';
@@ -55,7 +56,7 @@ export default abstract class GenericAreaIconGenerator implements IconGenerator<
         icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 105, y: 27 }));
         waku.add(icon, new TopLeftLocator());
 
-        waku.setUserData(new IconStatus(true));
+        waku.setUserData(new IconStatus(IconZOrderLevel.AREA));
 
         return waku;
     }

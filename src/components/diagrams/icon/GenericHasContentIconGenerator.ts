@@ -56,7 +56,7 @@ export default abstract class GenericHasContentIconGenerator implements IconGene
         const anchor = new draw2d.layout.anchor.FanConnectionAnchor(text);
         port.setConnectionAnchor(anchor);
 
-        text.setUserData(new IconStatus(false));
+        text.setUserData(new IconStatus());
 
         return text;
     }

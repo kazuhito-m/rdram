@@ -83,7 +83,7 @@ export default class BusinessUseCaseDiagramEditor extends Vue {
   private onUpdateResources(): void {}
 
   @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor_(_diagramId: number): void {}
+  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 }
 </script>
 

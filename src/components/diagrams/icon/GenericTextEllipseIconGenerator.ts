@@ -28,6 +28,8 @@ export default abstract class GenericTextEllipseIconGenerator implements IconGen
             selectable: true,
             resizable: true,
             padding: 0,
+            minWidth: 20,
+            minHeight: 20,
             id
         });
 
@@ -57,7 +59,7 @@ export default abstract class GenericTextEllipseIconGenerator implements IconGen
         const anchor = new draw2d.layout.anchor.FanConnectionAnchor(oval);
         port.setConnectionAnchor(anchor);
 
-        oval.setUserData(new IconStatus(false));
+        oval.setUserData(new IconStatus());
 
         return oval;
     }

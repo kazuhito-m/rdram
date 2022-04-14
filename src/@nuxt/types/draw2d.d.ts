@@ -218,7 +218,7 @@ declare module 'draw2d' {
 
         getY(): any;
 
-        getZOrder(): any;
+        getZOrder(): number;
 
         hasCssClass(className: any): any;
 

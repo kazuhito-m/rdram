@@ -54,6 +54,7 @@ import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
 
+import IconViewModel from "./IconViewModel";
 import CanvasSettingToolBar from "@/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import ConnectorRightClickMenuAndEditor from "@/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue";
 import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
@@ -63,7 +64,6 @@ import CanvasGuideType from "@/components/diagrams/editor/toolbar/CanvasGuideTyp
 import RouterTypeDraw2dConverter from "@/components/diagrams/editor/template/RouterTypeDraw2dConverter";
 import IconGenerator from "@/components/diagrams/icon/IconGenerator";
 import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
-import IconStatus from "@/components/diagrams/icon/IconStatus";
 
 import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
@@ -78,6 +78,7 @@ import RdramDownloadFileName from "@/domain/client/WithTimestampFileName";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 
 import CoreResourceEditDialog from "@/components/resource/CoreResourceEditDialog.vue";
+import Resources from "~/domain/resource/Resources";
 
 @Component({
   components: {
@@ -400,23 +401,26 @@ export default class DiagramCanvas extends Vue {
   }
 
   private drawDiagram(diagram: Diagram) {
-    diagram.placements.forEach(p => this.usedResouceIds.push(p.resourceId));
+    diagram.placements
+      .forEach(p => this.usedResouceIds.push(p.resourceId));
+
+    const allResources = new Resources(this.allResourcesOnCurrentProduct);
+
+    const iconViewModels = diagram.placements
+      .filter(placement => allResources.existsIdOf(placement.resourceId))
+      .map(placement => this.generateIcon(allResources.of(placement.resourceId) as Resource, placement))
+      .filter(icon => icon)
+      .map(icon => new IconViewModel(icon as Figure));
 
     this.canvas.setDimension(diagram.width, diagram.height);
-    for (const placement of diagram.placements) {
-      const resource = this.findResource(placement.resourceId);
-      if (!resource) continue;
-      this.addResouceIconToCanvas(resource, placement);
-    }
+
+    iconViewModels
+      .sort(IconViewModel.compare)
+      .map(vm => vm.icon)
+      .forEach(icon => this.canvas.add(icon));
 
     diagram.allRelations()
       .forEach(this.addConnection);
-  }
-
-  private findResource(resourceId: number): Resource | undefined {
-    return this.allResourcesOnCurrentProduct.find(
-      r => r.resourceId === resourceId
-    );
   }
 
   // self decralation event.
@@ -427,52 +431,71 @@ export default class DiagramCanvas extends Vue {
     resource: Resource,
     placement: Placement
   ): void {
+    const icon = this.generateIcon(resource, placement);
+    if (!icon) return;
+
+    this.canvas.add(icon);
+    this.fixZOrder(icon);
+  }
+
+  private generateIcon(resource: Resource, placement: Placement): Figure | null {
     const type = resource.type;
     const generator = this.choiceIconGenerator(type) as IconGenerator<Resource>;
     if (!generator) {
-      alert("ジェネレータ無しアイコン生成不能:" + type.name);
-      return;
-    }
-    const icon = generator.generate(
+      alert(`ジェネレータ無しアイコン生成不能:${type.name}`);
+      return null;
+    } 
+
+    return generator.generate(
       placement,
       resource,
       this.iconStyleOf(type)
     );
-    this.canvas.add(icon);
-    this.fixZOrder(icon);
   }
 
   /**
    * 最後に追加したのが「範囲アイコン」なら、通常アイコンよりZOrder後ろにもっていく。
    *
+   * 「範囲アイコン」でなければ、Draw2D的なZOrderは触らない。
+   * (初期表示とは動きが異なるので、通常アイコン同士の重なりは後勝ちになるかも)
+   *
    * TODO IconGeneratorでsetUserData()してるので、このロジックもそこらへんに移動したい。
    */
   private fixZOrder(icon: Figure): void {
-    const allFigures = this.canvas.getFigures().asArray();
-    const lastAdded = allFigures.find(
-      (i: Figure) => i.getId() === icon.getId()
-    );
-    if (!lastAdded || !this.isAreaIcon(lastAdded)) return;
-    let lastZOrder = null;
-    for (const figure of allFigures) {
-      if (figure.getId() === lastAdded.getId()) continue;
-      if (!lastZOrder) {
-        lastZOrder = figure;
-        continue;
-      }
-      if (this.isAreaIcon(figure)) continue;
-      if (lastZOrder.getZOrder() < figure.getZOrder()) continue;
-      lastZOrder = figure;
-    }
-    if (!lastZOrder) return;
-    lastAdded.toBack(lastZOrder);
-  }
+    const targetIconVM = new IconViewModel(icon);
 
-  private isAreaIcon(icon: Figure): boolean {
-    if (!icon.getUserData()) return false;
-    const iconStatus: IconStatus = icon.getUserData();
-    if (iconStatus.area) return true;
-    return false;
+    if (targetIconVM.isNotAreaIcon()) return;
+
+    const allIcons = this.canvas
+      .getFigures()
+      .asArray() as Figure[];
+    const sortedIconVMs = allIcons
+      .map(i => new IconViewModel(i))
+      .sort(IconViewModel.compare);
+
+    const compareNumberOverItem = sortedIconVMs
+      .find(vm => vm.compareNumber() > targetIconVM.compareNumber());
+
+    if (!compareNumberOverItem) return;
+
+    const afterIcon = compareNumberOverItem.icon;
+    icon.toBack(afterIcon);
+
+    // Debug
+    // const allResources = new Resources(this.allResourcesOnCurrentProduct);
+    // console.log("対象のIcon:", targetIconVM.toString(allResources));
+    // sortedIconVMs
+    //   .forEach(i => console.log(i.toString(allResources)));
+    // console.log("めっかったやつ:", compareNumberOverItem?.toString(allResources));
+    // 
+    // const figures = this.canvas
+    //   .getFigures()
+    //   .asArray() as Figure[];
+    // console.log("最終的なZOrderを含めた結果。");
+    // figures
+    //   .sort((l,r) => l.getZOrder() - r.getZOrder())
+    //   .map(i => new IconViewModel(i))
+    //   .forEach(i => console.log("ZOrder:",i.icon.getZOrder(), ", ID:", i.toString(allResources)));
   }
 
   private choiceIconGenerator(

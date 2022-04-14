@@ -29,7 +29,7 @@ export default class StartOrEndPointIconGenerator implements IconGenerator<Start
         if (point.startPoint) this.decorateStartPint(outline);
         else this.decorateEndPoint(outline);
 
-        outline.setUserData(new IconStatus(false));
+        outline.setUserData(new IconStatus());
 
         return outline;
     }
