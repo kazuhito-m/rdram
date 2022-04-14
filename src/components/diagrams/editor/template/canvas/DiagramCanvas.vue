@@ -502,17 +502,26 @@ export default class DiagramCanvas extends Vue {
     const compareNumberOverItem = sortedIconVMs
       .find(vm => vm.compareNumber() > targetIconVM.compareNumber());
 
-    // Debug
-    const allResources = new Resources(this.allResourcesOnCurrentProduct);
-    console.log("対象のIcon:", targetIconVM.toString(allResources));
-    sortedIconVMs
-      .forEach(i => console.log(i.toString(allResources)));
-    console.log("めっかったやつ:", compareNumberOverItem?.toString(allResources));
-
     if (!compareNumberOverItem) return;
 
     const afterIcon = compareNumberOverItem.icon;
-    icon.toFront(afterIcon);
+    icon.toBack(afterIcon);
+
+    // Debug
+    const allResources = new Resources(this.allResourcesOnCurrentProduct);
+    // console.log("対象のIcon:", targetIconVM.toString(allResources));
+    // sortedIconVMs
+    //   .forEach(i => console.log(i.toString(allResources)));
+    // console.log("めっかったやつ:", compareNumberOverItem?.toString(allResources));
+    // 
+    const figures = this.canvas
+      .getFigures()
+      .asArray() as Figure[];
+    console.log("最終的なZOrderを含めた結果。");
+    figures
+      .sort((l,r) => l.getZOrder() - r.getZOrder())
+      .map(i => new IconViewModel(i))
+      .forEach(i => console.log("ZOrder:",i.icon.getZOrder(), ", ID:", i.toString(allResources)));
   }
 
   private choiceIconGenerator(
