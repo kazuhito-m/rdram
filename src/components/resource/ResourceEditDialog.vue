@@ -56,6 +56,7 @@ import HasContentResource from "@/domain/resource/HasContentResource";
 import Variation from "@/domain/resource/Variation";
 import Condition from "@/domain/resource/Condition";
 import TableTypeCondition from "@/domain/resource/TableTypeCondition";
+import Diagram from "~/domain/diagram/Diagram";
 
 @Component({
   components: {
@@ -72,6 +73,9 @@ export default class ResourceEditDialog extends Vue {
 
   @Prop({ required: true })
   private readonly resourceType!: ResourceType;
+
+  @Prop({ required: true })
+  private readonly diagramId!: number;
 
   @Emit("onUpdatedResource")
   private onUpdatedResource(_resource: Resource): void {}
@@ -93,6 +97,8 @@ export default class ResourceEditDialog extends Vue {
   private targetCondition: Condition | null = null;
   private targetTableTypeCondition: TableTypeCondition | null = null;
 
+  private targetDiagram: Diagram | null = null;
+
   @Inject()
   private repository?: StrageRepository;
 
@@ -102,6 +108,7 @@ export default class ResourceEditDialog extends Vue {
     const resource = this.getTargetResource(resources);
 
     this.latestResources = resources;
+    this.targetDiagram = this.getTargetDiagram();
 
     // リソース別エディタ切り替え判定
 
@@ -215,6 +222,17 @@ export default class ResourceEditDialog extends Vue {
     this.repository?.registerCurrentProduct(product);
 
     return newResource;
+  }
+
+  private getTargetDiagram(): Diagram | null {
+    const product = this.repository?.getCurrentProduct();
+    if (!product) return null;
+
+    const diagram = product
+      .diagrams.of(this.diagramId);
+    return diagram 
+      ? diagram
+      : null;
   }
 }
 </script>

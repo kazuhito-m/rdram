@@ -31,6 +31,7 @@
         <ResourceEditDialog 
           :resourceId="editResourceId"
           :resourceType="editResourceType"
+          :diagramId="diagramId"
           @onUpdatedResource="onUpdatedResource"
           @onClose="onCloseResourceEditor"
         />
