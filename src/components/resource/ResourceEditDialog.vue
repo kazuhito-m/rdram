@@ -3,31 +3,31 @@
     <StandardResourceEditDialog
       :resource="targetStandaerdResource"
       :resources="latestResources"
-      @onModifyResource="onModifyStandardResource"
+      @onModifyResource="onModifyResource"
       @onClose="onCloseStandardResourceEditDialog"
     />
     <HasContentResourceEditDialog
       :resource="targetHasContentResource"
       :resources="latestResources"
-      @onModifyResource="onModifyHasContentResource"
+      @onModifyResource="onModifyResource"
       @onClose="onCloseHasContentResourceEditDialog"
     />
     <VariationEditDialog
       :resource="targetVariation"
       :resources="latestResources"
-      @onModifyResource="onModifyVariation"
+      @onModifyResource="onModifyResource"
       @onClose="onCloseVariationEditDialog"
     />
     <ConditionEditDialog
       :resource="targetCondition"
       :resources="latestResources"
-      @onModifyResource="onModifyCondition"
+      @onModifyResource="onModifyResource"
       @onClose="onCloseConditionEditDialog"
     />
     <TableTypeConditionEditDialog
       :resource="targetTableTypeCondition"
       :resources="latestResources"
-      @onModifyResource="onModifyTableTypeCondition"
+      @onModifyResource="onModifyResource"
       @onClose="onCloseTableTypeConditionEditDialog"
     />
   </div>
@@ -139,7 +139,7 @@ export default class ResourceEditDialog extends Vue {
     this.targetStandaerdResource = null;
   }
 
-  private onModifyStandardResource(resource: Resource): void {
+  private onModifyResource(resource: Resource): void {
     const registerd = this.registerResoruce(resource);
     this.onUpdatedResource(registerd);
   }
@@ -149,19 +149,9 @@ export default class ResourceEditDialog extends Vue {
     this.onClose();
   }
 
-  private onModifyHasContentResource(resource: HasContentResource): void {
-    const registerd = this.registerResoruce(resource);
-    this.onUpdatedResource(registerd);
-  }
-
   private onCloseHasContentResourceEditDialog(): void {
     this.targetHasContentResource = null;
     this.onClose();
-  }
-
-  private onModifyVariation(resource: Variation): void {
-    const registerd = this.registerResoruce(resource);
-    this.onUpdatedResource(registerd);
   }
 
   private onCloseVariationEditDialog(): void {
@@ -169,19 +159,9 @@ export default class ResourceEditDialog extends Vue {
     this.onClose();
   }
 
-  private onModifyCondition(resource: Condition): void {
-    const registerd = this.registerResoruce(resource);
-    this.onUpdatedResource(registerd);
-  }
-
   private onCloseConditionEditDialog(): void {
     this.targetCondition = null;
     this.onClose();
-  }
-
-  private onModifyTableTypeCondition(resource: TableTypeCondition): void {
-    const registerd = this.registerResoruce(resource);
-    this.onUpdatedResource(registerd);
   }
 
   private onCloseTableTypeConditionEditDialog(): void {
