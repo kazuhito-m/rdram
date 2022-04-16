@@ -225,11 +225,10 @@ export default class ResourceEditDialog extends Vue {
   }
 
   private getTargetDiagram(): Diagram | null {
-    const product = this.repository?.getCurrentProduct();
-    if (!product) return null;
-
-    const diagram = product
-      .diagrams.of(this.diagramId);
+    const diagram = this.repository
+      ?.getCurrentProduct()
+      ?.diagrams
+      .of(this.diagramId);
     return diagram 
       ? diagram
       : null;
