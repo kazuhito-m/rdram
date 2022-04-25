@@ -130,7 +130,7 @@ export default class Diagram {
             .some(placement => this.isStickOut(placement));
     }
 
-    public existsPlacementId(resourceId: number): boolean {
+    public existsResourceOnPlacementOf(resourceId: number): boolean {
         return this.placements
             .some(placement => placement.resourceId === resourceId);
     }

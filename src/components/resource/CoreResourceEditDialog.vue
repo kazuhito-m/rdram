@@ -192,11 +192,17 @@ export default class CoreResourceEditDialog extends Vue {
   }
 
   private logicalValidation(resource: Resource): boolean {
-    if (this.resources.existsSomeName(resource.name, resource.type)) {
-      alert(`既に重複した名前の${resource.type.name}が在ります。`);
-      return false;
+    if (!this.resources.existsSomeTypeAndNameOf(resource)) return true;
+
+    const typeName = resource.type.name;
+    const sameNameResource = this.resources.someTypeAndNameOf(resource) as Resource;
+    if (this.diagram.existsResourceOnPlacementOf(sameNameResource.resourceId)) {
+      alert(`既に重複した名前の${typeName}が在り、図に配置されています。`);
+    } else {
+      const result = confirm(`既に重複した名前の${typeName}が在ります。既存の${typeName}を図に配置しますか？`);
+      console.log(result);
     }
-    return true;
+    return false;
   }
 }
 </script>

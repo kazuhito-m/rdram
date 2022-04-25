@@ -585,7 +585,7 @@ export default class DiagramCanvas extends Vue {
 
     canvas.getFigures().each((_index: number, figure: any) => {
       const resourceId = Number(figure.id);
-      if (!diagram.existsPlacementId(resourceId)) canvas.remove(figure);
+      if (!diagram.existsResourceOnPlacementOf(resourceId)) canvas.remove(figure);
     });
   }
 
