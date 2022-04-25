@@ -3,30 +3,35 @@
     <StandardResourceEditDialog
       :resource="targetStandaerdResource"
       :resources="latestResources"
+      :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
       @onClose="onCloseStandardResourceEditDialog"
     />
     <HasContentResourceEditDialog
       :resource="targetHasContentResource"
       :resources="latestResources"
+      :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
       @onClose="onCloseHasContentResourceEditDialog"
     />
     <VariationEditDialog
       :resource="targetVariation"
       :resources="latestResources"
+      :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
       @onClose="onCloseVariationEditDialog"
     />
     <ConditionEditDialog
       :resource="targetCondition"
       :resources="latestResources"
+      :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
       @onClose="onCloseConditionEditDialog"
     />
     <TableTypeConditionEditDialog
       :resource="targetTableTypeCondition"
       :resources="latestResources"
+      :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
       @onClose="onCloseTableTypeConditionEditDialog"
     />
@@ -209,9 +214,7 @@ export default class ResourceEditDialog extends Vue {
       ?.getCurrentProduct()
       ?.diagrams
       .of(this.diagramId);
-    return diagram 
-      ? diagram
-      : null;
+    return diagram || null;
   }
 }
 </script>

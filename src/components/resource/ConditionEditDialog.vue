@@ -2,6 +2,7 @@
   <CoreResourceEditDialog
     :resource="resource"
     :resources="resources"
+    :diagram="diagram"
     :consent="consent"
     dialogWidth="450"
     @onModifyResource="onModifyResourceInner"
@@ -37,6 +38,7 @@ import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
 import Condition from "@/domain/resource/Condition";
+import Diagram from "@/domain/diagram/Diagram";
 
 @Component({
   components: {
@@ -49,6 +51,9 @@ export default class ConditionEditDialog extends Vue {
 
   @Prop({ required: true })
   private readonly resources!: Resources;
+
+  @Prop({ required: true })
+  private readonly diagram!: Diagram;
 
   @Emit("onModifyResource")
   private onModifyResource(_resource: Resource): void {}

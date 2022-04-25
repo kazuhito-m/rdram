@@ -2,6 +2,7 @@
   <CoreResourceEditDialog
     :resource="resource"
     :resources="resources"
+    :diagram="diagram"
     :consent="consent"
     dialogWidth="450"
     ignoreEscKey="true"
@@ -35,6 +36,7 @@ import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
 import Variation from "@/domain/resource/Variation";
+import Diagram from "@/domain/diagram/Diagram";
 
 @Component({
   components: {
@@ -47,6 +49,9 @@ export default class VariationEditDialog extends Vue {
 
   @Prop({ required: true })
   private readonly resources!: Resources;
+
+  @Prop({ required: true })
+  private readonly diagram!: Diagram;
 
   @Emit("onModifyResource")
   private onModifyResource(_resource: Resource): void {}

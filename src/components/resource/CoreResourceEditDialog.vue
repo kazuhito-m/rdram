@@ -58,6 +58,7 @@ import PropertiesSettingDialog from "@/components/PropertiesSettingDialog.vue";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
+import Diagram from "@/domain/diagram/Diagram";
 
 @Component({
   components: { PropertiesSettingDialog }
@@ -68,6 +69,9 @@ export default class CoreResourceEditDialog extends Vue {
 
   @Prop({ required: true })
   private readonly resources!: Resources;
+
+  @Prop({ required: true })
+  private readonly diagram!: Diagram;
 
   @Prop({ required: true })
   private readonly consent!: boolean;
