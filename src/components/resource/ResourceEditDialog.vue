@@ -26,6 +26,7 @@
       :resources="latestResources"
       :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
       @onClose="onCloseConditionEditDialog"
     />
     <TableTypeConditionEditDialog
@@ -147,6 +148,10 @@ export default class ResourceEditDialog extends Vue {
   private onModifyResource(resource: Resource): void {
     const registerd = this.registerResoruce(resource);
     this.onUpdatedResource(registerd);
+  }
+
+  private onJustPutOnDiagram(resource: Resource): void {
+    this.onUpdatedResource(resource);
   }
 
   private onCloseStandardResourceEditDialog(): void {

@@ -91,6 +91,9 @@ export default class CoreResourceEditDialog extends Vue {
   @Emit("onModifyResource")
   private onModifyResource(_resource: Resource): void {}
 
+  @Emit("onJustPutOnDiagram")
+  private onJustPutOnDiagram(_resource: Resource): void {}
+
   @Emit("onClose")
   private onClose(): void {}
 
@@ -190,7 +193,7 @@ export default class CoreResourceEditDialog extends Vue {
       } else {
         const result = confirm(`既に重複した名前の${typeName}が在ります。既存の${typeName}を図に配置しますか？`);
         if (result) {
-          // TODO 保存せずに既存のリソースを配置だけするイベントを通知。
+          this.onJustPutOnDiagram(sameNameResource);
           this.onClose();
         }
       }
