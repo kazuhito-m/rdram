@@ -6,6 +6,7 @@
     :consent="consent"
     dialogWidth="450"
     @onModifyResource="onModifyResource"
+    @onJustPutOnDiagram="onJustPutOnDiagram"
     @onClose="onClose"
     @changeConsent="changeConsent"
   />
@@ -40,6 +41,9 @@ export default class StandardResourceEditDialog extends Vue {
 
   @Emit("onModifyResource")
   private onModifyResource(_resource: Resource): void {}
+
+  @Emit("onJustPutOnDiagram")
+  private onJustPutOnDiagram(_resource: Resource): void {}
 
   @Emit("onClose")
   private onClose(): void {}

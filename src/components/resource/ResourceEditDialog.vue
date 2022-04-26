@@ -5,6 +5,7 @@
       :resources="latestResources"
       :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
       @onClose="onCloseStandardResourceEditDialog"
     />
     <HasContentResourceEditDialog
@@ -12,6 +13,7 @@
       :resources="latestResources"
       :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
       @onClose="onCloseHasContentResourceEditDialog"
     />
     <VariationEditDialog
@@ -19,6 +21,7 @@
       :resources="latestResources"
       :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
       @onClose="onCloseVariationEditDialog"
     />
     <ConditionEditDialog
@@ -34,6 +37,7 @@
       :resources="latestResources"
       :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
       @onClose="onCloseTableTypeConditionEditDialog"
     />
   </div>

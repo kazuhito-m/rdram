@@ -7,6 +7,7 @@
     dialogWidth="450"
     notFocusSetName="true"
     @onModifyResource="onModifyResourceInner"
+    @onJustPutOnDiagram="onJustPutOnDiagram"
     @onClose="onClose"
     @showCustomProperties="showCustomProperties"
     @changeConsent="changeConsent"
@@ -64,6 +65,9 @@ export default class HasContentResourceEditDialog extends Vue {
 
   @Emit("onModifyResource")
   private onModifyResource(_resource: Resource): void {}
+
+  @Emit("onJustPutOnDiagram")
+  private onJustPutOnDiagram(_resource: Resource): void {}
 
   @Emit("onClose")
   private onClose(): void {}
