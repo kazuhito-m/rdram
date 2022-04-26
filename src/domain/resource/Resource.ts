@@ -15,6 +15,11 @@ export default class Resource {
 
     public readonly deletable: boolean = true;
 
+    public sameTypeAndNameOf(other: Resource) {
+        return this.type.equals(other.type)
+            && this.name === other.name;
+    }
+
     public with(name: string, description: string): Resource {
         const clone = this.clone() as any;
         clone.name = name;

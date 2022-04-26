@@ -2,11 +2,13 @@
   <CoreResourceEditDialog
     :resource="resource"
     :resources="resources"
+    :diagram="diagram"
     :consent="consent"
     ignoreEscKey="true"
     ignoreEnterKey="true"
     dialogWidth="600"
     @onModifyResource="onModifyResourceInner"
+    @onJustPutOnDiagram="onJustPutOnDiagram"
     @onClose="onClose"
     @showCustomProperties="showCustomProperties"
     @changeConsent="changeConsent"
@@ -39,6 +41,7 @@ import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
 import TableTypeCondition from "@/domain/resource/TableTypeCondition";
 import Condition from "@/domain/resource/Condition";
+import Diagram from "@/domain/diagram/Diagram";
 
 @Component({
   components: {
@@ -52,8 +55,14 @@ export default class TableTypeConditionEditDialog extends Vue {
   @Prop({ required: true })
   private readonly resources!: Resources;
 
+  @Prop({ required: true })
+  private readonly diagram!: Diagram;
+
   @Emit("onModifyResource")
   private onModifyResource(_resource: Resource): void {}
+
+  @Emit("onJustPutOnDiagram")
+  private onJustPutOnDiagram(_resource: Resource): void {}
 
   @Emit("onClose")
   private onClose(): void {}

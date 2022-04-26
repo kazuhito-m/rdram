@@ -3,31 +3,41 @@
     <StandardResourceEditDialog
       :resource="targetStandaerdResource"
       :resources="latestResources"
-      @onModifyResource="onModifyStandardResource"
+      :diagram="targetDiagram"
+      @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
       @onClose="onCloseStandardResourceEditDialog"
     />
     <HasContentResourceEditDialog
       :resource="targetHasContentResource"
       :resources="latestResources"
-      @onModifyResource="onModifyHasContentResource"
+      :diagram="targetDiagram"
+      @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
       @onClose="onCloseHasContentResourceEditDialog"
     />
     <VariationEditDialog
       :resource="targetVariation"
       :resources="latestResources"
-      @onModifyResource="onModifyVariation"
+      :diagram="targetDiagram"
+      @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
       @onClose="onCloseVariationEditDialog"
     />
     <ConditionEditDialog
       :resource="targetCondition"
       :resources="latestResources"
-      @onModifyResource="onModifyCondition"
+      :diagram="targetDiagram"
+      @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
       @onClose="onCloseConditionEditDialog"
     />
     <TableTypeConditionEditDialog
       :resource="targetTableTypeCondition"
       :resources="latestResources"
-      @onModifyResource="onModifyTableTypeCondition"
+      :diagram="targetDiagram"
+      @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
       @onClose="onCloseTableTypeConditionEditDialog"
     />
   </div>
@@ -56,6 +66,7 @@ import HasContentResource from "@/domain/resource/HasContentResource";
 import Variation from "@/domain/resource/Variation";
 import Condition from "@/domain/resource/Condition";
 import TableTypeCondition from "@/domain/resource/TableTypeCondition";
+import Diagram from "~/domain/diagram/Diagram";
 
 @Component({
   components: {
@@ -72,6 +83,9 @@ export default class ResourceEditDialog extends Vue {
 
   @Prop({ required: true })
   private readonly resourceType!: ResourceType;
+
+  @Prop({ required: true })
+  private readonly diagramId!: number;
 
   @Emit("onUpdatedResource")
   private onUpdatedResource(_resource: Resource): void {}
@@ -93,6 +107,8 @@ export default class ResourceEditDialog extends Vue {
   private targetCondition: Condition | null = null;
   private targetTableTypeCondition: TableTypeCondition | null = null;
 
+  private targetDiagram: Diagram | null = null;
+
   @Inject()
   private repository?: StrageRepository;
 
@@ -102,6 +118,7 @@ export default class ResourceEditDialog extends Vue {
     const resource = this.getTargetResource(resources);
 
     this.latestResources = resources;
+    this.targetDiagram = this.getTargetDiagram();
 
     // リソース別エディタ切り替え判定
 
@@ -132,9 +149,13 @@ export default class ResourceEditDialog extends Vue {
     this.targetStandaerdResource = null;
   }
 
-  private onModifyStandardResource(resource: Resource): void {
+  private onModifyResource(resource: Resource): void {
     const registerd = this.registerResoruce(resource);
     this.onUpdatedResource(registerd);
+  }
+
+  private onJustPutOnDiagram(resource: Resource): void {
+    this.onUpdatedResource(resource);
   }
 
   private onCloseStandardResourceEditDialog(): void {
@@ -142,19 +163,9 @@ export default class ResourceEditDialog extends Vue {
     this.onClose();
   }
 
-  private onModifyHasContentResource(resource: HasContentResource): void {
-    const registerd = this.registerResoruce(resource);
-    this.onUpdatedResource(registerd);
-  }
-
   private onCloseHasContentResourceEditDialog(): void {
     this.targetHasContentResource = null;
     this.onClose();
-  }
-
-  private onModifyVariation(resource: Variation): void {
-    const registerd = this.registerResoruce(resource);
-    this.onUpdatedResource(registerd);
   }
 
   private onCloseVariationEditDialog(): void {
@@ -162,19 +173,9 @@ export default class ResourceEditDialog extends Vue {
     this.onClose();
   }
 
-  private onModifyCondition(resource: Condition): void {
-    const registerd = this.registerResoruce(resource);
-    this.onUpdatedResource(registerd);
-  }
-
   private onCloseConditionEditDialog(): void {
     this.targetCondition = null;
     this.onClose();
-  }
-
-  private onModifyTableTypeCondition(resource: TableTypeCondition): void {
-    const registerd = this.registerResoruce(resource);
-    this.onUpdatedResource(registerd);
   }
 
   private onCloseTableTypeConditionEditDialog(): void {
@@ -215,6 +216,14 @@ export default class ResourceEditDialog extends Vue {
     this.repository?.registerCurrentProduct(product);
 
     return newResource;
+  }
+
+  private getTargetDiagram(): Diagram | null {
+    const diagram = this.repository
+      ?.getCurrentProduct()
+      ?.diagrams
+      .of(this.diagramId);
+    return diagram || null;
   }
 }
 </script>

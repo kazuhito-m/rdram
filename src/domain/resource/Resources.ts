@@ -29,10 +29,14 @@ export default class Resources {
             .some(resource => resource.resourceId === resourceId);
     }
 
-    public existsSomeName(name: string, type: ResourceType): boolean {
+    public existsSomeTypeAndNameOf(resource: Resource): boolean {
         return this.values
-            .filter(resource => resource.name === name)
-            .some(resource => resource.type.equals(type));
+            .some(r => r.sameTypeAndNameOf(resource));
+    }
+
+    public someTypeAndNameOf(resource: Resource): Resource | undefined {
+        return this.values
+            .find(r => r.sameTypeAndNameOf(resource));
     }
 
     public of(resourceId: number): Resource | undefined {

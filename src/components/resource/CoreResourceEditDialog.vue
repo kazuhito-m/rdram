@@ -58,6 +58,7 @@ import PropertiesSettingDialog from "@/components/PropertiesSettingDialog.vue";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
+import Diagram from "@/domain/diagram/Diagram";
 
 @Component({
   components: { PropertiesSettingDialog }
@@ -68,6 +69,9 @@ export default class CoreResourceEditDialog extends Vue {
 
   @Prop({ required: true })
   private readonly resources!: Resources;
+
+  @Prop({ required: true })
+  private readonly diagram!: Diagram;
 
   @Prop({ required: true })
   private readonly consent!: boolean;
@@ -86,6 +90,9 @@ export default class CoreResourceEditDialog extends Vue {
 
   @Emit("onModifyResource")
   private onModifyResource(_resource: Resource): void {}
+
+  @Emit("onJustPutOnDiagram")
+  private onJustPutOnDiagram(_resource: Resource): void {}
 
   @Emit("onClose")
   private onClose(): void {}
@@ -175,24 +182,27 @@ export default class CoreResourceEditDialog extends Vue {
 
   private onClickUpdateExecute(): void {
     if (!this.consent) return;
-    const resource = this.getInputResource();
-    if (resource === null) return;
-    this.onModifyResource(resource);
-    this.onClose();
-  }
 
-  private getInputResource(): Resource | null {
-    const newResource = this.resource.with(this.name, this.description);
-    if (!this.logicalValidation(newResource)) return null;
-    return newResource;
-  }
+    const resource = this.resource.with(this.name, this.description);
 
-  private logicalValidation(resource: Resource): boolean {
-    if (this.resources.existsSomeName(resource.name, resource.type)) {
-      alert(`既に重複した名前の${resource.type.name}が在ります。`);
-      return false;
+    if (!this.resources.existsSomeTypeAndNameOf(resource)) {
+      this.onModifyResource(resource);
+      this.onClose();
+      return;
     }
-    return true;
+
+    const typeName = resource.type.name;
+    const sameNameResource = this.resources.someTypeAndNameOf(resource) as Resource;
+    if (this.diagram.existsResourceOnPlacementOf(sameNameResource.resourceId)) {
+      alert(`既に重複した名前の${typeName}が在り、図に配置されています。`);
+      return;
+    }
+
+    const result = confirm(`既に重複した名前の${typeName}が在ります。既存の${typeName}を図に配置しますか？`);
+    if (!result) return;
+
+    this.onJustPutOnDiagram(sameNameResource);
+    this.onClose();
   }
 }
 </script>
