@@ -179,30 +179,26 @@ export default class CoreResourceEditDialog extends Vue {
 
   private onClickUpdateExecute(): void {
     if (!this.consent) return;
-    const resource = this.getInputResource();
-    if (resource === null) return;
+
+    const resource = this.resource.with(this.name, this.description);
+
+    if (this.resources.existsSomeTypeAndNameOf(resource)) {
+      const typeName = resource.type.name;
+      const sameNameResource = this.resources.someTypeAndNameOf(resource) as Resource;
+      if (this.diagram.existsResourceOnPlacementOf(sameNameResource.resourceId)) {
+        alert(`既に重複した名前の${typeName}が在り、図に配置されています。`);
+        return;
+      } else {
+        const result = confirm(`既に重複した名前の${typeName}が在ります。既存の${typeName}を図に配置しますか？`);
+        console.log(result);
+        // TODO 保存せずに既存のリソースを配置だけするイベントを通知。
+        this.onClose();
+        return;
+      }
+    }
+
     this.onModifyResource(resource);
     this.onClose();
-  }
-
-  private getInputResource(): Resource | null {
-    const newResource = this.resource.with(this.name, this.description);
-    if (!this.logicalValidation(newResource)) return null;
-    return newResource;
-  }
-
-  private logicalValidation(resource: Resource): boolean {
-    if (!this.resources.existsSomeTypeAndNameOf(resource)) return true;
-
-    const typeName = resource.type.name;
-    const sameNameResource = this.resources.someTypeAndNameOf(resource) as Resource;
-    if (this.diagram.existsResourceOnPlacementOf(sameNameResource.resourceId)) {
-      alert(`既に重複した名前の${typeName}が在り、図に配置されています。`);
-    } else {
-      const result = confirm(`既に重複した名前の${typeName}が在ります。既存の${typeName}を図に配置しますか？`);
-      console.log(result);
-    }
-    return false;
   }
 }
 </script>
