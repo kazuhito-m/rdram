@@ -28,9 +28,6 @@
       <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>mdi-application</v-icon>
       </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
@@ -88,7 +85,7 @@
 
       </v-list>
     </v-navigation-drawer>
-    <v-footer :absolute="!fixed" app>
+    <v-footer app>
 
       <span>
         &copy; {{ new Date().getFullYear() }}
@@ -165,7 +162,6 @@ import TangoRdraFileService from '@/application/service/tangordra/TangoRdraFileS
 export default class extends Vue {
   clipped = false
   drawer = false
-  fixed = false
 
   right = true
   rightDrawer = false
