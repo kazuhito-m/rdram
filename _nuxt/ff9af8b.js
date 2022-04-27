@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[11,4,19,21,22,23,24,25,26,27,28,34,36,37,38,39,41,42,43,45,46,50,53,59,66,67,74,76,78,79,80,83,84,85,86,87,88,89,90],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[9,4,10,19,21,22,23,24,25,26,27,28,31,33,54,63,66,67,78,79,80,83,84,85,86,87,88,89,90],{
 
 /***/ 766:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -392,76 +392,6 @@ installComponents_default()(component, {VCol: VCol["a" /* default */],VContainer
 
 /***/ }),
 
-/***/ 769:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GenericSingleIconGenerator; });
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(544);
-/* harmony import */ var core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(274);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(766);
-
-
-
-
-
-
-
-var GenericSingleIconGenerator = /*#__PURE__*/function () {
-  function GenericSingleIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, GenericSingleIconGenerator);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(GenericSingleIconGenerator, [{
-    key: "generate",
-    value: function generate(placement, resource, iconChar) {
-      var padding = 0;
-      var id = String(placement.resourceId);
-      var icon = new draw2d__WEBPACK_IMPORTED_MODULE_4___default.a.shape.basic.Label({
-        x: placement.x,
-        y: placement.y,
-        fontFamily: iconChar.fontFamily,
-        text: iconChar.charactor,
-        fontSize: 40,
-        stroke: 0,
-        padding: padding,
-        bgColor: "#FFFFFF",
-        resizable: false,
-        alpha: 1,
-        id: id
-      });
-      var name = new draw2d__WEBPACK_IMPORTED_MODULE_4___default.a.shape.basic.Label({
-        text: resource.name,
-        stroke: 0,
-        padding: padding,
-        resizable: false,
-        selectable: false
-      });
-      icon.createPort("hybrid", new draw2d__WEBPACK_IMPORTED_MODULE_4___default.a.layout.locator.CenterLocator()); // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
-
-      var port = icon.getPorts().last();
-      var anchor = new draw2d__WEBPACK_IMPORTED_MODULE_4___default.a.layout.anchor.ChopboxConnectionAnchor(icon);
-      port.setConnectionAnchor(anchor);
-      icon.add(name, new draw2d__WEBPACK_IMPORTED_MODULE_4___default.a.layout.locator.BottomLocator());
-      icon.setUserData(new _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_5__["default"]());
-      return icon;
-    }
-  }]);
-
-  return GenericSingleIconGenerator;
-}();
-
-
-
-/***/ }),
-
 /***/ 770:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -712,73 +642,6 @@ function get_get() {
 
   return get_get.apply(this, arguments);
 }
-
-/***/ }),
-
-/***/ 772:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TopLeftLocator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(274);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_7__);
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-/**
- * draw2dのToLocatorが「上に付くが、横位置は真ん中に固定」なので、
- * 「上について横位置は左端」というロケータが欲しくて、自力で実装したもの。
- */
-
-var TopLeftLocator = /*#__PURE__*/function (_draw2d$layout$locato) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(TopLeftLocator, _draw2d$layout$locato);
-
-  var _super = _createSuper(TopLeftLocator);
-
-  function TopLeftLocator(attr, setter, getter) {
-    var _this;
-
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, TopLeftLocator);
-
-    _this = _super.call(this, attr, setter, getter);
-    _this.NAME = 'draw2d.layout.locator.TopLeftLocator';
-    _this.padding = 0;
-    return _this;
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(TopLeftLocator, [{
-    key: "relocate",
-    value: function relocate(_index, target) {
-      var targetBoundingBox = target.getBoundingBox();
-      var y = 0;
-      if (!(target instanceof draw2d__WEBPACK_IMPORTED_MODULE_7___default.a.Port)) y = -targetBoundingBox.h - 2;
-      target.setPosition(0, y);
-    }
-  }]);
-
-  return TopLeftLocator;
-}(draw2d__WEBPACK_IMPORTED_MODULE_7___default.a.layout.locator.TopLocator);
-
-
 
 /***/ }),
 
@@ -4476,7 +4339,7 @@ var RouterTypeDraw2dConverter = /*#__PURE__*/function () {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue?vue&type=template&id=e3af432e&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue?vue&type=template&id=23bb05e2&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-toolbar',{staticClass:"canvas-float-toolbar",attrs:{"id":_vm.toolBarId,"draggable":"","dense":"","floating":"","outlined":"","rounded":"","shaped":"","short":"","collapse":_vm.toolBarCollapse},on:{"dragstart":_vm.onDragStartToolBar,"mousedown":_vm.onMouseDownToolBar}},[_c('v-btn',{attrs:{"dark":"","icon":""},on:{"click":_vm.onClickEditDiagramProperties}},[_c('v-icon',[_vm._v("mdi-content-save-edit-outline")])],1),_vm._v(" "),_c('v-spacer'),_vm._v(" "),(!_vm.toolBarCollapse)?_c('v-card',[_c('CanvasZoomSlider',{attrs:{"canvasZoom":_vm.canvasZoom},on:{"onChangeZoomBySlider":_vm.onChangeZoom}})],1):_vm._e(),_vm._v(" "),(!_vm.toolBarCollapse)?_c('span',{on:{"dblclick":function($event){return _vm.onDblClickZoomPercentage()}}},[_vm._v(_vm._s(_vm.calcZoomPercentage()))]):_vm._e(),_vm._v(" "),(!_vm.toolBarCollapse)?_c('v-menu',{attrs:{"top":"","offset-y":""},scopedSlots:_vm._u([{key:"activator",fn:function(ref){
 var on = ref.on;
 var attrs = ref.attrs;
@@ -4484,7 +4347,7 @@ return [_c('v-btn',_vm._g(_vm._b({attrs:{"dark":"","small":"","icon":""}},'v-btn
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue?vue&type=template&id=e3af432e&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue?vue&type=template&id=23bb05e2&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(36);
@@ -4584,7 +4447,7 @@ var CanvasSettingToolBarvue_type_script_lang_ts_CanvasSettingToolBar = CanvasSet
     Object(classCallCheck["a" /* default */])(this, CanvasSettingToolBar);
 
     _this = _super.apply(this, arguments);
-    _this.toolBarCollapse = false;
+    _this.toolBarCollapse = true;
     _this.dragStartLayerX = 0;
     _this.dragStartLayerY = 0;
     _this.lastContainerWidth = 0;
@@ -5395,63 +5258,6 @@ var FigureAnalyzer = /*#__PURE__*/function () {
 
   return FigureAnalyzer;
 }();
-
-
-
-/***/ }),
-
-/***/ 821:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ActorIconGenerator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
-/* harmony import */ var _components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(769);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1);
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-var ActorIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(ActorIconGenerator, _GenericSingleIconGen);
-
-  var _super = _createSuper(ActorIconGenerator);
-
-  function ActorIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, ActorIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(ActorIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].アクター;
-    }
-  }]);
-
-  return ActorIconGenerator;
-}(_components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__["default"]);
 
 
 
@@ -6320,12 +6126,12 @@ installComponents(component, {ResourceEditDialog: __webpack_require__(784).defau
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/paret/ResourceParet.vue?vue&type=template&id=3dc2124c&lang=html&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/paret/ResourceParet.vue?vue&type=template&id=d0e65f82&lang=html&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"paret-panel"},[_c('v-expansion-panels',{attrs:{"multiple":"","focusable":"","dark":""},model:{value:(_vm.paretsOpen),callback:function ($$v) {_vm.paretsOpen=$$v},expression:"paretsOpen"}},[_vm._l((_vm.availableResourceTypes),function(resourceType){return _c('v-expansion-panel',{key:resourceType.id},[_c('v-expansion-panel-header',[_c('div',{staticClass:"omit-long-text"},[_c('v-icon',{attrs:{"id":resourceType.iconKey}},[_vm._v(_vm._s(resourceType.iconKey))]),_vm._v("\n        "+_vm._s(resourceType.name)+"\n      ")],1)]),_vm._v(" "),_c('v-expansion-panel-content',[_c('v-list',{attrs:{"dark":"","dence":""}},[_c('v-list-item',[_c('v-list-item-content',[_c('v-list-item-title',{staticClass:"chip-container"},[_c('v-chip',{attrs:{"color":"primary","dark":"","outlined":"","draggable":"","data-resource-type-id":resourceType.id},on:{"dragstart":_vm.onDragStartNewCompany}},[_c('v-icon',[_vm._v(_vm._s(resourceType.iconKey))]),_vm._v("新規追加\n              ")],1)],1)],1)],1),_vm._v(" "),_vm._l((_vm.allResourcesOnCurrentProduct.filter(function (r) { return _vm.filterDisplayParet(r, resourceType, _vm.usedResouceIds); })),function(resource){return _c('v-list-item',{key:resource.resourceId},[_c('v-list-item-content',[_c('v-list-item-title',{staticClass:"chip-container"},[_c('v-chip',{attrs:{"data-resource-id":resource.resourceId,"color":"primary","dark":"","draggable":""},on:{"dragstart":_vm.onDragStartResource,"contextmenu":_vm.onRightClickResource}},[_c('v-icon',[_vm._v(_vm._s(resourceType.iconKey))]),_vm._v("\n                "+_vm._s(resource.name)+"\n              ")],1)],1)],1)],1)})],2)],1)],1)}),_vm._v(" "),_c('v-expansion-panel',[_c('v-expansion-panel-header',[_c('div',{staticClass:"omit-long-text"},[_c('v-icon',[_vm._v("mdi-clipboard-check-multiple-outline")]),_vm._v("この図で使用済\n      ")],1)]),_vm._v(" "),_c('v-expansion-panel-content',[_c('v-list',{attrs:{"dark":"","dence":""}},_vm._l((_vm.allResourcesOnCurrentProduct.filter(function (r) { return _vm.filterUsedList(r, _vm.usedResouceIds); })),function(usedResource){return _c('v-list-item',{key:usedResource.id},[_c('v-list-item-content',[_c('v-list-item-title',{staticClass:"chip-container"},[_c('v-chip',{attrs:{"dark":"","data-resource-id":usedResource.resourceId,"data-resource-on-diagram":"true"},on:{"contextmenu":_vm.onRightClickResource}},[_c('v-icon',[_vm._v(_vm._s(_vm.iconKeyOf(usedResource)))]),_vm._v("\n                "+_vm._s(usedResource.name)+"\n              ")],1)],1)],1)],1)}),1)],1)],1),_vm._v(" "),_c('v-menu',{attrs:{"value":_vm.rightClickedResourceId,"close-on-click":true,"close-on-content-click":true,"offset-x":true,"rounded":true,"position-x":_vm.rightClickedResourceX,"position-y":_vm.rightClickedResourceY}},[_c('v-list',[(_vm.rightClickedResourceOnDiagram)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuDeleteResourceOnDiagram}},[_c('v-list-item-title',[_vm._v("このダイアグラムから削除")])],1):_vm._e(),_vm._v(" "),(_vm.rightClickedResourceOnProduct)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuDeleteResourceOnProduct}},[_c('v-list-item-title',[_vm._v("プロダクト全体から削除")])],1):_vm._e()],1)],1)],2)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/template/paret/ResourceParet.vue?vue&type=template&id=3dc2124c&lang=html&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/template/paret/ResourceParet.vue?vue&type=template&id=d0e65f82&lang=html&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(36);
@@ -6442,10 +6248,6 @@ var ResourceParetvue_type_script_lang_ts_ResourceParet = /*#__PURE__*/function (
       diagram.availableResourceTypes().forEach(function (resourceType) {
         return _this2.availableResourceTypes.push(resourceType);
       });
-
-      for (var i = 0; i < this.availableResourceTypes.length + 1; i++) {
-        this.paretsOpen.push(i);
-      }
     }
   }, {
     key: "onDragStartNewCompany",
@@ -6660,937 +6462,12 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 826:
+/***/ 839:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GenericAreaIconGenerator; });
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(274);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _IconZOrderLevel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(767);
-/* harmony import */ var _draw2d_custom_TopLeftLocator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(772);
-/* harmony import */ var _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(766);
-
-
-
-
-
-
-
-
-var GenericAreaIconGenerator = /*#__PURE__*/function () {
-  function GenericAreaIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, GenericAreaIconGenerator);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(GenericAreaIconGenerator, [{
-    key: "generate",
-    value: function generate(placement, resource, iconChar) {
-      var id = String(placement.resourceId);
-      var waku = new draw2d__WEBPACK_IMPORTED_MODULE_3___default.a.shape.basic.Rectangle({
-        x: placement.x,
-        y: placement.y,
-        bgColor: "#FFFFFF",
-        alpha: 0.6,
-        width: placement.width,
-        height: placement.height,
-        radius: 5,
-        stroke: 3,
-        selectable: true,
-        resizable: true,
-        padding: 0,
-        keepAspectRatio: false,
-        id: id
-      });
-      var icon = new draw2d__WEBPACK_IMPORTED_MODULE_3___default.a.shape.basic.Label({
-        fontFamily: iconChar.fontFamily,
-        text: iconChar.charactor,
-        fontSize: 30,
-        stroke: 0,
-        padding: 0,
-        bgColor: "#FFFFFF",
-        alpha: 1
-      });
-      var name = new draw2d__WEBPACK_IMPORTED_MODULE_3___default.a.shape.basic.Label({
-        text: resource.name,
-        stroke: 0,
-        padding: 0,
-        resizable: false,
-        selectable: false
-      });
-      waku.createPort("hybrid", new draw2d__WEBPACK_IMPORTED_MODULE_3___default.a.layout.locator.XYAbsPortLocator({
-        x: 15,
-        y: -17
-      }));
-      icon.add(name, new draw2d__WEBPACK_IMPORTED_MODULE_3___default.a.layout.locator.XYRelPortLocator({
-        x: 105,
-        y: 27
-      }));
-      waku.add(icon, new _draw2d_custom_TopLeftLocator__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]());
-      waku.setUserData(new _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_6__["default"](_IconZOrderLevel__WEBPACK_IMPORTED_MODULE_4__["default"].AREA));
-      return waku;
-    }
-  }]);
-
-  return GenericAreaIconGenerator;
-}();
-
-
-
-/***/ }),
-
-/***/ 828:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return InHouseSystemIconGenerator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
-/* harmony import */ var _components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(769);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1);
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-var InHouseSystemIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(InHouseSystemIconGenerator, _GenericSingleIconGen);
-
-  var _super = _createSuper(InHouseSystemIconGenerator);
-
-  function InHouseSystemIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, InHouseSystemIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(InHouseSystemIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].自社システム;
-    }
-  }]);
-
-  return InHouseSystemIconGenerator;
-}(_components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__["default"]);
-
-
-
-/***/ }),
-
-/***/ 829:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return OutsideSystemIconGenerator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
-/* harmony import */ var _components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(769);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1);
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-var OutsideSystemIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(OutsideSystemIconGenerator, _GenericSingleIconGen);
-
-  var _super = _createSuper(OutsideSystemIconGenerator);
-
-  function OutsideSystemIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, OutsideSystemIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(OutsideSystemIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].外部システム;
-    }
-  }]);
-
-  return OutsideSystemIconGenerator;
-}(_components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__["default"]);
-
-
-
-/***/ }),
-
-/***/ 830:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return InformationIconGenerator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
-/* harmony import */ var _components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(769);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1);
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-var InformationIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(InformationIconGenerator, _GenericSingleIconGen);
-
-  var _super = _createSuper(InformationIconGenerator);
-
-  function InformationIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, InformationIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(InformationIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].情報;
-    }
-  }]);
-
-  return InformationIconGenerator;
-}(_components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__["default"]);
-
-
-
-/***/ }),
-
-/***/ 836:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return FacilityIconGenerator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
-/* harmony import */ var _components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(769);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1);
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-var FacilityIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(FacilityIconGenerator, _GenericSingleIconGen);
-
-  var _super = _createSuper(FacilityIconGenerator);
-
-  function FacilityIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, FacilityIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(FacilityIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].住宅;
-    }
-  }]);
-
-  return FacilityIconGenerator;
-}(_components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__["default"]);
-
-
-
-/***/ }),
-
-/***/ 837:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ConditionIconGenerator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(771);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(9);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(20);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(544);
-/* harmony import */ var core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(274);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _draw2d_custom_TopLeftLocator__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(772);
-/* harmony import */ var _components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(769);
-/* harmony import */ var _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(766);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(1);
-
-
-
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-
-
-var ConditionIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(ConditionIconGenerator, _GenericSingleIconGen);
-
-  var _super = _createSuper(ConditionIconGenerator);
-
-  function ConditionIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, ConditionIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(ConditionIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].条件;
-    }
-  }, {
-    key: "generate",
-    value: function generate(placement, condition, iconChar) {
-      if (placement.alias) return Object(_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(ConditionIconGenerator.prototype), "generate", this).call(this, placement, condition, iconChar);
-      return this.generateConditionTable(placement, condition, iconChar);
-    }
-  }, {
-    key: "generateConditionTable",
-    value: function generateConditionTable(placement, condition, iconChar) {
-      var id = String(placement.resourceId);
-      var label = new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.shape.basic.Label({
-        text: condition.name
-      });
-      label.setResizeable(true);
-      label.setFontColor("#FFFFFF");
-      label.setBold(true);
-      label.setStroke(2);
-      label.setColor("#FFFFFF");
-      label.setPadding(2);
-      label.setBackgroundColor("#2FA3EE");
-      var container = new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.shape.layout.TableLayout({
-        id: id,
-        x: placement.x,
-        y: placement.y,
-        padding: 1,
-        stroke: 1
-      });
-      var valueLabel = new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.shape.basic.Label({
-        text: condition.value
-      });
-      valueLabel.setResizeable(true);
-      valueLabel.setPadding(2);
-      valueLabel.setStroke(2);
-      valueLabel.setColor("#FFFFFF");
-      valueLabel.setBackgroundColor("#E8F0FC");
-      container.addRow(label, valueLabel);
-      var icon = new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.shape.basic.Label({
-        fontFamily: iconChar.fontFamily,
-        text: iconChar.charactor,
-        fontSize: 30,
-        stroke: 0,
-        padding: 0,
-        bgColor: "none",
-        alpha: 1
-      });
-      var name = new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.shape.basic.Label({
-        text: condition.name,
-        stroke: 0,
-        padding: 0,
-        resizable: false,
-        selectable: false
-      });
-      icon.add(name, new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.layout.locator.XYRelPortLocator({
-        x: 105,
-        y: 27
-      }));
-      container.add(icon, new _draw2d_custom_TopLeftLocator__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"]());
-      container.createPort("hybrid", new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.layout.locator.CenterLocator()); // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
-
-      var port = container.getPorts().last();
-      var anchor = new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.layout.anchor.FanConnectionAnchor(container);
-      port.setConnectionAnchor(anchor);
-      container.setUserData(new _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_13__["default"]());
-      return container;
-    }
-  }]);
-
-  return ConditionIconGenerator;
-}(_components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_12__["default"]);
-
-
-
-/***/ }),
-
-/***/ 838:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TableTypeConditionIconGenerator; });
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(80);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(771);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(9);
-/* harmony import */ var core_js_modules_es_array_map_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(32);
-/* harmony import */ var core_js_modules_es_array_map_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_map_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(17);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(20);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(544);
-/* harmony import */ var core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(274);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _draw2d_custom_TopLeftLocator__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(772);
-/* harmony import */ var _components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(769);
-/* harmony import */ var _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(766);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(1);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-
-
-var TableTypeConditionIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(TableTypeConditionIconGenerator, _GenericSingleIconGen);
-
-  var _super = _createSuper(TableTypeConditionIconGenerator);
-
-  function TableTypeConditionIconGenerator() {
-    var _this;
-
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, TableTypeConditionIconGenerator);
-
-    _this = _super.apply(this, arguments);
-
-    _this.generateRowLabels = function (values, rowNumber) {
-      return values.map(function (value, columnNumber) {
-        return _this.generateColmunLabel(value, rowNumber, columnNumber);
-      });
-    };
-
-    return _this;
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(TableTypeConditionIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].表形式の条件;
-    }
-  }, {
-    key: "generate",
-    value: function generate(placement, tableTypeCondition, iconChar) {
-      if (placement.alias) return Object(_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(TableTypeConditionIconGenerator.prototype), "generate", this).call(this, placement, tableTypeCondition, iconChar);
-      return this.generateTableTypeConditionTable(placement, tableTypeCondition, iconChar);
-    }
-  }, {
-    key: "generateTableTypeConditionTable",
-    value: function generateTableTypeConditionTable(placement, tableTypeCondition, iconChar) {
-      var _this2 = this;
-
-      var id = String(placement.resourceId);
-      var container = new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.shape.layout.TableLayout({
-        id: id,
-        x: placement.x,
-        y: placement.y,
-        padding: 1,
-        stroke: 1
-      });
-      tableTypeCondition.valuesOf().map(function (line, rowNumber) {
-        return _this2.generateRowLabels(line, rowNumber);
-      }).forEach(function (labels) {
-        return container.addRow.apply(container, Object(_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(labels));
-      });
-      var icon = new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.shape.basic.Label({
-        fontFamily: iconChar.fontFamily,
-        text: iconChar.charactor,
-        fontSize: 30,
-        stroke: 0,
-        padding: 0,
-        bgColor: "none",
-        alpha: 1
-      });
-      var name = new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.shape.basic.Label({
-        text: tableTypeCondition.name,
-        stroke: 0,
-        padding: 0,
-        resizable: false,
-        selectable: false
-      });
-      icon.add(name, new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.layout.locator.XYRelPortLocator({
-        x: 105,
-        y: 27
-      }));
-      container.add(icon, new _draw2d_custom_TopLeftLocator__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"]());
-      container.createPort("hybrid", new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.layout.locator.CenterLocator()); // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
-
-      var port = container.getPorts().last();
-      var anchor = new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.layout.anchor.FanConnectionAnchor(container);
-      port.setConnectionAnchor(anchor);
-      container.setUserData(new _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_16__["default"]());
-      return container;
-    }
-  }, {
-    key: "generateColmunLabel",
-    value: function generateColmunLabel(value, rowNumber, columnNumber) {
-      if (rowNumber === 0) return this.generateLabel(value, true, "#FFFFFF", "#2FA3EE");
-      return this.generateLabel(value, columnNumber === 0, "#000000", rowNumber % 2 ? "#D1D8E5" : "#E8F0FC");
-    }
-  }, {
-    key: "generateLabel",
-    value: function generateLabel(text, bold, fontColor, backColor) {
-      var label = new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.shape.basic.Label({
-        text: text
-      });
-      label.setResizeable(true);
-      label.setBold(bold);
-      label.setFontColor(fontColor);
-      label.setColor("#FFFFFF");
-      label.setStroke(2);
-      label.setPadding(2);
-      label.setBackgroundColor(backColor);
-      return label;
-    }
-  }]);
-
-  return TableTypeConditionIconGenerator;
-}(_components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_15__["default"]);
-
-
-
-/***/ }),
-
-/***/ 844:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CompanyIconGenerator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(771);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(9);
-/* harmony import */ var _components_diagrams_icon_GenericAreaIconGenerator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(826);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(1);
-/* harmony import */ var _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(766);
-/* harmony import */ var _components_diagrams_icon_IconZOrderLevel__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(767);
-
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-
-var CompanyIconGenerator = /*#__PURE__*/function (_GenericAreaIconGener) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(CompanyIconGenerator, _GenericAreaIconGener);
-
-  var _super = _createSuper(CompanyIconGenerator);
-
-  function CompanyIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, CompanyIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(CompanyIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].会社;
-    }
-  }, {
-    key: "generate",
-    value: function generate(placement, resource, iconChar) {
-      var icon = Object(_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(CompanyIconGenerator.prototype), "generate", this).call(this, placement, resource, iconChar);
-
-      icon.setUserData(new _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_10__["default"](_components_diagrams_icon_IconZOrderLevel__WEBPACK_IMPORTED_MODULE_11__["default"].BACKGROUND_AREA));
-      return icon;
-    }
-  }]);
-
-  return CompanyIconGenerator;
-}(_components_diagrams_icon_GenericAreaIconGenerator__WEBPACK_IMPORTED_MODULE_8__["default"]);
-
-
-
-/***/ }),
-
-/***/ 845:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return RoomIconGenerator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(771);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(9);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(274);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _components_diagrams_icon_GenericAreaIconGenerator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(826);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(1);
-
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-var RoomIconGenerator = /*#__PURE__*/function (_GenericAreaIconGener) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(RoomIconGenerator, _GenericAreaIconGener);
-
-  var _super = _createSuper(RoomIconGenerator);
-
-  function RoomIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, RoomIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(RoomIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"].組織;
-    }
-  }, {
-    key: "generate",
-    value: function generate(placement, resource, iconStyle) {
-      var result = Object(_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(RoomIconGenerator.prototype), "generate", this).call(this, placement, resource, iconStyle);
-
-      result.color = new draw2d__WEBPACK_IMPORTED_MODULE_8___default.a.util.Color(0, 192, 255);
-      return result;
-    }
-  }]);
-
-  return RoomIconGenerator;
-}(_components_diagrams_icon_GenericAreaIconGenerator__WEBPACK_IMPORTED_MODULE_9__["default"]);
-
-
-
-/***/ }),
-
-/***/ 846:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GoodsIconGenerator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
-/* harmony import */ var _components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(769);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1);
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-var GoodsIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(GoodsIconGenerator, _GenericSingleIconGen);
-
-  var _super = _createSuper(GoodsIconGenerator);
-
-  function GoodsIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, GoodsIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(GoodsIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].商品;
-    }
-  }]);
-
-  return GoodsIconGenerator;
-}(_components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__["default"]);
-
-
-
-/***/ }),
-
-/***/ 847:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ServiceIconGenerator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
-/* harmony import */ var _components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(769);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1);
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-var ServiceIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(ServiceIconGenerator, _GenericSingleIconGen);
-
-  var _super = _createSuper(ServiceIconGenerator);
-
-  function ServiceIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, ServiceIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(ServiceIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].サービス;
-    }
-  }]);
-
-  return ServiceIconGenerator;
-}(_components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__["default"]);
-
-
-
-/***/ }),
-
-/***/ 848:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ContractIconGenerator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
-/* harmony import */ var _components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(769);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1);
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-var ContractIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(ContractIconGenerator, _GenericSingleIconGen);
-
-  var _super = _createSuper(ContractIconGenerator);
-
-  function ContractIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, ContractIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(ContractIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].契約;
-    }
-  }]);
-
-  return ContractIconGenerator;
-}(_components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_7__["default"]);
-
-
-
-/***/ }),
-
-/***/ 854:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BusinessUseCaseIconGenerator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UseCaseIconGenerator; });
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
@@ -7619,52 +6496,392 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
-var BusinessUseCaseIconGenerator = /*#__PURE__*/function (_GenericTextEllipseIc) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(BusinessUseCaseIconGenerator, _GenericTextEllipseIc);
+var UseCaseIconGenerator = /*#__PURE__*/function (_GenericTextEllipseIc) {
+  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(UseCaseIconGenerator, _GenericTextEllipseIc);
 
-  var _super = _createSuper(BusinessUseCaseIconGenerator);
+  var _super = _createSuper(UseCaseIconGenerator);
 
-  function BusinessUseCaseIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, BusinessUseCaseIconGenerator);
+  function UseCaseIconGenerator() {
+    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, UseCaseIconGenerator);
 
     return _super.apply(this, arguments);
   }
 
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(BusinessUseCaseIconGenerator, [{
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(UseCaseIconGenerator, [{
     key: "resourceType",
     value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].ビジネスユースケース;
+      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].ユースケース;
     }
   }, {
     key: "generate",
     value: function generate(placement, resource, iconChar) {
-      var icon = Object(_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(BusinessUseCaseIconGenerator.prototype), "generate", this).call(this, placement, resource, iconChar);
+      var icon = Object(_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(UseCaseIconGenerator.prototype), "generate", this).call(this, placement, resource, iconChar);
 
-      icon.setBackgroundColor("#FFDFDF");
+      icon.setBackgroundColor("#FFFFAF");
       return icon;
     }
   }]);
 
-  return BusinessUseCaseIconGenerator;
+  return UseCaseIconGenerator;
 }(_components_diagrams_icon_GenericTextEllipseIconGenerator__WEBPACK_IMPORTED_MODULE_8__["default"]);
 
 
 
 /***/ }),
 
-/***/ 882:
+/***/ 849:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return StartOrEndPointIconGenerator; });
+/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(274);
+/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(766);
+/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(1);
+
+
+
+
+
+
+var StartOrEndPointIconGenerator = /*#__PURE__*/function () {
+  function StartOrEndPointIconGenerator() {
+    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, StartOrEndPointIconGenerator);
+  }
+
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(StartOrEndPointIconGenerator, [{
+    key: "resourceType",
+    value: function resourceType() {
+      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].始点終点;
+    }
+  }, {
+    key: "generate",
+    value: function generate(placement, point, _iconChar) {
+      var id = String(placement.resourceId);
+      var outline = new draw2d__WEBPACK_IMPORTED_MODULE_2___default.a.shape.basic.Rectangle({
+        id: id,
+        x: placement.x,
+        y: placement.y,
+        width: 40,
+        height: 20,
+        bgColor: "none",
+        alpha: 0,
+        stroke: 0
+      });
+      outline.setResizeable(false);
+      if (point.startPoint) this.decorateStartPint(outline);else this.decorateEndPoint(outline);
+      outline.setUserData(new _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_3__["default"]());
+      return outline;
+    }
+  }, {
+    key: "decorateStartPint",
+    value: function decorateStartPint(outline) {
+      var ten = new draw2d__WEBPACK_IMPORTED_MODULE_2___default.a.shape.basic.Circle({
+        bgColor: "#000000"
+      });
+      ten.setWidth(20);
+      outline.add(ten, new draw2d__WEBPACK_IMPORTED_MODULE_2___default.a.layout.locator.CenterLocator());
+      var port = new draw2d__WEBPACK_IMPORTED_MODULE_2___default.a.OutputPort();
+      outline.addPort(port, new draw2d__WEBPACK_IMPORTED_MODULE_2___default.a.layout.locator.BottomLocator());
+    }
+  }, {
+    key: "decorateEndPoint",
+    value: function decorateEndPoint(outline) {
+      var maru = new draw2d__WEBPACK_IMPORTED_MODULE_2___default.a.shape.basic.Circle({
+        bgColor: "none",
+        stroke: 2
+      });
+      maru.setWidth(20);
+      outline.add(maru, new draw2d__WEBPACK_IMPORTED_MODULE_2___default.a.layout.locator.CenterLocator());
+      var ten = new draw2d__WEBPACK_IMPORTED_MODULE_2___default.a.shape.basic.Circle({
+        bgColor: "#000000",
+        stroke: 1
+      });
+      ten.setWidth(12);
+      outline.add(ten, new draw2d__WEBPACK_IMPORTED_MODULE_2___default.a.layout.locator.CenterLocator());
+      var port = new draw2d__WEBPACK_IMPORTED_MODULE_2___default.a.InputPort();
+      outline.addPort(port, new draw2d__WEBPACK_IMPORTED_MODULE_2___default.a.layout.locator.TopLocator());
+    }
+  }]);
+
+  return StartOrEndPointIconGenerator;
+}();
+
+
+
+/***/ }),
+
+/***/ 855:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BusinessFlowConnectPortsEvents; });
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
+/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
+/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
+/* harmony import */ var _components_diagrams_editor_template_event_events_GenericConnectPortsEvents__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(778);
+/* harmony import */ var _domain_relation_RouterType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(164);
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+
+var BusinessFlowConnectPortsEvents = /*#__PURE__*/function (_GenericConnectPortsE) {
+  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(BusinessFlowConnectPortsEvents, _GenericConnectPortsE);
+
+  var _super = _createSuper(BusinessFlowConnectPortsEvents);
+
+  function BusinessFlowConnectPortsEvents() {
+    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, BusinessFlowConnectPortsEvents);
+
+    return _super.apply(this, arguments);
+  }
+
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(BusinessFlowConnectPortsEvents, [{
+    key: "prototype",
+    value: function prototype() {
+      return new BusinessFlowConnectPortsEvents();
+    }
+    /**
+     * 「業務フロー図」だけは「フローとして関連線の方向が在る」ので、判定を上書き。
+     */
+
+  }, {
+    key: "customizeRelation",
+    value: function customizeRelation(original, product) {
+      if (!product.isFlowRelation(original)) return original;
+      return original.changeRouter(_domain_relation_RouterType__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].MANHATTAN).changeTipAllow(true);
+    }
+  }]);
+
+  return BusinessFlowConnectPortsEvents;
+}(_components_diagrams_editor_template_event_events_GenericConnectPortsEvents__WEBPACK_IMPORTED_MODULE_7__["default"]);
+
+
+
+/***/ }),
+
+/***/ 856:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ActorAndLaneIconGenerator; });
+/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(17);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(274);
+/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(766);
+/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(1);
+/* harmony import */ var _components_diagrams_icon_IconZOrderLevel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(767);
+
+
+
+
+
+
+
+
+
+
+var ActorAndLaneIconGenerator = /*#__PURE__*/function () {
+  function ActorAndLaneIconGenerator() {
+    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, ActorAndLaneIconGenerator);
+  }
+
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(ActorAndLaneIconGenerator, [{
+    key: "resourceType",
+    value: function resourceType() {
+      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"].アクター;
+    }
+  }, {
+    key: "generate",
+    value: function generate(placement, resource, iconChar) {
+      var id = String(placement.resourceId);
+      var waku = new draw2d__WEBPACK_IMPORTED_MODULE_5___default.a.shape.basic.Rectangle({
+        id: id,
+        x: placement.x,
+        y: placement.y,
+        width: placement.width,
+        height: placement.height,
+        minWidth: 100,
+        minHeight: 40,
+        bgColor: "none",
+        color: "#000000",
+        alpha: 1,
+        stroke: 2
+      });
+      var icon = new draw2d__WEBPACK_IMPORTED_MODULE_5___default.a.shape.basic.Label({
+        fontFamily: iconChar.fontFamily,
+        text: iconChar.charactor,
+        fontSize: 28,
+        stroke: 0,
+        padding: 0,
+        bgColor: "#FFFFFF",
+        resizable: false,
+        alpha: 1
+      });
+      var name = new draw2d__WEBPACK_IMPORTED_MODULE_5___default.a.shape.basic.Label({
+        text: resource.name,
+        bold: true,
+        stroke: 0,
+        padding: 0,
+        resizable: false,
+        selectable: false
+      });
+      var container = new draw2d__WEBPACK_IMPORTED_MODULE_5___default.a.shape.layout.TableLayout();
+      container.addRow(icon, name);
+      container.setCellVerticalAlign(0, 0, "middle");
+      container.setCellVerticalAlign(0, 1, "middle");
+      container.setStroke(0);
+      var topBox = new draw2d__WEBPACK_IMPORTED_MODULE_5___default.a.shape.basic.Rectangle({
+        width: placement.width,
+        height: 40,
+        bgColor: "none",
+        color: "#000000",
+        alpha: 1,
+        stroke: 1
+      });
+      waku.on("resize", function (selfFigure) {
+        selfFigure.getChildren().data.forEach(function (i) {
+          return i.setWidth(selfFigure.getWidth());
+        });
+      });
+      topBox.add(container, new draw2d__WEBPACK_IMPORTED_MODULE_5___default.a.layout.locator.CenterLocator());
+      waku.add(topBox, new draw2d__WEBPACK_IMPORTED_MODULE_5___default.a.layout.locator.XYAbsPortLocator(0, 0));
+      waku.setUserData(new _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_6__["default"](_components_diagrams_icon_IconZOrderLevel__WEBPACK_IMPORTED_MODULE_8__["default"].AREA));
+      return waku;
+    }
+  }]);
+
+  return ActorAndLaneIconGenerator;
+}();
+
+
+
+/***/ }),
+
+/***/ 857:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ActivityForBusinessFlowIconGenerator; });
+/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(544);
+/* harmony import */ var core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(274);
+/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(766);
+/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(1);
+
+
+
+
+
+
+
+
+var ActivityForBusinessFlowIconGenerator = /*#__PURE__*/function () {
+  function ActivityForBusinessFlowIconGenerator() {
+    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, ActivityForBusinessFlowIconGenerator);
+  }
+
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(ActivityForBusinessFlowIconGenerator, [{
+    key: "resourceType",
+    value: function resourceType() {
+      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].アクティビティ;
+    }
+  }, {
+    key: "generate",
+    value: function generate(placement, resource, iconChar) {
+      var id = String(placement.resourceId);
+      var outline = new draw2d__WEBPACK_IMPORTED_MODULE_4___default.a.shape.basic.Rectangle({
+        id: id,
+        x: placement.x,
+        y: placement.y,
+        width: 40,
+        height: 40,
+        bgColor: "none",
+        stroke: 0
+      });
+      outline.setResizeable(false);
+      var icon = new draw2d__WEBPACK_IMPORTED_MODULE_4___default.a.shape.basic.Label({
+        fontFamily: iconChar.fontFamily,
+        text: iconChar.charactor,
+        fontSize: 35,
+        stroke: 0,
+        padding: 0,
+        bgColor: "#FFFFFF"
+      });
+      outline.add(icon, new draw2d__WEBPACK_IMPORTED_MODULE_4___default.a.layout.locator.CenterLocator());
+      var name = new draw2d__WEBPACK_IMPORTED_MODULE_4___default.a.shape.basic.Label({
+        text: resource.name,
+        stroke: 0,
+        padding: 0,
+        resizable: false,
+        selectable: false
+      });
+      outline.add(name, new draw2d__WEBPACK_IMPORTED_MODULE_4___default.a.layout.locator.BottomLocator());
+      outline.createPort("input", new draw2d__WEBPACK_IMPORTED_MODULE_4___default.a.layout.locator.TopLocator());
+      outline.createPort("output", new draw2d__WEBPACK_IMPORTED_MODULE_4___default.a.layout.locator.BottomLocator());
+      var anchor = new draw2d__WEBPACK_IMPORTED_MODULE_4___default.a.layout.anchor.ChopboxConnectionAnchor(icon);
+      var port = outline.getOutputPorts().last();
+      port.setConnectionAnchor(anchor);
+      outline.setUserData(new _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_5__["default"]());
+      return outline;
+    }
+  }]);
+
+  return ActivityForBusinessFlowIconGenerator;
+}();
+
+
+
+/***/ }),
+
+/***/ 883:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=template&id=bb8ef69a&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue?vue&type=template&id=0acac8e6&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=template&id=bb8ef69a&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue?vue&type=template&id=0acac8e6&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(3);
@@ -7702,8 +6919,8 @@ var DiagramEditor = __webpack_require__(783);
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/EventAnalyzer.ts
 var EventAnalyzer = __webpack_require__(779);
 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericConnectPortsEvents.ts
-var GenericConnectPortsEvents = __webpack_require__(778);
+// EXTERNAL MODULE: ./src/components/diagrams/editor/businessflowdiagram/event/BusinessFlowConnectPortsEvents.ts
+var BusinessFlowConnectPortsEvents = __webpack_require__(855);
 
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents.ts
 var GenericDeleteShapeEvents = __webpack_require__(780);
@@ -7714,46 +6931,19 @@ var GenericMoveShapeEvents = __webpack_require__(781);
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericResizeShapeEvents.ts
 var GenericResizeShapeEvents = __webpack_require__(782);
 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/BusinessUseCaseIconGenerator.ts
-var BusinessUseCaseIconGenerator = __webpack_require__(854);
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ActorAndLaneIconGenerator.ts
+var ActorAndLaneIconGenerator = __webpack_require__(856);
 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/CompanyIconGenerator.ts
-var CompanyIconGenerator = __webpack_require__(844);
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ActivityForBusinessFlowIconGenerator.ts
+var ActivityForBusinessFlowIconGenerator = __webpack_require__(857);
 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ActorIconGenerator.ts
-var ActorIconGenerator = __webpack_require__(821);
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/UseCaseIconGenerator.ts
+var UseCaseIconGenerator = __webpack_require__(839);
 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/RoomIconGenerator.ts
-var RoomIconGenerator = __webpack_require__(845);
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/StartOrEndPointIconGenerator.ts
+var StartOrEndPointIconGenerator = __webpack_require__(849);
 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/GoodsIconGenerator.ts
-var GoodsIconGenerator = __webpack_require__(846);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ServiceIconGenerator.ts
-var ServiceIconGenerator = __webpack_require__(847);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/FacilityIconGenerator.ts
-var FacilityIconGenerator = __webpack_require__(836);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ContractIconGenerator.ts
-var ContractIconGenerator = __webpack_require__(848);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/InHouseSystemIconGenerator.ts
-var InHouseSystemIconGenerator = __webpack_require__(828);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/OutsideSystemIconGenerator.ts
-var OutsideSystemIconGenerator = __webpack_require__(829);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/InformationIconGenerator.ts
-var InformationIconGenerator = __webpack_require__(830);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ConditionIconGenerator.ts
-var ConditionIconGenerator = __webpack_require__(837);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator.ts
-var TableTypeConditionIconGenerator = __webpack_require__(838);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=script&lang=ts&
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue?vue&type=script&lang=ts&
 
 
 
@@ -7791,35 +6981,26 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 
 
 
+var BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor = /*#__PURE__*/function (_Vue) {
+  Object(inherits["a" /* default */])(BusinessFlowDiagramEditor, _Vue);
 
+  var _super = _createSuper(BusinessFlowDiagramEditor);
 
-
-
-
-
-
-
-
-var BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(BusinessUseCaseDiagramEditor, _Vue);
-
-  var _super = _createSuper(BusinessUseCaseDiagramEditor);
-
-  function BusinessUseCaseDiagramEditor() {
+  function BusinessFlowDiagramEditor() {
     var _this;
 
-    Object(classCallCheck["a" /* default */])(this, BusinessUseCaseDiagramEditor);
+    Object(classCallCheck["a" /* default */])(this, BusinessFlowDiagramEditor);
 
     // Props
     _this = _super.apply(this, arguments); // This class fields;
 
-    _this.eventAnalyzer = new EventAnalyzer["default"]([new GenericDeleteShapeEvents["default"](), new GenericConnectPortsEvents["default"](), new GenericMoveShapeEvents["default"](), new GenericResizeShapeEvents["default"]()]);
-    _this.iconGenerators = [new BusinessUseCaseIconGenerator["default"](), new CompanyIconGenerator["default"](), new ActorIconGenerator["default"](), new RoomIconGenerator["default"](), new GoodsIconGenerator["default"](), new FacilityIconGenerator["default"](), new ServiceIconGenerator["default"](), new ContractIconGenerator["default"](), new InHouseSystemIconGenerator["default"](), new OutsideSystemIconGenerator["default"](), new InformationIconGenerator["default"](), new ConditionIconGenerator["default"](), new TableTypeConditionIconGenerator["default"]()];
+    _this.eventAnalyzer = new EventAnalyzer["default"]([new GenericDeleteShapeEvents["default"](), new BusinessFlowConnectPortsEvents["default"](), new GenericMoveShapeEvents["default"](), new GenericResizeShapeEvents["default"]()]);
+    _this.iconGenerators = [new ActorAndLaneIconGenerator["default"](), new ActivityForBusinessFlowIconGenerator["default"](), new UseCaseIconGenerator["default"](), new StartOrEndPointIconGenerator["default"]()];
     return _this;
   } // Emits
 
 
-  Object(createClass["a" /* default */])(BusinessUseCaseDiagramEditor, [{
+  Object(createClass["a" /* default */])(BusinessFlowDiagramEditor, [{
     key: "onUpdateResources",
     value: function onUpdateResources() {}
   }, {
@@ -7827,37 +7008,37 @@ var BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEd
     value: function onOpendDiagramPropertiesEditor(_diagramId) {}
   }]);
 
-  return BusinessUseCaseDiagramEditor;
+  return BusinessFlowDiagramEditor;
 }(nuxt_property_decorator_umd["Vue"]);
 
 __decorate([Object(nuxt_property_decorator_umd["Prop"])({
   required: true
-})], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "diagramId", void 0);
+})], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "diagramId", void 0);
 
 __decorate([Object(nuxt_property_decorator_umd["Prop"])({
   required: true
-})], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "allResourcesOnCurrentProduct", void 0);
+})], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "allResourcesOnCurrentProduct", void 0);
 
 __decorate([Object(nuxt_property_decorator_umd["Prop"])({
   required: true
-})], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
+})], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
 
-__decorate([Object(nuxt_property_decorator_umd["Emit"])("onUpdateResources")], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "onUpdateResources", null);
+__decorate([Object(nuxt_property_decorator_umd["Emit"])("onUpdateResources")], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "onUpdateResources", null);
 
-__decorate([Object(nuxt_property_decorator_umd["Emit"])("onOpendDiagramPropertiesEditor")], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
+__decorate([Object(nuxt_property_decorator_umd["Emit"])("onOpendDiagramPropertiesEditor")], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
 
-BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
+BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
   components: {
     DiagramEditor: DiagramEditor["default"]
   }
-})], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor);
-/* harmony default export */ var BusinessUseCaseDiagramEditorvue_type_script_lang_ts_ = (BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=script&lang=ts&
- /* harmony default export */ var businessusecasediagram_BusinessUseCaseDiagramEditorvue_type_script_lang_ts_ = (BusinessUseCaseDiagramEditorvue_type_script_lang_ts_); 
+})], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor);
+/* harmony default export */ var BusinessFlowDiagramEditorvue_type_script_lang_ts_ = (BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor);
+// CONCATENATED MODULE: ./src/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue?vue&type=script&lang=ts&
+ /* harmony default export */ var businessflowdiagram_BusinessFlowDiagramEditorvue_type_script_lang_ts_ = (BusinessFlowDiagramEditorvue_type_script_lang_ts_); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(75);
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue
+// CONCATENATED MODULE: ./src/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue
 
 
 
@@ -7866,7 +7047,7 @@ var componentNormalizer = __webpack_require__(75);
 /* normalize component */
 
 var component = Object(componentNormalizer["a" /* default */])(
-  businessusecasediagram_BusinessUseCaseDiagramEditorvue_type_script_lang_ts_,
+  businessflowdiagram_BusinessFlowDiagramEditorvue_type_script_lang_ts_,
   render,
   staticRenderFns,
   false,
@@ -7876,7 +7057,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   
 )
 
-/* harmony default export */ var businessusecasediagram_BusinessUseCaseDiagramEditor = __webpack_exports__["default"] = (component.exports);
+/* harmony default export */ var businessflowdiagram_BusinessFlowDiagramEditor = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 

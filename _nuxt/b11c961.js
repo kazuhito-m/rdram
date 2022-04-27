@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8,4,19,21,22,23,24,25,26,27,28,34,35,37,39,41,42,43,45,46,50,53,66,67,74,76,78,79,80,83,84,85,86,87,88,89,90],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[11,4,19,21,22,23,24,25,26,27,28,34,36,37,38,39,41,42,43,45,46,50,53,59,66,67,74,76,78,79,80,83,84,85,86,87,88,89,90],{
 
 /***/ 766:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -4476,7 +4476,7 @@ var RouterTypeDraw2dConverter = /*#__PURE__*/function () {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue?vue&type=template&id=e3af432e&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue?vue&type=template&id=23bb05e2&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-toolbar',{staticClass:"canvas-float-toolbar",attrs:{"id":_vm.toolBarId,"draggable":"","dense":"","floating":"","outlined":"","rounded":"","shaped":"","short":"","collapse":_vm.toolBarCollapse},on:{"dragstart":_vm.onDragStartToolBar,"mousedown":_vm.onMouseDownToolBar}},[_c('v-btn',{attrs:{"dark":"","icon":""},on:{"click":_vm.onClickEditDiagramProperties}},[_c('v-icon',[_vm._v("mdi-content-save-edit-outline")])],1),_vm._v(" "),_c('v-spacer'),_vm._v(" "),(!_vm.toolBarCollapse)?_c('v-card',[_c('CanvasZoomSlider',{attrs:{"canvasZoom":_vm.canvasZoom},on:{"onChangeZoomBySlider":_vm.onChangeZoom}})],1):_vm._e(),_vm._v(" "),(!_vm.toolBarCollapse)?_c('span',{on:{"dblclick":function($event){return _vm.onDblClickZoomPercentage()}}},[_vm._v(_vm._s(_vm.calcZoomPercentage()))]):_vm._e(),_vm._v(" "),(!_vm.toolBarCollapse)?_c('v-menu',{attrs:{"top":"","offset-y":""},scopedSlots:_vm._u([{key:"activator",fn:function(ref){
 var on = ref.on;
 var attrs = ref.attrs;
@@ -4484,7 +4484,7 @@ return [_c('v-btn',_vm._g(_vm._b({attrs:{"dark":"","small":"","icon":""}},'v-btn
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue?vue&type=template&id=e3af432e&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue?vue&type=template&id=23bb05e2&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(36);
@@ -4584,7 +4584,7 @@ var CanvasSettingToolBarvue_type_script_lang_ts_CanvasSettingToolBar = CanvasSet
     Object(classCallCheck["a" /* default */])(this, CanvasSettingToolBar);
 
     _this = _super.apply(this, arguments);
-    _this.toolBarCollapse = false;
+    _this.toolBarCollapse = true;
     _this.dragStartLayerX = 0;
     _this.dragStartLayerY = 0;
     _this.lastContainerWidth = 0;
@@ -6320,12 +6320,12 @@ installComponents(component, {ResourceEditDialog: __webpack_require__(784).defau
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/paret/ResourceParet.vue?vue&type=template&id=3dc2124c&lang=html&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/paret/ResourceParet.vue?vue&type=template&id=d0e65f82&lang=html&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"paret-panel"},[_c('v-expansion-panels',{attrs:{"multiple":"","focusable":"","dark":""},model:{value:(_vm.paretsOpen),callback:function ($$v) {_vm.paretsOpen=$$v},expression:"paretsOpen"}},[_vm._l((_vm.availableResourceTypes),function(resourceType){return _c('v-expansion-panel',{key:resourceType.id},[_c('v-expansion-panel-header',[_c('div',{staticClass:"omit-long-text"},[_c('v-icon',{attrs:{"id":resourceType.iconKey}},[_vm._v(_vm._s(resourceType.iconKey))]),_vm._v("\n        "+_vm._s(resourceType.name)+"\n      ")],1)]),_vm._v(" "),_c('v-expansion-panel-content',[_c('v-list',{attrs:{"dark":"","dence":""}},[_c('v-list-item',[_c('v-list-item-content',[_c('v-list-item-title',{staticClass:"chip-container"},[_c('v-chip',{attrs:{"color":"primary","dark":"","outlined":"","draggable":"","data-resource-type-id":resourceType.id},on:{"dragstart":_vm.onDragStartNewCompany}},[_c('v-icon',[_vm._v(_vm._s(resourceType.iconKey))]),_vm._v("新規追加\n              ")],1)],1)],1)],1),_vm._v(" "),_vm._l((_vm.allResourcesOnCurrentProduct.filter(function (r) { return _vm.filterDisplayParet(r, resourceType, _vm.usedResouceIds); })),function(resource){return _c('v-list-item',{key:resource.resourceId},[_c('v-list-item-content',[_c('v-list-item-title',{staticClass:"chip-container"},[_c('v-chip',{attrs:{"data-resource-id":resource.resourceId,"color":"primary","dark":"","draggable":""},on:{"dragstart":_vm.onDragStartResource,"contextmenu":_vm.onRightClickResource}},[_c('v-icon',[_vm._v(_vm._s(resourceType.iconKey))]),_vm._v("\n                "+_vm._s(resource.name)+"\n              ")],1)],1)],1)],1)})],2)],1)],1)}),_vm._v(" "),_c('v-expansion-panel',[_c('v-expansion-panel-header',[_c('div',{staticClass:"omit-long-text"},[_c('v-icon',[_vm._v("mdi-clipboard-check-multiple-outline")]),_vm._v("この図で使用済\n      ")],1)]),_vm._v(" "),_c('v-expansion-panel-content',[_c('v-list',{attrs:{"dark":"","dence":""}},_vm._l((_vm.allResourcesOnCurrentProduct.filter(function (r) { return _vm.filterUsedList(r, _vm.usedResouceIds); })),function(usedResource){return _c('v-list-item',{key:usedResource.id},[_c('v-list-item-content',[_c('v-list-item-title',{staticClass:"chip-container"},[_c('v-chip',{attrs:{"dark":"","data-resource-id":usedResource.resourceId,"data-resource-on-diagram":"true"},on:{"contextmenu":_vm.onRightClickResource}},[_c('v-icon',[_vm._v(_vm._s(_vm.iconKeyOf(usedResource)))]),_vm._v("\n                "+_vm._s(usedResource.name)+"\n              ")],1)],1)],1)],1)}),1)],1)],1),_vm._v(" "),_c('v-menu',{attrs:{"value":_vm.rightClickedResourceId,"close-on-click":true,"close-on-content-click":true,"offset-x":true,"rounded":true,"position-x":_vm.rightClickedResourceX,"position-y":_vm.rightClickedResourceY}},[_c('v-list',[(_vm.rightClickedResourceOnDiagram)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuDeleteResourceOnDiagram}},[_c('v-list-item-title',[_vm._v("このダイアグラムから削除")])],1):_vm._e(),_vm._v(" "),(_vm.rightClickedResourceOnProduct)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuDeleteResourceOnProduct}},[_c('v-list-item-title',[_vm._v("プロダクト全体から削除")])],1):_vm._e()],1)],1)],2)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/template/paret/ResourceParet.vue?vue&type=template&id=3dc2124c&lang=html&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/template/paret/ResourceParet.vue?vue&type=template&id=d0e65f82&lang=html&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(36);
@@ -6442,10 +6442,6 @@ var ResourceParetvue_type_script_lang_ts_ResourceParet = /*#__PURE__*/function (
       diagram.availableResourceTypes().forEach(function (resourceType) {
         return _this2.availableResourceTypes.push(resourceType);
       });
-
-      for (var i = 0; i < this.availableResourceTypes.length + 1; i++) {
-        this.paretsOpen.push(i);
-      }
     }
   }, {
     key: "onDragStartNewCompany",
@@ -6972,6 +6968,307 @@ var FacilityIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
 
 /***/ }),
 
+/***/ 837:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ConditionIconGenerator; });
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
+/* harmony import */ var _babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(771);
+/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(11);
+/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(9);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(20);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(544);
+/* harmony import */ var core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(274);
+/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _draw2d_custom_TopLeftLocator__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(772);
+/* harmony import */ var _components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(769);
+/* harmony import */ var _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(766);
+/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(1);
+
+
+
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+
+
+
+
+var ConditionIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
+  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(ConditionIconGenerator, _GenericSingleIconGen);
+
+  var _super = _createSuper(ConditionIconGenerator);
+
+  function ConditionIconGenerator() {
+    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, ConditionIconGenerator);
+
+    return _super.apply(this, arguments);
+  }
+
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(ConditionIconGenerator, [{
+    key: "resourceType",
+    value: function resourceType() {
+      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].条件;
+    }
+  }, {
+    key: "generate",
+    value: function generate(placement, condition, iconChar) {
+      if (placement.alias) return Object(_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(ConditionIconGenerator.prototype), "generate", this).call(this, placement, condition, iconChar);
+      return this.generateConditionTable(placement, condition, iconChar);
+    }
+  }, {
+    key: "generateConditionTable",
+    value: function generateConditionTable(placement, condition, iconChar) {
+      var id = String(placement.resourceId);
+      var label = new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.shape.basic.Label({
+        text: condition.name
+      });
+      label.setResizeable(true);
+      label.setFontColor("#FFFFFF");
+      label.setBold(true);
+      label.setStroke(2);
+      label.setColor("#FFFFFF");
+      label.setPadding(2);
+      label.setBackgroundColor("#2FA3EE");
+      var container = new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.shape.layout.TableLayout({
+        id: id,
+        x: placement.x,
+        y: placement.y,
+        padding: 1,
+        stroke: 1
+      });
+      var valueLabel = new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.shape.basic.Label({
+        text: condition.value
+      });
+      valueLabel.setResizeable(true);
+      valueLabel.setPadding(2);
+      valueLabel.setStroke(2);
+      valueLabel.setColor("#FFFFFF");
+      valueLabel.setBackgroundColor("#E8F0FC");
+      container.addRow(label, valueLabel);
+      var icon = new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.shape.basic.Label({
+        fontFamily: iconChar.fontFamily,
+        text: iconChar.charactor,
+        fontSize: 30,
+        stroke: 0,
+        padding: 0,
+        bgColor: "none",
+        alpha: 1
+      });
+      var name = new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.shape.basic.Label({
+        text: condition.name,
+        stroke: 0,
+        padding: 0,
+        resizable: false,
+        selectable: false
+      });
+      icon.add(name, new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.layout.locator.XYRelPortLocator({
+        x: 105,
+        y: 27
+      }));
+      container.add(icon, new _draw2d_custom_TopLeftLocator__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"]());
+      container.createPort("hybrid", new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.layout.locator.CenterLocator()); // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
+
+      var port = container.getPorts().last();
+      var anchor = new draw2d__WEBPACK_IMPORTED_MODULE_10___default.a.layout.anchor.FanConnectionAnchor(container);
+      port.setConnectionAnchor(anchor);
+      container.setUserData(new _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_13__["default"]());
+      return container;
+    }
+  }]);
+
+  return ConditionIconGenerator;
+}(_components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_12__["default"]);
+
+
+
+/***/ }),
+
+/***/ 838:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TableTypeConditionIconGenerator; });
+/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
+/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(80);
+/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
+/* harmony import */ var _babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(771);
+/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(11);
+/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(9);
+/* harmony import */ var core_js_modules_es_array_map_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(32);
+/* harmony import */ var core_js_modules_es_array_map_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_map_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(8);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(17);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(20);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(544);
+/* harmony import */ var core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_anchor_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(274);
+/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _draw2d_custom_TopLeftLocator__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(772);
+/* harmony import */ var _components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(769);
+/* harmony import */ var _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(766);
+/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+
+
+
+
+var TableTypeConditionIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
+  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(TableTypeConditionIconGenerator, _GenericSingleIconGen);
+
+  var _super = _createSuper(TableTypeConditionIconGenerator);
+
+  function TableTypeConditionIconGenerator() {
+    var _this;
+
+    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, TableTypeConditionIconGenerator);
+
+    _this = _super.apply(this, arguments);
+
+    _this.generateRowLabels = function (values, rowNumber) {
+      return values.map(function (value, columnNumber) {
+        return _this.generateColmunLabel(value, rowNumber, columnNumber);
+      });
+    };
+
+    return _this;
+  }
+
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(TableTypeConditionIconGenerator, [{
+    key: "resourceType",
+    value: function resourceType() {
+      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].表形式の条件;
+    }
+  }, {
+    key: "generate",
+    value: function generate(placement, tableTypeCondition, iconChar) {
+      if (placement.alias) return Object(_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(TableTypeConditionIconGenerator.prototype), "generate", this).call(this, placement, tableTypeCondition, iconChar);
+      return this.generateTableTypeConditionTable(placement, tableTypeCondition, iconChar);
+    }
+  }, {
+    key: "generateTableTypeConditionTable",
+    value: function generateTableTypeConditionTable(placement, tableTypeCondition, iconChar) {
+      var _this2 = this;
+
+      var id = String(placement.resourceId);
+      var container = new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.shape.layout.TableLayout({
+        id: id,
+        x: placement.x,
+        y: placement.y,
+        padding: 1,
+        stroke: 1
+      });
+      tableTypeCondition.valuesOf().map(function (line, rowNumber) {
+        return _this2.generateRowLabels(line, rowNumber);
+      }).forEach(function (labels) {
+        return container.addRow.apply(container, Object(_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(labels));
+      });
+      var icon = new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.shape.basic.Label({
+        fontFamily: iconChar.fontFamily,
+        text: iconChar.charactor,
+        fontSize: 30,
+        stroke: 0,
+        padding: 0,
+        bgColor: "none",
+        alpha: 1
+      });
+      var name = new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.shape.basic.Label({
+        text: tableTypeCondition.name,
+        stroke: 0,
+        padding: 0,
+        resizable: false,
+        selectable: false
+      });
+      icon.add(name, new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.layout.locator.XYRelPortLocator({
+        x: 105,
+        y: 27
+      }));
+      container.add(icon, new _draw2d_custom_TopLeftLocator__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"]());
+      container.createPort("hybrid", new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.layout.locator.CenterLocator()); // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
+
+      var port = container.getPorts().last();
+      var anchor = new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.layout.anchor.FanConnectionAnchor(container);
+      port.setConnectionAnchor(anchor);
+      container.setUserData(new _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_16__["default"]());
+      return container;
+    }
+  }, {
+    key: "generateColmunLabel",
+    value: function generateColmunLabel(value, rowNumber, columnNumber) {
+      if (rowNumber === 0) return this.generateLabel(value, true, "#FFFFFF", "#2FA3EE");
+      return this.generateLabel(value, columnNumber === 0, "#000000", rowNumber % 2 ? "#D1D8E5" : "#E8F0FC");
+    }
+  }, {
+    key: "generateLabel",
+    value: function generateLabel(text, bold, fontColor, backColor) {
+      var label = new draw2d__WEBPACK_IMPORTED_MODULE_13___default.a.shape.basic.Label({
+        text: text
+      });
+      label.setResizeable(true);
+      label.setBold(bold);
+      label.setFontColor(fontColor);
+      label.setColor("#FFFFFF");
+      label.setStroke(2);
+      label.setPadding(2);
+      label.setBackgroundColor(backColor);
+      return label;
+    }
+  }]);
+
+  return TableTypeConditionIconGenerator;
+}(_components_diagrams_icon_GenericSingleIconGenerator__WEBPACK_IMPORTED_MODULE_15__["default"]);
+
+
+
+/***/ }),
+
 /***/ 844:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -7284,12 +7581,12 @@ var ContractIconGenerator = /*#__PURE__*/function (_GenericSingleIconGen) {
 
 /***/ }),
 
-/***/ 853:
+/***/ 854:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BusinessIconGenerator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BusinessUseCaseIconGenerator; });
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
@@ -7318,52 +7615,52 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
-var BusinessIconGenerator = /*#__PURE__*/function (_GenericTextEllipseIc) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(BusinessIconGenerator, _GenericTextEllipseIc);
+var BusinessUseCaseIconGenerator = /*#__PURE__*/function (_GenericTextEllipseIc) {
+  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(BusinessUseCaseIconGenerator, _GenericTextEllipseIc);
 
-  var _super = _createSuper(BusinessIconGenerator);
+  var _super = _createSuper(BusinessUseCaseIconGenerator);
 
-  function BusinessIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, BusinessIconGenerator);
+  function BusinessUseCaseIconGenerator() {
+    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, BusinessUseCaseIconGenerator);
 
     return _super.apply(this, arguments);
   }
 
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(BusinessIconGenerator, [{
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(BusinessUseCaseIconGenerator, [{
     key: "resourceType",
     value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].業務;
+      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].ビジネスユースケース;
     }
   }, {
     key: "generate",
     value: function generate(placement, resource, iconChar) {
-      var icon = Object(_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(BusinessIconGenerator.prototype), "generate", this).call(this, placement, resource, iconChar);
+      var icon = Object(_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(BusinessUseCaseIconGenerator.prototype), "generate", this).call(this, placement, resource, iconChar);
 
-      icon.setBackgroundColor("#99DDFF");
+      icon.setBackgroundColor("#FFDFDF");
       return icon;
     }
   }]);
 
-  return BusinessIconGenerator;
+  return BusinessUseCaseIconGenerator;
 }(_components_diagrams_icon_GenericTextEllipseIconGenerator__WEBPACK_IMPORTED_MODULE_8__["default"]);
 
 
 
 /***/ }),
 
-/***/ 881:
+/***/ 882:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue?vue&type=template&id=03056173&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=template&id=bb8ef69a&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue?vue&type=template&id=03056173&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=template&id=bb8ef69a&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(3);
@@ -7413,6 +7710,9 @@ var GenericMoveShapeEvents = __webpack_require__(781);
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericResizeShapeEvents.ts
 var GenericResizeShapeEvents = __webpack_require__(782);
 
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/BusinessUseCaseIconGenerator.ts
+var BusinessUseCaseIconGenerator = __webpack_require__(854);
+
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/CompanyIconGenerator.ts
 var CompanyIconGenerator = __webpack_require__(844);
 
@@ -7421,9 +7721,6 @@ var ActorIconGenerator = __webpack_require__(821);
 
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/RoomIconGenerator.ts
 var RoomIconGenerator = __webpack_require__(845);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/BusinessIconGenerator.ts
-var BusinessIconGenerator = __webpack_require__(853);
 
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/GoodsIconGenerator.ts
 var GoodsIconGenerator = __webpack_require__(846);
@@ -7446,7 +7743,13 @@ var OutsideSystemIconGenerator = __webpack_require__(829);
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/InformationIconGenerator.ts
 var InformationIconGenerator = __webpack_require__(830);
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue?vue&type=script&lang=ts&
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ConditionIconGenerator.ts
+var ConditionIconGenerator = __webpack_require__(837);
+
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator.ts
+var TableTypeConditionIconGenerator = __webpack_require__(838);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=script&lang=ts&
 
 
 
@@ -7491,26 +7794,28 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 
 
 
-var BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(InfomationModelEditor, _Vue);
 
-  var _super = _createSuper(InfomationModelEditor);
 
-  function InfomationModelEditor() {
+var BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor = /*#__PURE__*/function (_Vue) {
+  Object(inherits["a" /* default */])(BusinessUseCaseDiagramEditor, _Vue);
+
+  var _super = _createSuper(BusinessUseCaseDiagramEditor);
+
+  function BusinessUseCaseDiagramEditor() {
     var _this;
 
-    Object(classCallCheck["a" /* default */])(this, InfomationModelEditor);
+    Object(classCallCheck["a" /* default */])(this, BusinessUseCaseDiagramEditor);
 
     // Props
     _this = _super.apply(this, arguments); // This class fields;
 
     _this.eventAnalyzer = new EventAnalyzer["default"]([new GenericDeleteShapeEvents["default"](), new GenericConnectPortsEvents["default"](), new GenericMoveShapeEvents["default"](), new GenericResizeShapeEvents["default"]()]);
-    _this.iconGenerators = [new BusinessIconGenerator["default"](), new CompanyIconGenerator["default"](), new ActorIconGenerator["default"](), new RoomIconGenerator["default"](), new GoodsIconGenerator["default"](), new FacilityIconGenerator["default"](), new ServiceIconGenerator["default"](), new ContractIconGenerator["default"](), new InHouseSystemIconGenerator["default"](), new OutsideSystemIconGenerator["default"](), new InformationIconGenerator["default"]()];
+    _this.iconGenerators = [new BusinessUseCaseIconGenerator["default"](), new CompanyIconGenerator["default"](), new ActorIconGenerator["default"](), new RoomIconGenerator["default"](), new GoodsIconGenerator["default"](), new FacilityIconGenerator["default"](), new ServiceIconGenerator["default"](), new ContractIconGenerator["default"](), new InHouseSystemIconGenerator["default"](), new OutsideSystemIconGenerator["default"](), new InformationIconGenerator["default"](), new ConditionIconGenerator["default"](), new TableTypeConditionIconGenerator["default"]()];
     return _this;
   } // Emits
 
 
-  Object(createClass["a" /* default */])(InfomationModelEditor, [{
+  Object(createClass["a" /* default */])(BusinessUseCaseDiagramEditor, [{
     key: "onUpdateResources",
     value: function onUpdateResources() {}
   }, {
@@ -7518,37 +7823,37 @@ var BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor = 
     value: function onOpendDiagramPropertiesEditor(_diagramId) {}
   }]);
 
-  return InfomationModelEditor;
+  return BusinessUseCaseDiagramEditor;
 }(nuxt_property_decorator_umd["Vue"]);
 
 __decorate([Object(nuxt_property_decorator_umd["Prop"])({
   required: true
-})], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "diagramId", void 0);
+})], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "diagramId", void 0);
 
 __decorate([Object(nuxt_property_decorator_umd["Prop"])({
   required: true
-})], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "allResourcesOnCurrentProduct", void 0);
+})], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "allResourcesOnCurrentProduct", void 0);
 
 __decorate([Object(nuxt_property_decorator_umd["Prop"])({
   required: true
-})], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
+})], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
 
-__decorate([Object(nuxt_property_decorator_umd["Emit"])("onUpdateResources")], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onUpdateResources", null);
+__decorate([Object(nuxt_property_decorator_umd["Emit"])("onUpdateResources")], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "onUpdateResources", null);
 
-__decorate([Object(nuxt_property_decorator_umd["Emit"])("onOpendDiagramPropertiesEditor")], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onOpendDiagramPropertiesEditor", null);
+__decorate([Object(nuxt_property_decorator_umd["Emit"])("onOpendDiagramPropertiesEditor")], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
 
-BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
+BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
   components: {
     DiagramEditor: DiagramEditor["default"]
   }
-})], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor);
-/* harmony default export */ var BusinessContextDiagramEditorvue_type_script_lang_ts_ = (BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue?vue&type=script&lang=ts&
- /* harmony default export */ var businesscontextdiagram_BusinessContextDiagramEditorvue_type_script_lang_ts_ = (BusinessContextDiagramEditorvue_type_script_lang_ts_); 
+})], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor);
+/* harmony default export */ var BusinessUseCaseDiagramEditorvue_type_script_lang_ts_ = (BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor);
+// CONCATENATED MODULE: ./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=script&lang=ts&
+ /* harmony default export */ var businessusecasediagram_BusinessUseCaseDiagramEditorvue_type_script_lang_ts_ = (BusinessUseCaseDiagramEditorvue_type_script_lang_ts_); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(75);
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue
+// CONCATENATED MODULE: ./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue
 
 
 
@@ -7557,7 +7862,7 @@ var componentNormalizer = __webpack_require__(75);
 /* normalize component */
 
 var component = Object(componentNormalizer["a" /* default */])(
-  businesscontextdiagram_BusinessContextDiagramEditorvue_type_script_lang_ts_,
+  businessusecasediagram_BusinessUseCaseDiagramEditorvue_type_script_lang_ts_,
   render,
   staticRenderFns,
   false,
@@ -7567,7 +7872,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   
 )
 
-/* harmony default export */ var BusinessContextDiagramEditor = __webpack_exports__["default"] = (component.exports);
+/* harmony default export */ var businessusecasediagram_BusinessUseCaseDiagramEditor = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 
