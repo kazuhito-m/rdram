@@ -2,8 +2,7 @@
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
+      clipped
       fixed
       app
     >
@@ -24,19 +23,10 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
+    <v-app-bar clipped-left fixed app>
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <TweetButton />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -92,10 +82,10 @@
 
       </v-list>
     </v-navigation-drawer>
-    <v-footer :absolute="!fixed" app>
+    <v-footer app>
 
       <span>
-        &copy; {{ new Date().getFullYear() }}
+        <span @click="drawer = !drawer">&copy;</span> {{ new Date().getFullYear() }}
         <a
           class="no-efect-link"
           target="_new"
@@ -143,6 +133,7 @@
 
 <script lang="ts">
 import { Component, Vue, Provide } from 'nuxt-property-decorator'
+import TweetButton from '@/components/other/sosial/TweetButton.vue';
 import StrageRepository from '@/domain/strage/StrageRepository'
 import StrageDatasource from '@/infrastructure/strage/StrageDatasource'
 import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
@@ -159,6 +150,7 @@ import TangoRdraFileService from '@/application/service/tangordra/TangoRdraFileS
 
 @Component({
   components: {
+    TweetButton,
     ProductSelectorDialog,
     ProductImportDialog,
     LocalStrageInitializeDialog,
@@ -167,11 +159,8 @@ import TangoRdraFileService from '@/application/service/tangordra/TangoRdraFileS
   },
 })
 export default class extends Vue {
-  clipped = false
   drawer = false
-  fixed = false
 
-  miniVariant = false
   right = true
   rightDrawer = false
 
@@ -181,13 +170,8 @@ export default class extends Vue {
   private readonly items = [
     {
       icon: 'mdi-apps',
-      title: 'Welcome',
-      to: '/',
-    },
-    {
-      icon: 'mdi-apps',
       title: 'ダイアグラム一覧',
-      to: '/diagrams',
+      to: '/',
     },
     {
       icon: 'mdi-chart-bubble',
