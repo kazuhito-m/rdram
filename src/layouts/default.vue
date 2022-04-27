@@ -24,7 +24,6 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar clipped-left fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
@@ -85,7 +84,7 @@
     <v-footer app>
 
       <span>
-        &copy; {{ new Date().getFullYear() }}
+        <span @click="drawer = !drawer">&copy;</span> {{ new Date().getFullYear() }}
         <a
           class="no-efect-link"
           target="_new"
