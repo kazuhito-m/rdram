@@ -2,7 +2,7 @@
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
-      :clipped="clipped"
+      clipped
       fixed
       app
     >
@@ -23,11 +23,8 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
+    <v-app-bar clipped-left fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
@@ -160,7 +157,6 @@ import TangoRdraFileService from '@/application/service/tangordra/TangoRdraFileS
   },
 })
 export default class extends Vue {
-  clipped = false
   drawer = false
 
   right = true
