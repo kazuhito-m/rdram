@@ -156,8 +156,6 @@ export default class ResourceParet extends Vue {
     diagram
       .availableResourceTypes()
       .forEach(resourceType => this.availableResourceTypes.push(resourceType));
-    for (let i = 0; i < this.availableResourceTypes.length + 1; i++)
-      this.paretsOpen.push(i);
   }
 
   public onDragStartNewCompany(event: DragEvent): void {
