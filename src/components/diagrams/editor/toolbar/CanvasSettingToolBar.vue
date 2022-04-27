@@ -107,7 +107,7 @@ export default class CanvasSettingToolBar extends Vue {
   private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   private toolBarId!: string;
-  private toolBarCollapse = false;
+  private toolBarCollapse = true;
   private dragStartLayerX = 0;
   private dragStartLayerY = 0;
 
