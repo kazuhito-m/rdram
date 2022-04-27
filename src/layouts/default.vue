@@ -26,6 +26,7 @@
     <v-app-bar clipped-left fixed app>
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <TweetButton />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -132,6 +133,7 @@
 
 <script lang="ts">
 import { Component, Vue, Provide } from 'nuxt-property-decorator'
+import TweetButton from '@/components/other/sosial/TweetButton.vue';
 import StrageRepository from '@/domain/strage/StrageRepository'
 import StrageDatasource from '@/infrastructure/strage/StrageDatasource'
 import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
@@ -148,6 +150,7 @@ import TangoRdraFileService from '@/application/service/tangordra/TangoRdraFileS
 
 @Component({
   components: {
+    TweetButton,
     ProductSelectorDialog,
     ProductImportDialog,
     LocalStrageInitializeDialog,
