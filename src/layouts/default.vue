@@ -181,13 +181,8 @@ export default class extends Vue {
   private readonly items = [
     {
       icon: 'mdi-apps',
-      title: 'Welcome',
-      to: '/',
-    },
-    {
-      icon: 'mdi-apps',
       title: 'ダイアグラム一覧',
-      to: '/diagrams',
+      to: '/',
     },
     {
       icon: 'mdi-chart-bubble',
