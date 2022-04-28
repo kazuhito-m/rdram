@@ -123,6 +123,11 @@
       @onClose="onCloseApplicationInitializationDialog"
     />
 
+    <LocalStrageDestroyDialog
+      :visible="visibleLocalStrageDestroyDialog"
+      @onClose="onCloseLocalStrageDestoryDialog"
+    />
+
     <TangoRdraFileExportDialog
       :visible="visibleExportTangoRdraFileDialog"
       @onClose="onCloseTangoRdraFileExportDialog"
