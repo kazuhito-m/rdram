@@ -67,7 +67,7 @@
           <v-list-item-title>プロダクトのインポート...</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link @click="onClickDestryLocalStrage">
+        <v-list-item link @click="onClickImportLocalStrage">
           <v-list-item-icon>
             <v-icon>mdi-file-replace</v-icon>
           </v-list-item-icon>
@@ -131,6 +131,11 @@
       @onClose="onCloseApplicationInitializationDialog"
     />
 
+    <LocalStrageImportDialog
+      :visible="visibleLocalStrageImportDialog"
+      @onClose="onCloseLocalStrageImportDialog"
+    />
+
     <LocalStrageDestroyDialog
       :visible="visibleLocalStrageDestroyDialog"
       @onClose="onCloseLocalStrageDestroyDialog"
@@ -153,9 +158,11 @@ import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import ClientDownloadTransfar from '@/infrastructure/client/ClientDownloadTransfar'
 import ProductSelectorDialog from '@/components/product/ProductSelectorDialog.vue'
 import ProductImportDialog from  '@/components/product/import/ProductImportDialog.vue'
+import LocalStrageImportDialog from  '@/components/localstrage/import/LocalStrageImportDialog.vue'
 import LocalStrageInitializeDialog from '@/components/localstrage/LocalStrageInitializeDialog.vue'
 import LocalStrageDestroyDialog from '@/components/localstrage/LocalStrageDestroyDialog.vue'
 import TangoRdraFileExportDialog from '@/components/tangordra/TangoRdraFileExportDialog.vue'
+import LocalStrageImportService from '@/application/service/strage/import/LocalStrageImportService'
 import ProductImportService from '@/application/service/product/import/ProductImportService'
 import FileSystemRepository from '@/domain/filesystem/FileSystemRepository'
 import FileSystemDatasouce from '@/infrastructure/filesystem/FileSystemDatasource'
@@ -167,6 +174,7 @@ import TangoRdraFileService from '@/application/service/tangordra/TangoRdraFileS
     ProductSelectorDialog,
     ProductImportDialog,
     LocalStrageInitializeDialog,
+    LocalStrageImportDialog,
     LocalStrageDestroyDialog,
     TangoRdraFileExportDialog
   },
@@ -208,7 +216,10 @@ export default class extends Vue {
  
   @Provide()
   private readonly fileSystemRepository: FileSystemRepository = new FileSystemDatasouce();
- 
+
+  @Provide()
+  private readonly localStrageImportService: LocalStrageImportService = new LocalStrageImportService(this.repository, this.fileSystemRepository);
+
   @Provide()
   private readonly productImportService: ProductImportService = new ProductImportService(this.repository, this.fileSystemRepository);
 
@@ -223,6 +234,8 @@ export default class extends Vue {
   private productSelectorCancelable = false;
 
   private visibleProductImportDialog = false;
+
+  private visibleLocalStrageImportDialog = false;
 
   private visibleLocalStrageDestroyDialog = false;
 
@@ -286,6 +299,15 @@ export default class extends Vue {
 
   private onCloseProductImportDialog(): void {
     this.visibleProductImportDialog = false;
+  }
+
+  private onClickImportLocalStrage(): void {
+    this.visibleLocalStrageImportDialog = true;
+    this.rightDrawer = false;
+  }
+
+  private onCloseLocalStrageImportDialog(): void {
+    this.visibleLocalStrageImportDialog = false;
   }
 
   private onClickExportOfTangoRdraFile(): void {
