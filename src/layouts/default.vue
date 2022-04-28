@@ -5,6 +5,7 @@
       clipped
       fixed
       app
+      stateless
     >
       <v-list>
         <v-list-item
