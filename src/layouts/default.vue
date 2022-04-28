@@ -125,7 +125,7 @@
 
     <LocalStrageDestroyDialog
       :visible="visibleLocalStrageDestroyDialog"
-      @onClose="onCloseLocalStrageDestoryDialog"
+      @onClose="onCloseLocalStrageDestroyDialog"
     />
 
     <TangoRdraFileExportDialog
