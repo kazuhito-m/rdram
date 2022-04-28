@@ -69,6 +69,13 @@
 
         <v-list-item link @click="onClickDestryLocalStrage">
           <v-list-item-icon>
+            <v-icon>mdi-file-replace</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>LocalStrageのインポート...</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item link @click="onClickDestryLocalStrage">
+          <v-list-item-icon>
             <v-icon>mdi-delete-forever</v-icon>
           </v-list-item-icon>
           <v-list-item-title>LocalStrageの破棄...</v-list-item-title>
@@ -146,8 +153,8 @@ import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import ClientDownloadTransfar from '@/infrastructure/client/ClientDownloadTransfar'
 import ProductSelectorDialog from '@/components/product/ProductSelectorDialog.vue'
 import ProductImportDialog from  '@/components/product/import/ProductImportDialog.vue'
-import LocalStrageInitializeDialog from '@/components/LocalStrageInitializeDialog.vue'
-import LocalStrageDestroyDialog from '@/components/LocalStrageDestroyDialog.vue'
+import LocalStrageInitializeDialog from '@/components/localstrage/LocalStrageInitializeDialog.vue'
+import LocalStrageDestroyDialog from '@/components/localstrage/LocalStrageDestroyDialog.vue'
 import TangoRdraFileExportDialog from '@/components/tangordra/TangoRdraFileExportDialog.vue'
 import ProductImportService from '@/application/service/product/import/ProductImportService'
 import FileSystemRepository from '@/domain/filesystem/FileSystemRepository'
