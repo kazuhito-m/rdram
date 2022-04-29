@@ -16,7 +16,7 @@
           v-model="selectedFile"
           :disabled="progressEnable"
           :rules="[preValidate]"
-          label="RDRAM product exported file (json)"
+          :label="fileTypeDescription"
           accept="application/json"
           truncate-length="50"
           @update:error="onChangeErrorState"
@@ -82,6 +82,7 @@ import ProductImportMessageConverter from "./ProductImportMessageConverter";
 import ProductImportProgressEvent from "@/domain/product/import/ProductImportProgressEvent";
 import ProductImportService from "@/application/service/product/import/ProductImportService";
 import { ProductImportError } from "@/domain/product/import/ProductImportError";
+import RdramProductExportFileName from "@/domain/product/export/RdramProductExportFileName";
 
 @Component
 export default class ProductImportDialog extends Vue {
@@ -100,6 +101,8 @@ export default class ProductImportDialog extends Vue {
   private progressPercentage: number = 0;
   private progressLogs: string = " ";
   private readonly importedProductIds: string[] = [];
+
+  private  readonly fileTypeDescription = RdramProductExportFileName.TYPE_DESCRIPTION;
 
   @Watch('progressLogs')
   private onChangeProgressLogs() {
