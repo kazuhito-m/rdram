@@ -34,8 +34,6 @@ export default class LocalStorageImportService {
         file: File,
         notifyProgress: (event: LocalStorageImportProgressEvent) => void
     ): Promise<LocalStorage | null> {
-        // TODO 本実装
-/*
         notifyProgress(this.raise(LocalStorageImportProgressStep.ファイル読み込み));
 
         const result = this.validateOf(file);
@@ -52,6 +50,8 @@ export default class LocalStorageImportService {
         }
         const jsonText = json as string;
 
+        // TODO 本実装
+/*
         let product = this.storageRepository.createLocalStorageByJsonOf(jsonText);
 
         notifyProgress(this.raise(LocalStorageImportProgressStep.形式チェック));
