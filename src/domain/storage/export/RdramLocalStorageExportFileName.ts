@@ -9,8 +9,8 @@ export default class RdramLocalStorageExportFileName extends RdramExportFileName
 
     public static isApplicableOf(fileName: string): boolean {
         const pattern = new RdramLocalStorageExportFileName().toString()
-            .replace(/\-/g, '\\-')
-            .replace(/\-[0-9]+\./, '-[0-9]+\\.');
+            .replace(/-/g, '\\-')
+            .replace(/-[0-9]+\./, '-[0-9]+\\.');
         const hitTest = new RegExp(pattern);
         return hitTest.test(fileName);
     }
