@@ -14,7 +14,7 @@
       </v-card-text>
       <v-card-text>
         これは、<span class="red--text">全データの消去</span> や <span class="red--text">システムの初期化</span> と同様の操作です。<br>
-        なお、安全措置として「実行」をクリックした際、現在のLocalStrageの内容のファイルが自動的にダウンロードされます。<br>
+        なお「実行」クリック時、安全措置として「現在のLocalStrage内容」のファイルが自動的にダウンロードされます。<br>
       </v-card-text>
       <v-card-text>インポートする対象のファイルを指定してください。</v-card-text>
 
