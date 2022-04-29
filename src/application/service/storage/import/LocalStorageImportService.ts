@@ -4,6 +4,7 @@ import LocalStorageImportProgressEvent from "@/domain/storage/import/LocalStorag
 import LocalStorage from "@/domain/storage/LocalStorage";
 import StorageRepository from "@/domain/storage/StorageRepository";
 import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
+import RdramLocalStorageExportFileName from "@/domain/storage/export/RdramLocalStorageExportFileName";
 
 export default class LocalStorageImportService {
     constructor(
@@ -108,14 +109,9 @@ export default class LocalStorageImportService {
 
     public validateOf(file: File): LocalStorageImportError {
         const MAX_MB = 100 * 1024 * 1024;
-        const NAME_PATTERN = /^rdram-localstorage-.*\.json$/;
 
         if (!file) return LocalStorageImportError.なし;
-
-        const test = NAME_PATTERN.test(file.name);
-        alert(file.name + ", hantei:" + test);
-
-        if (!NAME_PATTERN.test(file.name)) return LocalStorageImportError.ファイル名不正;
+        if (!RdramLocalStorageExportFileName.isApplicableOf(file.name)) return LocalStorageImportError.ファイル名不正;
         if (file.size > MAX_MB) return LocalStorageImportError.サイズ超過;
         if (!this.fileSystemRepository.isJsonFile(file)) return LocalStorageImportError.非JSON形式;
 
