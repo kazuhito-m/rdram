@@ -1,15 +1,15 @@
 import { ProductImportProgressStep } from "@/domain/product/import/ProductImportProgressStep";
 import { ProductImportError } from "@/domain/product/import/ProductImportError";
 import ProductImportProgressEvent from "@/domain/product/import/ProductImportProgressEvent";
-import LocalStrage from "@/domain/strage/LocalStrage";
-import StrageRepository from "@/domain/strage/StrageRepository";
+import LocalStorage from "@/domain/storage/LocalStorage";
+import StorageRepository from "@/domain/storage/StorageRepository";
 import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
 import Product from "@/domain/product/Product";
 import RdramProductExportFileName from "@/domain/product/export/RdramProductExportFileName";
 
 export default class ProductImportService {
     constructor(
-        private readonly strageRepository: StrageRepository,
+        private readonly storageRepository: StorageRepository,
         private readonly fileSystemRepository: FileSystemRepository
     ) { }
 
@@ -53,7 +53,7 @@ export default class ProductImportService {
         }
         const jsonText = json as string;
 
-        let product = this.strageRepository.createProductByJsonOf(jsonText);
+        let product = this.storageRepository.createProductByJsonOf(jsonText);
 
         notifyProgress(this.raise(ProductImportProgressStep.形式チェック));
 
@@ -62,9 +62,9 @@ export default class ProductImportService {
             return null;
         }
 
-        const strage = this.strageRepository.get() as LocalStrage;
+        const storage = this.storageRepository.get() as LocalStorage;
 
-        if (strage.existsProductNameOf(product.name)) {
+        if (storage.existsProductNameOf(product.name)) {
             const newName = confirmeProductName(product.name);
             if (newName === "") {
                 notifyProgress(this.raise(ProductImportProgressStep.キャンセル));
@@ -76,11 +76,11 @@ export default class ProductImportService {
 
         notifyProgress(this.raise(ProductImportProgressStep.追加));
 
-        const updatedStrage = strage.mergeByProductName(product);
+        const updatedStorage = storage.mergeByProductName(product);
 
         notifyProgress(this.raise(ProductImportProgressStep.保存));
 
-        this.strageRepository.register(updatedStrage);
+        this.storageRepository.register(updatedStorage);
 
         notifyProgress(this.raise(ProductImportProgressStep.完了, `product name: "${product.name}"`));
 
@@ -116,7 +116,7 @@ export default class ProductImportService {
     }
 
     public hitCurrentProductOf(productIds: string[]): boolean {
-        const currentProduct = this.strageRepository.getCurrentProduct();
+        const currentProduct = this.storageRepository.getCurrentProduct();
         if (!currentProduct) return false;
         return productIds.includes(currentProduct.id);
     }

@@ -68,7 +68,7 @@ import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
 import MessageBox from "@/presentation/MessageBox";
 import Product from "@/domain/product/Product";
 import Products from "@/domain/product/Products";
-import StrageRepository from "@/domain/strage/StrageRepository";
+import StorageRepository from "@/domain/storage/StorageRepository";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import RdramExportFile from "@/domain/client/export/RdramExportFile";
 import RdramProductExportFileName from "@/domain/product/export/RdramProductExportFileName";
@@ -76,7 +76,7 @@ import RdramProductExportFileName from "@/domain/product/export/RdramProductExpo
 @Component
 export default class ProductSelectorDialog extends Vue {
   @Inject()
-  private readonly repository?: StrageRepository;
+  private readonly repository?: StorageRepository;
 
   @Inject()
   private clientDownloadRepository!: ClientDownloadRepository;
@@ -94,13 +94,13 @@ export default class ProductSelectorDialog extends Vue {
   private onOpen(): string {
     if (!this.visibleProductSelectorDialog) return "";
 
-    const strage = this.repository?.get();
-    if (!strage) return "";
+    const storage = this.repository?.get();
+    if (!storage) return "";
 
-    if (!this.products) this.products = strage.products;
+    if (!this.products) this.products = storage.products;
     if (this.selectedProduct) return "";
 
-    const product = strage.currentProduct();
+    const product = storage.currentProduct();
     if (!product) return "";
 
     this.currentProduct = product;
@@ -174,26 +174,26 @@ export default class ProductSelectorDialog extends Vue {
   }
 
   private saveAddProduct(product: Product): void {
-    const strage = this.repository?.get();
-    if (!strage) return;
-    const added = strage.merge(product);
+    const storage = this.repository?.get();
+    if (!storage) return;
+    const added = storage.merge(product);
     this.repository?.register(added);
   }
 
   private saveRemoveProduct(product: Product): void {
-    const strage = this.repository?.get();
-    if (!strage) return;
-    const added = strage.removeOf(product);
+    const storage = this.repository?.get();
+    if (!storage) return;
+    const added = storage.removeOf(product);
     this.repository?.register(added);
   }
 
   private saveCurrentProduct(): boolean {
     if (this.isSelectedCurrentProduct()) return false;
 
-    const strage = this.repository?.get();
-    if (!strage || !this.selectedProduct) return false;
+    const storage = this.repository?.get();
+    if (!storage || !this.selectedProduct) return false;
 
-    const changed = strage.changeCurrent(this.selectedProduct); 
+    const changed = storage.changeCurrent(this.selectedProduct); 
     this.repository?.register(changed);
     
     return true;

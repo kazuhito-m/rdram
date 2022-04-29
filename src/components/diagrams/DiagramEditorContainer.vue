@@ -97,7 +97,7 @@ import UseCaseCompositeDiagramEditor from "@/components/diagrams/editor/usecasec
 import VariationAndConditionDiagramEditor from "@/components/diagrams/editor/variationandcondition/VariationAndConditionDiagramEditor.vue";
 import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
-import StrageRepository from "@/domain/strage/StrageRepository";
+import StorageRepository from "@/domain/storage/StorageRepository";
 
 @Component({
   components: {
@@ -115,7 +115,7 @@ import StrageRepository from "@/domain/strage/StrageRepository";
 })
 export default class DiagramEditorContainer extends Vue {
   @Inject()
-  private readonly repository!: StrageRepository;
+  private readonly repository!: StorageRepository;
 
   @Prop({ required: true })
   private readonly diagramId!: number;

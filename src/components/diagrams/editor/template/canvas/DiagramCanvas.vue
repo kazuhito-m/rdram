@@ -71,7 +71,7 @@ import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
 import Relation from "@/domain/relation/Relation";
-import StrageRepository from "@/domain/strage/StrageRepository";
+import StorageRepository from "@/domain/storage/StorageRepository";
 import Placement from "@/domain/diagram/placement/Placement";
 import DownloadCustomFile from "@/domain/client/DownloadCustomFile";
 import DownloadFileName from "@/domain/client/DownloadFileName";
@@ -116,7 +116,7 @@ export default class DiagramCanvas extends Vue {
   // This class fields.
 
   @Inject()
-  private repository!: StrageRepository;
+  private repository!: StorageRepository;
 
   @Inject()
   private clientDownloadRepository!: ClientDownloadRepository;

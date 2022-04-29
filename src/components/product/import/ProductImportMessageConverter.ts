@@ -17,7 +17,7 @@ export default class ProductImportMessageConverter {
         m[ProductImportProgressStep.ファイル読み込み] = "ファイルの読み込み。";
         m[ProductImportProgressStep.形式チェック] = "ファイル内容・形式のチェック。";
         m[ProductImportProgressStep.追加] = "プロダクトの追加・置き換え。";
-        m[ProductImportProgressStep.保存] = "LocalStrageへの保存。";
+        m[ProductImportProgressStep.保存] = "LocalStorageへの保存。";
         m[ProductImportProgressStep.完了] = "完了。"
         m[ProductImportProgressStep.成功] = "インポートが成功しました。"
         return m;

@@ -1,4 +1,4 @@
-export const enum LocalStrageImportError {
+export const enum LocalStorageImportError {
     なし,
     予期せぬエラー,
     ファイル名不正,

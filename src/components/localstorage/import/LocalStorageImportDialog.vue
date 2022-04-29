@@ -7,14 +7,14 @@
   >
     <v-card>
       <v-card-title class="headline">
-        <v-icon>mdi-file-replace</v-icon> LocalStrageのインポート(全データ置換)
+        <v-icon>mdi-file-replace</v-icon> LocalStorageのインポート(全データ置換)
       </v-card-title>
       <v-card-text>
-        LocalStrageのデータを破棄し、<br/>指定した{{ fileTypeDescription }}の内容で置き換えます。
+        LocalStorageのデータを破棄し、<br/>指定した{{ fileTypeDescription }}の内容で置き換えます。
       </v-card-text>
       <v-card-text>
         これは、<span class="red--text">全データの消去</span> や <span class="red--text">システムの初期化</span> と同様の操作です。<br>
-        なお「実行」クリック時、安全措置として「現在のLocalStrage内容」のファイルが自動的にダウンロードされます。<br>
+        なお「実行」クリック時、安全措置として「現在のLocalStorage内容」のファイルが自動的にダウンロードされます。<br>
       </v-card-text>
       <v-card-text>インポートする対象のファイルを指定してください。</v-card-text>
 
@@ -74,7 +74,7 @@
           text
           color="green darken-1"
           :disabled="notImportable()"
-          @click="onClickImportLocalStrage"
+          @click="onClickImportLocalStorage"
         >
           実行
         </v-btn>
@@ -85,18 +85,18 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject, Watch } from "vue-property-decorator";
-import LocalStrageImportMessageConverter from "./LocalStrageImportMessageConverter";
-import LocalStrageImportProgressEvent from "@/domain/strage/import/LocalStrageImportProgressEvent";
-import LocalStrageImportService from "@/application/service/strage/import/LocalStrageImportService";
-import { LocalStrageImportError } from "@/domain/strage/import/LocalStrageImportError";
-import RdramLocalStrageExportFileName from "@/domain/strage/export/RdramLocalStrageExportFileName";
+import LocalStorageImportMessageConverter from "./LocalStorageImportMessageConverter";
+import LocalStorageImportProgressEvent from "@/domain/storage/import/LocalStorageImportProgressEvent";
+import LocalStorageImportService from "@/application/service/storage/import/LocalStorageImportService";
+import { LocalStorageImportError } from "@/domain/storage/import/LocalStorageImportError";
+import RdramLocalStorageExportFileName from "@/domain/storage/export/RdramLocalStorageExportFileName";
 
 @Component
-export default class LocalStrageImportDialog extends Vue {
+export default class LocalStorageImportDialog extends Vue {
   @Inject()
-  private readonly localStrageImportService?: LocalStrageImportService;
+  private readonly localStorageImportService?: LocalStorageImportService;
 
-  private readonly messageConverter = new LocalStrageImportMessageConverter();
+  private readonly messageConverter = new LocalStorageImportMessageConverter();
 
   @Prop()
   private visible?: boolean;
@@ -107,9 +107,9 @@ export default class LocalStrageImportDialog extends Vue {
   private progressEnable: boolean = false;
   private progressPercentage: number = 0;
   private progressLogs: string = " ";
-  private readonly importedLocalStrageIds: string[] = [];
+  private readonly importedLocalStorageIds: string[] = [];
 
-  private readonly fileTypeDescription = RdramLocalStrageExportFileName.TYPE_DESCRIPTION;
+  private readonly fileTypeDescription = RdramLocalStorageExportFileName.TYPE_DESCRIPTION;
 
   @Watch('progressLogs')
   private onChangeProgressLogs() {
@@ -129,14 +129,14 @@ export default class LocalStrageImportDialog extends Vue {
   }
 
   private preValidate(file: File): string | boolean {
-    const service = this.localStrageImportService as LocalStrageImportService;
+    const service = this.localStorageImportService as LocalStorageImportService;
     this.clearProgressArea();
     const result = service.validateOf(file);
-    if (result === LocalStrageImportError.なし) return true;
+    if (result === LocalStorageImportError.なし) return true;
     return this.messageConverter.errorMessageOf(result);
   }
 
-  private async onClickImportLocalStrage(): Promise<void> {
+  private async onClickImportLocalStorage(): Promise<void> {
     this.changeEnableProgressArea(true);
     await this.doImport();
     this.changeEnableProgressArea(false);
@@ -162,39 +162,39 @@ export default class LocalStrageImportDialog extends Vue {
 
   @Emit("onClose")
   public onClose(): void {
-    if (this.localStrageImportService?.hitCurrentLocalStrageOf(this.importedLocalStrageIds)) {
+    if (this.localStorageImportService?.hitCurrentLocalStorageOf(this.importedLocalStorageIds)) {
       alert("現在開いているプロダクトがインポートにより書き換えられました。\nプロダクトを開きなおします。");
       location.reload();
     }
 
     this.selectedFile = null;
     this.preValidateError = false;
-    this.importedLocalStrageIds.length = 0;
+    this.importedLocalStorageIds.length = 0;
     this.clearProgressArea();
   }
 
   private async doImport(): Promise<void> {
-    const service = this.localStrageImportService as LocalStrageImportService;
+    const service = this.localStorageImportService as LocalStorageImportService;
     const imported = await service.importOf(
       this.selectedFile as File,
       this.notifyProgress,
-      this.confirmeLocalStrageName
+      this.confirmeLocalStorageName
     );
     if (imported) location.reload();
   }
 
-  private confirmeLocalStrageName(originalLocalStrageName: string) : string {
+  private confirmeLocalStorageName(originalLocalStorageName: string) : string {
       let message = "既に同一の名前のプロダクトが存在します。名前を変えてインポートしますか？\n\n";
       message+="名前を変更する場合は入力して下さい。\n";
       message+="変更がなければ既存のプロダクトを上書きして保存します。"
 
-      const newName = prompt(message , originalLocalStrageName);
+      const newName = prompt(message , originalLocalStorageName);
 
       if (newName === null) return "";
       return newName;
   }
 
-  private notifyProgress(event: LocalStrageImportProgressEvent): void {
+  private notifyProgress(event: LocalStorageImportProgressEvent): void {
     this.progressPercentage = event.percentage();
 
     const message = this.messageConverter?.makeMessage(event);

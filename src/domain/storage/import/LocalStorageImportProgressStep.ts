@@ -1,4 +1,4 @@
-export enum LocalStrageImportProgressStep {
+export enum LocalStorageImportProgressStep {
     エラー = -2,
     失敗,
     キャンセル,

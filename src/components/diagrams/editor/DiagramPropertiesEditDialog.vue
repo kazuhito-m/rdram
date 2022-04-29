@@ -59,7 +59,7 @@ import {
   Watch
 } from "nuxt-property-decorator";
 import PropertiesSettingDialog from "@/components/PropertiesSettingDialog.vue";
-import StrageRepository from "@/domain/strage/StrageRepository";
+import StorageRepository from "@/domain/storage/StorageRepository";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 
@@ -84,7 +84,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
   }
 
   @Inject()
-  private repository?: StrageRepository;
+  private repository?: StorageRepository;
 
   private consent = false;
   private subTitle = "";
