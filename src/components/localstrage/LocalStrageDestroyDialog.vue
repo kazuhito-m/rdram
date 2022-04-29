@@ -56,7 +56,7 @@ import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import RdramExportFile from "@/domain/client/export/RdramExportFile";
-import RdramExportFileName from "@/domain/client/export/RdramExportFileName";
+import RdramLocalStrageExportFileName from "@/domain/strage/export/RdramLocalStrageExportFileName";
 
 @Component
 export default class LocalStrageDestroyDialog extends Vue {
@@ -94,7 +94,7 @@ export default class LocalStrageDestroyDialog extends Vue {
     const json = this.repository?.getJsonText();
     if (!json) return false;
 
-    const file = new RdramExportFile(json, new RdramExportFileName("localstrage-backup"));
+    const file = new RdramExportFile(json, new RdramLocalStrageExportFileName());
     this.clientDownloadRepository.register(file);
     return true;
   }
