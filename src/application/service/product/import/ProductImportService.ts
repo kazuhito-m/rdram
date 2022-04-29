@@ -5,6 +5,7 @@ import LocalStrage from "@/domain/strage/LocalStrage";
 import StrageRepository from "@/domain/strage/StrageRepository";
 import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
 import Product from "@/domain/product/Product";
+import RdramProductExportFileName from "@/domain/product/export/RdramProductExportFileName";
 
 export default class ProductImportService {
     constructor(
@@ -105,10 +106,9 @@ export default class ProductImportService {
 
     public validateOf(file: File): ProductImportError {
         const MAX_MB = 100 * 1024 * 1024;
-        const NAME_PATTERN = /^rdram-product-.*\.json$/;
 
         if (!file) return ProductImportError.なし;
-        if (!NAME_PATTERN.test(file.name)) return ProductImportError.ファイル名不正;
+        if (!RdramProductExportFileName.isApplicableOf(file.name)) return ProductImportError.ファイル名不正;
         if (file.size > MAX_MB) return ProductImportError.サイズ超過;
         if (!this.fileSystemRepository.isJsonFile(file)) return ProductImportError.非JSON形式;
 
