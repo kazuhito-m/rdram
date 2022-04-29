@@ -1,21 +1,21 @@
-import { ProductImportError } from "@/domain/product/import/ProductImportError";
+import { LocalStorageImportError } from "@/domain/storage/import/LocalStorageImportError";
 
-export default class ProductImportErrorMessageConverter {
-    private static readonly MESSAGE_DIC = ProductImportErrorMessageConverter.initMap();
+export default class LocalStorageImportErrorMessageConverter {
+    private static readonly MESSAGE_DIC = LocalStorageImportErrorMessageConverter.initMap();
 
     private static initMap(): { [key: number]: string } {
         const m: { [key: number]: string } = {};
-        m[ProductImportError.なし] = "";
-        m[ProductImportError.予期せぬエラー] = "予期せぬエラーが発生しました。";
-        m[ProductImportError.ファイル名不正] = "RDRAMシステムからエクスポートされたものではないファイル名です。";
-        m[ProductImportError.サイズ超過] = "ファイルが大きすぎます。";
-        m[ProductImportError.非JSON形式] = "ファイル形式がRDRAMシステムのプロダクトエクスポートファイルではありません。";
-        m[ProductImportError.読込失敗] = "ローカルファイルの読み込みに失敗しました。";
-        m[ProductImportError.プロダクト名不明] = "形式が不正です。プロダクト名が設定されていません。";
+        m[LocalStorageImportError.なし] = "";
+        m[LocalStorageImportError.予期せぬエラー] = "予期せぬエラーが発生しました。";
+        m[LocalStorageImportError.ファイル名不正] = "RDRAMシステムからエクスポートされたものではないファイル名です。";
+        m[LocalStorageImportError.サイズ超過] = "ファイルが大きすぎます。";
+        m[LocalStorageImportError.非JSON形式] = "ファイル形式がRDRAMシステムのプロダクトエクスポートファイルではありません。";
+        m[LocalStorageImportError.読込失敗] = "ローカルファイルの読み込みに失敗しました。";
+        m[LocalStorageImportError.プロダクト名不明] = "形式が不正です。プロダクト名が設定されていません。";
         return m;
     }
 
-    public messageOf(error: ProductImportError): string {
-        return ProductImportErrorMessageConverter.MESSAGE_DIC[error];
+    public messageOf(error: LocalStorageImportError): string {
+        return LocalStorageImportErrorMessageConverter.MESSAGE_DIC[error];
     }
 }
