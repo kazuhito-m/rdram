@@ -172,21 +172,9 @@ export default class LocalStorageImportDialog extends Vue {
     const service = this.localStorageImportService as LocalStorageImportService;
     const imported = await service.importOf(
       this.selectedFile as File,
-      this.notifyProgress,
-      this.confirmeLocalStorageName
+      this.notifyProgress
     );
     if (imported) location.reload();
-  }
-
-  private confirmeLocalStorageName(originalLocalStorageName: string) : string {
-      let message = "既に同一の名前のプロダクトが存在します。名前を変えてインポートしますか？\n\n";
-      message+="名前を変更する場合は入力して下さい。\n";
-      message+="変更がなければ既存のプロダクトを上書きして保存します。"
-
-      const newName = prompt(message , originalLocalStorageName);
-
-      if (newName === null) return "";
-      return newName;
   }
 
   private notifyProgress(event: LocalStorageImportProgressEvent): void {

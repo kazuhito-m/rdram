@@ -14,12 +14,11 @@ export default class LocalStorageImportService {
 
     public async importOf(
         file: File,
-        notifyProgress: (event: LocalStorageImportProgressEvent) => void,
-        confirmeLocalStorageName: (originalLocalStorageName: string) => string
+        notifyProgress: (event: LocalStorageImportProgressEvent) => void
     ): Promise<LocalStorage | null> {
         notifyProgress(this.raise(LocalStorageImportProgressStep.開始, "", file));
         try {
-            const result = await this.doImport(file, notifyProgress, confirmeLocalStorageName);
+            const result = await this.doImport(file, notifyProgress);
             if (result) {
                 notifyProgress(this.raise(LocalStorageImportProgressStep.成功, "", file));
                 return result;
@@ -33,8 +32,7 @@ export default class LocalStorageImportService {
 
     private async doImport(
         file: File,
-        notifyProgress: (event: LocalStorageImportProgressEvent) => void,
-        confirmeLocalStorageName: (originalLocalStorageName: string) => string
+        notifyProgress: (event: LocalStorageImportProgressEvent) => void
     ): Promise<LocalStorage | null> {
         // TODO 本実装
 /*
