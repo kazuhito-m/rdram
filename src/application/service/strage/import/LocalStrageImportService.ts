@@ -108,9 +108,13 @@ export default class LocalStrageImportService {
 
     public validateOf(file: File): LocalStrageImportError {
         const MAX_MB = 100 * 1024 * 1024;
-        const NAME_PATTERN = /^rdram-product-.*\.json$/;
+        const NAME_PATTERN = /^rdram-localstrage-.*\.json$/;
 
         if (!file) return LocalStrageImportError.なし;
+
+        const test = NAME_PATTERN.test(file.name);
+        alert(file.name + ", hantei:" + test);
+
         if (!NAME_PATTERN.test(file.name)) return LocalStrageImportError.ファイル名不正;
         if (file.size > MAX_MB) return LocalStrageImportError.サイズ超過;
         if (!this.fileSystemRepository.isJsonFile(file)) return LocalStrageImportError.非JSON形式;
@@ -119,8 +123,8 @@ export default class LocalStrageImportService {
     }
 
     public hitCurrentLocalStrageOf(productIds: string[]): boolean {
-        const currentLocalStrage = this.strageRepository.getCurrentLocalStrage();
-        if (!currentLocalStrage) return false;
-        return productIds.includes(currentLocalStrage.id);
+        const localStrage = this.strageRepository.get();
+        if (!localStrage) return false;
+        return productIds.includes(localStrage.id);
     }
 }
