@@ -162,11 +162,6 @@ export default class LocalStorageImportDialog extends Vue {
 
   @Emit("onClose")
   public onClose(): void {
-    if (this.localStorageImportService?.hitCurrentLocalStorageOf(this.importedLocalStorageIds)) {
-      alert("現在開いているプロダクトがインポートにより書き換えられました。\nプロダクトを開きなおします。");
-      location.reload();
-    }
-
     this.selectedFile = null;
     this.preValidateError = false;
     this.importedLocalStorageIds.length = 0;

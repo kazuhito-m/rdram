@@ -121,10 +121,4 @@ export default class LocalStorageImportService {
 
         return LocalStorageImportError.なし;
     }
-
-    public hitCurrentLocalStorageOf(productIds: string[]): boolean {
-        const localStorage = this.storageRepository.get();
-        if (!localStorage) return false;
-        return productIds.includes(localStorage.id);
-    }
 }
