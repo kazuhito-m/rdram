@@ -10,11 +10,11 @@
         <v-icon>mdi-file-replace</v-icon> LocalStrageのインポート(全データ置換)
       </v-card-title>
       <v-card-text>
-        LocalStrageのデータを破棄し、指定した{{ FILE_TYPE_CAPTION }}の内容で置き換えます。<br>
+        LocalStrageのデータを破棄し、<br/>指定した{{ fileTypeDescription }}の内容で置き換えます。
       </v-card-text>
       <v-card-text>
         これは、<span class="red--text">全データの消去</span> や <span class="red--text">システムの初期化</span> と同様の操作です。<br>
-        なお、安全措置として「実行」をクリックした際、LocalStrageの内容のファイルが自動的にダウンロードされます。<br>
+        なお、安全措置として「実行」をクリックした際、現在のLocalStrageの内容のファイルが自動的にダウンロードされます。<br>
       </v-card-text>
       <v-card-text>インポートする対象のファイルを指定してください。</v-card-text>
 
@@ -23,7 +23,7 @@
           v-model="selectedFile"
           :disabled="progressEnable"
           :rules="[preValidate]"
-          :label="FILE_TYPE_CAPTION"
+          :label="fileTypeDescription"
           accept="application/json"
           truncate-length="50"
           @update:error="onChangeErrorState"
@@ -89,6 +89,7 @@ import LocalStrageImportMessageConverter from "./LocalStrageImportMessageConvert
 import LocalStrageImportProgressEvent from "@/domain/strage/import/LocalStrageImportProgressEvent";
 import LocalStrageImportService from "@/application/service/strage/import/LocalStrageImportService";
 import { LocalStrageImportError } from "@/domain/strage/import/LocalStrageImportError";
+import RdramLocalStrageExportFileName from "@/domain/strage/export/RdramLocalStrageExportFileName";
 
 @Component
 export default class LocalStrageImportDialog extends Vue {
@@ -108,7 +109,7 @@ export default class LocalStrageImportDialog extends Vue {
   private progressLogs: string = " ";
   private readonly importedLocalStrageIds: string[] = [];
 
-  private readonly FILE_TYPE_CAPTION = "RDRAM LocalStrage file (json)";
+  private readonly fileTypeDescription = RdramLocalStrageExportFileName.TYPE_DESCRIPTION;
 
   @Watch('progressLogs')
   private onChangeProgressLogs() {
