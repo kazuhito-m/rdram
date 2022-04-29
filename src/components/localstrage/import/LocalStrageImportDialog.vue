@@ -93,7 +93,7 @@ import { LocalStrageImportError } from "@/domain/strage/import/LocalStrageImport
 @Component
 export default class LocalStrageImportDialog extends Vue {
   @Inject()
-  private readonly productImportService?: LocalStrageImportService;
+  private readonly localStrageImportService?: LocalStrageImportService;
 
   private readonly messageConverter = new LocalStrageImportMessageConverter();
 
@@ -108,7 +108,7 @@ export default class LocalStrageImportDialog extends Vue {
   private progressLogs: string = " ";
   private readonly importedLocalStrageIds: string[] = [];
 
-  private readonly FILE_TYPE_CAPTION = "RDRAM localstrage file (json)";
+  private readonly FILE_TYPE_CAPTION = "RDRAM LocalStrage file (json)";
 
   @Watch('progressLogs')
   private onChangeProgressLogs() {
@@ -128,7 +128,7 @@ export default class LocalStrageImportDialog extends Vue {
   }
 
   private preValidate(file: File): string | boolean {
-    const service = this.productImportService as LocalStrageImportService;
+    const service = this.localStrageImportService as LocalStrageImportService;
     this.clearProgressArea();
     const result = service.validateOf(file);
     if (result === LocalStrageImportError.なし) return true;
@@ -161,7 +161,7 @@ export default class LocalStrageImportDialog extends Vue {
 
   @Emit("onClose")
   public onClose(): void {
-    if (this.productImportService?.hitCurrentLocalStrageOf(this.importedLocalStrageIds)) {
+    if (this.localStrageImportService?.hitCurrentLocalStrageOf(this.importedLocalStrageIds)) {
       alert("現在開いているプロダクトがインポートにより書き換えられました。\nプロダクトを開きなおします。");
       location.reload();
     }
@@ -173,13 +173,13 @@ export default class LocalStrageImportDialog extends Vue {
   }
 
   private async doImport(): Promise<void> {
-    const service = this.productImportService as LocalStrageImportService;
+    const service = this.localStrageImportService as LocalStrageImportService;
     const imported = await service.importOf(
       this.selectedFile as File,
       this.notifyProgress,
       this.confirmeLocalStrageName
     );
-    if (imported) this.importedLocalStrageIds.push(imported.id);
+    if (imported) location.reload();
   }
 
   private confirmeLocalStrageName(originalLocalStrageName: string) : string {
