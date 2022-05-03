@@ -114,7 +114,7 @@ export default class LocalStorageImportService {
         if (!RdramLocalStorageExportFileName.isApplicableOf(file.name)) return LocalStorageImportError.ファイル名不正;
         if (file.size > MAX_MB) return LocalStorageImportError.サイズ超過;
         const text = await this.fileSystemRepository.readFile(file);
-        if (text === null || text.toString().trim().length === 0) return LocalStorageImportError.読込失敗;
+        if (text === null) return LocalStorageImportError.読込失敗;
         const isJson = await this.fileSystemRepository.isJsonFile(file);
         if (!isJson)return LocalStorageImportError.非JSON形式;
 
