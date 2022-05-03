@@ -128,10 +128,10 @@ export default class LocalStorageImportDialog extends Vue {
     return "";
   }
 
-  private preValidate(file: File): string | boolean {
+  private async preValidate(file: File): Promise<string | boolean> {
     const service = this.localStorageImportService as LocalStorageImportService;
     this.clearProgressArea();
-    const result = service.validateOf(file);
+    const result = await service.validateOf(file);
     if (result === LocalStorageImportError.なし) return true;
     return this.messageConverter.errorMessageOf(result);
   }
