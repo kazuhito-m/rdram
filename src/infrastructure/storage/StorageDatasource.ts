@@ -104,7 +104,6 @@ export default class StorageDatasource implements StorageRepository {
     }
 
     public createLocalStorageByJsonOf(jsonText: string): LocalStorage | null {
-        if (!this.serializer.tryParseJson(jsonText)) return null;
         return this.serializer
             .deserialize(jsonText) as LocalStorage;
     }

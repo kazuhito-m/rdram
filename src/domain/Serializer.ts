@@ -83,18 +83,6 @@ export default class Serializer {
         return this.toClassInstance(obj);
     }
 
-    public tryParseJson(jsonText: string): boolean {
-        if (!jsonText) return false;
-        if (jsonText.trim().length === 0) return false;
-
-        try {
-            JSON.parse(jsonText);
-            return true;
-        } catch (e) {
-            return false;
-        }
-    }
-
     private addClassNameProperty(value: any): void {
         if (typeof value !== "object") return;
         if (Array.isArray(value)) {
