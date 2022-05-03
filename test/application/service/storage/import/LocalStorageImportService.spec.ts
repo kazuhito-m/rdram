@@ -1,8 +1,8 @@
 import LocalStorageImportService from "@/application/service/storage/import/LocalStorageImportService";
-import { LocalStorageImportError } from "@/domain/storage/import/LocalStorageImportError";
-import LocalStorageImportProgressEvent from "@/domain/storage/import/LocalStorageImportProgressEvent";
-import FileSystemDatasouce from "@/infrastructure/filesystem/FileSystemDatasource";
-import StorageDatasource from "@/infrastructure/storage/StorageDatasource";
+import { LocalStorageImportError } from "~/domain/storage/import/LocalStorageImportError";
+import LocalStorageImportProgressEvent from "~/domain/storage/import/LocalStorageImportProgressEvent";
+import FileSystemDatasouce from "~/infrastructure/filesystem/FileSystemDatasource";
+import StorageDatasource from "~/infrastructure/storage/StorageDatasource";
 
 describe('LocalStorageImportService', () => {
   test('中身がないなど、無効なファイルを指定された場合エラーを通知する。', async () => {
