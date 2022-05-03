@@ -9,9 +9,13 @@ export default class LocalStorageImportProgressEvent {
         public readonly optionalMessage: string
     ) { }
 
+    public isError(): boolean {
+        return this.error !== LocalStorageImportError.なし;
+    }
+
     public stepNumber(): number {
         return this.step as number;
-    } 
+    }
 
     public percentage(): number {
         const stepNubmer = this.stepNumber();
