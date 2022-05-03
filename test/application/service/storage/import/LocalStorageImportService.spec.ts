@@ -14,7 +14,7 @@ describe('LocalStorageImportService', () => {
     );
 
     let lastError!: LocalStorageImportError;
-    const callback = async (event: LocalStorageImportProgressEvent): Promise<void> => {
+    const callback = (event: LocalStorageImportProgressEvent): void => {
       if (event.error === LocalStorageImportError.なし) return;
 
       console.log('callbackがコールされた。', 'step', event.step, 'error', event.error);
