@@ -36,7 +36,7 @@ export default class LocalStorageImportService {
     ): Promise<LocalStorage | null> {
         notifyProgress(this.raise(LocalStorageImportProgressStep.ファイル読み込み));
 
-        const result = this.validateOf(file);
+        const result = await this.validateOf(file);
         if (result !== LocalStorageImportError.なし) {
             notifyProgress(this.raiseError(result));
             return null;
@@ -118,13 +118,14 @@ export default class LocalStorageImportService {
         );
     }
 
-    public validateOf(file: File): LocalStorageImportError {
+    public async validateOf(file: File): Promise<LocalStorageImportError> {
         const MAX_MB = 100 * 1024 * 1024;
 
         if (!file) return LocalStorageImportError.なし;
         if (!RdramLocalStorageExportFileName.isApplicableOf(file.name)) return LocalStorageImportError.ファイル名不正;
         if (file.size > MAX_MB) return LocalStorageImportError.サイズ超過;
-        if (!this.fileSystemRepository.isJsonFile(file)) return LocalStorageImportError.非JSON形式;
+        const isJson = await this.fileSystemRepository.isJsonFile(file);
+        if (!isJson)return LocalStorageImportError.非JSON形式;
 
         return LocalStorageImportError.なし;
     }
