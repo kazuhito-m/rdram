@@ -37,7 +37,7 @@
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
     "@nuxtjs/eslint-module": "^3.1.0",
     "@nuxtjs/vuetify": "^1.12.1",
-    "@types/jest": "^27.4.1",
+    "@types/jest": "^27.5.0",
     "@types/jexcel": "^3.9.3",
     "@types/jquery": "^3.5.14",
     "@types/jqueryui": "^1.12.16",
