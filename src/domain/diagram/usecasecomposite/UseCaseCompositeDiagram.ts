@@ -4,7 +4,6 @@ import Placement from "@/domain/diagram/placement/Placement";
 import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
-import CanvasGuideType from "@/components/diagrams/editor/toolbar/CanvasGuideType";
 
 export default class UseCaseCompositeDiagram extends Diagram {
     protected constructor(
@@ -155,7 +154,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
             [],
             1024,
             768,
-            CanvasGuideType.なし.id,
+            Diagram.DEFAULT_CANVAS_GUIDE_ID,
         );
     }
 }

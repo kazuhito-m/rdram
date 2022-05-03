@@ -5,7 +5,6 @@ import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resources from "@/domain/resource/Resources";
 import Resource from "@/domain/resource/Resource";
-import CanvasGuideType from "@/components/diagrams/editor/toolbar/CanvasGuideType";
 
 export default class SystemContextDiagram extends Diagram {
     protected constructor(
@@ -147,7 +146,7 @@ export default class SystemContextDiagram extends Diagram {
             [],
             1024,
             768,
-            CanvasGuideType.なし.id,
+            Diagram.DEFAULT_CANVAS_GUIDE_ID,
         );
         // 特殊処理、Resource種が「システム」で、かつ「ひとつだけ」なら予め足してしまう。
         const resoucesOfSystem = resources.typeOf(ResourceType.システム);
