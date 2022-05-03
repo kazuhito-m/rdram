@@ -50,42 +50,55 @@ export default class LocalStorageImportService {
         }
         const jsonText = json as string;
 
-        // TODO 本実装
-/*
-        let product = this.storageRepository.createLocalStorageByJsonOf(jsonText);
-
-        notifyProgress(this.raise(LocalStorageImportProgressStep.形式チェック));
-
-        if (product.name.trim().length === 0) {
-            notifyProgress(this.raiseError(LocalStorageImportError.プロダクト名不明));
+        const strage = this.storageRepository.createLocalStorageByJsonOf(jsonText);
+        if (!strage) {
+            notifyProgress(this.raiseError(LocalStorageImportError.非JSON形式));
             return null;
         }
 
-        const storage = this.storageRepository.get() as LocalStorage;
-
-        if (storage.existsLocalStorageNameOf(product.name)) {
-            const newName = confirmeLocalStorageName(product.name);
-            if (newName === "") {
-                notifyProgress(this.raise(LocalStorageImportProgressStep.キャンセル));
-                return null;
-            }
-
-            product = product.renameOf(newName.trim());
+        if (!this.checkLogicalStructur(strage)) {
+            notifyProgress(this.raiseError(LocalStorageImportError.形式or構造が不正));
+            return null;
         }
 
-        notifyProgress(this.raise(LocalStorageImportProgressStep.追加));
-
-        const updatedStorage = storage.mergeByLocalStorageName(product);
-
-        notifyProgress(this.raise(LocalStorageImportProgressStep.保存));
-
-        this.storageRepository.register(updatedStorage);
-
-        notifyProgress(this.raise(LocalStorageImportProgressStep.完了, `product name: "${product.name}"`));
-
-        return product;
-*/
+        // TODO 本実装
+        /*
+                notifyProgress(this.raise(LocalStorageImportProgressStep.形式チェック));
+        
+                if (product.name.trim().length === 0) {
+                    notifyProgress(this.raiseError(LocalStorageImportError.プロダクト名不明));
+                    return null;
+                }
+        
+                const storage = this.storageRepository.get() as LocalStorage;
+        
+                if (storage.existsLocalStorageNameOf(product.name)) {
+                    const newName = confirmeLocalStorageName(product.name);
+                    if (newName === "") {
+                        notifyProgress(this.raise(LocalStorageImportProgressStep.キャンセル));
+                        return null;
+                    }
+        
+                    product = product.renameOf(newName.trim());
+                }
+        
+                notifyProgress(this.raise(LocalStorageImportProgressStep.追加));
+        
+                const updatedStorage = storage.mergeByLocalStorageName(product);
+        
+                notifyProgress(this.raise(LocalStorageImportProgressStep.保存));
+        
+                this.storageRepository.register(updatedStorage);
+        
+                notifyProgress(this.raise(LocalStorageImportProgressStep.完了, `product name: "${product.name}"`));
+        
+                return product;
+        */
         return null;
+    }
+
+    private checkLogicalStructur(strage: LocalStorage): boolean {
+        return true;
     }
 
     private raise(step: LocalStorageImportProgressStep, message: string = "", file?: File): LocalStorageImportProgressEvent {

@@ -5,5 +5,5 @@ export const enum LocalStorageImportError {
     サイズ超過,
     非JSON形式,
     読込失敗,
-    プロダクト名不明
+    形式or構造が不正
 }

@@ -11,7 +11,7 @@ export default class LocalStorageImportErrorMessageConverter {
         m[LocalStorageImportError.サイズ超過] = "ファイルが大きすぎます。";
         m[LocalStorageImportError.非JSON形式] = "ファイル形式がRDRAMシステムのプロダクトエクスポートファイルではありません。";
         m[LocalStorageImportError.読込失敗] = "ローカルファイルの読み込みに失敗しました。";
-        m[LocalStorageImportError.プロダクト名不明] = "形式が不正です。プロダクト名が設定されていません。";
+        m[LocalStorageImportError.形式or構造が不正] = "形式が不正です。内容が読み取れない形式です。";
         return m;
     }
 

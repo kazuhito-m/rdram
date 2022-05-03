@@ -14,4 +14,5 @@ export default interface StorageRepository {
     clear(): void;
     generateResourceId(): number;
     createProductByJsonOf(jsonText: string): Product;
+    createLocalStorageByJsonOf(jsonText: string): LocalStorage | null; 
 }
