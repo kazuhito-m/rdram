@@ -42,21 +42,10 @@ export default class LocalStorageImportService {
             return null;
         }
 
-        const json = await this.fileSystemRepository.readFile(file);
+        const jsonText = await this.fileSystemRepository.readFile(file) as string;
+        const strage = this.storageRepository.createLocalStorageByJsonOf(jsonText) as LocalStorage;
 
-        if (json === null) {
-            notifyProgress(this.raiseError(LocalStorageImportError.読込失敗));
-            return null;
-        }
-        const jsonText = json as string;
-
-        const strage = this.storageRepository.createLocalStorageByJsonOf(jsonText);
-        if (!strage) {
-            notifyProgress(this.raiseError(LocalStorageImportError.非JSON形式));
-            return null;
-        }
-
-        if (!this.checkLogicalStructur(strage)) {
+        if (!this.checkLogicalStructure(strage)) {
             notifyProgress(this.raiseError(LocalStorageImportError.形式or構造が不正));
             return null;
         }
@@ -97,7 +86,7 @@ export default class LocalStorageImportService {
         return null;
     }
 
-    private checkLogicalStructur(strage: LocalStorage): boolean {
+    private checkLogicalStructure(strage: LocalStorage): boolean {
         return true;
     }
 
@@ -124,6 +113,8 @@ export default class LocalStorageImportService {
         if (!file) return LocalStorageImportError.なし;
         if (!RdramLocalStorageExportFileName.isApplicableOf(file.name)) return LocalStorageImportError.ファイル名不正;
         if (file.size > MAX_MB) return LocalStorageImportError.サイズ超過;
+        const text = await this.fileSystemRepository.readFile(file);
+        if (text === null || text.toString().trim().length === 0) return LocalStorageImportError.読込失敗;
         const isJson = await this.fileSystemRepository.isJsonFile(file);
         if (!isJson)return LocalStorageImportError.非JSON形式;
 
