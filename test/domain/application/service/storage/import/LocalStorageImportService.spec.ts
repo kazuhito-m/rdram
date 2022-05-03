@@ -5,7 +5,7 @@ import FileSystemDatasouce from "~/infrastructure/filesystem/FileSystemDatasourc
 import StorageDatasource from "~/infrastructure/storage/StorageDatasource";
 
 describe('LocalStorageImportService', () => {
-  test('中身がないなど、無効なファイルを指定された場合エラーを通知する。', () => {
+  test('中身がないなど、無効なファイルを指定された場合エラーを通知する。', async () => {
     const sut = createSut();
 
     const file = {
@@ -16,7 +16,7 @@ describe('LocalStorageImportService', () => {
     } as File;
 
     let resultEvent!: LocalStorageImportProgressEvent;
-    const actual = sut.importOf(file,
+    const actual = await sut.importOf(file,
       event => resultEvent = event);
 
     expect(actual).toBeNull();
