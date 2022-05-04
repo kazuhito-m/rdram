@@ -16,16 +16,6 @@ describe('LocalStorageImportService', () => {
     expect(actual).toBeNull();
     expect(lastError).toEqual(LocalStorageImportError.非JSON形式);
   });
-
-  test('空文字はJsonとしてイケてるのか？', () => {
-    const parsed = JSON.parse('');
-    console.log('呼んだJSON', parsed);
-  });
-
-  test('Json最小構成はどんななのか？', () => {
-    const parsed = JSON.parse('[]');
-    console.log('呼んだJSON', parsed);
-  });
 })
 
 function fileOf(contents: string): File {
