@@ -8,7 +8,7 @@ import LocalStorageImportProgressEvent from "~/domain/storage/import/LocalStorag
 import { LocalStorageImportProgressStep } from "~/domain/storage/import/LocalStorageImportProgressStep";
 
 describe('LocalStorageImportService', () => {
-  const sut = new LocalStorageImportService(new StorageDatasource(), new FileSystemDatasouce());
+  const sut = new LocalStorageImportService(mockStorageRepository(), new FileSystemDatasouce());
 
   test('中身がないなど、無効なファイルを指定された場合エラーを通知する。', async () => {
     const file = fileOf("");
@@ -110,4 +110,10 @@ function removedLinesContaining(word: string, content: string): string {
   return content.split(/\r?\n/)
     .filter(i => !i.includes(word))
     .join("\n");
+}
+
+function mockStorageRepository() {
+  const repository = new StorageDatasource();
+  repository.register = (storage) => { };
+  return repository;
 }
