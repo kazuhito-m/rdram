@@ -78,7 +78,7 @@ export default class LocalStorageDestroyDialog extends Vue {
 
   private onClickDestroyExecute(): void {
     if (!this.downloadNowLocalStorageDateFile()) {
-      alert("ダウンロードファイルの作成に失敗しました。破棄処理を中段します。");
+      alert("ダウンロードファイルの作成に失敗しました。破棄処理を中断します。");
       return;
     }
     this.repository?.destroy();
