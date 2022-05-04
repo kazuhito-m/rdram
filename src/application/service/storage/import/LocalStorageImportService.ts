@@ -45,6 +45,8 @@ export default class LocalStorageImportService {
         const jsonText = await this.fileSystemRepository.readFile(file) as string;
         const strage = this.storageRepository.createLocalStorageByJsonOf(jsonText) as LocalStorage;
 
+        notifyProgress(this.raise(LocalStorageImportProgressStep.形式チェック));
+
         if (!this.checkLogicalStructure(strage)) {
             notifyProgress(this.raiseError(LocalStorageImportError.形式or構造が不正));
             return null;
@@ -52,7 +54,6 @@ export default class LocalStorageImportService {
 
         // TODO 本実装
         /*
-                notifyProgress(this.raise(LocalStorageImportProgressStep.形式チェック));
         
                 if (product.name.trim().length === 0) {
                     notifyProgress(this.raiseError(LocalStorageImportError.プロダクト名不明));
@@ -122,7 +123,7 @@ export default class LocalStorageImportService {
         const text = await this.fileSystemRepository.readFile(file);
         if (text === null) return LocalStorageImportError.読込失敗;
         const isJson = await this.fileSystemRepository.isJsonFile(file);
-        if (!isJson)return LocalStorageImportError.非JSON形式;
+        if (!isJson) return LocalStorageImportError.非JSON形式;
 
         return LocalStorageImportError.なし;
     }
