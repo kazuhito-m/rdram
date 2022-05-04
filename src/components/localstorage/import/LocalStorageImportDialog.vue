@@ -123,11 +123,10 @@ export default class LocalStorageImportDialog extends Vue {
     return vuePart.$el.querySelector('textarea') as HTMLTextAreaElement;
   }
 
-  private onOpen(): string {
-    if (!this.visible || this.opend) return "";
+  private onOpen() {
+    if (!this.visible || this.opend) return;
     this.clearAllState();
     this.opend = true;
-    return "";
   }
 
   private async preValidate(file: File): Promise<string | boolean> {
@@ -150,7 +149,6 @@ export default class LocalStorageImportDialog extends Vue {
   }
 
   private clearAllState() {
-    this.opend = false;
     this.selectedFile = null;
     this.preValidateError = false;
     this.clearProgressArea();
