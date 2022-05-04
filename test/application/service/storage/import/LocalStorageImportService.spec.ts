@@ -18,25 +18,33 @@ describe('LocalStorageImportService', () => {
   });
 
   test('JSONとしても成り立つが、論理的構造がLocalStrageではない場合、エラーを通知する。', async () => {
-    const content = `{
-    "updateAt": "2022-04-29T19:18:33.274Z",
-    "status": {
-        "currentProductId": "6c614787-e750-4b11-8833-2dcf69fd8886",
-        "__CLASS_NAME": "Status"
-    },
-    "products": {
-       "values": [] 
+    const validContent = `{
+  "updateAt": "2022-04-29T19:18:33.274Z",
+  "status": {
+    "currentProductId": "6c614787-e750-4b11-8833-2dcf69fd8886",
+    "__CLASS_NAME": "Status"
+  },
+  "products": {
+    "values": []
+  }
+}`;
+
+    const errorContents = [
+      removedLinesContaining("updateAt", validContent),
+      removedLinesContaining("currentProductId", validContent),
+      removedLinesContaining("values", validContent),
+    ];
+
+    for (const errorContent of errorContents) {
+      const file = fileOf(errorContent);
+
+      let lastError!: LocalStorageImportError;
+      const actual = await sut.importOf(file,
+        event => { if (event.isError()) lastError = event.error; });
+
+      expect(actual).toBeNull();
+      expect(lastError).toEqual(LocalStorageImportError.形式or構造が不正);
     }
-    }`;
-
-    const file = fileOf(content);
-
-    let lastError!: LocalStorageImportError;
-    const actual = await sut.importOf(file,
-      event => { if (event.isError()) lastError = event.error; });
-
-    expect(actual).toBeNull();
-    expect(lastError).toEqual(LocalStorageImportError.形式or構造が不正);
   });
 })
 
@@ -46,4 +54,10 @@ function fileOf(contents: string): File {
     "rdram-localstorage-backup-0.json",
     { type: 'text/html' }
   );
+}
+
+function removedLinesContaining(word: string, content: string): string {
+  return content.split(/\r?\n/)
+    .filter(i => !i.includes(word))
+    .join("\n");
 }
