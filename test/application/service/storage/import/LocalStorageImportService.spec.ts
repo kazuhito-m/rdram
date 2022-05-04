@@ -114,6 +114,6 @@ function removedLinesContaining(word: string, content: string): string {
 
 function mockStorageRepository() {
   const repository = new StorageDatasource();
-  repository.register = (storage) => { };
+  repository.register = (storage) => expect(storage).not.toBeNull();
   return repository;
 }
