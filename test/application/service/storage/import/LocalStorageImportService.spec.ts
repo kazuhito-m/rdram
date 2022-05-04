@@ -70,6 +70,22 @@ describe('LocalStorageImportService', () => {
     expect(actual!.products.first().name)
       .toEqual("サンプル用のプロダクト");
   });
+
+  test('プロダクトが一個も無いファイルのインポートが成功する。', async () => {
+    const file = loadTestFileOf("rdram-localstorage-backup-1.json");
+
+    let lastEvent: LocalStorageImportProgressEvent;
+    const actual = await sut.importOf(file,
+      event => lastEvent = event);
+
+    expect(actual).not.toBeNull();
+
+    expect(lastEvent!).not.toBeNull();
+    expect(lastEvent!.step).toEqual(LocalStorageImportProgressStep.成功);
+    expect(lastEvent!.percentage()).toEqual(100);
+
+    expect(actual!.products.length()).toEqual(0);
+  });
 })
 
 function fileOf(contents: string): File {
