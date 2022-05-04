@@ -52,44 +52,19 @@ export default class LocalStorageImportService {
             return null;
         }
 
-        // TODO 本実装
-        /*
-        
-                if (product.name.trim().length === 0) {
-                    notifyProgress(this.raiseError(LocalStorageImportError.プロダクト名不明));
-                    return null;
-                }
-        
-                const storage = this.storageRepository.get() as LocalStorage;
-        
-                if (storage.existsLocalStorageNameOf(product.name)) {
-                    const newName = confirmeLocalStorageName(product.name);
-                    if (newName === "") {
-                        notifyProgress(this.raise(LocalStorageImportProgressStep.キャンセル));
-                        return null;
-                    }
-        
-                    product = product.renameOf(newName.trim());
-                }
-        
-                notifyProgress(this.raise(LocalStorageImportProgressStep.追加));
-        
-                const updatedStorage = storage.mergeByLocalStorageName(product);
-        
-                notifyProgress(this.raise(LocalStorageImportProgressStep.保存));
-        
-                this.storageRepository.register(updatedStorage);
-        
-                notifyProgress(this.raise(LocalStorageImportProgressStep.完了, `product name: "${product.name}"`));
-        
-                return product;
-        */
-        return null;
+        notifyProgress(this.raise(LocalStorageImportProgressStep.保存));
+
+        this.storageRepository.register(strage);
+
+        notifyProgress(this.raise(LocalStorageImportProgressStep.完了,
+            `置き換えたLocalStrageは "${strage.updateAt}" 当時に出力されたものです。`));
+
+        return strage;
     }
 
     private checkLogicalStructure(strage: LocalStorage): boolean {
         return !(
-            !strage["updateAt"]
+            !strage.updateAt
             || !strage.status
             || !strage.status["currentProductId"]
             || !strage.products

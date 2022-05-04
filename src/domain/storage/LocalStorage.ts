@@ -3,7 +3,7 @@ import Products from "@/domain/product/Products";
 import Product from "@/domain/product/Product";
 
 export default class LocalStorage {
-    private readonly updateAt: Date;
+    public readonly updateAt: Date;
     public readonly status: Status;
     public readonly products: Products;
 
