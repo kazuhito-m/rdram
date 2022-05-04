@@ -1,7 +1,7 @@
 import LocalStorageImportService from "@/application/service/storage/import/LocalStorageImportService";
-import { LocalStorageImportError } from "@/domain/storage/import/LocalStorageImportError";
-import FileSystemDatasouce from "@/infrastructure/filesystem/FileSystemDatasource";
-import StorageDatasource from "@/infrastructure/storage/StorageDatasource";
+import { LocalStorageImportError } from "~/domain/storage/import/LocalStorageImportError";
+import FileSystemDatasouce from "~/infrastructure/filesystem/FileSystemDatasource";
+import StorageDatasource from "~/infrastructure/storage/StorageDatasource";
 
 describe('LocalStorageImportService', () => {
   const sut = new LocalStorageImportService(new StorageDatasource(), new FileSystemDatasouce());
@@ -15,6 +15,16 @@ describe('LocalStorageImportService', () => {
 
     expect(actual).toBeNull();
     expect(lastError).toEqual(LocalStorageImportError.非JSON形式);
+  });
+
+  test('空文字はJsonとしてイケてるのか？', () => {
+    const parsed = JSON.parse('');
+    console.log('呼んだJSON', parsed);
+  });
+
+  test('Json最小構成はどんななのか？', () => {
+    const parsed = JSON.parse('[]');
+    console.log('呼んだJSON', parsed);
   });
 })
 
