@@ -25,4 +25,8 @@ export default class LocalStorageExportService {
     public downloadOnClientOf(file: RdramExportFile) {
         this.clientDownloadRepository.register(file);
     }
+
+    public destroyLocalStorage(): void {
+        this.storageRepository.destroy();
+    }
 }

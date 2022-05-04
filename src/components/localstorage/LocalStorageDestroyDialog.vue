@@ -53,18 +53,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
-import StorageRepository from "@/domain/storage/StorageRepository";
-import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
-import RdramExportFile from "@/domain/client/export/RdramExportFile";
-import RdramLocalStorageExportFileName from "@/domain/storage/export/RdramLocalStorageExportFileName";
+import LocalStorageExportService from "@/application/service/storage/export/LocalStorageExportService";
 
 @Component
 export default class LocalStorageDestroyDialog extends Vue {
   @Inject()
-  private readonly repository?: StorageRepository;
-
-  @Inject()
-  private clientDownloadRepository!: ClientDownloadRepository;
+  private readonly localStorageExportService!: LocalStorageExportService;
 
   @Prop()
   private visible?: boolean;
@@ -81,7 +75,7 @@ export default class LocalStorageDestroyDialog extends Vue {
       alert("ダウンロードファイルの作成に失敗しました。破棄処理を中断します。");
       return;
     }
-    this.repository?.destroy();
+    this.localStorageExportService!.destroyLocalStorage();
     location.reload();
   }
 
@@ -91,12 +85,7 @@ export default class LocalStorageDestroyDialog extends Vue {
   }
 
   private downloadNowLocalStorageDateFile(): boolean {
-    const json = this.repository?.getJsonText();
-    if (!json) return false;
-
-    const file = new RdramExportFile(json, new RdramLocalStorageExportFileName());
-    this.clientDownloadRepository.register(file);
-    return true;
+    return this.localStorageExportService!.downloadExportFileOnClient();
   }
 }
 </script>
