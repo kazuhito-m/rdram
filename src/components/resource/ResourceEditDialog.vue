@@ -58,7 +58,7 @@ import HasContentResourceEditDialog from "./HasContentResourceEditDialog.vue";
 import VariationEditDialog from "./VariationEditDialog.vue";
 import ConditionEditDialog from "./ConditionEditDialog.vue";
 import TableTypeConditionEditDialog from "./TableTypeConditionEditDialog.vue";
-import StrageRepository from "@/domain/strage/StrageRepository";
+import StorageRepository from "@/domain/storage/StorageRepository";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
@@ -110,7 +110,7 @@ export default class ResourceEditDialog extends Vue {
   private targetDiagram: Diagram | null = null;
 
   @Inject()
-  private repository?: StrageRepository;
+  private repository?: StorageRepository;
 
   private onShow(): void {
     const resources = this.loadResources();

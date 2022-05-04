@@ -62,7 +62,15 @@ export default class Products {
         return result;
     }
 
+    public length(): number {
+        return this.values.length;
+    }
+
     public isEmpty(): boolean {
-        return this.values.length <= 0;
+        return this.length() <= 0;
+    }
+
+    public first(): Product {
+        return this.values[0];
     }
 }

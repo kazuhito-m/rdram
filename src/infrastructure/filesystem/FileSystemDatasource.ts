@@ -16,16 +16,21 @@ export default class FileSystemDatasouce implements FileSystemRepository {
     public async isJsonFile(file: File): Promise<boolean> {
         try {
             const json = await this.parseJson(file);
-            if (!json) return false;
-            return true;
+            return json !== null;
         } catch (e) {
             return false;
         }
     }
 
     private async parseJson<T>(file: File): Promise<T | null> {
-        const text = await this.readFile(file);
-        if (!text) return null;
-        return JSON.parse(text as string) as T;
+        if (!file) return null;
+
+        const maybeText = await this.readFile(file);
+
+        if (!maybeText) return null;
+        const text = maybeText as string;
+        if (text.trim().length === 0) return null;
+
+        return JSON.parse(maybeText as string) as T;
     }
 }

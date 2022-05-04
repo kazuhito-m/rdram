@@ -1,16 +1,16 @@
 import YAML from 'yaml';
-import StrageRepository from "@/domain/strage/StrageRepository";
+import StorageRepository from "@/domain/storage/StorageRepository";
 import TangoRdraExportFile from "@/domain/tangordra/export/file/TangoRdraExportFile";
 import Product from "@/domain/product/Product";
 import ProductToTangoRdraConverter from "@/domain/tangordra/export/ProductToTangoRdraConverter";
 
 export default class TangoRdraFileService {
     constructor(
-        private readonly strageRepository: StrageRepository,
+        private readonly storageRepository: StorageRepository,
     ) { }
 
     public generateExportFile(): TangoRdraExportFile {
-        const currentProduct = this.strageRepository.getCurrentProduct();
+        const currentProduct = this.storageRepository.getCurrentProduct();
         if (!currentProduct) return TangoRdraExportFile.empty();
 
         const yaml = this.generateTangoRdraOf(currentProduct);
@@ -27,7 +27,7 @@ export default class TangoRdraFileService {
     }
 
     public currentProductName(): string {
-        const currentProduct = this.strageRepository.getCurrentProduct();
+        const currentProduct = this.storageRepository.getCurrentProduct();
         return currentProduct?.name as string;
     }
 }

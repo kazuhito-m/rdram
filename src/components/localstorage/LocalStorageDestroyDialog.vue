@@ -6,13 +6,13 @@
   >
     <v-card>
       <v-card-title class="headline">
-        <v-icon>mdi-delete-forever</v-icon> LocalStrageの破棄
+        <v-icon>mdi-delete-forever</v-icon> LocalStorageの破棄
       </v-card-title>
       <v-card-text>
-        LocalStrageからデータ破棄します。<br>
+        LocalStorageからデータ破棄します。<br>
         これは、<span class="red--text">全データの消去</span> や <span class="red--text">システムの初期化</span> と同様の操作です。<br>
-        なお、安全措置として「実行」をクリックした際、LocalStrageの内容のファイルが自動的にダウンロードされます。<br>
-        LocalStrageを破棄してよろしいですか。
+        なお「実行」クリック時、安全措置として「現在のLocalStorage内容」のファイルが自動的にダウンロードされます。<br>
+        LocalStorageを破棄してよろしいですか。
       </v-card-text>
       <v-card-text>
         <v-checkbox
@@ -24,9 +24,9 @@
         <v-btn 
           text
           color="blue darken-1"
-          @click="onClickExportLocalStrage"
+          @click="onClickExportLocalStorage"
         >
-          LocalStrageをエクスポート
+          LocalStorageをエクスポート
         </v-btn>
 
         <v-spacer></v-spacer>
@@ -53,18 +53,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject } from "vue-property-decorator";
-import StrageRepository from "@/domain/strage/StrageRepository";
-import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
-import RdramExportFile from "@/domain/client/export/RdramExportFile";
-import RdramExportFileName from "@/domain/client/export/RdramExportFileName";
+import LocalStorageExportService from "@/application/service/storage/export/LocalStorageExportService";
 
 @Component
-export default class LocalStrageDestroyDialog extends Vue {
+export default class LocalStorageDestroyDialog extends Vue {
   @Inject()
-  private readonly repository?: StrageRepository;
-
-  @Inject()
-  private clientDownloadRepository!: ClientDownloadRepository;
+  private readonly localStorageExportService!: LocalStorageExportService;
 
   @Prop()
   private visible?: boolean;
@@ -77,26 +71,21 @@ export default class LocalStrageDestroyDialog extends Vue {
   }
 
   private onClickDestroyExecute(): void {
-    if (!this.downloadNowLocalStrageDateFile()) {
-      alert("ダウンロードファイルの作成に失敗しました。破棄処理を中段します。");
+    if (!this.downloadNowLocalStorageDateFile()) {
+      alert("ダウンロードファイルの作成に失敗しました。破棄処理を中断します。");
       return;
     }
-    this.repository?.destroy();
+    this.localStorageExportService!.destroyLocalStorage();
     location.reload();
   }
 
-  private onClickExportLocalStrage(): void {
-    if (this.downloadNowLocalStrageDateFile()) return;
+  private onClickExportLocalStorage(): void {
+    if (this.downloadNowLocalStorageDateFile()) return;
     alert("ダウンロードファイルの作成に失敗しました。");
   }
 
-  private downloadNowLocalStrageDateFile(): boolean {
-    const json = this.repository?.getJsonText();
-    if (!json) return false;
-
-    const file = new RdramExportFile(json, new RdramExportFileName("localstrage-backup"));
-    this.clientDownloadRepository.register(file);
-    return true;
+  private downloadNowLocalStorageDateFile(): boolean {
+    return this.localStorageExportService!.downloadExportFileOnClient();
   }
 }
 </script>

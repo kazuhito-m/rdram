@@ -1,11 +1,11 @@
 import Serializer from '@/domain/Serializer';
 import Product from '@/domain/product/Product';
 import Products from '@/domain/product/Products';
-import LocalStrage from '@/domain/strage/LocalStrage';
-import StrageRepository from '@/domain/strage/StrageRepository';
+import LocalStorage from '@/domain/storage/LocalStorage';
+import StorageRepository from '@/domain/storage/StorageRepository';
 
-export default class StrageDatasource implements StrageRepository {
-    private static readonly STRAGE_ID = 'rdram-strage';
+export default class StorageDatasource implements StorageRepository {
+    private static readonly STRAGE_ID = 'rdram-storage';
 
     private readonly serializer = new Serializer();
 
@@ -22,72 +22,72 @@ export default class StrageDatasource implements StrageRepository {
     }
 
     public destroy(): void {
-        localStorage.removeItem(StrageDatasource.STRAGE_ID);
+        localStorage.removeItem(StorageDatasource.STRAGE_ID);
     }
 
-    private defaultStructure(): LocalStrage {
-        return LocalStrage.prototypeOf();
+    private defaultStructure(): LocalStorage {
+        return LocalStorage.prototypeOf();
     }
 
     public getJsonText(): string | null {
-        return localStorage.getItem(StrageDatasource.STRAGE_ID);
+        return localStorage.getItem(StorageDatasource.STRAGE_ID);
     }
 
-    public get(): LocalStrage | null {
+    public get(): LocalStorage | null {
         const startTime = performance.now();
 
         const textData = this.getJsonText();
         if (!textData) return null;
-        const strage = this.serializer.deserialize(textData) as LocalStrage;
+        const storage = this.serializer.deserialize(textData) as LocalStorage;
 
         // console.log('get :    ' + textData);
-        console.log(strage);
+        console.log(storage);
         const ms = performance.now() - startTime;
-        console.log(`StrageDatasource.get(),      ${(new Blob([textData])).size} byte取得。${ms.toFixed(3)} ms`);
+        console.log(`StorageDatasource.get(),      ${(new Blob([textData])).size} byte取得。${ms.toFixed(3)} ms`);
         // alert('get: ' + textData);
-        return strage;
+        return storage;
     }
 
     public getProductJsonTextOf(productId: string): string | null {
-        const strage = this.get();
-        const product = strage?.products.of(productId);
+        const storage = this.get();
+        const product = storage?.products.of(productId);
         if (!product) return null;
         return this.serializer.serialize(product);
     }
 
-    public register(strage: LocalStrage): void {
+    public register(storage: LocalStorage): void {
         const startTime = performance.now();
 
-        const target = strage.renewTimeStamp();
+        const target = storage.renewTimeStamp();
         const jsonText = this.serializer.serialize(target);
-        localStorage.setItem(StrageDatasource.STRAGE_ID, jsonText);
+        localStorage.setItem(StorageDatasource.STRAGE_ID, jsonText);
 
         const ms = performance.now() - startTime;
         console.log('register: ' + jsonText)
         console.log(target);
-        console.log(`StrageDatasource.register(), ${(new Blob([jsonText])).size} byte保存。${ms.toFixed(3)} ms`);
+        console.log(`StorageDatasource.register(), ${(new Blob([jsonText])).size} byte保存。${ms.toFixed(3)} ms`);
         // alert('reg: ' + jsonText);
     }
 
     public getCurrentProduct(): Product | undefined {
-        const strage = this.get();
-        if (!strage) return undefined;
-        return strage.currentProduct();
+        const storage = this.get();
+        if (!storage) return undefined;
+        return storage.currentProduct();
     }
 
     public registerCurrentProduct(product: Product): void {
-        const strage = this.get();
-        if (!strage) return;
+        const storage = this.get();
+        if (!storage) return;
 
         const renewProduct: Product = product.renewTimeStamp();
-        let changed = strage.changeCurrent(renewProduct);
-        const mearged: Products = strage.products.merge(renewProduct);
+        let changed = storage.changeCurrent(renewProduct);
+        const mearged: Products = storage.products.merge(renewProduct);
         changed = changed.with(mearged);
         this.register(changed);
     }
 
     public clear() {
-        localStorage.removeItem(StrageDatasource.STRAGE_ID);
+        localStorage.removeItem(StorageDatasource.STRAGE_ID);
     }
 
     public generateResourceId(): number {
@@ -101,5 +101,10 @@ export default class StrageDatasource implements StrageRepository {
     public createProductByJsonOf(jsonText: string): Product {
         return this.serializer
             .deserialize(jsonText) as Product;
+    }
+
+    public createLocalStorageByJsonOf(jsonText: string): LocalStorage | null {
+        return this.serializer
+            .deserialize(jsonText) as LocalStorage;
     }
 }

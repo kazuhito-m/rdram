@@ -55,7 +55,7 @@ import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
 import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
 import IconGenerator from "@/components/diagrams/icon/IconGenerator";
 
-import StrageRepository from "@/domain/strage/StrageRepository";
+import StorageRepository from "@/domain/storage/StorageRepository";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
@@ -101,7 +101,7 @@ export default class DiagramEditor extends Vue {
   // this class properties
 
   @Inject()
-  private repository!: StrageRepository;
+  private repository!: StorageRepository;
 
   private readonly usedResouceIds: number[] = [];
   private readonly iconMap: { [key: string]: IconFontAndChar } = {};

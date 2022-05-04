@@ -7,14 +7,21 @@
   >
     <v-card>
       <v-card-title class="headline">
-        <v-icon>mdi-import</v-icon> プロダクトのインポート
+        <v-icon>mdi-file-replace</v-icon> LocalStorageのインポート(全データ置換)
       </v-card-title>
+      <v-card-text>
+        LocalStorageのデータを破棄し、<br/>指定した{{ fileTypeDescription }}の内容で置き換えます。
+      </v-card-text>
+      <v-card-text>
+        これは、<span class="red--text">全データの消去</span> や <span class="red--text">システムの初期化</span> と同様の操作です。<br>
+        なお「実行」クリック時、安全措置として「現在のLocalStorage内容」のファイルが自動的にダウンロードされます。<br>
+      </v-card-text>
       <v-card-text>インポートする対象のファイルを指定してください。</v-card-text>
 
       <v-card-actions>
         <v-file-input
           v-model="selectedFile"
-          :disabled="progressEnable"
+          :disabled="progressEnable || alreadyImported"
           :rules="[preValidate]"
           :label="fileTypeDescription"
           accept="application/json"
@@ -67,7 +74,7 @@
           text
           color="green darken-1"
           :disabled="notImportable()"
-          @click="onClickImportProduct"
+          @click="onClickImportLocalStorage"
         >
           実行
         </v-btn>
@@ -78,21 +85,27 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject, Watch } from "vue-property-decorator";
-import ProductImportMessageConverter from "./ProductImportMessageConverter";
-import ProductImportProgressEvent from "@/domain/product/import/ProductImportProgressEvent";
-import ProductImportService from "@/application/service/product/import/ProductImportService";
-import { ProductImportError } from "@/domain/product/import/ProductImportError";
-import RdramProductExportFileName from "@/domain/product/export/RdramProductExportFileName";
+import LocalStorageImportMessageConverter from "./LocalStorageImportMessageConverter";
+import LocalStorageImportProgressEvent from "@/domain/storage/import/LocalStorageImportProgressEvent";
+import LocalStorageImportService from "@/application/service/storage/import/LocalStorageImportService";
+import LocalStorageExportService from "@/application/service/storage/export/LocalStorageExportService";
+import { LocalStorageImportError } from "@/domain/storage/import/LocalStorageImportError";
+import RdramLocalStorageExportFileName from "@/domain/storage/export/RdramLocalStorageExportFileName";
 
 @Component
-export default class ProductImportDialog extends Vue {
+export default class LocalStorageImportDialog extends Vue {
   @Inject()
-  private readonly productImportService?: ProductImportService;
+  private readonly localStorageImportService?: LocalStorageImportService;
 
-  private readonly messageConverter = new ProductImportMessageConverter();
+  @Inject()
+  private readonly localStorageExportService?: LocalStorageExportService;
+
+  private readonly messageConverter = new LocalStorageImportMessageConverter();
 
   @Prop()
   private visible?: boolean;
+
+  private opend = false;
 
   private selectedFile: File | null = null;
   private preValidateError: boolean = false;
@@ -100,9 +113,10 @@ export default class ProductImportDialog extends Vue {
   private progressEnable: boolean = false;
   private progressPercentage: number = 0;
   private progressLogs: string = " ";
-  private readonly importedProductIds: string[] = [];
 
-  private  readonly fileTypeDescription = RdramProductExportFileName.TYPE_DESCRIPTION;
+  private alreadyImported = false;
+
+  private readonly fileTypeDescription = RdramLocalStorageExportFileName.TYPE_DESCRIPTION;
 
   @Watch('progressLogs')
   private onChangeProgressLogs() {
@@ -116,20 +130,21 @@ export default class ProductImportDialog extends Vue {
     return vuePart.$el.querySelector('textarea') as HTMLTextAreaElement;
   }
 
-  private onOpen(): string {
-    if (!this.visible) return "";
-    return "";
+  private onOpen() {
+    if (!this.visible || this.opend) return;
+    this.clearAllState();
+    this.opend = true;
   }
 
-  private preValidate(file: File): string | boolean {
-    const service = this.productImportService as ProductImportService;
+  private async preValidate(file: File): Promise<string | boolean> {
+    const service = this.localStorageImportService as LocalStorageImportService;
     this.clearProgressArea();
-    const result = service.validateOf(file);
-    if (result === ProductImportError.なし) return true;
+    const result = await service.validateOf(file);
+    if (result === LocalStorageImportError.なし) return true;
     return this.messageConverter.errorMessageOf(result);
   }
 
-  private async onClickImportProduct(): Promise<void> {
+  private async onClickImportLocalStorage(): Promise<void> {
     this.changeEnableProgressArea(true);
     await this.doImport();
     this.changeEnableProgressArea(false);
@@ -138,6 +153,13 @@ export default class ProductImportDialog extends Vue {
   private changeEnableProgressArea(enable: boolean) {
     if (enable) this.clearProgressArea();
     this.progressEnable = enable;
+  }
+
+  private clearAllState() {
+    this.selectedFile = null;
+    this.preValidateError = false;
+    this.alreadyImported = false;
+    this.clearProgressArea();
   }
 
   private clearProgressArea(): void {
@@ -150,54 +172,53 @@ export default class ProductImportDialog extends Vue {
   }
 
   private notImportable(): boolean {
-    return this.preValidateError || !this.selectedFile || this.progressEnable;
+    return this.preValidateError
+      || !this.selectedFile
+      || this.progressEnable
+      || this.alreadyImported;
   }
 
   @Emit("onClose")
   public onClose(): void {
-    if (this.productImportService?.hitCurrentProductOf(this.importedProductIds)) {
-      alert("現在開いているプロダクトがインポートにより書き換えられました。\nプロダクトを開きなおします。");
-      location.reload();
-    }
-
-    this.selectedFile = null;
-    this.preValidateError = false;
-    this.importedProductIds.length = 0;
-    this.clearProgressArea();
+    this.opend = false;
+    if (!this.alreadyImported) return;
+    alert("LocalStrageがインポート内容で置き換えられたため、\nアプリケーションを再起動します。");
+    location.reload();
   }
 
   private async doImport(): Promise<void> {
-    const service = this.productImportService as ProductImportService;
+    const exportFile = this.localStorageExportService?.makeExportFile();
+    if (!exportFile) {
+      this.appendProgressLogs("事前準備(バックアップファイルのデータ取得)に失敗。");
+      return;
+    }
+
+    const service = this.localStorageImportService as LocalStorageImportService;
     const imported = await service.importOf(
       this.selectedFile as File,
-      this.notifyProgress,
-      this.confirmeProductName
+      this.notifyProgress
     );
-    if (imported) this.importedProductIds.push(imported.id);
-  }
-
-  private confirmeProductName(originalProductName: string) : string {
-      let message = "既に同一の名前のプロダクトが存在します。名前を変えてインポートしますか？\n\n";
-      message+="名前を変更する場合は入力して下さい。\n";
-      message+="変更がなければ既存のプロダクトを上書きして保存します。"
-
-      const newName = prompt(message , originalProductName);
-
-      if (newName === null) return "";
-      return newName;
-  }
-
-  private notifyProgress(event: ProductImportProgressEvent): void {
-    this.progressPercentage = event.percentage();
-
-    const message = this.messageConverter?.makeMessage(event);
-
-    if (message && message.length === 0) return;
+    if (!imported) return;
     
-    if (this.progressLogs.trim().length === 0) this.progressLogs = "";
+    this.appendProgressLogs(`インポート前の状態をバックアップファイルとしてダウンロードします。\n${exportFile.clientFileName}`);
+    this.localStorageExportService?.downloadOnClientOf(exportFile);
+    this.alreadyImported = true;
+  }
+
+  private notifyProgress(event: LocalStorageImportProgressEvent): void {
+    this.progressPercentage = event.percentage();
+    const message = this.messageConverter?.makeMessage(event);
+    this.appendProgressLogs(message);
+  }
+
+  private appendProgressLogs(message: string): void {
+    if (message && message.length === 0) return;
+
+    if(this.progressLogs.trim().length===0) this.progressLogs="";
     else this.progressLogs+="\n";
+
     this.progressLogs+=message;
-    this.$nextTick(() => console.log(`UIが変更されたはず。progress:${event.percentage()}%, message:${message}`));
+    this.$nextTick(() => console.log(`UIが変更されたはず。message:${message}`));
   }
 }
 </script>

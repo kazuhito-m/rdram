@@ -1,0 +1,60 @@
+{
+    "updateAt": "2022-04-29T19:18:33.274Z",
+    "status": {
+        "currentProductId": "6c614787-e750-4b11-8833-2dcf69fd8886",
+        "__CLASS_NAME": "Status"
+    },
+    "products": {
+        "values": [
+            {
+                "updateAt": "2022-04-29T19:18:31.112Z",
+                "id": "6c614787-e750-4b11-8833-2dcf69fd8886",
+                "name": "サンプル用のプロダクト",
+                "userSettings": {
+                    "autoSave": true,
+                    "darkMode": true,
+                    "__CLASS_NAME": "UserSettings"
+                },
+                "diagrams": {
+                    "values": [],
+                    "__CLASS_NAME": "Diagrams"
+                },
+                "resources": {
+                    "values": [
+                        {
+                            "resourceId": 1,
+                            "resourceTypeId": 1,
+                            "name": "サンプル用のプロダクト",
+                            "description": "",
+                            "deletable": true,
+                            "__CLASS_NAME": "Resource"
+                        },
+                        {
+                            "resourceId": 2,
+                            "resourceTypeId": 102,
+                            "name": "始点",
+                            "description": "",
+                            "deletable": false,
+                            "startPoint": true,
+                            "__CLASS_NAME": "StartOrEndPoint"
+                        },
+                        {
+                            "resourceId": 3,
+                            "resourceTypeId": 102,
+                            "name": "終点",
+                            "description": "",
+                            "deletable": false,
+                            "startPoint": false,
+                            "__CLASS_NAME": "StartOrEndPoint"
+                        }
+                    ],
+                    "__CLASS_NAME": "Resources"
+                },
+                "resourceIdSequence": 4,
+                "__CLASS_NAME": "Product"
+            }
+        ],
+        "__CLASS_NAME": "Products"
+    },
+    "__CLASS_NAME": "LocalStorage"
+}

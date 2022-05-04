@@ -1,8 +1,8 @@
-import LocalStrage from "@/domain/strage/LocalStrage";
+import LocalStorage from "@/domain/storage/LocalStorage";
 import UserSettings from '@/domain//setting/UserSettings';
 import Product from "@/domain/product/Product";
 import Products from "@/domain/product/Products";
-import Status from '@/domain/strage/Status';
+import Status from '@/domain/storage/Status';
 import Resources from '@/domain/resource/Resources';
 import Diagrams from '@/domain/diagram/Diagrams';
 import Diagram from '@/domain/diagram/Diagram';
@@ -36,7 +36,7 @@ import TableTypeCondition from "@/domain/resource/TableTypeCondition";
 export default class Serializer {
     /** シリアライズで復元する可能性のあるクラスのコンストラクタ。 */
     private readonly constructors: any[] = [
-        LocalStrage,
+        LocalStorage,
         UserSettings,
         Products,
         Product,

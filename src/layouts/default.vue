@@ -67,11 +67,18 @@
           <v-list-item-title>プロダクトのインポート...</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link @click="onClickDestryLocalStrage">
+        <v-list-item link @click="onClickImportLocalStorage">
+          <v-list-item-icon>
+            <v-icon>mdi-file-replace</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>LocalStorageのインポート...</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item link @click="onClickDestryLocalStorage">
           <v-list-item-icon>
             <v-icon>mdi-delete-forever</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>LocalStrageの破棄...</v-list-item-title>
+          <v-list-item-title>LocalStorageの破棄...</v-list-item-title>
         </v-list-item>
 
         <v-list-item link @click="onClickExportOfTangoRdraFile">
@@ -119,14 +126,19 @@
       @onClose="onCloseProductImportDialog"
     />
 
-    <LocalStrageInitializeDialog
+    <LocalStorageInitializeDialog
       :visible="visibleApplicationInitializationDialog"
       @onClose="onCloseApplicationInitializationDialog"
     />
 
-    <LocalStrageDestroyDialog
-      :visible="visibleLocalStrageDestroyDialog"
-      @onClose="onCloseLocalStrageDestroyDialog"
+    <LocalStorageImportDialog
+      :visible="visibleLocalStorageImportDialog"
+      @onClose="onCloseLocalStorageImportDialog"
+    />
+
+    <LocalStorageDestroyDialog
+      :visible="visibleLocalStorageDestroyDialog"
+      @onClose="onCloseLocalStorageDestroyDialog"
     />
 
     <TangoRdraFileExportDialog
@@ -140,15 +152,18 @@
 <script lang="ts">
 import { Component, Vue, Provide } from 'nuxt-property-decorator'
 import TweetButton from '@/components/other/sosial/TweetButton.vue';
-import StrageRepository from '@/domain/strage/StrageRepository'
-import StrageDatasource from '@/infrastructure/strage/StrageDatasource'
+import StorageRepository from '@/domain/storage/StorageRepository'
+import StorageDatasource from '@/infrastructure/storage/StorageDatasource'
 import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import ClientDownloadTransfar from '@/infrastructure/client/ClientDownloadTransfar'
 import ProductSelectorDialog from '@/components/product/ProductSelectorDialog.vue'
 import ProductImportDialog from  '@/components/product/import/ProductImportDialog.vue'
-import LocalStrageInitializeDialog from '@/components/LocalStrageInitializeDialog.vue'
-import LocalStrageDestroyDialog from '@/components/LocalStrageDestroyDialog.vue'
+import LocalStorageImportDialog from  '@/components/localstorage/import/LocalStorageImportDialog.vue'
+import LocalStorageInitializeDialog from '@/components/localstorage/LocalStorageInitializeDialog.vue'
+import LocalStorageDestroyDialog from '@/components/localstorage/LocalStorageDestroyDialog.vue'
 import TangoRdraFileExportDialog from '@/components/tangordra/TangoRdraFileExportDialog.vue'
+import LocalStorageExportService from '@/application/service/storage/export/LocalStorageExportService'
+import LocalStorageImportService from '@/application/service/storage/import/LocalStorageImportService'
 import ProductImportService from '@/application/service/product/import/ProductImportService'
 import FileSystemRepository from '@/domain/filesystem/FileSystemRepository'
 import FileSystemDatasouce from '@/infrastructure/filesystem/FileSystemDatasource'
@@ -159,8 +174,9 @@ import TangoRdraFileService from '@/application/service/tangordra/TangoRdraFileS
     TweetButton,
     ProductSelectorDialog,
     ProductImportDialog,
-    LocalStrageInitializeDialog,
-    LocalStrageDestroyDialog,
+    LocalStorageInitializeDialog,
+    LocalStorageImportDialog,
+    LocalStorageDestroyDialog,
     TangoRdraFileExportDialog
   },
 })
@@ -194,14 +210,20 @@ export default class extends Vue {
   // DI difinitions.
 
   @Provide()
-  private readonly repository: StrageRepository = new StrageDatasource();
+  private readonly repository: StorageRepository = new StorageDatasource();
 
   @Provide()
   private readonly clientDownloadRepository: ClientDownloadRepository = new ClientDownloadTransfar();
  
   @Provide()
   private readonly fileSystemRepository: FileSystemRepository = new FileSystemDatasouce();
- 
+
+  @Provide()
+  private readonly localStorageExportService: LocalStorageExportService = new LocalStorageExportService(this.repository, this.clientDownloadRepository);
+
+  @Provide()
+  private readonly localStorageImportService: LocalStorageImportService = new LocalStorageImportService(this.repository, this.fileSystemRepository);
+
   @Provide()
   private readonly productImportService: ProductImportService = new ProductImportService(this.repository, this.fileSystemRepository);
 
@@ -217,7 +239,9 @@ export default class extends Vue {
 
   private visibleProductImportDialog = false;
 
-  private visibleLocalStrageDestroyDialog = false;
+  private visibleLocalStorageImportDialog = false;
+
+  private visibleLocalStorageDestroyDialog = false;
 
   private visibleExportTangoRdraFileDialog = false;
 
@@ -252,8 +276,8 @@ export default class extends Vue {
 
   public showProductSelectorWhenNotSelected(): boolean {
     this.visibleProductSelector = false;
-    const strage = this.repository.get();
-    if (!strage || strage.status.currentProductId) return false;
+    const storage = this.repository.get();
+    if (!storage || storage.isSelectedProduct()) return false;
     this.productSelectorCancelable = false;
     this.$nextTick(() => {
       this.visibleProductSelector = true;
@@ -281,6 +305,15 @@ export default class extends Vue {
     this.visibleProductImportDialog = false;
   }
 
+  private onClickImportLocalStorage(): void {
+    this.visibleLocalStorageImportDialog = true;
+    this.rightDrawer = false;
+  }
+
+  private onCloseLocalStorageImportDialog(): void {
+    this.visibleLocalStorageImportDialog = false;
+  }
+
   private onClickExportOfTangoRdraFile(): void {
     this.visibleExportTangoRdraFileDialog = true;
     this.rightDrawer = false;
@@ -290,13 +323,13 @@ export default class extends Vue {
     this.visibleExportTangoRdraFileDialog = false;
   }
 
-  private onClickDestryLocalStrage(): void {
-    this.visibleLocalStrageDestroyDialog = true;
+  private onClickDestryLocalStorage(): void {
+    this.visibleLocalStorageDestroyDialog = true;
     this.rightDrawer = false;
   }
 
-  private onCloseLocalStrageDestroyDialog(): void {
-    this.visibleLocalStrageDestroyDialog = false;
+  private onCloseLocalStorageDestroyDialog(): void {
+    this.visibleLocalStorageDestroyDialog = false;
   }
 }
 </script>

@@ -132,7 +132,7 @@ import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
 import MessageBox from "@/presentation/MessageBox";
-import StrageRepository from "@/domain/strage/StrageRepository";
+import StorageRepository from "@/domain/storage/StorageRepository";
 import Diagrams from "@/domain/diagram/Diagrams";
 
 @Component({
@@ -160,7 +160,7 @@ export default class extends Vue {
   private readonly DIAGRAM_FOLDER_ID_MASK: number = 1000000;
 
   @Inject()
-  private readonly repository!: StrageRepository;
+  private readonly repository!: StorageRepository;
 
   private treeItems: TreeItem[] = [];
   private treeActiveItemIds: number[] = [];
