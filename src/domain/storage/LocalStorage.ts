@@ -71,4 +71,12 @@ export default class LocalStorage {
     public existsProductNameOf(name: string): boolean {
         return this.products.existsSomeName(name);
     }
+
+    public isSelectedProduct() {
+        const currentProductId = this.status.currentProductId;
+        if (!currentProductId) return false;
+        return this.products.list()
+            .map(product => product.id)
+            .includes(currentProductId);
+    }
 }

@@ -273,7 +273,7 @@ export default class extends Vue {
   public showProductSelectorWhenNotSelected(): boolean {
     this.visibleProductSelector = false;
     const storage = this.repository.get();
-    if (!storage || storage.status.currentProductId) return false;
+    if (!storage || storage.isSelectedProduct()) return false;
     this.productSelectorCancelable = false;
     this.$nextTick(() => {
       this.visibleProductSelector = true;
