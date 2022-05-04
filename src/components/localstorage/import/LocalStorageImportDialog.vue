@@ -100,6 +100,7 @@ export default class LocalStorageImportDialog extends Vue {
 
   @Prop()
   private visible?: boolean;
+  private opend = false;
 
   private selectedFile: File | null = null;
   private preValidateError: boolean = false;
@@ -123,7 +124,9 @@ export default class LocalStorageImportDialog extends Vue {
   }
 
   private onOpen(): string {
-    if (!this.visible) return "";
+    if (!this.visible || this.opend) return "";
+    this.clearAllState();
+    this.opend = true;
     return "";
   }
 
@@ -147,8 +150,9 @@ export default class LocalStorageImportDialog extends Vue {
   }
 
   private clearAllState() {
-    this.selectedFile=null;
-    this.preValidateError=false;
+    this.opend = false;
+    this.selectedFile = null;
+    this.preValidateError = false;
     this.clearProgressArea();
   }
 
@@ -167,7 +171,7 @@ export default class LocalStorageImportDialog extends Vue {
 
   @Emit("onClose")
   public onClose(): void {
-    this.clearAllState();
+    this.opend = false;
   }
 
   private async doImport(): Promise<void> {
