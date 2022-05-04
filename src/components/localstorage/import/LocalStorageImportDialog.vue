@@ -21,7 +21,7 @@
       <v-card-actions>
         <v-file-input
           v-model="selectedFile"
-          :disabled="progressEnable"
+          :disabled="progressEnable || alreadyImported"
           :rules="[preValidate]"
           :label="fileTypeDescription"
           accept="application/json"
@@ -109,6 +109,8 @@ export default class LocalStorageImportDialog extends Vue {
   private progressPercentage: number = 0;
   private progressLogs: string = " ";
 
+  private alreadyImported = false;
+
   private readonly fileTypeDescription = RdramLocalStorageExportFileName.TYPE_DESCRIPTION;
 
   @Watch('progressLogs')
@@ -151,6 +153,7 @@ export default class LocalStorageImportDialog extends Vue {
   private clearAllState() {
     this.selectedFile = null;
     this.preValidateError = false;
+    this.alreadyImported = false;
     this.clearProgressArea();
   }
 
@@ -164,12 +167,18 @@ export default class LocalStorageImportDialog extends Vue {
   }
 
   private notImportable(): boolean {
-    return this.preValidateError || !this.selectedFile || this.progressEnable;
+    return this.preValidateError
+      || !this.selectedFile
+      || this.progressEnable
+      || this.alreadyImported;
   }
 
   @Emit("onClose")
   public onClose(): void {
     this.opend = false;
+    if (!this.alreadyImported) return;
+    alert("LocalStrageがインポート内容で置き換えられたため、\nアプリケーションを再起動します。");
+    location.reload();
   }
 
   private async doImport(): Promise<void> {
@@ -178,7 +187,7 @@ export default class LocalStorageImportDialog extends Vue {
       this.selectedFile as File,
       this.notifyProgress
     );
-    if (imported) location.reload();
+    if (imported) this.alreadyImported = true;
   }
 
   private notifyProgress(event: LocalStorageImportProgressEvent): void {
