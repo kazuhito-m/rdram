@@ -56,7 +56,7 @@ describe('LocalStorageImportService', () => {
 
     let lastEvent: LocalStorageImportProgressEvent;
     const actual = await sut.importOf(file,
-      event => lastEvent = event);
+      event => { lastEvent = event });
 
     expect(actual).not.toBeNull();
 
@@ -76,7 +76,7 @@ describe('LocalStorageImportService', () => {
 
     let lastEvent: LocalStorageImportProgressEvent;
     const actual = await sut.importOf(file,
-      event => lastEvent = event);
+      event => { lastEvent = event });
 
     expect(actual).not.toBeNull();
 
