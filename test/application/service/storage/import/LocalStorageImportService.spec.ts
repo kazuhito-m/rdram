@@ -2,6 +2,10 @@ import LocalStorageImportService from "@/application/service/storage/import/Loca
 import { LocalStorageImportError } from "~/domain/storage/import/LocalStorageImportError";
 import FileSystemDatasouce from "~/infrastructure/filesystem/FileSystemDatasource";
 import StorageDatasource from "~/infrastructure/storage/StorageDatasource";
+import * as fs from "fs";
+import path from "path";
+import LocalStorageImportProgressEvent from "~/domain/storage/import/LocalStorageImportProgressEvent";
+import { LocalStorageImportProgressStep } from "~/domain/storage/import/LocalStorageImportProgressStep";
 
 describe('LocalStorageImportService', () => {
   const sut = new LocalStorageImportService(new StorageDatasource(), new FileSystemDatasouce());
@@ -46,12 +50,42 @@ describe('LocalStorageImportService', () => {
       expect(lastError).toEqual(LocalStorageImportError.形式or構造が不正);
     }
   });
+
+  test('プロダクトが一個あるファイルのインポートが成功する。', async () => {
+    const file = loadTestFileOf("rdram-localstorage-backup-20220505013725.json");
+
+    let lastEvent: LocalStorageImportProgressEvent;
+    const actual = await sut.importOf(file,
+      event => lastEvent = event);
+
+    expect(actual).not.toBeNull();
+
+    expect(lastEvent!).not.toBeNull();
+    expect(lastEvent!.step).toEqual(LocalStorageImportProgressStep.成功);
+    expect(lastEvent!.percentage()).toEqual(100);
+
+    expect(actual!.status.currentProductId)
+      .toEqual("6c614787-e750-4b11-8833-2dcf69fd8886");
+    expect(actual!.products.length()).toEqual(1);
+    expect(actual!.products.first().name)
+      .toEqual("サンプル用のプロダクト");
+  });
 })
 
 function fileOf(contents: string): File {
   return new File(
     [contents],
     "rdram-localstorage-backup-0.json",
+    { type: 'text/html' }
+  );
+}
+
+function loadTestFileOf(fileName: string): File {
+  const dataFilePath = path.join(__dirname, "data", fileName);
+  const contents = fs.readFileSync(dataFilePath, "utf8");
+  return new File(
+    [contents.toString()],
+    fileName,
     { type: 'text/html' }
   );
 }
