@@ -17,7 +17,7 @@ describe('LocalStorageImportService', () => {
     expect(lastError).toEqual(LocalStorageImportError.非JSON形式);
   });
 
-  test('JSONとしても成り立つが、論理的構造がLocalStrageではない場合、エラーを通知する。', async () => {
+  test('JSONとしては成り立つが、論理的構造がLocalStrageではない場合、エラーを通知する。', async () => {
     const validContent = `{
   "updateAt": "2022-04-29T19:18:33.274Z",
   "status": {
