@@ -107,7 +107,6 @@ export default class LocalStorageImportDialog extends Vue {
   private progressEnable: boolean = false;
   private progressPercentage: number = 0;
   private progressLogs: string = " ";
-  private readonly importedLocalStorageIds: string[] = [];
 
   private readonly fileTypeDescription = RdramLocalStorageExportFileName.TYPE_DESCRIPTION;
 
@@ -164,7 +163,6 @@ export default class LocalStorageImportDialog extends Vue {
   public onClose(): void {
     this.selectedFile = null;
     this.preValidateError = false;
-    this.importedLocalStorageIds.length = 0;
     this.clearProgressArea();
   }
 

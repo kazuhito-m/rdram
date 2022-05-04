@@ -12,11 +12,9 @@ export default class LocalStorageImportMessageConverter {
         const m: { [key: number]: string } = {};
         m[LocalStorageImportProgressStep.失敗] = "インポートが失敗しました。";
         m[LocalStorageImportProgressStep.エラー] = "エラー : ";
-        m[LocalStorageImportProgressStep.キャンセル] = "インポートがキャンセルされました。";
         m[LocalStorageImportProgressStep.開始] = "インポートを開始します。";
         m[LocalStorageImportProgressStep.ファイル読み込み] = "ファイルの読み込み。";
         m[LocalStorageImportProgressStep.形式チェック] = "ファイル内容・形式のチェック。";
-        m[LocalStorageImportProgressStep.追加] = "プロダクトの追加・置き換え。";
         m[LocalStorageImportProgressStep.保存] = "LocalStorageへの保存。";
         m[LocalStorageImportProgressStep.完了] = "完了。"
         m[LocalStorageImportProgressStep.成功] = "インポートが成功しました。"
