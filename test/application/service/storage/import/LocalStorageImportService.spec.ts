@@ -16,6 +16,28 @@ describe('LocalStorageImportService', () => {
     expect(actual).toBeNull();
     expect(lastError).toEqual(LocalStorageImportError.非JSON形式);
   });
+
+  test('JSONとしても成り立つが、論理的構造がLocalStrageではない場合、エラーを通知する。', async () => {
+    const content = `{
+    "updateAt": "2022-04-29T19:18:33.274Z",
+    "status": {
+        "currentProductId": "6c614787-e750-4b11-8833-2dcf69fd8886",
+        "__CLASS_NAME": "Status"
+    },
+    "products": {
+       "values": [] 
+    }
+    }`;
+
+    const file = fileOf(content);
+
+    let lastError!: LocalStorageImportError;
+    const actual = await sut.importOf(file,
+      event => { if (event.isError()) lastError = event.error; });
+
+    expect(actual).toBeNull();
+    expect(lastError).toEqual(LocalStorageImportError.形式or構造が不正);
+  });
 })
 
 function fileOf(contents: string): File {
