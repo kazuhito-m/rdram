@@ -146,6 +146,12 @@ export default class LocalStorageImportDialog extends Vue {
     this.progressEnable = enable;
   }
 
+  private clearAllState() {
+    this.selectedFile=null;
+    this.preValidateError=false;
+    this.clearProgressArea();
+  }
+
   private clearProgressArea(): void {
     this.progressPercentage = 0;
     this.progressLogs = " ";    
@@ -161,9 +167,7 @@ export default class LocalStorageImportDialog extends Vue {
 
   @Emit("onClose")
   public onClose(): void {
-    this.selectedFile = null;
-    this.preValidateError = false;
-    this.clearProgressArea();
+    this.clearAllState();
   }
 
   private async doImport(): Promise<void> {
