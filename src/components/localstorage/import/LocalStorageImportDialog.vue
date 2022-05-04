@@ -90,11 +90,15 @@ import LocalStorageImportProgressEvent from "@/domain/storage/import/LocalStorag
 import LocalStorageImportService from "@/application/service/storage/import/LocalStorageImportService";
 import { LocalStorageImportError } from "@/domain/storage/import/LocalStorageImportError";
 import RdramLocalStorageExportFileName from "@/domain/storage/export/RdramLocalStorageExportFileName";
+import LocalStorageExportService from "@/application/service/storage/export/LocalStorageExportService";
 
 @Component
 export default class LocalStorageImportDialog extends Vue {
   @Inject()
   private readonly localStorageImportService?: LocalStorageImportService;
+
+  @Inject()
+  private readonly localStorageExportService?: LocalStorageExportService;
 
   private readonly messageConverter = new LocalStorageImportMessageConverter();
 
@@ -182,25 +186,37 @@ export default class LocalStorageImportDialog extends Vue {
   }
 
   private async doImport(): Promise<void> {
+    const exportFile = this.localStorageExportService?.makeExportFile();
+    if (!exportFile) {
+      this.appendProgressLogs("事前準備(バックアップファイルのデータ取得)に失敗。");
+      return;
+    }
+
     const service = this.localStorageImportService as LocalStorageImportService;
     const imported = await service.importOf(
       this.selectedFile as File,
       this.notifyProgress
     );
-    if (imported) this.alreadyImported = true;
+    if (!imported) return;
+    
+    this.localStorageExportService?.downloadOnClientOf(exportFile);
+    this.alreadyImported = true;
   }
 
   private notifyProgress(event: LocalStorageImportProgressEvent): void {
     this.progressPercentage = event.percentage();
-
     const message = this.messageConverter?.makeMessage(event);
+    this.appendProgressLogs(message);
+  }
 
+  private appendProgressLogs(message: string): void {
     if (message && message.length === 0) return;
-    
-    if (this.progressLogs.trim().length === 0) this.progressLogs = "";
+
+    if(this.progressLogs.trim().length===0) this.progressLogs="";
     else this.progressLogs+="\n";
+
     this.progressLogs+=message;
-    this.$nextTick(() => console.log(`UIが変更されたはず。progress:${event.percentage()}%, message:${message}`));
+    this.$nextTick(() => console.log(`UIが変更されたはず。message:${message}`));
   }
 }
 </script>
