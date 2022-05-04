@@ -219,7 +219,7 @@ export default class extends Vue {
   private readonly fileSystemRepository: FileSystemRepository = new FileSystemDatasouce();
 
   @Provide()
-  private readonly LocalStorageExportService: LocalStorageExportService = new LocalStorageExportService(this.repository, this.clientDownloadRepository);
+  private readonly localStorageExportService: LocalStorageExportService = new LocalStorageExportService(this.repository, this.clientDownloadRepository);
 
   @Provide()
   private readonly localStorageImportService: LocalStorageImportService = new LocalStorageImportService(this.repository, this.fileSystemRepository);

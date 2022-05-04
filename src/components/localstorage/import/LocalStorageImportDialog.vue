@@ -88,9 +88,9 @@ import { Component, Prop, Vue, Emit, Inject, Watch } from "vue-property-decorato
 import LocalStorageImportMessageConverter from "./LocalStorageImportMessageConverter";
 import LocalStorageImportProgressEvent from "@/domain/storage/import/LocalStorageImportProgressEvent";
 import LocalStorageImportService from "@/application/service/storage/import/LocalStorageImportService";
+import LocalStorageExportService from "@/application/service/storage/export/LocalStorageExportService";
 import { LocalStorageImportError } from "@/domain/storage/import/LocalStorageImportError";
 import RdramLocalStorageExportFileName from "@/domain/storage/export/RdramLocalStorageExportFileName";
-import LocalStorageExportService from "@/application/service/storage/export/LocalStorageExportService";
 
 @Component
 export default class LocalStorageImportDialog extends Vue {
@@ -199,6 +199,7 @@ export default class LocalStorageImportDialog extends Vue {
     );
     if (!imported) return;
     
+    this.appendProgressLogs(`インポート前の状態をバックアップファイルとしてダウンロードします。\n${exportFile.clientFileName}`);
     this.localStorageExportService?.downloadOnClientOf(exportFile);
     this.alreadyImported = true;
   }
