@@ -66,7 +66,7 @@ export default class LocalStorageImportService {
         return !(
             !strage.updateAt
             || !strage.status
-            || !strage.status["currentProductId"]
+            || !strage.status.currentProductId
             || !strage.products
             || !strage.products["values"]
         );
