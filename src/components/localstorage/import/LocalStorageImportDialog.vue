@@ -104,6 +104,7 @@ export default class LocalStorageImportDialog extends Vue {
 
   @Prop()
   private visible?: boolean;
+
   private opend = false;
 
   private selectedFile: File | null = null;
