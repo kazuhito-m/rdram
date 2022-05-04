@@ -63,13 +63,17 @@ export default class LocalStorageImportService {
     }
 
     private checkLogicalStructure(strage: LocalStorage): boolean {
-        return !(
+        if (
             !strage.updateAt
             || !strage.status
             || !strage.status.currentProductId
             || !strage.products
-            || !strage.products["values"]
-        );
+        ) return false;
+        try {
+            return strage.products.length() >= 0;
+        } catch (e) {
+            return false;
+        }
     }
 
     private raise(step: LocalStorageImportProgressStep, message: string = "", file?: File): LocalStorageImportProgressEvent {
