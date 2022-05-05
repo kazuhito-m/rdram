@@ -17,7 +17,7 @@ export default class ProductExportService {
         return true;
     }
 
-    public makeExportFileOf(productId: string): RdramExportFile | null {
+    private makeExportFileOf(productId: string): RdramExportFile | null {
         const storage = this.storageRepository.get();
         const product = storage?.products.of(productId);
         if (!product) return null;
