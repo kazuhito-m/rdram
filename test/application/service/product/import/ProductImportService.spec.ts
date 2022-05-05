@@ -6,6 +6,7 @@ import FileSystemDatasouce from "~/infrastructure/filesystem/FileSystemDatasourc
 import ProductImportProgressEvent from "~/domain/product/import/ProductImportProgressEvent";
 import { ProductImportProgressStep } from "~/domain/product/import/ProductImportProgressStep";
 import StorageDatasource from "@/infrastructure/storage/StorageDatasource";
+import LocalStorage from "@/domain/storage/LocalStorage";
 
 describe('ProductImportService', () => {
   const sut = new ProductImportService(mockStorageRepository(), new FileSystemDatasouce());
@@ -71,7 +72,29 @@ describe('ProductImportService', () => {
     }
   });
 
-  test('プロダクトが一個あるファイルのインポートが成功する。', async () => {
+  test('デフォルト状態のプロダクトのファイルのインポートが成功する。', async () => {
+    const file = loadTestFileOf("rdram-product-テスト用デフォルト-20220505184354.json");
+
+    let lastEvent: ProductImportProgressEvent;
+    const actual = await sut.importOf(file,
+      event => { lastEvent = event },
+      originalProductName => { throw new Error("通るはずないとこ") }
+    );
+
+    expect(lastEvent!).not.toBeNull();
+    expect(lastEvent!.step).toEqual(ProductImportProgressStep.成功);
+    expect(lastEvent!.percentage()).toEqual(100);
+
+    expect(actual).not.toBeNull();
+
+    expect(actual!.id)
+      .toEqual("59d99156-9c49-418c-b83b-480c71f07907");
+    expect(actual!.name).toEqual("テスト用デフォルト");
+    expect(actual!.diagrams.length).toEqual(0);
+    expect(actual!.resources.length).toEqual(3);
+  });
+
+  test('図もリソースも一個も無いファイルのインポートが成功する。', async () => {
     const file = loadTestFileOf("rdram-product-FOR_TEST_PRODUCT-20220505175636.json");
 
     let lastEvent: ProductImportProgressEvent;
@@ -92,24 +115,6 @@ describe('ProductImportService', () => {
     expect(actual!.diagrams.length).toEqual(0);
     expect(actual!.resources.length).toEqual(0);
   });
-
-  /*
-    test('プロダクトが一個も無いファイルのインポートが成功する。', async () => {
-      const file = loadTestFileOf("rdram-localproduct-backup-1.json");
-  
-      let lastEvent: ProductImportProgressEvent;
-      const actual = await sut.importOf(file,
-        event => { lastEvent = event });
-  
-      expect(actual).not.toBeNull();
-  
-      expect(lastEvent!).not.toBeNull();
-      expect(lastEvent!.step).toEqual(ProductImportProgressStep.成功);
-      expect(lastEvent!.percentage()).toEqual(100);
-  
-      expect(actual!.products.length()).toEqual(0);
-    });
-  */
 });
 
 function fileOf(contents: string): File {
@@ -139,5 +144,6 @@ function removedLinesContaining(word: string, content: string): string {
 function mockStorageRepository() {
   const repository = new StorageDatasource();
   repository.register = (storage) => expect(storage).not.toBeNull();
+  repository.get = () => LocalStorage.prototypeOf();
   return repository;
 }
