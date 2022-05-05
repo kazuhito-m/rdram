@@ -25,8 +25,8 @@ describe('ProductImportService', () => {
     expect(lastError).toEqual(ProductImportError.予期せぬエラー);
   });
 
-    test('JSONとしては成り立つが、論理的構造がLocalStrageではない場合、エラーを通知する。', async () => {
-      const validContent = `{
+  test('JSONとしては成り立つが、論理的構造がLocalStrageではない場合、エラーを通知する。', async () => {
+    const validContent = `{
     "updateAt": "2022-05-04T22:37:26.738Z",
     "id": "3b2f6fe6-5595-48ae-971c-37c1ffcbfe94",
     "name": "テスト用のプロダクト名",
@@ -47,51 +47,53 @@ describe('ProductImportService', () => {
     "__CLASS_NAME": "Product"
   }`;
 
-      const errorContents = [
-        // removedLinesContaining("updateAt", validContent),
-        // removedLinesContaining("id", validContent),
-        removedLinesContaining("name", validContent),
-        // removedLinesContaining("values", validContent),
-        // removedLinesContaining("resourceIdSequence", validContent),
-      ];
-  
-      for (const errorContent of errorContents) {
-        const file = fileOf(errorContent);
-  
-        let lastError!: ProductImportError;
-        const actual = await sut.importOf(file,
-          event => { if (event.isError()) lastError = event.error; },
-          originalProductName => { throw new Error("通るはずないとこ") }
-        );
-  
-        expect(actual).toBeNull();
-        expect(lastError).toEqual(ProductImportError.予期せぬエラー);
-        // 本来の結果
-        // expect(lastError).toEqual(ProductImportError.形式or構造が不正);
-      }
-    });
-  
-  /*
-    test('プロダクトが一個あるファイルのインポートが成功する。', async () => {
-      const file = loadTestFileOf("rdram-localproduct-backup-20220505013725.json");
-  
-      let lastEvent: ProductImportProgressEvent;
+    const errorContents = [
+      // removedLinesContaining("updateAt", validContent),
+      // removedLinesContaining("id", validContent),
+      removedLinesContaining("name", validContent),
+      // removedLinesContaining("values", validContent),
+      // removedLinesContaining("resourceIdSequence", validContent),
+    ];
+
+    for (const errorContent of errorContents) {
+      const file = fileOf(errorContent);
+
+      let lastError!: ProductImportError;
       const actual = await sut.importOf(file,
-        event => { lastEvent = event });
-  
-      expect(actual).not.toBeNull();
-  
-      expect(lastEvent!).not.toBeNull();
-      expect(lastEvent!.step).toEqual(ProductImportProgressStep.成功);
-      expect(lastEvent!.percentage()).toEqual(100);
-  
-      expect(actual!.status.currentProductId)
-        .toEqual("6c614787-e750-4b11-8833-2dcf69fd8886");
-      expect(actual!.products.length()).toEqual(1);
-      expect(actual!.products.first().name)
-        .toEqual("サンプル用のプロダクト");
-    });
-  
+        event => { if (event.isError()) lastError = event.error; },
+        originalProductName => { throw new Error("通るはずないとこ") }
+      );
+
+      expect(actual).toBeNull();
+      expect(lastError).toEqual(ProductImportError.予期せぬエラー);
+      // 本来の結果
+      // expect(lastError).toEqual(ProductImportError.形式or構造が不正);
+    }
+  });
+
+  test('プロダクトが一個あるファイルのインポートが成功する。', async () => {
+    const file = loadTestFileOf("rdram-product-FOR_TEST_PRODUCT-20220505175636.json");
+
+    let lastEvent: ProductImportProgressEvent;
+    const actual = await sut.importOf(file,
+      event => { lastEvent = event },
+      originalProductName => { throw new Error("通るはずないとこ") }
+    );
+
+    expect(lastEvent!).not.toBeNull();
+    expect(lastEvent!.step).toEqual(ProductImportProgressStep.成功);
+    expect(lastEvent!.percentage()).toEqual(100);
+
+    expect(actual).not.toBeNull();
+
+    expect(actual!.id)
+      .toEqual("3b2f6fe6-5595-48ae-971c-37c1ffcbfe94");
+    expect(actual!.name).toEqual("FOR_TEST_PRODUCT");
+    expect(actual!.diagrams.length).toEqual(0);
+    expect(actual!.resources.length).toEqual(0);
+  });
+
+  /*
     test('プロダクトが一個も無いファイルのインポートが成功する。', async () => {
       const file = loadTestFileOf("rdram-localproduct-backup-1.json");
   

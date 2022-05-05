@@ -117,4 +117,8 @@ export default class Diagrams {
             .reduce((left, right) => left.concat(right),
                 Relations.empty());
     }
+
+    public get length(): number {
+       return this.values.length;
+    }
 }
