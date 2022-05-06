@@ -3,6 +3,7 @@ import Product from '@/domain/product/Product';
 import Products from '@/domain/product/Products';
 import LocalStorage from '@/domain/storage/LocalStorage';
 import StorageRepository from '@/domain/storage/StorageRepository';
+import ImportedProduct from '~/domain/product/import/ImportedProduct';
 
 export default class StorageDatasource implements StorageRepository {
     private static readonly STRAGE_ID = 'rdram-storage';
@@ -98,9 +99,10 @@ export default class StorageDatasource implements StorageRepository {
         return updated.resourceIdSequence;
     }
 
-    public createProductByJsonOf(jsonText: string): Product {
-        return this.serializer
-            .deserialize(jsonText) as Product;
+    public createProductByJsonOf(jsonText: string): ImportedProduct {
+        const imported: Product = this.serializer
+            .deserialize(jsonText);
+        return new ImportedProduct(imported);
     }
 
     public createLocalStorageByJsonOf(jsonText: string): LocalStorage | null {

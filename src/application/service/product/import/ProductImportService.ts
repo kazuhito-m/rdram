@@ -6,6 +6,7 @@ import StorageRepository from "@/domain/storage/StorageRepository";
 import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
 import Product from "@/domain/product/Product";
 import RdramProductExportFileName from "@/domain/product/export/RdramProductExportFileName";
+import ImportedProduct from "@/domain/product/import/ImportedProduct";
 
 export default class ProductImportService {
     constructor(
@@ -46,18 +47,18 @@ export default class ProductImportService {
         }
 
         const jsonText = await this.fileSystemRepository.readFile(file) as string;
-        let product = this.storageRepository.createProductByJsonOf(jsonText);
+        const maybeProduct = this.storageRepository.createProductByJsonOf(jsonText);
 
         notifyProgress(this.raise(ProductImportProgressStep.形式チェック));
 
-        if (!this.checkLogicalStructure(product)) {
+        if (!maybeProduct.checkOfLogicalStructure()) {
             notifyProgress(this.raiseError(ProductImportError.形式or構造が不正));
             return null;
         }
 
         const storage = this.storageRepository.get() as LocalStorage;
 
-        const fixedProduct = this.fixDuplicateNameOf(product, confirmeProductName, storage) as Product;
+        const fixedProduct = this.fixDuplicateNameOf(maybeProduct, confirmeProductName, storage) as Product;
         if (fixedProduct === null) {
             notifyProgress(this.raise(ProductImportProgressStep.キャンセル));
             return null;
@@ -76,32 +77,17 @@ export default class ProductImportService {
         return fixedProduct;
     }
 
-    private fixDuplicateNameOf(product: Product,
+    private fixDuplicateNameOf(maybeProduct: ImportedProduct,
         confirmeProductName: (originalProductName: string) => string,
         storage: LocalStorage
     ): Product | null {
+        const product = maybeProduct.value;
         if (!storage.existsProductNameOf(product.name)) return product;
 
         const newName = confirmeProductName(product.name).trim();
         if (newName === "") return null;
 
         return product.renameOf(newName);
-    }
-
-    private checkLogicalStructure(product: Product): boolean {
-        if (
-            !product.id
-            || !product.updateAt
-            || !product.name
-            || product.name.trim().length === 0
-            || !product.resourceIdSequence
-        ) return false;
-        try {
-            return product.resources.length >= 0
-                && product.diagrams.length >= 0;
-        } catch (e) {
-            return false;
-        }
     }
 
     private raise(step: ProductImportProgressStep, message: string = "", file?: File): ProductImportProgressEvent {
