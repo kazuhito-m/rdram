@@ -69,10 +69,7 @@ import MessageBox from "@/presentation/MessageBox";
 import Product from "@/domain/product/Product";
 import Products from "@/domain/product/Products";
 import StorageRepository from "@/domain/storage/StorageRepository";
-import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
-import RdramExportFile from "@/domain/client/export/RdramExportFile";
-import RdramProductExportFileName from "@/domain/product/export/RdramProductExportFileName";
-import ProductExportService from "~/application/service/product/export/ProductExportService";
+import ProductExportService from "@/application/service/product/export/ProductExportService";
 
 @Component
 export default class ProductSelectorDialog extends Vue {
