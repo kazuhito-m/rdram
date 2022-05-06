@@ -1,0 +1,20 @@
+{
+    "updateAt": "2022-05-04T22:37:26.738Z",
+    "id": "3b2f6fe6-5595-48ae-971c-37c1ffcbfe94",
+    "name": "FOR_TEST_PRODUCT",
+    "userSettings": {
+        "autoSave": true,
+        "darkMode": true,
+        "__CLASS_NAME": "UserSettings"
+    },
+    "diagrams": {
+        "values": [],
+        "__CLASS_NAME": "Diagrams"
+    },
+    "resources": {
+        "values": [],
+        "__CLASS_NAME": "Resources"
+    },
+    "resourceIdSequence": 4,
+    "__CLASS_NAME": "Product"
+}

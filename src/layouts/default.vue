@@ -164,6 +164,7 @@ import LocalStorageDestroyDialog from '@/components/localstorage/LocalStorageDes
 import TangoRdraFileExportDialog from '@/components/tangordra/TangoRdraFileExportDialog.vue'
 import LocalStorageExportService from '@/application/service/storage/export/LocalStorageExportService'
 import LocalStorageImportService from '@/application/service/storage/import/LocalStorageImportService'
+import ProductExportService from '@/application/service/product/export/ProductExportService'
 import ProductImportService from '@/application/service/product/import/ProductImportService'
 import FileSystemRepository from '@/domain/filesystem/FileSystemRepository'
 import FileSystemDatasouce from '@/infrastructure/filesystem/FileSystemDatasource'
@@ -223,6 +224,9 @@ export default class extends Vue {
 
   @Provide()
   private readonly localStorageImportService: LocalStorageImportService = new LocalStorageImportService(this.repository, this.fileSystemRepository);
+
+  @Provide()
+  private readonly productExportService: ProductExportService = new ProductExportService(this.repository, this.clientDownloadRepository);
 
   @Provide()
   private readonly productImportService: ProductImportService = new ProductImportService(this.repository, this.fileSystemRepository);

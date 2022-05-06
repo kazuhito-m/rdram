@@ -69,9 +69,7 @@ import MessageBox from "@/presentation/MessageBox";
 import Product from "@/domain/product/Product";
 import Products from "@/domain/product/Products";
 import StorageRepository from "@/domain/storage/StorageRepository";
-import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
-import RdramExportFile from "@/domain/client/export/RdramExportFile";
-import RdramProductExportFileName from "@/domain/product/export/RdramProductExportFileName";
+import ProductExportService from "@/application/service/product/export/ProductExportService";
 
 @Component
 export default class ProductSelectorDialog extends Vue {
@@ -79,7 +77,7 @@ export default class ProductSelectorDialog extends Vue {
   private readonly repository?: StorageRepository;
 
   @Inject()
-  private clientDownloadRepository!: ClientDownloadRepository;
+  private readonly productExportService?: ProductExportService;
 
   @Prop()
   private visibleProductSelectorDialog?: boolean;
@@ -202,13 +200,7 @@ export default class ProductSelectorDialog extends Vue {
   private downloadProductExportFile(): boolean {
     const product = this.selectedProduct;
     if (!product) return true;
-    const productJson = this.repository?.getProductJsonTextOf(product.id);
-    if (!productJson) return false;
-
-    const fileName = new RdramProductExportFileName(product.name);
-    const file = new RdramExportFile(productJson, fileName);
-    this.clientDownloadRepository.register(file);
-    return true;
+    return this.productExportService!.downloadExportFileOnClient(product.id);
   }
 }
 </script>

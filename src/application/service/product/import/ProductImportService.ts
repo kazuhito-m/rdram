@@ -6,6 +6,7 @@ import StorageRepository from "@/domain/storage/StorageRepository";
 import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
 import Product from "@/domain/product/Product";
 import RdramProductExportFileName from "@/domain/product/export/RdramProductExportFileName";
+import ImportedProduct from "@/domain/product/import/ImportedProduct";
 
 export default class ProductImportService {
     constructor(
@@ -39,52 +40,54 @@ export default class ProductImportService {
     ): Promise<Product | null> {
         notifyProgress(this.raise(ProductImportProgressStep.ファイル読み込み));
 
-        const result = this.validateOf(file);
+        const result = await this.validateOf(file);
         if (result !== ProductImportError.なし) {
             notifyProgress(this.raiseError(result));
             return null;
         }
 
-        const json = await this.fileSystemRepository.readFile(file);
-
-        if (json === null) {
-            notifyProgress(this.raiseError(ProductImportError.読込失敗));
-            return null;
-        }
-        const jsonText = json as string;
-
-        let product = this.storageRepository.createProductByJsonOf(jsonText);
+        const jsonText = await this.fileSystemRepository.readFile(file) as string;
+        const maybeProduct = this.storageRepository.createProductByJsonOf(jsonText);
 
         notifyProgress(this.raise(ProductImportProgressStep.形式チェック));
 
-        if (product.name.trim().length === 0) {
-            notifyProgress(this.raiseError(ProductImportError.プロダクト名不明));
+        if (!maybeProduct.checkOfLogicalStructure()) {
+            notifyProgress(this.raiseError(ProductImportError.形式or構造が不正));
             return null;
         }
 
         const storage = this.storageRepository.get() as LocalStorage;
 
-        if (storage.existsProductNameOf(product.name)) {
-            const newName = confirmeProductName(product.name);
-            if (newName === "") {
-                notifyProgress(this.raise(ProductImportProgressStep.キャンセル));
-                return null;
-            }
-
-            product = product.renameOf(newName.trim());
+        const fixedProduct = this.fixDuplicateNameOf(maybeProduct, confirmeProductName, storage) as Product;
+        if (fixedProduct === null) {
+            notifyProgress(this.raise(ProductImportProgressStep.キャンセル));
+            return null;
         }
 
         notifyProgress(this.raise(ProductImportProgressStep.追加));
 
-        const updatedStorage = storage.mergeByProductName(product);
+        const updatedStorage = storage.mergeByProductName(fixedProduct);
 
         notifyProgress(this.raise(ProductImportProgressStep.保存));
 
         this.storageRepository.register(updatedStorage);
 
-        notifyProgress(this.raise(ProductImportProgressStep.完了, `product name: "${product.name}"`));
+        notifyProgress(this.raise(ProductImportProgressStep.完了, `product name: "${fixedProduct.name}"`));
 
-        return product;
+        return fixedProduct;
+    }
+
+    private fixDuplicateNameOf(maybeProduct: ImportedProduct,
+        confirmeProductName: (originalProductName: string) => string,
+        storage: LocalStorage
+    ): Product | null {
+        const product = maybeProduct.value;
+        if (!storage.existsProductNameOf(product.name)) return product;
+
+        const newName = confirmeProductName(product.name).trim();
+        if (newName === "") return null;
+
+        return product.renameOf(newName);
     }
 
     private raise(step: ProductImportProgressStep, message: string = "", file?: File): ProductImportProgressEvent {
@@ -104,13 +107,16 @@ export default class ProductImportService {
         );
     }
 
-    public validateOf(file: File): ProductImportError {
+    public async validateOf(file: File): Promise<ProductImportError> {
         const MAX_MB = 100 * 1024 * 1024;
 
         if (!file) return ProductImportError.なし;
         if (!RdramProductExportFileName.isApplicableOf(file.name)) return ProductImportError.ファイル名不正;
         if (file.size > MAX_MB) return ProductImportError.サイズ超過;
-        if (!this.fileSystemRepository.isJsonFile(file)) return ProductImportError.非JSON形式;
+        const text = await this.fileSystemRepository.readFile(file);
+        if (text === null) return ProductImportError.読込失敗;
+        const isJson = await this.fileSystemRepository.isJsonFile(file);
+        if (!isJson) return ProductImportError.非JSON形式;
 
         return ProductImportError.なし;
     }

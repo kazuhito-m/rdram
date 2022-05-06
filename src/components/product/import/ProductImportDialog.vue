@@ -94,6 +94,8 @@ export default class ProductImportDialog extends Vue {
   @Prop()
   private visible?: boolean;
 
+  private opend = false;
+
   private selectedFile: File | null = null;
   private preValidateError: boolean = false;
 
@@ -116,15 +118,16 @@ export default class ProductImportDialog extends Vue {
     return vuePart.$el.querySelector('textarea') as HTMLTextAreaElement;
   }
 
-  private onOpen(): string {
-    if (!this.visible) return "";
-    return "";
+  private onOpen(): void {
+    if (!this.visible || this.opend) return;
+    this.clearAllState();
+    this.opend = true;
   }
 
-  private preValidate(file: File): string | boolean {
+  private async preValidate(file: File): Promise<string | boolean> {
     const service = this.productImportService as ProductImportService;
     this.clearProgressArea();
-    const result = service.validateOf(file);
+    const result = await service.validateOf(file);
     if (result === ProductImportError.なし) return true;
     return this.messageConverter.errorMessageOf(result);
   }
@@ -140,6 +143,13 @@ export default class ProductImportDialog extends Vue {
     this.progressEnable = enable;
   }
 
+  private clearAllState() {
+    this.selectedFile = null;
+    this.preValidateError = false;
+    this.importedProductIds.length = 0;
+    this.clearProgressArea();
+  }
+
   private clearProgressArea(): void {
     this.progressPercentage = 0;
     this.progressLogs = " ";    
@@ -150,20 +160,17 @@ export default class ProductImportDialog extends Vue {
   }
 
   private notImportable(): boolean {
-    return this.preValidateError || !this.selectedFile || this.progressEnable;
+    return this.preValidateError
+      || !this.selectedFile
+      || this.progressEnable;
   }
 
   @Emit("onClose")
   public onClose(): void {
-    if (this.productImportService?.hitCurrentProductOf(this.importedProductIds)) {
-      alert("現在開いているプロダクトがインポートにより書き換えられました。\nプロダクトを開きなおします。");
-      location.reload();
-    }
-
-    this.selectedFile = null;
-    this.preValidateError = false;
-    this.importedProductIds.length = 0;
-    this.clearProgressArea();
+    this.opend = false;
+    if (!this.productImportService?.hitCurrentProductOf(this.importedProductIds)) return;
+    alert("現在開いているプロダクトがインポートにより書き換えられました。\nプロダクトを開きなおします。");
+    location.reload();
   }
 
   private async doImport(): Promise<void> {
@@ -176,28 +183,29 @@ export default class ProductImportDialog extends Vue {
     if (imported) this.importedProductIds.push(imported.id);
   }
 
-  private confirmeProductName(originalProductName: string) : string {
+  private confirmeProductName(originalProductName: string): string {
       let message = "既に同一の名前のプロダクトが存在します。名前を変えてインポートしますか？\n\n";
       message+="名前を変更する場合は入力して下さい。\n";
       message+="変更がなければ既存のプロダクトを上書きして保存します。"
 
       const newName = prompt(message , originalProductName);
-
-      if (newName === null) return "";
-      return newName;
+      return newName === null ? "" : newName;
   }
 
   private notifyProgress(event: ProductImportProgressEvent): void {
     this.progressPercentage = event.percentage();
-
     const message = this.messageConverter?.makeMessage(event);
+    this.appendPrograssLogs(message);
+  }
 
+  private appendPrograssLogs(message: string): void {
     if (message && message.length === 0) return;
     
     if (this.progressLogs.trim().length === 0) this.progressLogs = "";
     else this.progressLogs+="\n";
+
     this.progressLogs+=message;
-    this.$nextTick(() => console.log(`UIが変更されたはず。progress:${event.percentage()}%, message:${message}`));
+    this.$nextTick(() => console.log(`UIが変更されたはず。message:${message}`));
   }
 }
 </script>

@@ -130,7 +130,7 @@ export default class LocalStorageImportDialog extends Vue {
     return vuePart.$el.querySelector('textarea') as HTMLTextAreaElement;
   }
 
-  private onOpen() {
+  private onOpen():void {
     if (!this.visible || this.opend) return;
     this.clearAllState();
     this.opend = true;
@@ -214,7 +214,7 @@ export default class LocalStorageImportDialog extends Vue {
   private appendProgressLogs(message: string): void {
     if (message && message.length === 0) return;
 
-    if(this.progressLogs.trim().length===0) this.progressLogs="";
+    if(this.progressLogs.trim().length === 0) this.progressLogs="";
     else this.progressLogs+="\n";
 
     this.progressLogs+=message;

@@ -1,0 +1,47 @@
+{
+    "updateAt": "2022-05-05T09:43:46.077Z",
+    "id": "59d99156-9c49-418c-b83b-480c71f07907",
+    "name": "テスト用デフォルト",
+    "userSettings": {
+        "autoSave": true,
+        "darkMode": true,
+        "__CLASS_NAME": "UserSettings"
+    },
+    "diagrams": {
+        "values": [],
+        "__CLASS_NAME": "Diagrams"
+    },
+    "resources": {
+        "values": [
+            {
+                "resourceId": 1,
+                "resourceTypeId": 1,
+                "name": "テスト用デフォルト",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            {
+                "resourceId": 2,
+                "resourceTypeId": 102,
+                "name": "始点",
+                "description": "",
+                "deletable": false,
+                "startPoint": true,
+                "__CLASS_NAME": "StartOrEndPoint"
+            },
+            {
+                "resourceId": 3,
+                "resourceTypeId": 102,
+                "name": "終点",
+                "description": "",
+                "deletable": false,
+                "startPoint": false,
+                "__CLASS_NAME": "StartOrEndPoint"
+            }
+        ],
+        "__CLASS_NAME": "Resources"
+    },
+    "resourceIdSequence": 4,
+    "__CLASS_NAME": "Product"
+}
