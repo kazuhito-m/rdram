@@ -43,37 +43,24 @@ export default class LocalStorageImportService {
         }
 
         const jsonText = await this.fileSystemRepository.readFile(file) as string;
-        const strage = this.storageRepository.createLocalStorageByJsonOf(jsonText) as LocalStorage;
+        const maybeStrage = this.storageRepository.createLocalStorageByJsonOf(jsonText);
 
         notifyProgress(this.raise(LocalStorageImportProgressStep.形式チェック));
 
-        if (!this.checkLogicalStructure(strage)) {
+        if (!maybeStrage.checkOfLogicalStructure()) {
             notifyProgress(this.raiseError(LocalStorageImportError.形式or構造が不正));
             return null;
         }
 
         notifyProgress(this.raise(LocalStorageImportProgressStep.保存));
 
-        this.storageRepository.register(strage);
+        const storage = maybeStrage.value;
+        this.storageRepository.register(storage);
 
         notifyProgress(this.raise(LocalStorageImportProgressStep.完了,
-            `置き換えたLocalStrageは "${strage.updateAt}" 当時に出力されたものです。`));
+            `置き換えたLocalStrageは "${storage.updateAt}" 当時に出力されたものです。`));
 
-        return strage;
-    }
-
-    private checkLogicalStructure(strage: LocalStorage): boolean {
-        if (
-            !strage.updateAt
-            || !strage.status
-            || !strage.status.currentProductId
-            || !strage.products
-        ) return false;
-        try {
-            return strage.products.length() >= 0;
-        } catch (e) {
-            return false;
-        }
+        return storage;
     }
 
     private raise(step: LocalStorageImportProgressStep, message: string = "", file?: File): LocalStorageImportProgressEvent {
