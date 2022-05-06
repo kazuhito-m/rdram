@@ -21,9 +21,7 @@ describe('ProductImportService', () => {
     );
 
     expect(actual).toBeNull();
-    // expect(lastError).toEqual(ProductImportError.非JSON形式);
-    // 本来の期待値
-    expect(lastError).toEqual(ProductImportError.予期せぬエラー);
+    expect(lastError).toEqual(ProductImportError.非JSON形式);
   });
 
   test('JSONとしては成り立つが、論理的構造がLocalStrageではない場合、エラーを通知する。', async () => {

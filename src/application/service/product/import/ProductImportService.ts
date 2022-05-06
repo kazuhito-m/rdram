@@ -39,7 +39,7 @@ export default class ProductImportService {
     ): Promise<Product | null> {
         notifyProgress(this.raise(ProductImportProgressStep.ファイル読み込み));
 
-        const result = this.validateOf(file);
+        const result = await this.validateOf(file);
         if (result !== ProductImportError.なし) {
             notifyProgress(this.raiseError(result));
             return null;
@@ -104,13 +104,16 @@ export default class ProductImportService {
         );
     }
 
-    public validateOf(file: File): ProductImportError {
+    public async validateOf(file: File): Promise<ProductImportError> {
         const MAX_MB = 100 * 1024 * 1024;
 
         if (!file) return ProductImportError.なし;
         if (!RdramProductExportFileName.isApplicableOf(file.name)) return ProductImportError.ファイル名不正;
         if (file.size > MAX_MB) return ProductImportError.サイズ超過;
-        if (!this.fileSystemRepository.isJsonFile(file)) return ProductImportError.非JSON形式;
+        const text = await this.fileSystemRepository.readFile(file);
+        if (text === null) return ProductImportError.読込失敗;
+        const isJson = await this.fileSystemRepository.isJsonFile(file);
+        if (!isJson) return ProductImportError.非JSON形式;
 
         return ProductImportError.なし;
     }

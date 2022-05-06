@@ -124,10 +124,10 @@ export default class ProductImportDialog extends Vue {
     this.opend = true;
   }
 
-  private preValidate(file: File): string | boolean {
+  private async preValidate(file: File): Promise<string | boolean> {
     const service = this.productImportService as ProductImportService;
     this.clearProgressArea();
-    const result = service.validateOf(file);
+    const result = await service.validateOf(file);
     if (result === ProductImportError.なし) return true;
     return this.messageConverter.errorMessageOf(result);
   }
