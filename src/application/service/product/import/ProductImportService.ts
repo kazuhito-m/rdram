@@ -6,8 +6,6 @@ import StorageRepository from "@/domain/storage/StorageRepository";
 import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
 import Product from "@/domain/product/Product";
 import RdramProductExportFileName from "@/domain/product/export/RdramProductExportFileName";
-import ProductIdentifier from "~/domain/product/ProductIdentifier";
-import StartOrEndPoint from "~/domain/resource/StartOrEndPoint";
 
 export default class ProductImportService {
     constructor(
