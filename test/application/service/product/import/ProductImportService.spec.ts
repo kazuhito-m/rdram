@@ -17,7 +17,7 @@ describe('ProductImportService', () => {
     let lastError!: ProductImportError;
     const actual = await sut.importOf(file,
       event => { if (event.isError()) lastError = event.error; },
-      originalProductName => { throw new Error("通るはずないとこ") }
+      assertNotGoThroughOfNameUniquelogic
     );
 
     expect(actual).toBeNull();
@@ -60,7 +60,7 @@ describe('ProductImportService', () => {
       let lastError!: ProductImportError;
       const actual = await sut.importOf(file,
         event => { if (event.isError()) lastError = event.error; },
-        originalProductName => { throw new Error("通るはずないとこ") }
+        assertNotGoThroughOfNameUniquelogic
       );
 
       expect(actual).toBeNull();
@@ -74,7 +74,7 @@ describe('ProductImportService', () => {
     let lastEvent: ProductImportProgressEvent;
     const actual = await sut.importOf(file,
       event => { lastEvent = event },
-      originalProductName => { throw new Error("通るはずないとこ") }
+      assertNotGoThroughOfNameUniquelogic
     );
 
     expect(lastEvent!).not.toBeNull();
@@ -96,7 +96,7 @@ describe('ProductImportService', () => {
     let lastEvent: ProductImportProgressEvent;
     const actual = await sut.importOf(file,
       event => { lastEvent = event },
-      originalProductName => { throw new Error("通るはずないとこ") }
+      assertNotGoThroughOfNameUniquelogic
     );
 
     expect(lastEvent!).not.toBeNull();
@@ -112,6 +112,10 @@ describe('ProductImportService', () => {
     expect(actual!.resources.length).toEqual(0);
   });
 });
+
+function assertNotGoThroughOfNameUniquelogic(originalProductName: string): string {
+  throw new Error(`名前重複ロジックは通らないはず:${originalProductName}`);
+}
 
 function fileOf(contents: string): File {
   return new File(
