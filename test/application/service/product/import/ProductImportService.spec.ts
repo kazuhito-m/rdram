@@ -48,10 +48,10 @@ describe('ProductImportService', () => {
 
     const errorContents = [
       removedLinesContaining("updateAt", validContent),
-      // removedLinesContaining("id", validContent),
+      removedLinesContaining("id", validContent),
       removedLinesContaining("name", validContent),
-      // removedLinesContaining("values", validContent),
-      // removedLinesContaining("resourceIdSequence", validContent),
+      removedLinesContaining("values", validContent),
+      removedLinesContaining("resourceIdSequence", validContent),
     ];
 
     for (const errorContent of errorContents) {

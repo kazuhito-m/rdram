@@ -82,9 +82,11 @@ export default class ProductImportService {
 
     private checkLogicalStructure(product: Product): boolean {
         if (
-            !product.updateAt
+            !product.id
+            || !product.updateAt
             || !product.name
             || product.name.trim().length === 0
+            || !product.resourceIdSequence
         ) return false;
         try {
             return product.resources.length >= 0
