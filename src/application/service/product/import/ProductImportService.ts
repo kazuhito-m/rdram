@@ -6,6 +6,8 @@ import StorageRepository from "@/domain/storage/StorageRepository";
 import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
 import Product from "@/domain/product/Product";
 import RdramProductExportFileName from "@/domain/product/export/RdramProductExportFileName";
+import ProductIdentifier from "~/domain/product/ProductIdentifier";
+import StartOrEndPoint from "~/domain/resource/StartOrEndPoint";
 
 export default class ProductImportService {
     constructor(
@@ -57,27 +59,35 @@ export default class ProductImportService {
 
         const storage = this.storageRepository.get() as LocalStorage;
 
-        if (storage.existsProductNameOf(product.name)) {
-            const newName = confirmeProductName(product.name);
-            if (newName === "") {
-                notifyProgress(this.raise(ProductImportProgressStep.キャンセル));
-                return null;
-            }
-
-            product = product.renameOf(newName.trim());
+        const fixedProduct = this.fixDuplicateNameOf(product, confirmeProductName, storage) as Product;
+        if (fixedProduct === null) {
+            notifyProgress(this.raise(ProductImportProgressStep.キャンセル));
+            return null;
         }
 
         notifyProgress(this.raise(ProductImportProgressStep.追加));
 
-        const updatedStorage = storage.mergeByProductName(product);
+        const updatedStorage = storage.mergeByProductName(fixedProduct);
 
         notifyProgress(this.raise(ProductImportProgressStep.保存));
 
         this.storageRepository.register(updatedStorage);
 
-        notifyProgress(this.raise(ProductImportProgressStep.完了, `product name: "${product.name}"`));
+        notifyProgress(this.raise(ProductImportProgressStep.完了, `product name: "${fixedProduct.name}"`));
 
-        return product;
+        return fixedProduct;
+    }
+
+    private fixDuplicateNameOf(product: Product,
+        confirmeProductName: (originalProductName: string) => string,
+        storage: LocalStorage
+    ): Product | null {
+        if (!storage.existsProductNameOf(product.name)) return product;
+
+        const newName = confirmeProductName(product.name).trim();
+        if (newName === "") return null;
+
+        return product.renameOf(newName);
     }
 
     private checkLogicalStructure(product: Product): boolean {
