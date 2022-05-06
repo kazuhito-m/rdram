@@ -45,20 +45,13 @@ export default class ProductImportService {
             return null;
         }
 
-        const json = await this.fileSystemRepository.readFile(file);
-
-        if (json === null) {
-            notifyProgress(this.raiseError(ProductImportError.読込失敗));
-            return null;
-        }
-        const jsonText = json as string;
-
+        const jsonText = await this.fileSystemRepository.readFile(file) as string;
         let product = this.storageRepository.createProductByJsonOf(jsonText);
 
         notifyProgress(this.raise(ProductImportProgressStep.形式チェック));
 
-        if (product.name.trim().length === 0) {
-            notifyProgress(this.raiseError(ProductImportError.プロダクト名不明));
+        if (!this.checkLogicalStructure(product)) {
+            notifyProgress(this.raiseError(ProductImportError.形式or構造が不正));
             return null;
         }
 
@@ -85,6 +78,20 @@ export default class ProductImportService {
         notifyProgress(this.raise(ProductImportProgressStep.完了, `product name: "${product.name}"`));
 
         return product;
+    }
+
+    private checkLogicalStructure(product: Product): boolean {
+        if (
+            !product.updateAt
+            || !product.name
+            || product.name.trim().length === 0
+        ) return false;
+        try {
+            return product.resources.length >= 0
+                && product.diagrams.length >= 0;
+        } catch (e) {
+            return false;
+        }
     }
 
     private raise(step: ProductImportProgressStep, message: string = "", file?: File): ProductImportProgressEvent {

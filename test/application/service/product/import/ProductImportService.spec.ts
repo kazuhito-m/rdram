@@ -47,7 +47,7 @@ describe('ProductImportService', () => {
   }`;
 
     const errorContents = [
-      // removedLinesContaining("updateAt", validContent),
+      removedLinesContaining("updateAt", validContent),
       // removedLinesContaining("id", validContent),
       removedLinesContaining("name", validContent),
       // removedLinesContaining("values", validContent),
@@ -64,9 +64,7 @@ describe('ProductImportService', () => {
       );
 
       expect(actual).toBeNull();
-      expect(lastError).toEqual(ProductImportError.予期せぬエラー);
-      // 本来の結果
-      // expect(lastError).toEqual(ProductImportError.形式or構造が不正);
+      expect(lastError).toEqual(ProductImportError.形式or構造が不正);
     }
   });
 

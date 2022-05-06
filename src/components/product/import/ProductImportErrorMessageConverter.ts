@@ -11,7 +11,7 @@ export default class ProductImportErrorMessageConverter {
         m[ProductImportError.サイズ超過] = "ファイルが大きすぎます。";
         m[ProductImportError.非JSON形式] = "ファイル形式がRDRAMシステムのプロダクトエクスポートファイルではありません。";
         m[ProductImportError.読込失敗] = "ローカルファイルの読み込みに失敗しました。";
-        m[ProductImportError.プロダクト名不明] = "形式が不正です。プロダクト名が設定されていません。";
+        m[ProductImportError.形式or構造が不正] = "形式が不正です。内容が読み取れない形式です。";
         return m;
     }
 

@@ -12,7 +12,7 @@ import Relation from '@/domain/relation/Relation';
 
 export default class Product {
     constructor(
-        private readonly updateAt: Date,
+        public readonly updateAt: Date,
         public readonly id: string,
         public readonly name: string,
         public readonly userSettings: UserSettings,
