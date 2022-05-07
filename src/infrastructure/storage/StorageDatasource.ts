@@ -116,4 +116,9 @@ export default class StorageDatasource implements StorageRepository {
             .deserialize(jsonText);
         return new ImportedLocalStorage(imported);
     }
+
+    public createDiagramByJsonOf(jsonText: string): ExportedDiagram {
+        return this.serializer
+            .deserialize(jsonText);
+    }
 }
