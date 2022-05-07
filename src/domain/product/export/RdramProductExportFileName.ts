@@ -1,5 +1,5 @@
-import RdramExportFileName from "@/domain/client/export/RdramExportFileName";
 import Product from "../Product";
+import RdramExportFileName from "@/domain/client/export/RdramExportFileName";
 
 export default class RdramProductExportFileName extends RdramExportFileName {
     public static readonly TYPE_DESCRIPTION = "RDRAM product exported file (json)";
