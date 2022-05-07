@@ -25,4 +25,15 @@ export default class TableTypeCondition extends Resource {
   public valuesOf(): string[][] {
     return this.values.concat();
   }
+
+  protected override clone(): TableTypeCondition {
+    return new TableTypeCondition(
+      this.resourceId,
+      this.name,
+      this.description,
+      this.leftVariationId,
+      this.topVariationId,
+      this.values,
+    );
+  }
 }

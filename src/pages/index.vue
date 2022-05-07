@@ -59,7 +59,10 @@
                 <v-list-item-title>{{ menuTargetTreeItemName }}削除</v-list-item-title>
               </v-list-item>
               <v-list-item link @click="onClickMenuEditDiagramProperties">
-                <v-list-item-title>{{ menuTargetTreeItemName }}設定</v-list-item-title>
+                <v-list-item-title>{{ menuTargetTreeItemName }}設定...</v-list-item-title>
+              </v-list-item>
+              <v-list-item link @click="onClickMenuExportDiagram">
+                <v-list-item-title>{{ menuTargetTreeItemName }}エクスポート</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -127,13 +130,14 @@ import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vu
 import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import TreeItem from "@/presentation/tree/TreeItem"; 
+import MessageBox from "@/presentation/MessageBox";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Product from "@/domain/product/Product";
+import Diagrams from "@/domain/diagram/Diagrams";
 import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
-import MessageBox from "@/presentation/MessageBox";
 import StorageRepository from "@/domain/storage/StorageRepository";
-import Diagrams from "@/domain/diagram/Diagrams";
+import DiagramExportService from "@/application/service/diagram/export/DiagramExportService";
 
 @Component({
   components: {
@@ -161,6 +165,9 @@ export default class extends Vue {
 
   @Inject()
   private readonly repository!: StorageRepository;
+
+  @Inject()
+  private  diagramExportService! : DiagramExportService;
 
   private treeItems: TreeItem[] = [];
   private treeActiveItemIds: number[] = [];
@@ -417,6 +424,11 @@ export default class extends Vue {
   private onClickMenuEditDiagramProperties(): void {
     const diagramId = this.menuTargetTreeItemId;
     this.propertiesEditorDiagramId = diagramId;
+  }
+
+  private onClickMenuExportDiagram(): void {
+    const diagramId = this.menuTargetTreeItemId;
+    this.diagramExportService!.downloadExportFileOnClient(diagramId);
   }
 
   private folderItemOf(

@@ -23,4 +23,13 @@ export default class Variation extends Resource {
   public valuesOf(): string[] {
     return this.values.concat();
   }
+
+  protected override clone(): Variation {
+    return new Variation(
+      this.resourceId,
+      this.name,
+      this.description,
+      this.values,
+    );
+  }
 }

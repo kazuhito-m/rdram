@@ -1,5 +1,4 @@
 import ResourceType from "./ResourceType";
-import Serializer from "@/domain/Serializer";
 
 export default class Resource {
     public static readonly YET_NUMBERING_ID = 0;
@@ -44,7 +43,13 @@ export default class Resource {
     }
 
     protected clone(): Resource {
-        const serializer = new Serializer();
-        return serializer.cloningOf(this);
+        // const serializer = new Serializer();
+        // return serializer.cloningOf(this);
+        return new Resource(
+            this.resourceId,
+            this.resourceTypeId,
+            this.name,
+            this.description,
+        );
     }
 }

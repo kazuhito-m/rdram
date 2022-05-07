@@ -19,4 +19,13 @@ export default class Condition extends Resource {
     resource.value = newValue.trim();
     return resource;
   }
+
+  protected override clone(): Condition {
+    return new Condition(
+      this.resourceId,
+      this.name,
+      this.description,
+      this.value
+    );
+  }
 }

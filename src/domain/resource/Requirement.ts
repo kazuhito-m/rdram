@@ -11,4 +11,13 @@ export default class Requirement extends HasContentResource {
         description: string,
         content: string,
     ) { super(resourceId, ResourceType.要件.id, name, description, content); }
+
+    protected override clone(): Requirement {
+        return new Requirement(
+            this.resourceId,
+            this.name,
+            this.description,
+            this.content,
+        );
+    }
 }

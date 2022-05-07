@@ -5,6 +5,7 @@ import LocalStorage from '@/domain/storage/LocalStorage';
 import StorageRepository from '@/domain/storage/StorageRepository';
 import ImportedProduct from '@/domain/product/import/ImportedProduct';
 import ImportedLocalStorage from '@/domain/storage/import/ImportedLocalStorage';
+import ExportedDiagram from '~/domain/diagram/export/ExportedDiagram';
 
 export default class StorageDatasource implements StorageRepository {
     private static readonly STRAGE_ID = 'rdram-storage';
@@ -55,6 +56,10 @@ export default class StorageDatasource implements StorageRepository {
         const product = storage?.products.of(productId);
         if (!product) return null;
         return this.serializer.serialize(product);
+    }
+
+    public getDiagramJsonTextOf(exportedDiagram: ExportedDiagram): string {
+        return this.serializer.serialize(exportedDiagram);
     }
 
     public register(storage: LocalStorage): void {

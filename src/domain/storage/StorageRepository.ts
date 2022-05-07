@@ -1,3 +1,4 @@
+import ExportedDiagram from "../diagram/export/ExportedDiagram";
 import LocalStorage from "@/domain/storage/LocalStorage";
 import Product from "@/domain/product/Product";
 import ImportedProduct from "@/domain/product/import/ImportedProduct";
@@ -10,6 +11,7 @@ export default interface StorageRepository {
     getJsonText(): string | null;
     get(): LocalStorage | null;
     getProductJsonTextOf(productId: string): string | null;
+    getDiagramJsonTextOf(exportedDiagram: ExportedDiagram): string;
     register(storage: LocalStorage): void;
     getCurrentProduct(): Product | undefined;
     registerCurrentProduct(product: Product): void;

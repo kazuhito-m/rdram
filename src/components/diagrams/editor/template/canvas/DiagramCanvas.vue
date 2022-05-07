@@ -16,6 +16,7 @@
             @onChangeCanvasGuideType="onChangeCanvasGuideType"
             @onPngDownload="onPngDownload"
             @onSvgDownload="onSvgDownload"
+            @onDiagramExport="onDiagramExport"
             @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
         />
 
@@ -77,9 +78,10 @@ import DownloadCustomFile from "@/domain/client/DownloadCustomFile";
 import DownloadFileName from "@/domain/client/DownloadFileName";
 import RdramDownloadFileName from "@/domain/client/WithTimestampFileName";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
+import DiagramExportService from "~/application/service/diagram/export/DiagramExportService";
 
 import CoreResourceEditDialog from "@/components/resource/CoreResourceEditDialog.vue";
-import Resources from "~/domain/resource/Resources";
+import Resources from "@/domain/resource/Resources";
 
 @Component({
   components: {
@@ -120,6 +122,9 @@ export default class DiagramCanvas extends Vue {
 
   @Inject()
   private clientDownloadRepository!: ClientDownloadRepository;
+
+  @Inject()
+  private diagramExportService!: DiagramExportService;
 
   private readonly routerConverter = new RouterTypeDraw2dConverter();
 
@@ -296,6 +301,10 @@ export default class DiagramCanvas extends Vue {
       const file = new DownloadCustomFile(fileName, "image/svg+xml", withFontSvg);
       this.clientDownloadRepository.register(file);
     });
+  }
+
+  private onDiagramExport(): void {
+    this!.diagramExportService.downloadExportFileOnClient(this.diagramId);
   }
 
   // from ResourcePropertiesEditor events.

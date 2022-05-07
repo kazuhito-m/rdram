@@ -11,4 +11,13 @@ export default class Purpose extends HasContentResource {
         description: string,
         content: string,
     ) { super(resourceId, ResourceType.目的.id, name, description, content); }
+
+    protected override clone(): Purpose {
+        return new Purpose(
+            this.resourceId,
+            this.name,
+            this.description,
+            this.content,
+        );
+    }
 }
