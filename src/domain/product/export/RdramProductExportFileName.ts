@@ -1,9 +1,10 @@
+import Product from "../Product";
 import RdramExportFileName from "@/domain/client/export/RdramExportFileName";
 
 export default class RdramProductExportFileName extends RdramExportFileName {
     public static readonly TYPE_DESCRIPTION = "RDRAM product exported file (json)";
 
-    constructor(productName: string) {
+    private constructor(productName: string) {
         super(`product-${productName}`);
     }
 
@@ -13,5 +14,9 @@ export default class RdramProductExportFileName extends RdramExportFileName {
             .replace(/-[0-9]+\./, '-[0-9]+\\.');
         const hitTest = new RegExp(pattern);
         return hitTest.test(fileName);
+    }
+
+    public static of(product: Product): RdramProductExportFileName {
+        return new RdramProductExportFileName(product.name);
     }
 }

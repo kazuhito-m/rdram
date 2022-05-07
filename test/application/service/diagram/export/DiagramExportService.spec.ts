@@ -12,7 +12,6 @@ import ClientDownloadTransfar from "@/infrastructure/client/ClientDownloadTransf
 import StorageDatasource from "@/infrastructure/storage/StorageDatasource";
 
 describe('DiagramExportService', () => {
-
   test('リソース一つを配置した図一つをエクスポートする。', () => {
     // 準備
     const resource = new Resource(
@@ -54,8 +53,8 @@ describe('DiagramExportService', () => {
 
 function mockStorageRepository(diagram: Diagram, resource: Resource): StorageRepository {
   const product = Product.prototypeOf("唯一のプロダクト")
-    .replaceOf(diagram)
-    .mergeResourceOf(resource);
+    .meageDiagramOf(diagram)
+    .meageResourceOf(resource);
   const storage = LocalStorage.prototypeOf()
     .merge(product)
     .changeCurrent(product);

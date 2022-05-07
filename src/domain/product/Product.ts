@@ -66,11 +66,12 @@ export default class Product {
         return "";
     }
 
-    public replaceOf(newDiagram: Diagram): Product {
-        return this.with(this.diagrams.meage(newDiagram));
+    public meageDiagramOf(newDiagram: Diagram): Product {
+        const newDiagrams = this.diagrams.meage(newDiagram);
+        return this.withDiagrams(newDiagrams);
     }
 
-    public mergeResourceOf(newResource: Resource): Product {
+    public meageResourceOf(newResource: Resource): Product {
         const newResources = this.resources.meage(newResource);
         return this.withResources(newResources);
     }
@@ -87,7 +88,7 @@ export default class Product {
         );
     }
 
-    public with(newDiagrams: Diagrams) {
+    private withDiagrams(newDiagrams: Diagrams) {
         return new Product(
             this.updateAt,
             this.id,
@@ -177,7 +178,7 @@ export default class Product {
         const diagrams = this.diagrams;
         const diagram = diagrams.createNewDiagram(name, diagramType, this.resources);
         const addedDiagrams = diagrams.add(diagram);
-        return this.with(addedDiagrams);
+        return this.withDiagrams(addedDiagrams);
     }
 
     public lastCreatdResource(): Resource {
