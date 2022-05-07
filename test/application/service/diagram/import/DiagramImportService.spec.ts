@@ -34,7 +34,7 @@ describe('DiagramImportService', () => {
     expect(actual!.placements.length).toEqual(2);
 
     const product = mockStorageRepository.getCurrentProduct() as Product;
-    expect(product.resources.length).toEqual(4);
+    expect(product.resources.length).toEqual(5);
   });
 });
 
