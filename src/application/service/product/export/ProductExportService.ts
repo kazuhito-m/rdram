@@ -1,11 +1,11 @@
 import StorageRepository from "@/domain/storage/StorageRepository";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import RdramExportFile from "@/domain/client/export/RdramExportFile";
+import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
 import ExportedDiagram from "@/domain/diagram/export/ExportedDiagram";
-import RdramDiagramExportFileName from "~/domain/diagram/export/RdramDiagramExportFileName";
-import Diagram from "~/domain/diagram/Diagram";
-import Product from "~/domain/product/Product";
-import ExportedResource from "~/domain/resource/export/ExportedResource";
+import ExportedResource from "@/domain/resource/export/ExportedResource";
+import Diagram from "@/domain/diagram/Diagram";
+import Product from "@/domain/product/Product";
 
 export default class ProductExportService {
     constructor(
