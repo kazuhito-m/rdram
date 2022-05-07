@@ -21,4 +21,14 @@ export default class StartOrEndPoint extends Resource {
     private zeroPadding(value: number, point: number): string {
         return ('0'.repeat(point) + value).slice(-1 * point);
     }
+
+    protected override clone(): StartOrEndPoint {
+        return new StartOrEndPoint(
+            this.resourceId,
+            this.name,
+            this.description,
+            this.deletable,
+            this.startPoint,
+        );
+    }
 }
