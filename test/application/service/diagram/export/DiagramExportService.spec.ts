@@ -53,7 +53,7 @@ describe('DiagramExportService', () => {
 
 function mockStorageRepository(diagram: Diagram, resource: Resource): StorageRepository {
   const product = Product.prototypeOf("唯一のプロダクト")
-    .replaceOf(diagram)
+    .meageDiagramOf(diagram)
     .mergeResourceOf(resource);
   const storage = LocalStorage.prototypeOf()
     .merge(product)

@@ -66,7 +66,7 @@ export default class Product {
         return "";
     }
 
-    public replaceOf(newDiagram: Diagram): Product {
+    public meageDiagramOf(newDiagram: Diagram): Product {
         return this.with(this.diagrams.meage(newDiagram));
     }
 
