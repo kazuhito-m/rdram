@@ -3,6 +3,9 @@ import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import RdramExportFile from "@/domain/client/export/RdramExportFile";
 import ExportedDiagram from "@/domain/diagram/export/ExportedDiagram";
 import RdramDiagramExportFileName from "~/domain/diagram/export/RdramDiagramExportFileName";
+import Diagram from "~/domain/diagram/Diagram";
+import Product from "~/domain/product/Product";
+import ExportedResource from "~/domain/resource/export/ExportedResource";
 
 export default class ProductExportService {
     constructor(
@@ -25,13 +28,21 @@ export default class ProductExportService {
         const diagram = product.diagrams.of(diagramId);
         if (!diagram) return null;
 
-        // TODO 中身を作る実装。
-        const exported = new ExportedDiagram(diagram, []);
+        const exported = this.makeExportDiagram(diagram, product);
 
         const diagramJson = this.storageRepository.getDiagramJsonTextOf(exported);
         if (!diagramJson) return null;
 
         const fileName = RdramDiagramExportFileName.of(diagram);
         return new RdramExportFile(diagramJson, fileName);
+    }
+
+    private makeExportDiagram(diagram: Diagram, product: Product): ExportedDiagram {
+        const useResourceIds = diagram.placements
+            .map(placement => placement.resourceId);
+        const useResources = product.resources
+            .filter(resource => useResourceIds.includes(resource.resourceId))
+            .map(resource => new ExportedResource(resource));
+        return new ExportedDiagram(diagram, useResources);
     }
 }
