@@ -38,10 +38,10 @@ describe('DiagramImportService', () => {
     const resources = product.resources;
     expect(resources.length).toEqual(5);
 
-    const resouce1 = new Resource(0, ResourceType.システム.id, "SampleSystem", "");
-    expect(resources.existsSomeTypeAndNameOf(resouce1)).toEqual(true);
-    const resouce2 = new Resource(0, ResourceType.アクター.id, "三浦", "");
-    expect(resources.existsSomeTypeAndNameOf(resouce2)).toEqual(true);
+    const r1 = resourceOf(ResourceType.システム, "SampleSystem");
+    expect(resources.existsSomeTypeAndNameOf(r1)).toEqual(true);
+    const r2 = resourceOf(ResourceType.アクター, "三浦");
+    expect(resources.existsSomeTypeAndNameOf(r2)).toEqual(true);
   });
 });
 
@@ -53,6 +53,10 @@ function loadTestFileOf(fileName: string): File {
     fileName,
     { type: 'text/html' }
   );
+}
+
+function resourceOf(resouceType: ResourceType, name: string): Resource {
+  return new Resource(0, resouceType.id, name, "");
 }
 
 class MockStorageRepository extends StorageDatasource {
