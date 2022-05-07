@@ -5,8 +5,9 @@ import FileSystemDatasouce from "~/infrastructure/filesystem/FileSystemDatasourc
 import DiagramImportProgressEvent from "~/domain/diagram/import/DiagramImportProgressEvent";
 import { DiagramImportProgressStep } from "~/domain/diagram/import/DiagramImportProgressStep";
 import StorageDatasource from "@/infrastructure/storage/StorageDatasource";
-import LocalStorage from "@/domain/storage/LocalStorage";
 import Product from "@/domain/product/Product";
+import Resource from "~/domain/resource/Resource";
+import ResourceType from "~/domain/resource/ResourceType";
 
 describe('DiagramImportService', () => {
   test('図もリソース一つのファイルのインポートが成功する。', async () => {
@@ -34,21 +35,15 @@ describe('DiagramImportService', () => {
     expect(actual!.placements.length).toEqual(2);
 
     const product = mockStorageRepository.getCurrentProduct() as Product;
-    expect(product.resources.length).toEqual(5);
+    const resources = product.resources;
+    expect(resources.length).toEqual(5);
+
+    const resouce1 = new Resource(0, ResourceType.システム.id, "SampleSystem", "");
+    expect(resources.existsSomeTypeAndNameOf(resouce1)).toEqual(true);
+    const resouce2 = new Resource(0, ResourceType.アクター.id, "三浦", "");
+    expect(resources.existsSomeTypeAndNameOf(resouce2)).toEqual(true);
   });
 });
-
-function assertNotGoThroughOfNameUniquelogic(originalDiagramName: string): string {
-  throw new Error(`名前重複ロジックは通らないはず:${originalDiagramName}`);
-}
-
-function fileOf(contents: string): File {
-  return new File(
-    [contents],
-    "rdram-diagram-xxx-0.json",
-    { type: 'text/html' }
-  );
-}
 
 function loadTestFileOf(fileName: string): File {
   const dataFilePath = path.join(__dirname, "data", fileName);
