@@ -70,6 +70,11 @@ export default class Product {
         return this.with(this.diagrams.meage(newDiagram));
     }
 
+    public mergeResourceOf(newResource: Resource): Product {
+        const newResources = this.resources.meage(newResource);
+        return this.withResources(newResources);
+    }
+
     public removeOf(resource: Resource): Product {
         return new Product(
             this.updateAt,
@@ -79,26 +84,6 @@ export default class Product {
             this.diagrams.removeResouceOf(resource),
             this.resources.remove(resource),
             this.resourceIdSequence,
-        );
-    }
-
-    public static prototypeOf(newName: string): Product {
-        // 特殊処理。プロダクトに最初からあるリソースは、ここで作る。
-        const factory = new ResourceFactory();
-        const resources: Resource[] = [
-            factory.create(newName, ResourceType.システム, 1, Resources.empty()),
-            new StartOrEndPoint(2, "始点", "", false, true),
-            new StartOrEndPoint(3, "終点", "", false, false),
-        ]
-
-        return new Product(
-            new Date(),
-            ProductIdentifier.ganerate().toString(),
-            newName,
-            UserSettings.create(),
-            Diagrams.empty(),
-            new Resources(resources),
-            4
         );
     }
 
@@ -211,5 +196,27 @@ export default class Product {
         const useRecourceIds = diagram.placements
             .map(placement => placement.resourceId);
         return this.resources.findOf(useRecourceIds);
+    }
+
+    // factory methods
+
+    public static prototypeOf(newName: string): Product {
+        // 特殊処理。プロダクトに最初からあるリソースは、ここで作る。
+        const factory = new ResourceFactory();
+        const resources: Resource[] = [
+            factory.create(newName, ResourceType.システム, 1, Resources.empty()),
+            new StartOrEndPoint(2, "始点", "", false, true),
+            new StartOrEndPoint(3, "終点", "", false, false),
+        ]
+
+        return new Product(
+            new Date(),
+            ProductIdentifier.ganerate().toString(),
+            newName,
+            UserSettings.create(),
+            Diagrams.empty(),
+            new Resources(resources),
+            4
+        );
     }
 }
