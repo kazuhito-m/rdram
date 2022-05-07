@@ -375,7 +375,7 @@ export default class extends Vue {
 
       distDiagram = srcDiagram.cloneWith(diagrams.generateDiagramId(), name);
       const addedDiagrams = diagrams.add(distDiagram);
-      return product.with(addedDiagrams);
+      return product.withDiagrams(addedDiagrams);
     });
     return result ? distDiagram : null;
   }
@@ -463,7 +463,7 @@ export default class extends Vue {
         if (!window.confirm(message)) return null;
       }
       const removedDiagrams = product.diagrams.remove(diagram);
-      return product.with(removedDiagrams);
+      return product.withDiagrams(removedDiagrams);
     });
   }
 
