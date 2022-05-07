@@ -88,7 +88,7 @@ export default class Product {
         );
     }
 
-    private withDiagrams(newDiagrams: Diagrams) {
+    public withDiagrams(newDiagrams: Diagrams) {
         return new Product(
             this.updateAt,
             this.id,

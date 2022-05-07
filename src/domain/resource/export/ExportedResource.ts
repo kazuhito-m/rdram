@@ -2,6 +2,11 @@ import Resource from "../Resource";
 
 export default class ExportedResource {
     public constructor(
-        private readonly resource: Resource 
-    ) {}
+        public readonly resource: Resource
+    ) { }
+
+    public checkOfLogicalStructure(): boolean {
+        // TODO ちゃんとしたチェックを実装。
+        return true;
+    }
 }
