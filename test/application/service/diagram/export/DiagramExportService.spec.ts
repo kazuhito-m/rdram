@@ -12,7 +12,6 @@ import ClientDownloadTransfar from "@/infrastructure/client/ClientDownloadTransf
 import StorageDatasource from "@/infrastructure/storage/StorageDatasource";
 
 describe('DiagramExportService', () => {
-
   test('リソース一つを配置した図一つをエクスポートする。', () => {
     // 準備
     const resource = new Resource(
