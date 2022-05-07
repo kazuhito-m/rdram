@@ -54,7 +54,7 @@ describe('DiagramExportService', () => {
 function mockStorageRepository(diagram: Diagram, resource: Resource): StorageRepository {
   const product = Product.prototypeOf("唯一のプロダクト")
     .meageDiagramOf(diagram)
-    .mergeResourceOf(resource);
+    .meageResourceOf(resource);
   const storage = LocalStorage.prototypeOf()
     .merge(product)
     .changeCurrent(product);

@@ -70,7 +70,7 @@ export default class Product {
         return this.with(this.diagrams.meage(newDiagram));
     }
 
-    public mergeResourceOf(newResource: Resource): Product {
+    public meageResourceOf(newResource: Resource): Product {
         const newResources = this.resources.meage(newResource);
         return this.withResources(newResources);
     }
