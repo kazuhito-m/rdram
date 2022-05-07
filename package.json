@@ -21,6 +21,7 @@
     "class-transformer": "^0.5.1",
     "core-js": "^3.22.4",
     "draw2d": "^1.0.38",
+    "glob-parent": "^6.0.2",
     "jexcel": "^4.6.1",
     "jquery": "^3.6.0",
     "jquery-ui": "^1.13.0",
