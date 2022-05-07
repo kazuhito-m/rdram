@@ -1,4 +1,6 @@
 import DiagramExportService from "~/application/service/diagram/export/DiagramExportService";
+import DownloadCustomFile from "~/domain/client/DownloadCustomFile";
+import DownloadFile from "~/domain/client/DownloadFile";
 import BusinessContextDiagram from "~/domain/diagram/businesscontext/BusinessContextDiagram";
 import Diagram from "~/domain/diagram/Diagram";
 import Placement from "~/domain/diagram/placement/Placement";
@@ -25,11 +27,19 @@ describe('DiagramExportService', () => {
     ).addPlacement(new Placement(100, 200, 0, 0, resource.resourceId));
 
     const storageRepository = mockStorageRepository(diagram, resource);
-    const sut = new DiagramExportService(storageRepository, new ClientDownloadTransfar());
+
+    const dlRepository = new ClientDownloadTransfar();
+
+    let dlFile!: DownloadFile;
+    dlRepository.register = (file) => { dlFile = file; return true; }
+
+    const sut = new DiagramExportService(storageRepository, dlRepository);
 
     const actual = sut.downloadExportFileOnClient(diagram.id);
 
     expect(actual).toEqual(true);
+
+    expect(dlFile).not.toBeNull();
   });
 });
 
