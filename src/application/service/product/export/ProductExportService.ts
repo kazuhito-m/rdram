@@ -1,7 +1,8 @@
 import StorageRepository from "@/domain/storage/StorageRepository";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import RdramExportFile from "@/domain/client/export/RdramExportFile";
-import RdramProductExportFileName from "@/domain/product/export/RdramProductExportFileName";
+import ExportedDiagram from "@/domain/diagram/export/ExportedDiagram";
+import RdramDiagramExportFileName from "~/domain/diagram/export/RdramDiagramExportFileName";
 
 export default class ProductExportService {
     constructor(
@@ -9,23 +10,28 @@ export default class ProductExportService {
         private readonly clientDownloadRepository: ClientDownloadRepository
     ) { }
 
-    public downloadExportFileOnClient(productId: string): boolean {
-        const file = this.makeExportFileOf(productId);
+    public downloadExportFileOnClient(diagramId: number): boolean {
+        const file = this.makeExportFileOf(diagramId);
         if (!file) return false;
 
         this.clientDownloadRepository.register(file);
         return true;
     }
 
-    private makeExportFileOf(productId: string): RdramExportFile | null {
+    private makeExportFileOf(diagramId: number): RdramExportFile | null {
         const storage = this.storageRepository.get();
-        const product = storage?.products.of(productId);
+        const product = storage?.currentProduct();
         if (!product) return null;
+        const diagram = product.diagrams.of(diagramId);
+        if (!diagram) return null;
 
-        const productJson = this.storageRepository.getProductJsonTextOf(productId);
-        if (!productJson) return null;
+        // TODO 中身を作る実装。
+        const exported = new ExportedDiagram(diagram, []);
 
-        const fileName = new RdramProductExportFileName(product.name);
-        return new RdramExportFile(productJson, fileName);
+        const diagramJson = this.storageRepository.getDiagramJsonTextOf(exported);
+        if (!diagramJson) return null;
+
+        const fileName = RdramDiagramExportFileName.of(diagram);
+        return new RdramExportFile(diagramJson, fileName);
     }
 }
