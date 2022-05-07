@@ -31,6 +31,8 @@ import VariationAndConditionDiagram from '@/domain/diagram/variationandcondition
 import Variation from "@/domain/resource/Variation";
 import Condition from "@/domain/resource/Condition";
 import TableTypeCondition from "@/domain/resource/TableTypeCondition";
+import ExportedDiagram from "./diagram/export/ExportedDiagram";
+import ExportedResource from "./resource/export/ExportedResource";
 
 
 export default class Serializer {
@@ -67,6 +69,8 @@ export default class Serializer {
         UsageSceneDiagram,
         UseCaseCompositeDiagram,
         VariationAndConditionDiagram,
+        ExportedDiagram,
+        ExportedResource
     ];
 
     public cloningOf(source: any): any {
