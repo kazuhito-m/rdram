@@ -15,6 +15,7 @@ import StorageDatasource from "~/infrastructure/storage/StorageDatasource";
 describe('DiagramExportService', () => {
 
   test('リソース一つを配置した図一つをエクスポートする。', async () => {
+    // 準備
     const resource = new Resource(
       1,
       ResourceType.アクター.id,
@@ -35,11 +36,20 @@ describe('DiagramExportService', () => {
 
     const sut = new DiagramExportService(storageRepository, dlRepository);
 
+    // 実行
     const actual = sut.downloadExportFileOnClient(diagram.id);
 
+    // 確認
     expect(actual).toEqual(true);
 
     expect(dlFile).not.toBeNull();
+    expect(dlFile.clientFileName.toString())
+      .toMatch(/^rdram\-diagram\-唯一の図\(ビジネスコンテキスト図\)\-[0-9]+\.json$/);
+    const fileText = dlFile.contents;
+    expect(fileText).toContain(`"id": 10001,`);
+    expect(fileText).toContain(`"name": "唯一の図(ビジネスコンテキスト図)",`);
+    expect(fileText).toContain(`"resourceId": 1,`);
+    expect(fileText).toContain(`"name": "唯一のリソース(Actor)",`);
   });
 });
 
