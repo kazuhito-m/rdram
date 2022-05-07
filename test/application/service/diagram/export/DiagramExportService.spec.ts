@@ -34,11 +34,12 @@ describe('DiagramExportService', () => {
 });
 
 function mockStorageRepository(diagram: Diagram, resource: Resource): StorageRepository {
-  const prodruct = Product.prototypeOf("唯一のプロダクト")
+  const product = Product.prototypeOf("唯一のプロダクト")
     .replaceOf(diagram)
     .mergeResourceOf(resource);
   const storage = LocalStorage.prototypeOf()
-    .merge(prodruct);
+    .merge(product)
+    .changeCurrent(product);
 
   const repository = new StorageDatasource();
   repository.get = () => storage;
