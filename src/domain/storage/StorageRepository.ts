@@ -1,8 +1,8 @@
-import ExportedDiagram from "../diagram/export/ExportedDiagram";
 import LocalStorage from "@/domain/storage/LocalStorage";
 import Product from "@/domain/product/Product";
 import ImportedProduct from "@/domain/product/import/ImportedProduct";
 import ImportedLocalStorage from "@/domain/storage/import/ImportedLocalStorage";
+import ExportedDiagram from "@/domain/diagram/export/ExportedDiagram";
 
 export default interface StorageRepository {
     isInitialized(): boolean;
@@ -18,5 +18,6 @@ export default interface StorageRepository {
     clear(): void;
     generateResourceId(): number;
     createProductByJsonOf(jsonText: string): ImportedProduct;
-    createLocalStorageByJsonOf(jsonText: string): ImportedLocalStorage; 
+    createLocalStorageByJsonOf(jsonText: string): ImportedLocalStorage;
+    createDiagramByJsonOf(jsonText: string): ExportedDiagram;
 }

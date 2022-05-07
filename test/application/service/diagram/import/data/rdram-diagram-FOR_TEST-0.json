@@ -1,0 +1,68 @@
+{
+    "diagram": {
+        "id": 2,
+        "typeId": 1,
+        "name": "FOR_TEST",
+        "relations": [
+            {
+                "id": "69b5cf20-b9d2-7870-4be7-6209edd068de",
+                "fromResourceId": 6,
+                "toResourceId": 7,
+                "routerTypeId": 1,
+                "tipAllow": false,
+                "meaning": "",
+                "midpoints": [],
+                "__CLASS_NAME": "Relation"
+            }
+        ],
+        "placements": [
+            {
+                "x": 355.644,
+                "y": 319.68,
+                "width": 350,
+                "height": 75,
+                "resourceId": 6,
+                "alias": false,
+                "__CLASS_NAME": "Placement"
+            },
+            {
+                "x": 662.337,
+                "y": 175.824,
+                "width": 0,
+                "height": 0,
+                "resourceId": 7,
+                "alias": false,
+                "__CLASS_NAME": "Placement"
+            }
+        ],
+        "width": 1024,
+        "height": 768,
+        "canvasGuideTypeId": 1,
+        "__CLASS_NAME": "SystemContextDiagram"
+    },
+    "useResources": [
+        {
+            "resource": {
+                "resourceId": 6,
+                "resourceTypeId": 1,
+                "name": "SampleSystem",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            "__CLASS_NAME": "ExportedResource"
+        },
+        {
+            "resource": {
+                "resourceId": 7,
+                "resourceTypeId": 5,
+                "name": "三浦",
+                "description": "",
+                "deletable": true,
+                "__CLASS_NAME": "Resource"
+            },
+            "__CLASS_NAME": "ExportedResource"
+        }
+    ],
+    "__CLASS_NAME": "ExportedDiagram"
+}

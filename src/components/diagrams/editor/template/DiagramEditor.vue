@@ -158,7 +158,7 @@ export default class DiagramEditor extends Vue {
 
     const modifiedDiagram = diagram.removeResouceOf(resource);
     const diagrams = product.diagrams.meage(modifiedDiagram);
-    const modifiedProduct = product.with(diagrams);
+    const modifiedProduct = product.withDiagrams(diagrams);
 
     this.repository.registerCurrentProduct(modifiedProduct);
     this.product = modifiedProduct;
