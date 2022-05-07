@@ -19,16 +19,17 @@ describe('DiagramExportService', () => {
       "唯一のリソース(Actor)",
       "リソースの説明"
     );
-    const diagram = BusinessContextDiagram.prototypeOf(10001, "唯一の図(ビジネスコンテキスト図)")
-      .addPlacement(new Placement(100, 200, 0, 0, resource.resourceId));
-    const storageRepository = mockStorageRepository(diagram, resource);
+    const diagram = BusinessContextDiagram.prototypeOf(
+      10001,
+      "唯一の図(ビジネスコンテキスト図)"
+    ).addPlacement(new Placement(100, 200, 0, 0, resource.resourceId));
 
+    const storageRepository = mockStorageRepository(diagram, resource);
     const sut = new DiagramExportService(storageRepository, new ClientDownloadTransfar());
 
     const actual = sut.downloadExportFileOnClient(diagram.id);
 
-    // expect(actual).toBeNull();
-    // expect(lastError).toEqual(ProductImportError.非JSON形式);
+    expect(actual).toEqual(true);
   });
 });
 
