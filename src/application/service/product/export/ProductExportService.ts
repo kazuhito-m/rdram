@@ -1,11 +1,7 @@
 import StorageRepository from "@/domain/storage/StorageRepository";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import RdramExportFile from "@/domain/client/export/RdramExportFile";
-import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
-import ExportedDiagram from "@/domain/diagram/export/ExportedDiagram";
-import ExportedResource from "@/domain/resource/export/ExportedResource";
-import Diagram from "@/domain/diagram/Diagram";
-import Product from "@/domain/product/Product";
+import RdramProductExportFileName from "@/domain/product/export/RdramProductExportFileName";
 
 export default class ProductExportService {
     constructor(
@@ -13,36 +9,23 @@ export default class ProductExportService {
         private readonly clientDownloadRepository: ClientDownloadRepository
     ) { }
 
-    public downloadExportFileOnClient(diagramId: number): boolean {
-        const file = this.makeExportFileOf(diagramId);
+    public downloadExportFileOnClient(productId: string): boolean {
+        const file = this.makeExportFileOf(productId);
         if (!file) return false;
 
         this.clientDownloadRepository.register(file);
         return true;
     }
 
-    private makeExportFileOf(diagramId: number): RdramExportFile | null {
+    private makeExportFileOf(productId: string): RdramExportFile | null {
         const storage = this.storageRepository.get();
-        const product = storage?.currentProduct();
+        const product = storage?.products.of(productId);
         if (!product) return null;
-        const diagram = product.diagrams.of(diagramId);
-        if (!diagram) return null;
 
-        const exported = this.makeExportDiagram(diagram, product);
+        const productJson = this.storageRepository.getProductJsonTextOf(productId);
+        if (!productJson) return null;
 
-        const diagramJson = this.storageRepository.getDiagramJsonTextOf(exported);
-        if (!diagramJson) return null;
-
-        const fileName = RdramDiagramExportFileName.of(diagram);
-        return new RdramExportFile(diagramJson, fileName);
-    }
-
-    private makeExportDiagram(diagram: Diagram, product: Product): ExportedDiagram {
-        const useResourceIds = diagram.placements
-            .map(placement => placement.resourceId);
-        const useResources = product.resources
-            .filter(resource => useResourceIds.includes(resource.resourceId))
-            .map(resource => new ExportedResource(resource));
-        return new ExportedDiagram(diagram, useResources);
+        const fileName = new RdramProductExportFileName(product.name);
+        return new RdramExportFile(productJson, fileName);
     }
 }
