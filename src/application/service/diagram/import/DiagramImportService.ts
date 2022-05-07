@@ -91,7 +91,9 @@ export default class DiagramImportService {
         confirmeUserArrange: (settings: UserArrangeOfImportDiagramSetting) => UserArrangeOfImportDiagramSetting,
         product: Product
     ): ExportedDiagram | null {
-        // TODO ユーザ側に「どういうふうに処理します？」な処理を実装。
+        // TODO ユーザ側に「どういうふうに処理します？」な処理を実装。以下はすべて仮実装。
+        confirmeUserArrange(new UserArrangeOfImportDiagramSetting());
+        console.log(`diagrams:${product.diagrams.length}, resources:${product.resources.length}`);
         return maybeDiagram;
     }
 
