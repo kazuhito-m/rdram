@@ -58,6 +58,10 @@
       <v-icon @click="onClickSvgDownload">mdi-image-outline</v-icon>
     </v-btn>
 
+    <v-btn v-if="!toolBarCollapse" dark small icon>
+      <v-icon @click="onClickDiagramExport">mdi-file-export</v-icon>
+    </v-btn>
+
     <v-spacer></v-spacer>
 
     <v-btn v-if="!toolBarCollapse" dark icon @click="onClickBarCollapseToggle">
@@ -102,6 +106,9 @@ export default class CanvasSettingToolBar extends Vue {
 
   @Emit("onSvgDownload")
   private onSvgDownLoad(): void {}
+
+  @Emit("onDiagramExport")
+  private onDiagramExport(): void {}
 
   @Emit("onOpendDiagramPropertiesEditor")
   private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
@@ -263,6 +270,10 @@ export default class CanvasSettingToolBar extends Vue {
 
   private onClickSvgDownload(): void {
     this.onSvgDownLoad();
+  }
+
+  private onClickDiagramExport(): void {
+    this.onDiagramExport();
   }
 
   private onClickEditDiagramProperties(): void {
