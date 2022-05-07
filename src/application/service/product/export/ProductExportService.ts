@@ -25,7 +25,7 @@ export default class ProductExportService {
         const productJson = this.storageRepository.getProductJsonTextOf(productId);
         if (!productJson) return null;
 
-        const fileName = new RdramProductExportFileName(product.name);
+        const fileName = RdramProductExportFileName.of(product);
         return new RdramExportFile(productJson, fileName);
     }
 }

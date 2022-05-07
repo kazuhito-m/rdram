@@ -1,10 +1,10 @@
-import Diagram from "../Diagram";
 import RdramExportFileName from "@/domain/client/export/RdramExportFileName";
+import Diagram from "../Diagram";
 
 export default class RdramDiagramExportFileName extends RdramExportFileName {
     public static readonly TYPE_DESCRIPTION = "RDRAM product exported file (json)";
 
-    constructor(diagramName: string) {
+    private constructor(diagramName: string) {
         super(`diagram-${diagramName}`);
     }
 
