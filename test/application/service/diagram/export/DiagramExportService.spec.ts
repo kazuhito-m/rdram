@@ -13,7 +13,7 @@ import StorageDatasource from "@/infrastructure/storage/StorageDatasource";
 
 describe('DiagramExportService', () => {
 
-  test('リソース一つを配置した図一つをエクスポートする。', async () => {
+  test('リソース一つを配置した図一つをエクスポートする。', () => {
     // 準備
     const resource = new Resource(
       1,
@@ -43,7 +43,7 @@ describe('DiagramExportService', () => {
 
     expect(dlFile).not.toBeNull();
     expect(dlFile.clientFileName.toString())
-      .toMatch(/^rdram\-diagram\-唯一の図\(ビジネスコンテキスト図\)\-[0-9]+\.json$/);
+      .toMatch(/^rdram-diagram-唯一の図\(ビジネスコンテキスト図\)-[0-9]+\.json$/);
     const fileText = dlFile.contents;
     expect(fileText).toContain(`"id": 10001,`);
     expect(fileText).toContain(`"name": "唯一の図(ビジネスコンテキスト図)",`);

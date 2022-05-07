@@ -31,7 +31,6 @@ import VariationAndConditionDiagram from '@/domain/diagram/variationandcondition
 import Variation from "@/domain/resource/Variation";
 import Condition from "@/domain/resource/Condition";
 import TableTypeCondition from "@/domain/resource/TableTypeCondition";
-import HasContentResource from "./resource/HasContentResource";
 
 
 export default class Serializer {
