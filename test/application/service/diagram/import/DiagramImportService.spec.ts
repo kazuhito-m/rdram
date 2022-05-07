@@ -10,7 +10,7 @@ import Resource from "~/domain/resource/Resource";
 import ResourceType from "~/domain/resource/ResourceType";
 
 describe('DiagramImportService', () => {
-  test('図もリソース一つのファイルのインポートが成功する。', async () => {
+  test('リソース2つを配置した図のファイルのインポートが成功する。', async () => {
     // 準備
     const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
 
@@ -33,6 +33,7 @@ describe('DiagramImportService', () => {
     expect(actual!.id).toEqual(2);
     expect(actual!.name).toEqual("FOR_TEST");
     expect(actual!.placements.length).toEqual(2);
+    expect(actual!.allRelations().length).toEqual(1);
 
     const product = mockStorageRepository.getCurrentProduct() as Product;
     const resources = product.resources;
