@@ -10,7 +10,6 @@ import Product from "@/domain/product/Product";
 import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
 import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
 import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehavioWhenNameColide";
-import { Type } from "class-transformer";
 
 export default class DiagramImportService {
     constructor(
@@ -126,6 +125,8 @@ export default class DiagramImportService {
                 : diagram;
             modifiedProduct = modifiedProduct.addOrReplaceSameDiagramOf(fixedDiagram);
         }
+
+        console.log('debug-productの状況', modifiedProduct);
 
         return maybeDiagram;
     }
