@@ -110,8 +110,10 @@ export default class DiagramImportService {
             .map(r => NameOfColided.prototypeResourceOf(r));
 
         const colidedNames = new UserArrangeOfImportDiagramSetting(diagram.name, colidedName, sameResources);
+        if (colidedNames.isEmpty()) return maybeDiagram;
 
         const userArrange = confirmeUserArrange(colidedNames);
+        if (!userArrange.isEmpty()) return null;
 
         // TODO ユーザ側に「どういうふうに処理します？」な処理を実装。以下はすべて仮実装。
 

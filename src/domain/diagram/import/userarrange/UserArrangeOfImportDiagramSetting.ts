@@ -26,4 +26,13 @@ export default class UserArrangeOfImportDiagramSetting {
     public isColidedDiagramName(): boolean {
         return this.diagramNamesOfColided !== null;
     }
+
+    public isEmpty(): boolean {
+        return !this.isColidedDiagramName()
+            && this.resourceNamesOfColided.length === 0;
+    }
+
+    public static empty(): UserArrangeOfImportDiagramSetting {
+        return new UserArrangeOfImportDiagramSetting("", null, []);
+    }
 }
