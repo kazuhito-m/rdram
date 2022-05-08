@@ -40,6 +40,7 @@ export default class ExportedResource {
             && r.description.length >= 0
             && (r.deletable === true || r.deletable === false);
     }
+
     private validateCondition(c: Condition): boolean {
         return c.value.length > 0;
     }
