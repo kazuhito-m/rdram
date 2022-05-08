@@ -72,7 +72,8 @@ describe('DiagramImportService', () => {
     const actual = await sut.importOf(file,
       event => { lastEvent = event },
       arrange => {
-        return passedArrange = arrange; // ユーザは、変更せずデフォルトで答える、というオペレーション
+        passedArrange = arrange;
+        return arrange; // ユーザは、変更せずデフォルトで答える、というオペレーション
       }
     );
 
@@ -112,7 +113,6 @@ describe('DiagramImportService', () => {
     expect(colidedResouceName.behavior)
       .toEqual(BehaviorWhenNameColide.既存);
     expect(colidedResouceName.sourceName).toEqual("SampleSystem");
-
   });
 });
 
