@@ -1,8 +1,8 @@
-import Diagram from "../Diagram";
+import Diagram from "@/domain/diagram/Diagram";
 import ExportedResource from "@/domain/resource/export/ExportedResource";
 import Resources from "@/domain/resource/Resources";
-import Placement from "@/domain/diagram/placement/Placement";
 import ImportedRelation from "@/domain/relation/import/ImportedRelation";
+import ImportedPlacement from "@/domain/diagram/placement/import/ImportedPlacement";
 
 export default class ExportedDiagram {
     public constructor(
@@ -17,12 +17,26 @@ export default class ExportedDiagram {
                 && d.allRelations()
                     .map(r => new ImportedRelation(r))
                     .every(ir => ir.validate())
-                && d.placements.every(this.validatePlacement)
+                && d.placements
+                    .map(p => new ImportedPlacement(p))
+                    .every(ip => ip.validate())
                 && this.checkOfLogicalResources()
                 && this.checkOfLogicalRelations();
         } catch (e) {
             return false;
         }
+    }
+
+    private validate(): boolean {
+        const d = this.diagram;
+        return d.id > 0
+            && d.type.id > 0
+            && d.name.length > 0
+            && d.allRelations().length >= 0
+            && d.placements.length >= 0
+            && d.width > 0
+            && d.height > 0
+            && d.canvasGuideTypeId > 0;
     }
 
     private checkOfLogicalResources(): boolean {
@@ -59,27 +73,6 @@ export default class ExportedDiagram {
             .map(r => r)
             .every(r => useIds.includes(r.fromResourceId)
                 && useIds.includes(r.toResourceId));
-    }
-
-    private validatePlacement(placement: Placement): boolean {
-        const p = placement;
-        return p.x >= 0
-            && p.y >= 0
-            && p.width >= 0
-            && p.height >= 0
-            && p.resourceId > 0
-            && (p.alias === true || p.alias === false);
-    }
-    private validate(): boolean {
-        const d = this.diagram;
-        return d.id > 0
-            && d.type.id > 0
-            && d.name.length > 0
-            && d.allRelations().length >= 0
-            && d.placements.length >= 0
-            && d.width > 0
-            && d.height > 0
-            && d.canvasGuideTypeId > 0;
     }
 
     public fixedDiagram(): Diagram {
