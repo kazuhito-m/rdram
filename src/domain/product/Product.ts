@@ -165,6 +165,11 @@ export default class Product {
         );
     }
 
+    public addOrReplaceSameDiagramOf(diagram: Diagram): Product {
+        const diagrams = this.diagrams.addOrReplaceSameOf(diagram);
+        return this.withDiagrams(diagrams);
+    }
+
     public createAndAddResource(): Product {
         const factory = new ResourceFactory();
         const addedResources = this.resources

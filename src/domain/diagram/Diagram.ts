@@ -64,6 +64,14 @@ export default class Diagram {
             .some(Placement => Placement.resourceId === resource.resourceId);
     }
 
+    public reIdOf(newId: number): Diagram {
+        return this.cloneWith(newId, this.name);
+    }
+
+    public renameOf(newName: string): Diagram {
+        return this.cloneWith(this.id, newName);
+    }
+
     public modifyPlacementOf(placement: Placement): Diagram {
         const newValues = this.placements
             .map(p => p.resourceId === placement.resourceId ? placement : p);
@@ -114,6 +122,11 @@ export default class Diagram {
 
     protected replacePlacement(_placements: Placement[]): Diagram {
         throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
+    }
+
+    public sameOf(other: Diagram) {
+        return this.type.equals(other.type)
+            && this.name === other.name;
     }
 
     public existsSameOf(relation: Relation): boolean {

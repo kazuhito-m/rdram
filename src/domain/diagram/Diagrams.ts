@@ -79,6 +79,9 @@ export default class Diagrams {
     }
 
     public addOrReplaceSameOf(diagram: Diagram): Diagrams {
+        const newValues = this.values
+            .map(d => d.sameOf(diagram) ? diagram.reIdOf(d.id) : d);
+        return new Diagrams(newValues);
     }
 
     public removeResouceOf(resource: Resource): Diagrams {

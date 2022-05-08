@@ -105,16 +105,27 @@ export default class DiagramImportService {
         const allResources = product.resources;
         const useResources = maybeDiagram.fixedResources();
         const sameResources = useResources
-            .filter(r => allResources.existsSameTypeAndNameOf(r))
+            .filter(r => allResources.existsSameOf(r))
             .map(r => NameOfColided.prototypeResourceOf(r));
 
         const colidedNames = new UserArrangeOfImportDiagramSetting(diagram.name, colidedName, sameResources);
         if (colidedNames.isEmpty()) return maybeDiagram;
 
         const userArrange = confirmeUserArrange(colidedNames);
-        if (!userArrange.isEmpty()) return null;
+        if (userArrange.isEmpty()) return null;
 
         // TODO ユーザ側に「どういうふうに処理します？」な処理を実装。以下はすべて仮実装。
+
+        let modifiedProduct = product;
+
+        if (userArrange.isColidedDiagramName()) {
+            const colidedDiagramName = userArrange.diagramNamesOfColided as NameOfColided;
+            if (colidedDiagramName.behavior === BehaviorWhenNameColide.既存) return null;
+            const fixedDiagram = colidedDiagramName.behavior === BehaviorWhenNameColide.別名
+                ? diagram.renameOf(colidedDiagramName.destinationName)
+                : diagram;
+            modifiedProduct = modifiedProduct.addOrReplaceSameDiagramOf(fixedDiagram);
+        }
 
         return maybeDiagram;
     }
