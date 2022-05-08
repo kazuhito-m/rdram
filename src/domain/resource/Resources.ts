@@ -31,12 +31,12 @@ export default class Resources {
 
     public existsSameOf(resource: Resource): boolean {
         return this.values
-            .some(r => r.sameTypeAndNameOf(resource));
+            .some(r => r.sameOf(resource));
     }
 
     public someTypeAndNameOf(resource: Resource): Resource | undefined {
         return this.values
-            .find(r => r.sameTypeAndNameOf(resource));
+            .find(r => r.sameOf(resource));
     }
 
     public of(resourceId: number): Resource | undefined {
