@@ -34,7 +34,7 @@ export default class Resources {
             .some(r => r.sameOf(resource));
     }
 
-    public someTypeAndNameOf(resource: Resource): Resource | undefined {
+    public getSameOf(resource: Resource): Resource | undefined {
         return this.values
             .find(r => r.sameOf(resource));
     }
