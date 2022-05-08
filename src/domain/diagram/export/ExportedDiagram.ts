@@ -1,8 +1,8 @@
 import Diagram from "../Diagram";
 import ExportedResource from "@/domain/resource/export/ExportedResource";
 import Resources from "@/domain/resource/Resources";
-import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
+import ImportedRelation from "@/domain/relation/import/ImportedRelation";
 
 export default class ExportedDiagram {
     public constructor(
@@ -15,8 +15,8 @@ export default class ExportedDiagram {
         try {
             return this.validate()
                 && d.allRelations()
-                    .map(this.validateRelation)
-                    .every(v => v)
+                    .map(r => new ImportedRelation(r))
+                    .every(ir => ir.validate())
                 && d.placements.every(this.validatePlacement)
                 && this.checkOfLogicalResources()
                 && this.checkOfLogicalRelations();
@@ -59,18 +59,6 @@ export default class ExportedDiagram {
             .map(r => r)
             .every(r => useIds.includes(r.fromResourceId)
                 && useIds.includes(r.toResourceId));
-    }
-
-
-    private validateRelation(relation: Relation): boolean {
-        const r = relation;
-        return r.id.length > 0
-            && r.fromResourceId > 0
-            && r.toResourceId > 0
-            && r.routerType.name.length > 0
-            && (r.tipAllow === true || r.tipAllow === false)
-            && r.meaning.length >= 0
-            && r.midpoints.length >= 0
     }
 
     private validatePlacement(placement: Placement): boolean {
