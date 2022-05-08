@@ -8,6 +8,8 @@ import ExportedDiagram from "@/domain/diagram/export/ExportedDiagram";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
+import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
+import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehavioWhenNameColide";
 
 export default class DiagramImportService {
     constructor(
@@ -92,7 +94,9 @@ export default class DiagramImportService {
         product: Product
     ): ExportedDiagram | null {
         // TODO ユーザ側に「どういうふうに処理します？」な処理を実装。以下はすべて仮実装。
-        const arrange = new UserArrangeOfImportDiagramSetting(maybeDiagram.fixedDiagram().name, null, []);
+        const arrange = new UserArrangeOfImportDiagramSetting(maybeDiagram.fixedDiagram().name,
+            new NameOfColided(BehaviorWhenNameColide.置換, maybeDiagram.fixedDiagram().name, "", 2),
+            [new NameOfColided(BehaviorWhenNameColide.既存, "SampleSystem", "", 2)]);   // テスト用の仮実装
         confirmeUserArrange(arrange);
         console.log(`diagrams:${product.diagrams.length}, resources:${product.resources.length}`);
         return maybeDiagram;

@@ -24,6 +24,6 @@ export default class UserArrangeOfImportDiagramSetting {
     }
 
     public isColidedDiagramName(): boolean {
-        return this.diagramNamesOfColided === null;
+        return this.diagramNamesOfColided !== null;
     }
 }
