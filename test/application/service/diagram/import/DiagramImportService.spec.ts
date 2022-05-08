@@ -84,6 +84,7 @@ describe('DiagramImportService', () => {
     expect(actual!.allRelations().length).toEqual(1);
 
     const modifyProduct = mockStorageRepository.getCurrentProduct() as Product;
+    expect(modifyProduct.diagrams.length).toEqual(1);
     const resources = modifyProduct.resources;
     expect(resources.length).toEqual(5);
 
