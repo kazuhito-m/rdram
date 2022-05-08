@@ -92,7 +92,8 @@ export default class DiagramImportService {
         product: Product
     ): ExportedDiagram | null {
         // TODO ユーザ側に「どういうふうに処理します？」な処理を実装。以下はすべて仮実装。
-        confirmeUserArrange(new UserArrangeOfImportDiagramSetting());
+        const arrange = new UserArrangeOfImportDiagramSetting(maybeDiagram.fixedDiagram().name, null, []);
+        confirmeUserArrange(arrange);
         console.log(`diagrams:${product.diagrams.length}, resources:${product.resources.length}`);
         return maybeDiagram;
     }
