@@ -104,7 +104,6 @@ export default class DiagramImportService {
 
         const allResources = product.resources;
         const useResources = maybeDiagram.fixedResources();
-        allResources.forEach(i => console.log("product側にあるやつ:", i.name));
         const sameResources = useResources
             .filter(r => allResources.existsSameTypeAndNameOf(r))
             .map(r => NameOfColided.prototypeResourceOf(r));
