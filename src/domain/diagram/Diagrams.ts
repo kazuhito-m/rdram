@@ -40,6 +40,10 @@ export default class Diagrams {
                 && d.type.equals(diagramType));
     }
 
+    public existsSameOf(diagram: Diagram): boolean {
+        return this.existsSameTypeAndName(diagram.name, diagram.type);
+    }
+
     public eixistsSameNameOf(diagram: Diagram) {
         return this.values
             .filter(d => d.id !== diagram.id)

@@ -13,6 +13,7 @@ import Resources from "@/domain/resource/Resources";
 import Diagrams from "@/domain/diagram/Diagrams";
 import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehavioWhenNameColide";
 import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
+import DiagramType from "~/domain/diagram/DiagramType";
 
 describe('DiagramImportService', () => {
   test('リソース2つを配置した図のファイルのインポートが成功する。', async () => {
@@ -52,14 +53,8 @@ describe('DiagramImportService', () => {
 
   test('既存の同種同名のリソースと図が在る状態で、リソース2つを配置した図のファイルのインポートが成功する。', async () => {
     // 準備
-    const resource = new Resource(1, ResourceType.システム.id,
-      "SampleSystem", "");
-    const diagram = SystemContextDiagram.prototypeOf(2, "FOR_TEST",
-      Resources.prototypeOf().add(resource));
-    const diagrams = Diagrams.prototypeOf()
-      .add(diagram);
-    const product = Product.prototypeOf("一つだけプロダクト")
-      .withDiagrams(diagrams);
+    const product = Product.prototypeOf("SampleSystem")
+      .createAndAddDiagram("FOR_TEST", DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
 
     const mockStorageRepository = new MockStorageRepository(product);
     const sut = new DiagramImportService(mockStorageRepository, new FileSystemDatasouce());
@@ -133,7 +128,7 @@ function resourceOf(resouceType: ResourceType, name: string): Resource {
 }
 
 class MockStorageRepository extends StorageDatasource {
-  constructor(protected currentProduct: Product) { super() }
+  constructor(private currentProduct: Product) { super() }
 
   public override  getCurrentProduct(): Product | undefined {
     return this.currentProduct;

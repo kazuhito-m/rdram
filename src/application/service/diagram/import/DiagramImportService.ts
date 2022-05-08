@@ -10,6 +10,7 @@ import Product from "@/domain/product/Product";
 import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
 import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
 import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehavioWhenNameColide";
+import { Type } from "class-transformer";
 
 export default class DiagramImportService {
     constructor(
@@ -93,12 +94,27 @@ export default class DiagramImportService {
         confirmeUserArrange: (settings: UserArrangeOfImportDiagramSetting) => UserArrangeOfImportDiagramSetting,
         product: Product
     ): ExportedDiagram | null {
+        const diagram = maybeDiagram.fixedDiagram();
+
+        const existsDiagram = product.diagrams
+            .existsSameOf(maybeDiagram.fixedDiagram());
+        const colidedName = existsDiagram
+            ? NameOfColided.prototypeDiagramOf(diagram)
+            : null;
+
+        const allResources = product.resources;
+        const useResources = maybeDiagram.fixedResources();
+        allResources.forEach(i => console.log("product側にあるやつ:", i.name));
+        const sameResources = useResources
+            .filter(r => allResources.existsSameTypeAndNameOf(r))
+            .map(r => NameOfColided.prototypeResourceOf(r));
+
+        const colidedNames = new UserArrangeOfImportDiagramSetting(diagram.name, colidedName, sameResources);
+
+        const userArrange = confirmeUserArrange(colidedNames);
+
         // TODO ユーザ側に「どういうふうに処理します？」な処理を実装。以下はすべて仮実装。
-        const arrange = new UserArrangeOfImportDiagramSetting(maybeDiagram.fixedDiagram().name,
-            new NameOfColided(BehaviorWhenNameColide.置換, maybeDiagram.fixedDiagram().name, "", 2),
-            [new NameOfColided(BehaviorWhenNameColide.既存, "SampleSystem", "", 2)]);   // テスト用の仮実装
-        confirmeUserArrange(arrange);
-        console.log(`diagrams:${product.diagrams.length}, resources:${product.resources.length}`);
+
         return maybeDiagram;
     }
 

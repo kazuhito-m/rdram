@@ -1,3 +1,5 @@
+import Resource from "~/domain/resource/Resource";
+import Diagram from "../../Diagram";
 import { BehaviorWhenNameColide } from "./BehavioWhenNameColide";
 
 export default class NameOfColided {
@@ -24,6 +26,22 @@ export default class NameOfColided {
             sourceName,
             "",
             sourceId
+        );
+    }
+
+    public static prototypeDiagramOf(diagram: Diagram): NameOfColided {
+        return this.prototypeOf(
+            diagram.name,
+            diagram.id,
+            BehaviorWhenNameColide.置換
+        );
+    }
+
+    public static prototypeResourceOf(resouce: Resource): NameOfColided {
+        return this.prototypeOf(
+            resouce.name,
+            resouce.resourceId,
+            BehaviorWhenNameColide.既存
         );
     }
 }
