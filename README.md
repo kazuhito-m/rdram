@@ -9,7 +9,7 @@ RDRAM
 
 ## Deploid Service
 
-<https://kazuhito-m.github.io/rdram/diagrams/> (暫定、近々変わります)
+<https://kazuhito-m.github.io/rdram> (暫定、近々変わります)
 
 ## author
 
