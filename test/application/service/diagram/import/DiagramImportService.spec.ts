@@ -45,9 +45,9 @@ describe('DiagramImportService', () => {
     expect(resources.length).toEqual(5);
 
     const r1 = resourceOf(ResourceType.システム, "SampleSystem");
-    expect(resources.existsSomeTypeAndNameOf(r1)).toEqual(true);
+    expect(resources.existsSameTypeAndNameOf(r1)).toEqual(true);
     const r2 = resourceOf(ResourceType.アクター, "三浦");
-    expect(resources.existsSomeTypeAndNameOf(r2)).toEqual(true);
+    expect(resources.existsSameTypeAndNameOf(r2)).toEqual(true);
   });
 
   test('既存の同種同名のリソースと図が在る状態で、リソース2つを配置した図のファイルのインポートが成功する。', async () => {
@@ -93,9 +93,9 @@ describe('DiagramImportService', () => {
     expect(resources.length).toEqual(5);
 
     const r1 = resourceOf(ResourceType.システム, "SampleSystem");
-    expect(resources.existsSomeTypeAndNameOf(r1)).toEqual(true);
+    expect(resources.existsSameTypeAndNameOf(r1)).toEqual(true);
     const r2 = resourceOf(ResourceType.アクター, "三浦");
-    expect(resources.existsSomeTypeAndNameOf(r2)).toEqual(true);
+    expect(resources.existsSameTypeAndNameOf(r2)).toEqual(true);
 
 
     // 「ユーザ確認」でコールバックされていた値

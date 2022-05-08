@@ -116,7 +116,7 @@ export default class Diagram {
         throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
     }
 
-    public existsSomeRelation(relation: Relation): boolean {
+    public existsSameOf(relation: Relation): boolean {
         return this.relations
             .some(r => r.equalRouteReversivle(relation));
     }

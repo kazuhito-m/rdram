@@ -185,7 +185,7 @@ export default class CoreResourceEditDialog extends Vue {
 
     const resource = this.resource.with(this.name, this.description);
 
-    if (!this.resources.existsSomeTypeAndNameOf(resource)) {
+    if (!this.resources.existsSameTypeAndNameOf(resource)) {
       this.onModifyResource(resource);
       this.onClose();
       return;

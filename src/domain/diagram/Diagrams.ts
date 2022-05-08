@@ -34,9 +34,16 @@ export default class Diagrams {
             .length;
     }
 
-    public existsSomeName(name: string, diagramType: DiagramType): boolean {
+    public existsSameTypeAndName(name: string, diagramType: DiagramType): boolean {
         return this.values
-            .some(d => d.name === name && d.type.equals(diagramType));
+            .some(d => d.name === name
+                && d.type.equals(diagramType));
+    }
+
+    public eixistsSameNameOf(diagram: Diagram) {
+        return this.values
+            .filter(d => d.id !== diagram.id)
+            .some(d => d.name === diagram.name);
     }
 
     public of(diagramId: number): Diagram | undefined {
@@ -100,13 +107,6 @@ export default class Diagrams {
         return new Diagrams([]);
     }
 
-    public eixistsSomeName(diagram: Diagram) {
-        return this.values
-            .filter(d => d.id !== diagram.id)
-            .map(i => { console.log(i.id, i.name); return i })
-            .some(d => d.name === diagram.name);
-    }
-
     public last(): Diagram {
         return this.values[this.values.length - 1];
     }
@@ -119,6 +119,6 @@ export default class Diagrams {
     }
 
     public get length(): number {
-       return this.values.length;
+        return this.values.length;
     }
 }
