@@ -81,7 +81,7 @@ export default class ExportedDiagram {
 
     public fixedResources(): Resources {
         const values = this.useResources
-            .map(useResource => useResource.resource);
+            .map(useResource => useResource.value);
         return new Resources(values);
     }
 }
