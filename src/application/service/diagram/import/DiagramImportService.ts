@@ -6,8 +6,8 @@ import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
 import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
 import ExportedDiagram from "@/domain/diagram/export/ExportedDiagram";
 import Diagram from "@/domain/diagram/Diagram";
-import Product from "~/domain/product/Product";
-import UserArrangeOfImportDiagramSetting from "~/domain/diagram/import/UserArrangeOfImportDiagramSetting";
+import Product from "@/domain/product/Product";
+import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
 
 export default class DiagramImportService {
     constructor(
