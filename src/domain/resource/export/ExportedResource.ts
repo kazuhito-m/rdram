@@ -23,6 +23,7 @@ export default class ExportedResource {
             && r.type.name.length > 0
             && r.name.length > 0
             && r.description.length >= 0
+            && (r.deletable === true || r.deletable === false);
     }
 
     public resourceId(): number {
