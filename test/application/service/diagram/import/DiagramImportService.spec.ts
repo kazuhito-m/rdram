@@ -6,8 +6,8 @@ import DiagramImportProgressEvent from "~/domain/diagram/import/DiagramImportPro
 import { DiagramImportProgressStep } from "~/domain/diagram/import/DiagramImportProgressStep";
 import StorageDatasource from "@/infrastructure/storage/StorageDatasource";
 import Product from "@/domain/product/Product";
-import Resource from "~/domain/resource/Resource";
-import ResourceType from "~/domain/resource/ResourceType";
+import Resource from "@/domain/resource/Resource";
+import ResourceType from "@/domain/resource/ResourceType";
 
 describe('DiagramImportService', () => {
   test('リソース2つを配置した図のファイルのインポートが成功する。', async () => {
