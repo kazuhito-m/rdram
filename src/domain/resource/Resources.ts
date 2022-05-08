@@ -29,7 +29,7 @@ export default class Resources {
             .some(resource => resource.resourceId === resourceId);
     }
 
-    public existsSameTypeAndNameOf(resource: Resource): boolean {
+    public existsSameOf(resource: Resource): boolean {
         return this.values
             .some(r => r.sameTypeAndNameOf(resource));
     }
