@@ -57,7 +57,7 @@ export default class ExportedDiagram {
         return this.diagram
             .allRelations()
             .map(r => r)
-            .every(r => useIds.includes(r.fromResourceId) 
+            .every(r => useIds.includes(r.fromResourceId)
                 && useIds.includes(r.toResourceId));
     }
 
@@ -69,7 +69,7 @@ export default class ExportedDiagram {
             && r.toResourceId > 0
             && r.routerType.name.length > 0
             && (r.tipAllow === true || r.tipAllow === false)
-            && r.meaning.length > 0
+            && r.meaning.length >= 0
             && r.midpoints.length >= 0
     }
 
