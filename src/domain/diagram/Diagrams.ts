@@ -41,13 +41,8 @@ export default class Diagrams {
     }
 
     public existsSameOf(diagram: Diagram): boolean {
-        return this.existsSameTypeAndName(diagram.name, diagram.type);
-    }
-
-    public eixistsSameNameOf(diagram: Diagram) {
         return this.values
-            .filter(d => d.id !== diagram.id)
-            .some(d => d.name === diagram.name);
+            .some(d => d.sameOf(diagram));
     }
 
     public of(diagramId: number): Diagram | undefined {
@@ -81,6 +76,9 @@ export default class Diagrams {
         const newValues = Array.from(this.values);
         newValues.push(diagram);
         return new Diagrams(newValues);
+    }
+
+    public addOrReplaceSameOf(diagram: Diagram): Diagrams {
     }
 
     public removeResouceOf(resource: Resource): Diagrams {

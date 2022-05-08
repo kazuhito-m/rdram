@@ -191,7 +191,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
   }
 
   private logicalValidation(diagram: Diagram, product: Product): boolean {
-    if (product.diagrams.eixistsSameNameOf(diagram)) {
+    if (product.diagrams.existsSameOf(diagram)) {
       alert("既に重複した名前の図が在ります。");
       return false;
     }
