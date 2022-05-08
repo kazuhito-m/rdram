@@ -42,7 +42,7 @@
     },
     "useResources": [
         {
-            "resource": {
+            "value": {
                 "resourceId": 6,
                 "resourceTypeId": 1,
                 "name": "SampleSystem",
@@ -53,7 +53,7 @@
             "__CLASS_NAME": "ExportedResource"
         },
         {
-            "resource": {
+            "value": {
                 "resourceId": 7,
                 "resourceTypeId": 5,
                 "name": "三浦",
