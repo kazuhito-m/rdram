@@ -77,11 +77,11 @@ export default class Relations {
         return new Relations(newValues);
     }
 
-    public forEach(func: (Relation: Relation) => void) {
+    public forEach(func: (relation: Relation) => void) {
         this.values.forEach(func);
     }
 
-    public map<T>(func: (resoruce: Relation) => T): T[] {
+    public map<T>(func: (rilation: Relation) => T): T[] {
         return this.values.map(func);
     }
 
