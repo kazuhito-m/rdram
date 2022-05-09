@@ -6,8 +6,8 @@ import ImportedPlacement from "@/domain/diagram/placement/import/ImportedPlaceme
 
 export default class ExportedDiagram {
     public constructor(
-        private readonly diagram: Diagram,
-        private readonly useResources: ExportedResource[],
+        public readonly diagram: Diagram,
+        private readonly resources: ExportedResource[],
     ) { }
 
     public checkOfLogicalStructure() {
@@ -40,13 +40,13 @@ export default class ExportedDiagram {
     }
 
     private checkOfLogicalResources(): boolean {
-        const resourcesIsLogical = this.useResources
+        const resourcesIsLogical = this.resources
             .every(resource => resource.checkOfLogicalStructure());
         if (!resourcesIsLogical) return false;
 
         const idsOnDiagram = this.diagram.placements
             .map(placement => placement.resourceId);
-        const useIds = this.useResources
+        const useIds = this.resources
             .map(use => use.resourceId());
         return this.equalArrays(idsOnDiagram, useIds);
     }
@@ -66,7 +66,7 @@ export default class ExportedDiagram {
     }
 
     private checkOfLogicalRelations(): boolean {
-        const useIds = this.useResources
+        const useIds = this.resources
             .map(use => use.resourceId());
         return this.diagram
             .allRelations()
@@ -75,12 +75,8 @@ export default class ExportedDiagram {
                 && useIds.includes(r.toResourceId));
     }
 
-    public fixedDiagram(): Diagram {
-        return this.diagram;
-    }
-
-    public fixedResources(): Resources {
-        const values = this.useResources
+    public get useResources(): Resources {
+        const values = this.resources
             .map(useResource => useResource.value);
         return new Resources(values);
     }

@@ -69,9 +69,9 @@ export default class DiagramImportService {
 
         notifyProgress(this.raise(DiagramImportProgressStep.追加));
 
-        const fixDiagram = arrangedDiagram.fixedDiagram()
+        const fixDiagram = arrangedDiagram.diagram;
         // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
-        const fixedResources = arrangedDiagram.fixedResources()
+        const fixedResources = arrangedDiagram.useResources
             .map(r => r)
             .reduce(
                 (resources, resouce) => resources.add(resouce),
@@ -93,16 +93,16 @@ export default class DiagramImportService {
         confirmeUserArrange: (settings: UserArrangeOfImportDiagramSetting) => UserArrangeOfImportDiagramSetting,
         product: Product
     ): ExportedDiagram | null {
-        const diagram = maybeDiagram.fixedDiagram();
+        const diagram = maybeDiagram.diagram;
 
         const existsDiagram = product.diagrams
-            .existsSameOf(maybeDiagram.fixedDiagram());
+            .existsSameOf(diagram);
         const colidedName = existsDiagram
             ? NameOfColided.prototypeDiagramOf(diagram)
             : null;
 
         const allResources = product.resources;
-        const useResources = maybeDiagram.fixedResources();
+        const useResources = maybeDiagram.useResources;
         const sameResources = useResources
             .filter(r => allResources.existsSameOf(r))
             .map(r => NameOfColided.prototypeResourceOf(r));
@@ -116,8 +116,10 @@ export default class DiagramImportService {
         // TODO ユーザ側に「どういうふうに処理します？」な処理を実装。以下はすべて仮実装。
 
         let modifiedProduct = product;
+        let modifiedDiagram = maybeDiagram;
 
         for (const colidedResourceName of userArrange.resourceNamesOfColided) {
+            const targetResouce = modifiedDiagram.useResources.getOf(colidedResourceName.sourceId)
             const behavior = colidedResourceName.behavior;
             if (behavior === BehaviorWhenNameColide.既存) {
                 // TODO インポート側のDiagramの中のPlacementのIDを、同名のResourceのものに置換

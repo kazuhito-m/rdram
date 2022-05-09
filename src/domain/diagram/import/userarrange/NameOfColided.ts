@@ -7,7 +7,7 @@ export default class NameOfColided {
         public readonly behavior: BehaviorWhenNameColide,
         public readonly sourceName: string,
         public readonly destinationName: string,
-        private readonly sourceId: number
+        public readonly sourceId: number
     ) { }
 
     public with(behavior: BehaviorWhenNameColide, destinationName: string): NameOfColided {
