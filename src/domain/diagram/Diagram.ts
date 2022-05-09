@@ -103,19 +103,14 @@ export default class Diagram {
             .map(r => r.fromResourceId === srcId ? r.withFrom(destId) : r)
             .map(r => r.toResourceId === srcId ? r.withTo(destId) : r);
 
-       return this.replacePlacement(placements)
+        return this.replacePlacement(placements)
             .replaceRelations(relations);
     }
 
-    /**
-     * FIXME ここだ「イミュータブルを破ってしまって」いる…なんとかしたい。 
-     */
     public modifyRelationOf(relation: Relation): Diagram {
-        const index = this.relations
-            .findIndex(r => r.id === relation.id);
-        if (index < 0) return this;
-        this.relations[index] = relation;
-        return this;
+        const newRelations = this.relations
+            .map(r => r.id === relation.id ? relation : r);
+        return this.replaceRelations(newRelations);
     }
 
     public addRelation(relation: Relation): Diagram {
