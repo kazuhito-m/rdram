@@ -3,6 +3,7 @@ import ExportedResource from "@/domain/resource/export/ExportedResource";
 import Resources from "@/domain/resource/Resources";
 import ImportedRelation from "@/domain/relation/import/ImportedRelation";
 import ImportedPlacement from "@/domain/diagram/placement/import/ImportedPlacement";
+import Resource from "~/domain/resource/Resource";
 
 export default class ExportedDiagram {
     public constructor(
@@ -73,6 +74,32 @@ export default class ExportedDiagram {
             .map(r => r)
             .every(r => useIds.includes(r.fromResourceId)
                 && useIds.includes(r.toResourceId));
+    }
+
+    /**
+     * 一度「自身のシステムに無いResourceId群」にするため、すべてのResorceIdを正負反転する。
+     */
+    public replaceUniqueResourceIds(): ExportedDiagram {
+        const diagram = this.diagram;
+        const placements= diagram.placements
+            .map(p => p.withResourceIdOf(-p.resourceId));
+        const relations = diagram.allRelations()
+            .map(r => r.withFrom(-r.fromResourceId).withTo(-r.toResourceId));
+        // TODO 問題の先送り、CIコケる、Diagram側のreplaceXxx()をpublicにして外から呼べるようにする。
+        const newDiaglam = diagram
+            .replacePlacement(placements)
+            .replaceRelations(relations);
+        const newResources = this.resources
+            .map(r => r.inversionNegativeResourceId())
+        return new ExportedDiagram(newDiaglam, newResources);
+    }
+
+    public replaceAndRemoveSameResouceOF(resource: Resource): ExportedDiagram {
+        const sameResource = this.useResources.getSameOf(resource);
+        if (!sameResource) throw Error("あるはずのResourceが無い。");
+        const replacedDiagram = this.diagram.replaceOf(sameResource, resource) as Diagram;
+        const removedResources = this.resources.filter(r => r.resourceId() !== sameResource.resourceId);
+        return new ExportedDiagram(replacedDiagram, removedResources);
     }
 
     public get useResources(): Resources {

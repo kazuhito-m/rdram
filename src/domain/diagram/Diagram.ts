@@ -93,6 +93,14 @@ export default class Diagram {
         return this.replaceRelations(nonDeletedRelations);
     }
 
+    public replaceOf(srcResource: Resource, destResource: Resource): Diagram {
+       const placements = this.placements
+            .map(p => p.resourceId === srcResource.resourceId ? p.withResourceOf(destResource) : p);
+        const relations = this.relations
+            .
+
+    }
+
     /**
      * FIXME ここだ「イミュータブルを破ってしまって」いる…なんとかしたい。 
      */

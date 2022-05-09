@@ -10,6 +10,7 @@ import Product from "@/domain/product/Product";
 import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
 import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
 import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehavioWhenNameColide";
+import Resource from "~/domain/resource/Resource";
 
 export default class DiagramImportService {
     constructor(
@@ -116,14 +117,17 @@ export default class DiagramImportService {
         // TODO ユーザ側に「どういうふうに処理します？」な処理を実装。以下はすべて仮実装。
 
         let modifiedProduct = product;
-        let modifiedDiagram = maybeDiagram;
+        let modifiedDiagram = maybeDiagram.replaceUniqueResourceIds();
 
         for (const colidedResourceName of userArrange.resourceNamesOfColided) {
-            const targetResouce = modifiedDiagram.useResources.getOf(colidedResourceName.sourceId)
+            const targetResouce = modifiedDiagram.useResources.of(colidedResourceName.sourceId) as Resource;
+            const sameResource = product.resources.getSameOf(targetResouce) as Resource;
+
             const behavior = colidedResourceName.behavior;
             if (behavior === BehaviorWhenNameColide.既存) {
                 // TODO インポート側のDiagramの中のPlacementのIDを、同名のResourceのものに置換
                 // TODO インポート側のResourcesから、同名のResourceを削除
+                modifiedDiagram = modifiedDiagram.replaceAndRemoveSameResouceOF(sameResource);
             }
             if (behavior === BehaviorWhenNameColide.置換) {
                 // TODO Product側から、同名のResourceを取得

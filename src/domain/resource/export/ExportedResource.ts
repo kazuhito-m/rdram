@@ -73,6 +73,11 @@ export default class ExportedResource {
         return true;
     }
 
+    public inversionNegativeResourceId(): ExportedResource {
+        const r = this.value;
+        return new ExportedResource(r.renewId(r.resourceId));
+    }
+
     public resourceId(): number {
         return this.value.resourceId;
     }

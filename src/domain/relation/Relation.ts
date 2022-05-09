@@ -31,14 +31,9 @@ export default class Relation {
     }
 
     public reverse(): Relation {
-        return new Relation(
-            this.id,
+        return this.withFromTo(
             this.toResourceId,
             this.fromResourceId,
-            this.routerTypeId,
-            this.tipAllow,
-            this.meaning,
-            this.midpoints,
         );
     }
 
@@ -84,6 +79,32 @@ export default class Relation {
             routerType.id,
             tipAllow,
             meaning.trim(),
+            this.midpoints,
+        );
+    }
+
+    public withFrom(fromResourceId: number): Relation {
+        return this.withFromTo(
+            fromResourceId, 
+            this.toResourceId
+        );
+    }
+
+    public withTo(toResourceId: number): Relation {
+        return this.withFromTo(
+            this.fromResourceId, 
+            toResourceId
+        );
+    }
+
+    private withFromTo(fromResourceId: number, toResourceId: number): Relation {
+        return new Relation(
+            this.id,
+            fromResourceId,
+            toResourceId,
+            this.routerTypeId,
+            this.tipAllow,
+            this.meaning,
             this.midpoints,
         );
     }
