@@ -94,11 +94,17 @@ export default class Diagram {
     }
 
     public replaceOf(srcResource: Resource, destResource: Resource): Diagram {
-       const placements = this.placements
-            .map(p => p.resourceId === srcResource.resourceId ? p.withResourceOf(destResource) : p);
-        const relations = this.relations
-            .
+        const srcId = srcResource.resourceId;
+        const destId = destResource.resourceId;
 
+        const placements = this.placements
+            .map(p => p.resourceId === srcId ? p.withResourceOf(destResource) : p);
+        const relations = this.relations
+            .map(r => r.fromResourceId === srcId ? r.withFrom(destId) : r)
+            .map(r => r.toResourceId === srcId ? r.withTo(destId) : r);
+
+       return this.replacePlacement(placements)
+            .replaceRelations(relations);
     }
 
     /**
