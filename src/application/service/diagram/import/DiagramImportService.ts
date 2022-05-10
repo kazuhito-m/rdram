@@ -11,6 +11,7 @@ import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarran
 import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
 import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehavioWhenNameColide";
 import Resource from "~/domain/resource/Resource";
+import ExportedResource from "~/domain/resource/export/ExportedResource";
 
 export default class DiagramImportService {
     constructor(
@@ -133,9 +134,17 @@ export default class DiagramImportService {
             if (behavior === BehaviorWhenNameColide.置換) {
                 // TODO Product側から、同名のResourceを取得
                 // TODO インポート側のResourcesから、同名のResourceを取得、そのIdを既存のものに置換
-                const replacedIdResource =  targetResouce.renewId(sameResource.resourceId);
+                const replacedIdResource = targetResouce.renewId(sameResource.resourceId);
                 // TODO インポート側のDiagramの中のPlacementのIDを、同名のResourceのものに置換
+                const replacedDiagram = modifiedDiagram.diagram.replaceOf(sameResource, replacedIdResource);
+                // TODO インポート側のResourcesからは削除する(後にProduct側で置換するので)
+                const replacedExportedResources = modifiedDiagram.useResources()
+                    .remove(targetResouce)
+                    .map(r => new ExportedResource(r));
+                modifiedDiagram = new ExportedDiagram(replacedDiagram, replacedExportedResources);
                 // TODO Product側の同名のResourceを、インポート側のResourceに置換
+                const replacedResources = modifiedProduct.resources.mergeByIdOf(replacedIdResource);
+                modifiedProduct = modifiedProduct.withResources(replacedResources);
             }
             if (behavior === BehaviorWhenNameColide.別名) {
                 // TODO インポート側のResourceの名前を置換

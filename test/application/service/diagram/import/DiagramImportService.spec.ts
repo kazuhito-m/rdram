@@ -109,8 +109,6 @@ describe('DiagramImportService', () => {
   });
 });
 
-
-
 function loadTestFileOf(fileName: string): File {
   const dataFilePath = path.join(__dirname, "data", fileName);
   const contents = fs.readFileSync(dataFilePath, "utf8");
