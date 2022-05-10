@@ -100,8 +100,7 @@ describe('DiagramImportService', () => {
     expect(passedArrange!.diagramNamesOfColided?.sourceName)
       .toEqual("FOR_TEST");
 
-    expect(passedArrange!.resourceNamesOfColided.length)
-      .toEqual(1);
+    expect(passedArrange!.resourceNamesOfColided).toHaveLength(1);
     const colidedResouceName = passedArrange!.resourceNamesOfColided[0];
     expect(colidedResouceName.behavior)
       .toEqual(BehaviorWhenNameColide.既存);
@@ -119,16 +118,12 @@ describe('DiagramImportService', () => {
     const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
 
     // 実行
-    let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
+    let passedCallback = false;
     let lastEvent: DiagramImportProgressEvent;
     const actual = await sut.importOf(file,
       event => { lastEvent = event },
       arrange => {
-        passedArrange = arrange;
-        expect(arrange.resourceNamesOfColided).toHaveLength(1);
-        for (const resourceNameOfColided of arrange.resourceNamesOfColided) {
-          expect(resourceNameOfColided.behavior).toEqual(BehaviorWhenNameColide.既存);
-        }
+        passedCallback = true;
         // ユーザは、「リソースはインポートデータで置換」と答える、というオペレーション
         const arrangedColidedNames = arrange.resourceNamesOfColided
           .map(name => name.with(BehaviorWhenNameColide.置換));
@@ -137,6 +132,14 @@ describe('DiagramImportService', () => {
     );
 
     // 確認
+    expect(lastEvent!).not.toBeNull();
+
+    // TODO 「インポートした結果」をどうするのか、をちゃんと考える(リソースは「インポートしたもののみ」を返す？)
+    expect(actual).not.toBeNull();
+    expect(actual!.placements.length).toEqual(2);
+    expect(actual!.allRelations().length).toEqual(1);
+
+    expect(passedCallback).toEqual(true);
     // TODO 確認の実装。
   });
 
@@ -151,16 +154,12 @@ describe('DiagramImportService', () => {
     const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
 
     // 実行
-    let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
+    let passedCallback = false;
     let lastEvent: DiagramImportProgressEvent;
     const actual = await sut.importOf(file,
       event => { lastEvent = event },
       arrange => {
-        passedArrange = arrange;
-        expect(arrange.resourceNamesOfColided).toHaveLength(1);
-        for (const resourceNameOfColided of arrange.resourceNamesOfColided) {
-          expect(resourceNameOfColided.behavior).toEqual(BehaviorWhenNameColide.既存);
-        }
+        passedCallback = true;
         // ユーザは、「リソースは別名に変更してインポート」と答える、というオペレーション
         const arrangedColidedNames = arrange.resourceNamesOfColided
           .map(name => name.with(BehaviorWhenNameColide.別名, "SampleSystemが重複したので変更した名前"));
@@ -169,6 +168,14 @@ describe('DiagramImportService', () => {
     );
 
     // 確認
+    expect(lastEvent!).not.toBeNull();
+
+    // TODO 「インポートした結果」をどうするのか、をちゃんと考える(リソースは「インポートしたもののみ」を返す？)
+    expect(actual).not.toBeNull();
+    expect(actual!.placements.length).toEqual(2);
+    expect(actual!.allRelations().length).toEqual(1);
+
+    expect(passedCallback).toEqual(true);
     // TODO 確認の実装。
   });
 });
