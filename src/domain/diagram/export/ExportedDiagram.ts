@@ -85,7 +85,6 @@ export default class ExportedDiagram {
             .map(p => p.withResourceIdOf(-p.resourceId));
         const relations = diagram.allRelations()
             .map(r => r.withFrom(-r.fromResourceId).withTo(-r.toResourceId));
-        // TODO 問題の先送り、CIコケる、Diagram側のreplaceXxx()をpublicにして外から呼べるようにする。
         const newDiaglam = diagram
             .replacePlacement(placements)
             .replaceRelations(relations);
