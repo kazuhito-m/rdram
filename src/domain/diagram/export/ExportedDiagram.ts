@@ -96,7 +96,7 @@ export default class ExportedDiagram {
     public replaceAndRemoveSameResouceOF(resource: Resource): ExportedDiagram {
         const sameResource = this.useResources().getSameOf(resource);
         if (!sameResource) throw new Error("あるはずのResourceが無い。");
-        const replacedDiagram = this.diagram.replaceOf(sameResource, resource) as Diagram;
+        const replacedDiagram = this.diagram.replaceOf(sameResource, resource);
         const removedResources = this.resources.filter(r => r.resourceId() !== sameResource.resourceId);
         return new ExportedDiagram(replacedDiagram, removedResources);
     }
