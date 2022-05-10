@@ -85,7 +85,7 @@ export default class BusinessUseCaseDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): BusinessUseCaseDiagram {
+    public replaceRelations(relations: Relation[]): BusinessUseCaseDiagram {
         return new BusinessUseCaseDiagram(
             this.id,
             this.typeId,
@@ -98,7 +98,7 @@ export default class BusinessUseCaseDiagram extends Diagram {
         );
     }
 
-    protected replacePlacement(placements: Placement[]): BusinessUseCaseDiagram {
+    public replacePlacement(placements: Placement[]): BusinessUseCaseDiagram {
         return new BusinessUseCaseDiagram(
             this.id,
             this.typeId,

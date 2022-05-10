@@ -73,7 +73,7 @@ export default class UsageSceneDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): UsageSceneDiagram {
+    public replaceRelations(relations: Relation[]): UsageSceneDiagram {
         return new UsageSceneDiagram(
             this.id,
             this.typeId,
@@ -86,7 +86,7 @@ export default class UsageSceneDiagram extends Diagram {
         );
     }
 
-    protected replacePlacement(placements: Placement[]): UsageSceneDiagram {
+    public replacePlacement(placements: Placement[]): UsageSceneDiagram {
         return new UsageSceneDiagram(
             this.id,
             this.typeId,

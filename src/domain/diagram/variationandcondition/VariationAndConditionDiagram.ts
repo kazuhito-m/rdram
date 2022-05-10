@@ -61,7 +61,7 @@ export default class VariationAndConditionDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): VariationAndConditionDiagram {
+    public replaceRelations(relations: Relation[]): VariationAndConditionDiagram {
         return new VariationAndConditionDiagram(
             this.id,
             this.typeId,
@@ -74,7 +74,7 @@ export default class VariationAndConditionDiagram extends Diagram {
         );
     }
 
-    protected replacePlacement(placements: Placement[]): VariationAndConditionDiagram {
+    public replacePlacement(placements: Placement[]): VariationAndConditionDiagram {
         return new VariationAndConditionDiagram(
             this.id,
             this.typeId,

@@ -119,17 +119,17 @@ export default class Diagram {
         return this.replaceRelations(newValues);
     }
 
-    protected replaceRelations(_relations: Relation[]): Diagram {
-        throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
-    }
-
     public addPlacement(placement: Placement): Diagram {
         const newValues = Array.from(this.placements);
         newValues.push(placement);
         return this.replacePlacement(newValues);
     }
 
-    protected replacePlacement(_placements: Placement[]): Diagram {
+    public replaceRelations(_relations: Relation[]): Diagram {
+        throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
+    }
+
+    public replacePlacement(_placements: Placement[]): Diagram {
         throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
     }
 

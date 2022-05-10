@@ -79,7 +79,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): UseCaseCompositeDiagram {
+    public replaceRelations(relations: Relation[]): UseCaseCompositeDiagram {
         return new UseCaseCompositeDiagram(
             this.id,
             this.typeId,
@@ -92,7 +92,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
         );
     }
 
-    protected replacePlacement(placements: Placement[]): UseCaseCompositeDiagram {
+    public  replacePlacement(placements: Placement[]): UseCaseCompositeDiagram {
         return new UseCaseCompositeDiagram(
             this.id,
             this.typeId,

@@ -77,7 +77,7 @@ export default class StateModelDiagram extends Diagram {
         );
     }
 
-    protected replacePlacement(placements: Placement[]): StateModelDiagram {
+    public replacePlacement(placements: Placement[]): StateModelDiagram {
         return new StateModelDiagram(
             this.id,
             this.typeId,
@@ -90,7 +90,7 @@ export default class StateModelDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): StateModelDiagram {
+    public replaceRelations(relations: Relation[]): StateModelDiagram {
         return new StateModelDiagram(
             this.id,
             this.typeId,

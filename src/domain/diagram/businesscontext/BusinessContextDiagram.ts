@@ -83,7 +83,7 @@ export default class BusinessContextDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): BusinessContextDiagram {
+    public replaceRelations(relations: Relation[]): BusinessContextDiagram {
         return new BusinessContextDiagram(
             this.id,
             this.typeId,
@@ -96,7 +96,7 @@ export default class BusinessContextDiagram extends Diagram {
         );
     }
 
-    protected replacePlacement(placements: Placement[]): BusinessContextDiagram {
+    public replacePlacement(placements: Placement[]): BusinessContextDiagram {
         return new BusinessContextDiagram(
             this.id,
             this.typeId,

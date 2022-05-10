@@ -73,7 +73,7 @@ export default class BusinessFlowDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): BusinessFlowDiagram {
+    public replaceRelations(relations: Relation[]): BusinessFlowDiagram {
         return new BusinessFlowDiagram(
             this.id,
             this.typeId,
@@ -86,7 +86,7 @@ export default class BusinessFlowDiagram extends Diagram {
         );
     }
 
-    protected replacePlacement(placements: Placement[]): BusinessFlowDiagram {
+    public replacePlacement(placements: Placement[]): BusinessFlowDiagram {
         return new BusinessFlowDiagram(
             this.id,
             this.typeId,
