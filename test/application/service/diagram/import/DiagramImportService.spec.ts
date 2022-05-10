@@ -83,7 +83,7 @@ describe('DiagramImportService', () => {
     const modifyProduct = mockStorageRepository.getCurrentProduct() as Product;
     // expect(modifyProduct.diagrams.length).toEqual(1);  // TODO 最後に蘇らせる
     const resources = modifyProduct.resources;
-    expect(resources.length).toEqual(5);
+    expect(resources.length).toEqual(4);  // 同じリソースが在った場合は「既存」がデフォルト、なので足されない。
 
     const r1 = resourceOf(ResourceType.システム, "SampleSystem");
     expect(resources.existsSameOf(r1)).toEqual(true);
