@@ -40,7 +40,7 @@
         "canvasGuideTypeId": 1,
         "__CLASS_NAME": "SystemContextDiagram"
     },
-    "useResources": [
+    "resources": [
         {
             "value": {
                 "resourceId": 6,

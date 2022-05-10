@@ -31,6 +31,7 @@ export default class DiagramImportService {
                 return result;
             }
         } catch (e) {
+            console.log("予期せぬエラー", e);
             notifyProgress(this.raiseError(DiagramImportError.予期せぬエラー, `\n  ${e}`));
         }
         notifyProgress(this.raise(DiagramImportProgressStep.失敗, "", file));
@@ -72,7 +73,7 @@ export default class DiagramImportService {
 
         const fixDiagram = arrangedDiagram.diagram;
         // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
-        const fixedResources = arrangedDiagram.useResources
+        const fixedResources = arrangedDiagram.useResources()
             .map(r => r)
             .reduce(
                 (resources, resouce) => resources.add(resouce),
@@ -103,8 +104,7 @@ export default class DiagramImportService {
             : null;
 
         const allResources = product.resources;
-        const useResources = maybeDiagram.useResources;
-        const sameResources = useResources
+        const sameResources = maybeDiagram.useResources()
             .filter(r => allResources.existsSameOf(r))
             .map(r => NameOfColided.prototypeResourceOf(r));
 
@@ -120,7 +120,7 @@ export default class DiagramImportService {
         let modifiedDiagram = maybeDiagram.replaceUniqueResourceIds();
 
         for (const colidedResourceName of userArrange.resourceNamesOfColided) {
-            const targetResouce = modifiedDiagram.useResources.of(colidedResourceName.sourceId) as Resource;
+            const targetResouce = modifiedDiagram.useResources().of(colidedResourceName.sourceId) as Resource;
             const sameResource = product.resources.getSameOf(targetResouce) as Resource;
 
             const behavior = colidedResourceName.behavior;
