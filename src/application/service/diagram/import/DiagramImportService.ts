@@ -95,7 +95,9 @@ export default class DiagramImportService {
         confirmeUserArrange: (settings: UserArrangeOfImportDiagramSetting) => UserArrangeOfImportDiagramSetting,
         product: Product
     ): ExportedDiagram | null {
-        const diagram = maybeDiagram.diagram;
+        let modifiedDiagram = maybeDiagram.replaceUniqueResourceIds();
+
+        const diagram = modifiedDiagram.diagram;
 
         const existsDiagram = product.diagrams
             .existsSameOf(diagram);
@@ -104,12 +106,12 @@ export default class DiagramImportService {
             : null;
 
         const allResources = product.resources;
-        const sameResources = maybeDiagram.useResources()
+        const sameResources = modifiedDiagram.useResources()
             .filter(r => allResources.existsSameOf(r))
             .map(r => NameOfColided.prototypeResourceOf(r));
 
         const colidedNames = new UserArrangeOfImportDiagramSetting(diagram.name, colidedName, sameResources);
-        if (colidedNames.isEmpty()) return maybeDiagram;
+        if (colidedNames.isEmpty()) return modifiedDiagram;
 
         const userArrange = confirmeUserArrange(colidedNames);
         if (userArrange.isEmpty()) return null;
@@ -117,7 +119,6 @@ export default class DiagramImportService {
         // TODO ユーザ側に「どういうふうに処理します？」な処理を実装。以下はすべて仮実装。
 
         let modifiedProduct = product;
-        let modifiedDiagram = maybeDiagram.replaceUniqueResourceIds();
 
         for (const colidedResourceName of userArrange.resourceNamesOfColided) {
             const targetResouce = modifiedDiagram.useResources().of(colidedResourceName.sourceId) as Resource;
@@ -132,6 +133,7 @@ export default class DiagramImportService {
             if (behavior === BehaviorWhenNameColide.置換) {
                 // TODO Product側から、同名のResourceを取得
                 // TODO インポート側のResourcesから、同名のResourceを取得、そのIdを既存のものに置換
+                const replacedIdResource =  targetResouce.renewId(sameResource.resourceId);
                 // TODO インポート側のDiagramの中のPlacementのIDを、同名のResourceのものに置換
                 // TODO Product側の同名のResourceを、インポート側のResourceに置換
             }
@@ -154,7 +156,7 @@ export default class DiagramImportService {
 
         console.log('debug-productの状況', modifiedProduct);
 
-        return maybeDiagram;
+        return modifiedDiagram;
     }
 
     private raise(step: DiagramImportProgressStep, message: string = "", file?: File): DiagramImportProgressEvent {
