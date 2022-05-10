@@ -67,7 +67,7 @@ export default class Diagrams {
         return new Diagrams(newValues);
     }
 
-    public meage(diagram: Diagram): Diagrams {
+    public mergeByIdOf(diagram: Diagram): Diagrams {
         if (this.values.some(d => d.id === diagram.id)) {
             const newValues = this.values
                 .map(d => d.id === diagram.id ? diagram : d);

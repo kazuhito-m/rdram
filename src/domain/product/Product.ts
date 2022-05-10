@@ -67,7 +67,7 @@ export default class Product {
     }
 
     public meageDiagramOf(newDiagram: Diagram): Product {
-        const newDiagrams = this.diagrams.meage(newDiagram);
+        const newDiagrams = this.diagrams.mergeByIdOf(newDiagram);
         return this.withDiagrams(newDiagrams);
     }
 
