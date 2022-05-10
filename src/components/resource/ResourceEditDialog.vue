@@ -211,7 +211,7 @@ export default class ResourceEditDialog extends Vue {
       product = product.moveNextResourceIdSequence();
     }
 
-    const addedResources = product.resources.meage(newResource);
+    const addedResources = product.resources.mergeByIdOf(newResource);
     product = product.withResources(addedResources);
     this.repository?.registerCurrentProduct(product);
 

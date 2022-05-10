@@ -72,7 +72,7 @@ export default class Resources {
         return new Resources(newValues);
     }
 
-    public meage(resource: Resource): Resources {
+    public mergeByIdOf(resource: Resource): Resources {
         const newValues = this.values
             .map(p => p.resourceId === resource.resourceId ? resource : p);
         if (newValues.every(p => p !== resource)) newValues.push(resource);

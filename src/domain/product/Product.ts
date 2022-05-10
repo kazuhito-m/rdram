@@ -72,7 +72,7 @@ export default class Product {
     }
 
     public meageResourceOf(newResource: Resource): Product {
-        const newResources = this.resources.meage(newResource);
+        const newResources = this.resources.mergeByIdOf(newResource);
         return this.withResources(newResources);
     }
 
