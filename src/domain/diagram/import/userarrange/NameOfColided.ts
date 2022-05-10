@@ -10,7 +10,7 @@ export default class NameOfColided {
         public readonly sourceId: number
     ) { }
 
-    public with(behavior: BehaviorWhenNameColide, destinationName: string): NameOfColided {
+    public with(behavior: BehaviorWhenNameColide, destinationName = ""): NameOfColided {
         return new NameOfColided(
             behavior,
             this.sourceName,

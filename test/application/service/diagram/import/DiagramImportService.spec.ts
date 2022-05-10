@@ -107,6 +107,70 @@ describe('DiagramImportService', () => {
       .toEqual(BehaviorWhenNameColide.既存);
     expect(colidedResouceName.sourceName).toEqual("SampleSystem");
   });
+
+  test('既存の同種同名のリソースと図が在る状態で、リソース1つが重複しているが「置換」指定で、ファイルインポートが成功する。', async () => {
+    // 準備
+    const product = Product.prototypeOf("SampleSystem")
+      .createAndAddDiagram("FOR_TEST", DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
+
+    const mockStorageRepository = new MockStorageRepository(product);
+    const sut = new DiagramImportService(mockStorageRepository, new FileSystemDatasouce());
+
+    const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
+
+    // 実行
+    let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
+    let lastEvent: DiagramImportProgressEvent;
+    const actual = await sut.importOf(file,
+      event => { lastEvent = event },
+      arrange => {
+        passedArrange = arrange;
+        expect(arrange.resourceNamesOfColided).toHaveLength(1);
+        for (const resourceNameOfColided of arrange.resourceNamesOfColided) {
+          expect(resourceNameOfColided.behavior).toEqual(BehaviorWhenNameColide.既存);
+        }
+        // ユーザは、「リソースはインポートデータで置換」と答える、というオペレーション
+        const arrangedColidedNames = arrange.resourceNamesOfColided
+          .map(name => name.with(BehaviorWhenNameColide.置換));
+        return arrange.withResourceNames(arrangedColidedNames);
+      }
+    );
+
+    // 確認
+    // TODO 確認の実装。
+  });
+
+  test('既存の同種同名のリソースと図が在る状態で、リソース1つが重複しているが「別名」指定で、ファイルインポートが成功する。', async () => {
+    // 準備
+    const product = Product.prototypeOf("SampleSystem")
+      .createAndAddDiagram("FOR_TEST", DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
+
+    const mockStorageRepository = new MockStorageRepository(product);
+    const sut = new DiagramImportService(mockStorageRepository, new FileSystemDatasouce());
+
+    const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
+
+    // 実行
+    let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
+    let lastEvent: DiagramImportProgressEvent;
+    const actual = await sut.importOf(file,
+      event => { lastEvent = event },
+      arrange => {
+        passedArrange = arrange;
+        expect(arrange.resourceNamesOfColided).toHaveLength(1);
+        for (const resourceNameOfColided of arrange.resourceNamesOfColided) {
+          expect(resourceNameOfColided.behavior).toEqual(BehaviorWhenNameColide.既存);
+        }
+        // ユーザは、「リソースは別名に変更してインポート」と答える、というオペレーション
+        const arrangedColidedNames = arrange.resourceNamesOfColided
+          .map(name => name.with(BehaviorWhenNameColide.別名, "SampleSystemが重複したので変更した名前"));
+        return arrange.withResourceNames(arrangedColidedNames);
+      }
+    );
+
+    // 確認
+    // TODO 確認の実装。
+  });
 });
 
 function loadTestFileOf(fileName: string): File {
