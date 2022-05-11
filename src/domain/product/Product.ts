@@ -165,7 +165,7 @@ export default class Product {
         );
     }
 
-    public addOrReplaceSameDiagramOf(diagram: Diagram): Product {
+    public mergeDiagramWhenSameOf(diagram: Diagram): Product {
         const diagrams = this.diagrams.mergeWhenSameOf(diagram);
         return this.withDiagrams(diagrams);
     }
