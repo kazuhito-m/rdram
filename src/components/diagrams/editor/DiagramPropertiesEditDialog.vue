@@ -184,7 +184,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
     if (!this.logicalValidation(modified, product)) return null;
 
     const registerd = modified.fixStickOuts();
-    const modifiedProduct = product.meageDiagramOf(registerd);
+    const modifiedProduct = product.meageDiagramByIdOf(registerd);
     this.repository?.registerCurrentProduct(modifiedProduct);
 
     return registerd;

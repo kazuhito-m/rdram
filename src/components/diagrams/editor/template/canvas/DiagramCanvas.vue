@@ -672,7 +672,7 @@ export default class DiagramCanvas extends Vue {
       this.dropYOnCanvas
     ) as Placement;
     const modifiedDiagram: Diagram = diagram.addPlacement(placement);
-    const modifiedProduct = product.meageDiagramOf(modifiedDiagram);
+    const modifiedProduct = product.meageDiagramByIdOf(modifiedDiagram);
 
     this.addResouceIconToCanvas(resource, placement);
 
@@ -709,7 +709,7 @@ export default class DiagramCanvas extends Vue {
     if (modifiedDiagram === null) return;
 
     this.onMergePlacement(modifiedDiagram.placements);
-    const modifiedProduct = product.meageDiagramOf(modifiedDiagram);
+    const modifiedProduct = product.meageDiagramByIdOf(modifiedDiagram);
     this.repository.registerCurrentProduct(modifiedProduct);
   }
 }

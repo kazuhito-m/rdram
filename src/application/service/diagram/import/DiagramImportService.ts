@@ -178,7 +178,7 @@ export default class DiagramImportService {
                 (resources, resouce) => resources.add(resouce),
                 modifiedProduct.resources
             );
-        modifiedProduct = modifiedProduct.meageDiagramOf(fixedDiagram)
+        modifiedProduct = modifiedProduct.meageDiagramByIdOf(fixedDiagram)
             .withResources(fixedResources);
 
         return modifiedProduct;
