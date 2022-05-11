@@ -155,8 +155,6 @@ export default class DiagramImportService {
                     .map(r => new ExportedResource(r));
                 const replacedDiagram = modifiedDiagram.diagram.replaceOf(sameResource, renamedResource);
                 modifiedDiagram = new ExportedDiagram(replacedDiagram, replacedExportedResources);
-                // TODO Product側に、インポート側のResourceを追加
-                modifiedProduct = modifiedProduct.meageResourceOf(renamedResource);
             }
         }
 

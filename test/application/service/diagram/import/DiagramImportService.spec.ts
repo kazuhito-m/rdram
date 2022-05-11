@@ -208,7 +208,7 @@ describe('DiagramImportService', () => {
 
       expect(modifiedProduct.diagrams.length).toEqual(1);
       const resources = modifiedProduct.resources;
-      expect(resources.length).toEqual(6); // 同じリソースが在るが「別名」を指定した、ので一つ増える。
+      expect(resources.length).toEqual(5); // 同じリソースが在るが「別名」を指定した、ので一つ増える。
 
       const r1 = resourceOf(ResourceType.システム, "SampleSystem");
       const addedR1 = resources.getSameOf(r1);
