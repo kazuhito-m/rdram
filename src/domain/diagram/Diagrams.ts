@@ -41,13 +41,21 @@ export default class Diagrams {
     }
 
     public existsSameOf(diagram: Diagram): boolean {
-        return this.values
-            .some(d => d.sameOf(diagram));
+        return !!this.sameOf(diagram);
+    }
+
+    public existsIdOf(diagramId: number): boolean {
+        return !!this.of(diagramId);
     }
 
     public of(diagramId: number): Diagram | undefined {
         return this.values
             .find(diagram => diagram.id === diagramId);
+    }
+
+    private sameOf(diagram: Diagram): Diagram | undefined {
+        return this.values
+            .find(d => d.sameOf(diagram));
     }
 
     public nameOf(name: string): Diagram | undefined {
@@ -68,20 +76,17 @@ export default class Diagrams {
     }
 
     public mergeByIdOf(diagram: Diagram): Diagrams {
-        if (this.values.some(d => d.id === diagram.id)) {
-            const newValues = this.values
-                .map(d => d.id === diagram.id ? diagram : d);
-            return new Diagrams(newValues);
-        }
-        const newValues = Array.from(this.values);
-        newValues.push(diagram);
-        return new Diagrams(newValues);
+        return this.remove(diagram)
+            .add(diagram);
     }
 
     public addOrReplaceSameOf(diagram: Diagram): Diagrams {
-        const newValues = this.values
-            .map(d => d.sameOf(diagram) ? diagram.reIdOf(d.id) : d);
-        return new Diagrams(newValues);
+        const sameDiagram = this.sameOf(diagram);
+        const newId = sameDiagram
+            ? sameDiagram.id
+            : this.generateDiagramId();
+        const reIdDiagram = diagram.reIdOf(newId);
+        return this.mergeByIdOf(reIdDiagram);
     }
 
     public removeResouceOf(resource: Resource): Diagrams {
