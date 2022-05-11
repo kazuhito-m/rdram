@@ -149,8 +149,18 @@ export default class DiagramImportService {
             if (behavior === BehaviorWhenNameColide.別名) {
                 // TODO インポート側のResourceの名前を置換
                 // TODO インポート側のResourceにProduct側から「新しいResourceID」を発行してもらい、置換する
+                modifiedProduct = modifiedProduct.moveNextResourceIdSequence();
+                const renamedResource = targetResouce.withName(colidedResourceName.destinationName)
+                    .renewId(modifiedProduct.resourceIdSequence);
                 // TODO インポート側のDiagramの中のPlacementのIDを、新しいResourceIDに置換
+                const replacedExportedResources = modifiedDiagram.useResources()
+                    .remove(targetResouce)
+                    .add(renamedResource)
+                    .map(r => new ExportedResource(r));
+                const replacedDiagram = modifiedDiagram.diagram.replaceOf(sameResource, renamedResource);
+                modifiedDiagram = new ExportedDiagram(replacedDiagram, replacedExportedResources);
                 // TODO Product側に、インポート側のResourceを追加
+                modifiedProduct = modifiedProduct.meageResourceOf(renamedResource);
             }
         }
 
