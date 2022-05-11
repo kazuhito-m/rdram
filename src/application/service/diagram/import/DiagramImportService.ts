@@ -92,7 +92,6 @@ export default class DiagramImportService {
         product: Product
     ): Product | null {
         let modifiedDiagram = maybeDiagram.replaceUniqueResourceIds();
-
         const diagram = modifiedDiagram.diagram;
 
         const existsDiagram = product.diagrams
@@ -145,9 +144,10 @@ export default class DiagramImportService {
             if (behavior === BehaviorWhenNameColide.別名) {
                 // TODO インポート側のResourceの名前を置換
                 // TODO インポート側のResourceにProduct側から「新しいResourceID」を発行してもらい、置換する
-                modifiedProduct = modifiedProduct.moveNextResourceIdSequence();
-                const renamedResource = targetResouce.withName(colidedResourceName.destinationName)
+                const renamedResource = targetResouce
+                    .withName(colidedResourceName.destinationName)
                     .renewId(modifiedProduct.resourceIdSequence);
+                modifiedProduct = modifiedProduct.moveNextResourceIdSequence();
                 // TODO インポート側のDiagramの中のPlacementのIDを、新しいResourceIDに置換
                 const replacedExportedResources = modifiedDiagram.useResources()
                     .remove(targetResouce)
@@ -169,7 +169,12 @@ export default class DiagramImportService {
 
         // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
         const fixedResources = modifiedDiagram.useResources()
-            .map(r => r)
+            .map(r => {
+                if (r.resourceId > 0) return r;
+                const reIdResource = r.renewId(modifiedProduct.resourceIdSequence);
+                modifiedProduct = modifiedProduct.moveNextResourceIdSequence();
+                return reIdResource;
+            })
             .reduce(
                 (resources, resouce) => resources.add(resouce),
                 modifiedProduct.resources
