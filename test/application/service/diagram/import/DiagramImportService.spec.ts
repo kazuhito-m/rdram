@@ -292,12 +292,12 @@ describe('DiagramImportService', () => {
       const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
 
       // 実行
-      let passedCallback = false;
+      let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
       const progressSteps: DiagramImportProgressStep[] = [];
       const actual = await sut.importOf(file,
         event => { progressSteps.push(event.step); },
         arrange => {
-          passedCallback = true;
+          passedArrange = arrange;
           // ユーザは、「インポートをキャンセル」と答える、というオペレーション
           return UserArrangeOfImportDiagramSetting.empty();
         }
@@ -309,7 +309,7 @@ describe('DiagramImportService', () => {
       expect(progressSteps[progressSteps.length - 1]).toEqual(DiagramImportProgressStep.失敗);
 
       expect(actual).toBeNull();
-      expect(passedCallback).toEqual(true);
+      expect(passedArrange).not.toBeNull();
     });
   });
 });
