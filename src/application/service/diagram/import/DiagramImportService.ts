@@ -167,9 +167,7 @@ export default class DiagramImportService {
             if (colidedDiagramName.behavior === BehaviorWhenNameColide.別名)
                 fixedDiagram = fixedDiagram.renameOf(colidedDiagramName.destinationName)
         }
-        modifiedProduct = modifiedProduct.addOrReplaceSameDiagramOf(fixedDiagram);
-
-        console.log("modifiedDiagramの最終Resource数:", modifiedDiagram.useResources().length);
+        modifiedProduct = modifiedProduct.mergeDiagramWhenSameOf(fixedDiagram);
 
         // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
         const fixedResources = modifiedDiagram.useResources()
@@ -178,8 +176,7 @@ export default class DiagramImportService {
                 (resources, resouce) => resources.add(resouce),
                 modifiedProduct.resources
             );
-        modifiedProduct = modifiedProduct.meageDiagramByIdOf(fixedDiagram)
-            .withResources(fixedResources);
+        modifiedProduct = modifiedProduct.withResources(fixedResources);
 
         return modifiedProduct;
     }
