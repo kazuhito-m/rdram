@@ -178,6 +178,37 @@ describe('DiagramImportService', () => {
     expect(passedCallback).toEqual(true);
     // TODO 確認の実装。
   });
+
+  test('既存の同種同名のリソースと図が在る状態で、リソース1つが重複しているが、ユーザにキャンセルされた場合。', async () => {
+    // 準備
+    const product = Product.prototypeOf("SampleSystem")
+      .createAndAddDiagram("FOR_TEST", DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
+
+    const mockStorageRepository = new MockStorageRepository(product);
+    const sut = new DiagramImportService(mockStorageRepository, new FileSystemDatasouce());
+
+    const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
+
+    // 実行
+    let passedCallback = false;
+    const progressSteps: DiagramImportProgressStep[] = [];
+    const actual = await sut.importOf(file,
+      event => { progressSteps.push(event.step); },
+      arrange => {
+        passedCallback = true;
+        // ユーザは、「インポートをキャンセル」と答える、というオペレーション
+        return UserArrangeOfImportDiagramSetting.empty();
+      }
+    );
+
+    // 確認
+    expect(progressSteps.length).toBeGreaterThan(0);
+    expect(progressSteps[progressSteps.length - 2]).toEqual(DiagramImportProgressStep.キャンセル);
+    expect(progressSteps[progressSteps.length - 1]).toEqual(DiagramImportProgressStep.失敗);
+
+    expect(actual).toBeNull();
+    expect(passedCallback).toEqual(true);
+  });
 });
 
 function loadTestFileOf(fileName: string): File {
