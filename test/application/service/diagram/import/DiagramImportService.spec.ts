@@ -13,7 +13,7 @@ import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarran
 import DiagramType from "~/domain/diagram/DiagramType";
 
 describe('DiagramImportService', () => {
-  test('リソース2つを配置した図のファイルのインポートが成功する。', async () => {
+  test('既存の図もリソースも無い状態で、リソース2つを配置した図のファイルのインポートが成功する。', async () => {
     // 準備
     const mockStorageRepository = new MockStorageRepository(Product.prototypeOf("test"));
     const sut = new DiagramImportService(mockStorageRepository, new FileSystemDatasouce());
