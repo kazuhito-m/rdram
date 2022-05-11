@@ -80,7 +80,7 @@ export default class Diagrams {
             .add(diagram);
     }
 
-    public addOrReplaceSameOf(diagram: Diagram): Diagrams {
+    public mergeWhenSameOf(diagram: Diagram): Diagrams {
         const sameDiagram = this.sameOf(diagram);
         const newId = sameDiagram
             ? sameDiagram.id
