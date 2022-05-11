@@ -11,6 +11,7 @@ import ResourceType from "@/domain/resource/ResourceType";
 import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehavioWhenNameColide";
 import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
 import DiagramType from "~/domain/diagram/DiagramType";
+import NameOfColided from "~/domain/diagram/import/userarrange/NameOfColided";
 
 describe('DiagramImportService', () => {
   test('既存の図もリソースも無い状態で、リソース2つを配置した図のファイルのインポートが成功する。', async () => {
@@ -235,6 +236,49 @@ describe('DiagramImportService', () => {
       expect(passedArrange).not.toBeNull();
       expect(passedArrange!.resourceNamesOfColided).toHaveLength(1);
       expect(passedArrange!.resourceNamesOfColided[0].sourceName).toEqual("SampleSystem");
+    });
+
+    test('ユーザが図へ「別名」指定し、成功する。', async () => {
+      // 準備
+      const product = Product.prototypeOf("SampleSystem")
+        .createAndAddDiagram("FOR_TEST", DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
+
+      const mockStorageRepository = new MockStorageRepository(product);
+      const sut = new DiagramImportService(mockStorageRepository, new FileSystemDatasouce());
+
+      const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
+
+      // 実行
+      let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
+      let lastEvent: DiagramImportProgressEvent;
+      const actual = await sut.importOf(file,
+        event => { lastEvent = event },
+        arrange => {
+          passedArrange = arrange;
+          // ユーザは、「図は別名に変更してインポート」と答える、というオペレーション
+          const arrangedColidedName = arrange
+            .diagramNamesOfColided?.with(BehaviorWhenNameColide.別名, "FOR_TESTという図名が重複したので置換した名前")
+          return arrange.withDiagramName(arrangedColidedName as NameOfColided);
+        }
+      );
+
+      // 確認
+      expect(lastEvent!).not.toBeNull();
+
+      expect(actual).not.toBeNull();
+      expect(actual!.placements.length).toEqual(2);
+      expect(actual!.allRelations().length).toEqual(1);
+
+      const modifiedProduct = mockStorageRepository.getCurrentProduct() as Product;
+
+      const diagrams = modifiedProduct.diagrams;
+      expect(diagrams.length).toEqual(2); // 「別名」を指定したので一つ増える。
+      const diagramExists = diagrams.existsSameTypeAndName("FOR_TESTという図名が重複したので置換した名前", DiagramType.システムコンテキスト図);
+      expect(diagramExists).toEqual(true);
+
+      expect(passedArrange).not.toBeNull();
+      expect(passedArrange!.diagramNamesOfColided).not.toBeNull();
+      expect(passedArrange!.diagramNamesOfColided!.sourceName).toEqual("FOR_TEST");
     });
 
     test('ユーザにキャンセルされた場合。', async () => {
