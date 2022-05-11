@@ -24,7 +24,7 @@ describe('DiagramImportService', () => {
     let lastEvent: DiagramImportProgressEvent;
     const actual = await sut.importOf(file,
       event => { lastEvent = event; },
-      (settings) => settings
+      (arrange) => arrange
     );
 
     // 確認
@@ -182,12 +182,12 @@ describe('DiagramImportService', () => {
     const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
 
     // 実行
-    let passedCallback = false;
+    let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
     let lastEvent: DiagramImportProgressEvent;
     const actual = await sut.importOf(file,
       event => { lastEvent = event },
       arrange => {
-        passedCallback = true;
+        passedArrange = arrange;
         // ユーザは、「リソースは別名に変更してインポート」と答える、というオペレーション
         const arrangedColidedNames = arrange.resourceNamesOfColided
           .map(name => name.with(BehaviorWhenNameColide.別名, "SampleSystemが重複したので変更した名前"));
@@ -203,8 +203,36 @@ describe('DiagramImportService', () => {
     expect(actual!.placements.length).toEqual(2);
     expect(actual!.allRelations().length).toEqual(1);
 
-    expect(passedCallback).toEqual(true);
-    // TODO 確認の実装。
+    const modifiedProduct = mockStorageRepository.getCurrentProduct() as Product;
+
+    expect(modifiedProduct.diagrams.length).toEqual(1);
+    const resources = modifiedProduct.resources;
+    expect(resources.length).toEqual(6); // 同じリソースが在るが「別名」を指定した、ので一つ増える。
+
+    const r1 = resourceOf(ResourceType.システム, "SampleSystem");
+    const addedR1 = resources.getSameOf(r1);
+    expect(addedR1).not.toBeUndefined();
+    expect(addedR1?.type).toEqual(r1.type);
+    expect(addedR1?.name).toEqual(r1.name);
+    expect(addedR1?.description).toEqual("");
+
+    const r2 = resourceOf(ResourceType.アクター, "三浦");
+    const addedR2 = resources.getSameOf(r2);
+    expect(addedR2).not.toBeUndefined();
+    expect(addedR2?.type).toEqual(r2.type);
+    expect(addedR2?.name).toEqual(r2.name);
+    expect(addedR2?.description).toEqual("インポートされた側のリソース:三浦");
+
+    const r3 = resourceOf(ResourceType.システム, "SampleSystemが重複したので変更した名前");
+    const addedR3 = resources.getSameOf(r3);
+    expect(addedR3).not.toBeUndefined();
+    expect(addedR3?.type).toEqual(r3.type);
+    expect(addedR3?.name).toEqual(r3.name);
+    expect(addedR3?.description).toEqual("インポートされた側のリソース:SampleSystem");
+
+    expect(passedArrange).not.toBeNull();
+    expect(passedArrange!.resourceNamesOfColided).toHaveLength(1);
+    expect(passedArrange!.resourceNamesOfColided[0].sourceName).toEqual("SampleSystem");
   });
 
   test('既存の同種同名のリソースと図が在る状態で、リソース1つが重複しているが、ユーザにキャンセルされた場合。', async () => {
