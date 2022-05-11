@@ -72,16 +72,7 @@ export default class DiagramImportService {
 
         notifyProgress(this.raise(DiagramImportProgressStep.追加));
 
-        // const fixDiagram = arrangedDiagram.diagram;
-        // // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
-        // const fixedResources = arrangedDiagram.useResources()
-        //     .map(r => r)
-        //     .reduce(
-        //         (resources, resouce) => resources.add(resouce),
-        //         product.resources
-        //     );
-        // const updatedProduct = product!.meageDiagramOf(fixDiagram)
-        //     .withResources(fixedResources);
+        // TODO 整理して「Productへの反映」だけをここでやるように。
 
         notifyProgress(this.raise(DiagramImportProgressStep.保存));
 
@@ -117,7 +108,7 @@ export default class DiagramImportService {
 
         const colidedNames = new UserArrangeOfImportDiagramSetting(diagram.name, colidedName, sameResources);
         let userArrange = colidedNames;
-        if (colidedNames.isEmpty()) {
+        if (!colidedNames.isEmpty()) {
             userArrange = confirmeUserArrange(colidedNames);
             if (userArrange.isEmpty()) return null;
         }
@@ -169,14 +160,26 @@ export default class DiagramImportService {
             }
         }
 
+        let fixedDiagram = modifiedDiagram.diagram;
         if (userArrange.isColidedDiagramName()) {
             const colidedDiagramName = userArrange.diagramNamesOfColided as NameOfColided;
-            if (colidedDiagramName.behavior === BehaviorWhenNameColide.既存) return null;
-            const fixedDiagram = colidedDiagramName.behavior === BehaviorWhenNameColide.別名
-                ? diagram.renameOf(colidedDiagramName.destinationName)
-                : diagram;
-            modifiedProduct = modifiedProduct.addOrReplaceSameDiagramOf(fixedDiagram);
+            if (colidedDiagramName.behavior === BehaviorWhenNameColide.既存) return null; // 入力からは入ってこない前提。「既存」というなら「Importしない」と同義。
+            if (colidedDiagramName.behavior === BehaviorWhenNameColide.別名)
+                fixedDiagram = fixedDiagram.renameOf(colidedDiagramName.destinationName)
         }
+        modifiedProduct = modifiedProduct.addOrReplaceSameDiagramOf(fixedDiagram);
+
+        console.log("modifiedDiagramの最終Resource数:", modifiedDiagram.useResources().length);
+
+        // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
+        const fixedResources = modifiedDiagram.useResources()
+            .map(r => r)
+            .reduce(
+                (resources, resouce) => resources.add(resouce),
+                modifiedProduct.resources
+            );
+        modifiedProduct = modifiedProduct.meageDiagramOf(fixedDiagram)
+            .withResources(fixedResources);
 
         return modifiedProduct;
     }
