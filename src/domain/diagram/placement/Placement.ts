@@ -1,3 +1,5 @@
+import Resource from "~/domain/resource/Resource";
+
 export default class Placement {
     constructor(
         public readonly x: number,
@@ -28,6 +30,21 @@ export default class Placement {
             this.resourceId,
             this.alias,
         );
+    }
+
+    public withResourceIdOf(resourceId: number): Placement {
+        return new Placement(
+            this.x,
+            this.y,
+            this.width,
+            this.height,
+            resourceId,
+            this.alias
+        );
+    }
+
+    public withResourceOf(resource: Resource): any {
+        return this.withResourceIdOf(resource.resourceId);
     }
 
     public clone(): Placement {

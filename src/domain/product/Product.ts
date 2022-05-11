@@ -66,13 +66,13 @@ export default class Product {
         return "";
     }
 
-    public meageDiagramOf(newDiagram: Diagram): Product {
-        const newDiagrams = this.diagrams.meage(newDiagram);
+    public meageDiagramByIdOf(newDiagram: Diagram): Product {
+        const newDiagrams = this.diagrams.mergeByIdOf(newDiagram);
         return this.withDiagrams(newDiagrams);
     }
 
     public meageResourceOf(newResource: Resource): Product {
-        const newResources = this.resources.meage(newResource);
+        const newResources = this.resources.mergeByIdOf(newResource);
         return this.withResources(newResources);
     }
 
@@ -163,6 +163,11 @@ export default class Product {
             this.resources,
             this.resourceIdSequence,
         );
+    }
+
+    public mergeDiagramWhenSameOf(diagram: Diagram): Product {
+        const diagrams = this.diagrams.mergeWhenSameOf(diagram);
+        return this.withDiagrams(diagrams);
     }
 
     public createAndAddResource(): Product {

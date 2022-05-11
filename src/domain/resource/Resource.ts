@@ -14,7 +14,7 @@ export default class Resource {
 
     public readonly deletable: boolean = true;
 
-    public sameTypeAndNameOf(other: Resource) {
+    public sameOf(other: Resource) {
         return this.type.equals(other.type)
             && this.name === other.name;
     }

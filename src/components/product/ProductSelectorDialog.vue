@@ -116,7 +116,7 @@ export default class ProductSelectorDialog extends Vue {
     const messageBox = new MessageBox();
     const message = "追加するプロダクトの名前を入力してください。";
     const name = messageBox.promptWith255Limit(message, "", inputText => {
-      const exists = this.products?.existsSomeName(inputText);
+      const exists = this.products?.existsSameNameOf(inputText);
       if (exists) alert("既に同一のプロダクト名が在ります。");
       return !exists;
     });

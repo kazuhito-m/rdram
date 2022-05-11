@@ -34,14 +34,28 @@ export default class Diagrams {
             .length;
     }
 
-    public existsSomeName(name: string, diagramType: DiagramType): boolean {
+    public existsSameTypeAndName(name: string, diagramType: DiagramType): boolean {
         return this.values
-            .some(d => d.name === name && d.type.equals(diagramType));
+            .some(d => d.name === name
+                && d.type.equals(diagramType));
+    }
+
+    public existsSameOf(diagram: Diagram): boolean {
+        return !!this.sameOf(diagram);
+    }
+
+    public existsIdOf(diagramId: number): boolean {
+        return !!this.of(diagramId);
     }
 
     public of(diagramId: number): Diagram | undefined {
         return this.values
             .find(diagram => diagram.id === diagramId);
+    }
+
+    private sameOf(diagram: Diagram): Diagram | undefined {
+        return this.values
+            .find(d => d.sameOf(diagram));
     }
 
     public nameOf(name: string): Diagram | undefined {
@@ -61,15 +75,18 @@ export default class Diagrams {
         return new Diagrams(newValues);
     }
 
-    public meage(diagram: Diagram): Diagrams {
-        if (this.values.some(d => d.id === diagram.id)) {
-            const newValues = this.values
-                .map(d => d.id === diagram.id ? diagram : d);
-            return new Diagrams(newValues);
-        }
-        const newValues = Array.from(this.values);
-        newValues.push(diagram);
-        return new Diagrams(newValues);
+    public mergeByIdOf(diagram: Diagram): Diagrams {
+        return this.remove(diagram)
+            .add(diagram);
+    }
+
+    public mergeWhenSameOf(diagram: Diagram): Diagrams {
+        const sameDiagram = this.sameOf(diagram);
+        const newId = sameDiagram
+            ? sameDiagram.id
+            : this.generateDiagramId();
+        const reIdDiagram = diagram.reIdOf(newId);
+        return this.mergeByIdOf(reIdDiagram);
     }
 
     public removeResouceOf(resource: Resource): Diagrams {
@@ -100,13 +117,6 @@ export default class Diagrams {
         return new Diagrams([]);
     }
 
-    public eixistsSomeName(diagram: Diagram) {
-        return this.values
-            .filter(d => d.id !== diagram.id)
-            .map(i => { console.log(i.id, i.name); return i })
-            .some(d => d.name === diagram.name);
-    }
-
     public last(): Diagram {
         return this.values[this.values.length - 1];
     }
@@ -119,6 +129,6 @@ export default class Diagrams {
     }
 
     public get length(): number {
-       return this.values.length;
+        return this.values.length;
     }
 }

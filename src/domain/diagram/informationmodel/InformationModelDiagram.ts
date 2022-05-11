@@ -67,7 +67,7 @@ export default class InformationModelDiagram extends Diagram {
         );
     }
 
-    protected replacePlacement(placements: Placement[]): InformationModelDiagram {
+    public replacePlacement(placements: Placement[]): InformationModelDiagram {
         return new InformationModelDiagram(
             this.id,
             this.typeId,
@@ -80,7 +80,7 @@ export default class InformationModelDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): InformationModelDiagram {
+    public replaceRelations(relations: Relation[]): InformationModelDiagram {
         return new InformationModelDiagram(
             this.id,
             this.typeId,

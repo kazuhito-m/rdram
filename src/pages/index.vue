@@ -392,7 +392,7 @@ export default class extends Vue {
         alert(`${Diagram.NAME_MAX_LENGTH}文字以内で入力してください。`);
         return false;
       }
-      const exists = diagrams.existsSomeName(inputText, diagramType);
+      const exists = diagrams.existsSameTypeAndName(inputText, diagramType);
       if (exists) alert(`既に同名の ${diagramType.name} が在ります。`);
       return !exists;
     });

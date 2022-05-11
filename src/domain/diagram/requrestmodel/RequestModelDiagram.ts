@@ -69,7 +69,7 @@ export default class RequestModelDiagram extends Diagram {
         );
     }
 
-    protected replacePlacement(placements: Placement[]): RequestModelDiagram {
+    public replacePlacement(placements: Placement[]): RequestModelDiagram {
         return new RequestModelDiagram(
             this.id,
             this.typeId,
@@ -82,7 +82,7 @@ export default class RequestModelDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): RequestModelDiagram {
+    public replaceRelations(relations: Relation[]): RequestModelDiagram {
         return new RequestModelDiagram(
             this.id,
             this.typeId,

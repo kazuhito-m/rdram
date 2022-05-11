@@ -69,7 +69,8 @@ export default class LocalStorage {
     }
 
     public existsProductNameOf(name: string): boolean {
-        return this.products.existsSomeName(name);
+        return this.products
+            .existsSameNameOf(name);
     }
 
     public isSelectedProduct() {

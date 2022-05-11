@@ -64,6 +64,14 @@ export default class Diagram {
             .some(Placement => Placement.resourceId === resource.resourceId);
     }
 
+    public reIdOf(newId: number): Diagram {
+        return this.cloneWith(newId, this.name);
+    }
+
+    public renameOf(newName: string): Diagram {
+        return this.cloneWith(this.id, newName);
+    }
+
     public modifyPlacementOf(placement: Placement): Diagram {
         const newValues = this.placements
             .map(p => p.resourceId === placement.resourceId ? placement : p);
@@ -85,15 +93,24 @@ export default class Diagram {
         return this.replaceRelations(nonDeletedRelations);
     }
 
-    /**
-     * FIXME ここだ「イミュータブルを破ってしまって」いる…なんとかしたい。 
-     */
+    public replaceOf(srcResource: Resource, destResource: Resource): Diagram {
+        const srcId = srcResource.resourceId;
+        const destId = destResource.resourceId;
+
+        const placements = this.placements
+            .map(p => p.resourceId === srcId ? p.withResourceOf(destResource) : p);
+        const relations = this.relations
+            .map(r => r.fromResourceId === srcId ? r.withFrom(destId) : r)
+            .map(r => r.toResourceId === srcId ? r.withTo(destId) : r);
+
+        return this.replacePlacement(placements)
+            .replaceRelations(relations);
+    }
+
     public modifyRelationOf(relation: Relation): Diagram {
-        const index = this.relations
-            .findIndex(r => r.id === relation.id);
-        if (index < 0) return this;
-        this.relations[index] = relation;
-        return this;
+        const newRelations = this.relations
+            .map(r => r.id === relation.id ? relation : r);
+        return this.replaceRelations(newRelations);
     }
 
     public addRelation(relation: Relation): Diagram {
@@ -102,21 +119,26 @@ export default class Diagram {
         return this.replaceRelations(newValues);
     }
 
-    protected replaceRelations(_relations: Relation[]): Diagram {
-        throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
-    }
-
     public addPlacement(placement: Placement): Diagram {
         const newValues = Array.from(this.placements);
         newValues.push(placement);
         return this.replacePlacement(newValues);
     }
 
-    protected replacePlacement(_placements: Placement[]): Diagram {
+    public replaceRelations(_relations: Relation[]): Diagram {
         throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
     }
 
-    public existsSomeRelation(relation: Relation): boolean {
+    public replacePlacement(_placements: Placement[]): Diagram {
+        throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
+    }
+
+    public sameOf(other: Diagram) {
+        return this.type.equals(other.type)
+            && this.name === other.name;
+    }
+
+    public existsSameOf(relation: Relation): boolean {
         return this.relations
             .some(r => r.equalRouteReversivle(relation));
     }

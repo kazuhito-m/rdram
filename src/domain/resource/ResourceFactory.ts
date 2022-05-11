@@ -53,7 +53,7 @@ export default class ResourceFactory {
         if (r.name.length > 0) return r;
         let i = 1;
         do { r = r.renewDefaultName(i++); }
-        while (nowResouces.existsSomeTypeAndNameOf(r))
+        while (nowResouces.existsSameOf(r))
         return r;
     }
 
@@ -62,7 +62,7 @@ export default class ResourceFactory {
         if (r.name.length > 0) return r;
         let i = 2;
         do { r = r.renewDefaultName(i++); }
-        while (nowResouces.existsSomeTypeAndNameOf(r))
+        while (nowResouces.existsSameOf(r))
         return r;
     }
 }

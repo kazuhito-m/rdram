@@ -71,7 +71,7 @@ export default class SystemContextDiagram extends Diagram {
         );
     }
 
-    protected replacePlacement(placements: Placement[]): SystemContextDiagram {
+    public replacePlacement(placements: Placement[]): SystemContextDiagram {
         return new SystemContextDiagram(
             this.id,
             this.typeId,
@@ -84,7 +84,7 @@ export default class SystemContextDiagram extends Diagram {
         );
     }
 
-    protected replaceRelations(relations: Relation[]): SystemContextDiagram {
+    public replaceRelations(relations: Relation[]): SystemContextDiagram {
         return new SystemContextDiagram(
             this.id,
             this.typeId,

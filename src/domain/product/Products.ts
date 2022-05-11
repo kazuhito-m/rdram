@@ -11,7 +11,7 @@ export default class Products {
         return new Products([]);
     }
 
-    public existsSomeName(name: string): boolean {
+    public existsSameNameOf(name: string): boolean {
         return this.values
             .map(product => product.name)
             .includes(name);

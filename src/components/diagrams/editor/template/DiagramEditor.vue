@@ -157,7 +157,7 @@ export default class DiagramEditor extends Vue {
     if (!this.confirmResourceDelete([resourceId], diagram)) return null;
 
     const modifiedDiagram = diagram.removeResouceOf(resource);
-    const diagrams = product.diagrams.meage(modifiedDiagram);
+    const diagrams = product.diagrams.mergeByIdOf(modifiedDiagram);
     const modifiedProduct = product.withDiagrams(diagrams);
 
     this.repository.registerCurrentProduct(modifiedProduct);
