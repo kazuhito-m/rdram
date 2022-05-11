@@ -65,7 +65,8 @@ describe('DiagramImportService', () => {
       event => { lastEvent = event },
       arrange => {
         passedArrange = arrange;
-        return arrange; // ユーザは、変更せずデフォルトで答える、というオペレーション
+        // ユーザは、変更せずデフォルトで答える、というオペレーション
+        return arrange;
       }
     );
 
@@ -80,16 +81,25 @@ describe('DiagramImportService', () => {
     expect(actual!.placements.length).toEqual(2);
     expect(actual!.allRelations().length).toEqual(1);
 
-    const modifyProduct = mockStorageRepository.getCurrentProduct() as Product;
-    // expect(modifyProduct.diagrams.length).toEqual(1);  // TODO 最後に蘇らせる
-    const resources = modifyProduct.resources;
+    const modifiedProduct = mockStorageRepository.getCurrentProduct() as Product;
+
+    expect(modifiedProduct.diagrams.length).toEqual(1);
+    const resources = modifiedProduct.resources;
     expect(resources.length).toEqual(4);  // 同じリソースが在った場合は「既存」がデフォルト、なので足されない。
 
     const r1 = resourceOf(ResourceType.システム, "SampleSystem");
-    expect(resources.existsSameOf(r1)).toEqual(true);
-    const r2 = resourceOf(ResourceType.アクター, "三浦");
-    expect(resources.existsSameOf(r2)).toEqual(true);
+    const addedR1 = resources.getSameOf(r1);
+    expect(addedR1).not.toBeUndefined();
+    expect(addedR1?.type).toEqual(r1.type);
+    expect(addedR1?.name).toEqual(r1.name);
+    expect(addedR1?.description).toEqual(""); // 既存のもの(Importで置き換えてない)
 
+    const r2 = resourceOf(ResourceType.アクター, "三浦");
+    const addedR2 = resources.getSameOf(r2);
+    expect(addedR2).not.toBeUndefined();
+    expect(addedR2?.type).toEqual(r2.type);
+    expect(addedR2?.name).toEqual(r2.name);
+    expect(addedR2?.description).toEqual("インポートされた側のリソース:三浦");
 
     // 「ユーザ確認」でコールバックされていた値
     expect(passedArrange).not.toBeNull();
@@ -134,13 +144,31 @@ describe('DiagramImportService', () => {
     // 確認
     expect(lastEvent!).not.toBeNull();
 
-    // TODO 「インポートした結果」をどうするのか、をちゃんと考える(リソースは「インポートしたもののみ」を返す？)
     expect(actual).not.toBeNull();
     expect(actual!.placements.length).toEqual(2);
     expect(actual!.allRelations().length).toEqual(1);
 
+    const modifiedProduct = mockStorageRepository.getCurrentProduct() as Product;
+
+    expect(modifiedProduct.diagrams.length).toEqual(1);
+    const resources = modifiedProduct.resources;
+    expect(resources.length).toEqual(4);  // 同じリソースが在るが「置換」を指定した、ので足されない。
+
+    const r1 = resourceOf(ResourceType.システム, "SampleSystem");
+    const addedR1 = resources.getSameOf(r1);
+    expect(addedR1).not.toBeUndefined();
+    expect(addedR1?.type).toEqual(r1.type);
+    expect(addedR1?.name).toEqual(r1.name);
+    expect(addedR1?.description).toEqual("インポートされた側のリソース:SampleSystem");
+
+    const r2 = resourceOf(ResourceType.アクター, "三浦");
+    const addedR2 = resources.getSameOf(r2);
+    expect(addedR2).not.toBeUndefined();
+    expect(addedR2?.type).toEqual(r2.type);
+    expect(addedR2?.name).toEqual(r2.name);
+    expect(addedR2?.description).toEqual("インポートされた側のリソース:三浦");
+
     expect(passedCallback).toEqual(true);
-    // TODO 確認の実装。
   });
 
   test('既存の同種同名のリソースと図が在る状態で、リソース1つが重複しているが「別名」指定で、ファイルインポートが成功する。', async () => {
