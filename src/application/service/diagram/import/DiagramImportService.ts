@@ -64,38 +64,42 @@ export default class DiagramImportService {
 
         const product = this.storageRepository.getCurrentProduct() as Product;
 
-        const arrangedDiagram = this.fixDiagramAndResourcesOf(maybeDiagram, confirmeUserArrange, product);
-        if (arrangedDiagram === null) {
+        const updatedProduct = this.fixDiagramAndResourcesOf(maybeDiagram, confirmeUserArrange, product);
+        if (updatedProduct === null) {
             notifyProgress(this.raise(DiagramImportProgressStep.キャンセル));
             return null;
         }
 
         notifyProgress(this.raise(DiagramImportProgressStep.追加));
 
-        const fixDiagram = arrangedDiagram.diagram;
-        // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
-        const fixedResources = arrangedDiagram.useResources()
-            .map(r => r)
-            .reduce(
-                (resources, resouce) => resources.add(resouce),
-                product.resources
-            );
-        const updatedProduct = product!.meageDiagramOf(fixDiagram)
-            .withResources(fixedResources);
+        // const fixDiagram = arrangedDiagram.diagram;
+        // // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
+        // const fixedResources = arrangedDiagram.useResources()
+        //     .map(r => r)
+        //     .reduce(
+        //         (resources, resouce) => resources.add(resouce),
+        //         product.resources
+        //     );
+        // const updatedProduct = product!.meageDiagramOf(fixDiagram)
+        //     .withResources(fixedResources);
 
         notifyProgress(this.raise(DiagramImportProgressStep.保存));
 
         this.storageRepository.registerCurrentProduct(updatedProduct);
 
-        notifyProgress(this.raise(DiagramImportProgressStep.完了, `Diagram name: "${fixDiagram.name}"`));
+        // TODO Diagram名は、あとで埋める
+        // notifyProgress(this.raise(DiagramImportProgressStep.完了, `Diagram name: "${fixDiagram.name}"`));
+        notifyProgress(this.raise(DiagramImportProgressStep.完了, `Diagram name: "仮"`));
 
-        return fixDiagram;
+        // TODO 本当に置き換えたものを返す。
+        // return fixDiagram;
+        return maybeDiagram.diagram;
     }
 
     private fixDiagramAndResourcesOf(maybeDiagram: ExportedDiagram,
         confirmeUserArrange: (settings: UserArrangeOfImportDiagramSetting) => UserArrangeOfImportDiagramSetting,
         product: Product
-    ): ExportedDiagram | null {
+    ): Product | null {
         let modifiedDiagram = maybeDiagram.replaceUniqueResourceIds();
 
         const diagram = modifiedDiagram.diagram;
@@ -112,10 +116,11 @@ export default class DiagramImportService {
             .map(r => NameOfColided.prototypeResourceOf(r));
 
         const colidedNames = new UserArrangeOfImportDiagramSetting(diagram.name, colidedName, sameResources);
-        if (colidedNames.isEmpty()) return modifiedDiagram;
-
-        const userArrange = confirmeUserArrange(colidedNames);
-        if (userArrange.isEmpty()) return null;
+        let userArrange = colidedNames;
+        if (colidedNames.isEmpty()) {
+            userArrange = confirmeUserArrange(colidedNames);
+            if (userArrange.isEmpty()) return null;
+        }
 
         // TODO ユーザ側に「どういうふうに処理します？」な処理を実装。以下はすべて仮実装。
 
@@ -173,9 +178,7 @@ export default class DiagramImportService {
             modifiedProduct = modifiedProduct.addOrReplaceSameDiagramOf(fixedDiagram);
         }
 
-        console.log('debug-productの状況', modifiedProduct);
-
-        return modifiedDiagram;
+        return modifiedProduct;
     }
 
     private raise(step: DiagramImportProgressStep, message: string = "", file?: File): DiagramImportProgressEvent {
