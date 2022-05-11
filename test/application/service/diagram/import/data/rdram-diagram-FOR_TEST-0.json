@@ -46,7 +46,7 @@
                 "resourceId": 6,
                 "resourceTypeId": 1,
                 "name": "SampleSystem",
-                "description": "",
+                "description": "インポートされた側のリソース:SampleSystem",
                 "deletable": true,
                 "__CLASS_NAME": "Resource"
             },
@@ -57,7 +57,7 @@
                 "resourceId": 7,
                 "resourceTypeId": 5,
                 "name": "三浦",
-                "description": "",
+                "description": "インポートされた側のリソース:三浦",
                 "deletable": true,
                 "__CLASS_NAME": "Resource"
             },
