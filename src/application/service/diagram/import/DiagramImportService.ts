@@ -114,8 +114,6 @@ export default class DiagramImportService {
 
         // TODO ユーザ側に「どういうふうに処理します？」な処理を実装。以下はすべて仮実装。
 
-        let modifiedProduct = product;
-
         for (const colidedResourceName of userArrange.resourceNamesOfColided) {
             const targetResouce = modifiedDiagram.useResources().of(colidedResourceName.sourceId) as Resource;
             const sameResource = product.resources.getSameOf(targetResouce) as Resource;
@@ -134,35 +132,52 @@ export default class DiagramImportService {
                 // TODO Product側から、同名のResourceを取得
                 // TODO インポート側のResourcesから、同名のResourceを取得、そのIdを既存のものに置換
                 const replacedIdResource = targetResouce.renewId(sameResource.resourceId);
-                // TODO インポート側のDiagramの中のPlacementのIDを、同名のResourceのものに置換
-                const replacedDiagram = modifiedDiagram.diagram.replaceOf(sameResource, replacedIdResource);
-                // TODO インポート側のResourcesからは削除する(後にProduct側で置換するので)
+                // TODO インポート側のResourcesを置換する
                 const replacedExportedResources = modifiedDiagram.useResources()
                     .remove(targetResouce)
+                    .add(replacedIdResource)
                     .map(r => new ExportedResource(r));
+                // TODO インポート側のDiagramの中のPlacementのIDを、同名のResourceのものに置換
+                const replacedDiagram = modifiedDiagram.diagram
+                    .replaceOf(targetResouce, replacedIdResource);
                 modifiedDiagram = new ExportedDiagram(replacedDiagram, replacedExportedResources);
-                // TODO Product側の同名のResourceを、インポート側のResourceに置換
-                const replacedResources = modifiedProduct.resources.mergeByIdOf(replacedIdResource);
-                modifiedProduct = modifiedProduct.withResources(replacedResources);
             }
             if (behavior === BehaviorWhenNameColide.別名) {
                 // TODO インポート側のResourceの名前を置換
                 // TODO インポート側のResourceにProduct側から「新しいResourceID」を発行してもらい、置換する
                 const renamedResource = targetResouce
-                    .withName(colidedResourceName.destinationName)
-                    .renewId(modifiedProduct.resourceIdSequence);
-                modifiedProduct = modifiedProduct.moveNextResourceIdSequence();
+                    .withName(colidedResourceName.destinationName);
                 // TODO インポート側のDiagramの中のPlacementのIDを、新しいResourceIDに置換
                 const replacedExportedResources = modifiedDiagram.useResources()
                     .remove(targetResouce)
                     .add(renamedResource)
                     .map(r => new ExportedResource(r));
-                const replacedDiagram = modifiedDiagram.diagram.replaceOf(sameResource, renamedResource);
-                modifiedDiagram = new ExportedDiagram(replacedDiagram, replacedExportedResources);
+                modifiedDiagram = new ExportedDiagram(modifiedDiagram.diagram, replacedExportedResources);
             }
         }
 
+        let modifiedProduct = product;
+
         let fixedDiagram = modifiedDiagram.diagram;
+
+        // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
+
+        const fixedResources = modifiedDiagram.useResources()
+            .map(r => {
+                if (r.resourceId > 0) return r;
+                const reIdResource = r.renewId(modifiedProduct.resourceIdSequence);
+                modifiedProduct = modifiedProduct.moveNextResourceIdSequence();
+
+                fixedDiagram = fixedDiagram.replaceOf(r, reIdResource);
+
+                return reIdResource;
+            })
+            .reduce(
+                (resources, resouce) => resources.mergeByIdOf(resouce),
+                modifiedProduct.resources
+            );
+        modifiedProduct = modifiedProduct.withResources(fixedResources);
+
         if (userArrange.isColidedDiagramName()) {
             const colidedDiagramName = userArrange.diagramNamesOfColided as NameOfColided;
             if (colidedDiagramName.behavior === BehaviorWhenNameColide.既存) return null; // 入力からは入ってこない前提。「既存」というなら「Importしない」と同義。
@@ -170,20 +185,6 @@ export default class DiagramImportService {
                 fixedDiagram = fixedDiagram.renameOf(colidedDiagramName.destinationName)
         }
         modifiedProduct = modifiedProduct.mergeDiagramWhenSameOf(fixedDiagram);
-
-        // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
-        const fixedResources = modifiedDiagram.useResources()
-            .map(r => {
-                if (r.resourceId > 0) return r;
-                const reIdResource = r.renewId(modifiedProduct.resourceIdSequence);
-                modifiedProduct = modifiedProduct.moveNextResourceIdSequence();
-                return reIdResource;
-            })
-            .reduce(
-                (resources, resouce) => resources.add(resouce),
-                modifiedProduct.resources
-            );
-        modifiedProduct = modifiedProduct.withResources(fixedResources);
 
         return modifiedProduct;
     }
