@@ -64,33 +64,29 @@ export default class DiagramImportService {
 
         const product = this.storageRepository.getCurrentProduct() as Product;
 
-        const updatedProduct = this.fixDiagramAndResourcesOf(maybeDiagram, confirmeUserArrange, product);
-        if (updatedProduct === null) {
+        const arrangedDiagram = this.fixDiagramAndResourcesOf(maybeDiagram, confirmeUserArrange, product);
+        if (arrangedDiagram === null) {
             notifyProgress(this.raise(DiagramImportProgressStep.キャンセル));
             return null;
         }
 
         notifyProgress(this.raise(DiagramImportProgressStep.追加));
 
-        // TODO 整理して「Productへの反映」だけをここでやるように。
+        const updatedProduct = this.mergeOf(arrangedDiagram, product);
 
         notifyProgress(this.raise(DiagramImportProgressStep.保存));
 
         this.storageRepository.registerCurrentProduct(updatedProduct);
 
-        // TODO Diagram名は、あとで埋める
-        // notifyProgress(this.raise(DiagramImportProgressStep.完了, `Diagram name: "${fixDiagram.name}"`));
-        notifyProgress(this.raise(DiagramImportProgressStep.完了, `Diagram name: "仮"`));
+        notifyProgress(this.raise(DiagramImportProgressStep.完了, `Diagram name: "${arrangedDiagram.diagram.name}"`));
 
-        // TODO 本当に置き換えたものを返す。
-        // return fixDiagram;
-        return maybeDiagram.diagram;
+        return arrangedDiagram.diagram;
     }
 
     private fixDiagramAndResourcesOf(maybeDiagram: ExportedDiagram,
         confirmeUserArrange: (settings: UserArrangeOfImportDiagramSetting) => UserArrangeOfImportDiagramSetting,
         product: Product
-    ): Product | null {
+    ): ExportedDiagram | null {
         const modifiedDiagram = maybeDiagram.replaceUniqueResourceIds();
 
         const colidedNames = this.analyzeColideNameOf(modifiedDiagram, product);
@@ -101,10 +97,7 @@ export default class DiagramImportService {
             if (userArrange.isEmpty()) return null;
         }
 
-        const arrangedDiagram = this.arrangeImportDiagram(userArrange, modifiedDiagram, product);
-        if (!arrangedDiagram) return null;
-
-        return this.mergeOf(arrangedDiagram, product);
+        return this.arrangeImportDiagram(userArrange, modifiedDiagram, product);
     }
 
     private analyzeColideNameOf(modifiedDiagram: ExportedDiagram, product: Product): UserArrangeOfImportDiagramSetting {
