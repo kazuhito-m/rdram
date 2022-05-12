@@ -92,6 +92,22 @@ export default class DiagramImportService {
         product: Product
     ): Product | null {
         const modifiedDiagram = maybeDiagram.replaceUniqueResourceIds();
+
+        const colidedNames = this.analyzeColideNameOf(modifiedDiagram, product);
+
+        let userArrange = colidedNames;
+        if (!colidedNames.isEmpty()) {
+            userArrange = confirmeUserArrange(colidedNames);
+            if (userArrange.isEmpty()) return null;
+        }
+
+        const arrangedDiagram = this.arrangeImportDiagram(userArrange, modifiedDiagram, product);
+        if (!arrangedDiagram) return null;
+
+        return this.mergeOf(arrangedDiagram, product);
+    }
+
+    private analyzeColideNameOf(modifiedDiagram: ExportedDiagram, product: Product): UserArrangeOfImportDiagramSetting {
         const diagram = modifiedDiagram.diagram;
 
         const existsDiagram = product.diagrams
@@ -105,17 +121,7 @@ export default class DiagramImportService {
             .filter(r => allResources.existsSameOf(r))
             .map(r => NameOfColided.prototypeResourceOf(r));
 
-        const colidedNames = new UserArrangeOfImportDiagramSetting(diagram.name, colidedName, sameResources);
-        let userArrange = colidedNames;
-        if (!colidedNames.isEmpty()) {
-            userArrange = confirmeUserArrange(colidedNames);
-            if (userArrange.isEmpty()) return null;
-        }
-
-        const arrangedDiagram = this.arrangeImportDiagram(userArrange, modifiedDiagram, product);
-        if (!arrangedDiagram) return null;
-
-        return this.mergeOf(arrangedDiagram, product);
+        return new UserArrangeOfImportDiagramSetting(diagram.name, colidedName, sameResources);
     }
 
     private arrangeImportDiagram(
