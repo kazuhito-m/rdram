@@ -3,7 +3,6 @@ import ExportedResource from "@/domain/resource/export/ExportedResource";
 import Resources from "@/domain/resource/Resources";
 import ImportedRelation from "@/domain/relation/import/ImportedRelation";
 import ImportedPlacement from "@/domain/diagram/placement/import/ImportedPlacement";
-import Resource from "~/domain/resource/Resource";
 
 export default class ExportedDiagram {
     public constructor(
