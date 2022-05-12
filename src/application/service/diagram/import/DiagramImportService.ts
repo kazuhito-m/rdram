@@ -120,34 +120,25 @@ export default class DiagramImportService {
 
             const behavior = colidedResourceName.behavior;
             if (behavior === BehaviorWhenNameColide.既存) {
-                // TODO インポート側のDiagramの中のPlacementのIDを、同名のResourceのものに置換
                 const replacedDiagram = modifiedDiagram.diagram.replaceOf(targetResouce, sameResource);
-                // TODO インポート側のResourcesから、同名のResourceを削除
                 const removedResources = modifiedDiagram.useResources()
                     .filter(r => r.resourceId !== targetResouce.resourceId)
                     .map(r => new ExportedResource(r));
                 modifiedDiagram = new ExportedDiagram(replacedDiagram, removedResources);
             }
             if (behavior === BehaviorWhenNameColide.置換) {
-                // TODO Product側から、同名のResourceを取得
-                // TODO インポート側のResourcesから、同名のResourceを取得、そのIdを既存のものに置換
                 const replacedIdResource = targetResouce.renewId(sameResource.resourceId);
-                // TODO インポート側のResourcesを置換する
                 const replacedExportedResources = modifiedDiagram.useResources()
                     .remove(targetResouce)
                     .add(replacedIdResource)
                     .map(r => new ExportedResource(r));
-                // TODO インポート側のDiagramの中のPlacementのIDを、同名のResourceのものに置換
                 const replacedDiagram = modifiedDiagram.diagram
                     .replaceOf(targetResouce, replacedIdResource);
                 modifiedDiagram = new ExportedDiagram(replacedDiagram, replacedExportedResources);
             }
             if (behavior === BehaviorWhenNameColide.別名) {
-                // TODO インポート側のResourceの名前を置換
-                // TODO インポート側のResourceにProduct側から「新しいResourceID」を発行してもらい、置換する
                 const renamedResource = targetResouce
                     .withName(colidedResourceName.destinationName);
-                // TODO インポート側のDiagramの中のPlacementのIDを、新しいResourceIDに置換
                 const replacedExportedResources = modifiedDiagram.useResources()
                     .remove(targetResouce)
                     .add(renamedResource)
