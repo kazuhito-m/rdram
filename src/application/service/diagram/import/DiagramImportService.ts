@@ -123,8 +123,12 @@ export default class DiagramImportService {
             const behavior = colidedResourceName.behavior;
             if (behavior === BehaviorWhenNameColide.既存) {
                 // TODO インポート側のDiagramの中のPlacementのIDを、同名のResourceのものに置換
+                const replacedDiagram = modifiedDiagram.diagram.replaceOf(targetResouce, sameResource);
                 // TODO インポート側のResourcesから、同名のResourceを削除
-                modifiedDiagram = modifiedDiagram.replaceAndRemoveSameResouceOF(sameResource);
+                const removedResources = modifiedDiagram.useResources()
+                    .filter(r => r.resourceId !== targetResouce.resourceId)
+                    .map(r => new ExportedResource(r));
+                modifiedDiagram = new ExportedDiagram(replacedDiagram, removedResources);
             }
             if (behavior === BehaviorWhenNameColide.置換) {
                 // TODO Product側から、同名のResourceを取得

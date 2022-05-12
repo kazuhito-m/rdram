@@ -93,14 +93,6 @@ export default class ExportedDiagram {
         return new ExportedDiagram(newDiaglam, newResources);
     }
 
-    public replaceAndRemoveSameResouceOF(resource: Resource): ExportedDiagram {
-        const sameResource = this.useResources().getSameOf(resource);
-        if (!sameResource) throw new Error("あるはずのResourceが無い。");
-        const replacedDiagram = this.diagram.replaceOf(sameResource, resource);
-        const removedResources = this.resources.filter(r => r.resourceId() !== sameResource.resourceId);
-        return new ExportedDiagram(replacedDiagram, removedResources);
-    }
-
     public useResources(): Resources {
         const values = this.resources
             .map(useResource => useResource.value);
