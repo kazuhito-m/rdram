@@ -64,8 +64,8 @@ export default class DiagramImportService {
 
         const product = this.storageRepository.getCurrentProduct() as Product;
 
-        const arrangedDiagram = this.fixDiagramAndResourcesOf(maybeDiagram, confirmeUserArrange, product);
-        if (arrangedDiagram === null) {
+        const arrangedDiagram = this.reflectUserArrangeOf(maybeDiagram, confirmeUserArrange, product);
+        if (!arrangedDiagram) {
             notifyProgress(this.raise(DiagramImportProgressStep.キャンセル));
             return null;
         }
@@ -83,7 +83,7 @@ export default class DiagramImportService {
         return arrangedDiagram.diagram;
     }
 
-    private fixDiagramAndResourcesOf(maybeDiagram: ExportedDiagram,
+    private reflectUserArrangeOf(maybeDiagram: ExportedDiagram,
         confirmeUserArrange: (settings: UserArrangeOfImportDiagramSetting) => UserArrangeOfImportDiagramSetting,
         product: Product
     ): ExportedDiagram | null {
