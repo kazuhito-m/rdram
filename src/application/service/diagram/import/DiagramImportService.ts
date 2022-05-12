@@ -91,7 +91,7 @@ export default class DiagramImportService {
         confirmeUserArrange: (settings: UserArrangeOfImportDiagramSetting) => UserArrangeOfImportDiagramSetting,
         product: Product
     ): Product | null {
-        let modifiedDiagram = maybeDiagram.replaceUniqueResourceIds();
+        const modifiedDiagram = maybeDiagram.replaceUniqueResourceIds();
         const diagram = modifiedDiagram.diagram;
 
         const existsDiagram = product.diagrams
@@ -112,7 +112,18 @@ export default class DiagramImportService {
             if (userArrange.isEmpty()) return null;
         }
 
-        // TODO ユーザ側に「どういうふうに処理します？」な処理を実装。以下はすべて仮実装。
+        const arrangedDiagram = this.arrangeImportDiagram(userArrange, modifiedDiagram, product);
+        if (!arrangedDiagram) return null;
+
+        return this.mergeOf(arrangedDiagram, product);
+    }
+
+    private arrangeImportDiagram(
+        userArrange: UserArrangeOfImportDiagramSetting,
+        importedDiagram: ExportedDiagram,
+        product: Product
+    ): ExportedDiagram | null {
+        let modifiedDiagram = importedDiagram;
 
         for (const colidedResourceName of userArrange.resourceNamesOfColided) {
             const targetResouce = modifiedDiagram.useResources().of(colidedResourceName.sourceId) as Resource;
@@ -157,6 +168,10 @@ export default class DiagramImportService {
             }
         }
 
+        return modifiedDiagram;
+    }
+
+    private mergeOf(modifiedDiagram: ExportedDiagram, product: Product): Product {
         let modifiedProduct = product;
         let fixedDiagram = modifiedDiagram.diagram;
         // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
@@ -179,9 +194,6 @@ export default class DiagramImportService {
         return modifiedProduct.withResources(fixedResources)
             .mergeDiagramWhenSameOf(fixedDiagram);
     }
-
-    // private mergeOf(modifiedDiagram: ExportedDiagram, product: Product): Product {
-    // }
 
     private raise(step: DiagramImportProgressStep, message: string = "", file?: File): DiagramImportProgressEvent {
         const fileCaption = file ? `file: "${file.name}"` : "";
