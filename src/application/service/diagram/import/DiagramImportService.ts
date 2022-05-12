@@ -147,10 +147,18 @@ export default class DiagramImportService {
             }
         }
 
+        if (userArrange.isColidedDiagramName()) {
+            const colidedDiagramName = userArrange.diagramNamesOfColided as NameOfColided;
+            if (colidedDiagramName.behavior === BehaviorWhenNameColide.既存) return null; // 入力からは入ってこない前提。「既存」というなら「Importしない」と同義。
+            if (colidedDiagramName.behavior === BehaviorWhenNameColide.別名) {
+                const renamedDiagram = modifiedDiagram.diagram
+                    .renameOf(colidedDiagramName.destinationName)
+                modifiedDiagram = new ExportedDiagram(renamedDiagram, modifiedDiagram.useResources().map(r => new ExportedResource(r)));
+            }
+        }
+
         let modifiedProduct = product;
-
         let fixedDiagram = modifiedDiagram.diagram;
-
         // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
 
         const fixedResources = modifiedDiagram.useResources()
@@ -167,18 +175,13 @@ export default class DiagramImportService {
                 (resources, resouce) => resources.mergeByIdOf(resouce),
                 modifiedProduct.resources
             );
-        modifiedProduct = modifiedProduct.withResources(fixedResources);
 
-        if (userArrange.isColidedDiagramName()) {
-            const colidedDiagramName = userArrange.diagramNamesOfColided as NameOfColided;
-            if (colidedDiagramName.behavior === BehaviorWhenNameColide.既存) return null; // 入力からは入ってこない前提。「既存」というなら「Importしない」と同義。
-            if (colidedDiagramName.behavior === BehaviorWhenNameColide.別名)
-                fixedDiagram = fixedDiagram.renameOf(colidedDiagramName.destinationName)
-        }
-        modifiedProduct = modifiedProduct.mergeDiagramWhenSameOf(fixedDiagram);
-
-        return modifiedProduct;
+        return modifiedProduct.withResources(fixedResources)
+            .mergeDiagramWhenSameOf(fixedDiagram);
     }
+
+    // private mergeOf(modifiedDiagram: ExportedDiagram, product: Product): Product {
+    // }
 
     private raise(step: DiagramImportProgressStep, message: string = "", file?: File): DiagramImportProgressEvent {
         const fileCaption = file ? `file: "${file.name}"` : "";
