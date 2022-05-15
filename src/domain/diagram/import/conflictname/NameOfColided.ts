@@ -1,4 +1,4 @@
-import { BehaviorWhenNameColide } from "./BehaviorWhenNameColide";
+import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehaviorWhenNameColide";
 import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
 

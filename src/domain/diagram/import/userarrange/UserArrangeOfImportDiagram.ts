@@ -1,4 +1,4 @@
-import NameOfColided from "./NameOfColided";
+import NameOfColided from "@/domain/diagram/import/conflictname/NameOfColided";
 
 export default class UserArrangeOfImportDiagram {
     constructor(

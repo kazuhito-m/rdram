@@ -1,5 +1,5 @@
 import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
-import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
+import NameOfColided from "~/domain/diagram/import/conflictname/NameOfColided";
 import Resource from "@/domain/resource/Resource";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";

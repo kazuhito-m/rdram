@@ -11,7 +11,7 @@ import ResourceType from "@/domain/resource/ResourceType";
 import { BehaviorWhenNameColide } from "~/domain/diagram/import/userarrange/BehaviorWhenNameColide";
 import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import DiagramType from "@/domain/diagram/DiagramType";
-import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
+import NameOfColided from "~/domain/diagram/import/conflictname/NameOfColided";
 
 describe('DiagramImportService', () => {
   test('既存の図もリソースも無い状態で、リソース2つを配置した図のファイルのインポートが成功する。', async () => {
