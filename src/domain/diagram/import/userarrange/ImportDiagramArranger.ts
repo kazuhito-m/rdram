@@ -14,7 +14,7 @@ export default class ImportDiagramArranger {
         let modifiedDiagram = candidate.diagram;
         let modifiedResources = candidate.useResources;
 
-        for (const colidedResourceName of userArrange.resourceNamesOfColided) {
+        for (const colidedResourceName of userArrange.conflictResourceNames) {
             const targetResouce = modifiedResources
                 .find(r => r.resourceId === colidedResourceName.sourceId) as Resource;
             const sameResource = product.resources.getSameOf(targetResouce) as Resource;
@@ -43,7 +43,7 @@ export default class ImportDiagramArranger {
         }
 
         if (userArrange.isColidedDiagramName()) {
-            const colidedDiagramName = userArrange.diagramNamesOfColided as ConflictNameBehavior;
+            const colidedDiagramName = userArrange.conflictDiagramName as ConflictNameBehavior;
             if (colidedDiagramName.behavior === BehaviorWhenNameConflict.既存) return null; // 入力からは入ってこない前提。「既存」というなら「Importしない」と同義。
             if (colidedDiagramName.behavior === BehaviorWhenNameConflict.別名) {
                 modifiedDiagram = modifiedDiagram

@@ -3,33 +3,33 @@ import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictN
 export default class UserArrangeOfImportDiagram {
     constructor(
         public readonly sourceDiagramName: string,
-        public readonly diagramNamesOfColided: ConflictNameBehavior | null,
-        public readonly resourceNamesOfColided: ConflictNameBehavior[]
+        public readonly conflictDiagramName: ConflictNameBehavior | null,
+        public readonly conflictResourceNames: ConflictNameBehavior[]
     ) { }
 
     public withDiagramName(diagramNamesOfColided: ConflictNameBehavior): UserArrangeOfImportDiagram {
         return new UserArrangeOfImportDiagram(
             this.sourceDiagramName,
             diagramNamesOfColided,
-            this.resourceNamesOfColided
+            this.conflictResourceNames
         );
     }
 
     public withResourceNames(resourceNamesOfColided: ConflictNameBehavior[]): UserArrangeOfImportDiagram {
         return new UserArrangeOfImportDiagram(
             this.sourceDiagramName,
-            this.diagramNamesOfColided,
+            this.conflictDiagramName,
             resourceNamesOfColided
         );
     }
 
     public isColidedDiagramName(): boolean {
-        return this.diagramNamesOfColided !== null;
+        return this.conflictDiagramName !== null;
     }
 
     public isEmpty(): boolean {
         return !this.isColidedDiagramName()
-            && this.resourceNamesOfColided.length === 0;
+            && this.conflictResourceNames.length === 0;
     }
 
     public static empty(): UserArrangeOfImportDiagram {

@@ -9,8 +9,8 @@ import Product from "@/domain/product/Product";
 import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import MaybeImportDiagram from "@/domain/diagram/import/MaybeImportDiagram";
 import ImportDiagramCandidate from "@/domain/diagram/import/ImportDiagramCandidate";
-import NameConflictAnalyzer from "~/domain/diagram/import/conflictname/NameConflictAnalyzer";
-import ImportDiagramArranger from "~/domain/diagram/import/userarrange/ImportDiagramArranger";
+import NameConflictAnalyzer from "@/domain/diagram/import/conflictname/NameConflictAnalyzer";
+import ImportDiagramArranger from "@/domain/diagram/import/userarrange/ImportDiagramArranger";
 
 export default class DiagramImportService {
     constructor(
