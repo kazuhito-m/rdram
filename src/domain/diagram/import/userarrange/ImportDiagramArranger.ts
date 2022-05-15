@@ -4,6 +4,7 @@ import Product from "@/domain/product/Product";
 import ImportDiagramCandidate from "@/domain/diagram/import/ImportDiagramCandidate";
 import Resource from "@/domain/resource/Resource";
 import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
+import Resources from "~/domain/resource/Resources";
 
 export default class ImportDiagramArranger {
     public arrangeOf(
@@ -11,46 +12,37 @@ export default class ImportDiagramArranger {
         candidate: ImportDiagramCandidate,
         product: Product
     ): ImportDiagramCandidate | null {
-        let modifiedDiagram = candidate.diagram;
-        let modifiedResources = candidate.useResources;
+        let diagram = candidate.diagram;
+        let resources = new Resources(candidate.useResources);
 
         for (const colidedResourceName of userArrange.conflictResourceNames) {
-            const targetResouce = modifiedResources
-                .find(r => r.resourceId === colidedResourceName.sourceId) as Resource;
+            const targetResouce = resources.of(colidedResourceName.sourceId) as Resource;
             const sameResource = product.resources.getSameOf(targetResouce) as Resource;
 
             const behavior = colidedResourceName.behavior;
             if (behavior === BehaviorWhenNameConflict.既存) {
-                modifiedDiagram = modifiedDiagram.replaceOf(targetResouce, sameResource);
-                modifiedResources = modifiedResources
-                    .filter(r => r.resourceId !== targetResouce.resourceId);
+                resources = resources.remove(targetResouce);
+                diagram = diagram.replaceOf(targetResouce, sameResource);
             }
             if (behavior === BehaviorWhenNameConflict.置換) {
                 const replacedIdResource = targetResouce.renewId(sameResource.resourceId);
-                modifiedResources = modifiedResources
-                    .filter(r => r.resourceId !== targetResouce.resourceId);
-                modifiedResources.push(replacedIdResource);
-                modifiedDiagram = modifiedDiagram
-                    .replaceOf(targetResouce, replacedIdResource);
+                resources = resources.mergeBySameOf(replacedIdResource);
+                diagram = diagram.replaceOf(targetResouce, replacedIdResource);
             }
             if (behavior === BehaviorWhenNameConflict.別名) {
                 const renamedResource = targetResouce
                     .withName(colidedResourceName.destinationName);
-                modifiedResources = modifiedResources
-                    .filter(r => r.resourceId !== targetResouce.resourceId);
-                modifiedResources.push(renamedResource);
+                resources = resources.mergeByIdOf(renamedResource);
             }
         }
 
         if (userArrange.isColidedDiagramName()) {
-            const colidedDiagramName = userArrange.conflictDiagramName as ConflictNameBehavior;
-            if (colidedDiagramName.behavior === BehaviorWhenNameConflict.既存) return null; // 入力からは入ってこない前提。「既存」というなら「Importしない」と同義。
-            if (colidedDiagramName.behavior === BehaviorWhenNameConflict.別名) {
-                modifiedDiagram = modifiedDiagram
-                    .renameOf(colidedDiagramName.destinationName);
-            }
+            const conflictDiagramName = userArrange.conflictDiagramName as ConflictNameBehavior;
+            if (conflictDiagramName.behavior === BehaviorWhenNameConflict.既存) return null; // 入力からは入ってこない前提。「既存」というなら「Importしない」と同義。
+            if (conflictDiagramName.behavior === BehaviorWhenNameConflict.別名)
+                diagram = diagram.renameOf(conflictDiagramName.destinationName);
         }
 
-        return new ImportDiagramCandidate(modifiedDiagram, modifiedResources);
+        return new ImportDiagramCandidate(diagram, resources.map(r => r));
     }
 }
