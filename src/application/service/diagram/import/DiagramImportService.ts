@@ -9,6 +9,7 @@ import Product from "@/domain/product/Product";
 import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import MaybeImportDiagram from "@/domain/diagram/import/MaybeImportDiagram";
 import ImportDiagramCandidate from "@/domain/diagram/import/ImportDiagramCandidate";
+import NameConflictAnalyzer from "~/domain/diagram/import/conflictname/NameConflictAnalyzer";
 
 export default class DiagramImportService {
     constructor(
@@ -89,10 +90,11 @@ export default class DiagramImportService {
         confirmeUserArrange: (settings: UserArrangeOfImportDiagram) => UserArrangeOfImportDiagram,
         product: Product
     ): ImportDiagramCandidate | null {
-        const colidedNames = candidate.analyzeColideNameOf(product);
-        if (colidedNames.isEmpty()) return candidate;
+        const analyzer = new NameConflictAnalyzer();
+        const confrictNames = analyzer.analyzeOf(candidate, product);
+        if (confrictNames.isEmpty()) return candidate;
 
-        const userArrange = confirmeUserArrange(colidedNames);
+        const userArrange = confirmeUserArrange(confrictNames);
         if (userArrange.isEmpty()) return null;
 
         return candidate.arrangeOf(userArrange, product);

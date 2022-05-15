@@ -28,23 +28,6 @@ export default class ImportDiagramCandidate {
         return new ImportDiagramCandidate(newDiaglam, newResources);
     }
 
-    public analyzeColideNameOf(product: Product): UserArrangeOfImportDiagram {
-        const diagram = this.diagram;
-
-        const existsDiagram = product.diagrams
-            .existsSameOf(diagram);
-        const colidedName = existsDiagram
-            ? ConflictNameBehavior.prototypeDiagramOf(diagram)
-            : null;
-
-        const allResources = product.resources;
-        const sameResources = this.useResources
-            .filter(r => allResources.existsSameOf(r))
-            .map(r => ConflictNameBehavior.prototypeResourceOf(r));
-
-        return new UserArrangeOfImportDiagram(diagram.name, colidedName, sameResources);
-    }
-
     public arrangeOf(
         userArrange: UserArrangeOfImportDiagram,
         product: Product
