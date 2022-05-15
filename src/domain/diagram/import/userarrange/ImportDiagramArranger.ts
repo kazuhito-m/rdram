@@ -1,10 +1,10 @@
 import UserArrangeOfImportDiagram from "./UserArrangeOfImportDiagram";
 import { BehaviorWhenNameConflict } from "./BehaviorWhenNameConflict";
-import Product from "@/domain/product/Product";
+import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
 import ImportDiagramCandidate from "@/domain/diagram/import/ImportDiagramCandidate";
 import Resource from "@/domain/resource/Resource";
-import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
-import Resources from "~/domain/resource/Resources";
+import Resources from "@/domain/resource/Resources";
+import Product from "@/domain/product/Product";
 
 export default class ImportDiagramArranger {
     public arrangeOf(
