@@ -1,22 +1,22 @@
 import NameOfColided from "./NameOfColided";
 
-export default class UserArrangeOfImportDiagramSetting {
+export default class UserArrangeOfImportDiagram {
     constructor(
         public readonly sourceDiagramName: string,
         public readonly diagramNamesOfColided: NameOfColided | null,
         public readonly resourceNamesOfColided: NameOfColided[]
     ) { }
 
-    public withDiagramName(diagramNamesOfColided: NameOfColided): UserArrangeOfImportDiagramSetting {
-        return new UserArrangeOfImportDiagramSetting(
+    public withDiagramName(diagramNamesOfColided: NameOfColided): UserArrangeOfImportDiagram {
+        return new UserArrangeOfImportDiagram(
             this.sourceDiagramName,
             diagramNamesOfColided,
             this.resourceNamesOfColided
         );
     }
 
-    public withResourceNames(resourceNamesOfColided: NameOfColided[]): UserArrangeOfImportDiagramSetting {
-        return new UserArrangeOfImportDiagramSetting(
+    public withResourceNames(resourceNamesOfColided: NameOfColided[]): UserArrangeOfImportDiagram {
+        return new UserArrangeOfImportDiagram(
             this.sourceDiagramName,
             this.diagramNamesOfColided,
             resourceNamesOfColided
@@ -32,7 +32,7 @@ export default class UserArrangeOfImportDiagramSetting {
             && this.resourceNamesOfColided.length === 0;
     }
 
-    public static empty(): UserArrangeOfImportDiagramSetting {
-        return new UserArrangeOfImportDiagramSetting("", null, []);
+    public static empty(): UserArrangeOfImportDiagram {
+        return new UserArrangeOfImportDiagram("", null, []);
     }
 }

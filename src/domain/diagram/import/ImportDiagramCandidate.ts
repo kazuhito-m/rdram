@@ -1,4 +1,4 @@
-import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
+import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
 import Resource from "@/domain/resource/Resource";
 import Diagram from "@/domain/diagram/Diagram";
@@ -28,7 +28,7 @@ export default class ImportDiagramCandidate {
         return new ImportDiagramCandidate(newDiaglam, newResources);
     }
 
-    public analyzeColideNameOf(product: Product): UserArrangeOfImportDiagramSetting {
+    public analyzeColideNameOf(product: Product): UserArrangeOfImportDiagram {
         const diagram = this.diagram;
 
         const existsDiagram = product.diagrams
@@ -42,11 +42,11 @@ export default class ImportDiagramCandidate {
             .filter(r => allResources.existsSameOf(r))
             .map(r => NameOfColided.prototypeResourceOf(r));
 
-        return new UserArrangeOfImportDiagramSetting(diagram.name, colidedName, sameResources);
+        return new UserArrangeOfImportDiagram(diagram.name, colidedName, sameResources);
     }
 
     public arrangeImportDiagram(
-        userArrange: UserArrangeOfImportDiagramSetting,
+        userArrange: UserArrangeOfImportDiagram,
         product: Product
     ): ImportDiagramCandidate | null {
         let modifiedDiagram = this.diagram;

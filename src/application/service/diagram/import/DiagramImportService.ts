@@ -6,7 +6,7 @@ import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
 import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
-import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
+import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import MaybeImportDiagram from "@/domain/diagram/import/MaybeImportDiagram";
 import ImportDiagramCandidate from "@/domain/diagram/import/ImportDiagramCandidate";
 
@@ -19,7 +19,7 @@ export default class DiagramImportService {
     public async importOf(
         file: File,
         notifyProgress: (event: DiagramImportProgressEvent) => void,
-        confirmeUserArrange: (settings: UserArrangeOfImportDiagramSetting) => UserArrangeOfImportDiagramSetting,
+        confirmeUserArrange: (settings: UserArrangeOfImportDiagram) => UserArrangeOfImportDiagram,
     ): Promise<Diagram | null> {
         notifyProgress(this.raise(DiagramImportProgressStep.開始, "", file));
         try {
@@ -39,7 +39,7 @@ export default class DiagramImportService {
     private async doImport(
         file: File,
         notifyProgress: (event: DiagramImportProgressEvent) => void,
-        confirmeUserArrange: (settings: UserArrangeOfImportDiagramSetting) => UserArrangeOfImportDiagramSetting
+        confirmeUserArrange: (settings: UserArrangeOfImportDiagram) => UserArrangeOfImportDiagram
     ): Promise<Diagram | null> {
         notifyProgress(this.raise(DiagramImportProgressStep.ファイル読み込み));
 
@@ -86,7 +86,7 @@ export default class DiagramImportService {
 
     private reflectUserArrangeOf(
         candidate: ImportDiagramCandidate,
-        confirmeUserArrange: (settings: UserArrangeOfImportDiagramSetting) => UserArrangeOfImportDiagramSetting,
+        confirmeUserArrange: (settings: UserArrangeOfImportDiagram) => UserArrangeOfImportDiagram,
         product: Product
     ): ImportDiagramCandidate | null {
         const colidedNames = candidate.analyzeColideNameOf(product);

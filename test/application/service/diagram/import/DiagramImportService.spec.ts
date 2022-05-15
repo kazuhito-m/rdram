@@ -9,7 +9,7 @@ import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
 import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehavioWhenNameColide";
-import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
+import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import DiagramType from "@/domain/diagram/DiagramType";
 import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
 
@@ -61,7 +61,7 @@ describe('DiagramImportService', () => {
       const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
 
       // 実行
-      let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
+      let passedArrange: UserArrangeOfImportDiagram | null = null;
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
@@ -184,7 +184,7 @@ describe('DiagramImportService', () => {
       const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
 
       // 実行
-      let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
+      let passedArrange: UserArrangeOfImportDiagram | null = null;
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
@@ -249,7 +249,7 @@ describe('DiagramImportService', () => {
       const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
 
       // 実行
-      let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
+      let passedArrange: UserArrangeOfImportDiagram | null = null;
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
@@ -292,14 +292,14 @@ describe('DiagramImportService', () => {
       const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
 
       // 実行
-      let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
+      let passedArrange: UserArrangeOfImportDiagram | null = null;
       const progressSteps: DiagramImportProgressStep[] = [];
       const actual = await sut.importOf(file,
         event => { progressSteps.push(event.step); },
         arrange => {
           passedArrange = arrange;
           // ユーザは、「インポートをキャンセル」と答える、というオペレーション
-          return UserArrangeOfImportDiagramSetting.empty();
+          return UserArrangeOfImportDiagram.empty();
         }
       );
 
