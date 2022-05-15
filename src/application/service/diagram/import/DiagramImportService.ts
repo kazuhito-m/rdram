@@ -1,5 +1,5 @@
 import { DiagramImportProgressStep } from "@/domain/diagram/import/DiagramImportProgressStep";
-import { DiagramImportError } from "@/domain/diagram/import/DiagramImportError";
+import { DiagramImportError } from "~/domain/diagram/import/progress/DiagramImportError";
 import DiagramImportProgressEvent from "@/domain/diagram/import/DiagramImportProgressEvent";
 import StorageRepository from "@/domain/storage/StorageRepository";
 import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
