@@ -92,7 +92,7 @@ export default class DiagramImportService {
         confirmeUserArrange: (settings: UserArrangeOfImportDiagramSetting) => UserArrangeOfImportDiagramSetting,
         product: Product
     ): ImportDiagramCandidate | null {
-        const colidedNames = this.analyzeColideNameOf(candidate, product);
+        const colidedNames = candidate.analyzeColideNameOf(product);
 
         let userArrange = colidedNames;
         if (!colidedNames.isEmpty()) {

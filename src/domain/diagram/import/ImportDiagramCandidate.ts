@@ -1,5 +1,8 @@
 import Resource from "@/domain/resource/Resource";
 import Diagram from "@/domain/diagram/Diagram";
+import UserArrangeOfImportDiagramSetting from "./userarrange/UserArrangeOfImportDiagramSetting";
+import Product from "~/domain/product/Product";
+import NameOfColided from "./userarrange/NameOfColided";
 
 export default class ImportDiagramCandidate {
     constructor(
@@ -22,5 +25,22 @@ export default class ImportDiagramCandidate {
         const newResources = this.useResources
             .map(r => r.renewId(-r.resourceId))
         return new ImportDiagramCandidate(newDiaglam, newResources);
+    }
+
+    public analyzeColideNameOf(product: Product): UserArrangeOfImportDiagramSetting {
+        const diagram = this.diagram;
+
+        const existsDiagram = product.diagrams
+            .existsSameOf(diagram);
+        const colidedName = existsDiagram
+            ? NameOfColided.prototypeDiagramOf(diagram)
+            : null;
+
+        const allResources = product.resources;
+        const sameResources = this.useResources
+            .filter(r => allResources.existsSameOf(r))
+            .map(r => NameOfColided.prototypeResourceOf(r));
+
+        return new UserArrangeOfImportDiagramSetting(diagram.name, colidedName, sameResources);
     }
 }
