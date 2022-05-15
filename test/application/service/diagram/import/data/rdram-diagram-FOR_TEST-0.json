@@ -40,29 +40,22 @@
         "canvasGuideTypeId": 1,
         "__CLASS_NAME": "SystemContextDiagram"
     },
-    "resources": [
+    "usResources": [
         {
-            "value": {
-                "resourceId": 6,
-                "resourceTypeId": 1,
-                "name": "SampleSystem",
-                "description": "インポートされた側のリソース:SampleSystem",
-                "deletable": true,
-                "__CLASS_NAME": "Resource"
-            },
-            "__CLASS_NAME": "ExportedResource"
+            "resourceId": 6,
+            "resourceTypeId": 1,
+            "name": "SampleSystem",
+            "description": "インポートされた側のリソース:SampleSystem",
+            "deletable": true,
+            "__CLASS_NAME": "Resource"
         },
         {
-            "value": {
-                "resourceId": 7,
-                "resourceTypeId": 5,
-                "name": "三浦",
-                "description": "インポートされた側のリソース:三浦",
-                "deletable": true,
-                "__CLASS_NAME": "Resource"
-            },
-            "__CLASS_NAME": "ExportedResource"
+            "resourceId": 7,
+            "resourceTypeId": 5,
+            "name": "三浦",
+            "description": "インポートされた側のリソース:三浦",
+            "deletable": true,
+            "__CLASS_NAME": "Resource"
         }
-    ],
-    "__CLASS_NAME": "ExportedDiagram"
+    ]
 }
