@@ -24,7 +24,7 @@ describe('DiagramImportService', () => {
     // 実行
     let lastEvent: DiagramImportProgressEvent;
     const actual = await sut.importOf(file,
-      event => { lastEvent = event; console.log('event.step:', event.step); },
+      event => { lastEvent = event; },
       (arrange) => arrange
     );
 
