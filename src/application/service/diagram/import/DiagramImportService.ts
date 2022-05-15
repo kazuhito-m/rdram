@@ -10,6 +10,7 @@ import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/User
 import MaybeImportDiagram from "@/domain/diagram/import/MaybeImportDiagram";
 import ImportDiagramCandidate from "@/domain/diagram/import/ImportDiagramCandidate";
 import NameConflictAnalyzer from "~/domain/diagram/import/conflictname/NameConflictAnalyzer";
+import ImportDiagramArranger from "~/domain/diagram/import/userarrange/ImportDiagramArranger";
 
 export default class DiagramImportService {
     constructor(
@@ -97,7 +98,8 @@ export default class DiagramImportService {
         const userArrange = confirmeUserArrange(confrictNames);
         if (userArrange.isEmpty()) return null;
 
-        return candidate.arrangeOf(userArrange, product);
+        const arranger = new ImportDiagramArranger();
+        return arranger.arrangeOf(userArrange, candidate, product);
     }
 
     private raise(step: DiagramImportProgressStep, message: string = "", file?: File): DiagramImportProgressEvent {
