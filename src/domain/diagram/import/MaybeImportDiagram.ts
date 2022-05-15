@@ -1,13 +1,13 @@
 import Diagram from "@/domain/diagram/Diagram";
-import ImportedResource from "@/domain/resource/import/ImportedResource";
-import Resources from "@/domain/resource/Resources";
-import ImportedRelation from "@/domain/relation/import/ImportedRelation";
-import ImportedPlacement from "@/domain/diagram/placement/import/ImportedPlacement";
+import MaybeImportResource from "@/domain/resource/import/MaybeImportResource";
+import MaybeImportRelation from "@/domain/relation/import/MaybeImportRelation";
+import MaybeImportPlacement from "@/domain/diagram/placement/import/MaybeImportPlacement";
+import ExportedDiagram from "@/domain/diagram/export/ExportedDiagram";
 
-export default class ImportedDiagram {
+export default class MaybeImportDiagram {
     public constructor(
         public readonly diagram: Diagram,
-        private readonly resources: ImportedResource[],
+        private readonly resources: MaybeImportResource[],
     ) { }
 
     public checkOfLogicalStructure() {
@@ -15,10 +15,10 @@ export default class ImportedDiagram {
         try {
             return this.validate()
                 && d.allRelations()
-                    .map(r => new ImportedRelation(r))
+                    .map(r => new MaybeImportRelation(r))
                     .every(ir => ir.validate())
                 && d.placements
-                    .map(p => new ImportedPlacement(p))
+                    .map(p => new MaybeImportPlacement(p))
                     .every(ip => ip.validate())
                 && this.checkOfLogicalResources()
                 && this.checkOfLogicalRelations();
@@ -75,12 +75,14 @@ export default class ImportedDiagram {
                 && useIds.includes(r.toResourceId));
     }
 
+    
+
     /**
      * 一度「自身のシステムに無いResourceId群」にするため、すべてのResorceIdを正負反転する。
      */
-    public replaceUniqueResourceIds(): ImportedDiagram {
+    public replaceUniqueResourceIds(): MaybeImportDiagram {
         const diagram = this.diagram;
-        const placements= diagram.placements
+        const placements = diagram.placements
             .map(p => p.withResourceIdOf(-p.resourceId));
         const relations = diagram.allRelations()
             .map(r => r.withFrom(-r.fromResourceId).withTo(-r.toResourceId));
@@ -89,12 +91,15 @@ export default class ImportedDiagram {
             .replaceRelations(relations);
         const newResources = this.resources
             .map(r => r.inversionNegativeResourceId())
-        return new ImportedDiagram(newDiaglam, newResources);
+        return new MaybeImportDiagram(newDiaglam, newResources);
     }
 
-    public useResources(): Resources {
-        const values = this.resources
-            .map(useResource => useResource.value);
-        return new Resources(values);
+    public static of(exportedDiagram: ExportedDiagram): MaybeImportDiagram | null {
+        if (!exportedDiagram
+            || !exportedDiagram.diagram
+            || !exportedDiagram.useResources) return null;
+        const importedResouces = exportedDiagram.useResources
+            .map(r => new MaybeImportResource(r));
+        return new MaybeImportDiagram(exportedDiagram.diagram, importedResouces);
     }
 }

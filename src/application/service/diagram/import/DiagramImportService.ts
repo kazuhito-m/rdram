@@ -12,6 +12,7 @@ import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
 import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehavioWhenNameColide";
 import Resource from "~/domain/resource/Resource";
 import ExportedResource from "~/domain/resource/export/ExportedResource";
+import MaybeImportDiagram from "~/domain/diagram/import/MaybeImportDiagram";
 
 export default class DiagramImportService {
     constructor(
@@ -53,18 +54,19 @@ export default class DiagramImportService {
         }
 
         const jsonText = await this.fileSystemRepository.readFile(file) as string;
-        const maybeDiagram: ExportedDiagram = this.storageRepository.createDiagramByJsonOf(jsonText);
+        const exportedDiagram = this.storageRepository.createDiagramByJsonOf(jsonText);
 
         notifyProgress(this.raise(DiagramImportProgressStep.形式チェック));
 
-        if (!maybeDiagram.checkOfLogicalStructure()) {
+        const maybeImportDiagram = MaybeImportDiagram.of(exportedDiagram);
+        if (!maybeImportDiagram || !maybeImportDiagram.checkOfLogicalStructure()) {
             notifyProgress(this.raiseError(DiagramImportError.形式or構造が不正));
             return null;
         }
 
         const product = this.storageRepository.getCurrentProduct() as Product;
 
-        const arrangedDiagram = this.reflectUserArrangeOf(maybeDiagram, confirmeUserArrange, product);
+        const arrangedDiagram = this.reflectUserArrangeOf(exportedDiagram, confirmeUserArrange, product);
         if (!arrangedDiagram) {
             notifyProgress(this.raise(DiagramImportProgressStep.キャンセル));
             return null;

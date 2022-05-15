@@ -3,7 +3,7 @@ import Resource from "@/domain/resource/Resource";
 
 export default class ExportedDiagram {
     public constructor(
-        public readonly diagram: Diagram,
-        public readonly useResources: Resource[],
+        private readonly diagram: Diagram,
+        private readonly useResources: Resource[],
     ) { }
 }

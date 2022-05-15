@@ -1,6 +1,6 @@
 import Relation from "@/domain/relation//Relation";
 
-export default class ImportedRelation {
+export default class MaybeImportRelation {
     constructor(private value: Relation) { }
 
     public validate(): boolean {

@@ -9,7 +9,7 @@ import TableTypeCondition from "@/domain/resource/TableTypeCondition";
 import Variation from "@/domain/resource/Variation";
 import HasContentResource from "@/domain/resource/HasContentResource";
 
-export default class ImportedResource {
+export default class MaybeImportResource {
     public constructor(
         public readonly value: Resource
     ) { }
@@ -73,9 +73,9 @@ export default class ImportedResource {
         return true;
     }
 
-    public inversionNegativeResourceId(): ImportedResource {
+    public inversionNegativeResourceId(): MaybeImportResource {
         const r = this.value;
-        return new ImportedResource(r.renewId(-r.resourceId));
+        return new MaybeImportResource(r.renewId(-r.resourceId));
     }
 
     public resourceId(): number {
