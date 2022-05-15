@@ -1,8 +1,8 @@
+import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
+import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
 import Resource from "@/domain/resource/Resource";
 import Diagram from "@/domain/diagram/Diagram";
-import UserArrangeOfImportDiagramSetting from "./userarrange/UserArrangeOfImportDiagramSetting";
-import Product from "~/domain/product/Product";
-import NameOfColided from "./userarrange/NameOfColided";
+import Product from "@/domain/product/Product";
 
 export default class ImportDiagramCandidate {
     constructor(
@@ -13,7 +13,7 @@ export default class ImportDiagramCandidate {
     /**
      * 一度「自身のシステムに無いResourceId群」にするため、すべてのResorceIdを正負反転する。
      */
-     public replaceUniqueResourceIds(): ImportDiagramCandidate {
+    public replaceUniqueResourceIds(): ImportDiagramCandidate {
         const diagram = this.diagram;
         const placements = diagram.placements
             .map(p => p.withResourceIdOf(-p.resourceId));
