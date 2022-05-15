@@ -1,9 +1,9 @@
-import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
+import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
 import Resource from "@/domain/resource/Resource";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
-import { BehaviorWhenNameColide } from "~/domain/diagram/import/userarrange/BehaviorWhenNameColide";
+import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehaviorWhenNameColide";
 
 export default class ImportDiagramCandidate {
     constructor(
@@ -45,7 +45,7 @@ export default class ImportDiagramCandidate {
         return new UserArrangeOfImportDiagram(diagram.name, colidedName, sameResources);
     }
 
-    public arrangeImportDiagram(
+    public arrangeOf(
         userArrange: UserArrangeOfImportDiagram,
         product: Product
     ): ImportDiagramCandidate | null {
@@ -92,4 +92,28 @@ export default class ImportDiagramCandidate {
         return new ImportDiagramCandidate(modifiedDiagram, modifiedResources);
     }
 
+    public mergeOf(product: Product): Product {
+        let modifiedProduct = product;
+        let fixedDiagram = this.diagram;
+        // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
+
+        const fixedResources = this.useResources
+            .map(r => {
+                if (r.resourceId > 0) return r;
+                const reIdResource = r.renewId(modifiedProduct.resourceIdSequence);
+                modifiedProduct = modifiedProduct.moveNextResourceIdSequence();
+
+                fixedDiagram = fixedDiagram.replaceOf(r, reIdResource);
+
+                return reIdResource;
+            })
+            .reduce(
+                (resources, resouce) => resources.mergeByIdOf(resouce),
+                modifiedProduct.resources
+            );
+
+        return modifiedProduct
+            .withResources(fixedResources)
+            .mergeDiagramWhenSameOf(fixedDiagram);
+    }
 }

@@ -73,7 +73,7 @@ export default class DiagramImportService {
 
         notifyProgress(this.raise(DiagramImportProgressStep.追加));
 
-        const updatedProduct = this.mergeOf(arrangedImport, product);
+        const updatedProduct = arrangedImport.mergeOf(product);
 
         notifyProgress(this.raise(DiagramImportProgressStep.保存));
 
@@ -95,32 +95,7 @@ export default class DiagramImportService {
         const userArrange = confirmeUserArrange(colidedNames);
         if (userArrange.isEmpty()) return null;
 
-        return candidate.arrangeImportDiagram(userArrange, product);
-    }
-
-    private mergeOf(candidate: ImportDiagramCandidate, product: Product): Product {
-        let modifiedProduct = product;
-        let fixedDiagram = candidate.diagram;
-        // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
-
-        const fixedResources = candidate.useResources
-            .map(r => {
-                if (r.resourceId > 0) return r;
-                const reIdResource = r.renewId(modifiedProduct.resourceIdSequence);
-                modifiedProduct = modifiedProduct.moveNextResourceIdSequence();
-
-                fixedDiagram = fixedDiagram.replaceOf(r, reIdResource);
-
-                return reIdResource;
-            })
-            .reduce(
-                (resources, resouce) => resources.mergeByIdOf(resouce),
-                modifiedProduct.resources
-            );
-
-        return modifiedProduct
-            .withResources(fixedResources)
-            .mergeDiagramWhenSameOf(fixedDiagram);
+        return candidate.arrangeOf(userArrange, product);
     }
 
     private raise(step: DiagramImportProgressStep, message: string = "", file?: File): DiagramImportProgressEvent {
