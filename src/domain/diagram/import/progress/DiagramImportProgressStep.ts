@@ -5,6 +5,7 @@ export enum DiagramImportProgressStep {
     開始,
     ファイル読み込み,
     形式チェック,
+    ユーザーアレンジ,
     追加,
     保存,
     完了,

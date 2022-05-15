@@ -63,6 +63,8 @@ export default class DiagramImportService {
             return null;
         }
 
+        notifyProgress(this.raise(DiagramImportProgressStep.ユーザーアレンジ));
+
         const product = this.storageRepository.getCurrentProduct() as Product;
         const importCandidate = maybeImport.toCandidate();
 
