@@ -1,9 +1,9 @@
 import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
-import ConflictNameBehavior from "~/domain/diagram/import/conflictname/ConflictNameBehavior";
+import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
 import Resource from "@/domain/resource/Resource";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
-import { BehaviorWhenNameConflict } from "~/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
+import { BehaviorWhenNameConflict } from "@/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
 
 export default class ImportDiagramCandidate {
     constructor(

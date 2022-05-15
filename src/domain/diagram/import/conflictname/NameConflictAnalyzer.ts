@@ -1,7 +1,7 @@
+import ConflictNameBehavior from "./ConflictNameBehavior";
 import Product from "@/domain/product/Product";
 import ImportDiagramCandidate from "@/domain/diagram/import/ImportDiagramCandidate";
 import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
-import ConflictNameBehavior from "./ConflictNameBehavior";
 
 /**
  * 既存のプロダクトとインポートしようとしている図・リソースで「名前の衝突」の解析責務を持つクラス。
