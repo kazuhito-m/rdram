@@ -8,10 +8,10 @@ import StorageDatasource from "@/infrastructure/storage/StorageDatasource";
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
-import { BehaviorWhenNameColide } from "~/domain/diagram/import/userarrange/BehaviorWhenNameColide";
-import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
+import { BehaviorWhenNameConflict } from "@/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
+import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import DiagramType from "@/domain/diagram/DiagramType";
-import NameOfColided from "~/domain/diagram/import/conflictname/NameOfColided";
+import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
 
 describe('DiagramImportService', () => {
   test('既存の図もリソースも無い状態で、リソース2つを配置した図のファイルのインポートが成功する。', async () => {
@@ -108,14 +108,14 @@ describe('DiagramImportService', () => {
 
       expect(passedArrange!.isColidedDiagramName()).toEqual(true);
       expect(passedArrange!.diagramNamesOfColided?.behavior)
-        .toEqual(BehaviorWhenNameColide.置換);
+        .toEqual(BehaviorWhenNameConflict.置換);
       expect(passedArrange!.diagramNamesOfColided?.sourceName)
         .toEqual("FOR_TEST");
 
       expect(passedArrange!.resourceNamesOfColided).toHaveLength(1);
       const colidedResouceName = passedArrange!.resourceNamesOfColided[0];
       expect(colidedResouceName.behavior)
-        .toEqual(BehaviorWhenNameColide.既存);
+        .toEqual(BehaviorWhenNameConflict.既存);
       expect(colidedResouceName.sourceName).toEqual("SampleSystem");
     });
 
@@ -138,7 +138,7 @@ describe('DiagramImportService', () => {
           passedCallback = true;
           // ユーザは、「リソースはインポートデータで置換」と答える、というオペレーション
           const arrangedColidedNames = arrange.resourceNamesOfColided
-            .map(name => name.with(BehaviorWhenNameColide.置換));
+            .map(name => name.with(BehaviorWhenNameConflict.置換));
           return arrange.withResourceNames(arrangedColidedNames);
         }
       );
@@ -192,7 +192,7 @@ describe('DiagramImportService', () => {
           passedArrange = arrange;
           // ユーザは、「リソースは別名に変更してインポート」と答える、というオペレーション
           const arrangedColidedNames = arrange.resourceNamesOfColided
-            .map(name => name.with(BehaviorWhenNameColide.別名, "SampleSystemが重複したので変更した名前"));
+            .map(name => name.with(BehaviorWhenNameConflict.別名, "SampleSystemが重複したので変更した名前"));
           return arrange.withResourceNames(arrangedColidedNames);
         }
       );
@@ -257,8 +257,8 @@ describe('DiagramImportService', () => {
           passedArrange = arrange;
           // ユーザは、「図は別名に変更してインポート」と答える、というオペレーション
           const arrangedColidedName = arrange
-            .diagramNamesOfColided?.with(BehaviorWhenNameColide.別名, "FOR_TESTという図名が重複したので置換した名前")
-          return arrange.withDiagramName(arrangedColidedName as NameOfColided);
+            .diagramNamesOfColided?.with(BehaviorWhenNameConflict.別名, "FOR_TESTという図名が重複したので置換した名前")
+          return arrange.withDiagramName(arrangedColidedName as ConflictNameBehavior);
         }
       );
 

@@ -1,17 +1,17 @@
-import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehaviorWhenNameColide";
+import { BehaviorWhenNameConflict } from "@/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
 import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
 
-export default class NameOfColided {
+export default class ConflictNameBehavior {
     constructor(
-        public readonly behavior: BehaviorWhenNameColide,
+        public readonly behavior: BehaviorWhenNameConflict,
         public readonly sourceName: string,
         public readonly destinationName: string,
         public readonly sourceId: number
     ) { }
 
-    public with(behavior: BehaviorWhenNameColide, destinationName = ""): NameOfColided {
-        return new NameOfColided(
+    public with(behavior: BehaviorWhenNameConflict, destinationName = ""): ConflictNameBehavior {
+        return new ConflictNameBehavior(
             behavior,
             this.sourceName,
             destinationName,
@@ -20,8 +20,8 @@ export default class NameOfColided {
     }
 
     public static prototypeOf(sourceName: string, sourceId: number,
-        behavior: BehaviorWhenNameColide = BehaviorWhenNameColide.既存): NameOfColided {
-        return new NameOfColided(
+        behavior: BehaviorWhenNameConflict = BehaviorWhenNameConflict.既存): ConflictNameBehavior {
+        return new ConflictNameBehavior(
             behavior,
             sourceName,
             "",
@@ -29,19 +29,19 @@ export default class NameOfColided {
         );
     }
 
-    public static prototypeDiagramOf(diagram: Diagram): NameOfColided {
+    public static prototypeDiagramOf(diagram: Diagram): ConflictNameBehavior {
         return this.prototypeOf(
             diagram.name,
             diagram.id,
-            BehaviorWhenNameColide.置換
+            BehaviorWhenNameConflict.置換
         );
     }
 
-    public static prototypeResourceOf(resouce: Resource): NameOfColided {
+    public static prototypeResourceOf(resouce: Resource): ConflictNameBehavior {
         return this.prototypeOf(
             resouce.name,
             resouce.resourceId,
-            BehaviorWhenNameColide.既存
+            BehaviorWhenNameConflict.既存
         );
     }
 }

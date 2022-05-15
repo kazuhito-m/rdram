@@ -1,13 +1,13 @@
-import NameOfColided from "@/domain/diagram/import/conflictname/NameOfColided";
+import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
 
 export default class UserArrangeOfImportDiagram {
     constructor(
         public readonly sourceDiagramName: string,
-        public readonly diagramNamesOfColided: NameOfColided | null,
-        public readonly resourceNamesOfColided: NameOfColided[]
+        public readonly diagramNamesOfColided: ConflictNameBehavior | null,
+        public readonly resourceNamesOfColided: ConflictNameBehavior[]
     ) { }
 
-    public withDiagramName(diagramNamesOfColided: NameOfColided): UserArrangeOfImportDiagram {
+    public withDiagramName(diagramNamesOfColided: ConflictNameBehavior): UserArrangeOfImportDiagram {
         return new UserArrangeOfImportDiagram(
             this.sourceDiagramName,
             diagramNamesOfColided,
@@ -15,7 +15,7 @@ export default class UserArrangeOfImportDiagram {
         );
     }
 
-    public withResourceNames(resourceNamesOfColided: NameOfColided[]): UserArrangeOfImportDiagram {
+    public withResourceNames(resourceNamesOfColided: ConflictNameBehavior[]): UserArrangeOfImportDiagram {
         return new UserArrangeOfImportDiagram(
             this.sourceDiagramName,
             this.diagramNamesOfColided,
