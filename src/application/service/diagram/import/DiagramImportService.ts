@@ -1,6 +1,6 @@
-import { DiagramImportProgressStep } from "@/domain/diagram/import/DiagramImportProgressStep";
+import { DiagramImportProgressStep } from "@/domain/diagram/import/progress/DiagramImportProgressStep";
 import { DiagramImportError } from "~/domain/diagram/import/progress/DiagramImportError";
-import DiagramImportProgressEvent from "@/domain/diagram/import/DiagramImportProgressEvent";
+import DiagramImportProgressEvent from "@/domain/diagram/import/progress/DiagramImportProgressEvent";
 import StorageRepository from "@/domain/storage/StorageRepository";
 import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
 import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
