@@ -57,5 +57,6 @@
             "deletable": true,
             "__CLASS_NAME": "Resource"
         }
-    ]
+    ],
+    "__CLASS_NAME": "ExportedDiagram"
 }
