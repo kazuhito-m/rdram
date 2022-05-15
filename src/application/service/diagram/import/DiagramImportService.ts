@@ -118,7 +118,8 @@ export default class DiagramImportService {
                 modifiedProduct.resources
             );
 
-        return modifiedProduct.withResources(fixedResources)
+        return modifiedProduct
+            .withResources(fixedResources)
             .mergeDiagramWhenSameOf(fixedDiagram);
     }
 
