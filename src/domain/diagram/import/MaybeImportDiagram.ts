@@ -1,9 +1,9 @@
+import ImportDiagramCandidate from "./ImportDiagramCandidate";
 import Diagram from "@/domain/diagram/Diagram";
 import MaybeImportResource from "@/domain/resource/import/MaybeImportResource";
 import MaybeImportRelation from "@/domain/relation/import/MaybeImportRelation";
 import MaybeImportPlacement from "@/domain/diagram/placement/import/MaybeImportPlacement";
 import ExportedDiagram from "@/domain/diagram/export/ExportedDiagram";
-import ImportDiagramCandidate from "./ImportDiagramCandidate";
 
 export default class MaybeImportDiagram {
     public constructor(

@@ -141,7 +141,7 @@ export default class DiagramImportService {
             }
             if (behavior === BehaviorWhenNameColide.置換) {
                 const replacedIdResource = targetResouce.renewId(sameResource.resourceId);
-                let replacedExportedResources = modified.useResources
+                const replacedExportedResources = modified.useResources
                     .filter(r => r.resourceId !== targetResouce.resourceId);
                 replacedExportedResources.push(replacedIdResource);
                 const replacedDiagram = modified.diagram
@@ -151,7 +151,7 @@ export default class DiagramImportService {
             if (behavior === BehaviorWhenNameColide.別名) {
                 const renamedResource = targetResouce
                     .withName(colidedResourceName.destinationName);
-                let replacedExportedResources = modified.useResources
+                const replacedExportedResources = modified.useResources
                     .filter(r => r.resourceId !== targetResouce.resourceId);
                 replacedExportedResources.push(renamedResource);
                 modified = new ImportDiagramCandidate(modified.diagram, replacedExportedResources);
