@@ -73,11 +73,6 @@ export default class MaybeImportResource {
         return true;
     }
 
-    public inversionNegativeResourceId(): MaybeImportResource {
-        const r = this.value;
-        return new MaybeImportResource(r.renewId(-r.resourceId));
-    }
-
     public resourceId(): number {
         return this.value.resourceId;
     }

@@ -4,15 +4,14 @@ import DiagramImportProgressEvent from "@/domain/diagram/import/progress/Diagram
 import StorageRepository from "@/domain/storage/StorageRepository";
 import FileSystemRepository from "@/domain/filesystem/FileSystemRepository";
 import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
-import ExportedDiagram from "@/domain/diagram/export/ExportedDiagram";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
 import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
 import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehavioWhenNameColide";
 import Resource from "~/domain/resource/Resource";
-import ExportedResource from "~/domain/resource/export/ExportedResource";
 import MaybeImportDiagram from "~/domain/diagram/import/MaybeImportDiagram";
+import ImportDiagramCandidate from "~/domain/diagram/import/ImportDiagramCandidate";
 
 export default class DiagramImportService {
     constructor(
@@ -54,44 +53,44 @@ export default class DiagramImportService {
         }
 
         const jsonText = await this.fileSystemRepository.readFile(file) as string;
-        const exportedDiagram = this.storageRepository.createDiagramByJsonOf(jsonText);
+        const exported = this.storageRepository.createDiagramByJsonOf(jsonText);
 
         notifyProgress(this.raise(DiagramImportProgressStep.形式チェック));
 
-        const maybeImportDiagram = MaybeImportDiagram.of(exportedDiagram);
-        if (!maybeImportDiagram || !maybeImportDiagram.checkOfLogicalStructure()) {
+        const maybeImport = MaybeImportDiagram.of(exported);
+        if (!maybeImport || !maybeImport.checkOfLogicalStructure()) {
             notifyProgress(this.raiseError(DiagramImportError.形式or構造が不正));
             return null;
         }
 
         const product = this.storageRepository.getCurrentProduct() as Product;
+        const importCandidate = maybeImport.toCandidate();
 
-        const arrangedDiagram = this.reflectUserArrangeOf(exportedDiagram, confirmeUserArrange, product);
-        if (!arrangedDiagram) {
+        const arrangedImport = this.reflectUserArrangeOf(importCandidate, confirmeUserArrange, product);
+        if (!arrangedImport) {
             notifyProgress(this.raise(DiagramImportProgressStep.キャンセル));
             return null;
         }
 
         notifyProgress(this.raise(DiagramImportProgressStep.追加));
 
-        const updatedProduct = this.mergeOf(arrangedDiagram, product);
+        const updatedProduct = this.mergeOf(arrangedImport, product);
 
         notifyProgress(this.raise(DiagramImportProgressStep.保存));
 
         this.storageRepository.registerCurrentProduct(updatedProduct);
 
-        notifyProgress(this.raise(DiagramImportProgressStep.完了, `Diagram name: "${arrangedDiagram.diagram.name}"`));
+        notifyProgress(this.raise(DiagramImportProgressStep.完了, `Diagram name: "${arrangedImport.diagram.name}"`));
 
-        return arrangedDiagram.diagram;
+        return arrangedImport.diagram;
     }
 
-    private reflectUserArrangeOf(maybeDiagram: ExportedDiagram,
+    private reflectUserArrangeOf(
+        candidate: ImportDiagramCandidate,
         confirmeUserArrange: (settings: UserArrangeOfImportDiagramSetting) => UserArrangeOfImportDiagramSetting,
         product: Product
-    ): ExportedDiagram | null {
-        const modifiedDiagram = maybeDiagram.replaceUniqueResourceIds();
-
-        const colidedNames = this.analyzeColideNameOf(modifiedDiagram, product);
+    ): ImportDiagramCandidate | null {
+        const colidedNames = this.analyzeColideNameOf(candidate, product);
 
         let userArrange = colidedNames;
         if (!colidedNames.isEmpty()) {
@@ -99,11 +98,11 @@ export default class DiagramImportService {
             if (userArrange.isEmpty()) return null;
         }
 
-        return this.arrangeImportDiagram(userArrange, modifiedDiagram, product);
+        return this.arrangeImportDiagram(userArrange, candidate, product);
     }
 
-    private analyzeColideNameOf(modifiedDiagram: ExportedDiagram, product: Product): UserArrangeOfImportDiagramSetting {
-        const diagram = modifiedDiagram.diagram;
+    private analyzeColideNameOf(candidate: ImportDiagramCandidate, product: Product): UserArrangeOfImportDiagramSetting {
+        const diagram = candidate.diagram;
 
         const existsDiagram = product.diagrams
             .existsSameOf(diagram);
@@ -112,7 +111,7 @@ export default class DiagramImportService {
             : null;
 
         const allResources = product.resources;
-        const sameResources = modifiedDiagram.useResources()
+        const sameResources = candidate.useResources
             .filter(r => allResources.existsSameOf(r))
             .map(r => NameOfColided.prototypeResourceOf(r));
 
@@ -121,41 +120,39 @@ export default class DiagramImportService {
 
     private arrangeImportDiagram(
         userArrange: UserArrangeOfImportDiagramSetting,
-        importedDiagram: ExportedDiagram,
+        candidate: ImportDiagramCandidate,
         product: Product
-    ): ExportedDiagram | null {
-        let modifiedDiagram = importedDiagram;
+    ): ImportDiagramCandidate | null {
+        let modified = candidate;
 
         for (const colidedResourceName of userArrange.resourceNamesOfColided) {
-            const targetResouce = modifiedDiagram.useResources().of(colidedResourceName.sourceId) as Resource;
+            const targetResouce = modified.useResources
+                .find(r => r.resourceId === colidedResourceName.sourceId) as Resource;
             const sameResource = product.resources.getSameOf(targetResouce) as Resource;
 
             const behavior = colidedResourceName.behavior;
             if (behavior === BehaviorWhenNameColide.既存) {
-                const replacedDiagram = modifiedDiagram.diagram.replaceOf(targetResouce, sameResource);
-                const removedResources = modifiedDiagram.useResources()
-                    .filter(r => r.resourceId !== targetResouce.resourceId)
-                    .map(r => new ExportedResource(r));
-                modifiedDiagram = new ExportedDiagram(replacedDiagram, removedResources);
+                const replacedDiagram = modified.diagram.replaceOf(targetResouce, sameResource);
+                const removedResources = modified.useResources
+                    .filter(r => r.resourceId !== targetResouce.resourceId);
+                modified = new ImportDiagramCandidate(replacedDiagram, removedResources);
             }
             if (behavior === BehaviorWhenNameColide.置換) {
                 const replacedIdResource = targetResouce.renewId(sameResource.resourceId);
-                const replacedExportedResources = modifiedDiagram.useResources()
-                    .remove(targetResouce)
-                    .add(replacedIdResource)
-                    .map(r => new ExportedResource(r));
-                const replacedDiagram = modifiedDiagram.diagram
+                let replacedExportedResources = modified.useResources
+                    .filter(r => r.resourceId !== targetResouce.resourceId);
+                replacedExportedResources.push(replacedIdResource);
+                const replacedDiagram = modified.diagram
                     .replaceOf(targetResouce, replacedIdResource);
-                modifiedDiagram = new ExportedDiagram(replacedDiagram, replacedExportedResources);
+                modified = new ImportDiagramCandidate(replacedDiagram, replacedExportedResources);
             }
             if (behavior === BehaviorWhenNameColide.別名) {
                 const renamedResource = targetResouce
                     .withName(colidedResourceName.destinationName);
-                const replacedExportedResources = modifiedDiagram.useResources()
-                    .remove(targetResouce)
-                    .add(renamedResource)
-                    .map(r => new ExportedResource(r));
-                modifiedDiagram = new ExportedDiagram(modifiedDiagram.diagram, replacedExportedResources);
+                let replacedExportedResources = modified.useResources
+                    .filter(r => r.resourceId !== targetResouce.resourceId);
+                replacedExportedResources.push(renamedResource);
+                modified = new ImportDiagramCandidate(modified.diagram, replacedExportedResources);
             }
         }
 
@@ -163,21 +160,21 @@ export default class DiagramImportService {
             const colidedDiagramName = userArrange.diagramNamesOfColided as NameOfColided;
             if (colidedDiagramName.behavior === BehaviorWhenNameColide.既存) return null; // 入力からは入ってこない前提。「既存」というなら「Importしない」と同義。
             if (colidedDiagramName.behavior === BehaviorWhenNameColide.別名) {
-                const renamedDiagram = modifiedDiagram.diagram
+                const renamedDiagram = modified.diagram
                     .renameOf(colidedDiagramName.destinationName)
-                modifiedDiagram = new ExportedDiagram(renamedDiagram, modifiedDiagram.useResources().map(r => new ExportedResource(r)));
+                modified = new ImportDiagramCandidate(renamedDiagram, modified.useResources);
             }
         }
 
-        return modifiedDiagram;
+        return modified;
     }
 
-    private mergeOf(modifiedDiagram: ExportedDiagram, product: Product): Product {
+    private mergeOf(candidate: ImportDiagramCandidate, product: Product): Product {
         let modifiedProduct = product;
-        let fixedDiagram = modifiedDiagram.diagram;
+        let fixedDiagram = candidate.diagram;
         // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
 
-        const fixedResources = modifiedDiagram.useResources()
+        const fixedResources = candidate.useResources
             .map(r => {
                 if (r.resourceId > 0) return r;
                 const reIdResource = r.renewId(modifiedProduct.resourceIdSequence);

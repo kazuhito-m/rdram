@@ -3,6 +3,7 @@ import MaybeImportResource from "@/domain/resource/import/MaybeImportResource";
 import MaybeImportRelation from "@/domain/relation/import/MaybeImportRelation";
 import MaybeImportPlacement from "@/domain/diagram/placement/import/MaybeImportPlacement";
 import ExportedDiagram from "@/domain/diagram/export/ExportedDiagram";
+import ImportDiagramCandidate from "./ImportDiagramCandidate";
 
 export default class MaybeImportDiagram {
     public constructor(
@@ -75,23 +76,11 @@ export default class MaybeImportDiagram {
                 && useIds.includes(r.toResourceId));
     }
 
-    
-
-    /**
-     * 一度「自身のシステムに無いResourceId群」にするため、すべてのResorceIdを正負反転する。
-     */
-    public replaceUniqueResourceIds(): MaybeImportDiagram {
-        const diagram = this.diagram;
-        const placements = diagram.placements
-            .map(p => p.withResourceIdOf(-p.resourceId));
-        const relations = diagram.allRelations()
-            .map(r => r.withFrom(-r.fromResourceId).withTo(-r.toResourceId));
-        const newDiaglam = diagram
-            .replacePlacement(placements)
-            .replaceRelations(relations);
-        const newResources = this.resources
-            .map(r => r.inversionNegativeResourceId())
-        return new MaybeImportDiagram(newDiaglam, newResources);
+    public toCandidate(): ImportDiagramCandidate {
+        const useResources = this.resources
+            .map(maybeResource => maybeResource.value);
+        const candidate = new ImportDiagramCandidate(this.diagram, useResources);
+        return candidate.replaceUniqueResourceIds();
     }
 
     public static of(exportedDiagram: ExportedDiagram): MaybeImportDiagram | null {
