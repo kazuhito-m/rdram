@@ -7,7 +7,6 @@ import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExpo
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
-import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
 import MaybeImportDiagram from "@/domain/diagram/import/MaybeImportDiagram";
 import ImportDiagramCandidate from "@/domain/diagram/import/ImportDiagramCandidate";
 
@@ -97,23 +96,6 @@ export default class DiagramImportService {
         if (userArrange.isEmpty()) return null;
 
         return candidate.arrangeImportDiagram(userArrange, product);
-    }
-
-    private analyzeColideNameOf(candidate: ImportDiagramCandidate, product: Product): UserArrangeOfImportDiagramSetting {
-        const diagram = candidate.diagram;
-
-        const existsDiagram = product.diagrams
-            .existsSameOf(diagram);
-        const colidedName = existsDiagram
-            ? NameOfColided.prototypeDiagramOf(diagram)
-            : null;
-
-        const allResources = product.resources;
-        const sameResources = candidate.useResources
-            .filter(r => allResources.existsSameOf(r))
-            .map(r => NameOfColided.prototypeResourceOf(r));
-
-        return new UserArrangeOfImportDiagramSetting(diagram.name, colidedName, sameResources);
     }
 
     private mergeOf(candidate: ImportDiagramCandidate, product: Product): Product {
