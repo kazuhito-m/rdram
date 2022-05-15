@@ -8,7 +8,7 @@ import StorageDatasource from "@/infrastructure/storage/StorageDatasource";
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
-import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehavioWhenNameColide";
+import { BehaviorWhenNameColide } from "~/domain/diagram/import/userarrange/BehaviorWhenNameColide";
 import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import DiagramType from "@/domain/diagram/DiagramType";
 import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";

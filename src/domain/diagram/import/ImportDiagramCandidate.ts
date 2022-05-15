@@ -3,7 +3,7 @@ import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
 import Resource from "@/domain/resource/Resource";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
-import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehavioWhenNameColide";
+import { BehaviorWhenNameColide } from "~/domain/diagram/import/userarrange/BehaviorWhenNameColide";
 
 export default class ImportDiagramCandidate {
     constructor(
