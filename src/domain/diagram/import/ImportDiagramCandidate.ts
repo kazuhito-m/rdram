@@ -33,7 +33,6 @@ export default class ImportDiagramCandidate {
     public mergeOf(product: Product): Product {
         let modifiedProduct = product;
         let fixedDiagram = this.diagram;
-        // TODO めちゃくちゃ煩雑なので「Resoucesへマージする」ロジックは整理する。
 
         const fixedResources = this.useResources
             .map(r => {
