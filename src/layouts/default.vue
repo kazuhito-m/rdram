@@ -177,6 +177,7 @@ import FileSystemRepository from '@/domain/filesystem/FileSystemRepository'
 import FileSystemDatasouce from '@/infrastructure/filesystem/FileSystemDatasource'
 import TangoRdraFileService from '@/application/service/tangordra/TangoRdraFileService'
 import DiagramExportService from '~/application/service/diagram/export/DiagramExportService';
+import DiagramImportService from '~/application/service/diagram/import/DiagramImportService';
 
 @Component({
   components: {
@@ -241,6 +242,9 @@ export default class extends Vue {
 
   @Provide()
   private readonly diagramExportService : DiagramExportService = new DiagramExportService(this.repository, this.clientDownloadRepository);
+
+  @Provide()
+  private readonly diagramImportService : DiagramImportService = new DiagramImportService(this.repository, this.fileSystemRepository);
 
   @Provide()
   private readonly tangoRdraFileService: TangoRdraFileService = new TangoRdraFileService(this.repository);
