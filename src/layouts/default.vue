@@ -67,6 +67,13 @@
           <v-list-item-title>プロダクトのインポート...</v-list-item-title>
         </v-list-item>
 
+        <v-list-item link @click="onClickImportDiagram">
+          <v-list-item-icon>
+            <v-icon>mdi-file-import</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>図のインポート...</v-list-item-title>
+        </v-list-item>
+
         <v-list-item link @click="onClickImportLocalStorage">
           <v-list-item-icon>
             <v-icon>mdi-file-replace</v-icon>
@@ -247,6 +254,8 @@ export default class extends Vue {
 
   private visibleProductImportDialog = false;
 
+  private visibleDiagramImportDialog = false;
+
   private visibleLocalStorageImportDialog = false;
 
   private visibleLocalStorageDestroyDialog = false;
@@ -311,6 +320,15 @@ export default class extends Vue {
 
   private onCloseProductImportDialog(): void {
     this.visibleProductImportDialog = false;
+  }
+
+  private onClickImportDiagram(): void {
+    this.visibleDiagramImportDialog = true;
+    this.rightDrawer = false;
+  }
+
+  private onCloseDiagramImportDialog(): void {
+    this.visibleDiagramImportDialog = false;
   }
 
   private onClickImportLocalStorage(): void {
