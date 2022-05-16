@@ -124,6 +124,7 @@ export default class DiagramImportDialog extends Vue {
     this.opend = true;
   }
 
+  // FIXME バグ。Vue的には働いていない。Vuetify+非同期でRulesが反応する手段を考える。
   private async preValidate(file: File): Promise<string | boolean> {
     const service = this.diagramImportService as DiagramImportService;
     this.clearProgressArea();
