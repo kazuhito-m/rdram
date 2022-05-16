@@ -34,8 +34,7 @@ export default class ImportDiagramArranger {
                 diagram = diagram.replaceOf(targetResouce, replacedIdResource);
             }
             if (behavior === BehaviorWhenNameConflict.別名) {
-                const renamedResource = targetResouce
-                    .withName(colidedResourceName.destinationName);
+                const renamedResource = targetResouce.withName(colidedResourceName.destinationName);
                 resources = resources.mergeByIdOf(renamedResource);
             }
         }
