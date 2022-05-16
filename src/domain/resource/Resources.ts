@@ -74,7 +74,14 @@ export default class Resources {
 
     public mergeByIdOf(resource: Resource): Resources {
         const newValues = this.values
-            .map(p => p.resourceId === resource.resourceId ? resource : p);
+            .map(r => r.resourceId === resource.resourceId ? resource : r);
+        if (newValues.every(p => p !== resource)) newValues.push(resource);
+        return new Resources(newValues);
+    }
+
+    public mergeBySameOf(resource: Resource): Resources {
+        const newValues = this.values
+            .map(r => r.sameOf(resource) ? resource : r);
         if (newValues.every(p => p !== resource)) newValues.push(resource);
         return new Resources(newValues);
     }

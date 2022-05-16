@@ -9,8 +9,7 @@ import TableTypeCondition from "@/domain/resource/TableTypeCondition";
 import Variation from "@/domain/resource/Variation";
 import HasContentResource from "@/domain/resource/HasContentResource";
 
-// TODO ImportResourceに機能を移管したので、おそらく要らなくなる
-export default class ExportedResource {
+export default class MaybeImportResource {
     public constructor(
         public readonly value: Resource
     ) { }
@@ -72,11 +71,6 @@ export default class ExportedResource {
         for (const value of v.valuesOf())
             if (value.length <= 0) return false;
         return true;
-    }
-
-    public inversionNegativeResourceId(): ExportedResource {
-        const r = this.value;
-        return new ExportedResource(r.renewId(-r.resourceId));
     }
 
     public resourceId(): number {

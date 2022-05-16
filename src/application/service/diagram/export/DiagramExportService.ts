@@ -3,7 +3,6 @@ import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
 import RdramExportFile from "@/domain/client/export/RdramExportFile";
 import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
 import ExportedDiagram from "@/domain/diagram/export/ExportedDiagram";
-import ExportedResource from "@/domain/resource/export/ExportedResource";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 
@@ -41,8 +40,7 @@ export default class DiagramExportService {
         const useResourceIds = diagram.placements
             .map(placement => placement.resourceId);
         const useResources = product.resources
-            .filter(resource => useResourceIds.includes(resource.resourceId))
-            .map(resource => new ExportedResource(resource));
+            .filter(resource => useResourceIds.includes(resource.resourceId));
         return new ExportedDiagram(diagram, useResources);
     }
 }

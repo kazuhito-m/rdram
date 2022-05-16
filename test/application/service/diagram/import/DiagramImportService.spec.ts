@@ -2,16 +2,16 @@ import * as fs from "fs";
 import path from "path";
 import DiagramImportService from "@/application/service/diagram/import/DiagramImportService";
 import FileSystemDatasouce from "@/infrastructure/filesystem/FileSystemDatasource";
-import DiagramImportProgressEvent from "@/domain/diagram/import/DiagramImportProgressEvent";
-import { DiagramImportProgressStep } from "@/domain/diagram/import/DiagramImportProgressStep";
+import DiagramImportProgressEvent from "@/domain/diagram/import/progress/DiagramImportProgressEvent";
+import { DiagramImportProgressStep } from "@/domain/diagram/import/progress/DiagramImportProgressStep";
 import StorageDatasource from "@/infrastructure/storage/StorageDatasource";
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
-import { BehaviorWhenNameColide } from "@/domain/diagram/import/userarrange/BehavioWhenNameColide";
-import UserArrangeOfImportDiagramSetting from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagramSetting";
+import { BehaviorWhenNameConflict } from "@/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
+import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import DiagramType from "@/domain/diagram/DiagramType";
-import NameOfColided from "@/domain/diagram/import/userarrange/NameOfColided";
+import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
 
 describe('DiagramImportService', () => {
   test('既存の図もリソースも無い状態で、リソース2つを配置した図のファイルのインポートが成功する。', async () => {
@@ -61,7 +61,7 @@ describe('DiagramImportService', () => {
       const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
 
       // 実行
-      let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
+      let passedArrange: UserArrangeOfImportDiagram | null = null;
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
@@ -107,15 +107,15 @@ describe('DiagramImportService', () => {
       expect(passedArrange).not.toBeNull();
 
       expect(passedArrange!.isColidedDiagramName()).toEqual(true);
-      expect(passedArrange!.diagramNamesOfColided?.behavior)
-        .toEqual(BehaviorWhenNameColide.置換);
-      expect(passedArrange!.diagramNamesOfColided?.sourceName)
+      expect(passedArrange!.conflictDiagramName?.behavior)
+        .toEqual(BehaviorWhenNameConflict.置換);
+      expect(passedArrange!.conflictDiagramName?.sourceName)
         .toEqual("FOR_TEST");
 
-      expect(passedArrange!.resourceNamesOfColided).toHaveLength(1);
-      const colidedResouceName = passedArrange!.resourceNamesOfColided[0];
+      expect(passedArrange!.conflictResourceNames).toHaveLength(1);
+      const colidedResouceName = passedArrange!.conflictResourceNames[0];
       expect(colidedResouceName.behavior)
-        .toEqual(BehaviorWhenNameColide.既存);
+        .toEqual(BehaviorWhenNameConflict.既存);
       expect(colidedResouceName.sourceName).toEqual("SampleSystem");
     });
 
@@ -137,8 +137,8 @@ describe('DiagramImportService', () => {
         arrange => {
           passedCallback = true;
           // ユーザは、「リソースはインポートデータで置換」と答える、というオペレーション
-          const arrangedColidedNames = arrange.resourceNamesOfColided
-            .map(name => name.with(BehaviorWhenNameColide.置換));
+          const arrangedColidedNames = arrange.conflictResourceNames
+            .map(name => name.with(BehaviorWhenNameConflict.置換));
           return arrange.withResourceNames(arrangedColidedNames);
         }
       );
@@ -184,15 +184,15 @@ describe('DiagramImportService', () => {
       const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
 
       // 実行
-      let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
+      let passedArrange: UserArrangeOfImportDiagram | null = null;
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
         arrange => {
           passedArrange = arrange;
           // ユーザは、「リソースは別名に変更してインポート」と答える、というオペレーション
-          const arrangedColidedNames = arrange.resourceNamesOfColided
-            .map(name => name.with(BehaviorWhenNameColide.別名, "SampleSystemが重複したので変更した名前"));
+          const arrangedColidedNames = arrange.conflictResourceNames
+            .map(name => name.with(BehaviorWhenNameConflict.別名, "SampleSystemが重複したので変更した名前"));
           return arrange.withResourceNames(arrangedColidedNames);
         }
       );
@@ -234,8 +234,8 @@ describe('DiagramImportService', () => {
       expect(addedR3?.description).toEqual("インポートされた側のリソース:SampleSystem");
 
       expect(passedArrange).not.toBeNull();
-      expect(passedArrange!.resourceNamesOfColided).toHaveLength(1);
-      expect(passedArrange!.resourceNamesOfColided[0].sourceName).toEqual("SampleSystem");
+      expect(passedArrange!.conflictResourceNames).toHaveLength(1);
+      expect(passedArrange!.conflictResourceNames[0].sourceName).toEqual("SampleSystem");
     });
 
     test('ユーザが図へ「別名」指定し、成功する。', async () => {
@@ -249,7 +249,7 @@ describe('DiagramImportService', () => {
       const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
 
       // 実行
-      let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
+      let passedArrange: UserArrangeOfImportDiagram | null = null;
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
@@ -257,8 +257,8 @@ describe('DiagramImportService', () => {
           passedArrange = arrange;
           // ユーザは、「図は別名に変更してインポート」と答える、というオペレーション
           const arrangedColidedName = arrange
-            .diagramNamesOfColided?.with(BehaviorWhenNameColide.別名, "FOR_TESTという図名が重複したので置換した名前")
-          return arrange.withDiagramName(arrangedColidedName as NameOfColided);
+            .conflictDiagramName?.with(BehaviorWhenNameConflict.別名, "FOR_TESTという図名が重複したので置換した名前")
+          return arrange.withDiagramName(arrangedColidedName as ConflictNameBehavior);
         }
       );
 
@@ -277,8 +277,8 @@ describe('DiagramImportService', () => {
       expect(diagramExists).toEqual(true);
 
       expect(passedArrange).not.toBeNull();
-      expect(passedArrange!.diagramNamesOfColided).not.toBeNull();
-      expect(passedArrange!.diagramNamesOfColided!.sourceName).toEqual("FOR_TEST");
+      expect(passedArrange!.conflictDiagramName).not.toBeNull();
+      expect(passedArrange!.conflictDiagramName!.sourceName).toEqual("FOR_TEST");
     });
 
     test('ユーザにキャンセルされた場合。', async () => {
@@ -292,14 +292,14 @@ describe('DiagramImportService', () => {
       const file = loadTestFileOf("rdram-diagram-FOR_TEST-0.json");
 
       // 実行
-      let passedArrange: UserArrangeOfImportDiagramSetting | null = null;
+      let passedArrange: UserArrangeOfImportDiagram | null = null;
       const progressSteps: DiagramImportProgressStep[] = [];
       const actual = await sut.importOf(file,
         event => { progressSteps.push(event.step); },
         arrange => {
           passedArrange = arrange;
           // ユーザは、「インポートをキャンセル」と答える、というオペレーション
-          return UserArrangeOfImportDiagramSetting.empty();
+          return UserArrangeOfImportDiagram.empty();
         }
       );
 

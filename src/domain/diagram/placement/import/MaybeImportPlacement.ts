@@ -1,6 +1,6 @@
 import Placement from "@/domain/diagram/placement/Placement";
 
-export default class ImportedPlacement {
+export default class MaybeImportPlacement {
     constructor(private value: Placement) { }
 
     public validate(): boolean {
