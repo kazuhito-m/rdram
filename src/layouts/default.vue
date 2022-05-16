@@ -133,6 +133,11 @@
       @onClose="onCloseProductImportDialog"
     />
 
+    <DiagramImportDialog
+      :visible="visibleDiagramImportDialog"
+      @onClose="onCloseDiagramImportDialog"
+    />
+
     <LocalStorageInitializeDialog
       :visible="visibleApplicationInitializationDialog"
       @onClose="onCloseApplicationInitializationDialog"
@@ -165,6 +170,7 @@ import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import ClientDownloadTransfar from '@/infrastructure/client/ClientDownloadTransfar'
 import ProductSelectorDialog from '@/components/product/ProductSelectorDialog.vue'
 import ProductImportDialog from  '@/components/product/import/ProductImportDialog.vue'
+import DiagramImportDialog from '@/components/diagrams/import/DiagramImportDialog.vue'
 import LocalStorageImportDialog from  '@/components/localstorage/import/LocalStorageImportDialog.vue'
 import LocalStorageInitializeDialog from '@/components/localstorage/LocalStorageInitializeDialog.vue'
 import LocalStorageDestroyDialog from '@/components/localstorage/LocalStorageDestroyDialog.vue'
@@ -184,6 +190,7 @@ import DiagramImportService from '~/application/service/diagram/import/DiagramIm
     TweetButton,
     ProductSelectorDialog,
     ProductImportDialog,
+    DiagramImportDialog,
     LocalStorageInitializeDialog,
     LocalStorageImportDialog,
     LocalStorageDestroyDialog,
