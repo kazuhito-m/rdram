@@ -6,6 +6,10 @@ import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
 import Product from "@/domain/product/Product";
 
+/**
+ * 名前が重複した場合「ユーザーの指定」を受けて、
+ * インポートの中間状態(候補)をアレンジする責務を持つクラス。
+ */
 export default class ImportDiagramArranger {
     public arrangeOf(
         userArrange: UserArrangeOfImportDiagram,

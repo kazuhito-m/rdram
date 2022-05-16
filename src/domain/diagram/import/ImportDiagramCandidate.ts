@@ -2,6 +2,11 @@ import Resource from "@/domain/resource/Resource";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 
+/**
+ * 図のインポート候補。
+ * <p>
+ * インポート中の「中間状態」として、何度か書き換えられる。
+ */
 export default class ImportDiagramCandidate {
     constructor(
         public readonly diagram: Diagram,
