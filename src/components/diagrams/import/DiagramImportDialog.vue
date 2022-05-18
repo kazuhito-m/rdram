@@ -84,6 +84,7 @@ import DiagramImportService from "@/application/service/diagram/import/DiagramIm
 import { DiagramImportError } from "@/domain/diagram/import/progress/DiagramImportError";
 import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
 import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
+import Diagram from "~/domain/diagram/Diagram";
 
 @Component
 export default class DiagramImportDialog extends Vue {
@@ -105,6 +106,9 @@ export default class DiagramImportDialog extends Vue {
   private progressLogs: string = " ";
 
   private  readonly fileTypeDescription = RdramDiagramExportFileName.TYPE_DESCRIPTION;
+
+  @Emit("onImported")
+  private onImported(diagram: Diagram): void {}
 
   @Watch('progressLogs')
   private onChangeProgressLogs() {
@@ -179,8 +183,7 @@ export default class DiagramImportDialog extends Vue {
     );
 
     if (!imported) return;
-    // TODO 外側へのリフレクション。開いてたらViewを書き換え、開いてなくてもツリーへ追加。
-    console.log("インポートされた図:", imported.name);
+    this.onImported(imported);
   }
 
   private confirmeUserArrange(arrange: UserArrangeOfImportDiagram): UserArrangeOfImportDiagram {
