@@ -184,6 +184,7 @@ import FileSystemDatasouce from '@/infrastructure/filesystem/FileSystemDatasourc
 import TangoRdraFileService from '@/application/service/tangordra/TangoRdraFileService'
 import DiagramExportService from '~/application/service/diagram/export/DiagramExportService';
 import DiagramImportService from '~/application/service/diagram/import/DiagramImportService';
+import Diagram from '@/domain/diagram/Diagram';
 
 @Component({
   components: {

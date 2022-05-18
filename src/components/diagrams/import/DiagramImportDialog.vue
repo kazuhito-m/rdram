@@ -107,9 +107,6 @@ export default class DiagramImportDialog extends Vue {
 
   private  readonly fileTypeDescription = RdramDiagramExportFileName.TYPE_DESCRIPTION;
 
-  @Emit("onImported")
-  private onImported(diagram: Diagram): void {}
-
   @Watch('progressLogs')
   private onChangeProgressLogs() {
     const ta =  this.progressLogsTextarea;
@@ -183,7 +180,6 @@ export default class DiagramImportDialog extends Vue {
     );
 
     if (!imported) return;
-    this.onImported(imported);
   }
 
   private confirmeUserArrange(arrange: UserArrangeOfImportDiagram): UserArrangeOfImportDiagram {
