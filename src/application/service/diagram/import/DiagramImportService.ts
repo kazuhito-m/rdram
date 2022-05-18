@@ -80,10 +80,11 @@ export default class DiagramImportService {
         notifyProgress(this.raise(DiagramImportProgressStep.保存));
 
         this.storageRepository.registerCurrentProduct(updatedProduct);
+        const importedDiagram =  updatedProduct.diagrams.sameOf(arrangedImport.diagram) as Diagram;
 
-        notifyProgress(this.raise(DiagramImportProgressStep.完了, `Diagram name: "${arrangedImport.diagram.name}"`));
+        notifyProgress(this.raise(DiagramImportProgressStep.完了, `Diagram name: "${importedDiagram.name}"`));
 
-        return arrangedImport.diagram;
+        return importedDiagram;
     }
 
     private reflectUserArrangeOf(

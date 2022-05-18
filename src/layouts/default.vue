@@ -67,6 +67,13 @@
           <v-list-item-title>プロダクトのインポート...</v-list-item-title>
         </v-list-item>
 
+        <v-list-item link @click="onClickImportDiagram">
+          <v-list-item-icon>
+            <v-icon>mdi-file-import</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>図のインポート...</v-list-item-title>
+        </v-list-item>
+
         <v-list-item link @click="onClickImportLocalStorage">
           <v-list-item-icon>
             <v-icon>mdi-file-replace</v-icon>
@@ -126,6 +133,11 @@
       @onClose="onCloseProductImportDialog"
     />
 
+    <DiagramImportDialog
+      :visible="visibleDiagramImportDialog"
+      @onClose="onCloseDiagramImportDialog"
+    />
+
     <LocalStorageInitializeDialog
       :visible="visibleApplicationInitializationDialog"
       @onClose="onCloseApplicationInitializationDialog"
@@ -158,6 +170,7 @@ import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import ClientDownloadTransfar from '@/infrastructure/client/ClientDownloadTransfar'
 import ProductSelectorDialog from '@/components/product/ProductSelectorDialog.vue'
 import ProductImportDialog from  '@/components/product/import/ProductImportDialog.vue'
+import DiagramImportDialog from '@/components/diagrams/import/DiagramImportDialog.vue'
 import LocalStorageImportDialog from  '@/components/localstorage/import/LocalStorageImportDialog.vue'
 import LocalStorageInitializeDialog from '@/components/localstorage/LocalStorageInitializeDialog.vue'
 import LocalStorageDestroyDialog from '@/components/localstorage/LocalStorageDestroyDialog.vue'
@@ -170,12 +183,14 @@ import FileSystemRepository from '@/domain/filesystem/FileSystemRepository'
 import FileSystemDatasouce from '@/infrastructure/filesystem/FileSystemDatasource'
 import TangoRdraFileService from '@/application/service/tangordra/TangoRdraFileService'
 import DiagramExportService from '~/application/service/diagram/export/DiagramExportService';
+import DiagramImportService from '~/application/service/diagram/import/DiagramImportService';
 
 @Component({
   components: {
     TweetButton,
     ProductSelectorDialog,
     ProductImportDialog,
+    DiagramImportDialog,
     LocalStorageInitializeDialog,
     LocalStorageImportDialog,
     LocalStorageDestroyDialog,
@@ -236,6 +251,9 @@ export default class extends Vue {
   private readonly diagramExportService : DiagramExportService = new DiagramExportService(this.repository, this.clientDownloadRepository);
 
   @Provide()
+  private readonly diagramImportService : DiagramImportService = new DiagramImportService(this.repository, this.fileSystemRepository);
+
+  @Provide()
   private readonly tangoRdraFileService: TangoRdraFileService = new TangoRdraFileService(this.repository);
 
   // this classs property & functions.
@@ -246,6 +264,8 @@ export default class extends Vue {
   private productSelectorCancelable = false;
 
   private visibleProductImportDialog = false;
+
+  private visibleDiagramImportDialog = false;
 
   private visibleLocalStorageImportDialog = false;
 
@@ -311,6 +331,15 @@ export default class extends Vue {
 
   private onCloseProductImportDialog(): void {
     this.visibleProductImportDialog = false;
+  }
+
+  private onClickImportDiagram(): void {
+    this.visibleDiagramImportDialog = true;
+    this.rightDrawer = false;
+  }
+
+  private onCloseDiagramImportDialog(): void {
+    this.visibleDiagramImportDialog = false;
   }
 
   private onClickImportLocalStorage(): void {
