@@ -34,7 +34,7 @@ describe('DiagramImportService', () => {
     expect(lastEvent!.percentage()).toEqual(100);
 
     expect(actual).not.toBeNull();
-    expect(actual!.id).toEqual(2);
+    expect(actual!.id).toEqual(1);
     expect(actual!.name).toEqual("FOR_TEST");
     expect(actual!.placements.length).toEqual(2);
     expect(actual!.allRelations().length).toEqual(1);
@@ -78,7 +78,7 @@ describe('DiagramImportService', () => {
       expect(lastEvent!.percentage()).toEqual(100);
 
       expect(actual).not.toBeNull();
-      expect(actual!.id).toEqual(2);
+      expect(actual!.id).toEqual(1);
       expect(actual!.name).toEqual("FOR_TEST");
       expect(actual!.placements.length).toEqual(2);
       expect(actual!.allRelations().length).toEqual(1);
