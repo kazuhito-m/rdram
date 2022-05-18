@@ -84,7 +84,6 @@ import DiagramImportService from "@/application/service/diagram/import/DiagramIm
 import { DiagramImportError } from "@/domain/diagram/import/progress/DiagramImportError";
 import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
 import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
-import Diagram from "~/domain/diagram/Diagram";
 
 @Component
 export default class DiagramImportDialog extends Vue {
@@ -104,6 +103,8 @@ export default class DiagramImportDialog extends Vue {
   private progressEnable: boolean = false;
   private progressPercentage: number = 0;
   private progressLogs: string = " ";
+
+  private imported: boolean = false;
 
   private  readonly fileTypeDescription = RdramDiagramExportFileName.TYPE_DESCRIPTION;
 
@@ -148,6 +149,7 @@ export default class DiagramImportDialog extends Vue {
   private clearAllState() {
     this.selectedFile = null;
     this.preValidateError = false;
+    this.imported = false;
     this.clearProgressArea();
   }
 
@@ -169,17 +171,19 @@ export default class DiagramImportDialog extends Vue {
   @Emit("onClose")
   public onClose(): void {
     this.opend = false;
-  }
+    if (!this.imported) return;
+     alert("現在開いているプロダクトがインポートにより書き換えられました。\nプロダクトを開きなおします。");
+    location.reload();
+   }
 
   private async doImport(): Promise<void> {
     const service = this.diagramImportService as DiagramImportService;
-    const imported = await service.importOf(
+    const importedDiagram = await service.importOf(
       this.selectedFile as File,
       this.notifyProgress,
       this.confirmeUserArrange
     );
-
-    if (!imported) return;
+    if (importedDiagram) this.imported = true;
   }
 
   private confirmeUserArrange(arrange: UserArrangeOfImportDiagram): UserArrangeOfImportDiagram {
