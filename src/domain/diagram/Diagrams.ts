@@ -53,7 +53,7 @@ export default class Diagrams {
             .find(diagram => diagram.id === diagramId);
     }
 
-    private sameOf(diagram: Diagram): Diagram | undefined {
+    public sameOf(diagram: Diagram): Diagram | undefined {
         return this.values
             .find(d => d.sameOf(diagram));
     }
