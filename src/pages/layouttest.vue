@@ -78,6 +78,8 @@ import TopLeftLocator from "@/draw2d/custom/TopLeftLocator";
 
 import TestConfirmVue from "@/components/diagrams/import/TestConfirm.vue";
 
+import Confirm from "@/components/debug/Confirm.vue";
+
 @Component
 export default class extends Vue {
   private canvas!: draw2d.Canvas;
@@ -797,15 +799,33 @@ export default class extends Vue {
 
   private async onClickModalDialogTest(): Promise<void> {
     console.log("onClickModalDialogTest までは来ている。");
-    const resutl = await this.confirmTest("これがデレばOK");
-    console.log("ダイアログを表示して終わったとこまで。", resutl);
-    alert(resutl);
+    // const resutl = await this.confirmTest("これがデレばOK");
+    const result = await this.confirm2("これが表示されれば御の字");
+    console.log("ダイアログを表示して終わったとこまで。", result);
+    alert(result);
   }
 
   private async confirmTest(message: string): Promise<boolean> {
     const dialog = new TestConfirmVue();
     return dialog.confirm(message); 
   }
+
+  private async confirm2(message: string) {
+    return new Promise((resolve) => {
+      const VM = Vue.extend(Confirm);
+      new VM({
+        parent: this,
+        propsData: {
+          message,
+          okAction: () => resolve(true),
+          cancelAction: () => resolve(false),
+        },
+      });
+    }).catch((err) => {
+      throw err;
+    });
+  }
+  
 }
 </script>
 
