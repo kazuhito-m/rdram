@@ -54,6 +54,13 @@
       </v-card-actions>
 
       <v-card-actions>
+        <v-btn
+          text
+          @click="onClickTestTest"
+          color="normal"
+        >
+          テストテストー
+        </v-btn>
         <v-spacer></v-spacer>
         <v-btn
           text
@@ -84,6 +91,8 @@ import DiagramImportService from "@/application/service/diagram/import/DiagramIm
 import { DiagramImportError } from "@/domain/diagram/import/progress/DiagramImportError";
 import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
 import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
+import TestConfirmVue from "./TestConfirm.vue";
+
 
 @Component
 export default class DiagramImportDialog extends Vue {
@@ -206,6 +215,16 @@ export default class DiagramImportDialog extends Vue {
 
     this.progressLogs+=message;
     this.$nextTick(() => console.log(`UIが変更されたはず。message:${message}`));
+  }
+
+  private async onClickTestTest(): Promise<void> {
+    const resutl = await this.confirmTest("これがデレばOK");
+    alert(resutl);
+  }
+
+  private async confirmTest(message: string): Promise<boolean> {
+    const dialog = new TestConfirmVue();
+    return dialog.confirm(message); 
   }
 }
 </script>
