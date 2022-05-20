@@ -21,7 +21,7 @@ export default class DiagramImportService {
     public async importOf(
         file: File,
         notifyProgress: (event: DiagramImportProgressEvent) => void,
-        confirmeUserArrange: (settings: UserArrangeOfImportDiagram) => Promise<UserArrangeOfImportDiagram>,
+        confirmeUserArrange: (settings: UserArrangeOfImportDiagram) => UserArrangeOfImportDiagram,
     ): Promise<Diagram | null> {
         notifyProgress(this.raise(DiagramImportProgressStep.開始, "", file));
         try {
@@ -41,7 +41,7 @@ export default class DiagramImportService {
     private async doImport(
         file: File,
         notifyProgress: (event: DiagramImportProgressEvent) => void,
-        confirmeUserArrange: (settings: UserArrangeOfImportDiagram) => Promise<UserArrangeOfImportDiagram>
+        confirmeUserArrange: (settings: UserArrangeOfImportDiagram) => UserArrangeOfImportDiagram
     ): Promise<Diagram | null> {
         notifyProgress(this.raise(DiagramImportProgressStep.ファイル読み込み));
 
@@ -67,7 +67,7 @@ export default class DiagramImportService {
         const product = this.storageRepository.getCurrentProduct() as Product;
         const importCandidate = maybeImport.toCandidate();
 
-        const arrangedImport = await this.reflectUserArrangeOf(importCandidate, confirmeUserArrange, product);
+        const arrangedImport = this.reflectUserArrangeOf(importCandidate, confirmeUserArrange, product);
         if (!arrangedImport) {
             notifyProgress(this.raise(DiagramImportProgressStep.キャンセル));
             return null;
@@ -87,16 +87,16 @@ export default class DiagramImportService {
         return importedDiagram;
     }
 
-    private async reflectUserArrangeOf(
+    private reflectUserArrangeOf(
         candidate: ImportDiagramCandidate,
-        confirmeUserArrange: (settings: UserArrangeOfImportDiagram) => Promise<UserArrangeOfImportDiagram>,
+        confirmeUserArrange: (settings: UserArrangeOfImportDiagram) => UserArrangeOfImportDiagram,
         product: Product
-    ): Promise<ImportDiagramCandidate | null> {
+    ): ImportDiagramCandidate | null {
         const analyzer = new NameConflictAnalyzer();
         const confrictNames = analyzer.analyzeOf(candidate, product);
         if (confrictNames.isEmpty()) return candidate;
 
-        const userArrange =  await confirmeUserArrange(confrictNames);
+        const userArrange = confirmeUserArrange(confrictNames);
         if (userArrange.isEmpty()) return null;
 
         const arranger = new ImportDiagramArranger();
