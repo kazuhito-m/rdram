@@ -77,8 +77,6 @@ import draw2d, { Figure } from "draw2d";
 
 import TopLeftLocator from "@/draw2d/custom/TopLeftLocator";
 
-import TestConfirmVue from "@/components/diagrams/import/TestConfirm.vue";
-
 import Confirm from "@/components/debug/Confirm.vue";
 
 @Component({
