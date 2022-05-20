@@ -804,7 +804,7 @@ export default class extends Vue {
     console.log("onClickModalDialogTest までは来ている。");
 
     const confirm = this.$refs.confirm as Confirm;
-    const result = await confirm.open("ここにタイトル", "ここメッセおじね？", { color: 'red'});
+    const result = await confirm.open("モーダルダイアログを表示するテスト", "どうですか？", { color: 'green', width: 400});
 
     console.log("ダイアログを表示して終わったとこまで。", result);
     alert(result);
