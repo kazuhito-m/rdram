@@ -84,8 +84,13 @@ import DiagramImportService from "@/application/service/diagram/import/DiagramIm
 import { DiagramImportError } from "@/domain/diagram/import/progress/DiagramImportError";
 import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
 import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
+import TestConfirm from "./TestConfirm.vue";
 
-@Component
+@Component({
+  components: {
+    TestConfirm
+  }
+})
 export default class DiagramImportDialog extends Vue {
   @Inject()
   private readonly diagramImportService?: DiagramImportService;
@@ -172,7 +177,7 @@ export default class DiagramImportDialog extends Vue {
   public onClose(): void {
     this.opend = false;
     if (!this.imported) return;
-     alert("現在開いているプロダクトがインポートにより書き換えられました。\nプロダクトを開きなおします。");
+    alert("現在開いているプロダクトがインポートにより書き換えられました。\nプロダクトを開きなおします。");
     location.reload();
    }
 
@@ -186,8 +191,13 @@ export default class DiagramImportDialog extends Vue {
     if (importedDiagram) this.imported = true;
   }
 
-  private confirmeUserArrange(arrange: UserArrangeOfImportDiagram): UserArrangeOfImportDiagram {
+  private async confirmeUserArrange(arrange: UserArrangeOfImportDiagram): Promise<UserArrangeOfImportDiagram> {
     if (arrange.isEmpty()) console.log("別に重複は無かった。");
+
+    const result = await this.confirm("これが表示されたら大成功！");
+    // const result = window.confirm("test");
+    alert(result);
+
     // TODO ユーザーによる「重複時の振る舞い」を確認するダイアログを出す。
     return arrange;
   }
@@ -206,6 +216,11 @@ export default class DiagramImportDialog extends Vue {
 
     this.progressLogs+=message;
     this.$nextTick(() => console.log(`UIが変更されたはず。message:${message}`));
+  }
+
+  private async  confirm(text: string): Promise<boolean> {
+    const dialog = new TestConfirm(); 
+    return await dialog.confirm(text);
   }
 }
 </script>
