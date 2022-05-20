@@ -35,6 +35,8 @@
 
     <v-btn color="normal" dark @click="onClickVersion">version</v-btn>
 
+    <v-btn color="normal" dark @click="onClickModalDialogTest">Modal Dialog Test</v-btn>
+
     <v-card-text>
       <v-row>
         <v-col>
@@ -70,10 +72,11 @@ import "jquery";
 import "jquery-ui";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
-import draw2d, { Figure, command, Canvas } from "draw2d";
-import { createWrapper } from "@vue/test-utils";
+import draw2d, { Figure } from "draw2d";
 
 import TopLeftLocator from "@/draw2d/custom/TopLeftLocator";
+
+import TestConfirmVue from "@/components/diagrams/import/TestConfirm.vue";
 
 @Component
 export default class extends Vue {
@@ -790,6 +793,18 @@ export default class extends Vue {
   private onClickVersion() {
     const head = this.$store?.app?.head as any;
     alert(head.selfVersion);
+  }
+
+  private async onClickModalDialogTest(): Promise<void> {
+    console.log("onClickModalDialogTest までは来ている。");
+    const resutl = await this.confirmTest("これがデレばOK");
+    console.log("ダイアログを表示して終わったとこまで。", resutl);
+    alert(resutl);
+  }
+
+  private async confirmTest(message: string): Promise<boolean> {
+    const dialog = new TestConfirmVue();
+    return dialog.confirm(message); 
   }
 }
 </script>
