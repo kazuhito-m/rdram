@@ -186,7 +186,7 @@ export default class DiagramImportDialog extends Vue {
     if (importedDiagram) this.imported = true;
   }
 
-  private confirmeUserArrange(arrange: UserArrangeOfImportDiagram): UserArrangeOfImportDiagram {
+  private async confirmeUserArrange(arrange: UserArrangeOfImportDiagram): Promise<UserArrangeOfImportDiagram> {
     if (arrange.isEmpty()) console.log("別に重複は無かった。");
     // TODO ユーザーによる「重複時の振る舞い」を確認するダイアログを出す。
     return arrange;

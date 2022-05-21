@@ -25,7 +25,7 @@ describe('DiagramImportService', () => {
     let lastEvent: DiagramImportProgressEvent;
     const actual = await sut.importOf(file,
       event => { lastEvent = event; },
-      (arrange) => arrange
+      async (arrange) => arrange
     );
 
     // 確認
@@ -65,7 +65,7 @@ describe('DiagramImportService', () => {
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
-        arrange => {
+        async arrange => {
           passedArrange = arrange;
           // ユーザは、変更せずデフォルトで答える、というオペレーション
           return arrange;
@@ -134,7 +134,7 @@ describe('DiagramImportService', () => {
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
-        arrange => {
+        async arrange => {
           passedCallback = true;
           // ユーザは、「リソースはインポートデータで置換」と答える、というオペレーション
           const arrangedColidedNames = arrange.conflictResourceNames
@@ -188,7 +188,7 @@ describe('DiagramImportService', () => {
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
-        arrange => {
+        async arrange => {
           passedArrange = arrange;
           // ユーザは、「リソースは別名に変更してインポート」と答える、というオペレーション
           const arrangedColidedNames = arrange.conflictResourceNames
@@ -253,7 +253,7 @@ describe('DiagramImportService', () => {
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
-        arrange => {
+        async arrange => {
           passedArrange = arrange;
           // ユーザは、「図は別名に変更してインポート」と答える、というオペレーション
           const arrangedColidedName = arrange
@@ -296,7 +296,7 @@ describe('DiagramImportService', () => {
       const progressSteps: DiagramImportProgressStep[] = [];
       const actual = await sut.importOf(file,
         event => { progressSteps.push(event.step); },
-        arrange => {
+        async arrange => {
           passedArrange = arrange;
           // ユーザは、「インポートをキャンセル」と答える、というオペレーション
           return UserArrangeOfImportDiagram.empty();
