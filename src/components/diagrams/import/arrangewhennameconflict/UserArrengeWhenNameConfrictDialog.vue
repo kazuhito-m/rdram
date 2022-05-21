@@ -21,14 +21,15 @@ import UserArrangeOfImportDiagram from '@/domain/diagram/import/userarrange/User
 @Component
 export default class UserArrengeWhenNameConfrictDialog extends Vue {
   public visible = false
-  private userArrange: UserArrangeOfImportDiagram | null = null
+  private userArrange: UserArrangeOfImportDiagram =
+    UserArrangeOfImportDiagram.empty()
 
   private resolve: any = null
   private reject: any = null
 
   public async show(
     arrange: UserArrangeOfImportDiagram
-  ): Promise<UserArrangeOfImportDiagram | null> {
+  ): Promise<UserArrangeOfImportDiagram> {
     this.visible = true
     this.userArrange = arrange
     return new Promise((resolve, reject) => {
@@ -43,7 +44,7 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
   }
 
   public onClickCancel(): void {
-    this.resolve(null)
+    this.resolve(UserArrangeOfImportDiagram.empty())
     this.visible = false
   }
 }

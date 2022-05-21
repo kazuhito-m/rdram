@@ -193,9 +193,8 @@ export default class DiagramImportDialog extends Vue {
   }
 
   private async confirmeUserArrange(arrange: UserArrangeOfImportDiagram): Promise<UserArrangeOfImportDiagram> {
-    if (arrange.isEmpty()) console.log("別に重複は無かった。");
-    // TODO ユーザーによる「重複時の振る舞い」を確認するダイアログを出す。
-    return arrange;
+    if (arrange.isEmpty()) return arrange;
+    return await this.showUserArrengeWhenNameConfrictDialog(arrange);
   }
 
   private notifyProgress(event: DiagramImportProgressEvent): void {
@@ -214,9 +213,9 @@ export default class DiagramImportDialog extends Vue {
     this.$nextTick(() => console.log(`UIが変更されたはず。message:${message}`));
   }
 
-  private async showUserArrengeWhenNameConfrictDialog(arrange: UserArrangeOfImportDiagram): Promise<UserArrangeOfImportDiagram | null> {
-    const confirm = this.$refs.userArrengeWhenNameConfrictDialog as UserArrengeWhenNameConfrictDialog;
-    return await confirm.show(arrange);
+  private async showUserArrengeWhenNameConfrictDialog(arrange: UserArrangeOfImportDiagram): Promise<UserArrangeOfImportDiagram> {
+    const dialog = this.$refs.userArrengeWhenNameConfrictDialog as UserArrengeWhenNameConfrictDialog;
+    return await dialog.show(arrange);
   }
 }
 </script>
