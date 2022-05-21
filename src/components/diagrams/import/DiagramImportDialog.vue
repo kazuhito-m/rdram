@@ -73,6 +73,7 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+    <UserArrengeWhenNameConfrictDialog ref="userArrengeWhenNameConfrictDialog"/>
   </v-dialog>
 </template>
 
@@ -83,9 +84,14 @@ import DiagramImportProgressEvent from "@/domain/diagram/import/progress/Diagram
 import DiagramImportService from "@/application/service/diagram/import/DiagramImportService";
 import { DiagramImportError } from "@/domain/diagram/import/progress/DiagramImportError";
 import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
-import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
+import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
+import UserArrengeWhenNameConfrictDialog from "./arrangewhennameconflict/UserArrengeWhenNameConfrictDialog.vue";
 
-@Component
+@Component({
+  components: {
+    UserArrengeWhenNameConfrictDialog
+  }
+})
 export default class DiagramImportDialog extends Vue {
   @Inject()
   private readonly diagramImportService?: DiagramImportService;
@@ -206,6 +212,11 @@ export default class DiagramImportDialog extends Vue {
 
     this.progressLogs+=message;
     this.$nextTick(() => console.log(`UIが変更されたはず。message:${message}`));
+  }
+
+  private async showUserArrengeWhenNameConfrictDialog(arrange: UserArrangeOfImportDiagram): Promise<UserArrangeOfImportDiagram | null> {
+    const confirm = this.$refs.userArrengeWhenNameConfrictDialog as UserArrengeWhenNameConfrictDialog;
+    return await confirm.show(arrange);
   }
 }
 </script>

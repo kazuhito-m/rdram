@@ -16,15 +16,21 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import UserArrangeOfImportDiagram from '@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram'
 
 @Component
-export default class UserArrengeWhenNameConfrict extends Vue {
+export default class UserArrengeWhenNameConfrictDialog extends Vue {
   public visible = false
+  private userArrange: UserArrangeOfImportDiagram | null = null
+
   private resolve: any = null
   private reject: any = null
 
-  public show(): Promise<boolean> {
+  public async show(
+    arrange: UserArrangeOfImportDiagram
+  ): Promise<UserArrangeOfImportDiagram | null> {
     this.visible = true
+    this.userArrange = arrange
     return new Promise((resolve, reject) => {
       this.resolve = resolve
       this.reject = reject
@@ -32,12 +38,12 @@ export default class UserArrengeWhenNameConfrict extends Vue {
   }
 
   public onOkClick(): void {
-    this.resolve(true)
+    this.resolve(this.userArrange)
     this.visible = false
   }
 
   public onClickCancel(): void {
-    this.resolve(false)
+    this.resolve(null)
     this.visible = false
   }
 }
