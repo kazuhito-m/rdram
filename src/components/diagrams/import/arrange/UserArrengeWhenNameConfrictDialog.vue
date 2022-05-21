@@ -24,8 +24,32 @@
                 <v-card outlined class="pa-0">
                   <v-card-text class="py-0 px-2">
                     <v-radio-group row class="pa-0">
-                      <v-radio label="上書" value="radio-1"></v-radio>
-                      <v-radio label="別名" value="radio-2"></v-radio>
+                      <v-tooltip bottom :open-delay="tooltipOpenDelay">
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-radio
+                            label="上書"
+                            value="radio-1"
+                            v-bind="attrs"
+                            v-on="on"
+                          />
+                        </template>
+                        <span
+                          >既にある「同名の図」をインポート内容で上書き・置き換えます。</span
+                        >
+                      </v-tooltip>
+                      <v-tooltip bottom :open-delay="tooltipOpenDelay">
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-radio
+                            label="別名"
+                            value="radio-2"
+                            v-bind="attrs"
+                            v-on="on"
+                          />
+                        </template>
+                        <span
+                          >入力した「新しい名前」でインポート内容の図を作成します。</span
+                        >
+                      </v-tooltip>
                       <v-text-field
                         label="新しい名前"
                         dense
@@ -41,7 +65,9 @@
         <v-row>
           <v-col cols="12" md="12" class="py-1">
             <v-card outlined class="pa-1">
-              <v-card-subtitle class="pa-0">インポートしたアイコン</v-card-subtitle>
+              <v-card-subtitle class="pa-0"
+                >インポートしたアイコン</v-card-subtitle
+              >
             </v-card>
           </v-col>
         </v-row>
@@ -67,6 +93,8 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
 
   private resolve: any = null
   private reject: any = null
+
+  public readonly tooltipOpenDelay = 1000;
 
   public show(
     arrange: UserArrangeOfImportDiagram
