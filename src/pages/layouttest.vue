@@ -38,6 +38,9 @@
     <v-btn color="normal" dark @click="onClickModalDialogTest">Modal Dialog Test</v-btn>
     <Confirm ref="confirm"/>
 
+    <v-btn color="normal" dark @click="onClickUserArrengeDialog">図/アイコンの名前の重複 Dialog Test</v-btn>
+    <UserArrengeWhenNameConfrictDialog ref="userArrangeDialog"/>
+
     <v-card-text>
       <v-row>
         <v-col>
@@ -78,9 +81,14 @@ import draw2d, { Figure } from "draw2d";
 import TopLeftLocator from "@/draw2d/custom/TopLeftLocator";
 
 import Confirm from "@/components/debug/Confirm.vue";
+import UserArrengeWhenNameConfrictDialog from "@/components/diagrams/import/arrange/UserArrengeWhenNameConfrictDialog.vue";
+import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 
 @Component({
-  components: { Confirm }
+  components: {
+    Confirm,
+    UserArrengeWhenNameConfrictDialog
+  }
 })
 export default class extends Vue {
   private canvas!: draw2d.Canvas;
@@ -806,6 +814,11 @@ export default class extends Vue {
 
     console.log("ダイアログを表示して終わったとこまで。", result);
     alert(result);
+  }
+
+  private async onClickUserArrengeDialog(): Promise<void> {
+    const dialog = this.$refs.userArrangeDialog as UserArrengeWhenNameConfrictDialog;
+    await dialog.show(UserArrangeOfImportDiagram.empty());
   }
 }
 </script>
