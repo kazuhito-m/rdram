@@ -80,12 +80,12 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject, Watch } from "vue-property-decorator";
 import DiagramImportMessageConverter from "./DiagramImportMessageConverter";
+import UserArrengeWhenNameConfrictDialog from "./arrange/UserArrengeWhenNameConfrictDialog.vue";
 import DiagramImportProgressEvent from "@/domain/diagram/import/progress/DiagramImportProgressEvent";
 import DiagramImportService from "@/application/service/diagram/import/DiagramImportService";
 import { DiagramImportError } from "@/domain/diagram/import/progress/DiagramImportError";
 import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
 import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
-import UserArrengeWhenNameConfrictDialog from "./arrange/UserArrengeWhenNameConfrictDialog.vue";
 
 @Component({
   components: {

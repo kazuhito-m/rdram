@@ -27,7 +27,7 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
   private resolve: any = null
   private reject: any = null
 
-  public async show(
+  public show(
     arrange: UserArrangeOfImportDiagram
   ): Promise<UserArrangeOfImportDiagram> {
     this.visible = true
