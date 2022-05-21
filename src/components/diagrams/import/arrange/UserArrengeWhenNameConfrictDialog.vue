@@ -1,5 +1,5 @@
-<template>
-  <v-dialog v-model="visible" width="400" height="400">
+<template lang="html">
+  <v-dialog v-model="visible" persistent width="400" height="400">
     <v-card>
       <v-toolbar dark dense flat>
         <v-toolbar-title class="white--text">タイトル</v-toolbar-title>

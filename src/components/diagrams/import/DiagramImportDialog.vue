@@ -73,7 +73,7 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-    <UserArrengeWhenNameConfrictDialog ref="userArrengeWhenNameConfrictDialog"/>
+    <UserArrengeWhenNameConfrictDialog ref="userArrangeDialog"/>
   </v-dialog>
 </template>
 
@@ -85,7 +85,7 @@ import DiagramImportService from "@/application/service/diagram/import/DiagramIm
 import { DiagramImportError } from "@/domain/diagram/import/progress/DiagramImportError";
 import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
 import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
-import UserArrengeWhenNameConfrictDialog from "./arrangewhennameconflict/UserArrengeWhenNameConfrictDialog.vue";
+import UserArrengeWhenNameConfrictDialog from "./arrange/UserArrengeWhenNameConfrictDialog.vue";
 
 @Component({
   components: {
@@ -214,7 +214,7 @@ export default class DiagramImportDialog extends Vue {
   }
 
   private async showUserArrengeWhenNameConfrictDialog(arrange: UserArrangeOfImportDiagram): Promise<UserArrangeOfImportDiagram> {
-    const dialog = this.$refs.userArrengeWhenNameConfrictDialog as UserArrengeWhenNameConfrictDialog;
+    const dialog = this.$refs.userArrangeDialog as UserArrengeWhenNameConfrictDialog;
     return await dialog.show(arrange);
   }
 }
