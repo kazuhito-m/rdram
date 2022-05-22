@@ -80,7 +80,7 @@
                 <v-simple-table
                   ref="resultList"
                   dense
-                  height="225px"
+                  height="265px"
                   fixed-header
                 >
                   <template #default>
@@ -108,6 +108,7 @@
                             label="元の名前"
                             dense
                             hide-details
+                            filled
                             readonly
                           />
                         </td>
@@ -227,6 +228,7 @@ div.v-input--selection-controls__ripple {
   padding-right: 4px;
 }
 input[type='text'] {
-  min-width: 240px;
+  min-width: 230px;
+  max-width: 230px;
 }
 </style>
