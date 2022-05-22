@@ -21,7 +21,11 @@
                   filled
                   readonly
                 />
-                <v-card v-if="userArrange.isColidedDiagramName()" outlined class="pa-0">
+                <v-card
+                  v-if="userArrange.isColidedDiagramName()"
+                  outlined
+                  class="pa-0"
+                >
                   <v-card-text class="py-0 px-2">
                     <v-radio-group
                       v-model="userArrange.conflictDiagramName.behavior"
@@ -31,10 +35,11 @@
                     >
                       <v-tooltip
                         v-for="behavior in behaviors.behaviorsOfDiagramName"
+                        :key="behavior.value"
                         bottom
                         :open-delay="tooltipOpenDelay"
                       >
-                        <template v-slot:activator="{ on, attrs }">
+                        <template #activator="{ on, attrs }">
                           <v-radio
                             :label="behavior.name"
                             :value="behavior.value"
@@ -110,10 +115,11 @@
                           >
                             <v-tooltip
                               v-for="behavior in behaviors.behaviorsOfResourceName"
+                              :key="behavior.value"
                               bottom
                               :open-delay="tooltipOpenDelay"
                             >
-                              <template v-slot:activator="{ on, attrs }">
+                              <template #activator="{ on, attrs }">
                                 <v-radio
                                   :label="behavior.name"
                                   :value="behavior.value"
@@ -157,14 +163,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import UserArrangeOfImportDiagram from '@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram'
 import Behaviors from './Behaviors'
+import UserArrangeOfImportDiagram from '@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram'
 
 @Component
 export default class UserArrengeWhenNameConfrictDialog extends Vue {
   public visible = false
   public userArrange: UserArrangeOfImportDiagram =
     UserArrangeOfImportDiagram.empty()
+
   public behaviors = new Behaviors()
 
   private resolve: any = null

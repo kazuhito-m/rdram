@@ -1,5 +1,5 @@
-import { BehaviorWhenNameConflict } from "@/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
 import Behavior from "./Behavior";
+import { BehaviorWhenNameConflict } from "@/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
 
 export default class Behaviors {
     public readonly behaviorsOfDiagramName: Behavior[] = Object.values(BehaviorWhenNameConflict)
