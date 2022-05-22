@@ -10,11 +10,14 @@ export default class ConflictNameBehavior {
         public readonly sourceId: number
     ) { }
 
+    public isAriasNameOfBehavior(): boolean {
+        return this.behavior === BehaviorWhenNameConflict.置換;
+    }
+
     public isEmpty(): boolean {
-        return this.sourceName.length === 0 
+        return this.sourceName.length === 0
             && this.destinationName.length === 0;
     }
-    
 
     public with(behavior: BehaviorWhenNameConflict, destinationName = ""): ConflictNameBehavior {
         return new ConflictNameBehavior(
