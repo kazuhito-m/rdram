@@ -24,32 +24,11 @@
                 <v-card outlined class="pa-0">
                   <v-card-text class="py-0 px-2">
                     <v-radio-group row class="pa-0">
-                      <v-tooltip bottom :open-delay="tooltipOpenDelay">
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-radio
-                            label="上書"
-                            value="radio-1"
-                            v-bind="attrs"
-                            v-on="on"
-                          />
-                        </template>
-                        <span
-                          >既にある「同名の図」をインポート内容で上書き・置き換えます。</span
-                        >
-                      </v-tooltip>
-                      <v-tooltip bottom :open-delay="tooltipOpenDelay">
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-radio
-                            label="別名"
-                            value="radio-2"
-                            v-bind="attrs"
-                            v-on="on"
-                          />
-                        </template>
-                        <span
-                          >入力した「新しい名前」でインポート内容の図を作成します。</span
-                        >
-                      </v-tooltip>
+                      <v-radio
+                        v-for="behavior in behaviors.behaviorOfDiagramName()"
+                        :label="behavior.name"
+                        :value="behavior.value"
+                      />
                       <v-text-field label="新しい名前" dense hide-details />
                     </v-radio-group>
                   </v-card-text>
@@ -91,9 +70,11 @@
                         </td>
                         <td>
                           <v-radio-group row class="pa-0">
-                            <v-radio label="既存" value="radio-1" />
-                            <v-radio label="置換" value="radio-2" />
-                            <v-radio label="別名" value="radio-3" />
+                            <v-radio
+                              v-for="behavior in behaviors.behaviorOfResourceName()"
+                              :label="behavior.name"
+                              :value="behavior.value"
+                            />
                           </v-radio-group>
                         </td>
                         <td>
@@ -120,12 +101,14 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import UserArrangeOfImportDiagram from '@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram'
+import Behaviors from './Behaviors'
 
 @Component
 export default class UserArrengeWhenNameConfrictDialog extends Vue {
   public visible = false
   private userArrange: UserArrangeOfImportDiagram =
     UserArrangeOfImportDiagram.empty()
+  public behaviors = new Behaviors()
 
   private resolve: any = null
   private reject: any = null
@@ -152,6 +135,8 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
     this.resolve(UserArrangeOfImportDiagram.empty())
     this.visible = false
   }
+
+  public
 }
 </script>
 

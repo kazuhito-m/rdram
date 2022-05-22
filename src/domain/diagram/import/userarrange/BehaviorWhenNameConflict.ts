@@ -1,4 +1,4 @@
-export const enum BehaviorWhenNameConflict {
+export enum BehaviorWhenNameConflict {
     既存,
     置換,
     別名
