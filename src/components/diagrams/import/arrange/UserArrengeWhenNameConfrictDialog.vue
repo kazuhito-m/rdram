@@ -25,7 +25,7 @@
                   <v-card-text class="py-0 px-2">
                     <v-radio-group row class="pa-0">
                       <v-radio
-                        v-for="behavior in behaviors.behaviorOfDiagramName()"
+                        v-for="behavior in behaviors.behaviorsOfDiagramName"
                         :label="behavior.name"
                         :value="behavior.value"
                       />
@@ -71,7 +71,7 @@
                         <td>
                           <v-radio-group row class="pa-0">
                             <v-radio
-                              v-for="behavior in behaviors.behaviorOfResourceName()"
+                              v-for="behavior in behaviors.behaviorsOfResourceName"
                               :label="behavior.name"
                               :value="behavior.value"
                             />
