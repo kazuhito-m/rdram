@@ -10,6 +10,12 @@ export default class ConflictNameBehavior {
         public readonly sourceId: number
     ) { }
 
+    public isEmpty(): boolean {
+        return this.sourceName.length === 0 
+            && this.destinationName.length === 0;
+    }
+    
+
     public with(behavior: BehaviorWhenNameConflict, destinationName = ""): ConflictNameBehavior {
         return new ConflictNameBehavior(
             behavior,
@@ -41,6 +47,14 @@ export default class ConflictNameBehavior {
         return this.prototypeOf(
             resouce.name,
             resouce.resourceId,
+            BehaviorWhenNameConflict.既存
+        );
+    }
+
+    public static empty() {
+        return this.prototypeOf(
+            "",
+            0,
             BehaviorWhenNameConflict.既存
         );
     }

@@ -15,7 +15,7 @@ export default class NameConflictAnalyzer {
             .existsSameOf(diagram);
         const colidedName = existsDiagram
             ? ConflictNameBehavior.prototypeDiagramOf(diagram)
-            : null;
+            : ConflictNameBehavior.empty();
 
         const allResources = product.resources;
         const sameResources = candidate.useResources

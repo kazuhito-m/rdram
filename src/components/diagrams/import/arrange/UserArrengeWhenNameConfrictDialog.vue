@@ -14,6 +14,7 @@
               <v-card-subtitle class="pa-0">インポートした図</v-card-subtitle>
               <v-card-text class="pa-1">
                 <v-text-field
+                  v-model="userArrange.sourceDiagramName"
                   label="図の名前"
                   dense
                   hide-details
@@ -39,7 +40,13 @@
                         </template>
                         <span>{{ behavior.description }}</span>
                       </v-tooltip>
-                      <v-text-field label="新しい名前" dense hide-details />
+                      <v-text-field
+                        v-model="userArrange.conflictDiagramName!.destinationName"
+                        :aria-placeholder="userArrange.conflictDiagramName!.sourceName"
+                        label="新しい名前" 
+                        dense 
+                        hide-details
+                      />
                     </v-radio-group>
                   </v-card-text>
                 </v-card>
@@ -126,7 +133,7 @@ import Behaviors from './Behaviors'
 @Component
 export default class UserArrengeWhenNameConfrictDialog extends Vue {
   public visible = false
-  private userArrange: UserArrangeOfImportDiagram =
+  public userArrange: UserArrangeOfImportDiagram =
     UserArrangeOfImportDiagram.empty()
   public behaviors = new Behaviors()
 
@@ -155,8 +162,6 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
     this.resolve(UserArrangeOfImportDiagram.empty())
     this.visible = false
   }
-
-  public
 }
 </script>
 
