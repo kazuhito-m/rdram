@@ -83,6 +83,8 @@ import TopLeftLocator from "@/draw2d/custom/TopLeftLocator";
 import Confirm from "@/components/debug/Confirm.vue";
 import UserArrengeWhenNameConfrictDialog from "@/components/diagrams/import/arrange/UserArrengeWhenNameConfrictDialog.vue";
 import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
+import ConflictNameBehavior from "~/domain/diagram/import/conflictname/ConflictNameBehavior";
+import { BehaviorWhenNameConflict } from "~/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
 
 @Component({
   components: {
@@ -817,8 +819,18 @@ export default class extends Vue {
   }
 
   private async onClickUserArrengeDialog(): Promise<void> {
+    const arrange = new UserArrangeOfImportDiagram(
+      "元のダイアグラムの名前(親側)",
+      new ConflictNameBehavior(BehaviorWhenNameConflict.置換,"元のダイアグラムの名前(子側)", "", 1),
+      [
+        new ConflictNameBehavior(BehaviorWhenNameConflict.既存,"元のアイコンの名前(1)", "", 1),
+        new ConflictNameBehavior(BehaviorWhenNameConflict.置換,"元のアイコンの名前(2)", "", 2),
+        new ConflictNameBehavior(BehaviorWhenNameConflict.別名,"元のアイコンの名前(3)", "", 3)
+      ]
+    );
+
     const dialog = this.$refs.userArrangeDialog as UserArrengeWhenNameConfrictDialog;
-    await dialog.show(UserArrangeOfImportDiagram.empty());
+    await dialog.show(arrange);
   }
 }
 </script>
