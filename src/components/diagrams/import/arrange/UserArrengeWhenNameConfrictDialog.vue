@@ -1,5 +1,5 @@
 <template lang="html">
-  <v-dialog v-model="visible" persistent width="800" height="600" light>
+  <v-dialog v-model="visible" persistent width="800" height="600">
     <v-card>
       <v-card-title class="headline">
         <v-icon>mdi-sync-alert</v-icon> 図/アイコンの名前の重複
@@ -21,7 +21,7 @@
                   filled
                   readonly
                 />
-                <v-card outlined class="pa-0">
+                <v-card v-if="userArrange.isColidedDiagramName()" outlined class="pa-0">
                   <v-card-text class="py-0 px-2">
                     <v-radio-group
                       v-model="userArrange.conflictDiagramName.behavior"
