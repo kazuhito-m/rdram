@@ -68,6 +68,42 @@
               <v-card-subtitle class="pa-0"
                 >インポートしたアイコン</v-card-subtitle
               >
+              <v-card-text>
+                <v-simple-table
+                  ref="resultList"
+                  dense
+                  height="225px"
+                  fixed-header
+                  @scroll="alert('test')"
+                >
+                  <template #default>
+                    <thead>
+                      <tr>
+                        <th class="text-left">No.</th>
+                        <th class="text-left">パスワード</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- <tr v-for="password in passwords" :key="password.no">
+                        <td>{{ password.no }}</td>
+                        <td>{{ password.password }}</td>
+                      </tr> -->
+                      <tr>
+                        <td>1</td>
+                        <td>b</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>b</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>b</td>
+                      </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </v-card-text>
             </v-card>
           </v-col>
         </v-row>
@@ -94,7 +130,7 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
   private resolve: any = null
   private reject: any = null
 
-  public readonly tooltipOpenDelay = 1000;
+  public readonly tooltipOpenDelay = 1000
 
   public show(
     arrange: UserArrangeOfImportDiagram
