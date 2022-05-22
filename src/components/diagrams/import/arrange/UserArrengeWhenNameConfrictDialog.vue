@@ -80,11 +80,21 @@
                         </td>
                         <td>
                           <v-radio-group row class="pa-0">
-                            <v-radio
+                            <v-tooltip
                               v-for="behavior in behaviors.behaviorsOfResourceName"
-                              :label="behavior.name"
-                              :value="behavior.value"
-                            />
+                              bottom
+                              :open-delay="tooltipOpenDelay"
+                            >
+                              <template v-slot:activator="{ on, attrs }">
+                                <v-radio
+                                  :label="behavior.name"
+                                  :value="behavior.value"
+                                  v-bind="attrs"
+                                  v-on="on"
+                                />
+                              </template>
+                              <span>{{ behavior.description }}</span>
+                            </v-tooltip>
                           </v-radio-group>
                         </td>
                         <td>
