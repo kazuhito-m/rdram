@@ -24,11 +24,21 @@
                 <v-card outlined class="pa-0">
                   <v-card-text class="py-0 px-2">
                     <v-radio-group row class="pa-0">
-                      <v-radio
+                      <v-tooltip
                         v-for="behavior in behaviors.behaviorsOfDiagramName"
-                        :label="behavior.name"
-                        :value="behavior.value"
-                      />
+                        bottom
+                        :open-delay="tooltipOpenDelay"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-radio
+                            :label="behavior.name"
+                            :value="behavior.value"
+                            v-bind="attrs"
+                            v-on="on"
+                          />
+                        </template>
+                        <span>{{ behavior.description }}</span>
+                      </v-tooltip>
                       <v-text-field label="新しい名前" dense hide-details />
                     </v-radio-group>
                   </v-card-text>
