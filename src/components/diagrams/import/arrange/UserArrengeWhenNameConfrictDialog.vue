@@ -82,11 +82,11 @@
                   dense
                   height="225px"
                   fixed-header
-                  @scroll="alert('test')"
                 >
                   <template #default>
                     <thead>
                       <tr>
+                        <th class="text-right">#</th>
                         <th class="text-left">アイコン名</th>
                         <th class="text-left">扱い</th>
                         <th class="text-left">新しいアイコン名</th>
@@ -94,9 +94,14 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="conflictResourceName in userArrange.conflictResourceNames"
+                        v-for="(
+                          conflictResourceName, index
+                        ) in userArrange.conflictResourceNames"
                         :key="conflictResourceName.sourceId"
                       >
+                        <td>
+                          {{ index + 1 }}
+                        </td>
                         <td>
                           <v-text-field
                             v-model="conflictResourceName.sourceName"
@@ -222,6 +227,6 @@ div.v-input--selection-controls__ripple {
   padding-right: 4px;
 }
 input[type='text'] {
-  min-width: 250px;
+  min-width: 240px;
 }
 </style>
