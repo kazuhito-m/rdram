@@ -10,8 +10,8 @@ export default class ConflictNameBehavior {
         public readonly sourceId: number
     ) { }
 
-    public isAriasNameOfBehavior(): boolean {
-        return this.behavior === BehaviorWhenNameConflict.置換;
+    public isNotAriasNameOfBehavior(): boolean {
+        return this.behavior !== BehaviorWhenNameConflict.別名;
     }
 
     public isEmpty(): boolean {

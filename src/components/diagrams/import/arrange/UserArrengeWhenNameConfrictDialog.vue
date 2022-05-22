@@ -20,7 +20,6 @@
                   hide-details
                   filled
                   readonly
-                  disabled
                 />
                 <v-card outlined class="pa-0">
                   <v-card-text class="py-0 px-2">
@@ -53,7 +52,7 @@
                           userArrange.conflictDiagramName.sourceName
                         "
                         :disabled="
-                          userArrange.conflictDiagramName.isAriasNameOfBehavior()
+                          userArrange.conflictDiagramName.isNotAriasNameOfBehavior()
                         "
                         label="新しい名前"
                         dense
@@ -89,22 +88,26 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <!-- <tr v-for="password in passwords" :key="password.no">
-                        <td>{{ password.no }}</td>
-                        <td>{{ password.password }}</td>
-                      </tr> -->
-                      <tr>
+                      <tr
+                        v-for="conflictResourceName in userArrange.conflictResourceNames"
+                        :key="conflictResourceName.sourceId"
+                      >
                         <td>
                           <v-text-field
+                            v-model="conflictResourceName.sourceName"
                             label="元の名前"
                             dense
                             hide-details
                             readonly
-                            disabled
                           />
                         </td>
                         <td>
-                          <v-radio-group mandatory row class="pa-0">
+                          <v-radio-group
+                            v-model="conflictResourceName.behavior"
+                            mandatory
+                            row
+                            class="pa-0"
+                          >
                             <v-tooltip
                               v-for="behavior in behaviors.behaviorsOfResourceName"
                               bottom
@@ -123,7 +126,16 @@
                           </v-radio-group>
                         </td>
                         <td>
-                          <v-text-field label="新しい名前" dense hide-details />
+                          <v-text-field
+                            v-model="conflictResourceName.destinationName"
+                            :disabled="
+                              conflictResourceName.isNotAriasNameOfBehavior()
+                            "
+                            :placeholder="conflictResourceName.sourceName"
+                            label="新しい名前"
+                            dense
+                            hide-details
+                          />
                         </td>
                       </tr>
                     </tbody>
@@ -136,8 +148,8 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text color="normal" @click="onClickCancel"> キャンセル </v-btn>
-        <v-btn text color="green darken-1" @click="onOkClick"> 実行 </v-btn>
+        <v-btn text color="normal" @click="onClickCancel">キャンセル</v-btn>
+        <v-btn text color="green darken-1" @click="onOkClick">OK</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -203,6 +215,6 @@ div.v-input--selection-controls__ripple {
   padding-right: 4px;
 }
 input[type='text'] {
-  min-width: 260px;
+  min-width: 250px;
 }
 </style>
