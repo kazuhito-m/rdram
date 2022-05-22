@@ -50,11 +50,7 @@
                           >入力した「新しい名前」でインポート内容の図を作成します。</span
                         >
                       </v-tooltip>
-                      <v-text-field
-                        label="新しい名前"
-                        dense
-                        hide-details
-                      ></v-text-field>
+                      <v-text-field label="新しい名前" dense hide-details />
                     </v-radio-group>
                   </v-card-text>
                 </v-card>
@@ -68,7 +64,7 @@
               <v-card-subtitle class="pa-0"
                 >インポートしたアイコン</v-card-subtitle
               >
-              <v-card-text>
+              <v-card-text class="py-0 px-2">
                 <v-simple-table
                   ref="resultList"
                   dense
@@ -79,8 +75,9 @@
                   <template #default>
                     <thead>
                       <tr>
-                        <th class="text-left">No.</th>
-                        <th class="text-left">パスワード</th>
+                        <th class="text-left">アイコン名</th>
+                        <th class="text-left">扱い</th>
+                        <th class="text-left">新しいアイコン名</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -89,16 +86,19 @@
                         <td>{{ password.password }}</td>
                       </tr> -->
                       <tr>
-                        <td>1</td>
-                        <td>b</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>b</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>b</td>
+                        <td>
+                          <v-text-field label="元の名前" dense hide-details />
+                        </td>
+                        <td>
+                          <v-radio-group row class="pa-0">
+                            <v-radio label="既存" value="radio-1" />
+                            <v-radio label="置換" value="radio-2" />
+                            <v-radio label="別名" value="radio-3" />
+                          </v-radio-group>
+                        </td>
+                        <td>
+                          <v-text-field label="新しい名前" dense hide-details />
+                        </td>
                       </tr>
                     </tbody>
                   </template>
@@ -154,3 +154,27 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
   }
 }
 </script>
+
+<style type="sass">
+.v-input--selection-controls__input {
+  height: 12px;
+  width: 12px;
+  margin-right: 4px;
+}
+div.v-input--selection-controls__ripple {
+  height: 22px;
+  width: 22px;
+  top: calc(50% - 18px);
+}
+.v-input--radio-group.v-input--radio-group--row .v-radio {
+  margin-right: 8px;
+}
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td,
+.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+input[type='text'] {
+  min-width: 260px;
+}
+</style>
