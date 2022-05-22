@@ -24,7 +24,12 @@
                 />
                 <v-card outlined class="pa-0">
                   <v-card-text class="py-0 px-2">
-                    <v-radio-group row class="pa-0">
+                    <v-radio-group
+                      v-model="userArrange.conflictDiagramName.behavior"
+                      mandatory
+                      row
+                      class="pa-0"
+                    >
                       <v-tooltip
                         v-for="behavior in behaviors.behaviorsOfDiagramName"
                         bottom
@@ -41,10 +46,17 @@
                         <span>{{ behavior.description }}</span>
                       </v-tooltip>
                       <v-text-field
-                        v-model="userArrange.conflictDiagramName!.destinationName"
-                        :aria-placeholder="userArrange.conflictDiagramName!.sourceName"
-                        label="新しい名前" 
-                        dense 
+                        v-model="
+                          userArrange.conflictDiagramName.destinationName
+                        "
+                        :placeholder="
+                          userArrange.conflictDiagramName.sourceName
+                        "
+                        :disabled="
+                          userArrange.conflictDiagramName.isAriasNameOfBehavior()
+                        "
+                        label="新しい名前"
+                        dense
                         hide-details
                       />
                     </v-radio-group>
@@ -83,10 +95,16 @@
                       </tr> -->
                       <tr>
                         <td>
-                          <v-text-field label="元の名前" dense hide-details />
+                          <v-text-field
+                            label="元の名前"
+                            dense
+                            hide-details
+                            readonly
+                            disabled
+                          />
                         </td>
                         <td>
-                          <v-radio-group row class="pa-0">
+                          <v-radio-group mandatory row class="pa-0">
                             <v-tooltip
                               v-for="behavior in behaviors.behaviorsOfResourceName"
                               bottom
