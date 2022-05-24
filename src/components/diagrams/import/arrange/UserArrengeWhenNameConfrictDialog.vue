@@ -252,6 +252,9 @@ div.v-input--selection-controls__ripple {
   padding-left: 4px;
   padding-right: 4px;
 }
+.v-data-table > .v-data-table__wrapper > table > tbody > tr:hover {
+  background-color: transparent !important;
+}
 .v-messages {
   min-height: 0px;
 }
