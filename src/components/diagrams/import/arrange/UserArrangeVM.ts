@@ -1,7 +1,7 @@
+import IconNameArrangeVM from "./IconNameArrangeVM";
 import { BehaviorWhenNameConflict } from "@/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
 import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
-import IconNameArrangeVM from "./IconNameArrangeVM";
 
 export default class UserArrangeVM {
     constructor(
@@ -38,11 +38,6 @@ export default class UserArrangeVM {
     // validation methods
 
     public validate() {
-        console.log("Validate来ている()");
-
-        console.log("自分は？", this.validateDialogName(this.destDiagramName) === true)
-        console.log("子アイテムは？", this.iconNames.every(i => i.validateIconName(i.destName) === true));
-
         return this.validateDialogName(this.destDiagramName) === true
             && this.iconNames
                 .every(i => i.validateIconName(i.destName) === true);

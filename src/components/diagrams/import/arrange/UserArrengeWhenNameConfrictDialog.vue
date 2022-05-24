@@ -25,10 +25,10 @@
                   <v-card-text class="py-0 px-2">
                     <v-radio-group
                       v-model="vm.behavior"
-                      @change="onChangeBehaviorRadio"
                       mandatory
                       row
                       class="pa-0"
+                      @change="onChangeBehaviorRadio"
                     >
                       <v-tooltip
                         v-for="behavior in behaviors.behaviorsOfDiagramName"
@@ -107,10 +107,10 @@
                         <td>
                           <v-radio-group
                             v-model="iconName.behavior"
-                            @change="onChangeBehaviorRadio"
                             mandatory
                             row
                             class="pa-0"
+                            @change="onChangeBehaviorRadio"
                           >
                             <v-tooltip
                               v-for="behavior in behaviors.behaviorsOfResourceName"
@@ -158,8 +158,8 @@
         <v-btn
           text
           color="green darken-1"
-          @click="onOkClick"
           :disabled="!validated"
+          @click="onOkClick"
           >OK</v-btn
         >
       </v-card-actions>
@@ -170,13 +170,13 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Behaviors from './Behaviors'
-import UserArrangeOfImportDiagram from '@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram'
 import UserArrangeVM from './UserArrangeVM'
+import UserArrangeOfImportDiagram from '@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram'
 
 @Component
 export default class UserArrengeWhenNameConfrictDialog extends Vue {
   public vm = UserArrangeVM.empty()
-  public validated = true
+  public validated = false
 
   public behaviors = new Behaviors()
 
@@ -192,6 +192,7 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
   ): Promise<UserArrangeOfImportDiagram> {
     this.visible = true
     this.vm = UserArrangeVM.of(arrange)
+    this.validateAll()
     return new Promise((resolve, reject) => {
       this.resolve = resolve
       this.reject = reject
@@ -224,6 +225,7 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
 
   public validateIconName(value: string): string | boolean {
     // TODO 自身を指定したIconNameのバリデーション。
+    console.log('IconNameのValidation予定地', value)
     this.validateAll()
     console.log('全体のValidatedは？', this.validated)
     return true

@@ -1,6 +1,6 @@
+import UserArrangeVM from "./UserArrangeVM";
 import { BehaviorWhenNameConflict } from "@/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
 import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
-import UserArrangeVM from "./UserArrangeVM";
 
 export default class IconNameArrangeVM {
     constructor(
