@@ -830,7 +830,9 @@ export default class extends Vue {
     );
 
     const dialog = this.$refs.userArrangeDialog as UserArrengeWhenNameConfrictDialog;
-    await dialog.show(arrange);
+    const result = await dialog.show(arrange);
+
+    console.log(result);
   }
 }
 </script>

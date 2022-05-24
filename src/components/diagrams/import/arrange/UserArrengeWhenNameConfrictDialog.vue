@@ -14,21 +14,18 @@
               <v-card-subtitle class="pa-0">インポートした図</v-card-subtitle>
               <v-card-text class="pa-1">
                 <v-text-field
-                  v-model="userArrange.sourceDiagramName"
+                  v-model="vm.srcDiagramName"
                   label="図の名前"
                   dense
                   hide-details
                   filled
                   readonly
                 />
-                <v-card
-                  v-if="userArrange.isColidedDiagramName()"
-                  outlined
-                  class="pa-0"
-                >
+                <v-card v-if="vm.isConfrictDiagramName" outlined class="pa-0">
                   <v-card-text class="py-0 px-2">
                     <v-radio-group
-                      v-model="userArrange.conflictDiagramName.behavior"
+                      v-model="vm.behavior"
+                      @change="onChangeBehaviorRadio"
                       mandatory
                       row
                       class="pa-0"
@@ -50,18 +47,15 @@
                         <span>{{ behavior.description }}</span>
                       </v-tooltip>
                       <v-text-field
-                        v-model="
-                          userArrange.conflictDiagramName.destinationName
-                        "
-                        :placeholder="
-                          userArrange.conflictDiagramName.sourceName
-                        "
-                        :disabled="
-                          userArrange.conflictDiagramName.isNotAriasNameOfBehavior()
-                        "
+                        v-model="vm.destDiagramName"
+                        :rules="[validateDialogName]"
+                        :placeholder="vm.srcDiagramName"
+                        :disabled="vm.isNotAriasNameOfBehavior()"
+                        :counter="vm.diagramNameMaxLength"
+                        :maxlength="vm.diagramNameMaxLength"
+                        leng
                         label="新しい名前"
                         dense
-                        hide-details
                       />
                     </v-radio-group>
                   </v-card-text>
@@ -94,17 +88,15 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(
-                          conflictResourceName, index
-                        ) in userArrange.conflictResourceNames"
-                        :key="conflictResourceName.sourceId"
+                        v-for="(iconName, index) in vm.iconNames"
+                        :key="iconName.sourceId"
                       >
                         <td>
                           {{ index + 1 }}
                         </td>
                         <td>
                           <v-text-field
-                            v-model="conflictResourceName.sourceName"
+                            v-model="iconName.srcName"
                             label="元の名前"
                             dense
                             hide-details
@@ -114,7 +106,8 @@
                         </td>
                         <td>
                           <v-radio-group
-                            v-model="conflictResourceName.behavior"
+                            v-model="iconName.behavior"
+                            @change="onChangeBehaviorRadio"
                             mandatory
                             row
                             class="pa-0"
@@ -139,14 +132,15 @@
                         </td>
                         <td>
                           <v-text-field
-                            v-model="conflictResourceName.destinationName"
-                            :disabled="
-                              conflictResourceName.isNotAriasNameOfBehavior()
-                            "
-                            :placeholder="conflictResourceName.sourceName"
+                            v-model="iconName.destName"
+                            :rules="[validateIconName]"
+                            :disabled="iconName.isNotAriasNameOfBehavior()"
+                            :placeholder="iconName.srcName"
                             label="新しい名前"
+                            :counter="iconName.diagramNameMaxLength"
+                            :maxlength="iconName.diagramNameMaxLength"
+                            leng
                             dense
-                            hide-details
                           />
                         </td>
                       </tr>
@@ -161,7 +155,13 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text color="normal" @click="onClickCancel">キャンセル</v-btn>
-        <v-btn text color="green darken-1" @click="onOkClick">OK</v-btn>
+        <v-btn
+          text
+          color="green darken-1"
+          @click="onOkClick"
+          :disabled="!validated"
+          >OK</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -171,14 +171,16 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Behaviors from './Behaviors'
 import UserArrangeOfImportDiagram from '@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram'
+import UserArrangeVM from './UserArrangeVM'
 
 @Component
 export default class UserArrengeWhenNameConfrictDialog extends Vue {
-  public visible = false
-  public userArrange: UserArrangeOfImportDiagram =
-    UserArrangeOfImportDiagram.empty()
+  public vm = UserArrangeVM.empty()
+  public validated = true
 
   public behaviors = new Behaviors()
+
+  public visible = false
 
   private resolve: any = null
   private reject: any = null
@@ -189,7 +191,7 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
     arrange: UserArrangeOfImportDiagram
   ): Promise<UserArrangeOfImportDiagram> {
     this.visible = true
-    this.userArrange = arrange.clone();
+    this.vm = UserArrangeVM.of(arrange)
     return new Promise((resolve, reject) => {
       this.resolve = resolve
       this.reject = reject
@@ -197,13 +199,34 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
   }
 
   public onOkClick(): void {
-    this.resolve(this.userArrange)
+    this.resolve(this.vm.toDomain())
     this.visible = false
   }
 
   public onClickCancel(): void {
     this.resolve(UserArrangeOfImportDiagram.empty())
     this.visible = false
+  }
+
+  public onChangeBehaviorRadio(): void {
+    this.$nextTick(() => this.validateAll())
+  }
+
+  private validateAll(): void {
+    this.validated = this.vm.validate()
+  }
+
+  public validateDialogName(value: string): string | boolean {
+    const result = this.vm.validateDialogName(value)
+    this.validateAll()
+    return result
+  }
+
+  public validateIconName(value: string): string | boolean {
+    // TODO 自身を指定したIconNameのバリデーション。
+    this.validateAll()
+    console.log('全体のValidatedは？', this.validated)
+    return true
   }
 }
 </script>
@@ -227,8 +250,7 @@ div.v-input--selection-controls__ripple {
   padding-left: 4px;
   padding-right: 4px;
 }
-input[type='text'] {
-  min-width: 230px;
-  max-width: 230px;
+.v-messages {
+  min-height: 0px;
 }
 </style>
