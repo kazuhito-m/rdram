@@ -32,6 +32,14 @@ export default class UserArrangeOfImportDiagram {
             && this.conflictResourceNames.length === 0;
     }
 
+    public clone(): UserArrangeOfImportDiagram {
+        return new UserArrangeOfImportDiagram(
+            this.sourceDiagramName,
+            this.conflictDiagramName.clone(),
+            this.conflictResourceNames.map(n => n.clone())
+        );
+    }
+
     public static empty(): UserArrangeOfImportDiagram {
         return new UserArrangeOfImportDiagram("", ConflictNameBehavior.empty(), []);
     }

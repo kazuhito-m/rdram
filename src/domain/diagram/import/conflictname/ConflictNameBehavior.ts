@@ -28,6 +28,15 @@ export default class ConflictNameBehavior {
         );
     }
 
+    public clone(): ConflictNameBehavior {
+        return new ConflictNameBehavior(
+            this.behavior,
+            this.sourceName,
+            this.destinationName,
+            this.sourceId
+        );
+    }
+
     public static prototypeOf(sourceName: string, sourceId: number,
         behavior: BehaviorWhenNameConflict = BehaviorWhenNameConflict.既存): ConflictNameBehavior {
         return new ConflictNameBehavior(

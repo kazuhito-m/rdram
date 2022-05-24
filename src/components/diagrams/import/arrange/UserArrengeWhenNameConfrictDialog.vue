@@ -189,7 +189,7 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
     arrange: UserArrangeOfImportDiagram
   ): Promise<UserArrangeOfImportDiagram> {
     this.visible = true
-    this.userArrange = arrange
+    this.userArrange = arrange.clone();
     return new Promise((resolve, reject) => {
       this.resolve = resolve
       this.reject = reject
