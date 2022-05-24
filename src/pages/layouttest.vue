@@ -821,7 +821,7 @@ export default class extends Vue {
   private async onClickUserArrengeDialog(): Promise<void> {
     const arrange = new UserArrangeOfImportDiagram(
       "元のダイアグラムの名前(親側)",
-      ConflictNameBehavior.empty(),  // new ConflictNameBehavior(BehaviorWhenNameConflict.別名 ,"元のダイアグラムの名前(子側)", "", 1),
+      new ConflictNameBehavior(BehaviorWhenNameConflict.別名 ,"元のダイアグラムの名前(子側)", "", 1), // ConflictNameBehavior.empty(),
       [
         new ConflictNameBehavior(BehaviorWhenNameConflict.既存,"元のアイコンの名前(1)", "", 1),
         new ConflictNameBehavior(BehaviorWhenNameConflict.置換,"元のアイコンの名前(2)", "", 2),
