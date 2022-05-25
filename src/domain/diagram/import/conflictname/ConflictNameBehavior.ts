@@ -63,7 +63,7 @@ export default class ConflictNameBehavior {
         return this.prototypeOf(
             "",
             0,
-            0,
+            1,
             BehaviorWhenNameConflict.既存
         );
     }

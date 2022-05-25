@@ -11,8 +11,11 @@
         <v-row>
           <v-col cols="12" md="12" class="py-1">
             <v-card outlined class="pa-1">
-              <v-card-subtitle class="pa-0">インポートした図</v-card-subtitle>
+              <v-card-subtitle class="pa-0">
+                インポートした図
+              </v-card-subtitle>
               <v-card-text class="pa-1">
+                <v-icon>{{ vm.diagramType.iconKey }}</v-icon>
                 <v-text-field
                   v-model="vm.srcDiagramName"
                   label="図の名前"
