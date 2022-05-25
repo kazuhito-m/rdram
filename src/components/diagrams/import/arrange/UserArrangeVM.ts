@@ -2,6 +2,7 @@ import IconNameArrangeVM from "./IconNameArrangeVM";
 import { BehaviorWhenNameConflict } from "@/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
 import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
+import DiagramType from "~/domain/diagram/DiagramType";
 
 export default class UserArrangeVM {
     constructor(
@@ -10,6 +11,7 @@ export default class UserArrangeVM {
         private _behavior: BehaviorWhenNameConflict,
         public readonly isConfrictDiagramName: boolean,
         private readonly sourceId: number,
+        public readonly diagramType: DiagramType,
         public readonly iconNames: IconNameArrangeVM[]
     ) { }
 
@@ -28,7 +30,8 @@ export default class UserArrangeVM {
                 this._behavior,
                 this.srcDiagramName,
                 this.destDiagramName,
-                this.sourceId
+                this.sourceId,
+                this.diagramType.id
             ),
             this.iconNames
                 .map(i => i.toDomain())
@@ -74,6 +77,7 @@ export default class UserArrangeVM {
             userArrange.conflictDiagramName.behavior,
             userArrange.isColidedDiagramName(),
             userArrange.conflictDiagramName.sourceId,
+            DiagramType.ofId(userArrange.conflictDiagramName.sourceType) as DiagramType,
             []
         );
 
@@ -90,6 +94,7 @@ export default class UserArrangeVM {
             this.behavior,
             this.isConfrictDiagramName,
             this.sourceId,
+            this.diagramType,
             newIconNames
         );
     }

@@ -1,6 +1,7 @@
 import UserArrangeVM from "./UserArrangeVM";
 import { BehaviorWhenNameConflict } from "@/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
 import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
+import ResourceType from "~/domain/resource/ResourceType";
 
 export default class IconNameArrangeVM {
     constructor(
@@ -8,6 +9,7 @@ export default class IconNameArrangeVM {
         public destName: string,
         private _behavior: BehaviorWhenNameConflict,
         private readonly sourceId: number,
+        public readonly resourceType: ResourceType,
         private parent: UserArrangeVM
     ) { }
 
@@ -22,7 +24,8 @@ export default class IconNameArrangeVM {
             this._behavior,
             this.srcName,
             this.destName,
-            this.sourceId
+            this.sourceId,
+            this.resourceType.id
         );
     }
 
@@ -61,6 +64,7 @@ export default class IconNameArrangeVM {
             conflictIconName.destinationName,
             conflictIconName.behavior,
             conflictIconName.sourceId,
+            ResourceType.ofId(conflictIconName.sourceType) as ResourceType,
             parent
         );
     }
