@@ -15,6 +15,8 @@
                 インポートした図
               </v-card-subtitle>
               <v-card-text class="pa-1">
+                <v-card class="pa-0">
+                  <v-card-title class="py-0 px-2">
                 <v-icon>{{ vm.diagramType.iconKey }}</v-icon>
                 <v-text-field
                   v-model="vm.srcDiagramName"
@@ -24,6 +26,8 @@
                   filled
                   readonly
                 />
+                </v-card-title>
+                </v-card>
                 <v-card v-if="vm.isConfrictDiagramName" outlined class="pa-0">
                   <v-card-text class="py-0 px-2">
                     <v-radio-group
