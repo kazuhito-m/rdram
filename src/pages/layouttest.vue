@@ -85,6 +85,8 @@ import UserArrengeWhenNameConfrictDialog from "@/components/diagrams/import/arra
 import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import ConflictNameBehavior from "~/domain/diagram/import/conflictname/ConflictNameBehavior";
 import { BehaviorWhenNameConflict } from "~/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
+import DiagramType from "~/domain/diagram/DiagramType";
+import ResourceType from "~/domain/resource/ResourceType";
 
 @Component({
   components: {
@@ -821,11 +823,11 @@ export default class extends Vue {
   private async onClickUserArrengeDialog(): Promise<void> {
     const arrange = new UserArrangeOfImportDiagram(
       "元のダイアグラムの名前(親側)",
-      new ConflictNameBehavior(BehaviorWhenNameConflict.別名 ,"元のダイアグラムの名前(子側)", "", 1), // ConflictNameBehavior.empty(),
+      new ConflictNameBehavior(BehaviorWhenNameConflict.別名 ,"元のダイアグラムの名前(子側)", "", 1, DiagramType.システムコンテキスト図.id), // ConflictNameBehavior.empty(),
       [
-        new ConflictNameBehavior(BehaviorWhenNameConflict.既存,"元のアイコンの名前(1)", "", 1),
-        new ConflictNameBehavior(BehaviorWhenNameConflict.置換,"元のアイコンの名前(2)", "", 2),
-        new ConflictNameBehavior(BehaviorWhenNameConflict.別名,"元のアイコンの名前(3)", "", 3)
+        new ConflictNameBehavior(BehaviorWhenNameConflict.既存,"元のアイコンの名前(1)", "", 1, ResourceType.システム.id),
+        new ConflictNameBehavior(BehaviorWhenNameConflict.置換,"元のアイコンの名前(2)", "", 2, ResourceType.住宅.id),
+        new ConflictNameBehavior(BehaviorWhenNameConflict.別名,"元のアイコンの名前(3)", "", 3, ResourceType.サービス.id)
       ]
     );
 

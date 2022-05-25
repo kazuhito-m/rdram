@@ -81,6 +81,7 @@
                     <thead>
                       <tr>
                         <th class="text-right">#</th>
+                        <th class="text-center">種</th>
                         <th class="text-left">アイコン名</th>
                         <th class="text-left">扱い</th>
                         <th class="text-left">新しいアイコン名</th>
@@ -91,8 +92,11 @@
                         v-for="(iconName, index) in vm.iconNames"
                         :key="iconName.sourceId"
                       >
-                        <td>
+                        <td class="text-right">
                           {{ index + 1 }}
+                        </td>
+                        <td class="text-center">
+                          <v-icon>{{ iconName.resourceType.iconKey }}</v-icon>
                         </td>
                         <td>
                           <v-text-field
