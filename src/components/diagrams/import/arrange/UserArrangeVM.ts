@@ -2,7 +2,8 @@ import IconNameArrangeVM from "./IconNameArrangeVM";
 import { BehaviorWhenNameConflict } from "@/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
 import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
-import DiagramType from "~/domain/diagram/DiagramType";
+import DiagramType from "@/domain/diagram/DiagramType";
+import Product from "@/domain/product/Product";
 
 export default class UserArrangeVM {
     constructor(
@@ -12,7 +13,8 @@ export default class UserArrangeVM {
         public readonly isConfrictDiagramName: boolean,
         private readonly sourceId: number,
         public readonly diagramType: DiagramType,
-        public readonly iconNames: IconNameArrangeVM[]
+        public readonly iconNames: IconNameArrangeVM[],
+        private readonly product: Product
     ) { }
 
     public validated = false;
@@ -70,7 +72,7 @@ export default class UserArrangeVM {
 
     // factory methods
 
-    public static of(userArrange: UserArrangeOfImportDiagram): UserArrangeVM {
+    public static of(userArrange: UserArrangeOfImportDiagram, product: Product): UserArrangeVM {
         const result = new UserArrangeVM(
             userArrange.sourceDiagramName,
             userArrange.conflictDiagramName.destinationName,
@@ -78,7 +80,8 @@ export default class UserArrangeVM {
             userArrange.isColidedDiagramName(),
             userArrange.conflictDiagramName.sourceId,
             DiagramType.ofId(userArrange.conflictDiagramName.sourceType) as DiagramType,
-            []
+            [],
+            product
         );
 
         const iconNames = userArrange.conflictResourceNames
@@ -95,11 +98,12 @@ export default class UserArrangeVM {
             this.isConfrictDiagramName,
             this.sourceId,
             this.diagramType,
-            newIconNames
+            newIconNames,
+            this.product
         );
     }
 
     public static empty(): UserArrangeVM {
-        return UserArrangeVM.of(UserArrangeOfImportDiagram.empty());
+        return UserArrangeVM.of(UserArrangeOfImportDiagram.empty(), Product.prototypeOf(""));
     }
 }

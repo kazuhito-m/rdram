@@ -191,10 +191,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Inject, Vue } from 'vue-property-decorator'
 import Behaviors from './Behaviors'
 import UserArrangeVM from './UserArrangeVM'
 import UserArrangeOfImportDiagram from '@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram'
+import StorageRepository from '~/domain/storage/StorageRepository'
+import Product from '~/domain/product/Product'
 
 @Component
 export default class UserArrengeWhenNameConfrictDialog extends Vue {
@@ -207,6 +209,9 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
 
   private resolve: any = null
   private reject: any = null
+
+  @Inject()
+  private repository!: StorageRepository
 
   public readonly tooltipOpenDelay = 1000
 
@@ -252,6 +257,11 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
     this.validateAll()
     console.log('全体のValidatedは？', this.validated)
     return true
+  }
+
+  private makeViewModelOf(arrange: UserArrangeOfImportDiagram): UserArrangeVM {
+    const product = this.repository.getCurrentProduct() as Product;
+    return UserArrangeVM.of(arrange, product);
   }
 }
 </script>
