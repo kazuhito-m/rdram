@@ -21,7 +21,7 @@
                           vm.diagramType.iconKey
                         }}</v-icon>
                       </template>
-                      <span>図の種類:{{ vm.diagramType.name }}</span>
+                      <span>{{ vm.diagramType.name }}</span>
                     </v-tooltip>
                     <v-text-field
                       v-model="vm.srcDiagramName"
@@ -108,7 +108,14 @@
                           {{ index + 1 }}
                         </td>
                         <td class="text-center">
-                          <v-icon>{{ iconName.resourceType.iconKey }}</v-icon>
+                          <v-tooltip top>
+                            <template #activator="{ on, attrs }">
+                              <v-icon v-bind="attrs" v-on="on">{{
+                                iconName.resourceType.iconKey
+                              }}</v-icon>
+                            </template>
+                            <span>{{ iconName.resourceType.name }}</span>
+                          </v-tooltip>
                         </td>
                         <td>
                           <v-text-field
