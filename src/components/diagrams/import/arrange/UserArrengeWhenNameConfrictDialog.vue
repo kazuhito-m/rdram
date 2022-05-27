@@ -15,7 +15,14 @@
               <v-card-text class="pa-1">
                 <v-card class="pa-0">
                   <v-card-title class="py-0 px-2">
-                    <v-icon>{{ vm.diagramType.iconKey }}</v-icon>
+                    <v-tooltip top>
+                      <template #activator="{ on, attrs }">
+                        <v-icon v-bind="attrs" v-on="on">{{
+                          vm.diagramType.iconKey
+                        }}</v-icon>
+                      </template>
+                      <span>図の種類:{{ vm.diagramType.name }}</span>
+                    </v-tooltip>
                     <v-text-field
                       v-model="vm.srcDiagramName"
                       label="図の名前"
