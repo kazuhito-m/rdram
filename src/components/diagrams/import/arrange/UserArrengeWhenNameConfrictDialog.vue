@@ -219,7 +219,7 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
     arrange: UserArrangeOfImportDiagram
   ): Promise<UserArrangeOfImportDiagram> {
     this.visible = true
-    this.vm = UserArrangeVM.of(arrange)
+    this.vm = this.makeViewModelOf(arrange)
     this.validateAll()
     return new Promise((resolve, reject) => {
       this.resolve = resolve
@@ -260,8 +260,8 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
   }
 
   private makeViewModelOf(arrange: UserArrangeOfImportDiagram): UserArrangeVM {
-    const product = this.repository.getCurrentProduct() as Product;
-    return UserArrangeVM.of(arrange, product);
+    const product = this.repository.getCurrentProduct() as Product
+    return UserArrangeVM.of(arrange, product)
   }
 }
 </script>

@@ -56,6 +56,9 @@ export default class UserArrangeVM {
             return `図の別名は${this.diagramNameMaxLength}文字以内で入力してください。`;
         if (value.trim() === this.srcDiagramName)
             return `図の別名に「インポートした元の名前」は指定できません。`;
+        const diagrams = this.product.diagrams;
+        if (diagrams.existsSameTypeAndName(this.destDiagramName, this.diagramType))
+            return "同じ種類・名前の図が既に存在します。"
         return true;
     }
 
