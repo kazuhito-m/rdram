@@ -40,7 +40,9 @@ export default class IconNameArrangeVM {
             return `アイコンの別名は${this.diagramNameMaxLength}文字以内で入力してください。`;
         if (value.trim() === this.srcName)
             return `アイコンの別名に「インポートした元の名前」は指定できません。`;
-        // TODO Diagram内での重複を許さない 
+        const conrictResult = this.parent.validateoConfrictResourceNameOf(value);
+        if (conrictResult !== true)
+            return conrictResult;
         // TODO プロダクト全体での重複も許さない
         return true;
     }

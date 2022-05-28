@@ -62,6 +62,11 @@ export default class UserArrangeVM {
         return true;
     }
 
+
+    public validateoConfrictResourceNameOf(value: string): boolean | string {
+        return true;
+    }
+
     // properties
 
     public get behavior(): BehaviorWhenNameConflict {
