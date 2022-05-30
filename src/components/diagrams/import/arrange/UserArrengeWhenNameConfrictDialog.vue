@@ -159,7 +159,6 @@
                             :rules="[validateIconName, testTest(iconName)]"
                             :disabled="iconName.isNotAriasNameOfBehavior()"
                             :placeholder="iconName.srcName"
-                            label="新しい名前"
                             :counter="iconName.diagramNameMaxLength"
                             :maxlength="iconName.diagramNameMaxLength"
                             leng
@@ -268,7 +267,7 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
   public testTest(obj: IconNameArrangeVM): string | boolean {
     console.log('第一引数', obj)
     console.log('第一引数に入ってる値', obj.destName)
-    return true
+    return '駄目な時は、おそらく全部だめ'
   }
 }
 </script>
