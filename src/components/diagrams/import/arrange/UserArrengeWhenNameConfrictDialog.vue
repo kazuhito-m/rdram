@@ -156,7 +156,7 @@
                         <td>
                           <v-text-field
                             v-model="iconName.destName"
-                            :rules="[validateIconName]"
+                            :rules="[validateIconName, testTest(iconName)]"
                             :disabled="iconName.isNotAriasNameOfBehavior()"
                             :placeholder="iconName.srcName"
                             label="新しい名前"
@@ -194,6 +194,7 @@
 import { Component, Inject, Vue } from 'vue-property-decorator'
 import Behaviors from './Behaviors'
 import UserArrangeVM from './UserArrangeVM'
+import IconNameArrangeVM from './IconNameArrangeVM'
 import UserArrangeOfImportDiagram from '@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram'
 import StorageRepository from '~/domain/storage/StorageRepository'
 import Product from '~/domain/product/Product'
@@ -262,6 +263,12 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
   private makeViewModelOf(arrange: UserArrangeOfImportDiagram): UserArrangeVM {
     const product = this.repository.getCurrentProduct() as Product
     return UserArrangeVM.of(arrange, product)
+  }
+
+  public testTest(obj: IconNameArrangeVM): string | boolean {
+    console.log('第一引数', obj)
+    console.log('第一引数に入ってる値', obj.destName)
+    return true
   }
 }
 </script>
