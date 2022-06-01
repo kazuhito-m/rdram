@@ -45,7 +45,7 @@ export default class UserArrangeVM {
     public validate() {
         return this.validateDialogName(this.destDiagramName) === true
             && this.iconNames
-                .every(i => i.validateIconName(i.destName) === true);
+                .every(i => i.validateIconName());
     }
 
     public validateDialogName(value: string): boolean | string {
@@ -62,14 +62,11 @@ export default class UserArrangeVM {
         return true;
     }
 
-    public validateoConfrictResourceNameOf(value: string): boolean | string {
-        //        const count = this.iconNames
-        //            .filter(n => n.destName === value)
-        //            .length;
-        //        if (count > 1)
-        //            return `他のアイコンの別名と重複しています。`;
-        console.log(value);
-        return true;
+    public validateoConfrictResourceNameOf(value: string): boolean {
+        const count = this.iconNames
+            .filter(n => n.destName === value)
+            .length;
+        return count <= 1;
     }
 
     // properties

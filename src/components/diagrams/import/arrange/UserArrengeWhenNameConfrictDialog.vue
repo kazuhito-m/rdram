@@ -156,7 +156,7 @@
                         <td>
                           <v-text-field
                             v-model="iconName.destName"
-                            :rules="[validateIconName, testTest(iconName)]"
+                            :rules="[validateIconName(iconName)]"
                             :disabled="iconName.isNotAriasNameOfBehavior()"
                             :placeholder="iconName.srcName"
                             :counter="iconName.diagramNameMaxLength"
@@ -251,23 +251,15 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
     return result
   }
 
-  public validateIconName(value: string): string | boolean {
-    // TODO 自身を指定したIconNameのバリデーション。
-    console.log('IconNameのValidation予定地', value)
+  public validateIconName(iconName: IconNameArrangeVM): string | boolean {
+    const result = iconName.validateIconName();
     this.validateAll()
-    console.log('全体のValidatedは？', this.validated)
-    return true
+    return result
   }
 
   private makeViewModelOf(arrange: UserArrangeOfImportDiagram): UserArrangeVM {
     const product = this.repository.getCurrentProduct() as Product
     return UserArrangeVM.of(arrange, product)
-  }
-
-  public testTest(obj: IconNameArrangeVM): string | boolean {
-    console.log('第一引数', obj)
-    console.log('第一引数に入ってる値', obj.destName)
-    return '駄目な時は、おそらく全部だめ'
   }
 }
 </script>

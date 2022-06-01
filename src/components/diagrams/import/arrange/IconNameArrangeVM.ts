@@ -31,18 +31,17 @@ export default class IconNameArrangeVM {
 
     // validation methods
 
-    public validateIconName(value: string): boolean | string {
+    public validateIconName(): boolean | string {
+        const name = this.destName;
         if (this.isNotAriasNameOfBehavior()) return true;
-        if (value.trim().length === 0)
-            return "アイコンの別名を入力してください。";
-        // TODO 自身オブジェクトを参照する方法を調べる
-        if (value.length > this.diagramNameMaxLength)
-            return `アイコンの別名は${this.diagramNameMaxLength}文字以内で入力してください。`;
-        if (value.trim() === this.srcName)
-            return `アイコンの別名に「インポートした元の名前」は指定できません。`;
-        const conrictResult = this.parent.validateoConfrictResourceNameOf(value);
-        if (conrictResult !== true)
-            return conrictResult;
+        if (name.trim().length === 0)
+            return "別名を入力してください。";
+        if (name.length > this.diagramNameMaxLength)
+            return `別名は${this.diagramNameMaxLength}文字以内で入力してください。`;
+        if (name.trim() === this.srcName)
+            return `別名に「元の名前」は指定できません。`;
+        if (!this.parent.validateoConfrictResourceNameOf(name))
+            return "他の別名と重複しています。";
         // TODO プロダクト全体での重複も許さない
         return true;
     }
