@@ -63,11 +63,12 @@ export default class UserArrangeVM {
     }
 
     public validateoConfrictResourceNameOf(value: string): boolean | string {
-//        const count = this.iconNames
-//            .filter(n => n.destName === value)
-//            .length;
-//        if (count > 1)
-//            return `他のアイコンの別名と重複しています。`;
+        //        const count = this.iconNames
+        //            .filter(n => n.destName === value)
+        //            .length;
+        //        if (count > 1)
+        //            return `他のアイコンの別名と重複しています。`;
+        console.log(value);
         return true;
     }
 
