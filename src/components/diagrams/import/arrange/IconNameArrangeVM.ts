@@ -29,6 +29,11 @@ export default class IconNameArrangeVM {
         );
     }
 
+    public equals(other: IconNameArrangeVM): boolean {
+        return this.destName === other.destName
+            && this.resourceType.equals(other.resourceType);
+    }
+
     // validation methods
 
     public validateIconName(): boolean | string {
@@ -40,10 +45,8 @@ export default class IconNameArrangeVM {
             return `別名は${this.diagramNameMaxLength}文字以内で入力してください。`;
         if (name.trim() === this.srcName)
             return `別名に「元の名前」は指定できません。`;
-        if (!this.parent.validateoConfrictResourceNameOf(name))
-            return "他の別名と重複しています。";
+        return this.parent.validateoConfrictResourceOf(this);
         // TODO プロダクト全体での重複も許さない
-        return true;
     }
 
     // properties
