@@ -200,7 +200,6 @@ describe('DiagramImportService', () => {
       // 確認
       expect(lastEvent!).not.toBeNull();
 
-      // TODO 「インポートした結果」をどうするのか、をちゃんと考える(リソースは「インポートしたもののみ」を返す？)
       expect(actual).not.toBeNull();
       expect(actual!.placements.length).toEqual(2);
       expect(actual!.allRelations().length).toEqual(1);
