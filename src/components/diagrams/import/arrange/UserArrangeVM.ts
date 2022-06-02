@@ -63,7 +63,6 @@ export default class UserArrangeVM {
     }
 
     public validateoConfrictResourceOf(iconName: IconNameArrangeVM): boolean | string {
-        console.log("別名内での確認", this.iconNames.length)
         if (this.confrictResourceDestName(iconName))
             return "他の別名と重複しています。";
         const resources = this.product.resources;
@@ -74,7 +73,6 @@ export default class UserArrangeVM {
 
     public confrictResourceDestName(iconName: IconNameArrangeVM): boolean {
         return this.iconNames
-            .map(i => { console.log(i.destName, i.resourceType); return i; })   // TODO debugなのであとで削除
             .filter(n => n.equals(iconName))
             .length > 1;
     }

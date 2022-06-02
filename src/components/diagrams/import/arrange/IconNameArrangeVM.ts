@@ -46,7 +46,6 @@ export default class IconNameArrangeVM {
         if (name.trim() === this.srcName)
             return `別名に「元の名前」は指定できません。`;
         return this.parent.validateoConfrictResourceOf(this);
-        // TODO プロダクト全体での重複も許さない
     }
 
     // properties
