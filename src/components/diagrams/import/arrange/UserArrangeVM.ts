@@ -63,18 +63,18 @@ export default class UserArrangeVM {
     }
 
     public validateoConfrictResourceOf(iconName: IconNameArrangeVM): boolean | string {
-        if (!this.confrictResourceDestName(iconName))
+        if (this.confrictResourceDestName(iconName))
             return "他の別名と重複しています。";
         const resources = this.product.resources;
-        if (!resources.existsSameOf())
-            return "同種同名のアイコンがすでにプロダクトに存在します。";
+        if (resources.existsSameTypeAndName(iconName.destName, iconName.resourceType))
+            return "同種同名がすでに存在します。";
         return true;
     }
 
     public confrictResourceDestName(iconName: IconNameArrangeVM): boolean {
         return this.iconNames
             .filter(n => n.equals(iconName))
-            .length <= 1;
+            .length > 1;
     }
 
 
