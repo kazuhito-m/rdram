@@ -65,6 +65,9 @@ export default class UserArrangeVM {
     public validateoConfrictResourceOf(iconName: IconNameArrangeVM): boolean | string {
         if (!this.confrictResourceDestName(iconName))
             return "他の別名と重複しています。";
+        const resources = this.product.resources;
+        if (!resources.existsSameOf())
+            return "同種同名のアイコンがすでにプロダクトに存在します。";
         return true;
     }
 
