@@ -105,23 +105,11 @@ export default class UserArrangeVM {
             product
         );
 
-        const iconNames = userArrange.conflictResourceNames
-            .map(r => IconNameArrangeVM.of(r, result));
+        userArrange.conflictResourceNames
+            .map(r => IconNameArrangeVM.of(r, result))
+            .forEach(iconName => result.iconNames.push(iconName));
 
-        return result.with(iconNames);
-    }
-
-    protected with(newIconNames: IconNameArrangeVM[]): UserArrangeVM {
-        return new UserArrangeVM(
-            this.srcDiagramName,
-            this.destDiagramName,
-            this.behavior,
-            this.isConfrictDiagramName,
-            this.sourceId,
-            this.diagramType,
-            newIconNames,
-            this.product
-        );
+        return result;
     }
 
     public static empty(): UserArrangeVM {
