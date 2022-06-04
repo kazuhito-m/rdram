@@ -53,12 +53,12 @@ export default class UserArrangeVM {
         if (value.trim().length === 0)
             return "別名を入力してください。";
         if (value.length > this.diagramNameMaxLength)
-            return `別名は${this.diagramNameMaxLength}文字以内で入力してください。`;
+            return `${this.diagramNameMaxLength}文字以内で入力してください。`;
         if (value.trim() === this.srcDiagramName)
-            return `別名に「元の名前」は指定できません。`;
+            return `「元の名前」は指定できません。`;
         const diagrams = this.product.diagrams;
         if (diagrams.existsSameTypeAndName(this.destDiagramName, this.diagramType))
-            return "同じ種類・名前の図が既に存在します。"
+            return "同種同名が既に存在します。"
         return true;
     }
 
@@ -67,7 +67,7 @@ export default class UserArrangeVM {
             return "他の別名と重複しています。";
         const resources = this.product.resources;
         if (resources.existsSameTypeAndName(iconName.destName, iconName.resourceType))
-            return "同種同名がすでに存在します。";
+            return "同種同名が既にに存在します。";
         return true;
     }
 

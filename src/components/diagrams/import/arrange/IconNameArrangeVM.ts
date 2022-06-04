@@ -42,9 +42,9 @@ export default class IconNameArrangeVM {
         if (name.trim().length === 0)
             return "別名を入力してください。";
         if (name.length > this.diagramNameMaxLength)
-            return `別名は${this.diagramNameMaxLength}文字以内で入力してください。`;
+            return `${this.diagramNameMaxLength}文字以内で入力してください。`;
         if (name.trim() === this.srcName)
-            return `別名に「元の名前」は指定できません。`;
+            return `「元の名前」は指定できません。`;
         return this.parent.validateoConfrictResourceOf(this);
     }
 
