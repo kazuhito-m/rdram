@@ -45,7 +45,7 @@ export default class UserArrangeVM {
     public validate() {
         return this.validateDialogName(this.destDiagramName) === true
             && this.iconNames
-                .every(i => i.validateIconName());
+                .every(i => i.validateIconName() === true);
     }
 
     public validateDialogName(value: string): boolean | string {
