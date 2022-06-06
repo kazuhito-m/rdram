@@ -58,7 +58,7 @@ export default class UserArrangeVM {
             return `「元の名前」は指定できません。`;
         const diagrams = this.product.diagrams;
         if (diagrams.existsSameTypeAndName(this.destDiagramName, this.diagramType))
-            return "同種同名が既に存在します。"
+            return "同種同名が既に存在します。";
         return true;
     }
 
