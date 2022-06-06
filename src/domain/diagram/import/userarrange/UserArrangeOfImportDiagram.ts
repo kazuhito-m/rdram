@@ -3,7 +3,7 @@ import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictN
 export default class UserArrangeOfImportDiagram {
     constructor(
         public readonly sourceDiagramName: string,
-        public readonly conflictDiagramName: ConflictNameBehavior | null,
+        public readonly conflictDiagramName: ConflictNameBehavior,
         public readonly conflictResourceNames: ConflictNameBehavior[]
     ) { }
 
@@ -24,7 +24,7 @@ export default class UserArrangeOfImportDiagram {
     }
 
     public isColidedDiagramName(): boolean {
-        return this.conflictDiagramName !== null;
+        return !this.conflictDiagramName.isEmpty();
     }
 
     public isEmpty(): boolean {
@@ -33,6 +33,6 @@ export default class UserArrangeOfImportDiagram {
     }
 
     public static empty(): UserArrangeOfImportDiagram {
-        return new UserArrangeOfImportDiagram("", null, []);
+        return new UserArrangeOfImportDiagram("", ConflictNameBehavior.empty(), []);
     }
 }

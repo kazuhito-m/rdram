@@ -73,19 +73,25 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+    <UserArrengeWhenNameConfrictDialog ref="userArrangeDialog"/>
   </v-dialog>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Inject, Watch } from "vue-property-decorator";
 import DiagramImportMessageConverter from "./DiagramImportMessageConverter";
+import UserArrengeWhenNameConfrictDialog from "./arrange/UserArrengeWhenNameConfrictDialog.vue";
 import DiagramImportProgressEvent from "@/domain/diagram/import/progress/DiagramImportProgressEvent";
 import DiagramImportService from "@/application/service/diagram/import/DiagramImportService";
 import { DiagramImportError } from "@/domain/diagram/import/progress/DiagramImportError";
 import RdramDiagramExportFileName from "@/domain/diagram/export/RdramDiagramExportFileName";
-import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
+import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 
-@Component
+@Component({
+  components: {
+    UserArrengeWhenNameConfrictDialog
+  }
+})
 export default class DiagramImportDialog extends Vue {
   @Inject()
   private readonly diagramImportService?: DiagramImportService;
@@ -186,10 +192,9 @@ export default class DiagramImportDialog extends Vue {
     if (importedDiagram) this.imported = true;
   }
 
-  private confirmeUserArrange(arrange: UserArrangeOfImportDiagram): UserArrangeOfImportDiagram {
-    if (arrange.isEmpty()) console.log("別に重複は無かった。");
-    // TODO ユーザーによる「重複時の振る舞い」を確認するダイアログを出す。
-    return arrange;
+  private async confirmeUserArrange(arrange: UserArrangeOfImportDiagram): Promise<UserArrangeOfImportDiagram> {
+    if (arrange.isEmpty()) return arrange;
+    return await this.showUserArrengeWhenNameConfrictDialog(arrange);
   }
 
   private notifyProgress(event: DiagramImportProgressEvent): void {
@@ -206,6 +211,11 @@ export default class DiagramImportDialog extends Vue {
 
     this.progressLogs+=message;
     this.$nextTick(() => console.log(`UIが変更されたはず。message:${message}`));
+  }
+
+  private async showUserArrengeWhenNameConfrictDialog(arrange: UserArrangeOfImportDiagram): Promise<UserArrangeOfImportDiagram> {
+    const dialog = this.$refs.userArrangeDialog as UserArrengeWhenNameConfrictDialog;
+    return await dialog.show(arrange);
   }
 }
 </script>

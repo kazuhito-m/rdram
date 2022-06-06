@@ -38,6 +38,9 @@
     <v-btn color="normal" dark @click="onClickModalDialogTest">Modal Dialog Test</v-btn>
     <Confirm ref="confirm"/>
 
+    <v-btn color="normal" dark @click="onClickUserArrengeDialog">図/アイコンの名前の重複 Dialog Test</v-btn>
+    <UserArrengeWhenNameConfrictDialog ref="userArrangeDialog"/>
+
     <v-card-text>
       <v-row>
         <v-col>
@@ -78,9 +81,18 @@ import draw2d, { Figure } from "draw2d";
 import TopLeftLocator from "@/draw2d/custom/TopLeftLocator";
 
 import Confirm from "@/components/debug/Confirm.vue";
+import UserArrengeWhenNameConfrictDialog from "@/components/diagrams/import/arrange/UserArrengeWhenNameConfrictDialog.vue";
+import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
+import ConflictNameBehavior from "~/domain/diagram/import/conflictname/ConflictNameBehavior";
+import { BehaviorWhenNameConflict } from "~/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
+import DiagramType from "~/domain/diagram/DiagramType";
+import ResourceType from "~/domain/resource/ResourceType";
 
 @Component({
-  components: { Confirm }
+  components: {
+    Confirm,
+    UserArrengeWhenNameConfrictDialog
+  }
 })
 export default class extends Vue {
   private canvas!: draw2d.Canvas;
@@ -806,6 +818,23 @@ export default class extends Vue {
 
     console.log("ダイアログを表示して終わったとこまで。", result);
     alert(result);
+  }
+
+  private async onClickUserArrengeDialog(): Promise<void> {
+    const arrange = new UserArrangeOfImportDiagram(
+      "元のダイアグラムの名前(親側)",
+      new ConflictNameBehavior(BehaviorWhenNameConflict.別名 ,"元のダイアグラムの名前(子側)", "", 1, DiagramType.システムコンテキスト図.id), // ConflictNameBehavior.empty(),
+      [
+        new ConflictNameBehavior(BehaviorWhenNameConflict.既存,"元のアイコンの名前(1)", "", 1, ResourceType.システム.id),
+        new ConflictNameBehavior(BehaviorWhenNameConflict.置換,"元のアイコンの名前(2)", "", 2, ResourceType.住宅.id),
+        new ConflictNameBehavior(BehaviorWhenNameConflict.別名,"元のアイコンの名前(3)", "", 3, ResourceType.サービス.id)
+      ]
+    );
+
+    const dialog = this.$refs.userArrangeDialog as UserArrengeWhenNameConfrictDialog;
+    const result = await dialog.show(arrange);
+
+    console.log(result);
   }
 }
 </script>

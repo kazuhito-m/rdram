@@ -25,7 +25,7 @@ describe('DiagramImportService', () => {
     let lastEvent: DiagramImportProgressEvent;
     const actual = await sut.importOf(file,
       event => { lastEvent = event; },
-      (arrange) => arrange
+      async arrange => await arrange
     );
 
     // 確認
@@ -65,10 +65,10 @@ describe('DiagramImportService', () => {
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
-        arrange => {
+        async arrange => {
           passedArrange = arrange;
           // ユーザは、変更せずデフォルトで答える、というオペレーション
-          return arrange;
+          return await arrange;
         }
       );
 
@@ -134,12 +134,12 @@ describe('DiagramImportService', () => {
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
-        arrange => {
+        async arrange => {
           passedCallback = true;
           // ユーザは、「リソースはインポートデータで置換」と答える、というオペレーション
           const arrangedColidedNames = arrange.conflictResourceNames
             .map(name => name.with(BehaviorWhenNameConflict.置換));
-          return arrange.withResourceNames(arrangedColidedNames);
+          return await arrange.withResourceNames(arrangedColidedNames);
         }
       );
 
@@ -188,19 +188,18 @@ describe('DiagramImportService', () => {
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
-        arrange => {
+        async arrange => {
           passedArrange = arrange;
           // ユーザは、「リソースは別名に変更してインポート」と答える、というオペレーション
           const arrangedColidedNames = arrange.conflictResourceNames
             .map(name => name.with(BehaviorWhenNameConflict.別名, "SampleSystemが重複したので変更した名前"));
-          return arrange.withResourceNames(arrangedColidedNames);
+          return await arrange.withResourceNames(arrangedColidedNames);
         }
       );
 
       // 確認
       expect(lastEvent!).not.toBeNull();
 
-      // TODO 「インポートした結果」をどうするのか、をちゃんと考える(リソースは「インポートしたもののみ」を返す？)
       expect(actual).not.toBeNull();
       expect(actual!.placements.length).toEqual(2);
       expect(actual!.allRelations().length).toEqual(1);
@@ -253,12 +252,12 @@ describe('DiagramImportService', () => {
       let lastEvent: DiagramImportProgressEvent;
       const actual = await sut.importOf(file,
         event => { lastEvent = event },
-        arrange => {
+        async arrange => {
           passedArrange = arrange;
           // ユーザは、「図は別名に変更してインポート」と答える、というオペレーション
           const arrangedColidedName = arrange
             .conflictDiagramName?.with(BehaviorWhenNameConflict.別名, "FOR_TESTという図名が重複したので置換した名前")
-          return arrange.withDiagramName(arrangedColidedName as ConflictNameBehavior);
+          return await arrange.withDiagramName(arrangedColidedName as ConflictNameBehavior);
         }
       );
 
@@ -296,10 +295,10 @@ describe('DiagramImportService', () => {
       const progressSteps: DiagramImportProgressStep[] = [];
       const actual = await sut.importOf(file,
         event => { progressSteps.push(event.step); },
-        arrange => {
+        async arrange => {
           passedArrange = arrange;
           // ユーザは、「インポートをキャンセル」と答える、というオペレーション
-          return UserArrangeOfImportDiagram.empty();
+          return await UserArrangeOfImportDiagram.empty();
         }
       );
 

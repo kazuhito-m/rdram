@@ -34,6 +34,12 @@ export default class Resources {
             .some(r => r.sameOf(resource));
     }
 
+    public existsSameTypeAndName(name: string, resourceType: ResourceType): boolean {
+        return this.values
+            .some(d => d.name === name
+                && d.type.equals(resourceType));
+    }
+
     public getSameOf(resource: Resource): Resource | undefined {
         return this.values
             .find(r => r.sameOf(resource));

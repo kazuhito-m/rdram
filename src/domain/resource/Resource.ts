@@ -3,7 +3,7 @@ import ResourceType from "./ResourceType";
 export default class Resource {
     public static readonly YET_NUMBERING_ID = 0;
     public static readonly NAME_MAX_LENGTH = 128;
-    public static DESCRIPTION_MAX_LENGTH = 512;
+    public static readonly DESCRIPTION_MAX_LENGTH = 512;
 
     constructor(
         public readonly resourceId: number,
