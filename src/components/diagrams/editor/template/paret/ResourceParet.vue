@@ -104,14 +104,14 @@
           v-if="false"
           link
         >
-          <v-list-item-title>対応するダイアグラムを開く</v-list-item-title>
+          <v-list-item-title>対応する図を開く</v-list-item-title>
         </v-list-item>
         <v-list-item
           v-if="rightClickedResourceOnDiagram"
           link
           @click="onClickMenuDeleteResourceOnDiagram"
         >
-          <v-list-item-title>このダイアグラムから削除</v-list-item-title>
+          <v-list-item-title>この図から削除</v-list-item-title>
         </v-list-item>
         <v-list-item
           v-if="rightClickedResourceOnProduct"

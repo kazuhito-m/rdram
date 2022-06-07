@@ -37,7 +37,7 @@
           >
             <v-list>
               <v-list-item link @click="onClickMenuAddDiagram">
-                <v-list-item-title>ダイアグラムの追加...</v-list-item-title>
+                <v-list-item-title>図の追加...</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>

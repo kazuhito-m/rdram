@@ -23,7 +23,7 @@ export default class Product {
 
     public relationable(relation: Relation, diagramId: number): string {
         const diagram = this.diagrams.of(diagramId);
-        if (!diagram) return "指定されたダイアグラムがありません。";
+        if (!diagram) return "指定された図がありません。";
 
         const relationPlus = this.resources.relationWithResourcesOf(relation);
         if (!relationPlus) return "対応するリソースがありません。";
