@@ -1,6 +1,8 @@
 RDRAM
 ==========================
 
+[![ci](https://github.com/kazuhito-m/rdram/actions/workflows/ci.yml/badge.svg)](https://github.com/kazuhito-m/rdram/actions/workflows/ci.yml) [![gh-pages-deploy](https://github.com/kazuhito-m/rdram/actions/workflows/deploy.yml/badge.svg)](https://github.com/kazuhito-m/rdram/actions/workflows/deploy.yml)
+
 ## What's this ?
 
 ラドラムです。
