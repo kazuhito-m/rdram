@@ -151,6 +151,8 @@ export default class ResourceParet extends Vue {
   private readonly availableResourceTypes: ResourceType[] = [];
   private readonly paretsOpen: number[] = [];
 
+  private readonly correspondDiagramDic = new CorrespondResourceTypes();
+
   private rightClickedResourceId = 0;
   private rightClickedOpenDiagramOfResourcePair = false;
   private rightClickedResourceOnDiagram = false;
@@ -206,9 +208,8 @@ export default class ResourceParet extends Vue {
     );
     if (!resource) return;
 
-    const correspondDiagramDic = new CorrespondResourceTypes();
-
-    this.rightClickedOpenDiagramOfResourcePair = correspondDiagramDic.hasCorrespondingDiagramType(resource.type);
+    this.rightClickedOpenDiagramOfResourcePair = this.correspondDiagramDic
+      .hasCorrespondingDiagramType(resource.type);
     this.rightClickedResourceOnDiagram = onDinagram === "true";
     this.rightClickedResourceOnProduct = resource.deletable;
     this.rightClickedResourceId = 0;
