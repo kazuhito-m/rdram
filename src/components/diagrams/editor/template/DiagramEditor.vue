@@ -23,6 +23,7 @@
           :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
           :usedResouceIds="usedResouceIds"
           :product="product"
+          @onOpenDiagramOfResourcePair="onOpenDiagramOfResourcePair"
           @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
           @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
         />
@@ -123,6 +124,10 @@ export default class DiagramEditor extends Vue {
   }
 
   // children component events.
+
+  private onOpenDiagramOfResourcePair(resourceId: number): void {
+    alert("親に伝播できた:" + resourceId);
+  }
 
   private onDeleteResourceOnDiagram(resourceId: number): void {
     const diagram = this.deleteResourceOnDiagram(resourceId);

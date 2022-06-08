@@ -101,8 +101,9 @@
           <v-list-item-title>編集...</v-list-item-title>
         </v-list-item>
         <v-list-item
-          v-if="false"
+          v-if="true"
           link
+          @click="onClickMenuOpenDiagramOfResourcePair"
         >
           <v-list-item-title>対応する図を開く</v-list-item-title>
         </v-list-item>
@@ -154,6 +155,9 @@ export default class ResourceParet extends Vue {
   private rightClickedResourceOnProduct = false;
   private rightClickedResourceX = 0;
   private rightClickedResourceY = 0;
+
+  @Emit("onOpenDiagramOfResourcePair")
+  private onOpenDiagramOfResourcePair(_resourceId: number): void {}
 
   @Emit("onDeleteResourceOnDiagram")
   private onDeleteResourceOnDiagram(_resourceId: number): void {}
@@ -208,6 +212,11 @@ export default class ResourceParet extends Vue {
     this.$nextTick(() => {
       this.rightClickedResourceId = resourceId;
     });
+  }
+
+  private onClickMenuOpenDiagramOfResourcePair(): void {
+    const resourceId = Number(this.rightClickedResourceId);
+    this.onOpenDiagramOfResourcePair(resourceId);
   }
 
   private onClickMenuDeleteResourceOnDiagram(): void {
