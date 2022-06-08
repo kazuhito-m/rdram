@@ -15,14 +15,6 @@ export default class Resource {
 
     public readonly deletable: boolean = true;
 
-    public correspondingDiagramTypes(): DiagramType[] {
-        return [];
-    }
-
-    public hasCorespondDiagramType(): boolean {
-        return this.correspondingDiagramTypes().length > 0;
-    }
-
     public sameOf(other: Resource) {
         return this.type.equals(other.type)
             && this.name === other.name;

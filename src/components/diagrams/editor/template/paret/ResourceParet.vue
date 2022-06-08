@@ -132,6 +132,7 @@ import { Component, Prop, Vue, Emit } from "vue-property-decorator";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Product from "@/domain/product/Product";
+import CorrespondResourceTypes from "@/domain/diagram/correspond/CorrespondResourceTypes";
 
 @Component
 export default class ResourceParet extends Vue {
@@ -205,7 +206,9 @@ export default class ResourceParet extends Vue {
     );
     if (!resource) return;
 
-    this.rightClickedOpenDiagramOfResourcePair = resource.hasCorespondDiagramType();
+    const correspondDiagramDic = new CorrespondResourceTypes();
+
+    this.rightClickedOpenDiagramOfResourcePair = correspondDiagramDic.hasCorrespondingDiagramType(resource.type);
     this.rightClickedResourceOnDiagram = onDinagram === "true";
     this.rightClickedResourceOnProduct = resource.deletable;
     this.rightClickedResourceId = 0;
