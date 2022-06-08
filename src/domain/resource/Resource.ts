@@ -1,4 +1,3 @@
-import DiagramType from "../diagram/DiagramType";
 import ResourceType from "./ResourceType";
 
 export default class Resource {
