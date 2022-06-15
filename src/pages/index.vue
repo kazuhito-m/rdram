@@ -244,18 +244,21 @@ export default class extends Vue {
 
   public onClickTreeItem(treeItemIdText: string): void {
     if (treeItemIdText === "") return;
-    const treeItemId = parseInt(treeItemIdText, 10);
+    const diagramId = parseInt(treeItemIdText, 10);
+    this.openDiagramEditorTabOf(diagramId);
+  }
 
-    const exists = this.openTabs.some(tab => tab.id === treeItemId);
+  public openDiagramEditorTabOf(diagramId: number): void {
+    const exists = this.openTabs
+      .some(tab => tab.id === diagramId);
     if (!exists) {
-      const clickedItem = this.findTreeItemById(treeItemId, this.treeItems);
+      const clickedItem = this.findTreeItemById(diagramId, this.treeItems);
       if (!clickedItem) return;
       this.openTabs.push(clickedItem);
     }
 
-    const newTabIndex = this.openTabs.findIndex(
-      tabItem => tabItem.id === treeItemId
-    );
+    const newTabIndex = this.openTabs
+      .findIndex(tabItem => tabItem.id === diagramId);
     this.currentTabIndex = newTabIndex;
     this.onChangeActiveTab(newTabIndex);
   }
@@ -423,7 +426,7 @@ export default class extends Vue {
 
   private onClickMenuEditDiagramProperties(): void {
     const diagramId = this.menuTargetTreeItemId;
-    this.propertiesEditorDiagramId = diagramId;
+    this.onOpendDiagramPropertiesEditor(diagramId);
   }
 
   private onClickMenuExportDiagram(): void {
