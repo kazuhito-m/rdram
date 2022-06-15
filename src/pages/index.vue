@@ -109,6 +109,7 @@
                 @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
                 @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
                 @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+                @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
               />
             </v-tab-item>
           </v-tabs-items>
@@ -125,7 +126,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Inject } from "nuxt-property-decorator";
+import { Component, Vue, Inject, Emit } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
@@ -236,6 +237,10 @@ export default class extends Vue {
       this.addDiagramTreeItem(diagram, items)
     );
     return items;
+  }
+
+  private onOpenDiagramOfResourceRelate(resourceId: number): void {
+    alert("index.vueの「対応した図を開く」。resourceId:" + resourceId);
   }
 
   private onOpendDiagramPropertiesEditor(diagramId: number): void {

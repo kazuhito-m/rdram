@@ -160,8 +160,8 @@ export default class ResourceParet extends Vue {
   private rightClickedResourceX = 0;
   private rightClickedResourceY = 0;
 
-  @Emit("onOpenDiagramOfResourcePair")
-  private onOpenDiagramOfResourcePair(_resourceId: number): void {}
+  @Emit("onOpenDiagramOfResourceRelate")
+  private onOpenDiagramOfResourceRelate(_resourceId: number): void {}
 
   @Emit("onDeleteResourceOnDiagram")
   private onDeleteResourceOnDiagram(_resourceId: number): void {}
@@ -222,7 +222,7 @@ export default class ResourceParet extends Vue {
 
   private onClickMenuOpenDiagramOfResourcePair(): void {
     const resourceId = Number(this.rightClickedResourceId);
-    this.onOpenDiagramOfResourcePair(resourceId);
+    this.onOpenDiagramOfResourceRelate(resourceId);
   }
 
   private onClickMenuDeleteResourceOnDiagram(): void {

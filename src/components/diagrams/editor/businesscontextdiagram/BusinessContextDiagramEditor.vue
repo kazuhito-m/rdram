@@ -7,7 +7,8 @@
     :iconGenerators="iconGenerators"
     @onUpdateResources="onUpdateResources"
     @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
-  />
+  @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+/>
 </template>
 
 <script lang="ts">
@@ -82,6 +83,9 @@ export default class InfomationModelEditor extends Vue {
 
   @Emit("onOpendDiagramPropertiesEditor")
   private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+
+  @Emit("onOpenDiagramOfResourceRelate")
+  private onOpenDiagramOfResourceRelate(_resourceId: number): void {}
 }
 </script>
 
