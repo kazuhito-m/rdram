@@ -243,28 +243,17 @@ export default class extends Vue {
   private onOpenDiagramOfResourceRelate(resourceId: number): void {
     const product = this.repository!.getCurrentProduct();
     if (!product) return;
-    console.log("index.vueの「対応した図を開く」。resourceId:" + resourceId);
-    const resource = product.resources.of(resourceId);
-    if (!resource) return;
 
-    const correspondDiagramDic = new CorrespondResourceTypes();
-    const diagramTypeIds = correspondDiagramDic.correspondingDiagramTypesOf(resource.type)
-      .map(diagramType => diagramType.id);
-    const diagrams = product.diagrams
-      .map(diagram => diagram);
-    const relateDiagrams = diagrams
-      .filter(diagram => diagramTypeIds.includes(diagram.type.id))
-      .filter(diagram => diagram.name === resource.name);
-
-    switch (relateDiagrams.length) {
+    const diagrams =  product.diagramOfResourceRelate(resourceId);
+    switch (diagrams.length) {
       case 0:
-        alert("名前同じ図は無かった、新規作成。名前:" + resource.name);
+        alert("名前同じ図は無かった、新規作成。");
         break;
       case 1:
-        this.openDiagramEditorTabOf(relateDiagrams[0].id);
+        this.openDiagramEditorTabOf(diagrams.last().id);
         break;
       default:
-        alert("名前同じ図選ぶ。図の数:" + relateDiagrams.length);
+        alert("名前同じ図選ぶ。図の数:" + diagrams.length);
         break;
     }
   }
