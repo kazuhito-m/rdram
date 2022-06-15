@@ -126,7 +126,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Inject, Emit } from "nuxt-property-decorator";
+import { Component, Vue, Inject } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
@@ -139,7 +139,6 @@ import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
 import StorageRepository from "@/domain/storage/StorageRepository";
 import DiagramExportService from "@/application/service/diagram/export/DiagramExportService";
-import CorrespondResourceTypes from "@/domain/diagram/correspond/CorrespondResourceTypes";
 
 @Component({
   components: {
