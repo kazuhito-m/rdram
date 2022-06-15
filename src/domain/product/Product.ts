@@ -9,6 +9,7 @@ import ResourceFactory from '@/domain/resource/ResourceFactory';
 import DiagramType from '@/domain/diagram/DiagramType';
 import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
 import Relation from '@/domain/relation/Relation';
+import CorrespondResourceTypes from "@/domain/diagram/correspond/CorrespondResourceTypes";
 
 export default class Product {
     constructor(
@@ -20,6 +21,8 @@ export default class Product {
         public readonly resources: Resources,
         public readonly resourceIdSequence: number,
     ) { }
+
+    private readonly correspondResourceTypes = new CorrespondResourceTypes();
 
     public relationable(relation: Relation, diagramId: number): string {
         const diagram = this.diagrams.of(diagramId);
@@ -202,6 +205,15 @@ export default class Product {
         const useRecourceIds = diagram.placements
             .map(placement => placement.resourceId);
         return this.resources.findOf(useRecourceIds);
+    }
+
+    public diagramOfResourceRelate(resourceId: number): Diagrams {
+        const resource = this.resources.of(resourceId);
+        if (!resource) return Diagrams.empty();
+        const diagramTypes = this.correspondResourceTypes
+            .correspondingDiagramTypesOf(resource.type)
+        return this.diagrams.typesOf(...diagramTypes)
+            .findByNameOf(resource.name);
     }
 
     // factory methods
