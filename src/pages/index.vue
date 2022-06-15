@@ -139,6 +139,7 @@ import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
 import StorageRepository from "@/domain/storage/StorageRepository";
 import DiagramExportService from "@/application/service/diagram/export/DiagramExportService";
+import CorrespondResourceTypes from "@/domain/diagram/correspond/CorrespondResourceTypes";
 
 @Component({
   components: {
@@ -240,7 +241,32 @@ export default class extends Vue {
   }
 
   private onOpenDiagramOfResourceRelate(resourceId: number): void {
-    alert("index.vueの「対応した図を開く」。resourceId:" + resourceId);
+    const product = this.repository!.getCurrentProduct();
+    if (!product) return;
+    console.log("index.vueの「対応した図を開く」。resourceId:" + resourceId);
+    const resource = product.resources.of(resourceId);
+    if (!resource) return;
+
+    const correspondDiagramDic = new CorrespondResourceTypes();
+    const diagramTypeIds = correspondDiagramDic.correspondingDiagramTypesOf(resource.type)
+      .map(diagramType => diagramType.id);
+    const diagrams = product.diagrams
+      .map(diagram => diagram);
+    const relateDiagrams = diagrams
+      .filter(diagram => diagramTypeIds.includes(diagram.type.id))
+      .filter(diagram => diagram.name === resource.name);
+
+    switch (relateDiagrams.length) {
+      case 0:
+        alert("名前同じ図は無かった、新規作成。名前:" + resource.name);
+        break;
+      case 1:
+        alert("名前同じ図は一件。そのまま開く。図の名前:" + relateDiagrams[0].name);
+        break;
+      default:
+        alert("名前同じ図選ぶ。図の数:" + relateDiagrams.length);
+        break;
+    }
   }
 
   private onOpendDiagramPropertiesEditor(diagramId: number): void {
