@@ -103,7 +103,7 @@
         <v-list-item
           v-if="rightClickedOpenDiagramOfResourcePair"
           link
-          @click="onClickMenuOpenDiagramOfResourcePair"
+          @click="onClickMenuOpenDiagramOfResourceRelate"
         >
           <v-list-item-title>対応する図を開く</v-list-item-title>
         </v-list-item>
@@ -220,7 +220,7 @@ export default class ResourceParet extends Vue {
     });
   }
 
-  private onClickMenuOpenDiagramOfResourcePair(): void {
+  private onClickMenuOpenDiagramOfResourceRelate(): void {
     const resourceId = Number(this.rightClickedResourceId);
     this.onOpenDiagramOfResourceRelate(resourceId);
   }
