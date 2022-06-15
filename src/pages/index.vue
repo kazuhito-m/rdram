@@ -261,7 +261,7 @@ export default class extends Vue {
         alert("名前同じ図は無かった、新規作成。名前:" + resource.name);
         break;
       case 1:
-        alert("名前同じ図は一件。そのまま開く。図の名前:" + relateDiagrams[0].name);
+        this.openDiagramEditorTabOf(relateDiagrams[0].id);
         break;
       default:
         alert("名前同じ図選ぶ。図の数:" + relateDiagrams.length);
