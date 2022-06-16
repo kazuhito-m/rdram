@@ -22,8 +22,6 @@ export default class Product {
         public readonly resourceIdSequence: number,
     ) { }
 
-    private readonly correspondResourceTypes = new CorrespondResourceTypes();
-
     public relationable(relation: Relation, diagramId: number): string {
         const diagram = this.diagrams.of(diagramId);
         if (!diagram) return "指定された図がありません。";
@@ -210,8 +208,9 @@ export default class Product {
     public diagramOfResourceRelate(resourceId: number): Diagrams {
         const resource = this.resources.of(resourceId);
         if (!resource) return Diagrams.empty();
-        const diagramTypes = this.correspondResourceTypes
-            .correspondingDiagramTypesOf(resource.type)
+
+        const dic = new CorrespondResourceTypes();
+        const diagramTypes = dic.correspondingDiagramTypesOf(resource.type)
         return this.diagrams.typesOf(...diagramTypes)
             .findByNameOf(resource.name);
     }

@@ -7,12 +7,12 @@ import DiagramType from "@/domain/diagram/DiagramType";
  * 図とリソースの静的な関係の定義を司る。
  */
 export default class CorrespondResourceTypes {
-    private MAP = new Map([
+    private static readonly MAP = new Map([
         [ResourceType.業務.id, [DiagramType.ユースケース複合図, DiagramType.利用シーン図]],
     ]);
 
     public correspondingDiagramTypesOf(resourceType: ResourceType): DiagramType[] {
-        const result = this.MAP.get(resourceType.id);
+        const result = CorrespondResourceTypes.MAP.get(resourceType.id);
         if (!result) return [];
         return result.slice();
     }
