@@ -120,10 +120,6 @@ export default class DiagramEditor extends Vue {
   private warnBar: boolean = false;
   private warnMessage: string = "";
 
-  private diagram(): Diagram {
-    return this.product.diagrams.of(this.diagramId) as Diagram;
-  }
-
   // Vue events(life cycle events)
 
   public mounted() {
@@ -161,10 +157,15 @@ export default class DiagramEditor extends Vue {
 
   onShowResourceMenu(resource: Resource, x: number, y: number): void {
     const menu = this.$refs.resourceRightClickMenu as ResourceRightClickMenu;
-    menu.show(resource, this.diagram(), x, y);
+    menu.show(resource, this.diagram(), x, y); // TODO 右クリックメニューを表示する度にローカルストレージを呼ぶのをやめたい
   }
 
   // private methods.
+
+  private diagram(): Diagram {
+    const product = this.getCurrentProduct();
+    return product.diagrams.of(this.diagramId) as Diagram;
+  }
 
   private deleteResourceOnDiagram(resourceId: number): Diagram | null {
     const product = this.getCurrentProduct();
