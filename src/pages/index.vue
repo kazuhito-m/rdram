@@ -244,9 +244,7 @@ export default class extends Vue {
 
   private async onOpenDiagramOfResourceRelate(resourceId: number): Promise<void> {
     const dialog = this.$refs.diagramTypeSelectorDialog as DiagramTypeSelectorDialog;
-    console.log("selecterを開く前:");
     const diagramId = await dialog.show(resourceId);
-    console.log("selecterを開く後:", diagramId);
 
     if (diagramId === DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID) return;
 
