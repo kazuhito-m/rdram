@@ -31,7 +31,7 @@
           <template #label> 図の種類 </template>
           <v-radio
             v-for="diagramType in diagramTypes"
-            v-bind:key="diagramType.id"
+            :key="diagramType.id"
             :value="diagramType.id"
           >
             <template #label>
