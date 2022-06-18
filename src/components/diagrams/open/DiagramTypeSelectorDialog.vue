@@ -24,7 +24,14 @@
       <v-card-text>
         アイコン(図の名前) :
         <v-chip color="primary" dark draggable>
-          <v-icon>{{ resource.type.iconKey }}</v-icon>
+          <v-tooltip bottom open-delay="500">
+            <template #activator="{ on, attrs }">
+              <v-icon v-bind="attrs" v-on="on">
+                {{ resource.type.iconKey }}
+              </v-icon>
+            </template>
+            <span>{{ resource.type.name }}</span>
+          </v-tooltip>
           {{ resource.name }}
         </v-chip>
         <v-radio-group v-model="diagramTypeId">
