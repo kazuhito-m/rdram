@@ -17,7 +17,7 @@ export default class CorrespondResourceTypes {
         return result.slice();
     }
 
-    public hasCorrespondingDiagramType(resourceType: ResourceType): boolean {
+    public hasCorrespondingDiagramTypeOf(resourceType: ResourceType): boolean {
         return this.correspondingDiagramTypesOf(resourceType).length > 0;
     }
 }

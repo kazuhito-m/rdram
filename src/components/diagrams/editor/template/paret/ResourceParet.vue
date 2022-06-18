@@ -208,8 +208,7 @@ export default class ResourceParet extends Vue {
     );
     if (!resource) return;
 
-    this.rightClickedOpenDiagramOfResourcePair = this.correspondDiagramDic
-      .hasCorrespondingDiagramType(resource.type);
+    this.rightClickedOpenDiagramOfResourcePair = Product.hasCorrespondingDiagramTypeOf(resource);
     this.rightClickedResourceOnDiagram = onDinagram === "true";
     this.rightClickedResourceOnProduct = resource.deletable;
     this.rightClickedResourceId = 0;

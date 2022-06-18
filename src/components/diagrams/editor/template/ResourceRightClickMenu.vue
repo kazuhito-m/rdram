@@ -36,6 +36,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import Product from '@/domain/product/Product'
 import Resource from '@/domain/resource/Resource'
 import Diagram from '@/domain/diagram/Diagram'
 
@@ -65,19 +66,21 @@ export default class ResourceRightClickMenu extends Vue {
   }
 
   show(resource: Resource, diagram: Diagram, x: number, y: number): void {
-    console.log('メニュー表示:' + resource.name + ', visible:' + this.visible)
-
     this.resourceId = resource.resourceId
     this.diagramId = diagram.id
 
-    // TODO リソースごとの表示制御
-    this.enableOpenDiagram = true
-    this.enableDeleteOnDiagram = true
-    this.enableDeleteOnProduct = true
+    this.analyzeEnableMenu(resource, diagram)
 
     this.showPositionX = x
     this.showPositionY = y
     this.visible = true
+  }
+
+  private analyzeEnableMenu(resource: Resource, diagram: Diagram): void {
+    const onDiagram = diagram.existsResourceOnPlacementOf(resource.resourceId)
+    this.enableOpenDiagram = Product.hasCorrespondingDiagramTypeOf(resource)
+    this.enableDeleteOnDiagram = onDiagram
+    this.enableDeleteOnProduct = resource.deletable
   }
 
   close(): void {
