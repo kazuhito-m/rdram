@@ -1,8 +1,8 @@
 <template lang="html">
-  <v-dialog v-model="visible" @keydown.esc="close()" persistent max-width="450">
+  <v-dialog v-model="visible" @keydown.esc="close()" persistent max-width="400">
     <v-card>
       <v-card-title class="headline">
-        <v-icon>mdi-selection-multiple</v-icon> 関連する新しい図の種類の選択
+        <v-icon>mdi-selection-multiple</v-icon> 新しい図の種類の選択
       </v-card-title>
       <v-card-text>
         アイコンに対応する図を新たに作成します。<br />
