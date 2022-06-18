@@ -1,3 +1,8 @@
+/**
+ * Draw2Dのzoom値(getZoom()で取れる値)を表すValueオブジェクト。
+ * <p>
+ * その値自体は倍率ではない(1を割るための分母)であるため、その知識をクラスに表す。
+ */
 export default class ZoomValueOnDraw2d {
     private constructor(public readonly value: number) { }
 
