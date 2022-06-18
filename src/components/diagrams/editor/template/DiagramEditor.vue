@@ -33,6 +33,7 @@
           @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
           @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
           @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
+          @onShowResourceMenu="onShowResourceMenu"
         />
       </template>
     </TwoPainWithSlideBarLayout>
@@ -122,11 +123,14 @@ export default class DiagramEditor extends Vue {
   private warnBar: boolean = false;
   private warnMessage: string = "";
 
+  private diagram(): Diagram {
+    return this.product.diagrams.of(this.diagramId) as Diagram;
+  }
+
   // Vue events(life cycle events)
 
   public mounted() {
-    const diagram = this.product.diagrams.of(this.diagramId) as Diagram;
-    this.intializeIconCharMap(diagram);
+    this.intializeIconCharMap(this.diagram());
   }
 
   private onShowWarnBar(text: string): void {
@@ -158,9 +162,9 @@ export default class DiagramEditor extends Vue {
     idSet.forEach(id => usedResouceIds.push(id));
   }
 
-  onShowResourceMenu(resource: Resource, diagram: Diagram , x: number, y: number): void {
+  onShowResourceMenu(resource: Resource, x: number, y: number): void {
     const menu = this.$refs.resourceRightClickMenu as ResourceRightClickMenu;
-    menu.show(resource, diagram, x, y);
+    menu.show(resource, this.diagram(), x, y);
   }
 
   // private methods.
