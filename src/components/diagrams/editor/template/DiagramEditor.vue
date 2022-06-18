@@ -1,5 +1,6 @@
 <template>
   <div class="diagram-pain-container">
+    <ResourceRightClickMenu ref="resourceRightClickMenu" />
     <TwoPainWithSlideBarLayout adsorptionLeftWhenDoubleClick="true" defaultLeftPainWidth="80%">
       <template #leftPain>
         <DiagramCanvas
@@ -15,6 +16,7 @@
           @onMergePlacement="onMergePlacement"
           @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
           @onShowWarnBar="onShowWarnBar"
+          @onShowResourceMenu="onShowResourceMenu"
         />
       </template>
       <template #rightPain>
@@ -35,7 +37,6 @@
         <v-btn color="blue" text v-bind="attrs" @click="warnBar = false">Close</v-btn>
       </template>
     </v-snackbar>
-    <ResourceRightClickMenu />
   </div>
 </template>
 
@@ -130,7 +131,6 @@ export default class DiagramEditor extends Vue {
 
   // children component events.
 
-
   private onDeleteResourceOnDiagram(resourceId: number): void {
     const diagram = this.deleteResourceOnDiagram(resourceId);
     if (!diagram) return;
@@ -151,6 +151,11 @@ export default class DiagramEditor extends Vue {
       else usedResouceIds.splice(i, 1);
     }
     idSet.forEach(id => usedResouceIds.push(id));
+  }
+
+  onShowResourceMenu(resource: Resource, diagram: Diagram , x: number, y: number): void {
+    const menu = this.$refs.resourceRightClickMenu as ResourceRightClickMenu;
+    menu.show(resource, diagram, x, y);
   }
 
   // private methods.
