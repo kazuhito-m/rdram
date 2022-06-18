@@ -1,5 +1,5 @@
 <template lang="html">
-  <v-dialog v-model="visible" @keydown.esc="close()" persistent max-width="400">
+  <v-dialog v-model="visible" persistent max-width="400" @keydown.esc="close()">
     <v-card>
       <span v-if="isRelateDiagramExists">
         <v-card-title class="headline">
@@ -28,9 +28,13 @@
           {{ resource.name }}
         </v-chip>
         <v-radio-group v-model="diagramTypeId">
-          <template v-slot:label> 図の種類 </template>
-          <v-radio v-for="diagramType in diagramTypes" :value="diagramType.id">
-            <template v-slot:label>
+          <template #label> 図の種類 </template>
+          <v-radio
+            v-for="diagramType in diagramTypes"
+            v-bind:key="diagramType.id"
+            :value="diagramType.id"
+          >
+            <template #label>
               <div>
                 <v-icon>{{ diagramType.iconKey }}</v-icon>
                 {{ diagramType.name }}
