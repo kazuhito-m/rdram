@@ -11,8 +11,8 @@
       <v-card-text>
         アイコン(図の名前) :
         <v-chip color="primary" dark draggable>
-          <v-icon>mdi-selection-multiple</v-icon>
-          アイコン名
+          <v-icon>{{ resource.type.iconKey }}</v-icon>
+          {{ resource.name }}
         </v-chip>
         <v-radio-group v-model="diagramTypeId">
           <template v-slot:label> 図の種類 </template>
@@ -39,6 +39,11 @@
 import { Component, Vue, Inject } from 'vue-property-decorator'
 import StorageRepository from '@/domain/storage/StorageRepository'
 import DiagramType from '@/domain/diagram/DiagramType'
+import Resource from '~/domain/resource/Resource'
+import Product from '~/domain/product/Product'
+import CorrespondResourceTypes from '~/domain/diagram/correspond/CorrespondResourceTypes'
+import Diagram from '~/domain/diagram/Diagram'
+import Diagrams from '~/domain/diagram/Diagrams'
 
 @Component
 export default class DiagramTypeSelectorDialog extends Vue {
@@ -49,7 +54,7 @@ export default class DiagramTypeSelectorDialog extends Vue {
   resourceName: string = ''
   diagramTypes: DiagramType[] = []
 
-  resourceId = 0
+  resource: Resource = Resource.empty()
   isRelateDiagramExists = false
   diagramTypeId = 0
 
@@ -64,17 +69,17 @@ export default class DiagramTypeSelectorDialog extends Vue {
   }
 
   onClickOk(): void {
-    const diagramId = this.analyzeDiagramId()
+    const diagramId = this.fixedDiagramId()
     this.close()
     this.resolve(diagramId)
   }
 
   show(resourceId: number): Promise<number> {
-    if (!this.initializeOf(resourceId)) {
-      return new Promise((resolve) =>
-        resolve(DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID)
-      )
-    }
+    const diagramIds = this.findRelateDiagramIdsOf(resourceId)
+    if (diagramIds.length === 1)
+      return new Promise((resolve) => resolve(diagramIds[0]))
+
+    this.diagramTypeId = this.diagramTypes[0].id
 
     this.visible = true
     return new Promise((resolve, reject) => {
@@ -83,20 +88,46 @@ export default class DiagramTypeSelectorDialog extends Vue {
     })
   }
 
-  private initializeOf(resourceId: number): boolean {
-    this.resourceId = resourceId
-    // TODO 本実装。以下は仮。
-    this.resourceName = 'リソースの名前'
-    this.diagramTypes = [
-      DiagramType.利用シーン図,
-      DiagramType.ユースケース複合図,
-    ]
-    this.diagramTypeId = DiagramType.利用シーン図.id
-    return false
+  private findRelateDiagramIdsOf(resourceId: number): number[] {
+    const diagrams = this.findRelateDiagrams(resourceId)
+    if (diagrams.length === 1) return diagrams.map((diagram) => diagram.id)
+
+    this.isRelateDiagramExists = diagrams.length > 1
+
+    if (!this.isRelateDiagramExists) {
+      const dic = new CorrespondResourceTypes()
+      this.diagramTypes = dic.correspondingDiagramTypesOf(this.resource.type)
+      return []
+    }
+
+    this.diagramTypes = diagrams.map((diagram) => diagram.type)
+    return diagrams.map((diagram) => diagram.id)
   }
 
-  private analyzeDiagramId(): number {
-    return 1
+  private findRelateDiagrams(resourceId: number): Diagrams {
+    const product = this.repository?.getCurrentProduct() as Product
+    this.resource = product.resources.of(resourceId) as Resource
+    return product.diagramOfResourceRelate(resourceId)
+  }
+
+  private fixedDiagramId(): number {
+    const diagramType = DiagramType.ofId(this.diagramTypeId) as DiagramType
+
+    const diagrams = this.findRelateDiagrams(this.resource.resourceId)
+    if (diagrams.length === 0)
+      return this.createAndAddDiagram(this.resource.name, diagramType).id
+
+    const diagram = diagrams.typeOf(diagramType).last()
+    return diagram.id
+  }
+
+  private createAndAddDiagram(name: string, diagramType: DiagramType): Diagram {
+    const repository = this.repository as StorageRepository
+    const product = repository.getCurrentProduct() as Product
+    const modifiedProduct = product.createAndAddDiagram(name, diagramType)
+    const diagram = modifiedProduct.diagrams.last()
+    repository.registerCurrentProduct(modifiedProduct)
+    return diagram
   }
 
   close() {
