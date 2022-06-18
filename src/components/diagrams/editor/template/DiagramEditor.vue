@@ -23,6 +23,7 @@
           :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
           :usedResouceIds="usedResouceIds"
           :product="product"
+          @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
           @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
           @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
         />
@@ -94,6 +95,9 @@ export default class DiagramEditor extends Vue {
   @Emit("onOpendDiagramPropertiesEditor")
   private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
+  @Emit("onOpenDiagramOfResourceRelate")
+  private onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+
   public created(): void {
     this.product = this.getCurrentProduct();
   }
@@ -123,6 +127,7 @@ export default class DiagramEditor extends Vue {
   }
 
   // children component events.
+
 
   private onDeleteResourceOnDiagram(resourceId: number): void {
     const diagram = this.deleteResourceOnDiagram(resourceId);
@@ -188,8 +193,8 @@ export default class DiagramEditor extends Vue {
     const usedCount = product.diagrams.countOfUsingOf(resource);
     if (usedCount > 0) {
       const message =
-        `「${resource.name}」は、現在 ${usedCount}個 のダイアグラムで参照されています。\n` +
-        "削除する場合、それらのダイアログのアイコンや関連のすべては削除されます。\n" +
+        `「${resource.name}」は、現在 ${usedCount}個 の図で参照されています。\n` +
+        "削除する場合、それらの図のアイコンや関連のすべては削除されます。\n" +
         `${resource.name} を削除してもよろしいですか。`;
       if (!window.confirm(message)) return;
     }

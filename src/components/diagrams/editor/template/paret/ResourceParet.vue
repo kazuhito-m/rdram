@@ -95,11 +95,24 @@
     >
       <v-list>
         <v-list-item
+          v-if="false"
+          link
+        >
+          <v-list-item-title>編集...</v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          v-if="rightClickedOpenDiagramOfResourcePair"
+          link
+          @click="onClickMenuOpenDiagramOfResourceRelate"
+        >
+          <v-list-item-title>対応する図を開く</v-list-item-title>
+        </v-list-item>
+        <v-list-item
           v-if="rightClickedResourceOnDiagram"
           link
           @click="onClickMenuDeleteResourceOnDiagram"
         >
-          <v-list-item-title>このダイアグラムから削除</v-list-item-title>
+          <v-list-item-title>この図から削除</v-list-item-title>
         </v-list-item>
         <v-list-item
           v-if="rightClickedResourceOnProduct"
@@ -119,6 +132,7 @@ import { Component, Prop, Vue, Emit } from "vue-property-decorator";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Product from "@/domain/product/Product";
+import CorrespondResourceTypes from "@/domain/diagram/correspond/CorrespondResourceTypes";
 
 @Component
 export default class ResourceParet extends Vue {
@@ -137,11 +151,17 @@ export default class ResourceParet extends Vue {
   private readonly availableResourceTypes: ResourceType[] = [];
   private readonly paretsOpen: number[] = [];
 
+  private readonly correspondDiagramDic = new CorrespondResourceTypes();
+
   private rightClickedResourceId = 0;
+  private rightClickedOpenDiagramOfResourcePair = false;
   private rightClickedResourceOnDiagram = false;
   private rightClickedResourceOnProduct = false;
   private rightClickedResourceX = 0;
   private rightClickedResourceY = 0;
+
+  @Emit("onOpenDiagramOfResourceRelate")
+  private onOpenDiagramOfResourceRelate(_resourceId: number): void {}
 
   @Emit("onDeleteResourceOnDiagram")
   private onDeleteResourceOnDiagram(_resourceId: number): void {}
@@ -188,6 +208,8 @@ export default class ResourceParet extends Vue {
     );
     if (!resource) return;
 
+    this.rightClickedOpenDiagramOfResourcePair = this.correspondDiagramDic
+      .hasCorrespondingDiagramType(resource.type);
     this.rightClickedResourceOnDiagram = onDinagram === "true";
     this.rightClickedResourceOnProduct = resource.deletable;
     this.rightClickedResourceId = 0;
@@ -196,6 +218,11 @@ export default class ResourceParet extends Vue {
     this.$nextTick(() => {
       this.rightClickedResourceId = resourceId;
     });
+  }
+
+  private onClickMenuOpenDiagramOfResourceRelate(): void {
+    const resourceId = Number(this.rightClickedResourceId);
+    this.onOpenDiagramOfResourceRelate(resourceId);
   }
 
   private onClickMenuDeleteResourceOnDiagram(): void {

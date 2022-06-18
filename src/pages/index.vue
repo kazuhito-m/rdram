@@ -37,7 +37,7 @@
           >
             <v-list>
               <v-list-item link @click="onClickMenuAddDiagram">
-                <v-list-item-title>ダイアグラムの追加...</v-list-item-title>
+                <v-list-item-title>図の追加...</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -109,6 +109,7 @@
                 @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
                 @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
                 @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+                @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
               />
             </v-tab-item>
           </v-tabs-items>
@@ -121,6 +122,7 @@
         </div>
       </template>
     </TwoPainWithSlideBarLayout>
+    <DiagramTypeSelectorDialog ref="diagramTypeSelectorDialog"/>
   </v-layout>
 </template>
 
@@ -129,6 +131,7 @@ import { Component, Vue, Inject } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
+import DiagramTypeSelectorDialog from "@/components/diagrams/open/DiagramTypeSelectorDialog.vue";
 import TreeItem from "@/presentation/tree/TreeItem"; 
 import MessageBox from "@/presentation/MessageBox";
 import DiagramType from "@/domain/diagram/DiagramType";
@@ -143,7 +146,8 @@ import DiagramExportService from "@/application/service/diagram/export/DiagramEx
   components: {
     TwoPainWithSlideBarLayout,
     DiagramEditorContainer,
-    DiagramPropertiesEditDialog
+    DiagramPropertiesEditDialog,
+    DiagramTypeSelectorDialog
   }
 })
 export default class extends Vue {
@@ -238,32 +242,49 @@ export default class extends Vue {
     return items;
   }
 
+  private async onOpenDiagramOfResourceRelate(resourceId: number): Promise<void> {
+    const dialog = this.$refs.diagramTypeSelectorDialog as DiagramTypeSelectorDialog;
+    const diagramId = await dialog.show(resourceId);
+
+    if (diagramId === DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID) return;
+
+    if (!this.findTreeItemById(diagramId)) {
+      // UIのTree上に無いtreeItemIdが無かった場合、永続化されたものから探して、在ったらTreeに足す。
+      const diagram = this.repository.getCurrentProduct()
+        ?.diagrams
+        .of(diagramId) as Diagram;
+      this.addDiagramTreeItem(diagram, this.treeItems);
+    }
+
+    this.openDiagramEditorTabOf(diagramId);
+  }
+
   private onOpendDiagramPropertiesEditor(diagramId: number): void {
     this.propertiesEditorDiagramId = diagramId;
   }
 
   public onClickTreeItem(treeItemIdText: string): void {
     if (treeItemIdText === "") return;
-    const treeItemId = parseInt(treeItemIdText, 10);
+    const diagramId = parseInt(treeItemIdText, 10);
+    this.openDiagramEditorTabOf(diagramId);
+  }
 
-    const exists = this.openTabs.some(tab => tab.id === treeItemId);
+  public openDiagramEditorTabOf(diagramId: number): void {
+    const exists = this.openTabs
+      .some(tab => tab.id === diagramId);
     if (!exists) {
-      const clickedItem = this.findTreeItemById(treeItemId, this.treeItems);
+      const clickedItem = this.findTreeItemById(diagramId, this.treeItems);
       if (!clickedItem) return;
       this.openTabs.push(clickedItem);
     }
 
-    const newTabIndex = this.openTabs.findIndex(
-      tabItem => tabItem.id === treeItemId
-    );
+    const newTabIndex = this.openTabs
+      .findIndex(tabItem => tabItem.id === diagramId);
     this.currentTabIndex = newTabIndex;
     this.onChangeActiveTab(newTabIndex);
   }
 
-  private findTreeItemById(
-    treeItemId: number,
-    treeItems: TreeItem[]
-  ): TreeItem | null {
+  private findTreeItemById(treeItemId: number, treeItems: TreeItem[] = this.treeItems): TreeItem | null {
     for (const item of treeItems) {
       if (item.id === treeItemId) return item;
       const child = this.findTreeItemById(treeItemId, item.children);
@@ -409,9 +430,9 @@ export default class extends Vue {
     this.removeTreeItem(diagramId, this.treeItems);
   }
 
-  private addDiagramTreeItem(diagram: Diagram, treeItems: TreeItem[]): void {
+  private addDiagramTreeItem(diagram: Diagram, treeItems: TreeItem[]): TreeItem | null {
     const folderItem = this.folderItemOf(diagram.type, treeItems);
-    if (!folderItem) return;
+    if (!folderItem) return null;
     const children = folderItem.children;
 
     if (children.length === 1 && children[0] === this.EMPTY_ITEMS)
@@ -419,11 +440,13 @@ export default class extends Vue {
 
     const diagramTreeItem = this.diagramToTreeItem(diagram);
     children.push(diagramTreeItem);
+
+    return diagramTreeItem;
   }
 
   private onClickMenuEditDiagramProperties(): void {
     const diagramId = this.menuTargetTreeItemId;
-    this.propertiesEditorDiagramId = diagramId;
+    this.onOpendDiagramPropertiesEditor(diagramId);
   }
 
   private onClickMenuExportDiagram(): void {

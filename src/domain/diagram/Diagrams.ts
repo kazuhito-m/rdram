@@ -6,15 +6,9 @@ import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
 
 export default class Diagrams {
-    private readonly values: Diagram[];
+    constructor(private readonly values: Diagram[]) { }
 
-    constructor(values: Diagram[]) {
-        this.values = values;
-    }
-
-    public static prototypeOf(): Diagrams {
-        return new Diagrams([]);
-    }
+    // with or part modify.
 
     public createNewDiagram(name: string, diagramType: DiagramType, resources: Resources): Diagram {
         const newDiagramId = this.generateDiagramId();
@@ -27,6 +21,8 @@ export default class Diagrams {
             .map(d => d.id)
             .reduce((l, r) => Math.max(l, r), 0) + 1;
     }
+
+    // exists or counts.
 
     public countOfUsingOf(resource: Resource): number {
         return this.values
@@ -48,6 +44,8 @@ export default class Diagrams {
         return !!this.of(diagramId);
     }
 
+    // search methods.
+
     public of(diagramId: number): Diagram | undefined {
         return this.values
             .find(diagram => diagram.id === diagramId);
@@ -61,6 +59,12 @@ export default class Diagrams {
     public nameOf(name: string): Diagram | undefined {
         return this.values
             .find(diagram => diagram.name === name);
+    }
+
+    public findByNameOf(name: string): Diagrams {
+        const diagrams = this.values
+            .filter(diagram => diagram.name === name);
+        return new Diagrams(diagrams);
     }
 
     public add(diagram: Diagram): Diagrams {
@@ -105,6 +109,8 @@ export default class Diagrams {
         return this.typesOf(type);
     }
 
+    // lambda function.
+
     public forEach(func: (diagram: Diagram) => void) {
         this.values.forEach(func);
     }
@@ -113,9 +119,17 @@ export default class Diagrams {
         return this.values.map(callbackfn);
     }
 
+    // factory methods.
+
     public static empty(): Diagrams {
         return new Diagrams([]);
     }
+
+    public static prototypeOf(): Diagrams {
+        return new Diagrams([]);
+    }
+
+    // get methods.
 
     public last(): Diagram {
         return this.values[this.values.length - 1];

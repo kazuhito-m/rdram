@@ -209,7 +209,7 @@ export default class extends Vue {
   private readonly items = [
     {
       icon: 'mdi-apps',
-      title: 'ダイアグラム一覧',
+      title: '図の一覧',
       to: '/',
     },
     {

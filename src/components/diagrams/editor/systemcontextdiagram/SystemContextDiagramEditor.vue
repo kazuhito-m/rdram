@@ -7,6 +7,7 @@
     :iconGenerators="iconGenerators"
     @onUpdateResources="onUpdateResources"
     @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+    @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
   />
 </template>
 
@@ -71,6 +72,9 @@ export default class SystemContextDiagramEditor extends Vue {
 
   @Emit("onOpendDiagramPropertiesEditor")
   private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+
+  @Emit("onOpenDiagramOfResourceRelate")
+  private onOpenDiagramOfResourceRelate(_resourceId: number): void {}
 }
 </script>
 

@@ -9,6 +9,7 @@ import ResourceFactory from '@/domain/resource/ResourceFactory';
 import DiagramType from '@/domain/diagram/DiagramType';
 import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
 import Relation from '@/domain/relation/Relation';
+import CorrespondResourceTypes from "@/domain/diagram/correspond/CorrespondResourceTypes";
 
 export default class Product {
     constructor(
@@ -23,7 +24,7 @@ export default class Product {
 
     public relationable(relation: Relation, diagramId: number): string {
         const diagram = this.diagrams.of(diagramId);
-        if (!diagram) return "指定されたダイアグラムがありません。";
+        if (!diagram) return "指定された図がありません。";
 
         const relationPlus = this.resources.relationWithResourcesOf(relation);
         if (!relationPlus) return "対応するリソースがありません。";
@@ -202,6 +203,22 @@ export default class Product {
         const useRecourceIds = diagram.placements
             .map(placement => placement.resourceId);
         return this.resources.findOf(useRecourceIds);
+    }
+
+    public diagramOfResourceRelate(resourceId: number): Diagrams {
+        const resource = this.resources.of(resourceId);
+        if (!resource) return Diagrams.empty();
+
+        const diagramTypes = Product.correspondingDiagramTypesOf(resource);
+        return this.diagrams.typesOf(...diagramTypes)
+            .findByNameOf(resource.name);
+    }
+
+    // utility methods.
+
+    public static correspondingDiagramTypesOf(resource: Resource) {
+        const dic = new CorrespondResourceTypes();
+        return dic.correspondingDiagramTypesOf(resource.type);
     }
 
     // factory methods

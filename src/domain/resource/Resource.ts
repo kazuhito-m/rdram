@@ -42,6 +42,10 @@ export default class Resource {
         return ResourceType.ofId(this.resourceTypeId) as ResourceType;
     }
 
+    public static empty(): Resource {
+        return new Resource(0, ResourceType.アクター.id, "", "");
+    }
+
     protected clone(): Resource {
         // const serializer = new Serializer();
         // return serializer.cloningOf(this);
