@@ -132,7 +132,6 @@ import { Component, Prop, Vue, Emit } from "vue-property-decorator";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Product from "@/domain/product/Product";
-import CorrespondResourceTypes from "@/domain/diagram/correspond/CorrespondResourceTypes";
 
 @Component
 export default class ResourceParet extends Vue {
@@ -150,8 +149,6 @@ export default class ResourceParet extends Vue {
 
   private readonly availableResourceTypes: ResourceType[] = [];
   private readonly paretsOpen: number[] = [];
-
-  private readonly correspondDiagramDic = new CorrespondResourceTypes();
 
   private rightClickedResourceId = 0;
   private rightClickedOpenDiagramOfResourcePair = false;
