@@ -141,7 +141,6 @@ import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
 import StorageRepository from "@/domain/storage/StorageRepository";
 import DiagramExportService from "@/application/service/diagram/export/DiagramExportService";
-import { refreshStyles } from "less";
 
 @Component({
   components: {
@@ -245,9 +244,19 @@ export default class extends Vue {
 
   private async onOpenDiagramOfResourceRelate(resourceId: number): Promise<void> {
     const dialog = this.$refs.diagramTypeSelectorDialog as DiagramTypeSelectorDialog;
+    console.log("selecterを開く前:");
     const diagramId = await dialog.show(resourceId);
+    console.log("selecterを開く後:", diagramId);
 
     if (diagramId === DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID) return;
+
+    if (!this.findTreeItemById(diagramId)) {
+      // UIのTree上に無いtreeItemIdが無かった場合、永続化されたものから探して、在ったらTreeに足す。
+      const diagram = this.repository.getCurrentProduct()
+        ?.diagrams
+        .of(diagramId) as Diagram;
+      this.addDiagramTreeItem(diagram, this.treeItems);
+    }
 
     this.openDiagramEditorTabOf(diagramId);
   }
@@ -277,10 +286,7 @@ export default class extends Vue {
     this.onChangeActiveTab(newTabIndex);
   }
 
-  private findTreeItemById(
-    treeItemId: number,
-    treeItems: TreeItem[]
-  ): TreeItem | null {
+  private findTreeItemById(treeItemId: number, treeItems: TreeItem[] = this.treeItems): TreeItem | null {
     for (const item of treeItems) {
       if (item.id === treeItemId) return item;
       const child = this.findTreeItemById(treeItemId, item.children);
@@ -426,9 +432,9 @@ export default class extends Vue {
     this.removeTreeItem(diagramId, this.treeItems);
   }
 
-  private addDiagramTreeItem(diagram: Diagram, treeItems: TreeItem[]): void {
+  private addDiagramTreeItem(diagram: Diagram, treeItems: TreeItem[]): TreeItem | null {
     const folderItem = this.folderItemOf(diagram.type, treeItems);
-    if (!folderItem) return;
+    if (!folderItem) return null;
     const children = folderItem.children;
 
     if (children.length === 1 && children[0] === this.EMPTY_ITEMS)
@@ -436,6 +442,8 @@ export default class extends Vue {
 
     const diagramTreeItem = this.diagramToTreeItem(diagram);
     children.push(diagramTreeItem);
+
+    return diagramTreeItem;
   }
 
   private onClickMenuEditDiagramProperties(): void {

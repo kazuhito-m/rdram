@@ -65,17 +65,21 @@ export default class DiagramTypeSelectorDialog extends Vue {
 
   onClickCancel(): void {
     this.close()
+    console.log('closeには来ているみたいだけど…。')
     this.resolve(DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID)
   }
 
   onClickOk(): void {
     const diagramId = this.fixedDiagramId()
     this.close()
+    console.log('okに来ている:', diagramId)
     this.resolve(diagramId)
   }
 
   show(resourceId: number): Promise<number> {
+    console.log('show() resourceId:' + resourceId)
     const diagramIds = this.findRelateDiagramIdsOf(resourceId)
+    console.log('diagramsIds:', diagramIds)
     if (diagramIds.length === 1)
       return new Promise((resolve) => resolve(diagramIds[0]))
 
