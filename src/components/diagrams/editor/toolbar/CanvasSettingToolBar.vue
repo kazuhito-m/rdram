@@ -93,9 +93,6 @@ export default class CanvasSettingToolBar extends Vue {
   private readonly diagramId!: number;
 
   @Prop({ required: true })
-  private readonly canvasZoom!: number;
-
-  @Prop({ required: true })
   private canvasGuideType!: CanvasGuideType;
 
   @Emit("onChangeCanvasGuideType")
@@ -118,6 +115,8 @@ export default class CanvasSettingToolBar extends Vue {
   private dragStartLayerX = 0;
   private dragStartLayerY = 0;
 
+  private canvasZoom = 1;
+
   private lastContainerWidth = 0;
   private lastContainerHeight = 0;
 
@@ -139,7 +138,9 @@ export default class CanvasSettingToolBar extends Vue {
   }
 
   @Emit("onChangeZoomBySlider")
-  private onChangeZoomParent(_zoom: number) {}
+  private onChangeZoomParent(zoom: number) {
+    this.canvasZoom = zoom;
+  }
 
   private onResizeEditorPain(event: ResizeObserverEntry[]): void {
     // FIXME Tabの非アクティブ時に裏で無限呼び出され、することへの対策。今の所「ResizeObzerverを削除」くらいしか手がないが…。
