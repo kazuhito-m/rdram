@@ -1,5 +1,5 @@
 <template lang="html">
-  <v-dialog v-model="visible" persistent max-width="600">
+  <v-dialog v-model="visible" @keydown.esc="close()" persistent max-width="450">
     <v-card>
       <v-card-title class="headline">
         <v-icon>mdi-selection-multiple</v-icon> 関連する新しい図の種類の選択
@@ -8,14 +8,14 @@
         アイコンに対応する図を新たに作成します。<br />
         新規作成する図の種類を選択してください。
       </v-card-text>
-
-      <v-card-actions>
-        <v-text-field
-          v-model="resourceName"
-          label="アイコンの名前"
-          outlined
-        ></v-text-field>
-        <v-radio-group v-model="diagramTypeId" mandatory>
+      <v-card-text>
+        アイコン(図の名前) :
+        <v-chip color="primary" dark draggable>
+          <v-icon>mdi-selection-multiple</v-icon>
+          アイコン名
+        </v-chip>
+        <v-radio-group v-model="diagramTypeId">
+          <template v-slot:label> 図の種類 </template>
           <v-radio v-for="diagramType in diagramTypes" :value="diagramType.id">
             <template v-slot:label>
               <div>
@@ -25,8 +25,7 @@
             </template>
           </v-radio>
         </v-radio-group>
-      </v-card-actions>
-
+      </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text color="normal" @click="onClickCancel"> キャンセル </v-btn>
@@ -44,6 +43,8 @@ import DiagramType from '@/domain/diagram/DiagramType'
 @Component
 export default class DiagramTypeSelectorDialog extends Vue {
   visible = false
+  private resolve: any = null
+  private reject: any = null
 
   resourceName: string = ''
   diagramTypes: DiagramType[] = []
@@ -63,13 +64,17 @@ export default class DiagramTypeSelectorDialog extends Vue {
     this.close()
   }
 
-  show(resourceId: number): void {
+  show(resourceId: number): Promise<number> {
     this.initializeOf(resourceId)
     this.visible = true
+    return new Promise((resolve, reject) => {
+      this.resolve = resolve
+      this.reject = reject
+    })
   }
 
   private initializeOf(resourceId: number) {
-    this.resourceId = resourceId;
+    this.resourceId = resourceId
     // TODO 本実装。以下は仮。
     this.resourceName = 'リソースの名前'
     this.diagramTypes = [
@@ -79,13 +84,7 @@ export default class DiagramTypeSelectorDialog extends Vue {
     this.diagramTypeId = DiagramType.利用シーン図.id
   }
 
-  private close() {
-    this.resourceName = ''
-    this.diagramTypes = []
-    this.resourceId = 0
-    this.isRelateDiagramExists = false
-    this.diagramTypeId = 0
-
+  close() {
     this.visible = false
   }
 }
