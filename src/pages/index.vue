@@ -122,6 +122,7 @@
         </div>
       </template>
     </TwoPainWithSlideBarLayout>
+    <DiagramTypeSelectorDialog ref="diagramTypeSelectorDialog"/>
   </v-layout>
 </template>
 
@@ -130,6 +131,7 @@ import { Component, Vue, Inject } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
+import DiagramTypeSelectorDialog from "@/components/diagrams/open/DiagramTypeSelectorDialog.vue";
 import TreeItem from "@/presentation/tree/TreeItem"; 
 import MessageBox from "@/presentation/MessageBox";
 import DiagramType from "@/domain/diagram/DiagramType";
@@ -139,12 +141,14 @@ import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
 import StorageRepository from "@/domain/storage/StorageRepository";
 import DiagramExportService from "@/application/service/diagram/export/DiagramExportService";
+import { refreshStyles } from "less";
 
 @Component({
   components: {
     TwoPainWithSlideBarLayout,
     DiagramEditorContainer,
-    DiagramPropertiesEditDialog
+    DiagramPropertiesEditDialog,
+    DiagramTypeSelectorDialog
   }
 })
 export default class extends Vue {
@@ -239,22 +243,13 @@ export default class extends Vue {
     return items;
   }
 
-  private onOpenDiagramOfResourceRelate(resourceId: number): void {
-    const product = this.repository!.getCurrentProduct();
-    if (!product) return;
+  private async onOpenDiagramOfResourceRelate(resourceId: number): Promise<void> {
+    const dialog = this.$refs.diagramTypeSelectorDialog as DiagramTypeSelectorDialog;
+    const diagramId = await dialog.show(resourceId);
 
-    const diagrams =  product.diagramOfResourceRelate(resourceId);
-    switch (diagrams.length) {
-      case 0:
-        alert("名前同じ図は無かった、新規作成。");
-        break;
-      case 1:
-        this.openDiagramEditorTabOf(diagrams.last().id);
-        break;
-      default:
-        alert("名前同じ図選ぶ。図の数:" + diagrams.length);
-        break;
-    }
+    if (diagramId === DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID) return;
+
+    this.openDiagramEditorTabOf(diagramId);
   }
 
   private onOpendDiagramPropertiesEditor(diagramId: number): void {

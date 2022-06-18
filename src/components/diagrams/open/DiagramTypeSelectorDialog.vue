@@ -53,15 +53,20 @@ export default class DiagramTypeSelectorDialog extends Vue {
   isRelateDiagramExists = false
   diagramTypeId = 0
 
+  static NOTHING_DIAGRAM_ID = 0
+
   @Inject()
   private readonly repository?: StorageRepository
 
   onClickCancel(): void {
     this.close()
+    this.resolve(DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID)
   }
 
   onClickOk(): void {
+    const diagramId = this.analyzeDiagramId()
     this.close()
+    this.resolve(diagramId)
   }
 
   show(resourceId: number): Promise<number> {
@@ -82,6 +87,10 @@ export default class DiagramTypeSelectorDialog extends Vue {
       DiagramType.ユースケース複合図,
     ]
     this.diagramTypeId = DiagramType.利用シーン図.id
+  }
+
+  private analyzeDiagramId(): number {
+    return 1
   }
 
   close() {
