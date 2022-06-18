@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Emit } from 'vue-property-decorator'
 import Product from '@/domain/product/Product'
 import Resource from '@/domain/resource/Resource'
 import Diagram from '@/domain/diagram/Diagram'
@@ -54,16 +54,28 @@ export default class ResourceRightClickMenu extends Vue {
   showPositionY = 0
 
   onClickOpenDiagram(): void {
+    this.onOpenDiagramOfResourceRelate(this.resourceId)
     this.close()
   }
 
   onClickDeleteOnDiagram(): void {
+    this.onDeleteResourceOnDiagram(this.resourceId)
     this.close()
   }
 
   onClickDeleteOnProduct(): void {
+    this.onDeleteResourceOnProduct(this.resourceId)
     this.close()
   }
+
+  @Emit('onOpenDiagramOfResourceRelate')
+  private onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+
+  @Emit('onDeleteResourceOnDiagram')
+  private onDeleteResourceOnDiagram(_resourceId: number): void {}
+
+  @Emit('onDeleteResourceOnProduct')
+  private onDeleteResourceOnProduct(_resourceId: number): void {}
 
   show(resource: Resource, diagram: Diagram, x: number, y: number): void {
     this.resourceId = resource.resourceId

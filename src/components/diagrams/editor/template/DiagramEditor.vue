@@ -1,6 +1,11 @@
 <template>
   <div class="diagram-pain-container">
-    <ResourceRightClickMenu ref="resourceRightClickMenu" />
+    <ResourceRightClickMenu 
+      ref="resourceRightClickMenu"
+      @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
+      @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
+    />
     <TwoPainWithSlideBarLayout adsorptionLeftWhenDoubleClick="true" defaultLeftPainWidth="80%">
       <template #leftPain>
         <DiagramCanvas
