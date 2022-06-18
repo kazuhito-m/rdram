@@ -105,11 +105,11 @@ export default class Diagrams {
         return new Diagrams(filterd);
     }
 
-    // lambda function.
-
     public typeOf(type: DiagramType): Diagrams {
         return this.typesOf(type);
     }
+
+    // lambda function.
 
     public forEach(func: (diagram: Diagram) => void) {
         this.values.forEach(func);
