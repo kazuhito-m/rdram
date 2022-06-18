@@ -1,12 +1,13 @@
 <template>
   <v-menu
-    :value="resourceId"
+    :value="visible"
+    :position-x="showPositionX"
+    :position-y="showPositionY"
+    @input="close"
     close-on-click
     close-on-content-click
     offset-x
     rounded
-    :position-x="showPositionX"
-    :position-y="showPositionY"
   >
     <v-list>
       <v-list-item v-if="false" link>
@@ -64,15 +65,22 @@ export default class ResourceRightClickMenu extends Vue {
   }
 
   show(resource: Resource, diagram: Diagram, x: number, y: number): void {
+    console.log('メニュー表示:' + resource.name + ', visible:' + this.visible)
+
     this.resourceId = resource.resourceId
     this.diagramId = diagram.id
+
+    // TODO リソースごとの表示制御
+    this.enableOpenDiagram = true
+    this.enableDeleteOnDiagram = true
+    this.enableDeleteOnProduct = true
 
     this.showPositionX = x
     this.showPositionY = y
     this.visible = true
   }
 
-  private close(): void {
+  close(): void {
     this.visible = false
   }
 }
