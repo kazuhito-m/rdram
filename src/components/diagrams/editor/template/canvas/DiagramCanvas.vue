@@ -6,6 +6,7 @@
         <div
           :id="canvasId"
           class="diagram-canvas"
+          ref="canvasBase"
         />
 
         <CanvasSettingToolBar
@@ -160,6 +161,9 @@ export default class DiagramCanvas extends Vue {
 
   @Emit("onShowWarnBar")
   private onShowWarnBar(_text: string): void {}
+
+  @Emit("onShowResourceMenu")
+  private onShowResourceMenu(_resource: Resource, _diagram: Diagram , _x: number, _y: number): void {}
 
   // Watch event.
 
@@ -458,11 +462,27 @@ export default class DiagramCanvas extends Vue {
       return null;
     } 
 
-    return generator.generate(
+    const icon = generator.generate(
       placement,
       resource,
       this.iconStyleOf(type)
     );
+
+    icon.onContextMenu = (xOnCanvas, yOnCanvas) => {
+      const product = this.repository.getCurrentProduct();
+      const diagram = product!.diagrams.of(this.diagramId);
+      if (!diagram) return;
+
+      const canvasBase = this.$refs.canvasBase as HTMLDivElement;
+      const rect = canvasBase.getBoundingClientRect();
+      console.log("rect:", rect);
+      const x = xOnCanvas * this.canvasZoom + rect.left;
+      const y = yOnCanvas * this.canvasZoom + rect.top;
+
+      this.onShowResourceMenu(resource, diagram, x , y);
+    }
+
+    return icon;
   }
 
   /**
