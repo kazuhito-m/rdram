@@ -29,13 +29,13 @@
         />
       </template>
     </TwoPainWithSlideBarLayout>
-
     <v-snackbar v-model="warnBar" timeout="2000">
       {{ warnMessage }}
       <template #action="{ attrs }">
         <v-btn color="blue" text v-bind="attrs" @click="warnBar = false">Close</v-btn>
       </template>
     </v-snackbar>
+    <ResourceRightClickMenu />
   </div>
 </template>
 
@@ -61,12 +61,14 @@ import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import Placement from "@/domain/diagram/placement/Placement";
+import ResourceRightClickMenu from "./ResourceRightClickMenu.vue";
 
 @Component({
   components: {
     TwoPainWithSlideBarLayout,
     DiagramCanvas,
-    ResourceParet
+    ResourceParet,
+    ResourceRightClickMenu,
   }
 })
 export default class DiagramEditor extends Vue {
