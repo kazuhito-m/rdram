@@ -54,7 +54,6 @@ import StorageRepository from '@/domain/storage/StorageRepository'
 import DiagramType from '@/domain/diagram/DiagramType'
 import Resource from '~/domain/resource/Resource'
 import Product from '~/domain/product/Product'
-import CorrespondResourceTypes from '~/domain/diagram/correspond/CorrespondResourceTypes'
 import Diagram from '~/domain/diagram/Diagram'
 import Diagrams from '~/domain/diagram/Diagrams'
 
@@ -107,8 +106,7 @@ export default class DiagramTypeSelectorDialog extends Vue {
     this.isRelateDiagramExists = diagrams.length > 1
 
     if (!this.isRelateDiagramExists) {
-      const dic = new CorrespondResourceTypes()
-      this.diagramTypes = dic.correspondingDiagramTypesOf(this.resource.type)
+      this.diagramTypes = Product.correspondingDiagramTypesOf(this.resource)
       return []
     }
 

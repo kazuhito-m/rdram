@@ -209,10 +209,16 @@ export default class Product {
         const resource = this.resources.of(resourceId);
         if (!resource) return Diagrams.empty();
 
-        const dic = new CorrespondResourceTypes();
-        const diagramTypes = dic.correspondingDiagramTypesOf(resource.type)
+        const diagramTypes = Product.correspondingDiagramTypesOf(resource);
         return this.diagrams.typesOf(...diagramTypes)
             .findByNameOf(resource.name);
+    }
+
+    // utility methods.
+
+    public static correspondingDiagramTypesOf(resource: Resource) {
+        const dic = new CorrespondResourceTypes();
+        return dic.correspondingDiagramTypesOf(resource.type);
     }
 
     // factory methods
