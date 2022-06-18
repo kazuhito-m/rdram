@@ -329,11 +329,6 @@ export default class DiagramCanvas extends Vue {
 
   // Canvas Events
 
-  private onZoomChangeFromCanvas(_emitterFigure: Figure, zoomData: any): void {
-    console.log("zoomData.value:", zoomData.value)
-    // this.canvasZoom = zoomData.value;
-  }
-
   private onDropCanvas(event: DragEvent) {
     event.preventDefault();
 
@@ -689,7 +684,6 @@ export default class DiagramCanvas extends Vue {
   private addCanvasEvent(): void {
     const commandStack = this.canvas.getCommandStack();
     commandStack.addEventListener(this.onCanvasCommandExecute);
-    this.canvas.on("zoom", this.onZoomChangeFromCanvas);
   }
 
   private addPlacement(resource: Resource): void {
