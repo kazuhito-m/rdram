@@ -145,8 +145,9 @@ export default class DiagramCanvas extends Vue {
   private dropXOnCanvas = 0;
   private dropYOnCanvas = 0;
 
-  private get zoom() {
+  private zoom(): number {
     const zoom = this.canvas.getZoom();
+    console.log("getZoom():", zoom);
     return ZoomValueOnDraw2d.of(zoom).value;
   }
 
@@ -186,7 +187,7 @@ export default class DiagramCanvas extends Vue {
     this.reverceSyncCavansDeleteThings();
     this.canvas.setDimension(diagram.width, diagram.height);
     this.onMergePlacement(diagram.placements);
-    this.onChangeZoomBySlider(this.zoom + 0.001); // 再描画がうまく行くHack
+    this.onChangeZoomBySlider(this.zoom() + 0.001); // 再描画がうまく行くHack
   }
 
   @Watch("allResourcesOnCurrentProduct.length")
@@ -282,7 +283,7 @@ export default class DiagramCanvas extends Vue {
       canvas.installEditPolicy(canvasGuideType.canvasPolicy);
     // 「何故か、背景が真っ黒になってしまう」対策。ちょーーっとだけリサイズする。
     // …こんなワークアラウンドのほうが安定するからしゃーない。
-    canvas.setZoom(this.zoom - 0.001, false);
+    canvas.setZoom(this.zoom() - 0.001, false);
 
     this.canvasGuideType = canvasGuideType;
   }
@@ -336,9 +337,9 @@ export default class DiagramCanvas extends Vue {
   private onDropCanvas(event: DragEvent) {
     event.preventDefault();
 
-    const ratio = this.zoom;
-    this.dropXOnCanvas = event.offsetX * ratio;
-    this.dropYOnCanvas = event.offsetY * ratio;
+    const zoom = this.zoom();
+    this.dropXOnCanvas = event.offsetX * zoom;
+    this.dropYOnCanvas = event.offsetY * zoom;
 
     const textData = event.dataTransfer?.getData("text");
     if (!textData) return;
@@ -413,9 +414,9 @@ export default class DiagramCanvas extends Vue {
     if (!diagram) return;
     const targetRelation = diagram.relationOf(foundFigure.id);
     if (!targetRelation) return;
-    const ratio = this.zoom;
-    const absoluteX = canvas.getAbsoluteX() + x / ratio;
-    const absoluteY = canvas.getAbsoluteY() + y / ratio;
+    const zoom = this.zoom();
+    const absoluteX = canvas.getAbsoluteX() + x / zoom;
+    const absoluteY = canvas.getAbsoluteY() + y / zoom;
     this.showConnectorRightClickMenu(targetRelation, absoluteX, absoluteY);
   }
 
@@ -483,7 +484,9 @@ export default class DiagramCanvas extends Vue {
       console.log("canvas.getAbsoluteX():", this.canvas.getAbsoluteX());
       console.log("canvas.getAbsoluteY():", this.canvas.getAbsoluteY());
 
-      const ratio = this.zoom;
+      console.log("this.zoom:", this.zoom());
+      const ratio = ZoomValueOnDraw2d.of(this.zoom()).ratio();
+      console.log("zoomRatio:", ratio);
       const x = xOnCanvas * ratio + rect.x;
       const y = yOnCanvas * ratio + rect.y;
 
