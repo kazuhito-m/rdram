@@ -6,11 +6,11 @@ export default class ZoomValueOnDraw2d {
     }
 
     public ratio(): number {
-        return 1 / this.value;   
+        return 1 / this.value;
     }
 
     public static of(zoom: number): ZoomValueOnDraw2d {
-        const fixZoom = isFinite(zoom) ? Number(zoom) : 1;
+        const fixZoom = Number.isFinite(zoom) ? zoom : 1;
         return new ZoomValueOnDraw2d(fixZoom);
     }
 }
