@@ -52,10 +52,10 @@
 import { Component, Vue, Inject } from 'vue-property-decorator'
 import StorageRepository from '@/domain/storage/StorageRepository'
 import DiagramType from '@/domain/diagram/DiagramType'
-import Resource from '~/domain/resource/Resource'
-import Product from '~/domain/product/Product'
-import Diagram from '~/domain/diagram/Diagram'
-import Diagrams from '~/domain/diagram/Diagrams'
+import Resource from '@/domain/resource/Resource'
+import Product from '@/domain/product/Product'
+import Diagram from '@/domain/diagram/Diagram'
+import Diagrams from '@/domain/diagram/Diagrams'
 
 @Component
 export default class DiagramTypeSelectorDialog extends Vue {
