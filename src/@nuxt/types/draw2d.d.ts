@@ -250,7 +250,7 @@ declare module 'draw2d' {
 
         onClick(): void;
 
-        onContextMenu(x: any, y: any): void;
+        onContextMenu(x: number, y: number): void;
 
         onDoubleClick(): void;
 

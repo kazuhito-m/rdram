@@ -5,12 +5,12 @@
     >
         <div
           :id="canvasId"
+          ref="canvasBase"
           class="diagram-canvas"
         />
 
         <CanvasSettingToolBar
             :diagramId="diagramId"
-            :canvasZoom="canvasZoom"
             :canvasGuideType="canvasGuideType"
             @onChangeZoomBySlider="onChangeZoomBySlider"
             @onChangeCanvasGuideType="onChangeCanvasGuideType"
@@ -57,6 +57,8 @@ import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
 
 import IconViewModel from "./IconViewModel";
+import ZoomValueOnDraw2d from "./ZoomValueOnDraw2d";
+import AbsolutePosition from "./AbsolutePosition";
 import CanvasSettingToolBar from "@/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import ConnectorRightClickMenuAndEditor from "@/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue";
 import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
@@ -130,7 +132,6 @@ export default class DiagramCanvas extends Vue {
 
   private canvas!: draw2d.Canvas;
   private canvasId!: string;
-  private canvasZoom = 1;
   private canvasGuideType = CanvasGuideType.なし;
 
   private lastResourcesOnCurrentProductCount = 0;
@@ -144,6 +145,17 @@ export default class DiagramCanvas extends Vue {
   private editResourceType: ResourceType | null = null;
   private dropXOnCanvas = 0;
   private dropYOnCanvas = 0;
+
+  private zoom(): number {
+    const zoom = this.canvas.getZoom();
+    console.log("getZoom():", zoom);
+    return ZoomValueOnDraw2d.of(zoom).value;
+  }
+
+  private diagram(): Diagram {
+      const product = this.repository.getCurrentProduct();
+      return product!.diagrams.of(this.diagramId) as Diagram;
+  }
 
   // Events
 
@@ -160,6 +172,9 @@ export default class DiagramCanvas extends Vue {
 
   @Emit("onShowWarnBar")
   private onShowWarnBar(_text: string): void {}
+
+  @Emit("onShowResourceMenu")
+  private onShowResourceMenu(_resource: Resource, _x: number, _y: number): void {}
 
   // Watch event.
 
@@ -178,7 +193,7 @@ export default class DiagramCanvas extends Vue {
     this.reverceSyncCavansDeleteThings();
     this.canvas.setDimension(diagram.width, diagram.height);
     this.onMergePlacement(diagram.placements);
-    this.onChangeZoomBySlider(this.canvasZoom + 0.001); // 再描画がうまく行くHack
+    this.onChangeZoomBySlider(this.zoom() + 0.001); // 再描画がうまく行くHack
   }
 
   @Watch("allResourcesOnCurrentProduct.length")
@@ -274,7 +289,7 @@ export default class DiagramCanvas extends Vue {
       canvas.installEditPolicy(canvasGuideType.canvasPolicy);
     // 「何故か、背景が真っ黒になってしまう」対策。ちょーーっとだけリサイズする。
     // …こんなワークアラウンドのほうが安定するからしゃーない。
-    canvas.setZoom(canvas.getZoom() - 0.001, false);
+    canvas.setZoom(this.zoom() - 0.001, false);
 
     this.canvasGuideType = canvasGuideType;
   }
@@ -320,16 +335,10 @@ export default class DiagramCanvas extends Vue {
 
   // Canvas Events
 
-  private onZoomChangeFromCanvas(_emitterFigure: Figure, zoomData: any): void {
-    this.canvasZoom = zoomData.value;
-  }
-
   private onDropCanvas(event: DragEvent) {
     event.preventDefault();
 
-    let zoom = this.canvas.getZoom();
-    zoom = isFinite(zoom) ? Number(zoom) : 1; // Zoom状況を考慮
-
+    const zoom = this.zoom();
     this.dropXOnCanvas = event.offsetX * zoom;
     this.dropYOnCanvas = event.offsetY * zoom;
 
@@ -406,7 +415,7 @@ export default class DiagramCanvas extends Vue {
     if (!diagram) return;
     const targetRelation = diagram.relationOf(foundFigure.id);
     if (!targetRelation) return;
-    const zoom = canvas.getZoom();
+    const zoom = this.zoom();
     const absoluteX = canvas.getAbsoluteX() + x / zoom;
     const absoluteY = canvas.getAbsoluteY() + y / zoom;
     this.showConnectorRightClickMenu(targetRelation, absoluteX, absoluteY);
@@ -458,11 +467,18 @@ export default class DiagramCanvas extends Vue {
       return null;
     } 
 
-    return generator.generate(
+    const icon = generator.generate(
       placement,
       resource,
       this.iconStyleOf(type)
     );
+
+    icon.onContextMenu = (x, y) => {
+      const pos = new AbsolutePosition(x, y, this.canvas)
+      this.onShowResourceMenu(resource, pos.x() , pos.y());
+    }
+
+    return icon;
   }
 
   /**
@@ -658,7 +674,6 @@ export default class DiagramCanvas extends Vue {
   private addCanvasEvent(): void {
     const commandStack = this.canvas.getCommandStack();
     commandStack.addEventListener(this.onCanvasCommandExecute);
-    this.canvas.on("zoom", this.onZoomChangeFromCanvas);
   }
 
   private addPlacement(resource: Resource): void {

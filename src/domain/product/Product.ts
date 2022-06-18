@@ -216,9 +216,18 @@ export default class Product {
 
     // utility methods.
 
-    public static correspondingDiagramTypesOf(resource: Resource) {
-        const dic = new CorrespondResourceTypes();
-        return dic.correspondingDiagramTypesOf(resource.type);
+    public static correspondingDiagramTypesOf(resource: Resource): DiagramType[] {
+        return this.corespondResDic()
+            .correspondingDiagramTypesOf(resource.type);
+    }
+
+    public static hasCorrespondingDiagramTypeOf(resource: Resource): boolean {
+        return this.corespondResDic()
+            .hasCorrespondingDiagramTypeOf(resource.type);
+    }
+
+    private static corespondResDic(): CorrespondResourceTypes {
+        return new CorrespondResourceTypes();
     }
 
     // factory methods

@@ -1,5 +1,11 @@
 <template>
   <div class="diagram-pain-container">
+    <ResourceRightClickMenu 
+      ref="resourceRightClickMenu"
+      @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
+      @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
+    />
     <TwoPainWithSlideBarLayout adsorptionLeftWhenDoubleClick="true" defaultLeftPainWidth="80%">
       <template #leftPain>
         <DiagramCanvas
@@ -15,6 +21,7 @@
           @onMergePlacement="onMergePlacement"
           @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
           @onShowWarnBar="onShowWarnBar"
+          @onShowResourceMenu="onShowResourceMenu"
         />
       </template>
       <template #rightPain>
@@ -23,13 +30,10 @@
           :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
           :usedResouceIds="usedResouceIds"
           :product="product"
-          @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-          @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
-          @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
+          @onShowResourceMenu="onShowResourceMenu"
         />
       </template>
     </TwoPainWithSlideBarLayout>
-
     <v-snackbar v-model="warnBar" timeout="2000">
       {{ warnMessage }}
       <template #action="{ attrs }">
@@ -48,6 +52,7 @@ import {
   Emit
 } from "nuxt-property-decorator";
 
+import ResourceRightClickMenu from "./ResourceRightClickMenu.vue";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import ResourceParet from "@/components/diagrams/editor/template/paret/ResourceParet.vue";
@@ -66,7 +71,8 @@ import Placement from "@/domain/diagram/placement/Placement";
   components: {
     TwoPainWithSlideBarLayout,
     DiagramCanvas,
-    ResourceParet
+    ResourceParet,
+    ResourceRightClickMenu,
   }
 })
 export default class DiagramEditor extends Vue {
@@ -96,7 +102,7 @@ export default class DiagramEditor extends Vue {
   private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   @Emit("onOpenDiagramOfResourceRelate")
-  private onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+  onOpenDiagramOfResourceRelate(_resourceId: number): void {}
 
   public created(): void {
     this.product = this.getCurrentProduct();
@@ -117,8 +123,7 @@ export default class DiagramEditor extends Vue {
   // Vue events(life cycle events)
 
   public mounted() {
-    const diagram = this.product.diagrams.of(this.diagramId) as Diagram;
-    this.intializeIconCharMap(diagram);
+    this.intializeIconCharMap(this.diagram());
   }
 
   private onShowWarnBar(text: string): void {
@@ -128,19 +133,18 @@ export default class DiagramEditor extends Vue {
 
   // children component events.
 
-
-  private onDeleteResourceOnDiagram(resourceId: number): void {
+  onDeleteResourceOnDiagram(resourceId: number): void {
     const diagram = this.deleteResourceOnDiagram(resourceId);
     if (!diagram) return;
     this.onMergePlacement(diagram.placements);
   }
 
-  private onDeleteResourceOnProduct(resourceId: number): void {
+  onDeleteResourceOnProduct(resourceId: number): void {
     this.deleteResourceOnProduct(resourceId);
     this.onUpdateResources();
   }
 
-  private onMergePlacement(diffTarget: Placement[]) {
+  onMergePlacement(diffTarget: Placement[]) {
     const usedResouceIds = this.usedResouceIds;
     const idSet = new Set(diffTarget.map(p => p.resourceId));
     for (let i = usedResouceIds.length - 1; i >= 0; i--) {
@@ -151,7 +155,17 @@ export default class DiagramEditor extends Vue {
     idSet.forEach(id => usedResouceIds.push(id));
   }
 
+  onShowResourceMenu(resource: Resource, x: number, y: number): void {
+    const menu = this.$refs.resourceRightClickMenu as ResourceRightClickMenu;
+    menu.show(resource, this.diagram(), x, y); // TODO 右クリックメニューを表示する度にローカルストレージを呼ぶのをやめたい
+  }
+
   // private methods.
+
+  private diagram(): Diagram {
+    const product = this.getCurrentProduct();
+    return product.diagrams.of(this.diagramId) as Diagram;
+  }
 
   private deleteResourceOnDiagram(resourceId: number): Diagram | null {
     const product = this.getCurrentProduct();
