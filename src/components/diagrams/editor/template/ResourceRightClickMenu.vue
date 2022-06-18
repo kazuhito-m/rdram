@@ -64,6 +64,9 @@ export default class ResourceRightClickMenu extends Vue {
   }
 
   show(resource: Resource, diagram: Diagram, x: number, y: number): void {
+    this.resourceId = resource.resourceId
+    this.diagramId = diagram.id
+
     this.showPositionX = x
     this.showPositionY = y
     this.visible = true

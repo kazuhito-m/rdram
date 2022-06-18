@@ -48,6 +48,7 @@ import {
   Emit
 } from "nuxt-property-decorator";
 
+import ResourceRightClickMenu from "./ResourceRightClickMenu.vue";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import ResourceParet from "@/components/diagrams/editor/template/paret/ResourceParet.vue";
@@ -61,7 +62,6 @@ import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import Placement from "@/domain/diagram/placement/Placement";
-import ResourceRightClickMenu from "./ResourceRightClickMenu.vue";
 
 @Component({
   components: {
