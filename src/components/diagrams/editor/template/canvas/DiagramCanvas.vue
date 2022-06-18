@@ -5,8 +5,8 @@
     >
         <div
           :id="canvasId"
-          class="diagram-canvas"
           ref="canvasBase"
+          class="diagram-canvas"
         />
 
         <CanvasSettingToolBar

@@ -3,11 +3,11 @@
     :value="visible"
     :position-x="showPositionX"
     :position-y="showPositionY"
-    @input="close"
     close-on-click
     close-on-content-click
     offset-x
     rounded
+    @input="close"
   >
     <v-list>
       <v-list-item v-if="false" link>
