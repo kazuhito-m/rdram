@@ -11,7 +11,6 @@
 
         <CanvasSettingToolBar
             :diagramId="diagramId"
-            :canvasZoom="canvasZoom"
             :canvasGuideType="canvasGuideType"
             @onChangeZoomBySlider="onChangeZoomBySlider"
             @onChangeCanvasGuideType="onChangeCanvasGuideType"
@@ -58,6 +57,7 @@ import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/droppable";
 
 import IconViewModel from "./IconViewModel";
+import ZoomValueOnDraw2d from "./ZoomValueOnDraw2d";
 import CanvasSettingToolBar from "@/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import ConnectorRightClickMenuAndEditor from "@/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue";
 import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
@@ -131,7 +131,6 @@ export default class DiagramCanvas extends Vue {
 
   private canvas!: draw2d.Canvas;
   private canvasId!: string;
-  private canvasZoom = 1;
   private canvasGuideType = CanvasGuideType.なし;
 
   private lastResourcesOnCurrentProductCount = 0;
@@ -182,7 +181,7 @@ export default class DiagramCanvas extends Vue {
     this.reverceSyncCavansDeleteThings();
     this.canvas.setDimension(diagram.width, diagram.height);
     this.onMergePlacement(diagram.placements);
-    this.onChangeZoomBySlider(this.canvasZoom + 0.001); // 再描画がうまく行くHack
+    this.onChangeZoomBySlider(this.canvas.getZoom() + 0.001); // 再描画がうまく行くHack
   }
 
   @Watch("allResourcesOnCurrentProduct.length")
@@ -325,7 +324,8 @@ export default class DiagramCanvas extends Vue {
   // Canvas Events
 
   private onZoomChangeFromCanvas(_emitterFigure: Figure, zoomData: any): void {
-    this.canvasZoom = zoomData.value;
+    console.log("zoomData.value:", zoomData.value)
+    // this.canvasZoom = zoomData.value;
   }
 
   private onDropCanvas(event: DragEvent) {
@@ -475,9 +475,17 @@ export default class DiagramCanvas extends Vue {
 
       const canvasBase = this.$refs.canvasBase as HTMLDivElement;
       const rect = canvasBase.getBoundingClientRect();
+
       console.log("rect:", rect);
-      const x = xOnCanvas * this.canvasZoom + rect.left;
-      const y = yOnCanvas * this.canvasZoom + rect.top;
+
+      const zoomRatio = ZoomValueOnDraw2d
+        .of(this.canvas.getZoom())
+        .ratio();
+
+      console.log("zoomRatio:", zoomRatio);
+
+      const x = xOnCanvas * zoomRatio + rect.x;
+      const y = yOnCanvas * zoomRatio + rect.y;
 
       this.onShowResourceMenu(resource, diagram, x , y);
     }
