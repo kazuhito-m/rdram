@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Watch } from "vue-property-decorator";
-import ZoomRatioOnDraw2d from "@/components/diagrams/editor/template/canvas/ZoomRatioOnDraw2d";
+import ZoomValueOnDraw2d from "@/components/diagrams/editor/template/canvas/ZoomValueOnDraw2d";
 
 @Component
 export default class CanvasZoomSlider extends Vue {
@@ -31,7 +31,7 @@ export default class CanvasZoomSlider extends Vue {
   private onChangeZoomBySlider(_zoom: number) {}
 
   private canvasZoomToSlider(zoom: number) {
-    this.zoomPercentage = ZoomRatioOnDraw2d.of(zoom)
+    this.zoomPercentage = ZoomValueOnDraw2d.of(zoom)
       .percentage();
   }
 
