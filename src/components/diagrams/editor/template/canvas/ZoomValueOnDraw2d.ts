@@ -1,12 +1,12 @@
 export default class ZoomValueOnDraw2d {
-    public constructor(private readonly zoom: number) { }
+    private constructor(public readonly value: number) { }
 
     public percentage(): number {
-        return 100 / this.zoom;
+        return 100 / this.value;
     }
 
     public ratio(): number {
-        return 1 / this.zoom;   
+        return 1 / this.value;   
     }
 
     public static of(zoom: number): ZoomValueOnDraw2d {
