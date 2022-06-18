@@ -58,6 +58,7 @@ import "jquery-ui/ui/widgets/droppable";
 
 import IconViewModel from "./IconViewModel";
 import ZoomValueOnDraw2d from "./ZoomValueOnDraw2d";
+import AbsolutePosition from "./AbsolutePosition";
 import CanvasSettingToolBar from "@/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import ConnectorRightClickMenuAndEditor from "@/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue";
 import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
@@ -149,6 +150,11 @@ export default class DiagramCanvas extends Vue {
     const zoom = this.canvas.getZoom();
     console.log("getZoom():", zoom);
     return ZoomValueOnDraw2d.of(zoom).value;
+  }
+
+  private diagram(): Diagram {
+      const product = this.repository.getCurrentProduct();
+      return product!.diagrams.of(this.diagramId) as Diagram;
   }
 
   // Events
@@ -467,25 +473,9 @@ export default class DiagramCanvas extends Vue {
       this.iconStyleOf(type)
     );
 
-    icon.onContextMenu = (xOnCanvas, yOnCanvas) => {
-      const product = this.repository.getCurrentProduct();
-      const diagram = product!.diagrams.of(this.diagramId);
-      if (!diagram) return;
-
-      const canvasBase = this.$refs.canvasBase as HTMLDivElement;
-      const rect = canvasBase.getBoundingClientRect();
-
-      console.log("rect:", rect);
-      console.log("canvas.getAbsoluteX():", this.canvas.getAbsoluteX());
-      console.log("canvas.getAbsoluteY():", this.canvas.getAbsoluteY());
-
-      console.log("this.zoom:", this.zoom());
-      const ratio = ZoomValueOnDraw2d.of(this.zoom()).ratio();
-      console.log("zoomRatio:", ratio);
-      const x = xOnCanvas * ratio + rect.x;
-      const y = yOnCanvas * ratio + rect.y;
-
-      this.onShowResourceMenu(resource, diagram, x , y);
+    icon.onContextMenu = (x, y) => {
+      const pos = new AbsolutePosition(x, y, this.canvas)
+      this.onShowResourceMenu(resource, this.diagram(), pos.x() , pos.y());
     }
 
     return icon;
