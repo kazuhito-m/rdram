@@ -7,7 +7,7 @@
     :iconGenerators="iconGenerators"
     @onUpdateResources="onUpdateResources"
     @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
-  @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+    @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
 />
 </template>
 
