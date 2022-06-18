@@ -30,9 +30,6 @@
           :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
           :usedResouceIds="usedResouceIds"
           :product="product"
-          @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-          @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
-          @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
           @onShowResourceMenu="onShowResourceMenu"
         />
       </template>
@@ -105,7 +102,7 @@ export default class DiagramEditor extends Vue {
   private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   @Emit("onOpenDiagramOfResourceRelate")
-  private onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+  onOpenDiagramOfResourceRelate(_resourceId: number): void {}
 
   public created(): void {
     this.product = this.getCurrentProduct();
@@ -140,18 +137,18 @@ export default class DiagramEditor extends Vue {
 
   // children component events.
 
-  private onDeleteResourceOnDiagram(resourceId: number): void {
+  onDeleteResourceOnDiagram(resourceId: number): void {
     const diagram = this.deleteResourceOnDiagram(resourceId);
     if (!diagram) return;
     this.onMergePlacement(diagram.placements);
   }
 
-  private onDeleteResourceOnProduct(resourceId: number): void {
+  onDeleteResourceOnProduct(resourceId: number): void {
     this.deleteResourceOnProduct(resourceId);
     this.onUpdateResources();
   }
 
-  private onMergePlacement(diffTarget: Placement[]) {
+  onMergePlacement(diffTarget: Placement[]) {
     const usedResouceIds = this.usedResouceIds;
     const idSet = new Set(diffTarget.map(p => p.resourceId));
     for (let i = usedResouceIds.length - 1; i >= 0; i--) {
