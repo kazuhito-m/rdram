@@ -70,7 +70,12 @@ export default class DiagramTypeSelectorDialog extends Vue {
   }
 
   show(resourceId: number): Promise<number> {
-    this.initializeOf(resourceId)
+    if (!this.initializeOf(resourceId)) {
+      return new Promise((resolve) =>
+        resolve(DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID)
+      )
+    }
+
     this.visible = true
     return new Promise((resolve, reject) => {
       this.resolve = resolve
@@ -78,7 +83,7 @@ export default class DiagramTypeSelectorDialog extends Vue {
     })
   }
 
-  private initializeOf(resourceId: number) {
+  private initializeOf(resourceId: number): boolean {
     this.resourceId = resourceId
     // TODO 本実装。以下は仮。
     this.resourceName = 'リソースの名前'
@@ -87,6 +92,7 @@ export default class DiagramTypeSelectorDialog extends Vue {
       DiagramType.ユースケース複合図,
     ]
     this.diagramTypeId = DiagramType.利用シーン図.id
+    return false
   }
 
   private analyzeDiagramId(): number {
