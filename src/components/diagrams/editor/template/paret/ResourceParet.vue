@@ -216,8 +216,10 @@ export default class ResourceParet extends Vue {
     this.rightClickedResourceX = event.x;
     this.rightClickedResourceY = event.y;
     this.$nextTick(() => {
-      this.rightClickedResourceId = resourceId;
+      // this.rightClickedResourceId = resourceId;
     });
+
+    this.onShowResourceMenu(resource, event.x, event.y);
   }
 
   private onClickMenuOpenDiagramOfResourceRelate(): void {
