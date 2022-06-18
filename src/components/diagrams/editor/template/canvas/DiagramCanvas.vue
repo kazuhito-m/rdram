@@ -174,7 +174,7 @@ export default class DiagramCanvas extends Vue {
   private onShowWarnBar(_text: string): void {}
 
   @Emit("onShowResourceMenu")
-  private onShowResourceMenu(_resource: Resource, _diagram: Diagram , _x: number, _y: number): void {}
+  private onShowResourceMenu(_resource: Resource, _x: number, _y: number): void {}
 
   // Watch event.
 
@@ -475,7 +475,7 @@ export default class DiagramCanvas extends Vue {
 
     icon.onContextMenu = (x, y) => {
       const pos = new AbsolutePosition(x, y, this.canvas)
-      this.onShowResourceMenu(resource, this.diagram(), pos.x() , pos.y());
+      this.onShowResourceMenu(resource, pos.x() , pos.y());
     }
 
     return icon;

@@ -132,6 +132,7 @@ import { Component, Prop, Vue, Emit } from "vue-property-decorator";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Product from "@/domain/product/Product";
+import Diagram from "@/domain/diagram/Diagram";
 
 @Component
 export default class ResourceParet extends Vue {
@@ -165,6 +166,9 @@ export default class ResourceParet extends Vue {
 
   @Emit("onDeleteResourceOnProduct")
   private onDeleteResourceOnProduct(_resourceId: number): void {}
+
+  @Emit("onShowResourceMenu")
+  private onShowResourceMenu(_resource: Resource, _x: number, _y: number): void {}
 
   public created(): void {
     const diagram = this.product.diagrams.of(this.diagramId);
