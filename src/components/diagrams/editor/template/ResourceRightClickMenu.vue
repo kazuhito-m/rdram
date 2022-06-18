@@ -44,7 +44,6 @@ import Diagram from '@/domain/diagram/Diagram'
 export default class ResourceRightClickMenu extends Vue {
   visible = false
   resourceId = 0
-  diagramId = 0
 
   enableOpenDiagram = false
   enableDeleteOnDiagram = false
@@ -79,7 +78,6 @@ export default class ResourceRightClickMenu extends Vue {
 
   show(resource: Resource, diagram: Diagram, x: number, y: number): void {
     this.resourceId = resource.resourceId
-    this.diagramId = diagram.id
 
     this.analyzeEnableMenu(resource, diagram)
 
