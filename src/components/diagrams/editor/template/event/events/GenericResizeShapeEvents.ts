@@ -21,7 +21,6 @@ export default class GenericResizeShapeEvents implements EventsOfType<Diagram, D
     }
 
     public apply(diagram: Diagram, _product: Product, _view: DiagramCanvas): Diagram {
-        console.log('まず、来てるのか')
         let modifiedDiagram = diagram;
         for (const figure of this.validTargetFigures()) {
             const resourceId = parseInt(figure.getId(), 10);

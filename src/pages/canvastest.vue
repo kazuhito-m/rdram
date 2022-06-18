@@ -258,7 +258,6 @@ export default class extends Vue {
     canvas.add(waku);
 
     const added = canvas.getFigures().last();
-    console.log("added", added.getZOrder());
     // const lastZOrder: Figure = canvas
     //   .getFigures()
     //   .asArray()
@@ -278,7 +277,6 @@ export default class extends Vue {
       if (lastZOrder.getZOrder() < figure.getZOrder()) continue;
       lastZOrder = figure;
     }
-    console.log("lastZOrder", lastZOrder.getZOrder());
     if (!lastZOrder) return;
     added.toFront(lastZOrder);
     // lastZOrder.toBack(added);

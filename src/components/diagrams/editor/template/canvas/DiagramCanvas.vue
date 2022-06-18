@@ -148,7 +148,6 @@ export default class DiagramCanvas extends Vue {
 
   private zoom(): number {
     const zoom = this.canvas.getZoom();
-    console.log("getZoom():", zoom);
     return ZoomValueOnDraw2d.of(zoom).value;
   }
 
