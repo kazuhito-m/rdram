@@ -145,7 +145,7 @@ export default class DiagramCanvas extends Vue {
   private dropXOnCanvas = 0;
   private dropYOnCanvas = 0;
 
-  private get zoomRatio() {
+  private get zoom() {
     const zoom = this.canvas.getZoom();
     return ZoomValueOnDraw2d.of(zoom).value;
   }
@@ -186,7 +186,7 @@ export default class DiagramCanvas extends Vue {
     this.reverceSyncCavansDeleteThings();
     this.canvas.setDimension(diagram.width, diagram.height);
     this.onMergePlacement(diagram.placements);
-    this.onChangeZoomBySlider(this.zoomRatio + 0.001); // 再描画がうまく行くHack
+    this.onChangeZoomBySlider(this.zoom + 0.001); // 再描画がうまく行くHack
   }
 
   @Watch("allResourcesOnCurrentProduct.length")
@@ -282,7 +282,7 @@ export default class DiagramCanvas extends Vue {
       canvas.installEditPolicy(canvasGuideType.canvasPolicy);
     // 「何故か、背景が真っ黒になってしまう」対策。ちょーーっとだけリサイズする。
     // …こんなワークアラウンドのほうが安定するからしゃーない。
-    canvas.setZoom(this.zoomRatio - 0.001, false);
+    canvas.setZoom(this.zoom - 0.001, false);
 
     this.canvasGuideType = canvasGuideType;
   }
@@ -336,7 +336,7 @@ export default class DiagramCanvas extends Vue {
   private onDropCanvas(event: DragEvent) {
     event.preventDefault();
 
-    const ratio = this.zoomRatio;
+    const ratio = this.zoom;
     this.dropXOnCanvas = event.offsetX * ratio;
     this.dropYOnCanvas = event.offsetY * ratio;
 
@@ -413,7 +413,7 @@ export default class DiagramCanvas extends Vue {
     if (!diagram) return;
     const targetRelation = diagram.relationOf(foundFigure.id);
     if (!targetRelation) return;
-    const ratio = this.zoomRatio;
+    const ratio = this.zoom;
     const absoluteX = canvas.getAbsoluteX() + x / ratio;
     const absoluteY = canvas.getAbsoluteY() + y / ratio;
     this.showConnectorRightClickMenu(targetRelation, absoluteX, absoluteY);
@@ -480,8 +480,10 @@ export default class DiagramCanvas extends Vue {
       const rect = canvasBase.getBoundingClientRect();
 
       console.log("rect:", rect);
+      console.log("canvas.getAbsoluteX():", this.canvas.getAbsoluteX());
+      console.log("canvas.getAbsoluteY():", this.canvas.getAbsoluteY());
 
-      const ratio = this.zoomRatio;
+      const ratio = this.zoom;
       const x = xOnCanvas * ratio + rect.x;
       const y = yOnCanvas * ratio + rect.y;
 
