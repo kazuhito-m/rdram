@@ -78,7 +78,6 @@ var GenericResizeShapeEvents = /*#__PURE__*/function () {
   }, {
     key: "apply",
     value: function apply(diagram, _product, _view) {
-      console.log('まず、来てるのか');
       var modifiedDiagram = diagram;
 
       var _iterator = _createForOfIteratorHelper(this.validTargetFigures()),
