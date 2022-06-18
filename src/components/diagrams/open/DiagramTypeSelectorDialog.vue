@@ -1,13 +1,26 @@
 <template lang="html">
   <v-dialog v-model="visible" @keydown.esc="close()" persistent max-width="400">
     <v-card>
-      <v-card-title class="headline">
-        <v-icon>mdi-selection-multiple</v-icon> 新しい図の種類の選択
-      </v-card-title>
-      <v-card-text>
-        アイコンに対応する図を新たに作成します。<br />
-        新規作成する図の種類を選択してください。
-      </v-card-text>
+      <span v-if="isRelateDiagramExists">
+        <v-card-title class="headline">
+          <v-icon>mdi-selection-multiple</v-icon> 開く図の種類の選択
+        </v-card-title>
+        <v-card-text>
+          [{{ resource.type.name }}]アイコンに対応する図を開きます。<br />
+          図の種類を選択してください。
+        </v-card-text>
+      </span>
+      <span v-else>
+        <v-card-title class="headline">
+          <v-icon>mdi-selection-multiple</v-icon> 新しい図の種類の選択
+        </v-card-title>
+        <v-card-text>
+          [{{
+            resource.type.name
+          }}]アイコンに対応する図を新たに作成します。<br />
+          新規作成する図の種類を選択してください。
+        </v-card-text>
+      </span>
       <v-card-text>
         アイコン(図の名前) :
         <v-chip color="primary" dark draggable>
