@@ -1,5 +1,13 @@
 <template>
   <div class="diagram-pain-container">
+    <!-- editor or menu parts -->
+    <ResourceEditDialog
+      :resourceId="editResourceId"
+      :resourceType="editResourceType"
+      :diagramId="diagramId"
+      @onUpdatedResource="onUpdatedResource"
+      @onClose="onCloseResourceEditor"
+    />
     <ResourceRightClickMenu 
       ref="resourceRightClickMenu"
       @onEditResource="onEditResource"
@@ -7,9 +15,11 @@
       @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
       @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
     />
+    <!-- main pain -->
     <TwoPainWithSlideBarLayout adsorptionLeftWhenDoubleClick="true" defaultLeftPainWidth="80%">
       <template #leftPain>
         <DiagramCanvas
+          ref="diagramCanvas"
           :diagramId="diagramId"
           :product="product"
           :usedResouceIds="usedResouceIds"
@@ -24,6 +34,7 @@
           @onShowWarnBar="onShowWarnBar"
           @onEditResource="onEditResource"
           @onShowResourceMenu="onShowResourceMenu"
+          @onOpenResourceEditorWhenCreate="onOpenResourceEditorWhenCreate"
         />
       </template>
       <template #rightPain>
@@ -58,6 +69,8 @@ import ResourceRightClickMenu from "./ResourceRightClickMenu.vue";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import ResourceParet from "@/components/diagrams/editor/template/paret/ResourceParet.vue";
+import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
+import CoreResourceEditDialog from "@//components/resource/CoreResourceEditDialog.vue"
 
 import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
 import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
@@ -74,6 +87,7 @@ import Placement from "@/domain/diagram/placement/Placement";
     TwoPainWithSlideBarLayout,
     DiagramCanvas,
     ResourceParet,
+    ResourceEditDialog,
     ResourceRightClickMenu,
   }
 })
@@ -122,6 +136,10 @@ export default class DiagramEditor extends Vue {
   private warnBar: boolean = false;
   private warnMessage: string = "";
 
+  // TODO 一時的。Editorのプロパティのインターフェイスを変更する(Show的に)
+  private editResourceId = 0;
+  private editResourceType: ResourceType | null = null;
+
   // Vue events(life cycle events)
 
   public mounted() {
@@ -164,6 +182,20 @@ export default class DiagramEditor extends Vue {
   onShowResourceMenu(resource: Resource, x: number, y: number): void {
     const menu = this.$refs.resourceRightClickMenu as ResourceRightClickMenu;
     menu.show(resource, this.diagram(), x, y); // TODO 右クリックメニューを表示する度にローカルストレージを呼ぶのをやめたい
+  }
+
+  // TODO 一時的。Editorのプロパティのインターフェイスを変更する(Show的に)
+  onOpenResourceEditorWhenCreate(resourceType: ResourceType): void {
+    this.editResourceType = resourceType;
+    this.editResourceId = CoreResourceEditDialog.ID_WHEN_CREATE_NEW;
+  }
+  onCloseResourceEditor(): void {
+    this.editResourceId = 0;
+  }
+  onUpdatedResource(resource: Resource): void {
+    const diagramCanvas = this.$refs.diagramCanvas as DiagramCanvas;
+    diagramCanvas.addPlacement(resource);
+    this.onUpdateResources();
   }
 
   // private methods.

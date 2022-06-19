@@ -178,6 +178,9 @@ export default class DiagramCanvas extends Vue {
   @Emit("onEditResource")
   private onEditResource(): void {}
 
+  @Emit("onOpenResourceEditorWhenCreate")
+  private onOpenResourceEditorWhenCreate(_resourceType: ResourceType): void {}
+
   // Watch event.
 
   @Watch("lastPropertiesUpdatedDiagramId")
@@ -326,9 +329,9 @@ export default class DiagramCanvas extends Vue {
 
   // from ResourcePropertiesEditor events.
 
-  private onUpdatedResource(resource: Resource): void {
+  onUpdatedResource(resource: Resource): void {
     this.addPlacement(resource);
-    this.onUpdateResources(); // 親にコールバック
+    // this.onUpdateResources(); // 親にコールバック
   }
 
   private onCloseResourceEditor(): void {
@@ -352,7 +355,8 @@ export default class DiagramCanvas extends Vue {
     // 新規追加時。
     if (isAddNew) {
       const resourceType = ResourceType.ofId(resourceId * -1) as ResourceType;
-      this.showResourcePropertiesEditor(resourceType);
+      this.onOpenResourceEditorWhenCreate(resourceType);
+      // this.showResourcePropertiesEditor(resourceType);
       return;
     }
 
@@ -679,7 +683,7 @@ export default class DiagramCanvas extends Vue {
     commandStack.addEventListener(this.onCanvasCommandExecute);
   }
 
-  private addPlacement(resource: Resource): void {
+  addPlacement(resource: Resource): void {
     const product = this.repository.getCurrentProduct();
     const diagram = product!.diagrams.of(this.diagramId);
     if (!product || !diagram) return;
