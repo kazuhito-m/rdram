@@ -44,15 +44,7 @@
 </template>
 
 <script lang="ts">
-import {
-  Component,
-  Vue,
-  Prop,
-  Inject,
-  Emit,
-  Watch,
-} from 'nuxt-property-decorator'
-import CoreResourceEditDialog from './CoreResourceEditDialog.vue'
+import { Component, Vue, Prop, Inject, Emit } from 'nuxt-property-decorator'
 import StandardResourceEditDialog from './StandardResourceEditDialog.vue'
 import HasContentResourceEditDialog from './HasContentResourceEditDialog.vue'
 import VariationEditDialog from './VariationEditDialog.vue'
@@ -101,7 +93,7 @@ export default class ResourceEditDialog2 extends Vue {
   }
 
   showForCreateNew(resourceType: ResourceType): void {
-    this.show((Resources) => resources.prototypeResourceOf(resourceType))
+    this.show((resources) => resources.prototypeResourceOf(resourceType))
   }
 
   private show(findResourceFunc: (resources: Resources) => Resource): void {
@@ -118,8 +110,11 @@ export default class ResourceEditDialog2 extends Vue {
     this.latestResources = resources
     this.targetDiagram = diagram
 
-    // リソース別エディタ切り替え判定
+    this.visibleByType(target)
+  }
 
+  // リソース別エディタ切り替え判定
+  private visibleByType(target: Resource): void {
     if (target instanceof Variation) {
       this.targetVariation = target
       return
