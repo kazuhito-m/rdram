@@ -86,7 +86,10 @@ export default class ResourceEditDialog2 extends Vue {
   private readonly diagramId!: number
 
   @Emit('onUpdatedResource')
-  private onUpdatedResource(_resource: Resource): void {}
+  private onUpdatedResource(
+    _resource: Resource,
+    _addNew: boolean = false
+  ): void {}
 
   showForModifyOf(resourceId: number): void {
     this.show((resources) => resources.of(resourceId))
@@ -96,9 +99,11 @@ export default class ResourceEditDialog2 extends Vue {
     this.show((resources) => resources.prototypeResourceOf(resourceType))
   }
 
-  private show(findResourceFunc: (resources: Resources) => Resource): void {
+  private show(
+    findResourceFunc: (resources: Resources) => Resource | undefined
+  ): void {
     const product = this.repository?.getCurrentProduct()
-    if (!product) return null
+    if (!product) return
     const resources = product.resources
     if (!resources) return
     const diagram = product.diagrams.of(this.diagramId)
@@ -152,7 +157,7 @@ export default class ResourceEditDialog2 extends Vue {
 
   onModifyResource(resource: Resource): void {
     let product = this.repository?.getCurrentProduct()
-    if (!product) return resource
+    if (!product) return
 
     const addNew = !product.resources.existsIdOf(resource.resourceId)
 
@@ -166,7 +171,7 @@ export default class ResourceEditDialog2 extends Vue {
     product = product.withResources(addedResources)
     this.repository?.registerCurrentProduct(product)
 
-    this.onUpdatedResource(registerd, addNew)
+    this.onUpdatedResource(newResource, addNew)
   }
 
   onJustPutOnDiagram(resource: Resource): void {
