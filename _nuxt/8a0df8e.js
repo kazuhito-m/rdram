@@ -1296,7 +1296,7 @@ var CorrespondResourceTypes_CorrespondResourceTypes = /*#__PURE__*/function () {
 }();
 
 
-CorrespondResourceTypes_CorrespondResourceTypes.MAP = new Map([[ResourceType["a" /* default */].業務.id, [DiagramType["a" /* default */].ユースケース複合図, DiagramType["a" /* default */].利用シーン図]]]);
+CorrespondResourceTypes_CorrespondResourceTypes.MAP = new Map([[ResourceType["a" /* default */].業務.id, [DiagramType["a" /* default */].ビジネスユースケース図]], [ResourceType["a" /* default */].ビジネスユースケース.id, [DiagramType["a" /* default */].ユースケース複合図, DiagramType["a" /* default */].利用シーン図]]]);
 // CONCATENATED MODULE: ./src/domain/product/Product.ts
 
 
