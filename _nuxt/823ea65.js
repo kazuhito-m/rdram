@@ -2166,14 +2166,14 @@ var web_dom_collections_iterator = __webpack_require__(46);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.map.js
 var es_array_map = __webpack_require__(31);
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
-var es_array_filter = __webpack_require__(13);
-
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.find.js
 var es_array_find = __webpack_require__(85);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
+var es_array_filter = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.from.js
 var es_array_from = __webpack_require__(62);
@@ -2321,13 +2321,6 @@ var Diagrams_Diagrams = /*#__PURE__*/function () {
     } // exists or counts.
 
   }, {
-    key: "countOfUsingOf",
-    value: function countOfUsingOf(resource) {
-      return this.values.filter(function (diagram) {
-        return diagram.usingOf(resource);
-      }).length;
-    }
-  }, {
     key: "existsSameTypeAndName",
     value: function existsSameTypeAndName(name, diagramType) {
       return this.values.some(function (d) {
@@ -2374,6 +2367,15 @@ var Diagrams_Diagrams = /*#__PURE__*/function () {
       });
       return new Diagrams(diagrams);
     }
+  }, {
+    key: "using",
+    value: function using(resource) {
+      var values = this.values.filter(function (diagram) {
+        return diagram.usingOf(resource);
+      });
+      return new Diagrams(values);
+    } // modify and return method.
+
   }, {
     key: "add",
     value: function add(diagram) {
