@@ -58,7 +58,7 @@ import HasContentResource from '@/domain/resource/HasContentResource'
 import Variation from '@/domain/resource/Variation'
 import Condition from '@/domain/resource/Condition'
 import TableTypeCondition from '@/domain/resource/TableTypeCondition'
-import Diagram from '~/domain/diagram/Diagram'
+import Diagram from '@/domain/diagram/Diagram'
 
 @Component({
   components: {
@@ -86,10 +86,7 @@ export default class ResourceEditDialog2 extends Vue {
   private readonly diagramId!: number
 
   @Emit('onUpdatedResource')
-  private onUpdatedResource(
-    _resource: Resource,
-    _addNew: boolean = false
-  ): void {}
+  private onUpdatedResource(_resource: Resource, _addNew: boolean): void {}
 
   showForModifyOf(resourceId: number): void {
     this.show((resources) => resources.of(resourceId))
