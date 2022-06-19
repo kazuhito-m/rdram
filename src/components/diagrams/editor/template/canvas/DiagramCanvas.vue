@@ -161,7 +161,7 @@ export default class DiagramCanvas extends Vue {
   private onShowResourceMenu(_resource: Resource, _x: number, _y: number): void {}
 
   @Emit("onEditResource")
-  private onEditResource(): void {}
+  private onEditResource(_resourceId: number): void {}
 
   @Emit("onOpenResourceEditorWhenCreate")
   private onOpenResourceEditorWhenCreate(_resourceType: ResourceType): void {}

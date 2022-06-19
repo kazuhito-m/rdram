@@ -80,6 +80,7 @@ import StorageRepository from "@/domain/storage/StorageRepository";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
+import ResourceType from "@/domain/resource/ResourceType";
 import Placement from "@/domain/diagram/placement/Placement";
 
 @Component({
@@ -189,9 +190,11 @@ export default class DiagramEditor extends Vue {
     this.editResourceType = resourceType;
     this.editResourceId = CoreResourceEditDialog.ID_WHEN_CREATE_NEW;
   }
+
   onCloseResourceEditor(): void {
     this.editResourceId = 0;
   }
+
   onUpdatedResource(resource: Resource): void {
     const diagramCanvas = this.$refs.diagramCanvas as DiagramCanvas;
     diagramCanvas.addPlacement(resource);
