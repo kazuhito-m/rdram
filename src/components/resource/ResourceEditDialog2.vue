@@ -135,13 +135,13 @@ export default class ResourceEditDialog2 extends Vue {
       return
     }
 
-    if (target instanceof HasContenttarget) {
-      this.targetHasContenttarget = target
+    if (target instanceof HasContentResource) {
+      this.targetHasContentResource = target
       return
     }
 
     if (target) {
-      this.targetStandaerdtarget = target
+      this.targetStandaerdResource = target
       return
     }
     this.targetStandaerdResource = null
