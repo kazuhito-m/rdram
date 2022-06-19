@@ -24,12 +24,6 @@ export default class Diagrams {
 
     // exists or counts.
 
-    public countOfUsingOf(resource: Resource): number {
-        return this.values
-            .filter(diagram => diagram.usingOf(resource))
-            .length;
-    }
-
     public existsSameTypeAndName(name: string, diagramType: DiagramType): boolean {
         return this.values
             .some(d => d.name === name
@@ -66,6 +60,14 @@ export default class Diagrams {
             .filter(diagram => diagram.name === name);
         return new Diagrams(diagrams);
     }
+
+    public using(resource: Resource): Diagrams {
+        const values = this.values
+            .filter(diagram => diagram.usingOf(resource));
+        return new Diagrams(values);
+    }
+
+    // modify and return method.
 
     public add(diagram: Diagram): Diagrams {
         const newValues = Array.from(this.values);

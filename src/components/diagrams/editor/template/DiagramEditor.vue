@@ -202,13 +202,21 @@ export default class DiagramEditor extends Vue {
   private deleteResourceOnProduct(resourceId: number): void {
     const product = this.getCurrentProduct();
     const resource = product.resources.of(resourceId);
+    const thisDiagram = product.diagrams.of(this.diagramId);
     if (!resource) return;
 
-    const usedCount = product.diagrams.countOfUsingOf(resource);
-    if (usedCount > 0) {
+    const usings = product.diagrams.using(resource);
+    if (usings.length > 0) {
+      let diagramInfo = `${usings.length}個の図`;
+      if (usings.length === 1) {
+        const diagram = usings.last();
+        diagramInfo = diagram.id === thisDiagram?.id
+          ? "この図のみ"
+          : `「${diagram.name}(${diagram.type.name})」`
+      }
       const message =
-        `「${resource.name}」は、現在 ${usedCount}個 の図で参照されています。\n` +
-        "削除する場合、それらの図のアイコンや関連のすべては削除されます。\n" +
+        `「${resource.name}」は現在、${diagramInfo}で参照されています。\n` +
+        "削除する場合、図のアイコンや関連のすべては削除されます。\n" +
         `${resource.name} を削除してもよろしいですか。`;
       if (!window.confirm(message)) return;
     }
