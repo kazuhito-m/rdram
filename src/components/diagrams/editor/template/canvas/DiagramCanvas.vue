@@ -28,15 +28,6 @@
             @onUpdateRelation="onUpdateRelation"
             @onDeleteRelation="onDeleteRelation"
         />
-
-        <ResourceEditDialog 
-          :resourceId="editResourceId"
-          :resourceType="editResourceType"
-          :diagramId="diagramId"
-          @onUpdatedResource="onUpdatedResource"
-          @onClose="onCloseResourceEditor"
-        />
-
     </div>
 </template>
 
@@ -61,7 +52,6 @@ import ZoomValueOnDraw2d from "./ZoomValueOnDraw2d";
 import AbsolutePosition from "./AbsolutePosition";
 import CanvasSettingToolBar from "@/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
 import ConnectorRightClickMenuAndEditor from "@/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue";
-import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
 
 import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
 import CanvasGuideType from "@/components/diagrams/editor/toolbar/CanvasGuideType";
@@ -71,6 +61,7 @@ import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
 
 import Product from "@/domain/product/Product";
 import Diagram from "@/domain/diagram/Diagram";
+import Resources from "@/domain/resource/Resources";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
 import Relation from "@/domain/relation/Relation";
@@ -80,16 +71,12 @@ import DownloadCustomFile from "@/domain/client/DownloadCustomFile";
 import DownloadFileName from "@/domain/client/DownloadFileName";
 import RdramDownloadFileName from "@/domain/client/WithTimestampFileName";
 import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
-import DiagramExportService from "~/application/service/diagram/export/DiagramExportService";
-
-import CoreResourceEditDialog from "@/components/resource/CoreResourceEditDialog.vue";
-import Resources from "@/domain/resource/Resources";
+import DiagramExportService from "@/application/service/diagram/export/DiagramExportService";
 
 @Component({
   components: {
     CanvasSettingToolBar,
     ConnectorRightClickMenuAndEditor,
-    ResourceEditDialog
   }
 })
 export default class DiagramCanvas extends Vue {
@@ -141,8 +128,6 @@ export default class DiagramCanvas extends Vue {
   private menuX = 0;
   private menuY = 0;
 
-  private editResourceId = 0;
-  private editResourceType: ResourceType | null = null;
   private dropXOnCanvas = 0;
   private dropYOnCanvas = 0;
 
@@ -327,17 +312,6 @@ export default class DiagramCanvas extends Vue {
     this!.diagramExportService.downloadExportFileOnClient(this.diagramId);
   }
 
-  // from ResourcePropertiesEditor events.
-
-  onUpdatedResource(resource: Resource): void {
-    this.addPlacement(resource);
-    // this.onUpdateResources(); // 親にコールバック
-  }
-
-  private onCloseResourceEditor(): void {
-    this.editResourceId = 0;
-  }
-
   // Canvas Events
 
   private onDropCanvas(event: DragEvent) {
@@ -356,7 +330,6 @@ export default class DiagramCanvas extends Vue {
     if (isAddNew) {
       const resourceType = ResourceType.ofId(resourceId * -1) as ResourceType;
       this.onOpenResourceEditorWhenCreate(resourceType);
-      // this.showResourcePropertiesEditor(resourceType);
       return;
     }
 
@@ -642,11 +615,6 @@ export default class DiagramCanvas extends Vue {
     const cssLink =
       "<defs><style type='text/css'>@import url('https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css');</style></defs>";
     return svgContents.replace("<defs", cssLink + "<defs");
-  }
-
-  private showResourcePropertiesEditor(resourceType: ResourceType): void {
-    this.editResourceType = resourceType;
-    this.editResourceId = CoreResourceEditDialog.ID_WHEN_CREATE_NEW;
   }
 
   public decorateConnection(connection: any, relation: Relation): void {
