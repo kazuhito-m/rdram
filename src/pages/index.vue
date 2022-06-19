@@ -83,7 +83,12 @@
               :key="item.id"
               class="tab-title"
             >
-              <v-icon v-if="item.iconKey">{{ item.iconKey }}</v-icon>
+              <v-tooltip bottom open-delay="1000">
+                <template #activator="{ on, attrs }">
+                  <v-icon v-if="item.iconKey" v-bind="attrs" v-on="on">{{ item.iconKey }}</v-icon>
+                </template>
+                <span>{{ item.iconCaption }}</span>
+              </v-tooltip>
               {{ item.name }}
               <v-btn
                 :data-item-id="item.id"
@@ -162,7 +167,8 @@ export default class extends Vue {
     name: "(空)",
     children: [],
     disabled: true,
-    iconKey: ""
+    iconKey: "",
+    iconCaption: "",
   };
 
   private readonly DIAGRAM_FOLDER_ID_MASK: number = 1000000;
@@ -217,7 +223,8 @@ export default class extends Vue {
         name: tfName,
         children: [] as TreeItem[],
         disabled: false,
-        iconKey: ""
+        iconKey: "",
+        iconCaption: "",
       };
       if (tfName === "RDRA 2.0") {
         rdraTop = item;
@@ -468,12 +475,14 @@ export default class extends Vue {
   }
 
   private diagramToTreeItem(diagram: Diagram): TreeItem {
+    const type = diagram.type;
     return {
       id: diagram.id,
       name: diagram.name,
       children: [],
       disabled: false,
-      iconKey: diagram.type.iconKey
+      iconKey: type.iconKey,
+      iconCaption: type.name
     };
   }
 

@@ -4,4 +4,5 @@ export default interface TreeItem {
     children: TreeItem[];
     disabled: boolean | undefined;
     iconKey: string;
+    iconCaption: string;
 }
