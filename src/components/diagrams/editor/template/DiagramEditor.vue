@@ -9,6 +9,7 @@
       @onClose="onCloseResourceEditor"
     />
     <ResourceEditDialog2    
+      ref="resourceEditDialog"
       :diagramId="diagramId"
       @onUpdatedResource="onUpdatedResource"
     />
@@ -160,8 +161,9 @@ export default class DiagramEditor extends Vue {
 
   // children component events.
 
-  onEditResource(_resourceId: number): void {
-
+  onEditResource(resourceId: number): void {
+    const dialog = this.$refs.resourceEditDialog as ResourceEditDialog2;
+    dialog.showForModifyOf(resourceId);
   }
 
   onDeleteResourceOnDiagram(resourceId: number): void {
