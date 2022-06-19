@@ -10,7 +10,7 @@
     @input="close"
   >
     <v-list>
-      <v-list-item v-if="false" link>
+      <v-list-item v-if="enableEdit" link @click="onClickEdit">
         <v-list-item-title>編集...</v-list-item-title>
       </v-list-item>
       <v-list-item v-if="enableOpenDiagram" link @click="onClickOpenDiagram">
@@ -45,6 +45,7 @@ export default class ResourceRightClickMenu extends Vue {
   visible = false
   resourceId = 0
 
+  enableEdit = false
   enableOpenDiagram = false
   enableDeleteOnDiagram = false
   enableDeleteOnProduct = false
@@ -52,20 +53,28 @@ export default class ResourceRightClickMenu extends Vue {
   showPositionX = 0
   showPositionY = 0
 
-  onClickOpenDiagram(): void {
-    this.onOpenDiagramOfResourceRelate(this.resourceId)
+  onClickEdit(): void {
     this.close()
+    this.onEditResource(this.resourceId)
+  }
+
+  onClickOpenDiagram(): void {
+    this.close()
+    this.onOpenDiagramOfResourceRelate(this.resourceId)
   }
 
   onClickDeleteOnDiagram(): void {
-    this.onDeleteResourceOnDiagram(this.resourceId)
     this.close()
+    this.onDeleteResourceOnDiagram(this.resourceId)
   }
 
   onClickDeleteOnProduct(): void {
-    this.onDeleteResourceOnProduct(this.resourceId)
     this.close()
+    this.onDeleteResourceOnProduct(this.resourceId)
   }
+
+  @Emit('onEditResource')
+  private onEditResource(_resourceId): void {}
 
   @Emit('onOpenDiagramOfResourceRelate')
   private onOpenDiagramOfResourceRelate(_resourceId: number): void {}
@@ -88,6 +97,7 @@ export default class ResourceRightClickMenu extends Vue {
 
   private analyzeEnableMenu(resource: Resource, diagram: Diagram): void {
     const onDiagram = diagram.existsResourceOnPlacementOf(resource.resourceId)
+    this.enableEdit = resource.deletable
     this.enableOpenDiagram = Product.hasCorrespondingDiagramTypeOf(resource)
     this.enableDeleteOnDiagram = onDiagram
     this.enableDeleteOnProduct = resource.deletable

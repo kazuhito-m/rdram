@@ -2,6 +2,7 @@
   <div class="diagram-pain-container">
     <ResourceRightClickMenu 
       ref="resourceRightClickMenu"
+      @onEditResource="onEditResource"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
       @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
       @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
@@ -132,6 +133,10 @@ export default class DiagramEditor extends Vue {
   }
 
   // children component events.
+
+  onEditResource(resourceId: number): void {
+    alert("resourceId:" + resourceId);
+  }
 
   onDeleteResourceOnDiagram(resourceId: number): void {
     const diagram = this.deleteResourceOnDiagram(resourceId);
