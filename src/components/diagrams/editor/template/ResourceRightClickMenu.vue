@@ -74,7 +74,7 @@ export default class ResourceRightClickMenu extends Vue {
   }
 
   @Emit('onEditResource')
-  private onEditResource(_resourceId): void {}
+  private onEditResource(_resourceId: number): void {}
 
   @Emit('onOpenDiagramOfResourceRelate')
   private onOpenDiagramOfResourceRelate(_resourceId: number): void {}
