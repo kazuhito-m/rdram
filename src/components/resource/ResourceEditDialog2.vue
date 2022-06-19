@@ -149,20 +149,13 @@ export default class ResourceEditDialog2 extends Vue {
   }
 
   onModifyResource(resource: Resource): void {
-    const registerd = this.registerResoruce(resource)
-    this.onUpdatedResource(registerd)
-  }
-
-  onJustPutOnDiagram(resource: Resource): void {
-    this.onUpdatedResource(resource)
-  }
-
-  private registerResoruce(resource: Resource): Resource {
     let product = this.repository?.getCurrentProduct()
     if (!product) return resource
 
+    const addNew = !product.resources.existsIdOf(resource.resourceId)
+
     let newResource = resource
-    if (this.isAddNew()) {
+    if (addNew) {
       newResource = newResource.renewId(product.resourceIdSequence)
       product = product.moveNextResourceIdSequence()
     }
@@ -171,7 +164,11 @@ export default class ResourceEditDialog2 extends Vue {
     product = product.withResources(addedResources)
     this.repository?.registerCurrentProduct(product)
 
-    return newResource
+    this.onUpdatedResource(registerd, addNew)
+  }
+
+  onJustPutOnDiagram(resource: Resource): void {
+    this.onUpdatedResource(resource, false)
   }
 }
 </script>
