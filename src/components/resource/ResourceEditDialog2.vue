@@ -1,0 +1,179 @@
+<template>
+  <div>
+    <StandardResourceEditDialog
+      :resource="targetStandaerdResource"
+      :resources="latestResources"
+      :diagram="targetDiagram"
+      @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
+      @onClose="onClose"
+    />
+    <HasContentResourceEditDialog
+      :resource="targetHasContentResource"
+      :resources="latestResources"
+      :diagram="targetDiagram"
+      @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
+      @onClose="onClose"
+    />
+    <VariationEditDialog
+      :resource="targetVariation"
+      :resources="latestResources"
+      :diagram="targetDiagram"
+      @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
+      @onClose="onClose"
+    />
+    <ConditionEditDialog
+      :resource="targetCondition"
+      :resources="latestResources"
+      :diagram="targetDiagram"
+      @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
+      @onClose="onClose"
+    />
+    <TableTypeConditionEditDialog
+      :resource="targetTableTypeCondition"
+      :resources="latestResources"
+      :diagram="targetDiagram"
+      @onModifyResource="onModifyResource"
+      @onJustPutOnDiagram="onJustPutOnDiagram"
+      @onClose="onClose"
+    />
+  </div>
+</template>
+
+<script lang="ts">
+import {
+  Component,
+  Vue,
+  Prop,
+  Inject,
+  Emit,
+  Watch,
+} from 'nuxt-property-decorator'
+import CoreResourceEditDialog from './CoreResourceEditDialog.vue'
+import StandardResourceEditDialog from './StandardResourceEditDialog.vue'
+import HasContentResourceEditDialog from './HasContentResourceEditDialog.vue'
+import VariationEditDialog from './VariationEditDialog.vue'
+import ConditionEditDialog from './ConditionEditDialog.vue'
+import TableTypeConditionEditDialog from './TableTypeConditionEditDialog.vue'
+import StorageRepository from '@/domain/storage/StorageRepository'
+import ResourceType from '@/domain/resource/ResourceType'
+import Resource from '@/domain/resource/Resource'
+import Resources from '@/domain/resource/Resources'
+import HasContentResource from '@/domain/resource/HasContentResource'
+import Variation from '@/domain/resource/Variation'
+import Condition from '@/domain/resource/Condition'
+import TableTypeCondition from '@/domain/resource/TableTypeCondition'
+import Diagram from '~/domain/diagram/Diagram'
+
+@Component({
+  components: {
+    StandardResourceEditDialog,
+    HasContentResourceEditDialog,
+    VariationEditDialog,
+    ConditionEditDialog,
+    TableTypeConditionEditDialog,
+  },
+})
+export default class ResourceEditDialog2 extends Vue {
+  private latestResources: Resources = Resources.prototypeOf()
+  private targetStandaerdResource: Resource | null = null
+  private targetHasContentResource: HasContentResource | null = null
+  private targetVariation: Variation | null = null
+  private targetCondition: Condition | null = null
+  private targetTableTypeCondition: TableTypeCondition | null = null
+
+  private targetDiagram: Diagram | null = null
+
+  @Inject()
+  private repository?: StorageRepository
+
+  @Prop({ required: true })
+  private readonly diagramId!: number
+
+  @Emit('onUpdatedResource')
+  private onUpdatedResource(_resource: Resource): void {}
+
+  show(resoruce: Resource): void {
+    const product = this.repository?.getCurrentProduct()
+    if (!product) return null
+    const resources = product.resources
+    if (!resources) return
+
+    let target = resources.of(this.resourceId)
+    if (!target) target = resource
+
+    const diagram = product.diagrams.of(this.diagramId)
+    if (!diagram) return
+
+    this.latestResources = resources
+    this.targetDiagram = diagram
+
+    // リソース別エディタ切り替え判定
+
+    if (target instanceof Variation) {
+      this.targetVariation = target
+      return
+    }
+
+    if (target instanceof Condition) {
+      this.targetCondition = target
+      return
+    }
+
+    if (target instanceof TableTypeCondition) {
+      this.targetTableTypeCondition = target
+      return
+    }
+
+    if (target instanceof HasContenttarget) {
+      this.targetHasContenttarget = target
+      return
+    }
+
+    if (target) {
+      this.targetStandaerdtarget = target
+      return
+    }
+    this.targetStandaerdResource = null
+  }
+
+  private onClose(): void {
+    this.targetStandaerdResource = null
+    this.targetHasContentResource = null
+    this.targetVariation = null
+    this.targetCondition = null
+    this.targetTableTypeCondition = null
+  }
+
+  onModifyResource(resource: Resource): void {
+    const registerd = this.registerResoruce(resource)
+    this.onUpdatedResource(registerd)
+  }
+
+  onJustPutOnDiagram(resource: Resource): void {
+    this.onUpdatedResource(resource)
+  }
+
+  private registerResoruce(resource: Resource): Resource {
+    let product = this.repository?.getCurrentProduct()
+    if (!product) return resource
+
+    let newResource = resource
+    if (this.isAddNew()) {
+      newResource = newResource.renewId(product.resourceIdSequence)
+      product = product.moveNextResourceIdSequence()
+    }
+
+    const addedResources = product.resources.mergeByIdOf(newResource)
+    product = product.withResources(addedResources)
+    this.repository?.registerCurrentProduct(product)
+
+    return newResource
+  }
+}
+</script>
+
+<style scoped></style>

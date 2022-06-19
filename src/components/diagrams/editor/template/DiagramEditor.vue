@@ -8,6 +8,10 @@
       @onUpdatedResource="onUpdatedResource"
       @onClose="onCloseResourceEditor"
     />
+    <ResourceEditDialog2    
+      :diagramId="diagramId"
+      @onUpdatedResource="onUpdatedResource"
+    />
     <ResourceRightClickMenu 
       ref="resourceRightClickMenu"
       @onEditResource="onEditResource"
@@ -70,6 +74,7 @@ import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vu
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import ResourceParet from "@/components/diagrams/editor/template/paret/ResourceParet.vue";
 import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
+import ResourceEditDialog2 from "@/components/resource/ResourceEditDialog2.vue";
 import CoreResourceEditDialog from "@//components/resource/CoreResourceEditDialog.vue"
 
 import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
@@ -89,6 +94,7 @@ import Placement from "@/domain/diagram/placement/Placement";
     DiagramCanvas,
     ResourceParet,
     ResourceEditDialog,
+    ResourceEditDialog2,
     ResourceRightClickMenu,
   }
 })
@@ -155,7 +161,7 @@ export default class DiagramEditor extends Vue {
   // children component events.
 
   onEditResource(resourceId: number): void {
-    alert("resourceId:" + resourceId);
+
   }
 
   onDeleteResourceOnDiagram(resourceId: number): void {
