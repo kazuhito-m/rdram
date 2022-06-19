@@ -160,7 +160,7 @@ export default class DiagramEditor extends Vue {
 
   // children component events.
 
-  onEditResource(resourceId: number): void {
+  onEditResource(_resourceId: number): void {
 
   }
 

@@ -96,17 +96,24 @@ export default class ResourceEditDialog2 extends Vue {
   @Emit('onUpdatedResource')
   private onUpdatedResource(_resource: Resource): void {}
 
-  show(resoruce: Resource): void {
+  showForModifyOf(resourceId: number): void {
+    this.show((resources) => resources.of(resourceId))
+  }
+
+  showForCreateNew(resourceType: ResourceType): void {
+    this.show((Resources) => resources.prototypeResourceOf(resourceType))
+  }
+
+  private show(findResourceFunc: (resources: Resources) => Resource): void {
     const product = this.repository?.getCurrentProduct()
     if (!product) return null
     const resources = product.resources
     if (!resources) return
-
-    let target = resources.of(this.resourceId)
-    if (!target) target = resource
-
     const diagram = product.diagrams.of(this.diagramId)
     if (!diagram) return
+
+    const target = findResourceFunc(resources)
+    if (!target) return
 
     this.latestResources = resources
     this.targetDiagram = diagram
