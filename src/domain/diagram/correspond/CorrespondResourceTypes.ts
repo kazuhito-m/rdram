@@ -8,7 +8,8 @@ import DiagramType from "@/domain/diagram/DiagramType";
  */
 export default class CorrespondResourceTypes {
     private static readonly MAP = new Map([
-        [ResourceType.業務.id, [DiagramType.ユースケース複合図, DiagramType.利用シーン図]],
+        [ResourceType.業務.id, [DiagramType.ビジネスユースケース図]],
+        [ResourceType.ビジネスユースケース.id, [DiagramType.ユースケース複合図, DiagramType.利用シーン図]],
     ]);
 
     public correspondingDiagramTypesOf(resourceType: ResourceType): DiagramType[] {
