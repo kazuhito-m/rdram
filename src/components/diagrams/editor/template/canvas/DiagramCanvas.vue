@@ -175,6 +175,9 @@ export default class DiagramCanvas extends Vue {
   @Emit("onShowResourceMenu")
   private onShowResourceMenu(_resource: Resource, _x: number, _y: number): void {}
 
+  @Emit("onEditResource")
+  private onEditResource(): void {}
+
   // Watch event.
 
   @Watch("lastPropertiesUpdatedDiagramId")
@@ -476,6 +479,7 @@ export default class DiagramCanvas extends Vue {
       const pos = new AbsolutePosition(x, y, this.canvas)
       this.onShowResourceMenu(resource, pos.x() , pos.y());
     }
+    icon.onDoubleClick = () => this.onEditResource(resource.resourceId);
 
     return icon;
   }

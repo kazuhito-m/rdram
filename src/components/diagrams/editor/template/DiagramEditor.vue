@@ -22,6 +22,7 @@
           @onMergePlacement="onMergePlacement"
           @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
           @onShowWarnBar="onShowWarnBar"
+          @onEditResource="onEditResource"
           @onShowResourceMenu="onShowResourceMenu"
         />
       </template>
