@@ -79,6 +79,9 @@ export default class ResourceEditDialog2 extends Vue {
 
   targetDiagram: Diagram | null = null
 
+  private resolve: any = null
+  private reject: any = null
+
   @Inject()
   private repository?: StorageRepository
 
@@ -98,21 +101,35 @@ export default class ResourceEditDialog2 extends Vue {
 
   private show(
     findResourceFunc: (resources: Resources) => Resource | undefined
-  ): void {
+  ): Promise<Resource> {
+    const target = this.initializeOf(findResourceFunc)
+    if (target.isEmpty()) return new Promise((resolve) => resolve(target))
+
+    this.visibleByType(target)
+
+    return new Promise((resolve, reject) => {
+      this.resolve = resolve
+      this.reject = reject
+    })
+  }
+
+  private initializeOf(
+    findResourceFunc: (resources: Resources) => Resource | undefined
+  ): Resource {
     const product = this.repository?.getCurrentProduct()
-    if (!product) return
+    if (!product) return Resource.empty()
     const resources = product.resources
-    if (!resources) return
+    if (!resources) return Resource.empty()
     const diagram = product.diagrams.of(this.diagramId)
-    if (!diagram) return
+    if (!diagram) return Resource.empty()
 
     const target = findResourceFunc(resources)
-    if (!target) return
+    if (!target) return Resource.empty()
 
     this.latestResources = resources
     this.targetDiagram = diagram
 
-    this.visibleByType(target)
+    return target
   }
 
   // リソース別エディタ切り替え判定

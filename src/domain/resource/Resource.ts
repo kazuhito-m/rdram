@@ -42,6 +42,11 @@ export default class Resource {
         return ResourceType.ofId(this.resourceTypeId) as ResourceType;
     }
 
+    public isEmpty(): boolean {
+        return this.name.length === 0
+            && this.description.length === 0;
+    }
+
     public static empty(): Resource {
         return new Resource(0, ResourceType.アクター.id, "", "");
     }
