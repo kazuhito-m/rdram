@@ -114,7 +114,7 @@ export default class DiagramCanvas extends Vue {
   canvasId!: string
   canvasGuideType = CanvasGuideType.なし
 
-  private lastResourcesOnCurrentProductCount = 0
+  private lastResourcesCache: Map<number, Resource> | null = null
 
   visibleConnectorMenu = false
   targetRelation: Relation | null = null
@@ -178,16 +178,21 @@ export default class DiagramCanvas extends Vue {
     this.onChangeZoomBySlider(this.zoom() + 0.001) // 再描画がうまく行くHack
   }
 
-  @Watch('allResourcesOnCurrentProduct.length')
-  private onChangeAllResourcesOnCurrentProduct(): void {
-    const whenRemoveResource =
-      this.allResourcesOnCurrentProduct.length <
-      this.lastResourcesOnCurrentProductCount
-    this.lastResourcesOnCurrentProductCount =
-      this.allResourcesOnCurrentProduct.length
-    if (!whenRemoveResource) return
+  @Watch('allResourcesOnCurrentProduct')
+  private onChangeResourcesOnProduct(): void {
+    if (!this.lastResourcesCache) return
 
-    this.reverceSyncCavansDeleteThings()
+    const nowResources = this.allResourcesOnCurrentProduct
+    const cache = this.lastResourcesCache
+    const whenResouce = nowResources.length < cache.size
+    if (whenResouce) {
+      this.reverceSyncCavansDeleteThings()
+    } else {
+      const modifies = nowResources.filter((r) => cache.get(r.resourceId) !== r)
+      modifies.forEach((i) => console.log(`id:${i.resourceId}, name:${i.name}`))
+    }
+
+    this.cacheNowResources()
   }
 
   @Watch('usedResouceIds')
@@ -201,12 +206,12 @@ export default class DiagramCanvas extends Vue {
     const diagram = this.product?.diagrams.of(this.diagramId)
     if (!diagram) return
     this.canvasId = 'canvas' + this.diagramId
-    this.lastResourcesOnCurrentProductCount =
-      this.allResourcesOnCurrentProduct.length
   }
 
   mounted() {
     this.$nuxt.$loading.start()
+
+    this.cacheNowResources()
 
     this.$nextTick(() => {
       const diagram = this.product?.diagrams.of(this.diagramId)
@@ -703,6 +708,13 @@ export default class DiagramCanvas extends Vue {
     this.onMergePlacement(modifiedDiagram.placements)
     const modifiedProduct = product.meageDiagramByIdOf(modifiedDiagram)
     this.repository.registerCurrentProduct(modifiedProduct)
+  }
+
+  private cacheNowResources(): void {
+    const nowResources = this.allResourcesOnCurrentProduct
+    const dic = new Map<number, Resource>()
+    nowResources.forEach((r) => dic.set(r.resourceId, r))
+    this.lastResourcesCache = dic
   }
 }
 </script>
