@@ -323,13 +323,7 @@ export default class extends Vue {
     this.openDiagramEditorTabOf(diagramId);
   }
   
-  onModifiedResourceOnProduct(resource: Resource): void {
-    const resources = this.allResourcesOnCurrentProduct;
-    const i = resources
-      .findIndex(r => r.resourceId === resource.resourceId);
-    if (i < 0) return;
-    resources.splice(i, 1);
-    resources.push(resource);
+  onModifiedResourceOnProduct(_resource: Resource): void {
   }
 
   // private methods.

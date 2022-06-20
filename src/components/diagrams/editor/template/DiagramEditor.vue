@@ -162,12 +162,8 @@ export default class DiagramEditor extends Vue {
   async onEditResource(resourceId: number): Promise<void> {
     const dialog = this.$refs.resourceEditDialog as ResourceEditDialog2;
     const resource = await dialog.showForModifyOf(resourceId);
-
     if (resource.isEmpty()) return;
-
-    console.log("ResouceName:", resource.name);
-
-    this.onModifiedResourceOnProduct(resource);
+    this.refrectResourcesOnViewModel(resource);
   }
 
   onDeleteResourceOnDiagram(resourceId: number): void {
@@ -300,6 +296,15 @@ export default class DiagramEditor extends Vue {
       fontFamily: style.fontFamily,
       charactor: content.replace(/"/g, "")
     };
+  }
+
+  private refrectResourcesOnViewModel(resource: Resource): void {
+    const resources = this.allResourcesOnCurrentProduct;
+    const i = resources
+      .findIndex(r => r.resourceId === resource.resourceId);
+    if (i < 0) return;
+    resources.splice(i, 1);
+    resources.push(resource);
   }
 
   private dumpDiagram(diagram: Diagram, prefix: string) {
