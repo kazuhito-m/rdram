@@ -324,7 +324,12 @@ export default class extends Vue {
   }
   
   onModifiedResourceOnProduct(resource: Resource): void {
-    alert("name:" + resource.name + ", id:" + resource.resourceId);
+    const resources = this.allResourcesOnCurrentProduct;
+    for (let i = 0; i < resources.length; i++) {
+      if (resources[i].resourceId !== resource.resourceId) continue;
+      resources.splice(i, 1);
+      resources.push(resource);
+    }
   }
 
   // private methods.
