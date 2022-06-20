@@ -8,63 +8,64 @@
     @onUpdateResources="onUpdateResources"
     @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+    @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
   />
 </template>
 
 <script lang="ts">
-import { Prop, Component, Vue, Emit } from "nuxt-property-decorator";
-import DiagramEditor from "@/components/diagrams/editor/template/DiagramEditor.vue";
+import { Prop, Component, Vue, Emit } from 'nuxt-property-decorator'
+import DiagramEditor from '@/components/diagrams/editor/template/DiagramEditor.vue'
 
-import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
-import GenericConnectPortsEvents from "@/components/diagrams/editor/template/event/events/GenericConnectPortsEvents";
-import GemerocDeleteShapeEvents from "@/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents";
-import GenericMoveShapeEvents from "@/components/diagrams/editor/template/event/events/GenericMoveShapeEvents";
-import GenericResizeShapeEvents from "@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents";
+import EventAnalyzer from '@/components/diagrams/editor/template/event/EventAnalyzer'
+import GenericConnectPortsEvents from '@/components/diagrams/editor/template/event/events/GenericConnectPortsEvents'
+import GemerocDeleteShapeEvents from '@/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents'
+import GenericMoveShapeEvents from '@/components/diagrams/editor/template/event/events/GenericMoveShapeEvents'
+import GenericResizeShapeEvents from '@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents'
 
-import IconGenerator from "@/components/diagrams/icon/IconGenerator";
-import BusinessUseCaseIconGenerator from "@/components/diagrams/editor/template/icon/BusinessUseCaseIconGenerator";
-import CompanyIconGenerator from "@/components/diagrams/editor/template/icon/CompanyIconGenerator";
-import ActorIconGenerator from "@/components/diagrams/editor/template/icon/ActorIconGenerator";
-import RoomIconGenerator from "@/components/diagrams/editor/template/icon/RoomIconGenerator";
-import GoodsIconGenerator from "@/components/diagrams/editor/template/icon/GoodsIconGenerator";
-import ServiceIconGenerator from "@/components/diagrams/editor/template/icon/ServiceIconGenerator";
-import FacilityIconGenerator from "@/components/diagrams/editor/template/icon/FacilityIconGenerator";
-import ContractIconGenerator from "@/components/diagrams/editor/template/icon/ContractIconGenerator";
-import InHouseSystemIconGenerator from "@/components/diagrams/editor/template/icon/InHouseSystemIconGenerator";
-import OutsideSystemIconGenerator from "@/components/diagrams/editor/template/icon/OutsideSystemIconGenerator";
-import InformationIconGenerator from "@/components/diagrams/editor/template/icon/InformationIconGenerator";
-import ConditionIconGenerator from "@/components/diagrams/editor/template/icon/ConditionIconGenerator";
-import TableTypeConditionIconGenerator from "@/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator";
+import IconGenerator from '@/components/diagrams/icon/IconGenerator'
+import BusinessUseCaseIconGenerator from '@/components/diagrams/editor/template/icon/BusinessUseCaseIconGenerator'
+import CompanyIconGenerator from '@/components/diagrams/editor/template/icon/CompanyIconGenerator'
+import ActorIconGenerator from '@/components/diagrams/editor/template/icon/ActorIconGenerator'
+import RoomIconGenerator from '@/components/diagrams/editor/template/icon/RoomIconGenerator'
+import GoodsIconGenerator from '@/components/diagrams/editor/template/icon/GoodsIconGenerator'
+import ServiceIconGenerator from '@/components/diagrams/editor/template/icon/ServiceIconGenerator'
+import FacilityIconGenerator from '@/components/diagrams/editor/template/icon/FacilityIconGenerator'
+import ContractIconGenerator from '@/components/diagrams/editor/template/icon/ContractIconGenerator'
+import InHouseSystemIconGenerator from '@/components/diagrams/editor/template/icon/InHouseSystemIconGenerator'
+import OutsideSystemIconGenerator from '@/components/diagrams/editor/template/icon/OutsideSystemIconGenerator'
+import InformationIconGenerator from '@/components/diagrams/editor/template/icon/InformationIconGenerator'
+import ConditionIconGenerator from '@/components/diagrams/editor/template/icon/ConditionIconGenerator'
+import TableTypeConditionIconGenerator from '@/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator'
 
-import Resource from "@/domain/resource/Resource";
+import Resource from '@/domain/resource/Resource'
 
 @Component({
   components: {
-    DiagramEditor
-  }
+    DiagramEditor,
+  },
 })
 export default class BusinessUseCaseDiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
-  private readonly diagramId!: number;
+  readonly diagramId!: number
 
   @Prop({ required: true })
-  private readonly allResourcesOnCurrentProduct!: Resource[];
+  readonly allResourcesOnCurrentProduct!: Resource[]
 
   @Prop({ required: true })
-  private readonly lastPropertiesUpdatedDiagramId?: number;
+  readonly lastPropertiesUpdatedDiagramId?: number
 
   // This class fields;
 
-  private readonly eventAnalyzer = new EventAnalyzer([
+  readonly eventAnalyzer = new EventAnalyzer([
     new GemerocDeleteShapeEvents(),
     new GenericConnectPortsEvents(),
     new GenericMoveShapeEvents(),
-    new GenericResizeShapeEvents()
-  ]);
+    new GenericResizeShapeEvents(),
+  ])
 
-  private readonly iconGenerators: IconGenerator<Resource>[] = [
+  readonly iconGenerators: IconGenerator<Resource>[] = [
     new BusinessUseCaseIconGenerator(),
     new CompanyIconGenerator(),
     new ActorIconGenerator(),
@@ -78,20 +79,22 @@ export default class BusinessUseCaseDiagramEditor extends Vue {
     new InformationIconGenerator(),
     new ConditionIconGenerator(),
     new TableTypeConditionIconGenerator(),
-  ];
+  ]
 
   // Emits
 
-  @Emit("onUpdateResources")
-  private onUpdateResources(): void {}
+  @Emit('onUpdateResources')
+  onUpdateResources(): void {}
 
-  @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+  @Emit('onOpendDiagramPropertiesEditor')
+  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
-  @Emit("onOpenDiagramOfResourceRelate")
-  private onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+  @Emit('onOpenDiagramOfResourceRelate')
+  onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+
+  @Emit('onModifiedResourceOnProduct')
+  onModifiedResourceOnProduct(_resource: Resource): void {}
 }
 </script>
 
-<style>
-</style>
+<style></style>

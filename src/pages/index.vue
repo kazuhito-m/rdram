@@ -115,6 +115,7 @@
                 @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
                 @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
                 @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+                @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
               />
             </v-tab-item>
           </v-tabs-items>
@@ -177,28 +178,30 @@ export default class extends Vue {
   private readonly repository!: StorageRepository;
 
   @Inject()
-  private  diagramExportService! : DiagramExportService;
+  private readonly diagramExportService! : DiagramExportService;
 
-  private treeItems: TreeItem[] = [];
-  private treeActiveItemIds: number[] = [];
-  private treeOpenItemIds: number[] = [];
+  treeItems: TreeItem[] = [];
+  treeActiveItemIds: number[] = [];
+  treeOpenItemIds: number[] = [];
 
-  private enableRightClickMenu = false;
-  private enableDiagramRightClickMenu = false;
-  private menuTargetTreeItemId: number = 0;
-  private menuTargetTreeItemName = "";
-  private menuPositionX = 0;
-  private menuPositionY = 0;
+  enableRightClickMenu = false;
+  enableDiagramRightClickMenu = false;
+  menuTargetTreeItemId: number = 0;
+  menuTargetTreeItemName = "";
+  menuPositionX = 0;
+  menuPositionY = 0;
 
-  private propertiesEditorDiagramId = 0;
-  private lastPropertiesUpdatedDiagramId = 0;
+  propertiesEditorDiagramId = 0;
+  lastPropertiesUpdatedDiagramId = 0;
 
-  private currentTabIndex: number | null = null;
-  private openTabs: TreeItem[] = [];
+  currentTabIndex: number | null = null;
+  openTabs: TreeItem[] = [];
 
-  private allResourcesOnCurrentProduct: Resource[] = [];
+  allResourcesOnCurrentProduct: Resource[] = [];
 
-  private currentProduct?: Product;
+  currentProduct?: Product;
+
+  // this vue lyfecycle event.
 
   public created(): void {
     const product = this.repository.getCurrentProduct();
@@ -212,6 +215,63 @@ export default class extends Vue {
       this.allResourcesOnCurrentProduct.push(resource)
     );
   }
+
+  // component events.
+
+  onClickMenuEditDiagramProperties(): void {
+    const diagramId = this.menuTargetTreeItemId;
+    this.onOpendDiagramPropertiesEditor(diagramId);
+  }
+
+  onClickMenuExportDiagram(): void {
+    const diagramId = this.menuTargetTreeItemId;
+    this.diagramExportService!.downloadExportFileOnClient(diagramId);
+  }
+
+  onUpdateResoucesOnContainer(): void {
+    this.reloadAllResources();
+  }
+
+  onUpdatedDiagramProperties(diagram: Diagram): void {
+    const foundItem = this.findTreeItemById(diagram.id, this.treeItems);
+    if (!foundItem) return;
+    foundItem.name = diagram.name;
+    this.lastPropertiesUpdatedDiagramId = 0;
+    this.$nextTick(() => {
+      this.lastPropertiesUpdatedDiagramId = diagram.id;
+    });
+  }
+
+  onCloseDiagramPropertiesEditDialog(): void {
+    this.propertiesEditorDiagramId = 0;
+  }
+
+  onOpendDiagramPropertiesEditor(diagramId: number): void {
+    this.propertiesEditorDiagramId = diagramId;
+  }
+
+  async onOpenDiagramOfResourceRelate(resourceId: number): Promise<void> {
+    const dialog = this.$refs.diagramTypeSelectorDialog as DiagramTypeSelectorDialog;
+    const diagramId = await dialog.show(resourceId);
+
+    if (diagramId === DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID) return;
+
+    if (!this.findTreeItemById(diagramId)) {
+      // UIのTree上に無いtreeItemIdが無かった場合、永続化されたものから探して、在ったらTreeに足す。
+      const diagram = this.repository.getCurrentProduct()
+        ?.diagrams
+        .of(diagramId) as Diagram;
+      this.addDiagramTreeItem(diagram, this.treeItems);
+    }
+
+    this.openDiagramEditorTabOf(diagramId);
+  }
+  
+  onModifiedResourceOnProduct(resource: Resource): void {
+    alert("name:" + resource.name + ", id:" + resource.resourceId);
+  }
+
+  // private methods.
 
   private buildTreeItems(product: Product): TreeItem[] {
     const items: TreeItem[] = [];
@@ -247,27 +307,6 @@ export default class extends Vue {
       this.addDiagramTreeItem(diagram, items)
     );
     return items;
-  }
-
-  private async onOpenDiagramOfResourceRelate(resourceId: number): Promise<void> {
-    const dialog = this.$refs.diagramTypeSelectorDialog as DiagramTypeSelectorDialog;
-    const diagramId = await dialog.show(resourceId);
-
-    if (diagramId === DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID) return;
-
-    if (!this.findTreeItemById(diagramId)) {
-      // UIのTree上に無いtreeItemIdが無かった場合、永続化されたものから探して、在ったらTreeに足す。
-      const diagram = this.repository.getCurrentProduct()
-        ?.diagrams
-        .of(diagramId) as Diagram;
-      this.addDiagramTreeItem(diagram, this.treeItems);
-    }
-
-    this.openDiagramEditorTabOf(diagramId);
-  }
-
-  private onOpendDiagramPropertiesEditor(diagramId: number): void {
-    this.propertiesEditorDiagramId = diagramId;
   }
 
   public onClickTreeItem(treeItemIdText: string): void {
@@ -451,16 +490,6 @@ export default class extends Vue {
     return diagramTreeItem;
   }
 
-  private onClickMenuEditDiagramProperties(): void {
-    const diagramId = this.menuTargetTreeItemId;
-    this.onOpendDiagramPropertiesEditor(diagramId);
-  }
-
-  private onClickMenuExportDiagram(): void {
-    const diagramId = this.menuTargetTreeItemId;
-    this.diagramExportService!.downloadExportFileOnClient(diagramId);
-  }
-
   private folderItemOf(
     diagramType: DiagramType,
     treeItems: TreeItem[]
@@ -557,10 +586,6 @@ export default class extends Vue {
     return this.treeItems.find(t => t.id === rdraTopId) as TreeItem;
   }
 
-  private onUpdateResoucesOnContainer(): void {
-    this.reloadAllResources();
-  }
-
   private reloadAllResources(): void {
     const product = this.repository.getCurrentProduct();
     if (!product) return;
@@ -581,20 +606,6 @@ export default class extends Vue {
     product.resources
       .filter(r => nowIdDictionary.includes(r.resourceId))
       .forEach(r => alreadyResources.push(r));
-  }
-
-  private onUpdatedDiagramProperties(diagram: Diagram): void {
-    const foundItem = this.findTreeItemById(diagram.id, this.treeItems);
-    if (!foundItem) return;
-    foundItem.name = diagram.name;
-    this.lastPropertiesUpdatedDiagramId = 0;
-    this.$nextTick(() => {
-      this.lastPropertiesUpdatedDiagramId = diagram.id;
-    });
-  }
-
-  private onCloseDiagramPropertiesEditDialog(): void {
-    this.propertiesEditorDiagramId = 0;
   }
 }
 </script>

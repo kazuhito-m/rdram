@@ -8,6 +8,7 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <RequestModelDiagramEditor
       v-if="is('要求モデル図')"
@@ -17,6 +18,7 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <BusinessContextDiagramEditor
       v-if="is('ビジネスコンテキスト図')"
@@ -26,6 +28,7 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <BusinessUseCaseDiagramEditor
       v-if="is('ビジネスユースケース図')"
@@ -35,6 +38,7 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <BusinessFlowDiagramEditor
       v-if="is('業務フロー図')"
@@ -44,6 +48,7 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <UsageSceneDiagramEditor
       v-if="is('利用シーン図')"
@@ -53,6 +58,7 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <InfomationModelEditor
       v-if="is('情報モデル図')"
@@ -62,6 +68,7 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <StateModelEditor
       v-if="is('状態モデル図')"
@@ -71,6 +78,7 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <UseCaseCompositeDiagramEditor
       v-if="is('ユースケース複合図')"
@@ -80,6 +88,7 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <VariationAndConditionDiagramEditor
       v-if="is('バリエーション・条件')"
@@ -89,25 +98,26 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Inject, Emit } from "nuxt-property-decorator";
-import BusinessContextDiagramEditor from "@/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
-import BusinessUseCaseDiagramEditor from "@/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue";
-import BusinessFlowDiagramEditor from "@/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue";
-import UsageSceneDiagramEditor from "@/components/diagrams/editor/usagescenediagram/UsageSceneDiagramEditor.vue";
-import SystemContextDiagramEditor from "@/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue";
-import RequestModelDiagramEditor from "@/components/diagrams/editor/requrestmodel/RequestModelDiagramEditor.vue";
-import InfomationModelEditor from "@/components/diagrams/editor/infomationmodel/InfomationModelEditor.vue";
-import StateModelEditor from "@/components/diagrams/editor/statemodel/StateModelEditor.vue";
-import UseCaseCompositeDiagramEditor from "@/components/diagrams/editor/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue";
-import VariationAndConditionDiagramEditor from "@/components/diagrams/editor/variationandcondition/VariationAndConditionDiagramEditor.vue";
-import Diagram from "@/domain/diagram/Diagram";
-import Resource from "@/domain/resource/Resource";
-import StorageRepository from "@/domain/storage/StorageRepository";
+import { Component, Vue, Prop, Inject, Emit } from 'nuxt-property-decorator'
+import BusinessContextDiagramEditor from '@/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue'
+import BusinessUseCaseDiagramEditor from '@/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue'
+import BusinessFlowDiagramEditor from '@/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue'
+import UsageSceneDiagramEditor from '@/components/diagrams/editor/usagescenediagram/UsageSceneDiagramEditor.vue'
+import SystemContextDiagramEditor from '@/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue'
+import RequestModelDiagramEditor from '@/components/diagrams/editor/requrestmodel/RequestModelDiagramEditor.vue'
+import InfomationModelEditor from '@/components/diagrams/editor/infomationmodel/InfomationModelEditor.vue'
+import StateModelEditor from '@/components/diagrams/editor/statemodel/StateModelEditor.vue'
+import UseCaseCompositeDiagramEditor from '@/components/diagrams/editor/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue'
+import VariationAndConditionDiagramEditor from '@/components/diagrams/editor/variationandcondition/VariationAndConditionDiagramEditor.vue'
+import Diagram from '@/domain/diagram/Diagram'
+import Resource from '@/domain/resource/Resource'
+import StorageRepository from '@/domain/storage/StorageRepository'
 
 @Component({
   components: {
@@ -121,53 +131,55 @@ import StorageRepository from "@/domain/storage/StorageRepository";
     StateModelEditor,
     UseCaseCompositeDiagramEditor,
     VariationAndConditionDiagramEditor,
-  }
+  },
 })
 export default class DiagramEditorContainer extends Vue {
   @Inject()
-  private readonly repository!: StorageRepository;
+  readonly repository!: StorageRepository
 
   @Prop({ required: true })
-  private readonly diagramId!: number;
+  readonly diagramId!: number
 
   @Prop({ required: true })
-  private allResourcesOnCurrentProduct?: Resource[];
+  allResourcesOnCurrentProduct?: Resource[]
 
   @Prop({ required: true })
-  private lastPropertiesUpdatedDiagramId?: number;
+  lastPropertiesUpdatedDiagramId?: number
 
-  @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+  @Emit('onOpendDiagramPropertiesEditor')
+  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
-  @Emit("onOpenDiagramOfResourceRelate")
-  private onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+  @Emit('onOpenDiagramOfResourceRelate')
+  onOpenDiagramOfResourceRelate(_resourceId: number): void {}
 
-  private diagram?: Diagram;
+  @Emit('onModifiedResourceOnProduct')
+  onModifiedResourceOnProduct(_resource: Resource): void {}
+
+  diagram?: Diagram
 
   public created(): void {
-    this.diagram = this.diagramOf(this.diagramId);
+    this.diagram = this.diagramOf(this.diagramId)
   }
 
-  private onUpdateResoucesOnEditor(): void {
-    console.log(`onUpdateResoucesOnEditor()`);
-    this.onUpdateResoucesOnContainer();
+  onUpdateResoucesOnEditor(): void {
+    console.log(`onUpdateResoucesOnEditor()`)
+    this.onUpdateResoucesOnContainer()
   }
 
-  @Emit("onUpdateResoucesOnContainer")
-  private onUpdateResoucesOnContainer(): void {}
+  @Emit('onUpdateResoucesOnContainer')
+  onUpdateResoucesOnContainer(): void {}
 
-  private diagramOf(diagramId: number): Diagram | undefined {
-    const product = this.repository.getCurrentProduct();
-    if (!product) return undefined;
-    return product.diagrams.of(diagramId);
+  diagramOf(diagramId: number): Diagram | undefined {
+    const product = this.repository.getCurrentProduct()
+    if (!product) return undefined
+    return product.diagrams.of(diagramId)
   }
 
-  public is(typeName: string): boolean {
-    if (!this.diagram) return false;
-    return this.diagram.type.name === typeName;
+  is(typeName: string): boolean {
+    if (!this.diagram) return false
+    return this.diagram.type.name === typeName
   }
 }
 </script>
 
-<style>
-</style>
+<style></style>

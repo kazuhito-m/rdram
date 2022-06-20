@@ -128,6 +128,9 @@ export default class DiagramEditor extends Vue {
   @Emit("onOpenDiagramOfResourceRelate")
   onOpenDiagramOfResourceRelate(_resourceId: number): void {}
 
+  @Emit("onModifiedResourceOnProduct")
+  onModifiedResourceOnProduct(_resource: Resource): void {}
+
   public created(): void {
     this.product = this.getCurrentProduct();
   }
@@ -164,7 +167,12 @@ export default class DiagramEditor extends Vue {
   async onEditResource(resourceId: number): Promise<void> {
     const dialog = this.$refs.resourceEditDialog as ResourceEditDialog2;
     const resource = await dialog.showForModifyOf(resourceId);
-    alert(resource.name);
+
+    if (resource.isEmpty()) return;
+
+    console.log("ResouceName:", resource.name);
+
+    this.onModifiedResourceOnProduct(resource);
   }
 
   onDeleteResourceOnDiagram(resourceId: number): void {
@@ -212,6 +220,10 @@ export default class DiagramEditor extends Vue {
 
   // private methods.
 
+  private getCurrentProduct(): Product {
+    return this.repository.getCurrentProduct() as Product;
+  }
+
   private diagram(): Diagram {
     const product = this.getCurrentProduct();
     return product.diagrams.of(this.diagramId) as Diagram;
@@ -243,10 +255,6 @@ export default class DiagramEditor extends Vue {
     if (relationIds.length === 0) return true;
     const message = `選択された要素には、他の要素への関連があります。それらを含め削除してよろしいですか。`;
     return confirm(message);
-  }
-
-  private getCurrentProduct(): Product {
-    return this.repository.getCurrentProduct() as Product;
   }
 
   private deleteResourceOnProduct(resourceId: number): void {
