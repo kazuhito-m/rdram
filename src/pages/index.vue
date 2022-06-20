@@ -115,7 +115,6 @@
                 @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
                 @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
                 @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-                @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
               />
             </v-tab-item>
           </v-tabs-items>
@@ -323,9 +322,6 @@ export default class extends Vue {
     this.openDiagramEditorTabOf(diagramId);
   }
   
-  onModifiedResourceOnProduct(_resource: Resource): void {
-  }
-
   // private methods.
 
   private buildTreeItems(product: Product): TreeItem[] {

@@ -128,9 +128,6 @@ export default class DiagramEditor extends Vue {
   @Emit("onOpenDiagramOfResourceRelate")
   onOpenDiagramOfResourceRelate(_resourceId: number): void {}
 
-  @Emit("onModifiedResourceOnProduct")
-  onModifiedResourceOnProduct(_resource: Resource): void {}
-
   // this class properties
 
   @Inject()

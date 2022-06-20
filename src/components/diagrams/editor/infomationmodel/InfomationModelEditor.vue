@@ -8,7 +8,6 @@
     @onUpdateResources="onUpdateResources"
     @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-    @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
   />
 </template>
 
@@ -69,9 +68,6 @@ export default class InfomationModelEditor extends Vue {
 
   @Emit('onOpenDiagramOfResourceRelate')
   onOpenDiagramOfResourceRelate(_resourceId: number): void {}
-
-  @Emit('onModifiedResourceOnProduct')
-  onModifiedResourceOnProduct(_resource: Resource): void {}
 }
 </script>
 

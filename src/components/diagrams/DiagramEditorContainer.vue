@@ -8,7 +8,6 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <RequestModelDiagramEditor
       v-if="is('要求モデル図')"
@@ -18,7 +17,6 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <BusinessContextDiagramEditor
       v-if="is('ビジネスコンテキスト図')"
@@ -28,7 +26,6 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <BusinessUseCaseDiagramEditor
       v-if="is('ビジネスユースケース図')"
@@ -38,7 +35,6 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <BusinessFlowDiagramEditor
       v-if="is('業務フロー図')"
@@ -48,7 +44,6 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <UsageSceneDiagramEditor
       v-if="is('利用シーン図')"
@@ -58,7 +53,6 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <InfomationModelEditor
       v-if="is('情報モデル図')"
@@ -68,7 +62,6 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <StateModelEditor
       v-if="is('状態モデル図')"
@@ -78,7 +71,6 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <UseCaseCompositeDiagramEditor
       v-if="is('ユースケース複合図')"
@@ -88,7 +80,6 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
     <VariationAndConditionDiagramEditor
       v-if="is('バリエーション・条件')"
@@ -98,7 +89,6 @@
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-      @onModifiedResourceOnProduct="onModifiedResourceOnProduct"
     />
   </div>
 </template>
@@ -151,9 +141,6 @@ export default class DiagramEditorContainer extends Vue {
 
   @Emit('onOpenDiagramOfResourceRelate')
   onOpenDiagramOfResourceRelate(_resourceId: number): void {}
-
-  @Emit('onModifiedResourceOnProduct')
-  onModifiedResourceOnProduct(_resource: Resource): void {}
 
   diagram?: Diagram
 
