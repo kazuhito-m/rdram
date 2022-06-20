@@ -161,9 +161,10 @@ export default class DiagramEditor extends Vue {
 
   // children component events.
 
-  onEditResource(resourceId: number): void {
+  async onEditResource(resourceId: number): Promise<void> {
     const dialog = this.$refs.resourceEditDialog as ResourceEditDialog2;
-    dialog.showForModifyOf(resourceId);
+    const resource = await dialog.showForModifyOf(resourceId);
+    alert(resource.name);
   }
 
   onDeleteResourceOnDiagram(resourceId: number): void {
