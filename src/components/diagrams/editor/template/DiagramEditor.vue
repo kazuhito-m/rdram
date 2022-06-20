@@ -103,27 +103,27 @@ export default class DiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
-  private readonly diagramId!: number;
+  readonly diagramId!: number;
 
   @Prop({ required: true })
-  private readonly allResourcesOnCurrentProduct!: Resource[];
+  readonly allResourcesOnCurrentProduct!: Resource[];
 
   @Prop({ required: true })
-  private readonly lastPropertiesUpdatedDiagramId!: number;
+  readonly lastPropertiesUpdatedDiagramId!: number;
 
   @Prop({ required: true })
-  private readonly eventAnalyzer!: EventAnalyzer;
+  readonly eventAnalyzer!: EventAnalyzer;
 
   @Prop({ required: true })
-  private readonly iconGenerators!: IconGenerator<Resource>[];
+  readonly iconGenerators!: IconGenerator<Resource>[];
 
   // Emits
 
   @Emit("onUpdateResources")
-  private onUpdateResources(): void {}
+  onUpdateResources(): void {}
 
   @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   @Emit("onOpenDiagramOfResourceRelate")
   onOpenDiagramOfResourceRelate(_resourceId: number): void {}
@@ -131,35 +131,30 @@ export default class DiagramEditor extends Vue {
   @Emit("onModifiedResourceOnProduct")
   onModifiedResourceOnProduct(_resource: Resource): void {}
 
-  public created(): void {
-    this.product = this.getCurrentProduct();
-  }
-
   // this class properties
 
   @Inject()
   private repository!: StorageRepository;
 
-  private readonly usedResouceIds: number[] = [];
-  private readonly iconMap: { [key: string]: IconFontAndChar } = {};
-  private product!: Product;
+  readonly usedResouceIds: number[] = [];
+  readonly iconMap: { [key: string]: IconFontAndChar } = {};
+  product!: Product;
 
-  private warnBar: boolean = false;
-  private warnMessage: string = "";
+  warnBar: boolean = false;
+  warnMessage: string = "";
 
   // TODO 一時的。Editorのプロパティのインターフェイスを変更する(Show的に)
-  private editResourceId = 0;
-  private editResourceType: ResourceType | null = null;
+  editResourceId = 0;
+  editResourceType: ResourceType | null = null;
 
   // Vue events(life cycle events)
 
-  public mounted() {
-    this.intializeIconCharMap(this.diagram());
+  created(): void {
+    this.product = this.getCurrentProduct();
   }
 
-  private onShowWarnBar(text: string): void {
-    this.warnMessage = text;
-    this.warnBar = true;
+  mounted() {
+    this.intializeIconCharMap(this.diagram());
   }
 
   // children component events.
@@ -218,6 +213,11 @@ export default class DiagramEditor extends Vue {
     this.onUpdateResources();
   }
 
+  onShowWarnBar(text: string): void {
+    this.warnMessage = text;
+    this.warnBar = true;
+  }
+
   // private methods.
 
   private getCurrentProduct(): Product {
@@ -247,7 +247,7 @@ export default class DiagramEditor extends Vue {
     return modifiedDiagram;
   }
 
-  public confirmResourceDelete(
+  private confirmResourceDelete(
     resourceIds: number[],
     diagram: Diagram
   ): boolean {
