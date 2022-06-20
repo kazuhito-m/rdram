@@ -203,7 +203,7 @@ export default class extends Vue {
 
   // this vue lyfecycle event.
 
-  public created(): void {
+  created(): void {
     const product = this.repository.getCurrentProduct();
     if (!product) return;
 
@@ -217,6 +217,62 @@ export default class extends Vue {
   }
 
   // component events.
+
+  onClickTreeItem(treeItemIdText: string): void {
+    if (treeItemIdText === "") return;
+    const diagramId = parseInt(treeItemIdText, 10);
+    this.openDiagramEditorTabOf(diagramId);
+  }
+
+  openDiagramEditorTabOf(diagramId: number): void {
+    const exists = this.openTabs
+      .some(tab => tab.id === diagramId);
+    if (!exists) {
+      const clickedItem = this.findTreeItemById(diagramId, this.treeItems);
+      if (!clickedItem) return;
+      this.openTabs.push(clickedItem);
+    }
+
+    const newTabIndex = this.openTabs
+      .findIndex(tabItem => tabItem.id === diagramId);
+    this.currentTabIndex = newTabIndex;
+    this.onChangeActiveTab(newTabIndex);
+  }
+
+  onRightClickTreeItem(event: MouseEvent) {
+    if (!event.target) return;
+    const element = event.target as HTMLElement;
+    const data = element.getAttribute("data-item-id");
+    if (!data) return;
+    const treeItemId = parseInt(data, 10);
+    if (treeItemId <= 0) return;
+    const treeItem = this.findTreeItemById(treeItemId, this.treeItems);
+    if (!treeItem) return;
+
+    this.menuTargetTreeItemId = treeItemId;
+    this.menuTargetTreeItemName = `${treeItem.name} の`;
+
+    this.enableRightClickMenu = false;
+    this.enableDiagramRightClickMenu = false;
+
+    this.menuPositionX = event.clientX;
+    this.menuPositionY = event.clientY;
+    this.$nextTick(() => {
+      const isFolder = treeItemId > this.DIAGRAM_FOLDER_ID_MASK;
+      this.enableRightClickMenu = isFolder;
+      this.enableDiagramRightClickMenu = !isFolder;
+    });
+  }
+
+  onClickCloseTab(event: MouseEvent) {
+    if (!event.target) return;
+    const element = event.target as HTMLElement;
+    const data = element.getAttribute("data-item-id");
+    if (!data) return;
+    const tabItemId = parseInt(data, 10);
+
+    this.closeTab(tabItemId);
+  }
 
   onClickMenuEditDiagramProperties(): void {
     const diagramId = this.menuTargetTreeItemId;
@@ -309,27 +365,6 @@ export default class extends Vue {
     return items;
   }
 
-  public onClickTreeItem(treeItemIdText: string): void {
-    if (treeItemIdText === "") return;
-    const diagramId = parseInt(treeItemIdText, 10);
-    this.openDiagramEditorTabOf(diagramId);
-  }
-
-  public openDiagramEditorTabOf(diagramId: number): void {
-    const exists = this.openTabs
-      .some(tab => tab.id === diagramId);
-    if (!exists) {
-      const clickedItem = this.findTreeItemById(diagramId, this.treeItems);
-      if (!clickedItem) return;
-      this.openTabs.push(clickedItem);
-    }
-
-    const newTabIndex = this.openTabs
-      .findIndex(tabItem => tabItem.id === diagramId);
-    this.currentTabIndex = newTabIndex;
-    this.onChangeActiveTab(newTabIndex);
-  }
-
   private findTreeItemById(treeItemId: number, treeItems: TreeItem[] = this.treeItems): TreeItem | null {
     for (const item of treeItems) {
       if (item.id === treeItemId) return item;
@@ -337,41 +372,6 @@ export default class extends Vue {
       if (child) return child;
     }
     return null;
-  }
-
-  public onRightClickTreeItem(event: MouseEvent) {
-    if (!event.target) return;
-    const element = event.target as HTMLElement;
-    const data = element.getAttribute("data-item-id");
-    if (!data) return;
-    const treeItemId = parseInt(data, 10);
-    if (treeItemId <= 0) return;
-    const treeItem = this.findTreeItemById(treeItemId, this.treeItems);
-    if (!treeItem) return;
-
-    this.menuTargetTreeItemId = treeItemId;
-    this.menuTargetTreeItemName = `${treeItem.name} の`;
-
-    this.enableRightClickMenu = false;
-    this.enableDiagramRightClickMenu = false;
-
-    this.menuPositionX = event.clientX;
-    this.menuPositionY = event.clientY;
-    this.$nextTick(() => {
-      const isFolder = treeItemId > this.DIAGRAM_FOLDER_ID_MASK;
-      this.enableRightClickMenu = isFolder;
-      this.enableDiagramRightClickMenu = !isFolder;
-    });
-  }
-
-  public onClickCloseTab(event: MouseEvent) {
-    if (!event.target) return;
-    const element = event.target as HTMLElement;
-    const data = element.getAttribute("data-item-id");
-    if (!data) return;
-    const tabItemId = parseInt(data, 10);
-
-    this.closeTab(tabItemId);
   }
 
   private closeTab(tabItemId: number): boolean {
