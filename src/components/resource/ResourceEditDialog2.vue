@@ -80,7 +80,6 @@ export default class ResourceEditDialog2 extends Vue {
   targetDiagram: Diagram | null = null
 
   private resolve: any = null
-  private reject: any = null
 
   @Inject()
   private repository?: StorageRepository
@@ -91,12 +90,12 @@ export default class ResourceEditDialog2 extends Vue {
   @Emit('onUpdatedResource')
   private onUpdatedResource(_resource: Resource, _addNew: boolean): void {}
 
-  showForModifyOf(resourceId: number): void {
-    this.show((resources) => resources.of(resourceId))
+  showForModifyOf(resourceId: number): Promise<Resource> {
+    return this.show((resources) => resources.of(resourceId))
   }
 
-  showForCreateNew(resourceType: ResourceType): void {
-    this.show((resources) => resources.prototypeResourceOf(resourceType))
+  showForCreateNew(resourceType: ResourceType): Promise<Resource> {
+    return this.show((resources) => resources.prototypeResourceOf(resourceType))
   }
 
   private show(
@@ -107,10 +106,7 @@ export default class ResourceEditDialog2 extends Vue {
 
     this.visibleByType(target)
 
-    return new Promise((resolve, reject) => {
-      this.resolve = resolve
-      this.reject = reject
-    })
+    return new Promise((resolve) => (this.resolve = resolve))
   }
 
   private initializeOf(
@@ -185,7 +181,7 @@ export default class ResourceEditDialog2 extends Vue {
     product = product.withResources(addedResources)
     this.repository?.registerCurrentProduct(product)
 
-    this.onUpdatedResource(newResource, addNew)
+    this.resolve(newResource)
   }
 
   onJustPutOnDiagram(resource: Resource): void {
