@@ -81,7 +81,7 @@ import DiagramExportService from "@/application/service/diagram/export/DiagramEx
 })
 export default class DiagramCanvas extends Vue {
   @Prop({ required: true })
-  private readonly diagramId!: number;
+  readonly diagramId!: number;
 
   @Prop({ required: true })
   private readonly product!: Product;
@@ -118,15 +118,15 @@ export default class DiagramCanvas extends Vue {
   private readonly routerConverter = new RouterTypeDraw2dConverter();
 
   private canvas!: draw2d.Canvas;
-  private canvasId!: string;
-  private canvasGuideType = CanvasGuideType.なし;
+  canvasId!: string;
+  canvasGuideType = CanvasGuideType.なし;
 
   private lastResourcesOnCurrentProductCount = 0;
 
-  private visibleConnectorMenu = false;
-  private targetRelation: Relation | null = null;
-  private menuX = 0;
-  private menuY = 0;
+  visibleConnectorMenu = false;
+  targetRelation: Relation | null = null;
+  menuX = 0;
+  menuY = 0;
 
   private dropXOnCanvas = 0;
   private dropYOnCanvas = 0;
@@ -134,11 +134,6 @@ export default class DiagramCanvas extends Vue {
   private zoom(): number {
     const zoom = this.canvas.getZoom();
     return ZoomValueOnDraw2d.of(zoom).value;
-  }
-
-  private diagram(): Diagram {
-      const product = this.repository.getCurrentProduct();
-      return product!.diagrams.of(this.diagramId) as Diagram;
   }
 
   // Events
@@ -152,7 +147,7 @@ export default class DiagramCanvas extends Vue {
   private onMergePlacement(_diffTarget: Placement[]) {}
 
   @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   @Emit("onShowWarnBar")
   private onShowWarnBar(_text: string): void {}
@@ -204,14 +199,14 @@ export default class DiagramCanvas extends Vue {
 
   // Vue events.(life cycle events)
 
-  private created(): void {
+  created(): void {
     const diagram = this.product?.diagrams.of(this.diagramId);
     if (!diagram) return;
     this.canvasId = "canvas" + this.diagramId;
     this.lastResourcesOnCurrentProductCount = this.allResourcesOnCurrentProduct.length;
   }
 
-  private mounted() {
+  mounted() {
     this.$nuxt.$loading.start();
 
     this.$nextTick(() => {
@@ -232,13 +227,13 @@ export default class DiagramCanvas extends Vue {
 
   // public by other diarogs
 
-  public showWarnBar(text: string): void {
+  showWarnBar(text: string): void {
     this.onShowWarnBar(text);
   }
 
   // right click menu events.
 
-  private onDeleteRelation(relation: Relation): void {
+  onDeleteRelation(relation: Relation): void {
     const connection = this.canvas.getLine(relation.id);
     this.canvas.remove(connection);
 
@@ -247,7 +242,7 @@ export default class DiagramCanvas extends Vue {
     });
   }
 
-  private onUpdateRelation(relation: Relation): void {
+  onUpdateRelation(relation: Relation): void {
     const connection = this.canvas.getLine(relation.id);
     if (!connection) return;
 
@@ -266,11 +261,11 @@ export default class DiagramCanvas extends Vue {
 
   // from Toolbar events.
 
-  private onChangeZoomBySlider(zoom: number) {
+  onChangeZoomBySlider(zoom: number) {
     this.canvas.setZoom(zoom, false);
   }
 
-  private onChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {
+  onChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {
     const canvas = this.canvas;
     const beforeCanvasGuideType = this.canvasGuideType;
     if (beforeCanvasGuideType.canvasPolicy)
@@ -284,7 +279,7 @@ export default class DiagramCanvas extends Vue {
     this.canvasGuideType = canvasGuideType;
   }
 
-  private onPngDownload(): void {
+  onPngDownload(): void {
     const product = this.repository.getCurrentProduct();
     const diagram = product!.diagrams.of(this.diagramId);
     if (!diagram) return;
@@ -295,7 +290,7 @@ export default class DiagramCanvas extends Vue {
     });
   }
 
-  private onSvgDownload(): void {
+  onSvgDownload(): void {
     const product = this.repository.getCurrentProduct();
     const diagram = product!.diagrams.of(this.diagramId);
     if (!diagram) return;
@@ -308,7 +303,7 @@ export default class DiagramCanvas extends Vue {
     });
   }
 
-  private onDiagramExport(): void {
+  onDiagramExport(): void {
     this!.diagramExportService.downloadExportFileOnClient(this.diagramId);
   }
 
@@ -384,7 +379,7 @@ export default class DiagramCanvas extends Vue {
     this.canvas = canvas;
   }
 
-  public onClickConnectorOnCanvas(x: number, y: number) {
+  private onClickConnectorOnCanvas(x: number, y: number) {
     const canvas = this.canvas;
     const foundFigure = canvas.getBestFigure(x, y, [], []);
     if (!foundFigure) return;
