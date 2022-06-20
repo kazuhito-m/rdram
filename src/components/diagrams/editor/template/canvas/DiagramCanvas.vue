@@ -363,6 +363,22 @@ export default class DiagramCanvas extends Vue {
     })
   }
 
+  onClickConnectorOnCanvas(x: number, y: number) {
+    const canvas = this.canvas
+    const foundFigure = canvas.getBestFigure(x, y, [], [])
+    if (!foundFigure) return
+    const product = this.repository.getCurrentProduct()
+    if (!product) return
+    const diagram = product.diagrams.of(this.diagramId)
+    if (!diagram) return
+    const targetRelation = diagram.relationOf(foundFigure.id)
+    if (!targetRelation) return
+    const zoom = this.zoom()
+    const absoluteX = canvas.getAbsoluteX() + x / zoom
+    const absoluteY = canvas.getAbsoluteY() + y / zoom
+    this.showConnectorRightClickMenu(targetRelation, absoluteX, absoluteY)
+  }
+
   // Initialize methods
 
   private showCanvas(): void {
@@ -385,22 +401,6 @@ export default class DiagramCanvas extends Vue {
     // canvas.setScrollArea(`#${editorPain.id}`);
 
     this.canvas = canvas
-  }
-
-  private onClickConnectorOnCanvas(x: number, y: number) {
-    const canvas = this.canvas
-    const foundFigure = canvas.getBestFigure(x, y, [], [])
-    if (!foundFigure) return
-    const product = this.repository.getCurrentProduct()
-    if (!product) return
-    const diagram = product.diagrams.of(this.diagramId)
-    if (!diagram) return
-    const targetRelation = diagram.relationOf(foundFigure.id)
-    if (!targetRelation) return
-    const zoom = this.zoom()
-    const absoluteX = canvas.getAbsoluteX() + x / zoom
-    const absoluteY = canvas.getAbsoluteY() + y / zoom
-    this.showConnectorRightClickMenu(targetRelation, absoluteX, absoluteY)
   }
 
   private drawDiagram(diagram: Diagram) {
