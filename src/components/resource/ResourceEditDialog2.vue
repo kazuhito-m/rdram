@@ -70,14 +70,14 @@ import Diagram from '@/domain/diagram/Diagram'
   },
 })
 export default class ResourceEditDialog2 extends Vue {
-  private latestResources: Resources = Resources.prototypeOf()
-  private targetStandaerdResource: Resource | null = null
-  private targetHasContentResource: HasContentResource | null = null
-  private targetVariation: Variation | null = null
-  private targetCondition: Condition | null = null
-  private targetTableTypeCondition: TableTypeCondition | null = null
+  latestResources: Resources = Resources.prototypeOf()
+  targetStandaerdResource: Resource | null = null
+  targetHasContentResource: HasContentResource | null = null
+  targetVariation: Variation | null = null
+  targetCondition: Condition | null = null
+  targetTableTypeCondition: TableTypeCondition | null = null
 
-  private targetDiagram: Diagram | null = null
+  targetDiagram: Diagram | null = null
 
   @Inject()
   private repository?: StorageRepository
@@ -144,7 +144,7 @@ export default class ResourceEditDialog2 extends Vue {
     this.targetStandaerdResource = null
   }
 
-  private onClose(): void {
+  onClose(): void {
     this.targetStandaerdResource = null
     this.targetHasContentResource = null
     this.targetVariation = null
