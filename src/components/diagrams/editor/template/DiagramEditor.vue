@@ -186,8 +186,11 @@ export default class DiagramEditor extends Vue {
   }
 
   onShowResourceMenu(resource: Resource, x: number, y: number): void {
-    const menu = this.$refs.resourceRightClickMenu as ResourceRightClickMenu;
-    menu.show(resource, this.diagram(), x, y); // TODO 右クリックメニューを表示する度にローカルストレージを呼ぶのをやめたい
+    const diagramCanvas = this.$refs.diagramCanvas as DiagramCanvas;
+    diagramCanvas.visibleConnectorMenu = false;
+
+    const resourceMenu = this.$refs.resourceRightClickMenu as ResourceRightClickMenu;
+    resourceMenu.show(resource, this.diagram(), x, y); // TODO 右クリックメニューを表示する度にローカルストレージを呼ぶのをやめたい
   }
 
   // TODO 一時的。Editorのプロパティのインターフェイスを変更する(Show的に)
