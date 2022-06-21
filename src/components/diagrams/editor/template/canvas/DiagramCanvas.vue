@@ -457,13 +457,23 @@ export default class DiagramCanvas extends Vue {
 
     const icon = generator.generate(placement, resource, this.iconStyleOf(type))
 
-    icon.onContextMenu = (x, y) => {
-      const pos = new AbsolutePosition(x, y, this.canvas)
-      this.onShowResourceMenu(resource, pos.x(), pos.y())
-    }
-    icon.onDoubleClick = () => this.onEditResource(resource.resourceId)
+    this.setIconEventHandler(icon, resource)
 
     return icon
+  }
+
+  private setIconEventHandler(icon: draw2d.Figure, resource: Resource): void {
+    icon.onContextMenu = (x, y) => this.showResourceMenu(resource, x, y)
+    icon.onDoubleClick = () => this.onEditResource(resource.resourceId)
+
+    const children = icon.getChildren()
+    for (let i = 0; i < children.getSize(); i++)
+      this.setIconEventHandler(children.get(i), resource)
+  }
+
+  private showResourceMenu(resource: Resource, x: number, y: number): void {
+    const pos = new AbsolutePosition(x, y, this.canvas)
+    this.onShowResourceMenu(resource, pos.x(), pos.y())
   }
 
   /**
