@@ -14,7 +14,7 @@
     />
 
     <ConnectorRightClickMenuAndEditor
-      :visibleConnectorRightClickMenu="visibleConnectorMenu"
+      :visible="visibleConnectorMenu"
       :relation="targetRelation"
       :menuPositionX="menuX"
       :menuPositionY="menuY"
@@ -158,6 +158,9 @@ export default class DiagramCanvas extends Vue {
   @Emit('onOpenResourceEditorWhenCreate')
   private onOpenResourceEditorWhenCreate(_resourceType: ResourceType): void {}
 
+  @Emit('onShowConnectorMenu')
+  private onShowConnectorMenu(): void {}
+
   // Watch event.
 
   @Watch('lastPropertiesUpdatedDiagramId')
@@ -198,6 +201,11 @@ export default class DiagramCanvas extends Vue {
   @Watch('usedResouceIds')
   private onChangeUsedResouceIds(): void {
     this.reverceSyncCavansDeleteThings()
+  }
+
+  @Watch('visibleConnectorMenu')
+  private onChangeVisibleConnectorMenu(): void {
+    if (this.visibleConnectorMenu) this.onShowConnectorMenu()
   }
 
   // Vue events.(life cycle events)
