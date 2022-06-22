@@ -10,6 +10,7 @@
       <span>
         <div>種類 : {{ type.name }}</div>
         <div v-if="description.length > 0">
+            <!-- eslint-disable-next-line vue/no-v-html -->
           備考・メモ : <span v-html="description"></span>
         </div>
       </span>
