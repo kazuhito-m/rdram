@@ -44,12 +44,12 @@
 
           <v-menu
             :value="enableDiagramRightClickMenu"
-            :close-on-click="true"
-            :close-on-content-click="true"
-            :offset-x="true"
-            :rounded="true"
             :position-x="menuPositionX"
             :position-y="menuPositionY"
+            close-on-click
+            close-on-content-click
+            offset-x
+            rounded
           >
             <v-list>
               <v-list-item link @click="onClickMenuCopyDiagram">
