@@ -21,6 +21,8 @@
       @onUpdateRelation="onUpdateRelation"
       @onDeleteRelation="onDeleteRelation"
     />
+
+    <IconToolTip ref="iconToolTip" />
   </div>
 </template>
 
@@ -43,6 +45,7 @@ import 'jquery-ui/ui/widgets/droppable'
 import IconViewModel from './IconViewModel'
 import ZoomValueOnDraw2d from './ZoomValueOnDraw2d'
 import AbsolutePosition from './AbsolutePosition'
+import IconToolTip from './IconToolTip.vue'
 import CanvasSettingToolBar from '@/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue'
 import ConnectorRightClickMenuAndEditor from '@/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue'
 
@@ -70,6 +73,7 @@ import DiagramExportService from '@/application/service/diagram/export/DiagramEx
   components: {
     CanvasSettingToolBar,
     ConnectorRightClickMenuAndEditor,
+    IconToolTip,
   },
 })
 export default class DiagramCanvas extends Vue {
@@ -467,13 +471,23 @@ export default class DiagramCanvas extends Vue {
     return icon
   }
 
-  private setIconEventHandler(icon: draw2d.Figure, resource: Resource): void {
+  private setIconEventHandler(
+    icon: draw2d.Figure,
+    resource: Resource,
+    topIcon: draw2d.Figure | null = null
+  ): void {
+    const tIcon = (topIcon || icon) as Figure
+
     icon.onContextMenu = (x, y) => this.showResourceMenu(resource, x, y)
     icon.onDoubleClick = () => this.onEditResource(resource.resourceId)
 
+    icon.onMouseEnter = () => this.showIconToolTip(resource, tIcon)
+    icon.onMouseLeave = () => this.closeIconToolTip()
+    icon.on('move', () => this.moveIconToolTip(tIcon), undefined)
+
     const children = icon.getChildren()
     for (let i = 0; i < children.getSize(); i++)
-      this.setIconEventHandler(children.get(i), resource)
+      this.setIconEventHandler(children.get(i), resource, tIcon)
   }
 
   private showResourceMenu(resource: Resource, x: number, y: number): void {
@@ -747,6 +761,29 @@ export default class DiagramCanvas extends Vue {
     const dic = new Map<number, Resource>()
     nowResources.forEach((r) => dic.set(r.resourceId, r))
     this.lastResourcesCache = dic
+  }
+
+  private calculateCenterPositionOf(icon: Figure) {
+    const x = icon.getX() + icon.getWidth() / 2
+    const y = icon.getY()
+    return new AbsolutePosition(x, y, this.canvas)
+  }
+
+  private showIconToolTip(resource: Resource, icon: Figure): void {
+    const pos = this.calculateCenterPositionOf(icon)
+    const toolTip = this.$refs.iconToolTip as IconToolTip
+    toolTip.show(resource, pos.x(), pos.y())
+  }
+
+  private closeIconToolTip(): void {
+    const toolTip = this.$refs.iconToolTip as IconToolTip
+    toolTip.close()
+  }
+
+  private moveIconToolTip(icon: Figure): void {
+    const pos = this.calculateCenterPositionOf(icon)
+    const toolTip = this.$refs.iconToolTip as IconToolTip
+    toolTip.move(pos.x(), pos.y())
   }
 }
 </script>
