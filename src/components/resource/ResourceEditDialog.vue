@@ -69,7 +69,7 @@ import Diagram from '@/domain/diagram/Diagram'
     TableTypeConditionEditDialog,
   },
 })
-export default class ResourceEditDialog2 extends Vue {
+export default class ResourceEditDialog extends Vue {
   latestResources: Resources = Resources.prototypeOf()
   targetStandaerdResource: Resource | null = null
   targetHasContentResource: HasContentResource | null = null
@@ -115,7 +115,7 @@ export default class ResourceEditDialog2 extends Vue {
     const product = this.repository?.getCurrentProduct()
     if (!product) return null
     const resources = product.resources
-    if (!resources) null
+    if (!resources) return null
     const diagram = product.diagrams.of(this.diagramId)
     if (!diagram) return null
 
