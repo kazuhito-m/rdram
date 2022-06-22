@@ -677,20 +677,19 @@ export default class DiagramCanvas extends Vue {
   private redrawIcon(resources: Resource[]) {
     const product = this.repository.getCurrentProduct() as Product
     const diagram = product.diagrams.of(this.diagramId) as Diagram
-    const placements = diagram.placements;
+    const placements = diagram.placements
 
     const allIcons = this.canvas.getFigures().asArray() as Figure[]
-    const iconVMs = allIcons
-      .map((i) => new IconViewModel(i))
+    const iconVMs = allIcons.map((i) => new IconViewModel(i))
 
-    for (const resource of resources) {
-      const placement = placements.find(p => p.resourceId === resource.resourceId)
+    for (const r of resources) {
+      const placement = placements.find((p) => p.resourceId === r.resourceId)
       if (!placement) continue
-      const iconVM = iconVMs.find(vm => vm.resourceId() === resource.resourceId)
+      const iconVM = iconVMs.find((vm) => vm.resourceId() === r.resourceId)
       if (!iconVM) continue
 
       const icon = iconVM.icon
-      this.rewriteIcon(icon, resource, placement)
+      this.rewriteIcon(icon, r, placement)
     }
   }
 
