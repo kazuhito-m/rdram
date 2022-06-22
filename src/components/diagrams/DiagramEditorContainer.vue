@@ -94,20 +94,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Inject, Emit } from "nuxt-property-decorator";
-import BusinessContextDiagramEditor from "@/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue";
-import BusinessUseCaseDiagramEditor from "@/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue";
-import BusinessFlowDiagramEditor from "@/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue";
-import UsageSceneDiagramEditor from "@/components/diagrams/editor/usagescenediagram/UsageSceneDiagramEditor.vue";
-import SystemContextDiagramEditor from "@/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue";
-import RequestModelDiagramEditor from "@/components/diagrams/editor/requrestmodel/RequestModelDiagramEditor.vue";
-import InfomationModelEditor from "@/components/diagrams/editor/infomationmodel/InfomationModelEditor.vue";
-import StateModelEditor from "@/components/diagrams/editor/statemodel/StateModelEditor.vue";
-import UseCaseCompositeDiagramEditor from "@/components/diagrams/editor/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue";
-import VariationAndConditionDiagramEditor from "@/components/diagrams/editor/variationandcondition/VariationAndConditionDiagramEditor.vue";
-import Diagram from "@/domain/diagram/Diagram";
-import Resource from "@/domain/resource/Resource";
-import StorageRepository from "@/domain/storage/StorageRepository";
+import { Component, Vue, Prop, Inject, Emit } from 'nuxt-property-decorator'
+import BusinessContextDiagramEditor from '@/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue'
+import BusinessUseCaseDiagramEditor from '@/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue'
+import BusinessFlowDiagramEditor from '@/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue'
+import UsageSceneDiagramEditor from '@/components/diagrams/editor/usagescenediagram/UsageSceneDiagramEditor.vue'
+import SystemContextDiagramEditor from '@/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue'
+import RequestModelDiagramEditor from '@/components/diagrams/editor/requrestmodel/RequestModelDiagramEditor.vue'
+import InfomationModelEditor from '@/components/diagrams/editor/infomationmodel/InfomationModelEditor.vue'
+import StateModelEditor from '@/components/diagrams/editor/statemodel/StateModelEditor.vue'
+import UseCaseCompositeDiagramEditor from '@/components/diagrams/editor/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue'
+import VariationAndConditionDiagramEditor from '@/components/diagrams/editor/variationandcondition/VariationAndConditionDiagramEditor.vue'
+import Diagram from '@/domain/diagram/Diagram'
+import Resource from '@/domain/resource/Resource'
+import StorageRepository from '@/domain/storage/StorageRepository'
 
 @Component({
   components: {
@@ -121,53 +121,52 @@ import StorageRepository from "@/domain/storage/StorageRepository";
     StateModelEditor,
     UseCaseCompositeDiagramEditor,
     VariationAndConditionDiagramEditor,
-  }
+  },
 })
 export default class DiagramEditorContainer extends Vue {
   @Inject()
-  private readonly repository!: StorageRepository;
+  readonly repository!: StorageRepository
 
   @Prop({ required: true })
-  private readonly diagramId!: number;
+  readonly diagramId!: number
 
   @Prop({ required: true })
-  private allResourcesOnCurrentProduct?: Resource[];
+  allResourcesOnCurrentProduct?: Resource[]
 
   @Prop({ required: true })
-  private lastPropertiesUpdatedDiagramId?: number;
+  lastPropertiesUpdatedDiagramId?: number
 
-  @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+  @Emit('onOpendDiagramPropertiesEditor')
+  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
-  @Emit("onOpenDiagramOfResourceRelate")
-  private onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+  @Emit('onOpenDiagramOfResourceRelate')
+  onOpenDiagramOfResourceRelate(_resourceId: number): void {}
 
-  private diagram?: Diagram;
+  diagram?: Diagram
 
   public created(): void {
-    this.diagram = this.diagramOf(this.diagramId);
+    this.diagram = this.diagramOf(this.diagramId)
   }
 
-  private onUpdateResoucesOnEditor(): void {
-    console.log(`onUpdateResoucesOnEditor()`);
-    this.onUpdateResoucesOnContainer();
+  onUpdateResoucesOnEditor(): void {
+    console.log(`onUpdateResoucesOnEditor()`)
+    this.onUpdateResoucesOnContainer()
   }
 
-  @Emit("onUpdateResoucesOnContainer")
-  private onUpdateResoucesOnContainer(): void {}
+  @Emit('onUpdateResoucesOnContainer')
+  onUpdateResoucesOnContainer(): void {}
 
-  private diagramOf(diagramId: number): Diagram | undefined {
-    const product = this.repository.getCurrentProduct();
-    if (!product) return undefined;
-    return product.diagrams.of(diagramId);
+  diagramOf(diagramId: number): Diagram | undefined {
+    const product = this.repository.getCurrentProduct()
+    if (!product) return undefined
+    return product.diagrams.of(diagramId)
   }
 
-  public is(typeName: string): boolean {
-    if (!this.diagram) return false;
-    return this.diagram.type.name === typeName;
+  is(typeName: string): boolean {
+    if (!this.diagram) return false
+    return this.diagram.type.name === typeName
   }
 }
 </script>
 
-<style>
-</style>
+<style></style>

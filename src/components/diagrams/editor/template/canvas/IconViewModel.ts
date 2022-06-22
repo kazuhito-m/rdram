@@ -29,7 +29,7 @@ export default class IconViewModel {
         return iconStatus.zOrder;
     }
 
-    private resourceId(): number {
+    public resourceId(): number {
         return Number(this.icon.getId());
     }
 

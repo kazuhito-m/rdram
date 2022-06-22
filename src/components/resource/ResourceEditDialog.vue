@@ -6,7 +6,7 @@
       :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
       @onJustPutOnDiagram="onJustPutOnDiagram"
-      @onClose="onCloseStandardResourceEditDialog"
+      @onClose="onClose"
     />
     <HasContentResourceEditDialog
       :resource="targetHasContentResource"
@@ -14,7 +14,7 @@
       :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
       @onJustPutOnDiagram="onJustPutOnDiagram"
-      @onClose="onCloseHasContentResourceEditDialog"
+      @onClose="onClose"
     />
     <VariationEditDialog
       :resource="targetVariation"
@@ -22,7 +22,7 @@
       :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
       @onJustPutOnDiagram="onJustPutOnDiagram"
-      @onClose="onCloseVariationEditDialog"
+      @onClose="onClose"
     />
     <ConditionEditDialog
       :resource="targetCondition"
@@ -30,7 +30,7 @@
       :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
       @onJustPutOnDiagram="onJustPutOnDiagram"
-      @onClose="onCloseConditionEditDialog"
+      @onClose="onClose"
     />
     <TableTypeConditionEditDialog
       :resource="targetTableTypeCondition"
@@ -38,35 +38,27 @@
       :diagram="targetDiagram"
       @onModifyResource="onModifyResource"
       @onJustPutOnDiagram="onJustPutOnDiagram"
-      @onClose="onCloseTableTypeConditionEditDialog"
+      @onClose="onClose"
     />
   </div>
 </template>
 
 <script lang="ts">
-import {
-  Component,
-  Vue,
-  Prop,
-  Inject,
-  Emit,
-  Watch
-} from "nuxt-property-decorator";
-import CoreResourceEditDialog from "./CoreResourceEditDialog.vue";
-import StandardResourceEditDialog from "./StandardResourceEditDialog.vue";
-import HasContentResourceEditDialog from "./HasContentResourceEditDialog.vue";
-import VariationEditDialog from "./VariationEditDialog.vue";
-import ConditionEditDialog from "./ConditionEditDialog.vue";
-import TableTypeConditionEditDialog from "./TableTypeConditionEditDialog.vue";
-import StorageRepository from "@/domain/storage/StorageRepository";
-import ResourceType from "@/domain/resource/ResourceType";
-import Resource from "@/domain/resource/Resource";
-import Resources from "@/domain/resource/Resources";
-import HasContentResource from "@/domain/resource/HasContentResource";
-import Variation from "@/domain/resource/Variation";
-import Condition from "@/domain/resource/Condition";
-import TableTypeCondition from "@/domain/resource/TableTypeCondition";
-import Diagram from "~/domain/diagram/Diagram";
+import { Component, Vue, Prop, Inject, Emit } from 'nuxt-property-decorator'
+import StandardResourceEditDialog from './StandardResourceEditDialog.vue'
+import HasContentResourceEditDialog from './HasContentResourceEditDialog.vue'
+import VariationEditDialog from './VariationEditDialog.vue'
+import ConditionEditDialog from './ConditionEditDialog.vue'
+import TableTypeConditionEditDialog from './TableTypeConditionEditDialog.vue'
+import StorageRepository from '@/domain/storage/StorageRepository'
+import ResourceType from '@/domain/resource/ResourceType'
+import Resource from '@/domain/resource/Resource'
+import Resources from '@/domain/resource/Resources'
+import HasContentResource from '@/domain/resource/HasContentResource'
+import Variation from '@/domain/resource/Variation'
+import Condition from '@/domain/resource/Condition'
+import TableTypeCondition from '@/domain/resource/TableTypeCondition'
+import Diagram from '@/domain/diagram/Diagram'
 
 @Component({
   components: {
@@ -74,159 +66,128 @@ import Diagram from "~/domain/diagram/Diagram";
     HasContentResourceEditDialog,
     VariationEditDialog,
     ConditionEditDialog,
-    TableTypeConditionEditDialog
-  }
+    TableTypeConditionEditDialog,
+  },
 })
 export default class ResourceEditDialog extends Vue {
-  @Prop({ required: true })
-  private readonly resourceId!: number;
+  latestResources: Resources = Resources.prototypeOf()
+  targetStandaerdResource: Resource | null = null
+  targetHasContentResource: HasContentResource | null = null
+  targetVariation: Variation | null = null
+  targetCondition: Condition | null = null
+  targetTableTypeCondition: TableTypeCondition | null = null
 
-  @Prop({ required: true })
-  private readonly resourceType!: ResourceType;
+  targetDiagram: Diagram | null = null
 
-  @Prop({ required: true })
-  private readonly diagramId!: number;
-
-  @Emit("onUpdatedResource")
-  private onUpdatedResource(_resource: Resource): void {}
-
-  @Emit("onClose")
-  private onClose(): void {}
-
-  @Watch("resourceId")
-  private onChangeResourceId(): void {
-    if (!this.resourceId) return;
-    const id = Number(this.resourceId);
-    if (id !== 0) this.onShow();
-  }
-
-  private latestResources: Resources = Resources.prototypeOf();
-  private targetStandaerdResource: Resource | null = null;
-  private targetHasContentResource: HasContentResource | null = null;
-  private targetVariation: Variation | null = null;
-  private targetCondition: Condition | null = null;
-  private targetTableTypeCondition: TableTypeCondition | null = null;
-
-  private targetDiagram: Diagram | null = null;
+  private resolve: any = null
 
   @Inject()
-  private repository?: StorageRepository;
+  private repository?: StorageRepository
 
-  private onShow(): void {
-    const resources = this.loadResources();
-    if (!resources) return;
-    const resource = this.getTargetResource(resources);
+  @Prop({ required: true })
+  private readonly diagramId!: number
 
-    this.latestResources = resources;
-    this.targetDiagram = this.getTargetDiagram();
+  @Emit('onUpdatedResource')
+  private onUpdatedResource(_resource: Resource, _addNew: boolean): void {}
 
-    // リソース別エディタ切り替え判定
+  showForModifyOf(resourceId: number): Promise<Resource> {
+    return this.show((resources) => resources.of(resourceId))
+  }
 
-    if (resource instanceof Variation) {
-      this.targetVariation = resource;
-      return;
+  showForCreateNew(resourceType: ResourceType): Promise<Resource> {
+    return this.show((resources) => resources.prototypeResourceOf(resourceType))
+  }
+
+  private show(
+    findResourceFunc: (resources: Resources) => Resource | undefined
+  ): Promise<Resource> {
+    const target = this.initializeOf(findResourceFunc)
+    if (!target) return new Promise((resolve) => resolve(Resource.empty()))
+
+    this.visibleByType(target)
+
+    return new Promise((resolve) => (this.resolve = resolve))
+  }
+
+  private initializeOf(
+    findResourceFunc: (resources: Resources) => Resource | undefined
+  ): Resource | null {
+    const product = this.repository?.getCurrentProduct()
+    if (!product) return null
+    const resources = product.resources
+    if (!resources) return null
+    const diagram = product.diagrams.of(this.diagramId)
+    if (!diagram) return null
+
+    const target = findResourceFunc(resources)
+    if (!target) return null
+
+    this.latestResources = resources
+    this.targetDiagram = diagram
+
+    return target
+  }
+
+  // リソース別エディタ切り替え判定
+  private visibleByType(target: Resource): void {
+    if (target instanceof Variation) {
+      this.targetVariation = target
+      return
     }
 
-    if (resource instanceof Condition) {
-      this.targetCondition = resource;
-      return;
+    if (target instanceof Condition) {
+      this.targetCondition = target
+      return
     }
 
-    if (resource instanceof TableTypeCondition) {
-      this.targetTableTypeCondition = resource;
-      return;
+    if (target instanceof TableTypeCondition) {
+      this.targetTableTypeCondition = target
+      return
     }
 
-    if (resource instanceof HasContentResource) {
-      this.targetHasContentResource = resource;
-      return;
+    if (target instanceof HasContentResource) {
+      this.targetHasContentResource = target
+      return
     }
 
-    if (resource) {
-      this.targetStandaerdResource = resource;
-      return;
+    if (target) {
+      this.targetStandaerdResource = target
+      return
     }
-    this.targetStandaerdResource = null;
+    this.targetStandaerdResource = null
   }
 
-  private onModifyResource(resource: Resource): void {
-    const registerd = this.registerResoruce(resource);
-    this.onUpdatedResource(registerd);
+  onClose(): void {
+    this.targetStandaerdResource = null
+    this.targetHasContentResource = null
+    this.targetVariation = null
+    this.targetCondition = null
+    this.targetTableTypeCondition = null
   }
 
-  private onJustPutOnDiagram(resource: Resource): void {
-    this.onUpdatedResource(resource);
-  }
+  onModifyResource(resource: Resource): void {
+    let product = this.repository?.getCurrentProduct()
+    if (!product) return
 
-  private onCloseStandardResourceEditDialog(): void {
-    this.targetStandaerdResource = null;
-    this.onClose();
-  }
+    const addNew = !product.resources.existsIdOf(resource.resourceId)
 
-  private onCloseHasContentResourceEditDialog(): void {
-    this.targetHasContentResource = null;
-    this.onClose();
-  }
-
-  private onCloseVariationEditDialog(): void {
-    this.targetVariation = null;
-    this.onClose();
-  }
-
-  private onCloseConditionEditDialog(): void {
-    this.targetCondition = null;
-    this.onClose();
-  }
-
-  private onCloseTableTypeConditionEditDialog(): void {
-    this.targetTableTypeCondition = null;
-    this.onClose();
-  }
-
-  private isAddNew(): boolean {
-    return this.resourceId === CoreResourceEditDialog.ID_WHEN_CREATE_NEW;
-  }
-
-  private getTargetResource(resources: Resources): Resource | undefined {
-    if (this.isAddNew())
-      return resources
-        .prototypeResourceOf(this.resourceType)
-        .renewId(CoreResourceEditDialog.ID_WHEN_CREATE_NEW);
-    return resources.of(this.resourceId);
-  }
-
-  private loadResources(): Resources | null {
-    const product = this.repository?.getCurrentProduct();
-    if (!product) return null;
-    return product.resources;
-  }
-
-  private registerResoruce(resource: Resource): Resource {
-    let product = this.repository?.getCurrentProduct();
-    if (!product) return resource;
-
-    let newResource = resource;
-    if (this.isAddNew()) {
-      newResource = newResource.renewId(product.resourceIdSequence);
-      product = product.moveNextResourceIdSequence();
+    let newResource = resource
+    if (addNew) {
+      newResource = newResource.renewId(product.resourceIdSequence)
+      product = product.moveNextResourceIdSequence()
     }
 
-    const addedResources = product.resources.mergeByIdOf(newResource);
-    product = product.withResources(addedResources);
-    this.repository?.registerCurrentProduct(product);
+    const addedResources = product.resources.mergeByIdOf(newResource)
+    product = product.withResources(addedResources)
+    this.repository?.registerCurrentProduct(product)
 
-    return newResource;
+    this.resolve(newResource)
   }
 
-  private getTargetDiagram(): Diagram | null {
-    const diagram = this.repository
-      ?.getCurrentProduct()
-      ?.diagrams
-      .of(this.diagramId);
-    return diagram || null;
+  onJustPutOnDiagram(resource: Resource): void {
+    this.onUpdatedResource(resource, false)
   }
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

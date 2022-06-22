@@ -1,43 +1,27 @@
 <template lang="html">
-    <div
-      ref="convasContainer"
-      class="canvas-container"
-    >
-        <div
-          :id="canvasId"
-          ref="canvasBase"
-          class="diagram-canvas"
-        />
+  <div ref="convasContainer" class="canvas-container">
+    <div :id="canvasId" ref="canvasBase" class="diagram-canvas" />
 
-        <CanvasSettingToolBar
-            :diagramId="diagramId"
-            :canvasGuideType="canvasGuideType"
-            @onChangeZoomBySlider="onChangeZoomBySlider"
-            @onChangeCanvasGuideType="onChangeCanvasGuideType"
-            @onPngDownload="onPngDownload"
-            @onSvgDownload="onSvgDownload"
-            @onDiagramExport="onDiagramExport"
-            @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
-        />
+    <CanvasSettingToolBar
+      :diagramId="diagramId"
+      :canvasGuideType="canvasGuideType"
+      @onChangeZoomBySlider="onChangeZoomBySlider"
+      @onChangeCanvasGuideType="onChangeCanvasGuideType"
+      @onPngDownload="onPngDownload"
+      @onSvgDownload="onSvgDownload"
+      @onDiagramExport="onDiagramExport"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+    />
 
-        <ConnectorRightClickMenuAndEditor
-            :visibleConnectorRightClickMenu="visibleConnectorMenu"
-            :relation="targetRelation"
-            :menuPositionX="menuX"
-            :menuPositionY="menuY"
-            @onUpdateRelation="onUpdateRelation"
-            @onDeleteRelation="onDeleteRelation"
-        />
-
-        <ResourceEditDialog 
-          :resourceId="editResourceId"
-          :resourceType="editResourceType"
-          :diagramId="diagramId"
-          @onUpdatedResource="onUpdatedResource"
-          @onClose="onCloseResourceEditor"
-        />
-
-    </div>
+    <ConnectorRightClickMenuAndEditor
+      :visible="visibleConnectorMenu"
+      :relation="targetRelation"
+      :menuPositionX="menuX"
+      :menuPositionY="menuY"
+      @onUpdateRelation="onUpdateRelation"
+      @onDeleteRelation="onDeleteRelation"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -47,337 +31,359 @@ import {
   Vue,
   Emit,
   Inject,
-  Watch
-} from "vue-property-decorator";
+  Watch,
+} from 'vue-property-decorator'
 
-import draw2d, { Figure } from "draw2d";
-import "jquery";
-import "jquery-ui";
-import "jquery-ui/ui/widgets/draggable";
-import "jquery-ui/ui/widgets/droppable";
+import draw2d, { Figure } from 'draw2d'
+import 'jquery'
+import 'jquery-ui'
+import 'jquery-ui/ui/widgets/draggable'
+import 'jquery-ui/ui/widgets/droppable'
 
-import IconViewModel from "./IconViewModel";
-import ZoomValueOnDraw2d from "./ZoomValueOnDraw2d";
-import AbsolutePosition from "./AbsolutePosition";
-import CanvasSettingToolBar from "@/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue";
-import ConnectorRightClickMenuAndEditor from "@/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue";
-import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
+import IconViewModel from './IconViewModel'
+import ZoomValueOnDraw2d from './ZoomValueOnDraw2d'
+import AbsolutePosition from './AbsolutePosition'
+import CanvasSettingToolBar from '@/components/diagrams/editor/toolbar/CanvasSettingToolBar.vue'
+import ConnectorRightClickMenuAndEditor from '@/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue'
 
-import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
-import CanvasGuideType from "@/components/diagrams/editor/toolbar/CanvasGuideType";
-import RouterTypeDraw2dConverter from "@/components/diagrams/editor/template/RouterTypeDraw2dConverter";
-import IconGenerator from "@/components/diagrams/icon/IconGenerator";
-import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
+import EventAnalyzer from '@/components/diagrams/editor/template/event/EventAnalyzer'
+import CanvasGuideType from '@/components/diagrams/editor/toolbar/CanvasGuideType'
+import RouterTypeDraw2dConverter from '@/components/diagrams/editor/template/RouterTypeDraw2dConverter'
+import IconGenerator from '@/components/diagrams/icon/IconGenerator'
+import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar'
 
-import Product from "@/domain/product/Product";
-import Diagram from "@/domain/diagram/Diagram";
-import Resource from "@/domain/resource/Resource";
-import ResourceType from "@/domain/resource/ResourceType";
-import Relation from "@/domain/relation/Relation";
-import StorageRepository from "@/domain/storage/StorageRepository";
-import Placement from "@/domain/diagram/placement/Placement";
-import DownloadCustomFile from "@/domain/client/DownloadCustomFile";
-import DownloadFileName from "@/domain/client/DownloadFileName";
-import RdramDownloadFileName from "@/domain/client/WithTimestampFileName";
-import ClientDownloadRepository from "@/domain/client/ClientDownloadRepository";
-import DiagramExportService from "~/application/service/diagram/export/DiagramExportService";
-
-import CoreResourceEditDialog from "@/components/resource/CoreResourceEditDialog.vue";
-import Resources from "@/domain/resource/Resources";
+import Product from '@/domain/product/Product'
+import Diagram from '@/domain/diagram/Diagram'
+import Resources from '@/domain/resource/Resources'
+import Resource from '@/domain/resource/Resource'
+import ResourceType from '@/domain/resource/ResourceType'
+import Relation from '@/domain/relation/Relation'
+import StorageRepository from '@/domain/storage/StorageRepository'
+import Placement from '@/domain/diagram/placement/Placement'
+import DownloadCustomFile from '@/domain/client/DownloadCustomFile'
+import DownloadFileName from '@/domain/client/DownloadFileName'
+import RdramDownloadFileName from '@/domain/client/WithTimestampFileName'
+import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
+import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
 
 @Component({
   components: {
     CanvasSettingToolBar,
     ConnectorRightClickMenuAndEditor,
-    ResourceEditDialog
-  }
+  },
 })
 export default class DiagramCanvas extends Vue {
   @Prop({ required: true })
-  private readonly diagramId!: number;
+  readonly diagramId!: number
 
   @Prop({ required: true })
-  private readonly product!: Product;
+  private readonly product!: Product
 
   @Prop({ required: true })
-  private readonly usedResouceIds!: number[];
+  private readonly usedResouceIds!: number[]
 
   @Prop({ required: true })
-  private readonly allResourcesOnCurrentProduct!: Resource[];
+  private readonly allResourcesOnCurrentProduct!: Resource[]
 
   @Prop({ required: true })
-  private readonly lastPropertiesUpdatedDiagramId!: number;
+  private readonly lastPropertiesUpdatedDiagramId!: number
 
   @Prop({ required: true })
-  private readonly iconMap!: { [key: string]: IconFontAndChar };
+  private readonly iconMap!: { [key: string]: IconFontAndChar }
 
   @Prop({ required: true })
-  private readonly eventAnalyzer!: EventAnalyzer;
+  private readonly eventAnalyzer!: EventAnalyzer
 
   @Prop({ required: true })
-  private readonly iconGenerators!: IconGenerator<Resource>[];
+  private readonly iconGenerators!: IconGenerator<Resource>[]
 
   // This class fields.
 
   @Inject()
-  private repository!: StorageRepository;
+  private repository!: StorageRepository
 
   @Inject()
-  private clientDownloadRepository!: ClientDownloadRepository;
+  private clientDownloadRepository!: ClientDownloadRepository
 
   @Inject()
-  private diagramExportService!: DiagramExportService;
+  private diagramExportService!: DiagramExportService
 
-  private readonly routerConverter = new RouterTypeDraw2dConverter();
+  private readonly routerConverter = new RouterTypeDraw2dConverter()
 
-  private canvas!: draw2d.Canvas;
-  private canvasId!: string;
-  private canvasGuideType = CanvasGuideType.なし;
+  private canvas!: draw2d.Canvas
+  canvasId!: string
+  canvasGuideType = CanvasGuideType.なし
 
-  private lastResourcesOnCurrentProductCount = 0;
+  private lastResourcesCache: Map<number, Resource> | null = null
 
-  private visibleConnectorMenu = false;
-  private targetRelation: Relation | null = null;
-  private menuX = 0;
-  private menuY = 0;
+  visibleConnectorMenu = false
+  targetRelation: Relation | null = null
+  menuX = 0
+  menuY = 0
 
-  private editResourceId = 0;
-  private editResourceType: ResourceType | null = null;
-  private dropXOnCanvas = 0;
-  private dropYOnCanvas = 0;
+  private dropXOnCanvas = 0
+  private dropYOnCanvas = 0
 
   private zoom(): number {
-    const zoom = this.canvas.getZoom();
-    return ZoomValueOnDraw2d.of(zoom).value;
-  }
-
-  private diagram(): Diagram {
-      const product = this.repository.getCurrentProduct();
-      return product!.diagrams.of(this.diagramId) as Diagram;
+    const zoom = this.canvas.getZoom()
+    return ZoomValueOnDraw2d.of(zoom).value
   }
 
   // Events
 
   // This view callback(Emit).
 
-  @Emit("onUpdateResources")
+  @Emit('onUpdateResources')
   private onUpdateResources(): void {}
 
-  @Emit("onMergePlacement")
+  @Emit('onMergePlacement')
   private onMergePlacement(_diffTarget: Placement[]) {}
 
-  @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+  @Emit('onOpendDiagramPropertiesEditor')
+  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
-  @Emit("onShowWarnBar")
+  @Emit('onShowWarnBar')
   private onShowWarnBar(_text: string): void {}
 
-  @Emit("onShowResourceMenu")
-  private onShowResourceMenu(_resource: Resource, _x: number, _y: number): void {}
+  @Emit('onShowResourceMenu')
+  private onShowResourceMenu(
+    _resource: Resource,
+    _x: number,
+    _y: number
+  ): void {}
+
+  @Emit('onEditResource')
+  private onEditResource(_resourceId: number): void {}
+
+  @Emit('onOpenResourceEditorWhenCreate')
+  private onOpenResourceEditorWhenCreate(_resourceType: ResourceType): void {}
+
+  @Emit('onShowConnectorMenu')
+  private onShowConnectorMenu(): void {}
 
   // Watch event.
 
-  @Watch("lastPropertiesUpdatedDiagramId")
+  @Watch('lastPropertiesUpdatedDiagramId')
   private onUpdatedDiagramProperties(): void {
-    if (this.diagramId !== this.lastPropertiesUpdatedDiagramId) return;
+    if (this.diagramId !== this.lastPropertiesUpdatedDiagramId) return
 
-    const product = this.repository.getCurrentProduct() as Product;
-    const diagram = product.diagrams.of(this.diagramId);
-    if (!diagram) return;
+    const product = this.repository.getCurrentProduct() as Product
+    const diagram = product.diagrams.of(this.diagramId)
+    if (!diagram) return
 
-    const c = this.canvas;
+    const c = this.canvas
     if (c.getWidth() === diagram.width && c.getHeight() === diagram.height)
-      return;
+      return
 
-    this.reverceSyncCavansDeleteThings();
-    this.canvas.setDimension(diagram.width, diagram.height);
-    this.onMergePlacement(diagram.placements);
-    this.onChangeZoomBySlider(this.zoom() + 0.001); // 再描画がうまく行くHack
+    this.reverceSyncCavansDeleteThings()
+    this.canvas.setDimension(diagram.width, diagram.height)
+    this.onMergePlacement(diagram.placements)
+    this.onChangeZoomBySlider(this.zoom() + 0.001) // 再描画がうまく行くHack
   }
 
-  @Watch("allResourcesOnCurrentProduct.length")
-  private onChangeAllResourcesOnCurrentProduct(): void {
-    const whenRemoveResource =
-      this.allResourcesOnCurrentProduct.length <
-      this.lastResourcesOnCurrentProductCount;
-    this.lastResourcesOnCurrentProductCount = this.allResourcesOnCurrentProduct.length;
-    if (!whenRemoveResource) return;
+  @Watch('allResourcesOnCurrentProduct')
+  private onChangeResourcesOnProduct(): void {
+    if (!this.lastResourcesCache) return
 
-    this.reverceSyncCavansDeleteThings();
+    const nowResources = this.allResourcesOnCurrentProduct
+    const cache = this.lastResourcesCache
+    const whenResouce = nowResources.length < cache.size
+    if (whenResouce) {
+      this.reverceSyncCavansDeleteThings()
+    } else {
+      const modifies = nowResources.filter((r) => cache.get(r.resourceId) !== r)
+      this.redrawIcons(modifies)
+    }
+
+    this.cacheNowResources()
   }
 
-  @Watch("usedResouceIds")
+  @Watch('usedResouceIds')
   private onChangeUsedResouceIds(): void {
-    this.reverceSyncCavansDeleteThings();
+    this.reverceSyncCavansDeleteThings()
+  }
+
+  @Watch('visibleConnectorMenu')
+  private onChangeVisibleConnectorMenu(): void {
+    if (this.visibleConnectorMenu) this.onShowConnectorMenu()
   }
 
   // Vue events.(life cycle events)
 
-  private created(): void {
-    const diagram = this.product?.diagrams.of(this.diagramId);
-    if (!diagram) return;
-    this.canvasId = "canvas" + this.diagramId;
-    this.lastResourcesOnCurrentProductCount = this.allResourcesOnCurrentProduct.length;
+  created(): void {
+    const diagram = this.product?.diagrams.of(this.diagramId)
+    if (!diagram) return
+    this.canvasId = 'canvas' + this.diagramId
   }
 
-  private mounted() {
-    this.$nuxt.$loading.start();
+  mounted() {
+    this.$nuxt.$loading.start()
+
+    this.cacheNowResources()
 
     this.$nextTick(() => {
-      const diagram = this.product?.diagrams.of(this.diagramId);
-      if (!diagram) return;
+      const diagram = this.product?.diagrams.of(this.diagramId)
+      if (!diagram) return
 
-      const guideType = CanvasGuideType.ofId(diagram.canvasGuideTypeId);
+      const guideType = CanvasGuideType.ofId(diagram.canvasGuideTypeId)
 
-      this.showCanvas();
-      this.fixCanvasPosition();
-      this.addCanvasEvent();
-      this.drawDiagram(diagram);
-      this.onChangeCanvasGuideType(guideType);
+      this.showCanvas()
+      this.fixCanvasPosition()
+      this.addCanvasEvent()
+      this.drawDiagram(diagram)
+      this.onChangeCanvasGuideType(guideType)
 
-      this.$nuxt.$loading.finish(); // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
-    });
+      this.$nuxt.$loading.finish() // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
+    })
   }
 
   // public by other diarogs
 
-  public showWarnBar(text: string): void {
-    this.onShowWarnBar(text);
+  showWarnBar(text: string): void {
+    this.onShowWarnBar(text)
   }
 
   // right click menu events.
 
-  private onDeleteRelation(relation: Relation): void {
-    const connection = this.canvas.getLine(relation.id);
-    this.canvas.remove(connection);
+  onDeleteRelation(relation: Relation): void {
+    this.deleteConnection(relation)
 
-    this.transactionOf2((diagram, _product) => {
-      return diagram.removeRelationsOf([relation.id]);
-    });
+    this.transactionOf((diagram, _) => {
+      return diagram.removeRelationsOf([relation.id])
+    })
   }
 
-  private onUpdateRelation(relation: Relation): void {
-    const connection = this.canvas.getLine(relation.id);
-    if (!connection) return;
+  onUpdateRelation(relation: Relation): void {
+    const connection = this.canvas.getLine(relation.id)
+    if (!connection) return
 
-    this.decorateConnection(connection, relation);
+    this.decorateConnection(connection, relation)
 
     connection
       .getChildren()
       .asArray()
-      .forEach((c: Figure) => connection.remove(c));
-    this.addConnectionLabel(connection, relation);
+      .forEach((c: Figure) => connection.remove(c))
+    this.addConnectionLabel(connection, relation)
 
-    this.transactionOf2((diagram, _product) => {
-      return diagram.modifyRelationOf(relation);
-    });
+    this.transactionOf((diagram, _product) => {
+      return diagram.modifyRelationOf(relation)
+    })
   }
 
   // from Toolbar events.
 
-  private onChangeZoomBySlider(zoom: number) {
-    this.canvas.setZoom(zoom, false);
+  onChangeZoomBySlider(zoom: number) {
+    this.canvas.setZoom(zoom, false)
   }
 
-  private onChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {
-    const canvas = this.canvas;
-    const beforeCanvasGuideType = this.canvasGuideType;
+  onChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {
+    const canvas = this.canvas
+    const beforeCanvasGuideType = this.canvasGuideType
     if (beforeCanvasGuideType.canvasPolicy)
-      canvas.uninstallEditPolicy(beforeCanvasGuideType.canvasPolicy);
+      canvas.uninstallEditPolicy(beforeCanvasGuideType.canvasPolicy)
     if (canvasGuideType.canvasPolicy)
-      canvas.installEditPolicy(canvasGuideType.canvasPolicy);
+      canvas.installEditPolicy(canvasGuideType.canvasPolicy)
     // 「何故か、背景が真っ黒になってしまう」対策。ちょーーっとだけリサイズする。
     // …こんなワークアラウンドのほうが安定するからしゃーない。
-    canvas.setZoom(this.zoom() - 0.001, false);
+    canvas.setZoom(this.zoom() - 0.001, false)
 
-    this.canvasGuideType = canvasGuideType;
+    this.canvasGuideType = canvasGuideType
   }
 
-  private onPngDownload(): void {
-    const product = this.repository.getCurrentProduct();
-    const diagram = product!.diagrams.of(this.diagramId);
-    if (!diagram) return;
-    const fileName = this.makeDownloadFileName(diagram, "png");
-    const writer = new draw2d.io.png.Writer();
+  onPngDownload(): void {
+    const product = this.repository.getCurrentProduct()
+    const diagram = product!.diagrams.of(this.diagramId)
+    if (!diagram) return
+    const fileName = this.makeDownloadFileName(diagram, 'png')
+    const writer = new draw2d.io.png.Writer()
     writer.marshal(this.canvas, (png: string) => {
-      this.clientDownloadRepository.registerBase64PngImage(png, fileName);
-    });
+      this.clientDownloadRepository.registerBase64PngImage(png, fileName)
+    })
   }
 
-  private onSvgDownload(): void {
-    const product = this.repository.getCurrentProduct();
-    const diagram = product!.diagrams.of(this.diagramId);
-    if (!diagram) return;
-    const fileName = this.makeDownloadFileName(diagram, "svg");
-    const writer = new draw2d.io.svg.Writer();
+  onSvgDownload(): void {
+    const product = this.repository.getCurrentProduct()
+    const diagram = product!.diagrams.of(this.diagramId)
+    if (!diagram) return
+    const fileName = this.makeDownloadFileName(diagram, 'svg')
+    const writer = new draw2d.io.svg.Writer()
     writer.marshal(this.canvas, (svg: string) => {
-      const withFontSvg = this.includeWebFont(svg);
-      const file = new DownloadCustomFile(fileName, "image/svg+xml", withFontSvg);
-      this.clientDownloadRepository.register(file);
-    });
+      const withFontSvg = this.includeWebFont(svg)
+      const file = new DownloadCustomFile(
+        fileName,
+        'image/svg+xml',
+        withFontSvg
+      )
+      this.clientDownloadRepository.register(file)
+    })
   }
 
-  private onDiagramExport(): void {
-    this!.diagramExportService.downloadExportFileOnClient(this.diagramId);
-  }
-
-  // from ResourcePropertiesEditor events.
-
-  private onUpdatedResource(resource: Resource): void {
-    this.addPlacement(resource);
-    this.onUpdateResources(); // 親にコールバック
-  }
-
-  private onCloseResourceEditor(): void {
-    this.editResourceId = 0;
+  onDiagramExport(): void {
+    this!.diagramExportService.downloadExportFileOnClient(this.diagramId)
   }
 
   // Canvas Events
 
   private onDropCanvas(event: DragEvent) {
-    event.preventDefault();
+    event.preventDefault()
 
-    const zoom = this.zoom();
-    this.dropXOnCanvas = event.offsetX * zoom;
-    this.dropYOnCanvas = event.offsetY * zoom;
+    const zoom = this.zoom()
+    this.dropXOnCanvas = event.offsetX * zoom
+    this.dropYOnCanvas = event.offsetY * zoom
 
-    const textData = event.dataTransfer?.getData("text");
-    if (!textData) return;
-    const resourceId = parseInt(textData, 10);
-    const isAddNew = resourceId < 0;
+    const textData = event.dataTransfer?.getData('text')
+    if (!textData) return
+    const resourceId = parseInt(textData, 10)
+    const isAddNew = resourceId < 0
 
     // 新規追加時。
     if (isAddNew) {
-      const resourceType = ResourceType.ofId(resourceId * -1) as ResourceType;
-      this.showResourcePropertiesEditor(resourceType);
-      return;
+      const resourceType = ResourceType.ofId(resourceId * -1) as ResourceType
+      this.onOpenResourceEditorWhenCreate(resourceType)
+      return
     }
 
-    const product = this.repository.getCurrentProduct() as Product;
-    const diagram = product.diagrams.of(this.diagramId);
-    if (!diagram) return;
+    const product = this.repository.getCurrentProduct() as Product
+    const diagram = product.diagrams.of(this.diagramId)
+    if (!diagram) return
 
-    const resource = product.resources.of(resourceId);
-    if (!resource) return;
+    const resource = product.resources.of(resourceId)
+    if (!resource) return
 
-    this.addPlacement(resource);
+    this.addPlacement(resource)
   }
 
   private onDropOverCanvas(event: DragEvent): void {
-    event.preventDefault();
+    event.preventDefault()
   }
 
   private onCanvasCommandExecute(event: any): void {
-    if (!event.isPostChangeEvent()) return;
-    const rootCommand = event.getCommand();
+    if (!event.isPostChangeEvent()) return
+    const rootCommand = event.getCommand()
 
-    const analyzeResutEvents = this.eventAnalyzer.analyze(rootCommand);
-    if (analyzeResutEvents.isNothing()) return;
+    const analyzeResutEvents = this.eventAnalyzer.analyze(rootCommand)
+    if (analyzeResutEvents.isNothing()) return
 
-    this.transactionOf2((diagram, product) => {
-      if (!analyzeResutEvents.validate(diagram, product, this)) return null;
-      return analyzeResutEvents.apply(diagram, product, this);
-    });
+    this.transactionOf((diagram, product) => {
+      if (!analyzeResutEvents.validate(diagram, product, this)) return null
+      return analyzeResutEvents.apply(diagram, product, this)
+    })
+  }
+
+  onClickConnectorOnCanvas(x: number, y: number) {
+    const canvas = this.canvas
+    const foundFigure = canvas.getBestFigure(x, y, [], [])
+    if (!foundFigure) return
+    const product = this.repository.getCurrentProduct()
+    if (!product) return
+    const diagram = product.diagrams.of(this.diagramId)
+    if (!diagram) return
+    const targetRelation = diagram.relationOf(foundFigure.id)
+    if (!targetRelation) return
+    const zoom = this.zoom()
+    const absoluteX = canvas.getAbsoluteX() + x / zoom
+    const absoluteY = canvas.getAbsoluteY() + y / zoom
+    this.showConnectorRightClickMenu(targetRelation, absoluteX, absoluteY)
   }
 
   // Initialize methods
@@ -387,10 +393,10 @@ export default class DiagramCanvas extends Vue {
       this.canvasId,
       Diagram.MAX_WIDTH,
       Diagram.MAX_HEIGHT
-    );
-    canvas.installEditPolicy(new draw2d.policy.canvas.CoronaDecorationPolicy());
-    canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1));
-    canvas.installEditPolicy(new draw2d.policy.canvas.ExtendedKeyboardPolicy());
+    )
+    canvas.installEditPolicy(new draw2d.policy.canvas.CoronaDecorationPolicy())
+    canvas.installEditPolicy(new draw2d.policy.canvas.ShowGridEditPolicy(-1))
+    canvas.installEditPolicy(new draw2d.policy.canvas.ExtendedKeyboardPolicy())
 
     // XXX 多分必要だと思うのだけど、実害がないので一旦消す。
     // これで「スクロールの元と成るオブジェクトがわからなくなる」のだとは思うが、
@@ -401,46 +407,33 @@ export default class DiagramCanvas extends Vue {
     // editorPain.id = `editorPain${this.diagramId}`;
     // canvas.setScrollArea(`#${editorPain.id}`);
 
-    this.canvas = canvas;
-  }
-
-  public onClickConnectorOnCanvas(x: number, y: number) {
-    const canvas = this.canvas;
-    const foundFigure = canvas.getBestFigure(x, y, [], []);
-    if (!foundFigure) return;
-    const product = this.repository.getCurrentProduct();
-    if (!product) return;
-    const diagram = product.diagrams.of(this.diagramId);
-    if (!diagram) return;
-    const targetRelation = diagram.relationOf(foundFigure.id);
-    if (!targetRelation) return;
-    const zoom = this.zoom();
-    const absoluteX = canvas.getAbsoluteX() + x / zoom;
-    const absoluteY = canvas.getAbsoluteY() + y / zoom;
-    this.showConnectorRightClickMenu(targetRelation, absoluteX, absoluteY);
+    this.canvas = canvas
   }
 
   private drawDiagram(diagram: Diagram) {
-    diagram.placements
-      .forEach(p => this.usedResouceIds.push(p.resourceId));
+    diagram.placements.forEach((p) => this.usedResouceIds.push(p.resourceId))
 
-    const allResources = new Resources(this.allResourcesOnCurrentProduct);
+    const allResources = new Resources(this.allResourcesOnCurrentProduct)
 
     const iconViewModels = diagram.placements
-      .filter(placement => allResources.existsIdOf(placement.resourceId))
-      .map(placement => this.generateIcon(allResources.of(placement.resourceId) as Resource, placement))
-      .filter(icon => icon)
-      .map(icon => new IconViewModel(icon as Figure));
+      .filter((placement) => allResources.existsIdOf(placement.resourceId))
+      .map((placement) =>
+        this.generateIcon(
+          allResources.of(placement.resourceId) as Resource,
+          placement
+        )
+      )
+      .filter((icon) => icon)
+      .map((icon) => new IconViewModel(icon as Figure))
 
-    this.canvas.setDimension(diagram.width, diagram.height);
+    this.canvas.setDimension(diagram.width, diagram.height)
 
     iconViewModels
       .sort(IconViewModel.compare)
-      .map(vm => vm.icon)
-      .forEach(icon => this.canvas.add(icon));
+      .map((vm) => vm.icon)
+      .forEach((icon) => this.canvas.add(icon))
 
-    diagram.allRelations()
-      .forEach(this.addConnection);
+    diagram.allRelations().forEach(this.addConnection)
   }
 
   // self decralation event.
@@ -451,33 +444,41 @@ export default class DiagramCanvas extends Vue {
     resource: Resource,
     placement: Placement
   ): void {
-    const icon = this.generateIcon(resource, placement);
-    if (!icon) return;
+    const icon = this.generateIcon(resource, placement)
+    if (!icon) return
 
-    this.canvas.add(icon);
-    this.fixZOrder(icon);
+    this.canvas.add(icon)
+    this.fixZOrder(icon)
   }
 
-  private generateIcon(resource: Resource, placement: Placement): Figure | null {
-    const type = resource.type;
-    const generator = this.choiceIconGenerator(type) as IconGenerator<Resource>;
+  private generateIcon(
+    resource: Resource,
+    placement: Placement
+  ): Figure | null {
+    const type = resource.type
+    const generator = this.choiceIconGenerator(type) as IconGenerator<Resource>
     if (!generator) {
-      alert(`ジェネレータ無しアイコン生成不能:${type.name}`);
-      return null;
-    } 
-
-    const icon = generator.generate(
-      placement,
-      resource,
-      this.iconStyleOf(type)
-    );
-
-    icon.onContextMenu = (x, y) => {
-      const pos = new AbsolutePosition(x, y, this.canvas)
-      this.onShowResourceMenu(resource, pos.x() , pos.y());
+      alert(`ジェネレータ無しアイコン生成不能:${type.name}`)
+      return null
     }
 
-    return icon;
+    const icon = generator.generate(placement, resource, this.iconStyleOf(type))
+    this.setIconEventHandler(icon, resource)
+    return icon
+  }
+
+  private setIconEventHandler(icon: draw2d.Figure, resource: Resource): void {
+    icon.onContextMenu = (x, y) => this.showResourceMenu(resource, x, y)
+    icon.onDoubleClick = () => this.onEditResource(resource.resourceId)
+
+    const children = icon.getChildren()
+    for (let i = 0; i < children.getSize(); i++)
+      this.setIconEventHandler(children.get(i), resource)
+  }
+
+  private showResourceMenu(resource: Resource, x: number, y: number): void {
+    const pos = new AbsolutePosition(x, y, this.canvas)
+    this.onShowResourceMenu(resource, pos.x(), pos.y())
   }
 
   /**
@@ -489,24 +490,20 @@ export default class DiagramCanvas extends Vue {
    * TODO IconGeneratorでsetUserData()してるので、このロジックもそこらへんに移動したい。
    */
   private fixZOrder(icon: Figure): void {
-    const targetIconVM = new IconViewModel(icon);
+    const targetIconVM = new IconViewModel(icon)
 
-    if (targetIconVM.isNotAreaIcon()) return;
+    if (targetIconVM.isNotAreaIcon()) return
 
-    const allIcons = this.canvas
-      .getFigures()
-      .asArray() as Figure[];
-    const sortedIconVMs = allIcons
-      .map(i => new IconViewModel(i))
-      .sort(IconViewModel.compare);
+    const sortedIconVMs = this.iconVMs().sort(IconViewModel.compare)
 
-    const compareNumberOverItem = sortedIconVMs
-      .find(vm => vm.compareNumber() > targetIconVM.compareNumber());
+    const compareNumberOverItem = sortedIconVMs.find(
+      (vm) => vm.compareNumber() > targetIconVM.compareNumber()
+    )
 
-    if (!compareNumberOverItem) return;
+    if (!compareNumberOverItem) return
 
-    const afterIcon = compareNumberOverItem.icon;
-    icon.toBack(afterIcon);
+    const afterIcon = compareNumberOverItem.icon
+    icon.toBack(afterIcon)
 
     // Debug
     // const allResources = new Resources(this.allResourcesOnCurrentProduct);
@@ -514,7 +511,7 @@ export default class DiagramCanvas extends Vue {
     // sortedIconVMs
     //   .forEach(i => console.log(i.toString(allResources)));
     // console.log("めっかったやつ:", compareNumberOverItem?.toString(allResources));
-    // 
+    //
     // const figures = this.canvas
     //   .getFigures()
     //   .asArray() as Figure[];
@@ -528,26 +525,26 @@ export default class DiagramCanvas extends Vue {
   private choiceIconGenerator(
     resourceType: ResourceType
   ): IconGenerator<Resource> | undefined {
-    return this.iconGenerators.find(g =>
+    return this.iconGenerators.find((g) =>
       g.resourceType().equals(resourceType)
-    );
+    )
   }
 
   private addConnection(relation: Relation) {
-    const canvas = this.canvas;
+    const canvas = this.canvas
 
-    const connection = new draw2d.Connection({ id: relation.id });
+    const connection = new draw2d.Connection({ id: relation.id })
 
-    const startPort = this.getPort(relation.fromResourceId, canvas, true);
-    if (startPort) connection.setSource(startPort);
-    const endPort = this.getPort(relation.toResourceId, canvas, false);
-    if (endPort) connection.setTarget(endPort);
+    const startPort = this.getPort(relation.fromResourceId, canvas, true)
+    if (startPort) connection.setSource(startPort)
+    const endPort = this.getPort(relation.toResourceId, canvas, false)
+    if (endPort) connection.setTarget(endPort)
 
-    connection.onContextMenu = this.onClickConnectorOnCanvas;
-    this.addConnectionLabel(connection, relation);
-    this.decorateConnection(connection, relation);
+    connection.onContextMenu = this.onClickConnectorOnCanvas
+    this.addConnectionLabel(connection, relation)
+    this.decorateConnection(connection, relation)
 
-    canvas.add(connection);
+    canvas.add(connection)
   }
 
   private getPort(
@@ -555,28 +552,28 @@ export default class DiagramCanvas extends Vue {
     canvas: draw2d.Canvas,
     fromPort: boolean
   ): any {
-    const targetFigure = canvas.getFigure(String(resourceId));
-    if (!targetFigure) return null;
-    const portTypeName = fromPort ? "draw2d.OutputPort" : "draw2d.InputPort";
+    const targetFigure = canvas.getFigure(String(resourceId))
+    if (!targetFigure) return null
+    const portTypeName = fromPort ? 'draw2d.OutputPort' : 'draw2d.InputPort'
     return targetFigure
       .getPorts(false)
       .asArray()
       .find(
         (port: any) =>
-          port.NAME === portTypeName || port.NAME === "draw2d.HybridPort"
-      );
+          port.NAME === portTypeName || port.NAME === 'draw2d.HybridPort'
+      )
   }
 
   private addConnectionLabel(connection: any, relation: Relation): void {
-    if (relation.meaning.length === 0) return;
+    if (relation.meaning.length === 0) return
     const label = new draw2d.shape.basic.Label({
       text: relation.meaning,
       stroke: 0,
       padding: 0,
       alpha: 0.75,
-      bgColor: "#ffffff"
-    });
-    connection.add(label, new draw2d.layout.locator.ParallelMidpointLocator());
+      bgColor: '#ffffff',
+    })
+    connection.add(label, new draw2d.layout.locator.ParallelMidpointLocator())
   }
 
   private showConnectorRightClickMenu(
@@ -584,74 +581,107 @@ export default class DiagramCanvas extends Vue {
     x: number,
     y: number
   ): void {
-    this.visibleConnectorMenu = false;
-    this.targetRelation = relation;
-    this.menuX = x;
-    this.menuY = y;
+    this.visibleConnectorMenu = false
+    this.targetRelation = relation
+    this.menuX = x
+    this.menuY = y
     this.$nextTick(() => {
-      this.visibleConnectorMenu = true;
-    });
+      this.visibleConnectorMenu = true
+    })
   }
 
   private iconStyleOf(resourceType: ResourceType): IconFontAndChar {
-    return this.iconMap[resourceType.iconKey];
+    return this.iconMap[resourceType.iconKey]
   }
 
   /**
    * キャンバス側から、逆にデータにあるかを調べ、削除されてそうなものが在れば消す。
    */
   private reverceSyncCavansDeleteThings(): void {
-    const product = this.repository.getCurrentProduct() as Product;
-    const diagram = product.diagrams.of(this.diagramId) as Diagram;
+    const product = this.repository.getCurrentProduct() as Product
+    const diagram = product.diagrams.of(this.diagramId) as Diagram
 
-    const canvas = this.canvas;
-    canvas.getLines().each((_index: number, line: any) => {
-      if (!diagram.existsRelationId(line.id.toString())) canvas.remove(line);
-    });
+    const canvas = this.canvas
+    canvas.getLines().each((_: number, line: any) => {
+      if (!diagram.existsRelationId(line.id.toString())) canvas.remove(line)
+    })
 
-    canvas.getFigures().each((_index: number, figure: any) => {
-      const resourceId = Number(figure.id);
-      if (!diagram.existsResourceOnPlacementOf(resourceId)) canvas.remove(figure);
-    });
+    canvas.getFigures().each((_: number, figure: any) => {
+      const resourceId = Number(figure.id)
+      if (!diagram.existsResourceOnPlacementOf(resourceId))
+        canvas.remove(figure)
+    })
   }
 
   public confirmResourceDelete(
     resourceIds: number[],
     diagram: Diagram
   ): boolean {
-    const relationIds = diagram.relationIdsOfDeleteTargetResouce(resourceIds);
-    if (relationIds.length === 0) return true;
-    const message = `選択された要素には、他の要素への関連があります。それらを含め削除してよろしいですか。`;
-    return confirm(message);
+    const relationIds = diagram.relationIdsOfDeleteTargetResouce(resourceIds)
+    if (relationIds.length === 0) return true
+    const message = `選択された要素には、他の要素への関連があります。それらを含め削除してよろしいですか。`
+    return confirm(message)
   }
 
-  private makeDownloadFileName(diagram: Diagram, extension: string): DownloadFileName {
-    const namePart = `${diagram.id}-${diagram.name}`;
-    return new RdramDownloadFileName(namePart, extension);
+  private makeDownloadFileName(
+    diagram: Diagram,
+    extension: string
+  ): DownloadFileName {
+    const namePart = `${diagram.id}-${diagram.name}`
+    return new RdramDownloadFileName(namePart, extension)
   }
 
   private includeWebFont(svgContents: string): string {
     const cssLink =
-      "<defs><style type='text/css'>@import url('https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css');</style></defs>";
-    return svgContents.replace("<defs", cssLink + "<defs");
-  }
-
-  private showResourcePropertiesEditor(resourceType: ResourceType): void {
-    this.editResourceType = resourceType;
-    this.editResourceId = CoreResourceEditDialog.ID_WHEN_CREATE_NEW;
+      "<defs><style type='text/css'>@import url('https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css');</style></defs>"
+    return svgContents.replace('<defs', cssLink + '<defs')
   }
 
   public decorateConnection(connection: any, relation: Relation): void {
-    const router = this.routerConverter.draw2dRouterOf(relation.routerType);
-    connection.setRouter(router);
+    const router = this.routerConverter.draw2dRouterOf(relation.routerType)
+    connection.setRouter(router)
 
-    if (relation.tipAllow) this.arrowDocorate(connection);
+    if (relation.tipAllow) this.arrowDocorate(connection)
   }
 
   private arrowDocorate(connection: any): void {
-    const decorator = new draw2d.decoration.connection.ArrowDecorator();
-    decorator.setBackgroundColor(connection.getColor());
-    connection.setTargetDecorator(decorator);
+    const decorator = new draw2d.decoration.connection.ArrowDecorator()
+    decorator.setBackgroundColor(connection.getColor())
+    connection.setTargetDecorator(decorator)
+  }
+
+  private redrawIcons(resources: Resource[]) {
+    const product = this.repository.getCurrentProduct() as Product
+    const diagram = product.diagrams.of(this.diagramId) as Diagram
+    resources.forEach((resource) => this.redrawIcon(resource, diagram))
+  }
+
+  private redrawIcon(resource: Resource, diagram: Diagram): void {
+    const placement = diagram.placementOf(resource.resourceId)
+    if (!placement) return
+    const relations = diagram.allRelations().onlyRelatedOf(resource)
+    const iconVM = this.iconVMOf(resource)
+    if (!iconVM) return
+
+    relations.forEach((relation) => this.deleteConnection(relation))
+    this.canvas.remove(iconVM.icon)
+
+    this.addResouceIconToCanvas(resource, placement)
+    relations.forEach(this.addConnection)
+  }
+
+  private iconVMs(): IconViewModel[] {
+    const allIcons = this.canvas.getFigures().asArray() as Figure[]
+    return allIcons.map((i) => new IconViewModel(i))
+  }
+
+  private iconVMOf(resource: Resource): IconViewModel | undefined {
+    return this.iconVMs().find((vm) => vm.resourceId() === resource.resourceId)
+  }
+
+  private deleteConnection(relation: Relation) {
+    const connection = this.canvas.getLine(relation.id)
+    this.canvas.remove(connection)
   }
 
   // Data change controll.
@@ -660,71 +690,63 @@ export default class DiagramCanvas extends Vue {
    * どーしても、draw2dがsvg作るときに”position: absolute"をしてしまうので、削除する。
    */
   private fixCanvasPosition(): void {
-    const svg = document.getElementById(this.canvasId)
-      ?.firstChild as SVGElement;
-    svg.style.removeProperty("position");
-    svg.addEventListener("drop", this.onDropCanvas);
-    svg.addEventListener("dragover", this.onDropOverCanvas);
-    svg.oncontextmenu = function() {
-      return false;
-    }; // これは自動的にdraw2d.jsがやってくれるはず…なんだけどなぁ。
+    const svg = document.getElementById(this.canvasId)?.firstChild as SVGElement
+    svg.style.removeProperty('position')
+    svg.addEventListener('drop', this.onDropCanvas)
+    svg.addEventListener('dragover', this.onDropOverCanvas)
+    svg.oncontextmenu = function () {
+      return false
+    } // これは自動的にdraw2d.jsがやってくれるはず…なんだけどなぁ。
   }
 
   private addCanvasEvent(): void {
-    const commandStack = this.canvas.getCommandStack();
-    commandStack.addEventListener(this.onCanvasCommandExecute);
+    const commandStack = this.canvas.getCommandStack()
+    commandStack.addEventListener(this.onCanvasCommandExecute)
   }
 
-  private addPlacement(resource: Resource): void {
-    const product = this.repository.getCurrentProduct();
-    const diagram = product!.diagrams.of(this.diagramId);
-    if (!product || !diagram) return;
+  addPlacement(resource: Resource): void {
+    const product = this.repository.getCurrentProduct()
+    const diagram = product!.diagrams.of(this.diagramId)
+    if (!product || !diagram) return
 
     const placement = diagram.createPlacement(
       resource,
       this.dropXOnCanvas,
       this.dropYOnCanvas
-    ) as Placement;
-    const modifiedDiagram: Diagram = diagram.addPlacement(placement);
-    const modifiedProduct = product.meageDiagramByIdOf(modifiedDiagram);
+    ) as Placement
+    const modifiedDiagram: Diagram = diagram.addPlacement(placement)
+    const modifiedProduct = product.meageDiagramByIdOf(modifiedDiagram)
 
-    this.addResouceIconToCanvas(resource, placement);
+    this.addResouceIconToCanvas(resource, placement)
 
-    this.repository.registerCurrentProduct(modifiedProduct);
+    this.repository.registerCurrentProduct(modifiedProduct)
 
-    this.onMergePlacement(modifiedDiagram.placements);
+    this.onMergePlacement(modifiedDiagram.placements)
   }
 
   /**
    * 自動保存のOn/Offを意識した「product,diagramへの操作」。
    */
   private transactionOf(
-    func: (diagram: Diagram, product: Product) => boolean
-  ): void {
-    const product = this.repository.getCurrentProduct() as Product;
-    const diagram = product.diagrams.of(this.diagramId);
-    if (!diagram) return;
-
-    const requireSave = func(diagram, this.product);
-
-    this.onMergePlacement(diagram.placements);
-
-    if (requireSave) this.repository.registerCurrentProduct(product);
-  }
-
-  private transactionOf2(
     func: (diagram: Diagram, product: Product) => Diagram | null
   ): void {
-    const product = this.repository.getCurrentProduct() as Product;
-    const diagram = product.diagrams.of(this.diagramId);
-    if (!diagram) return;
+    const product = this.repository.getCurrentProduct() as Product
+    const diagram = product.diagrams.of(this.diagramId)
+    if (!diagram) return
 
-    const modifiedDiagram = func(diagram, product);
-    if (modifiedDiagram === null) return;
+    const modifiedDiagram = func(diagram, product)
+    if (modifiedDiagram === null) return
 
-    this.onMergePlacement(modifiedDiagram.placements);
-    const modifiedProduct = product.meageDiagramByIdOf(modifiedDiagram);
-    this.repository.registerCurrentProduct(modifiedProduct);
+    this.onMergePlacement(modifiedDiagram.placements)
+    const modifiedProduct = product.meageDiagramByIdOf(modifiedDiagram)
+    this.repository.registerCurrentProduct(modifiedProduct)
+  }
+
+  private cacheNowResources(): void {
+    const nowResources = this.allResourcesOnCurrentProduct
+    const dic = new Map<number, Resource>()
+    nowResources.forEach((r) => dic.set(r.resourceId, r))
+    this.lastResourcesCache = dic
   }
 }
 </script>

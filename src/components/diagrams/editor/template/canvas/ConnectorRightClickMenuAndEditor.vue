@@ -1,13 +1,13 @@
 <template>
   <div>
     <v-menu
-      :value="visibleConnectorRightClickMenu"
-      :close-on-click="true"
-      :close-on-content-click="true"
-      :offset-x="true"
-      :rounded="true"
+      :value="visible"
       :position-x="menuPositionX"
       :position-y="menuPositionY"
+      close-on-click
+      close-on-content-click
+      offset-x
+      rounded
     >
       <v-list>
         <v-list-item link @click="onClickChangeRouter">
@@ -29,15 +29,22 @@
           text
           color="normal"
           @click="visibleRouterSelector = !visibleRouterSelector"
-        >close</v-btn>
+          >close</v-btn
+        >
         <div class="my-3">変更したい線形(軌跡の形状)を選択してください。</div>
-        <v-btn-toggle v-model="changedRouterTypeId" tile color="deep-purple accent-3" group>
+        <v-btn-toggle
+          v-model="changedRouterTypeId"
+          tile
+          color="deep-purple accent-3"
+          group
+        >
           <v-btn
             v-for="routerType in routerTypes"
             :key="routerType.id"
             :value="routerType.id"
             @click="onChangeRouterType(routerType)"
-          >{{ routerType.name }}</v-btn>
+            >{{ routerType.name }}</v-btn
+          >
         </v-btn-toggle>
       </v-sheet>
     </v-bottom-sheet>
@@ -51,77 +58,76 @@
 </template>
 
 <script lang="ts">
-import { Prop, Component, Vue, Emit } from "nuxt-property-decorator";
-import RelationPropertiesEditDialog from "./RelationPropertiesEditDialog.vue";
-import Relation from "@/domain/relation/Relation";
-import RouterType from "@/domain/relation/RouterType";
+import { Prop, Component, Vue, Emit } from 'nuxt-property-decorator'
+import RelationPropertiesEditDialog from './RelationPropertiesEditDialog.vue'
+import Relation from '@/domain/relation/Relation'
+import RouterType from '@/domain/relation/RouterType'
 
 @Component({
   components: {
-    RelationPropertiesEditDialog
-  }
+    RelationPropertiesEditDialog,
+  },
 })
 export default class ConnectorRightClickMenuAndEditor extends Vue {
-  private readonly routerTypes = RouterType.values();
-  private visibleRouterSelector = false;
+  readonly routerTypes = RouterType.values()
+  visibleRouterSelector = false
 
   @Prop({ required: true })
-  private visibleConnectorRightClickMenu?: boolean;
+  visible?: boolean
 
   @Prop({ required: true })
-  private relation!: Relation | null;
+  private relation!: Relation | null
 
   @Prop()
-  private menuPositionX?: number;
+  menuPositionX?: number
 
   @Prop()
-  private menuPositionY?: number;
+  menuPositionY?: number
 
-  @Emit("onUpdateRelation")
+  @Emit('onUpdateRelation')
   private onUpdateRelation(_relation: Relation): void {}
 
-  @Emit("onDeleteRelation")
+  @Emit('onDeleteRelation')
   private onDeleteRelation(_relation: Relation): void {}
 
-  private changedRouterTypeId: number = 0;
+  changedRouterTypeId: number = 0
 
-  private editTargetRelation: Relation | null = null;
+  editTargetRelation: Relation | null = null
 
-  private onClickChangeRouter(): void {
-    if (!this.relation) return;
-    this.visibleRouterSelector = false;
-    this.changedRouterTypeId = this.relation.routerType.id;
-    this.visibleRouterSelector = true;
+  onClickChangeRouter(): void {
+    if (!this.relation) return
+    this.visibleRouterSelector = false
+    this.changedRouterTypeId = this.relation.routerType.id
+    this.visibleRouterSelector = true
   }
 
-  private onChangeRouterType(routerType: RouterType): void {
-    if (!this.relation) return;
-    this.visibleRouterSelector = false;
-    this.onUpdateRelation(this.relation.changeRouter(routerType));
+  onChangeRouterType(routerType: RouterType): void {
+    if (!this.relation) return
+    this.visibleRouterSelector = false
+    this.onUpdateRelation(this.relation.changeRouter(routerType))
   }
 
-  private onClickDeleteConnection(): void {
-    if (!this.relation) return;
-    this.onDeleteRelation(this.relation);
+  onClickDeleteConnection(): void {
+    if (!this.relation) return
+    this.onDeleteRelation(this.relation)
   }
 
-  private onClickEditConnection(): void {
-    this.editTargetRelation = this.relation;
+  onClickEditConnection(): void {
+    this.editTargetRelation = this.relation
   }
 
-  private onUpdateRelationProperties(relation: Relation): void {
-    this.onUpdateRelation(relation);
+  onUpdateRelationProperties(relation: Relation): void {
+    this.onUpdateRelation(relation)
   }
 
-  private onClosePropertiesEditor(): void {
-    this.editTargetRelation = null;
+  onClosePropertiesEditor(): void {
+    this.editTargetRelation = null
   }
 }
 
 export interface RelationContainer {
-  relation?: Relation;
+  relation?: Relation
 }
 </script>
 
-<style type="sass" scoped>
-</style>
+<style type="sass" scoped></style>
