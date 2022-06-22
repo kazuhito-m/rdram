@@ -10,7 +10,7 @@
       <span>
         <div>種類 : {{ type.name }}</div>
         <div v-if="description.length > 0">
-            <!-- eslint-disable-next-line vue/no-v-html -->
+          <!-- eslint-disable-next-line vue/no-v-html -->
           備考・メモ : <span v-html="description"></span>
         </div>
       </span>
@@ -71,7 +71,12 @@ export default class IconToolTip extends Vue {
   }
 
   private repCr(text: string): string {
-    return text.replace(/\r\n|\r|\n/g, '<br>')
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/\r\n|\r|\n/g, '<br>')
   }
 }
 </script>
