@@ -157,7 +157,9 @@ export default class DiagramCanvas extends Vue {
   ): void {}
 
   @Emit('onEditResource')
-  private onEditResource(_resourceId: number): void {}
+  private onEditResource(_resourceId: number): void {
+    this.closeIconToolTip()
+  }
 
   @Emit('onOpenResourceEditorWhenCreate')
   private onOpenResourceEditorWhenCreate(_resourceType: ResourceType): void {}
@@ -491,6 +493,8 @@ export default class DiagramCanvas extends Vue {
   }
 
   private showResourceMenu(resource: Resource, x: number, y: number): void {
+    this.closeIconToolTip()
+
     const pos = new AbsolutePosition(x, y, this.canvas)
     this.onShowResourceMenu(resource, pos.x(), pos.y())
   }
