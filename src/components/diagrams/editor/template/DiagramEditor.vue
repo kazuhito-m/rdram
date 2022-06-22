@@ -1,13 +1,6 @@
 <template>
   <div class="diagram-pain-container">
     <!-- editor or menu parts -->
-    <ResourceEditDialog
-      :resourceId="editResourceId"
-      :resourceType="editResourceType"
-      :diagramId="diagramId"
-      @onUpdatedResource="onUpdatedResource"
-      @onClose="onCloseResourceEditor"
-    />
     <ResourceEditDialog2    
       ref="resourceEditDialog"
       :diagramId="diagramId"
@@ -75,9 +68,7 @@ import ResourceRightClickMenu from "./ResourceRightClickMenu.vue";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import ResourceParet from "@/components/diagrams/editor/template/paret/ResourceParet.vue";
-import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
 import ResourceEditDialog2 from "@/components/resource/ResourceEditDialog2.vue";
-import CoreResourceEditDialog from "@//components/resource/CoreResourceEditDialog.vue"
 
 import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
 import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
@@ -95,7 +86,6 @@ import Placement from "@/domain/diagram/placement/Placement";
     TwoPainWithSlideBarLayout,
     DiagramCanvas,
     ResourceParet,
-    ResourceEditDialog,
     ResourceEditDialog2,
     ResourceRightClickMenu,
   }
