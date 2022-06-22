@@ -184,24 +184,31 @@ export default class CoreResourceEditDialog extends Vue {
     if (!this.consent) return;
 
     const resource = this.resource.with(this.name, this.description);
-
-    if (!this.resources.existsSameOf(resource)) {
-      this.onModifyResource(resource);
-      this.onClose();
-      return;
-    }
-
     const typeName = resource.type.name;
-    const sameNameResource = this.resources.getSameOf(resource) as Resource;
-    if (this.diagram.existsResourceOnPlacementOf(sameNameResource.resourceId)) {
-      alert(`既に重複した名前の${typeName}が在り、図に配置されています。`);
-      return;
+
+    const sameResource = this.resources.getSameOf(resource);
+    if (sameResource) {
+      if (resource.isNotRegister()) {
+        if (this.diagram.existsResourceOnPlacementOf(sameResource.resourceId)) {
+          alert(`既に重複した名前の${typeName}が在り、図に配置されています。`);
+          return;
+        }
+
+        const result = confirm(`既に重複した名前の${typeName}が在ります。既存の${typeName}を図に配置しますか？`);
+        if (!result) return;
+
+        this.onJustPutOnDiagram(sameResource);
+        this.onClose();
+        return;
+      }
+
+      if (sameResource.resourceId !== resource.resourceId) {
+        alert(`既に重複した名前の${typeName}が在ります。`);
+        return;
+      }
     }
 
-    const result = confirm(`既に重複した名前の${typeName}が在ります。既存の${typeName}を図に配置しますか？`);
-    if (!result) return;
-
-    this.onJustPutOnDiagram(sameNameResource);
+    this.onModifyResource(resource);
     this.onClose();
   }
 }
