@@ -476,16 +476,9 @@ export default class DiagramCanvas extends Vue {
     resource: Resource,
     placement: Placement
   ): void {
-    const type = resource.type
-    const generator = this.choiceIconGenerator(type) as any
-    if (!generator) {
-      alert(`ジェネレータ無しアイコン生成不能:${type.name}`)
-      return
-    }
+    this.canvas.remove(icon)
 
-    generator.rewriteIcon(icon, placement, resource, this.iconStyleOf(type))
-
-    this.setIconEventHandler(icon, resource)
+    // this.setIconEventHandler(icon, resource)
   }
 
   private setIconEventHandler(icon: draw2d.Figure, resource: Resource): void {
@@ -626,11 +619,11 @@ export default class DiagramCanvas extends Vue {
     const diagram = product.diagrams.of(this.diagramId) as Diagram
 
     const canvas = this.canvas
-    canvas.getLines().each((_index: number, line: any) => {
+    canvas.getLines().each((_: number, line: any) => {
       if (!diagram.existsRelationId(line.id.toString())) canvas.remove(line)
     })
 
-    canvas.getFigures().each((_index: number, figure: any) => {
+    canvas.getFigures().each((_: number, figure: any) => {
       const resourceId = Number(figure.id)
       if (!diagram.existsResourceOnPlacementOf(resourceId))
         canvas.remove(figure)
