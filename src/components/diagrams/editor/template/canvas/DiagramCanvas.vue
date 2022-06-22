@@ -65,7 +65,6 @@ import DownloadFileName from '@/domain/client/DownloadFileName'
 import RdramDownloadFileName from '@/domain/client/WithTimestampFileName'
 import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
-import { buildMatchMemberExpression } from '@babel/types'
 
 @Component({
   components: {
@@ -249,7 +248,7 @@ export default class DiagramCanvas extends Vue {
   onDeleteRelation(relation: Relation): void {
     this.deleteConnection(relation)
 
-    this.transactionOf((diagram, _product) => {
+    this.transactionOf((diagram, _) => {
       return diagram.removeRelationsOf([relation.id])
     })
   }
