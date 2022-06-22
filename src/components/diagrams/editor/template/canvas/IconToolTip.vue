@@ -4,6 +4,7 @@
       v-model="visible"
       top
       absolute
+      z-index="1"
       :position-x="positionX"
       :position-y="positionY"
     >
