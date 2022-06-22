@@ -1,7 +1,7 @@
 <template>
   <div class="diagram-pain-container">
     <!-- editor or menu parts -->
-    <ResourceEditDialog2    
+    <ResourceEditDialog
       ref="resourceEditDialog"
       :diagramId="diagramId"
       @onUpdatedResource="onUpdatedResource"
@@ -68,7 +68,7 @@ import ResourceRightClickMenu from "./ResourceRightClickMenu.vue";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import ResourceParet from "@/components/diagrams/editor/template/paret/ResourceParet.vue";
-import ResourceEditDialog2 from "@/components/resource/ResourceEditDialog2.vue";
+import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
 
 import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
 import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
@@ -86,7 +86,7 @@ import Placement from "@/domain/diagram/placement/Placement";
     TwoPainWithSlideBarLayout,
     DiagramCanvas,
     ResourceParet,
-    ResourceEditDialog2,
+    ResourceEditDialog,
     ResourceRightClickMenu,
   }
 })
@@ -220,8 +220,8 @@ export default class DiagramEditor extends Vue {
     return product.diagrams.of(this.diagramId) as Diagram;
   }
 
-  private resourceEditDialog(): ResourceEditDialog2 {
-    return this.$refs.resourceEditDialog as ResourceEditDialog2;
+  private resourceEditDialog(): ResourceEditDialog {
+    return this.$refs.resourceEditDialog as ResourceEditDialog;
   }
 
   private deleteResourceOnDiagram(resourceId: number): Diagram | null {
