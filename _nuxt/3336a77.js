@@ -1450,12 +1450,12 @@ installComponents_default()(component, {VBottomSheet: VBottomSheet_VBottomSheet,
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/canvas/IconToolTip.vue?vue&type=template&id=1532dc7a&scoped=true&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('v-tooltip',{attrs:{"top":"","absolute":"","position-x":_vm.positionX,"position-y":_vm.positionY},model:{value:(_vm.visible),callback:function ($$v) {_vm.visible=$$v},expression:"visible"}},[_c('span',[_c('div',[_vm._v("種類 : "+_vm._s(_vm.type.name))]),_vm._v(" "),(_vm.description.length > 0)?_c('div',[_vm._v("\n        備考・メモ : "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.description)}})]):_vm._e()])])],1)}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/canvas/IconToolTip.vue?vue&type=template&id=65023ee2&scoped=true&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('v-tooltip',{attrs:{"top":"","absolute":"","z-index":"1","position-x":_vm.positionX,"position-y":_vm.positionY},model:{value:(_vm.visible),callback:function ($$v) {_vm.visible=$$v},expression:"visible"}},[_c('span',[_c('div',[_vm._v("種類 : "+_vm._s(_vm.type.name))]),_vm._v(" "),(_vm.description.length > 0)?_c('div',[_vm._v("\n        備考・メモ : "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.description)}})]):_vm._e()])])],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/template/canvas/IconToolTip.vue?vue&type=template&id=1532dc7a&scoped=true&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/template/canvas/IconToolTip.vue?vue&type=template&id=65023ee2&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(34);
@@ -1641,7 +1641,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   null,
-  "1532dc7a",
+  "65023ee2",
   null
   
 )
