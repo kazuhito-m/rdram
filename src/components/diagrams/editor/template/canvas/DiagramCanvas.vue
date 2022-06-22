@@ -193,7 +193,7 @@ export default class DiagramCanvas extends Vue {
       this.reverceSyncCavansDeleteThings()
     } else {
       const modifies = nowResources.filter((r) => cache.get(r.resourceId) !== r)
-      this.redrawIcon(modifies)
+      this.redrawIcons(modifies)
     }
 
     this.cacheNowResources()
@@ -247,10 +247,9 @@ export default class DiagramCanvas extends Vue {
   // right click menu events.
 
   onDeleteRelation(relation: Relation): void {
-    const connection = this.canvas.getLine(relation.id)
-    this.canvas.remove(connection)
+    this.deleteConnection(relation)
 
-    this.transactionOf2((diagram, _product) => {
+    this.transactionOf((diagram, _product) => {
       return diagram.removeRelationsOf([relation.id])
     })
   }
@@ -267,7 +266,7 @@ export default class DiagramCanvas extends Vue {
       .forEach((c: Figure) => connection.remove(c))
     this.addConnectionLabel(connection, relation)
 
-    this.transactionOf2((diagram, _product) => {
+    this.transactionOf((diagram, _product) => {
       return diagram.modifyRelationOf(relation)
     })
   }
@@ -366,7 +365,7 @@ export default class DiagramCanvas extends Vue {
     const analyzeResutEvents = this.eventAnalyzer.analyze(rootCommand)
     if (analyzeResutEvents.isNothing()) return
 
-    this.transactionOf2((diagram, product) => {
+    this.transactionOf((diagram, product) => {
       if (!analyzeResutEvents.validate(diagram, product, this)) return null
       return analyzeResutEvents.apply(diagram, product, this)
     })
@@ -465,20 +464,8 @@ export default class DiagramCanvas extends Vue {
     }
 
     const icon = generator.generate(placement, resource, this.iconStyleOf(type))
-
     this.setIconEventHandler(icon, resource)
-
     return icon
-  }
-
-  private rewriteIcon(
-    icon: Figure,
-    resource: Resource,
-    placement: Placement
-  ): void {
-    this.canvas.remove(icon)
-
-    // this.setIconEventHandler(icon, resource)
   }
 
   private setIconEventHandler(icon: draw2d.Figure, resource: Resource): void {
@@ -508,10 +495,7 @@ export default class DiagramCanvas extends Vue {
 
     if (targetIconVM.isNotAreaIcon()) return
 
-    const allIcons = this.canvas.getFigures().asArray() as Figure[]
-    const sortedIconVMs = allIcons
-      .map((i) => new IconViewModel(i))
-      .sort(IconViewModel.compare)
+    const sortedIconVMs = this.iconVMs().sort(IconViewModel.compare)
 
     const compareNumberOverItem = sortedIconVMs.find(
       (vm) => vm.compareNumber() > targetIconVM.compareNumber()
@@ -667,23 +651,38 @@ export default class DiagramCanvas extends Vue {
     connection.setTargetDecorator(decorator)
   }
 
-  private redrawIcon(resources: Resource[]) {
+  private redrawIcons(resources: Resource[]) {
     const product = this.repository.getCurrentProduct() as Product
     const diagram = product.diagrams.of(this.diagramId) as Diagram
-    const placements = diagram.placements
+    resources.forEach((resource) => this.redrawIcon(resource, diagram))
+  }
 
+  private redrawIcon(resource: Resource, diagram: Diagram): void {
+    const placement = diagram.placementOf(resource.resourceId)
+    if (!placement) return
+    const relations = diagram.allRelations().onlyRelatedOf(resource)
+    const iconVM = this.iconVMOf(resource)
+    if (!iconVM) return
+
+    relations.forEach((relation) => this.deleteConnection(relation))
+    this.canvas.remove(iconVM.icon)
+
+    this.addResouceIconToCanvas(resource, placement)
+    relations.forEach(this.addConnection)
+  }
+
+  private iconVMs(): IconViewModel[] {
     const allIcons = this.canvas.getFigures().asArray() as Figure[]
-    const iconVMs = allIcons.map((i) => new IconViewModel(i))
+    return allIcons.map((i) => new IconViewModel(i))
+  }
 
-    for (const r of resources) {
-      const placement = placements.find((p) => p.resourceId === r.resourceId)
-      if (!placement) continue
-      const iconVM = iconVMs.find((vm) => vm.resourceId() === r.resourceId)
-      if (!iconVM) continue
+  private iconVMOf(resource: Resource): IconViewModel | undefined {
+    return this.iconVMs().find((vm) => vm.resourceId() === resource.resourceId)
+  }
 
-      const icon = iconVM.icon
-      this.rewriteIcon(icon, r, placement)
-    }
+  private deleteConnection(relation: Relation) {
+    const connection = this.canvas.getLine(relation.id)
+    this.canvas.remove(connection)
   }
 
   // Data change controll.
@@ -730,20 +729,6 @@ export default class DiagramCanvas extends Vue {
    * 自動保存のOn/Offを意識した「product,diagramへの操作」。
    */
   private transactionOf(
-    func: (diagram: Diagram, product: Product) => boolean
-  ): void {
-    const product = this.repository.getCurrentProduct() as Product
-    const diagram = product.diagrams.of(this.diagramId)
-    if (!diagram) return
-
-    const requireSave = func(diagram, this.product)
-
-    this.onMergePlacement(diagram.placements)
-
-    if (requireSave) this.repository.registerCurrentProduct(product)
-  }
-
-  private transactionOf2(
     func: (diagram: Diagram, product: Product) => Diagram | null
   ): void {
     const product = this.repository.getCurrentProduct() as Product
