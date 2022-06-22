@@ -158,8 +158,7 @@ export default class DiagramEditor extends Vue {
   // children component events.
 
   async onEditResource(resourceId: number): Promise<void> {
-    const dialog = this.$refs.resourceEditDialog as ResourceEditDialog2;
-    const resource = await dialog.showForModifyOf(resourceId);
+    const resource = await this.resourceEditDialog().showForModifyOf(resourceId);
     if (resource.isEmpty()) return;
     this.refrectResourcesOnViewModel(resource);
   }
@@ -199,10 +198,10 @@ export default class DiagramEditor extends Vue {
     resourceMenu.close();
   }
 
-  // TODO 一時的。Editorのプロパティのインターフェイスを変更する(Show的に)
-  onOpenResourceEditorWhenCreate(resourceType: ResourceType): void {
-    this.editResourceType = resourceType;
-    this.editResourceId = CoreResourceEditDialog.ID_WHEN_CREATE_NEW;
+  async onOpenResourceEditorWhenCreate(resourceType: ResourceType): Promise<void> {
+    const resource = await this.resourceEditDialog().showForCreateNew(resourceType);
+    if (resource.isEmpty()) return;
+    this.onUpdatedResource(resource)
   }
 
   onCloseResourceEditor(): void {
@@ -229,6 +228,10 @@ export default class DiagramEditor extends Vue {
   private diagram(): Diagram {
     const product = this.getCurrentProduct();
     return product.diagrams.of(this.diagramId) as Diagram;
+  }
+
+  private resourceEditDialog(): ResourceEditDialog2 {
+    return this.$refs.resourceEditDialog as ResourceEditDialog2;
   }
 
   private deleteResourceOnDiagram(resourceId: number): Diagram | null {

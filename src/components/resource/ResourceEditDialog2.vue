@@ -102,7 +102,7 @@ export default class ResourceEditDialog2 extends Vue {
     findResourceFunc: (resources: Resources) => Resource | undefined
   ): Promise<Resource> {
     const target = this.initializeOf(findResourceFunc)
-    if (target.isEmpty()) return new Promise((resolve) => resolve(target))
+    if (!target) return new Promise((resolve) => resolve(Resource.empty()))
 
     this.visibleByType(target)
 
@@ -111,16 +111,16 @@ export default class ResourceEditDialog2 extends Vue {
 
   private initializeOf(
     findResourceFunc: (resources: Resources) => Resource | undefined
-  ): Resource {
+  ): Resource | null {
     const product = this.repository?.getCurrentProduct()
-    if (!product) return Resource.empty()
+    if (!product) return null
     const resources = product.resources
-    if (!resources) return Resource.empty()
+    if (!resources) null
     const diagram = product.diagrams.of(this.diagramId)
-    if (!diagram) return Resource.empty()
+    if (!diagram) return null
 
     const target = findResourceFunc(resources)
-    if (!target) return Resource.empty()
+    if (!target) return null
 
     this.latestResources = resources
     this.targetDiagram = diagram

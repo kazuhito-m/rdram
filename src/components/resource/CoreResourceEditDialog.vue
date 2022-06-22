@@ -109,10 +109,8 @@ export default class CoreResourceEditDialog extends Vue {
     this.onShow();
   }
 
-  static readonly ID_WHEN_CREATE_NEW = -1;
-
-  subTitle = "";
   title = "";
+  subTitle = "";
   iconKey = "";
   private firstCheck = false;
 
@@ -123,7 +121,7 @@ export default class CoreResourceEditDialog extends Vue {
     this.changeConsent(false);
     this.firstCheck = true;
     const type = this.resource.type;
-    this.title = this.isAddNew()
+    this.title = this.resource.isNotRegister()
       ? `${type.name} の新規作成`
       : `${this.resource.name} の設定`;
     this.subTitle = type.name;
@@ -134,12 +132,6 @@ export default class CoreResourceEditDialog extends Vue {
       if (ResourceType.始点終点.equals(this.resource.type))
         this.description += " "; // TODO 特殊条件過ぎる。包括的にやりたい。
     });
-  }
-
-  private isAddNew(): boolean {
-    return (
-      this.resource.resourceId === CoreResourceEditDialog.ID_WHEN_CREATE_NEW
-    );
   }
 
   private showProperties(resource: Resource): void {
