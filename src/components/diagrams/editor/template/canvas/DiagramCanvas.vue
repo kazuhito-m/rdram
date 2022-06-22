@@ -65,6 +65,7 @@ import DownloadFileName from '@/domain/client/DownloadFileName'
 import RdramDownloadFileName from '@/domain/client/WithTimestampFileName'
 import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
+import { buildMatchMemberExpression } from '@babel/types'
 
 @Component({
   components: {
@@ -192,7 +193,7 @@ export default class DiagramCanvas extends Vue {
       this.reverceSyncCavansDeleteThings()
     } else {
       const modifies = nowResources.filter((r) => cache.get(r.resourceId) !== r)
-      modifies.forEach((i) => console.log(`id:${i.resourceId}, name:${i.name}`))
+      this.redrawIcon(modifies)
     }
 
     this.cacheNowResources()
@@ -470,6 +471,23 @@ export default class DiagramCanvas extends Vue {
     return icon
   }
 
+  private rewriteIcon(
+    icon: Figure,
+    resource: Resource,
+    placement: Placement
+  ): void {
+    const type = resource.type
+    const generator = this.choiceIconGenerator(type) as any
+    if (!generator) {
+      alert(`ジェネレータ無しアイコン生成不能:${type.name}`)
+      return
+    }
+
+    generator.rewriteIcon(icon, placement, resource, this.iconStyleOf(type))
+
+    this.setIconEventHandler(icon, resource)
+  }
+
   private setIconEventHandler(icon: draw2d.Figure, resource: Resource): void {
     icon.onContextMenu = (x, y) => this.showResourceMenu(resource, x, y)
     icon.onDoubleClick = () => this.onEditResource(resource.resourceId)
@@ -654,6 +672,26 @@ export default class DiagramCanvas extends Vue {
     const decorator = new draw2d.decoration.connection.ArrowDecorator()
     decorator.setBackgroundColor(connection.getColor())
     connection.setTargetDecorator(decorator)
+  }
+
+  private redrawIcon(resources: Resource[]) {
+    const product = this.repository.getCurrentProduct() as Product
+    const diagram = product.diagrams.of(this.diagramId) as Diagram
+    const placements = diagram.placements;
+
+    const allIcons = this.canvas.getFigures().asArray() as Figure[]
+    const iconVMs = allIcons
+      .map((i) => new IconViewModel(i))
+
+    for (const resource of resources) {
+      const placement = placements.find(p => p.resourceId === resource.resourceId)
+      if (!placement) continue
+      const iconVM = iconVMs.find(vm => vm.resourceId() === resource.resourceId)
+      if (!iconVM) continue
+
+      const icon = iconVM.icon
+      this.rewriteIcon(icon, resource, placement)
+    }
   }
 
   // Data change controll.
