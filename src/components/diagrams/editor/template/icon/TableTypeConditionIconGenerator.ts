@@ -18,15 +18,6 @@ export default class TableTypeConditionIconGenerator extends GenericSingleIconGe
     }
 
     private generateTableTypeConditionTable(placement: Placement, tableTypeCondition: TableTypeCondition, iconChar: IconFontAndChar): Figure {
-        const container = this.generateIconBase(placement);
-        this.rewriteIcon(container, placement, tableTypeCondition, iconChar);
-
-        console.log("table:", container)
-
-        return container;
-    }
-
-    private generateIconBase(placement: Placement): any {
         const id = String(placement.resourceId);
 
         const container = new draw2d.shape.layout.TableLayout({
@@ -36,34 +27,6 @@ export default class TableTypeConditionIconGenerator extends GenericSingleIconGe
             padding: 1,
             stroke: 1,
         });
-
-        container.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
-        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
-        const port = container.getPorts().last();
-        const anchor = new draw2d.layout.anchor.FanConnectionAnchor(container);
-        port.setConnectionAnchor(anchor);
-
-        container.setUserData(new IconStatus());
-
-        return container;
-    }
-
-    public rewriteIcon(baseIcon: Figure, placement: Placement, tableTypeCondition: TableTypeCondition, iconChar: IconFontAndChar): void {
-        const container = baseIcon as any;
-
-        container.setVisible(false);
-
-        console.log("container.getPorts().length:" + container.getPorts().getSize());
-
-        const ports: Figure[] = [];
-        for (let i = 0; i < container.getPorts().getSize(); i++)
-            ports.push(container.getPorts().get(i));
-        container.resetChildren();
-        for (const port of ports)
-            container.addPort(port, new draw2d.layout.locator.CenterLocator())
-
-
-        console.log("container.getChildren().getSize():", container.getChildren().getSize());
 
         tableTypeCondition.valuesOf()
             .map((line, rowNumber) => this.generateRowLabels(line, rowNumber))
@@ -88,7 +51,15 @@ export default class TableTypeConditionIconGenerator extends GenericSingleIconGe
         icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 105, y: 27 }));
         container.add(icon, new TopLeftLocator());
 
-        container.setVisible(true);
+        container.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
+        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
+        const port = container.getPorts().last();
+        const anchor = new draw2d.layout.anchor.FanConnectionAnchor(container);
+        port.setConnectionAnchor(anchor);
+
+        container.setUserData(new IconStatus());
+
+        return container;
     }
 
     private generateRowLabels = (values: string[], rowNumber: number): Figure[] => values
