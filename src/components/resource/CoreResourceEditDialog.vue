@@ -65,28 +65,28 @@ import Diagram from "@/domain/diagram/Diagram";
 })
 export default class CoreResourceEditDialog extends Vue {
   @Prop({ required: true })
-  private readonly resource!: Resource;
+  readonly resource!: Resource;
 
   @Prop({ required: true })
-  private readonly resources!: Resources;
+  readonly resources!: Resources;
 
   @Prop({ required: true })
-  private readonly diagram!: Diagram;
+  readonly diagram!: Diagram;
 
   @Prop({ required: true })
-  private readonly consent!: boolean;
+  readonly consent!: boolean;
 
   @Prop()
-  private notFocusSetName!: boolean;
+  notFocusSetName!: boolean;
 
   @Prop()
-  private readonly ignoreEscKey!: boolean;
+  readonly ignoreEscKey!: boolean;
 
   @Prop()
-  private readonly ignoreEnterKey!: boolean;
+  readonly ignoreEnterKey!: boolean;
 
   @Prop()
-  private readonly dialogWidth!: number;
+  readonly dialogWidth!: number;
 
   @Emit("onModifyResource")
   private onModifyResource(_resource: Resource): void {}
@@ -95,13 +95,13 @@ export default class CoreResourceEditDialog extends Vue {
   private onJustPutOnDiagram(_resource: Resource): void {}
 
   @Emit("onClose")
-  private onClose(): void {}
+  onClose(): void {}
 
   @Emit("showCustomProperties")
-  private showCustomProperties(_resource: Resource): void {}
+  showCustomProperties(_resource: Resource): void {}
 
   @Emit("changeConsent")
-  private changeConsent(_newConsent: boolean): void {}
+  changeConsent(_newConsent: boolean): void {}
 
   @Watch("resource")
   private onChangeResource(): void {
@@ -109,17 +109,17 @@ export default class CoreResourceEditDialog extends Vue {
     this.onShow();
   }
 
-  public static readonly ID_WHEN_CREATE_NEW = -1;
+  static readonly ID_WHEN_CREATE_NEW = -1;
 
-  private subTitle = "";
-  private title = "";
-  private iconKey = "";
+  subTitle = "";
+  title = "";
+  iconKey = "";
   private firstCheck = false;
 
-  private name = "";
-  private description = "";
+  name = "";
+  description = "";
 
-  private onShow(): void {
+  onShow(): void {
     this.changeConsent(false);
     this.firstCheck = true;
     const type = this.resource.type;
@@ -152,15 +152,15 @@ export default class CoreResourceEditDialog extends Vue {
     return old.name !== this.name || old.description !== this.description;
   }
 
-  private get nameMaxLength(): number {
+  get nameMaxLength(): number {
     return Resource.NAME_MAX_LENGTH;
   }
 
-  private get descriptionMaxLength(): number {
+  get descriptionMaxLength(): number {
     return Resource.DESCRIPTION_MAX_LENGTH;
   }
 
-  private validateName(): string | boolean {
+  validateName(): string | boolean {
     this.changeConsent(false);
     if (this.firstCheck) return !(this.firstCheck = false); // 初期未入力でエラーにならないように対策
     const name = this.name;
@@ -171,7 +171,7 @@ export default class CoreResourceEditDialog extends Vue {
     return true;
   }
 
-  private validateDescription(): string | boolean {
+  validateDescription(): string | boolean {
     this.changeConsent(false);
     const description = this.description;
     const max = this.descriptionMaxLength;
@@ -180,7 +180,7 @@ export default class CoreResourceEditDialog extends Vue {
     return true;
   }
 
-  private onClickUpdateExecute(): void {
+  onClickUpdateExecute(): void {
     if (!this.consent) return;
 
     const resource = this.resource.with(this.name, this.description);
