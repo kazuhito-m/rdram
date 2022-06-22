@@ -29,7 +29,7 @@ export default class IconToolTip extends Vue {
   positionX = 0
   positionY = 0
 
-  timer = -1
+  timer: any = -1
 
   type = ResourceType.アクター
   description = ''
