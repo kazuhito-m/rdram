@@ -12,36 +12,36 @@
     >
       <v-list>
         <v-list-item
-          link
           v-if="isFolder"
+          link
           @click="onClickMenuAddDiagram(diagramId)"
         >
           <v-list-item-title>図の追加...</v-list-item-title>
         </v-list-item>
         <v-list-item
-          link
           v-if="isDiagram"
+          link
           @click="onClickMenuCopyDiagram(diagramId)"
         >
           <v-list-item-title>{{ diagramName }} のコピー...</v-list-item-title>
         </v-list-item>
         <v-list-item
-          link
           v-if="isDiagram"
+          link
           @click="onClickMenuRemoveDiagram(diagramId)"
         >
           <v-list-item-title>{{ diagramName }} の削除</v-list-item-title>
         </v-list-item>
         <v-list-item
-          link
           v-if="isDiagram"
+          link
           @click="onClickMenuEditDiagramProperties(diagramId)"
         >
           <v-list-item-title>{{ diagramName }} の設定...</v-list-item-title>
         </v-list-item>
         <v-list-item
-          link
           v-if="isDiagram"
+          link
           @click="onClickMenuExportDiagram(diagramId)"
         >
           <v-list-item-title
@@ -55,7 +55,6 @@
 <script lang="ts">
 import { Component, Vue, Emit } from 'nuxt-property-decorator'
 import TreeItem from '~/presentation/tree/TreeItem'
-// import DiagramsTreePane from './DiagramsTreePane.vue'
 
 @Component
 export default class DiagramRightClickMenu extends Vue {
