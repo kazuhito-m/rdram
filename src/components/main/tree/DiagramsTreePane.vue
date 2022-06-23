@@ -88,8 +88,10 @@ import TreeItem from '~/presentation/tree/TreeItem'
 export default class DiagramsTreePane extends Vue {
   @Prop()
   treeItems: TreeItem[] = []
+
   @Prop()
   treeActiveItemIds: number[] = []
+
   @Prop()
   treeOpenItemIds: number[] = []
 
@@ -104,6 +106,7 @@ export default class DiagramsTreePane extends Vue {
   /// タブ関係
   @Prop()
   currentTabIndex: number | null = null
+
   @Prop()
   openTabs: TreeItem[] = []
 
