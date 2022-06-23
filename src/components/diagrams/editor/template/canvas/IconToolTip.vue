@@ -35,7 +35,7 @@ export default class IconToolTip extends Vue {
   type = ResourceType.アクター
   description = ''
 
-  private static SHOW_DELAY_MS = 2000
+  private static SHOW_DELAY_MS = 2500
 
   show(resource: Resource, x: number, y: number): void {
     this.timer = setTimeout(() => {
