@@ -7,7 +7,7 @@
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/open/DiagramTypeSelectorDialog.vue?vue&type=template&id=5805a4c2&scoped=true&lang=html&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/open/DiagramTypeSelectorDialog.vue?vue&type=template&id=7114f440&scoped=true&lang=html&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"persistent":"","max-width":"400"},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"esc",27,$event.key,["Esc","Escape"])){ return null; }return _vm.close()}},model:{value:(_vm.visible),callback:function ($$v) {_vm.visible=$$v},expression:"visible"}},[_c('v-card',[(_vm.isRelateDiagramExists)?_c('span',[_c('v-card-title',{staticClass:"headline"},[_c('v-icon',[_vm._v("mdi-selection-multiple")]),_vm._v(" 開く図の種類の選択\n      ")],1),_vm._v(" "),_c('v-card-text',[_vm._v("\n        ["+_vm._s(_vm.resource.type.name)+"]アイコンに対応する図を開きます。"),_c('br'),_vm._v("\n        図の種類を選択してください。\n      ")])],1):_c('span',[_c('v-card-title',{staticClass:"headline"},[_c('v-icon',[_vm._v("mdi-selection-multiple")]),_vm._v(" 新しい図の種類の選択\n      ")],1),_vm._v(" "),_c('v-card-text',[_vm._v("\n        ["+_vm._s(_vm.resource.type.name)+"]アイコンに対応する図を新たに作成します。"),_c('br'),_vm._v("\n        新規作成する図の種類を選択してください。\n      ")])],1),_vm._v(" "),_c('v-card-text',[_vm._v("\n      アイコン(図の名前) :\n      "),_c('v-chip',{attrs:{"color":"primary","dark":"","draggable":""}},[_c('v-tooltip',{attrs:{"bottom":"","open-delay":"500"},scopedSlots:_vm._u([{key:"activator",fn:function(ref){
 var on = ref.on;
 var attrs = ref.attrs;
@@ -15,7 +15,7 @@ return [_c('v-icon',_vm._g(_vm._b({},'v-icon',attrs,false),on),[_vm._v("\n      
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/open/DiagramTypeSelectorDialog.vue?vue&type=template&id=5805a4c2&scoped=true&lang=html&
+// CONCATENATED MODULE: ./src/components/diagrams/open/DiagramTypeSelectorDialog.vue?vue&type=template&id=7114f440&scoped=true&lang=html&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(34);
@@ -174,7 +174,7 @@ var DiagramTypeSelectorDialogvue_type_script_lang_ts_DiagramTypeSelectorDialog =
 
       var product = (_a = this.repository) === null || _a === void 0 ? void 0 : _a.getCurrentProduct();
       this.resource = product.resources.of(resourceId);
-      return product.diagramOfResourceRelate(resourceId);
+      return product.diagramsOfResourceRelate(resourceId);
     }
   }, {
     key: "fixedDiagramId",
@@ -264,7 +264,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   null,
-  "5805a4c2",
+  "7114f440",
   null
   
 )

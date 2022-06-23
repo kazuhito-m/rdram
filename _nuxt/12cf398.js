@@ -1303,10 +1303,18 @@ var Product_Product = /*#__PURE__*/function () {
       return "";
     }
   }, {
+    key: "meageDiagramsByIdOf",
+    value: function meageDiagramsByIdOf(newDiagrams) {
+      var initialDiagrams = this.diagrams;
+      var mergedDiagrams = newDiagrams.reduce(function (diagrams, diagram) {
+        return diagrams.mergeByIdOf(diagram);
+      }, initialDiagrams);
+      return this.withDiagrams(mergedDiagrams);
+    }
+  }, {
     key: "meageDiagramByIdOf",
     value: function meageDiagramByIdOf(newDiagram) {
-      var newDiagrams = this.diagrams.mergeByIdOf(newDiagram);
-      return this.withDiagrams(newDiagrams);
+      return this.meageDiagramsByIdOf([newDiagram]);
     }
   }, {
     key: "meageResourceOf",
@@ -1398,14 +1406,19 @@ var Product_Product = /*#__PURE__*/function () {
       return this.resources.findOf(useRecourceIds);
     }
   }, {
-    key: "diagramOfResourceRelate",
-    value: function diagramOfResourceRelate(resourceId) {
+    key: "relateDiagramsOf",
+    value: function relateDiagramsOf(resource) {
       var _this$diagrams;
 
-      var resource = this.resources.of(resourceId);
-      if (!resource) return Diagrams["a" /* default */].empty();
       var diagramTypes = Product.correspondingDiagramTypesOf(resource);
       return (_this$diagrams = this.diagrams).typesOf.apply(_this$diagrams, Object(toConsumableArray["a" /* default */])(diagramTypes)).findByNameOf(resource.name);
+    }
+  }, {
+    key: "diagramsOfResourceRelate",
+    value: function diagramsOfResourceRelate(resourceId) {
+      var resource = this.resources.of(resourceId);
+      if (!resource) return Diagrams["a" /* default */].empty();
+      return this.relateDiagramsOf(resource);
     } // utility methods.
 
   }], [{
@@ -2460,6 +2473,11 @@ var Diagrams_Diagrams = /*#__PURE__*/function () {
     key: "length",
     get: function get() {
       return this.values.length;
+    }
+  }, {
+    key: "isEmpty",
+    value: function isEmpty() {
+      return this.length === 0;
     }
   }], [{
     key: "empty",

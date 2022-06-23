@@ -1624,14 +1624,14 @@ var GenericResizeShapeEvents = /*#__PURE__*/function () {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/DiagramEditor.vue?vue&type=template&id=4222b418&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/DiagramEditor.vue?vue&type=template&id=0ab70a22&scoped=true&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"diagram-pain-container"},[_c('ResourceEditDialog',{ref:"resourceEditDialog",attrs:{"diagramId":_vm.diagramId},on:{"onUpdatedResource":_vm.onUpdatedResource}}),_vm._v(" "),_c('ResourceRightClickMenu',{ref:"resourceRightClickMenu",on:{"onEditResource":_vm.onEditResource,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onDeleteResourceOnDiagram":_vm.onDeleteResourceOnDiagram,"onDeleteResourceOnProduct":_vm.onDeleteResourceOnProduct}}),_vm._v(" "),_c('TwoPainWithSlideBarLayout',{attrs:{"adsorptionLeftWhenDoubleClick":"true","defaultLeftPainWidth":"80%"},scopedSlots:_vm._u([{key:"leftPain",fn:function(){return [_c('DiagramCanvas',{ref:"diagramCanvas",attrs:{"diagramId":_vm.diagramId,"product":_vm.product,"usedResouceIds":_vm.usedResouceIds,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"iconMap":_vm.iconMap,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onMergePlacement":_vm.onMergePlacement,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onShowWarnBar":_vm.onShowWarnBar,"onEditResource":_vm.onEditResource,"onShowResourceMenu":_vm.onShowResourceMenu,"onOpenResourceEditorWhenCreate":_vm.onOpenResourceEditorWhenCreate,"onShowConnectorMenu":_vm.onShowConnectorMenu}})]},proxy:true},{key:"rightPain",fn:function(){return [_c('ResourceParet',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"usedResouceIds":_vm.usedResouceIds,"product":_vm.product},on:{"onShowResourceMenu":_vm.onShowResourceMenu}})]},proxy:true}])}),_vm._v(" "),_c('v-snackbar',{attrs:{"timeout":"2000"},scopedSlots:_vm._u([{key:"action",fn:function(ref){
 var attrs = ref.attrs;
 return [_c('v-btn',_vm._b({attrs:{"color":"blue","text":""},on:{"click":function($event){_vm.warnBar = false}}},'v-btn',attrs,false),[_vm._v("Close")])]}}]),model:{value:(_vm.warnBar),callback:function ($$v) {_vm.warnBar=$$v},expression:"warnBar"}},[_vm._v("\n    "+_vm._s(_vm.warnMessage)+"\n    ")])],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue?vue&type=template&id=4222b418&scoped=true&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue?vue&type=template&id=0ab70a22&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(34);
@@ -1842,10 +1842,7 @@ var DiagramEditorvue_type_script_lang_ts_DiagramEditor = /*#__PURE__*/function (
     _this.usedResouceIds = [];
     _this.iconMap = {};
     _this.warnBar = false;
-    _this.warnMessage = ""; // TODO 一時的。Editorのプロパティのインターフェイスを変更する(Show的に)
-
-    _this.editResourceId = 0;
-    _this.editResourceType = null;
+    _this.warnMessage = "";
     return _this;
   } // Emits
 
@@ -1858,7 +1855,10 @@ var DiagramEditorvue_type_script_lang_ts_DiagramEditor = /*#__PURE__*/function (
     value: function onOpendDiagramPropertiesEditor(_diagramId) {}
   }, {
     key: "onOpenDiagramOfResourceRelate",
-    value: function onOpenDiagramOfResourceRelate(_resourceId) {} // Vue events(life cycle events)
+    value: function onOpenDiagramOfResourceRelate(_resourceId) {}
+  }, {
+    key: "onRenamedResource",
+    value: function onRenamedResource(_src, _dest) {} // Vue events(life cycle events)
 
   }, {
     key: "created",
@@ -1875,7 +1875,7 @@ var DiagramEditorvue_type_script_lang_ts_DiagramEditor = /*#__PURE__*/function (
     key: "onEditResource",
     value: function () {
       var _onEditResource = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(resourceId) {
-        var resource;
+        var resource, srcResource;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -1894,9 +1894,19 @@ var DiagramEditorvue_type_script_lang_ts_DiagramEditor = /*#__PURE__*/function (
                 return _context.abrupt("return");
 
               case 5:
-                this.refrectResourcesOnViewModel(resource);
+                srcResource = this.reflectResourcesOnViewModel(resource);
 
-              case 6:
+                if (srcResource) {
+                  _context.next = 8;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 8:
+                this.onRenamedResource(srcResource, resource);
+
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -1993,11 +2003,6 @@ var DiagramEditorvue_type_script_lang_ts_DiagramEditor = /*#__PURE__*/function (
 
       return onOpenResourceEditorWhenCreate;
     }()
-  }, {
-    key: "onCloseResourceEditor",
-    value: function onCloseResourceEditor() {
-      this.editResourceId = 0;
-    }
   }, {
     key: "onUpdatedResource",
     value: function onUpdatedResource(resource) {
@@ -2099,15 +2104,17 @@ var DiagramEditorvue_type_script_lang_ts_DiagramEditor = /*#__PURE__*/function (
       };
     }
   }, {
-    key: "refrectResourcesOnViewModel",
-    value: function refrectResourcesOnViewModel(resource) {
+    key: "reflectResourcesOnViewModel",
+    value: function reflectResourcesOnViewModel(resource) {
       var resources = this.allResourcesOnCurrentProduct;
       var i = resources.findIndex(function (r) {
         return r.resourceId === resource.resourceId;
       });
-      if (i < 0) return;
+      if (i < 0) return null;
+      var beforeResoruce = resources[i];
       resources.splice(i, 1);
       resources.push(resource);
+      return beforeResoruce;
     }
   }, {
     key: "dumpDiagram",
@@ -2152,6 +2159,8 @@ __decorate([Object(nuxt_property_decorator_umd["Emit"])("onOpendDiagramPropertie
 
 __decorate([Object(nuxt_property_decorator_umd["Emit"])("onOpenDiagramOfResourceRelate")], DiagramEditorvue_type_script_lang_ts_DiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
 
+__decorate([Object(nuxt_property_decorator_umd["Emit"])("onRenamedResource")], DiagramEditorvue_type_script_lang_ts_DiagramEditor.prototype, "onRenamedResource", null);
+
 __decorate([Object(nuxt_property_decorator_umd["Inject"])()], DiagramEditorvue_type_script_lang_ts_DiagramEditor.prototype, "repository", void 0);
 
 DiagramEditorvue_type_script_lang_ts_DiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
@@ -2166,8 +2175,8 @@ DiagramEditorvue_type_script_lang_ts_DiagramEditor = __decorate([Object(nuxt_pro
 /* harmony default export */ var DiagramEditorvue_type_script_lang_ts_ = (DiagramEditorvue_type_script_lang_ts_DiagramEditor);
 // CONCATENATED MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue?vue&type=script&lang=ts&
  /* harmony default export */ var template_DiagramEditorvue_type_script_lang_ts_ = (DiagramEditorvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue?vue&type=style&index=0&id=4222b418&scoped=true&lang=css&
-var DiagramEditorvue_type_style_index_0_id_4222b418_scoped_true_lang_css_ = __webpack_require__(884);
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue?vue&type=style&index=0&id=0ab70a22&scoped=true&lang=css&
+var DiagramEditorvue_type_style_index_0_id_0ab70a22_scoped_true_lang_css_ = __webpack_require__(884);
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(59);
@@ -2418,7 +2427,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   null,
-  "4222b418",
+  "0ab70a22",
   null
   
 )
@@ -3060,7 +3069,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(29).default
-var update = add("dc453d0e", content, true, {"sourceMap":false});
+var update = add("07e5a0b9", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -8668,8 +8677,8 @@ installComponents_default()(component, {VList: VList["a" /* default */],VListIte
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramEditor_vue_vue_type_style_index_0_id_4222b418_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(832);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramEditor_vue_vue_type_style_index_0_id_4222b418_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramEditor_vue_vue_type_style_index_0_id_4222b418_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramEditor_vue_vue_type_style_index_0_id_0ab70a22_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(832);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramEditor_vue_vue_type_style_index_0_id_0ab70a22_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramEditor_vue_vue_type_style_index_0_id_0ab70a22_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
 
@@ -8682,7 +8691,7 @@ installComponents_default()(component, {VList: VList["a" /* default */],VListIte
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(28);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".diagram-pain-container[data-v-4222b418]{display:flex;position:absolute;height:100%;width:100%}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".diagram-pain-container[data-v-0ab70a22]{display:flex;position:absolute;height:100%;width:100%}", ""]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
@@ -12343,12 +12352,12 @@ module.exports = Number.isInteger || function isInteger(it) {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue?vue&type=template&id=0a8054e0&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}})}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue?vue&type=template&id=7be9cf58&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue?vue&type=template&id=0a8054e0&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue?vue&type=template&id=7be9cf58&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(0);
@@ -12504,6 +12513,9 @@ var BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor = 
   }, {
     key: "onOpenDiagramOfResourceRelate",
     value: function onOpenDiagramOfResourceRelate(_resourceId) {}
+  }, {
+    key: "onRenamedResource",
+    value: function onRenamedResource(_src, _dest) {}
   }]);
 
   return InfomationModelEditor;
@@ -12526,6 +12538,8 @@ __decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], B
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onOpendDiagramPropertiesEditor", null);
 
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onOpenDiagramOfResourceRelate", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])("onRenamedResource")], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onRenamedResource", null);
 
 BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
   components: {
@@ -12568,12 +12582,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=template&id=58c5a280&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}})}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=template&id=85cd4e58&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=template&id=58c5a280&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=template&id=85cd4e58&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(0);
@@ -12737,6 +12751,9 @@ var BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEd
   }, {
     key: "onOpenDiagramOfResourceRelate",
     value: function onOpenDiagramOfResourceRelate(_resourceId) {}
+  }, {
+    key: "onRenamedResource",
+    value: function onRenamedResource(_src, _dest) {}
   }]);
 
   return BusinessUseCaseDiagramEditor;
@@ -12759,6 +12776,8 @@ __decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], B
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
 
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "onRenamedResource", null);
 
 BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
   components: {
@@ -12801,12 +12820,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue?vue&type=template&id=1c9baf8e&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}})}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue?vue&type=template&id=5cc9500c&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue?vue&type=template&id=1c9baf8e&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue?vue&type=template&id=5cc9500c&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(0);
@@ -12934,6 +12953,9 @@ var BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor =
   }, {
     key: "onOpenDiagramOfResourceRelate",
     value: function onOpenDiagramOfResourceRelate(_resourceId) {}
+  }, {
+    key: "onRenamedResource",
+    value: function onRenamedResource(_src, _dest) {}
   }]);
 
   return BusinessFlowDiagramEditor;
@@ -12956,6 +12978,8 @@ __decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], B
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
 
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "onRenamedResource", null);
 
 BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
   components: {
@@ -13195,12 +13219,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue?vue&type=template&id=7a0e528c&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}})}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue?vue&type=template&id=16aa83e4&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue?vue&type=template&id=7a0e528c&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue?vue&type=template&id=16aa83e4&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(0);
@@ -13332,6 +13356,9 @@ var SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor
   }, {
     key: "onOpenDiagramOfResourceRelate",
     value: function onOpenDiagramOfResourceRelate(_resourceId) {}
+  }, {
+    key: "onRenamedResource",
+    value: function onRenamedResource(_src, _dest) {}
   }]);
 
   return SystemContextDiagramEditor;
@@ -13354,6 +13381,8 @@ __decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], S
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
 
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor.prototype, "onRenamedResource", null);
 
 SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
   components: {
@@ -13396,12 +13425,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/requrestmodel/RequestModelDiagramEditor.vue?vue&type=template&id=eb7bd0fe&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}})}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/requrestmodel/RequestModelDiagramEditor.vue?vue&type=template&id=72decd99&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/requrestmodel/RequestModelDiagramEditor.vue?vue&type=template&id=eb7bd0fe&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/requrestmodel/RequestModelDiagramEditor.vue?vue&type=template&id=72decd99&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(0);
@@ -13525,6 +13554,9 @@ var RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor =
   }, {
     key: "onOpenDiagramOfResourceRelate",
     value: function onOpenDiagramOfResourceRelate(_resourceId) {}
+  }, {
+    key: "onRenamedResource",
+    value: function onRenamedResource(_src, _dest) {}
   }]);
 
   return RequestModelDiagramEditor;
@@ -13547,6 +13579,8 @@ __decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], R
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
 
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor.prototype, "onRenamedResource", null);
 
 RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
   components: {
@@ -13589,12 +13623,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/infomationmodel/InfomationModelEditor.vue?vue&type=template&id=1a1777fc&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}})}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/infomationmodel/InfomationModelEditor.vue?vue&type=template&id=29e62fdc&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/infomationmodel/InfomationModelEditor.vue?vue&type=template&id=1a1777fc&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/infomationmodel/InfomationModelEditor.vue?vue&type=template&id=29e62fdc&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(0);
@@ -13714,6 +13748,9 @@ var InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor = /*#__PU
   }, {
     key: "onOpenDiagramOfResourceRelate",
     value: function onOpenDiagramOfResourceRelate(_resourceId) {}
+  }, {
+    key: "onRenamedResource",
+    value: function onRenamedResource(_src, _dest) {}
   }]);
 
   return InfomationModelEditor;
@@ -13736,6 +13773,8 @@ __decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], I
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onOpendDiagramPropertiesEditor", null);
 
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onOpenDiagramOfResourceRelate", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onRenamedResource", null);
 
 InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
   components: {
@@ -13778,12 +13817,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/statemodel/StateModelEditor.vue?vue&type=template&id=5dcf3f38&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}})}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/statemodel/StateModelEditor.vue?vue&type=template&id=28071878&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/statemodel/StateModelEditor.vue?vue&type=template&id=5dcf3f38&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/statemodel/StateModelEditor.vue?vue&type=template&id=28071878&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(0);
@@ -13911,6 +13950,9 @@ var StateModelEditorvue_type_script_lang_ts_InfomationModelEditor = /*#__PURE__*
   }, {
     key: "onOpenDiagramOfResourceRelate",
     value: function onOpenDiagramOfResourceRelate(_resourceId) {}
+  }, {
+    key: "onRenamedResource",
+    value: function onRenamedResource(_src, _dest) {}
   }]);
 
   return InfomationModelEditor;
@@ -13933,6 +13975,8 @@ __decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], S
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], StateModelEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onOpendDiagramPropertiesEditor", null);
 
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], StateModelEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onOpenDiagramOfResourceRelate", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], StateModelEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onRenamedResource", null);
 
 StateModelEditorvue_type_script_lang_ts_InfomationModelEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
   components: {
@@ -13975,12 +14019,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue?vue&type=template&id=01426bb0&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}})}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue?vue&type=template&id=20ef0442&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue?vue&type=template&id=01426bb0&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue?vue&type=template&id=20ef0442&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(0);
@@ -14148,6 +14192,9 @@ var UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagram
   }, {
     key: "onOpenDiagramOfResourceRelate",
     value: function onOpenDiagramOfResourceRelate(_resourceId) {}
+  }, {
+    key: "onRenamedResource",
+    value: function onRenamedResource(_src, _dest) {}
   }]);
 
   return UseCaseCompositeDiagramEditor;
@@ -14170,6 +14217,8 @@ __decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], U
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
 
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor.prototype, "onRenamedResource", null);
 
 UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
   components: {
@@ -14212,12 +14261,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/variationandcondition/VariationAndConditionDiagramEditor.vue?vue&type=template&id=e99f1b58&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}})}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/variationandcondition/VariationAndConditionDiagramEditor.vue?vue&type=template&id=21b2d9a8&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagramId":_vm.diagramId,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/variationandcondition/VariationAndConditionDiagramEditor.vue?vue&type=template&id=e99f1b58&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/variationandcondition/VariationAndConditionDiagramEditor.vue?vue&type=template&id=21b2d9a8&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(0);
@@ -14341,6 +14390,9 @@ var VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndCondit
   }, {
     key: "onOpenDiagramOfResourceRelate",
     value: function onOpenDiagramOfResourceRelate(_resourceId) {}
+  }, {
+    key: "onRenamedResource",
+    value: function onRenamedResource(_src, _dest) {}
   }]);
 
   return VariationAndConditionDiagramEditor;
@@ -14363,6 +14415,8 @@ __decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], V
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
 
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor.prototype, "onRenamedResource", null);
 
 VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
   components: {
@@ -14410,7 +14464,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(29).default
-var update = add("8fd0e684", content, true, {"sourceMap":false});
+var update = add("040ccd18", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -14421,12 +14475,12 @@ var update = add("8fd0e684", content, true, {"sourceMap":false});
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/DiagramEditorContainer.vue?vue&type=template&id=758559d5&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.is('システムコンテキスト図'))?_c('SystemContextDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}}):_vm._e(),_vm._v(" "),(_vm.is('要求モデル図'))?_c('RequestModelDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}}):_vm._e(),_vm._v(" "),(_vm.is('ビジネスコンテキスト図'))?_c('BusinessContextDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}}):_vm._e(),_vm._v(" "),(_vm.is('ビジネスユースケース図'))?_c('BusinessUseCaseDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}}):_vm._e(),_vm._v(" "),(_vm.is('業務フロー図'))?_c('BusinessFlowDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}}):_vm._e(),_vm._v(" "),(_vm.is('利用シーン図'))?_c('UsageSceneDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}}):_vm._e(),_vm._v(" "),(_vm.is('情報モデル図'))?_c('InfomationModelEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}}):_vm._e(),_vm._v(" "),(_vm.is('状態モデル図'))?_c('StateModelEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}}):_vm._e(),_vm._v(" "),(_vm.is('ユースケース複合図'))?_c('UseCaseCompositeDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}}):_vm._e(),_vm._v(" "),(_vm.is('バリエーション・条件'))?_c('VariationAndConditionDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}}):_vm._e()],1)}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/DiagramEditorContainer.vue?vue&type=template&id=3aed7600&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.is('システムコンテキスト図'))?_c('SystemContextDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('要求モデル図'))?_c('RequestModelDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('ビジネスコンテキスト図'))?_c('BusinessContextDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('ビジネスユースケース図'))?_c('BusinessUseCaseDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('業務フロー図'))?_c('BusinessFlowDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('利用シーン図'))?_c('UsageSceneDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('情報モデル図'))?_c('InfomationModelEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('状態モデル図'))?_c('StateModelEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('ユースケース複合図'))?_c('UseCaseCompositeDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('バリエーション・条件'))?_c('VariationAndConditionDiagramEditor',{attrs:{"diagramId":_vm.diagram.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnEditor,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e()],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/DiagramEditorContainer.vue?vue&type=template&id=758559d5&
+// CONCATENATED MODULE: ./src/components/diagrams/DiagramEditorContainer.vue?vue&type=template&id=3aed7600&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(34);
@@ -14548,6 +14602,9 @@ var DiagramEditorContainervue_type_script_lang_ts_DiagramEditorContainer = /*#__
     key: "onOpenDiagramOfResourceRelate",
     value: function onOpenDiagramOfResourceRelate(_resourceId) {}
   }, {
+    key: "onRenamedResource",
+    value: function onRenamedResource(_src, _dest) {}
+  }, {
     key: "created",
     value: function created() {
       this.diagram = this.diagramOf(this.diagramId);
@@ -14596,6 +14653,8 @@ __decorate([Object(nuxt_property_decorator_umd["Prop"])({
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], DiagramEditorContainervue_type_script_lang_ts_DiagramEditorContainer.prototype, "onOpendDiagramPropertiesEditor", null);
 
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], DiagramEditorContainervue_type_script_lang_ts_DiagramEditorContainer.prototype, "onOpenDiagramOfResourceRelate", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], DiagramEditorContainervue_type_script_lang_ts_DiagramEditorContainer.prototype, "onRenamedResource", null);
 
 __decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResoucesOnContainer')], DiagramEditorContainervue_type_script_lang_ts_DiagramEditorContainer.prototype, "onUpdateResoucesOnContainer", null);
 
@@ -14975,7 +15034,7 @@ installComponents_default()(component, {VCol: VCol["a" /* default */],VContainer
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/open/DiagramTypeSelectorDialog.vue?vue&type=template&id=5805a4c2&scoped=true&lang=html&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/open/DiagramTypeSelectorDialog.vue?vue&type=template&id=7114f440&scoped=true&lang=html&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"persistent":"","max-width":"400"},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"esc",27,$event.key,["Esc","Escape"])){ return null; }return _vm.close()}},model:{value:(_vm.visible),callback:function ($$v) {_vm.visible=$$v},expression:"visible"}},[_c('v-card',[(_vm.isRelateDiagramExists)?_c('span',[_c('v-card-title',{staticClass:"headline"},[_c('v-icon',[_vm._v("mdi-selection-multiple")]),_vm._v(" 開く図の種類の選択\n      ")],1),_vm._v(" "),_c('v-card-text',[_vm._v("\n        ["+_vm._s(_vm.resource.type.name)+"]アイコンに対応する図を開きます。"),_c('br'),_vm._v("\n        図の種類を選択してください。\n      ")])],1):_c('span',[_c('v-card-title',{staticClass:"headline"},[_c('v-icon',[_vm._v("mdi-selection-multiple")]),_vm._v(" 新しい図の種類の選択\n      ")],1),_vm._v(" "),_c('v-card-text',[_vm._v("\n        ["+_vm._s(_vm.resource.type.name)+"]アイコンに対応する図を新たに作成します。"),_c('br'),_vm._v("\n        新規作成する図の種類を選択してください。\n      ")])],1),_vm._v(" "),_c('v-card-text',[_vm._v("\n      アイコン(図の名前) :\n      "),_c('v-chip',{attrs:{"color":"primary","dark":"","draggable":""}},[_c('v-tooltip',{attrs:{"bottom":"","open-delay":"500"},scopedSlots:_vm._u([{key:"activator",fn:function(ref){
 var on = ref.on;
 var attrs = ref.attrs;
@@ -14983,7 +15042,7 @@ return [_c('v-icon',_vm._g(_vm._b({},'v-icon',attrs,false),on),[_vm._v("\n      
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/open/DiagramTypeSelectorDialog.vue?vue&type=template&id=5805a4c2&scoped=true&lang=html&
+// CONCATENATED MODULE: ./src/components/diagrams/open/DiagramTypeSelectorDialog.vue?vue&type=template&id=7114f440&scoped=true&lang=html&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(34);
@@ -15142,7 +15201,7 @@ var DiagramTypeSelectorDialogvue_type_script_lang_ts_DiagramTypeSelectorDialog =
 
       var product = (_a = this.repository) === null || _a === void 0 ? void 0 : _a.getCurrentProduct();
       this.resource = product.resources.of(resourceId);
-      return product.diagramOfResourceRelate(resourceId);
+      return product.diagramsOfResourceRelate(resourceId);
     }
   }, {
     key: "fixedDiagramId",
@@ -15232,7 +15291,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   null,
-  "5805a4c2",
+  "7114f440",
   null
   
 )
@@ -15262,8 +15321,8 @@ installComponents_default()(component, {VBtn: VBtn["a" /* default */],VCard: VCa
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3a808ef2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(950);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3a808ef2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3a808ef2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ba0b47bc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(950);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ba0b47bc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ba0b47bc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
 
@@ -15276,7 +15335,7 @@ installComponents_default()(component, {VBtn: VBtn["a" /* default */],VCard: VCa
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(28);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".pain-container[data-v-3a808ef2]{display:flex;height:100%;width:100%;max-width:none;padding-right:0;padding-left:0;margin-right:unset;margin-left:unset}.left-pain[data-v-3a808ef2]{width:20%;overflow:auto;text-align:left}.right-pain[data-v-3a808ef2]{flex-grow:1}.slidebar[data-v-3a808ef2]{width:8px;background-color:grey;cursor:col-resize}.treeview-container[data-v-3a808ef2]{width:100%;overflow:auto}.tabview-container[data-v-3a808ef2],.treeview-container[data-v-3a808ef2]{min-height:0;height:100%}.right-click-area[data-v-3a808ef2]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.dialog-editor-container[data-v-3a808ef2]{position:relative;width:100%;height:97%}.dialog-editor-tab-item[data-v-3a808ef2]{transition:none}.tab-title[data-v-3a808ef2]{text-transform:none}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".pain-container[data-v-ba0b47bc]{display:flex;height:100%;width:100%;max-width:none;padding-right:0;padding-left:0;margin-right:unset;margin-left:unset}.left-pain[data-v-ba0b47bc]{width:20%;overflow:auto;text-align:left}.right-pain[data-v-ba0b47bc]{flex-grow:1}.slidebar[data-v-ba0b47bc]{width:8px;background-color:grey;cursor:col-resize}.treeview-container[data-v-ba0b47bc]{width:100%;overflow:auto}.tabview-container[data-v-ba0b47bc],.treeview-container[data-v-ba0b47bc]{min-height:0;height:100%}.right-click-area[data-v-ba0b47bc]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.dialog-editor-container[data-v-ba0b47bc]{position:relative;width:100%;height:97%}.dialog-editor-tab-item[data-v-ba0b47bc]{transition:none}.tab-title[data-v-ba0b47bc]{text-transform:none}", ""]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
@@ -15425,17 +15484,17 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/pages/index.vue?vue&type=template&id=3a808ef2&scoped=true&
-var pagesvue_type_template_id_3a808ef2_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-layout',[_c('TwoPainWithSlideBarLayout',{scopedSlots:_vm._u([{key:"leftPain",fn:function(){return [_c('div',{staticClass:"treeview-container"},[_c('v-treeview',{attrs:{"items":_vm.treeItems,"activatable":"","open-on-click":"","active":_vm.treeActiveItemIds,"open":_vm.treeOpenItemIds,"transition":"","dark":"","dense":""},on:{"update:active":[function($event){_vm.treeActiveItemIds=$event},_vm.onClickTreeItem],"update:open":function($event){_vm.treeOpenItemIds=$event}},scopedSlots:_vm._u([{key:"label",fn:function(ref){
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/pages/index.vue?vue&type=template&id=ba0b47bc&scoped=true&
+var pagesvue_type_template_id_ba0b47bc_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-layout',[_c('TwoPainWithSlideBarLayout',{scopedSlots:_vm._u([{key:"leftPain",fn:function(){return [_c('div',{staticClass:"treeview-container"},[_c('v-treeview',{attrs:{"items":_vm.treeItems,"activatable":"","open-on-click":"","active":_vm.treeActiveItemIds,"open":_vm.treeOpenItemIds,"transition":"","dark":"","dense":""},on:{"update:active":[function($event){_vm.treeActiveItemIds=$event},_vm.onClickTreeItem],"update:open":function($event){_vm.treeOpenItemIds=$event}},scopedSlots:_vm._u([{key:"label",fn:function(ref){
 var item = ref.item;
 return [_c('div',{staticClass:"right-click-area",attrs:{"data-item-id":item.id},on:{"contextmenu":function($event){$event.preventDefault();return _vm.onRightClickTreeItem.apply(null, arguments)}}},[(item.iconKey)?_c('v-icon',[_vm._v(_vm._s(item.iconKey))]):_vm._e(),_vm._v("\n              "+_vm._s(item.name)+"\n            ")],1)]}}])}),_vm._v(" "),_c('v-menu',{attrs:{"value":_vm.enableRightClickMenu,"close-on-click":true,"close-on-content-click":true,"offset-x":true,"rounded":true,"position-x":_vm.menuPositionX,"position-y":_vm.menuPositionY}},[_c('v-list',[_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuAddDiagram}},[_c('v-list-item-title',[_vm._v("図の追加...")])],1)],1)],1),_vm._v(" "),_c('v-menu',{attrs:{"value":_vm.enableDiagramRightClickMenu,"position-x":_vm.menuPositionX,"position-y":_vm.menuPositionY,"close-on-click":"","close-on-content-click":"","offset-x":"","rounded":""}},[_c('v-list',[_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuCopyDiagram}},[_c('v-list-item-title',[_vm._v(_vm._s(_vm.menuTargetTreeItemName)+"コピー...")])],1),_vm._v(" "),_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuRemoveDiagram}},[_c('v-list-item-title',[_vm._v(_vm._s(_vm.menuTargetTreeItemName)+"削除")])],1),_vm._v(" "),_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuEditDiagramProperties}},[_c('v-list-item-title',[_vm._v(_vm._s(_vm.menuTargetTreeItemName)+"設定...")])],1),_vm._v(" "),_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuExportDiagram}},[_c('v-list-item-title',[_vm._v(_vm._s(_vm.menuTargetTreeItemName)+"エクスポート")])],1)],1)],1)],1)]},proxy:true},{key:"rightPain",fn:function(){return [_c('div',{staticClass:"tabview-container"},[_c('v-tabs',{directives:[{name:"show",rawName:"v-show",value:(_vm.openTabs.length > 0),expression:"openTabs.length > 0"}],attrs:{"background-color":"primary","show-arrows":"","dark":""},on:{"change":_vm.onChangeActiveTab},model:{value:(_vm.currentTabIndex),callback:function ($$v) {_vm.currentTabIndex=$$v},expression:"currentTabIndex"}},_vm._l((_vm.openTabs),function(item){return _c('v-tab',{key:item.id,staticClass:"tab-title"},[_c('v-tooltip',{attrs:{"bottom":"","open-delay":"1000"},scopedSlots:_vm._u([{key:"activator",fn:function(ref){
 var on = ref.on;
 var attrs = ref.attrs;
-return [(item.iconKey)?_c('v-icon',_vm._g(_vm._b({},'v-icon',attrs,false),on),[_vm._v(_vm._s(item.iconKey))]):_vm._e()]}}],null,true)},[_vm._v(" "),_c('span',[_vm._v(_vm._s(item.iconCaption))])]),_vm._v("\n            "+_vm._s(item.name)+"\n            "),_c('v-btn',{attrs:{"data-item-id":item.id,"dark":"","small":"","icon":""},on:{"click":_vm.onClickCloseTab}},[_c('v-icon',{attrs:{"dark":"","data-item-id":item.id}},[_vm._v("mdi-close-box")])],1)],1)}),1),_vm._v(" "),_c('v-tabs-items',{staticClass:"dialog-editor-container",model:{value:(_vm.currentTabIndex),callback:function ($$v) {_vm.currentTabIndex=$$v},expression:"currentTabIndex"}},_vm._l((_vm.openTabs),function(item){return _c('v-tab-item',{key:item.id,staticClass:"dialog-editor-tab-item"},[_c('DiagramEditorContainer',{attrs:{"diagram-id":item.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResoucesOnContainer":_vm.onUpdateResoucesOnContainer,"onUpdatedDiagramProperties":_vm.onUpdatedDiagramProperties,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}})],1)}),1),_vm._v(" "),_c('DiagramPropertiesEditDialog',{attrs:{"diagramId":_vm.propertiesEditorDiagramId},on:{"onUpdatedDiagramProperties":_vm.onUpdatedDiagramProperties,"onClose":_vm.onCloseDiagramPropertiesEditDialog}})],1)]},proxy:true}])}),_vm._v(" "),_c('DiagramTypeSelectorDialog',{ref:"diagramTypeSelectorDialog"})],1)}
+return [(item.iconKey)?_c('v-icon',_vm._g(_vm._b({},'v-icon',attrs,false),on),[_vm._v(_vm._s(item.iconKey))]):_vm._e()]}}],null,true)},[_vm._v(" "),_c('span',[_vm._v(_vm._s(item.iconCaption))])]),_vm._v("\n            "+_vm._s(item.name)+"\n            "),_c('v-btn',{attrs:{"data-item-id":item.id,"dark":"","small":"","icon":""},on:{"click":_vm.onClickCloseTab}},[_c('v-icon',{attrs:{"dark":"","data-item-id":item.id}},[_vm._v("mdi-close-box")])],1)],1)}),1),_vm._v(" "),_c('v-tabs-items',{staticClass:"dialog-editor-container",model:{value:(_vm.currentTabIndex),callback:function ($$v) {_vm.currentTabIndex=$$v},expression:"currentTabIndex"}},_vm._l((_vm.openTabs),function(item){return _c('v-tab-item',{key:item.id,staticClass:"dialog-editor-tab-item"},[_c('DiagramEditorContainer',{attrs:{"diagram-id":item.id,"allResourcesOnCurrentProduct":_vm.allResourcesOnCurrentProduct,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResoucesOnContainer":_vm.onUpdateResoucesOnContainer,"onUpdatedDiagramProperties":_vm.onUpdatedDiagramProperties,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})],1)}),1),_vm._v(" "),_c('DiagramPropertiesEditDialog',{attrs:{"diagramId":_vm.propertiesEditorDiagramId},on:{"onUpdatedDiagramProperties":_vm.onUpdatedDiagramProperties,"onClose":_vm.onCloseDiagramPropertiesEditDialog}})],1)]},proxy:true}])}),_vm._v(" "),_c('DiagramTypeSelectorDialog',{ref:"diagramTypeSelectorDialog"})],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/pages/index.vue?vue&type=template&id=3a808ef2&scoped=true&
+// CONCATENATED MODULE: ./src/pages/index.vue?vue&type=template&id=ba0b47bc&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(34);
@@ -15524,6 +15583,12 @@ var es_string_includes = __webpack_require__(63);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
 var es_array_filter = __webpack_require__(13);
 
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
+var es_array_concat = __webpack_require__(41);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.join.js
+var es_array_join = __webpack_require__(111);
+
 // EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
 var nuxt_property_decorator_umd = __webpack_require__(79);
 
@@ -15544,6 +15609,9 @@ var MessageBox = __webpack_require__(395);
 
 // EXTERNAL MODULE: ./src/domain/diagram/DiagramType.ts
 var DiagramType = __webpack_require__(33);
+
+// EXTERNAL MODULE: ./src/domain/product/Product.ts + 2 modules
+var Product = __webpack_require__(167);
 
 // EXTERNAL MODULE: ./src/domain/diagram/Diagram.ts
 var Diagram = __webpack_require__(43);
@@ -15591,6 +15659,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
+
+
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
   var c = arguments.length,
       r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
@@ -15600,6 +15670,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
   }
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -15814,7 +15885,12 @@ var pagesvue_type_script_lang_ts_default_1 = /*#__PURE__*/function (_Vue) {
       }
 
       return onOpenDiagramOfResourceRelate;
-    }() // private methods.
+    }()
+  }, {
+    key: "onRenamedResource",
+    value: function onRenamedResource(src, dest) {
+      this.reflectResourceRenameToDiagrams(src, dest);
+    } // private methods.
 
   }, {
     key: "buildTreeItems",
@@ -16119,6 +16195,55 @@ var pagesvue_type_script_lang_ts_default_1 = /*#__PURE__*/function (_Vue) {
         return alreadyResources.push(r);
       });
     }
+  }, {
+    key: "reflectResourceRenameToDiagrams",
+    value: function reflectResourceRenameToDiagrams(src, dest) {
+      if (src.name === dest.name) return;
+      if (!Product["a" /* default */].hasCorrespondingDiagramTypeOf(src)) return;
+      var product = this.repository.getCurrentProduct();
+      if (!product) return;
+      var relateDaigrams = product.relateDiagramsOf(src);
+      if (relateDaigrams.isEmpty()) return;
+      if (!this.confirmDiagramRename(src, dest, relateDaigrams)) return;
+      var renameDiagrams = relateDaigrams.map(function (diagram) {
+        return diagram.renameOf(dest.name);
+      }).filter(function (d) {
+        var exists = product.diagrams.existsSameOf(d);
+        if (exists) alert("\u540D\u524D\u3092\u5909\u66F4\u3057\u3088\u3046\u3068\u3057\u305F\u56F3\n  [".concat(d.type.name, "]:").concat(d.name, "\n\u304C\u5B58\u5728\u3057\u305F\u305F\u3081\u5909\u66F4\u3067\u304D\u307E\u305B\u3093\u3067\u3057\u305F\u3002"));
+        return !exists;
+      });
+      var upProduct = product.meageDiagramsByIdOf(renameDiagrams);
+      this.repository.registerCurrentProduct(upProduct);
+      this.reflectTreeAndTabOf(renameDiagrams);
+    }
+  }, {
+    key: "confirmDiagramRename",
+    value: function confirmDiagramRename(src, dest, relateDaigrams) {
+      var message = "\u5909\u66F4\u524D\u306E\u540D\u524D [".concat(src.name, "] \u306B\u95A2\u9023\u3059\u308B\u56F3\u304C\u3042\u308A\u307E\u3059\u3002\n\n");
+      message += relateDaigrams.map(function (d) {
+        return "  [".concat(d.type.name, "]:").concat(d.name);
+      }).join("\n");
+      message += "\n\n\u5408\u308F\u305B\u3066\u540D\u524D\u3092 [".concat(dest.name, "] \u5909\u66F4\u3057\u307E\u3059\u304B\uFF1F");
+      return confirm(message);
+    }
+  }, {
+    key: "reflectTreeAndTabOf",
+    value: function reflectTreeAndTabOf(diagrams) {
+      var _iterator2 = _createForOfIteratorHelper(diagrams),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var diagram = _step2.value;
+          var item = this.findTreeItemById(diagram.id);
+          if (item) item.name = diagram.name;
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+    }
   }]);
 
   return default_1;
@@ -16139,8 +16264,8 @@ pagesvue_type_script_lang_ts_default_1 = __decorate([Object(nuxt_property_decora
 /* harmony default export */ var pagesvue_type_script_lang_ts_ = (pagesvue_type_script_lang_ts_default_1);
 // CONCATENATED MODULE: ./src/pages/index.vue?vue&type=script&lang=ts&
  /* harmony default export */ var src_pagesvue_type_script_lang_ts_ = (pagesvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./src/pages/index.vue?vue&type=style&index=0&id=3a808ef2&scoped=true&lang=css&
-var pagesvue_type_style_index_0_id_3a808ef2_scoped_true_lang_css_ = __webpack_require__(969);
+// EXTERNAL MODULE: ./src/pages/index.vue?vue&type=style&index=0&id=ba0b47bc&scoped=true&lang=css&
+var pagesvue_type_style_index_0_id_ba0b47bc_scoped_true_lang_css_ = __webpack_require__(969);
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(59);
@@ -16481,9 +16606,6 @@ var VTabs = __webpack_require__(971);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.math.sign.js
 var es_math_sign = __webpack_require__(973);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
-var es_array_concat = __webpack_require__(41);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VSlideGroup/VSlideGroup.sass
 var VSlideGroup = __webpack_require__(974);
@@ -18817,11 +18939,11 @@ function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; 
 
 var component = Object(componentNormalizer["a" /* default */])(
   src_pagesvue_type_script_lang_ts_,
-  pagesvue_type_template_id_3a808ef2_scoped_true_render,
+  pagesvue_type_template_id_ba0b47bc_scoped_true_render,
   staticRenderFns,
   false,
   null,
-  "3a808ef2",
+  "ba0b47bc",
   null
   
 )
