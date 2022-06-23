@@ -144,6 +144,15 @@ export default class Diagrams {
                 Relations.empty());
     }
 
+    public groupOfType(): Map<DiagramType, Diagram[]> {
+        const map = new Map<DiagramType, Diagram[]>();
+        DiagramType.values()
+            .forEach(type => map.set(type, []));
+        this.values
+            .forEach(d => map.get(d.type)?.push(d));
+        return map;
+    }
+
     public get length(): number {
         return this.values.length;
     }
