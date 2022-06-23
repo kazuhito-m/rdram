@@ -147,4 +147,8 @@ export default class Diagrams {
     public get length(): number {
         return this.values.length;
     }
+
+    public isEmpty() {
+        return this.length === 0;
+    }
 }

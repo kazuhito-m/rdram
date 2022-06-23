@@ -8,6 +8,7 @@
     @onUpdateResources="onUpdateResources"
     @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+    @onRenamedResource="onRenamedResource"
   />
 </template>
 
@@ -68,6 +69,9 @@ export default class InfomationModelEditor extends Vue {
 
   @Emit('onOpenDiagramOfResourceRelate')
   onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+
+  @Emit('onRenamedResource')
+  onRenamedResource(_src: Resource, _dest: Resource): void {}
 }
 </script>
 

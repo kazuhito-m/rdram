@@ -119,6 +119,9 @@ export default class DiagramEditor extends Vue {
   @Emit("onOpenDiagramOfResourceRelate")
   onOpenDiagramOfResourceRelate(_resourceId: number): void {}
 
+  @Emit("onRenamedResource")
+  onRenamedResource(_src: Resource, _dest: Resource): void {}
+
   // this class properties
 
   @Inject()
@@ -146,7 +149,11 @@ export default class DiagramEditor extends Vue {
   async onEditResource(resourceId: number): Promise<void> {
     const resource = await this.resourceEditDialog().showForModifyOf(resourceId);
     if (resource.isEmpty()) return;
-    this.refrectResourcesOnViewModel(resource);
+
+    const srcResource = this.refrectResourcesOnViewModel(resource);
+    if (!srcResource) return;
+
+    this.onRenamedResource(srcResource, resource);
   }
 
   onDeleteResourceOnDiagram(resourceId: number): void {
@@ -289,13 +296,16 @@ export default class DiagramEditor extends Vue {
     };
   }
 
-  private refrectResourcesOnViewModel(resource: Resource): void {
+  private refrectResourcesOnViewModel(resource: Resource): Resource | null {
     const resources = this.allResourcesOnCurrentProduct;
     const i = resources
       .findIndex(r => r.resourceId === resource.resourceId);
-    if (i < 0) return;
+    if (i < 0) return null;
+
+    const beforeResoruce = resources[i];
     resources.splice(i, 1);
     resources.push(resource);
+    return beforeResoruce;
   }
 
   private dumpDiagram(diagram: Diagram, prefix: string) {
