@@ -152,7 +152,7 @@ export default class DiagramsTreePane extends Vue {
     this.openDiagramEditorTabOf(diagramId)
   }
 
-  onRightClickTreeItem(event: MouseEvent) {
+  onRightClickTreeItem(event: MouseEvent): void {
     if (!event.target) return
     const element = event.target as HTMLElement
     const data = element.getAttribute('data-item-id')
@@ -177,7 +177,9 @@ export default class DiagramsTreePane extends Vue {
     })
   }
 
-  public onClickMenuAddDiagram(): void {
+  /// menu click events
+
+  onClickMenuAddDiagram(): void {
     const item = this.findTreeItemById(
       this.menuTargetTreeItemId,
       this.treeItems
@@ -201,8 +203,6 @@ export default class DiagramsTreePane extends Vue {
 
     this.addDiagramView(diagram)
   }
-
-  /// menu click events
 
   onClickMenuCopyDiagram(): void {
     const diagramId = this.menuTargetTreeItemId
@@ -237,6 +237,19 @@ export default class DiagramsTreePane extends Vue {
   activeItemAndFolderOpen(diagramId: number): void {
     this.activeTreeItemOf(diagramId)
     this.openParentTreeItem(diagramId)
+  }
+
+  openDiagramEditorTabOf(diagramId: number): void {
+    const clickedItem = this.findTreeItemById(diagramId)
+    if (!clickedItem) return
+    this.onOpenDiagram(clickedItem)
+  }
+
+  reflectTreeAndTabOf(diagrams: Diagram[]): void {
+    for (const diagram of diagrams) {
+      const item = this.findTreeItemById(diagram.id);
+      if (item) item.name = diagram.name;
+    }
   }
 
   // private method
@@ -288,28 +301,6 @@ export default class DiagramsTreePane extends Vue {
     )
     return items
   }
-
-  private openDiagramEditorTabOf(diagramId: number): void {
-    const clickedItem = this.findTreeItemById(diagramId)
-    if (!clickedItem) return
-    this.onOpenDiagram(clickedItem)
-
-    // const exists = this.openTabs.some((tab) => tab.id === diagramId)
-    // if (!exists) this.openTabs.push(clickedItem)
-    // const newTabIndex = this.openTabs.findIndex(
-    //   (tabItem) => tabItem.id === diagramId
-    // )
-    // this.currentTabIndex = newTabIndex
-    // this.onChangeActiveTab(newTabIndex)
-  }
-
-  // onChangeActiveTab(newTabIndex: number) {
-  //   if (newTabIndex === undefined) return
-  //   const currentTabItem = this.openTabs[newTabIndex]
-  //   if (!currentTabItem) return
-  //   this.activeTreeItemOf(currentTabItem.id)
-  //   this.openParentTreeItem(currentTabItem.id)
-  // }
 
   private activeTreeItemOf(treeItemId: number): void {
     this.treeActiveItemIds.length = 0
@@ -454,16 +445,6 @@ export default class DiagramsTreePane extends Vue {
       return product.withDiagrams(removedDiagrams)
     })
   }
-
-  // private closeTab(tabItemId: number): boolean {
-  //   const tabs = this.openTabs
-  //   const tabIndex = tabs.findIndex((tabItem) => tabItem.id === tabItemId)
-  //   if (tabIndex < 0) return false
-  //   tabs.splice(tabIndex, 1)
-
-  //   if (tabs.length === 0) this.treeActiveItemIds.splice(0, 1)
-  //   return true
-  // }
 
   private removeTreeItem(treeItemId: number, treeItems: TreeItem[]): boolean {
     const foundIndex = treeItems.findIndex((item) => item.id === treeItemId)
