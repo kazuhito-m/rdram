@@ -131,10 +131,6 @@ export default class DiagramEditor extends Vue {
   warnBar: boolean = false;
   warnMessage: string = "";
 
-  // TODO 一時的。Editorのプロパティのインターフェイスを変更する(Show的に)
-  editResourceId = 0;
-  editResourceType: ResourceType | null = null;
-
   // Vue events(life cycle events)
 
   created(): void {
@@ -192,10 +188,6 @@ export default class DiagramEditor extends Vue {
     const resource = await this.resourceEditDialog().showForCreateNew(resourceType);
     if (resource.isEmpty()) return;
     this.onUpdatedResource(resource)
-  }
-
-  onCloseResourceEditor(): void {
-    this.editResourceId = 0;
   }
 
   onUpdatedResource(resource: Resource): void {
