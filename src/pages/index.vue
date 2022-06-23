@@ -3,6 +3,7 @@
     <TwoPainWithSlideBarLayout>
       <template #leftPain>
         <DiagramsTreePane
+          ref="diagramsTreePane"
           @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
           @onOpenDiagram="onOpenDiagram"
           @onDeleteDiagram="onDeleteDiagram"
@@ -524,8 +525,9 @@ export default class extends Vue {
     if (newTabIndex === undefined) return;
     const currentTabItem = this.openTabs[newTabIndex];
     if (!currentTabItem) return;
-    this.activeTreeItemOf(currentTabItem.id);
-    this.openParentTreeItem(currentTabItem.id);
+
+    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane;
+    treePain.activeItemAndFolderOpen(currentTabItem.id);
   }
 
   private openParentTreeItem(_treeItemId: number): void {

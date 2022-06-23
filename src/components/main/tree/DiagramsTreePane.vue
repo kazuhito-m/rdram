@@ -218,7 +218,7 @@ export default class DiagramsTreePane extends Vue {
 
     if (!this.removeDiagram(diagramId)) return
 
-    this.closeTab(diagramId)
+    this.onDeleteDiagram(diagramId)
     this.removeTreeItem(diagramId, this.treeItems)
   }
 
@@ -230,6 +230,13 @@ export default class DiagramsTreePane extends Vue {
   onClickMenuExportDiagram(): void {
     const diagramId = this.menuTargetTreeItemId
     this.diagramExportService!.downloadExportFileOnClient(diagramId)
+  }
+
+  // public method
+
+  activeItemAndFolderOpen(diagramId: number): void {
+    this.activeTreeItemOf(diagramId)
+    this.openParentTreeItem(diagramId)
   }
 
   // private method
