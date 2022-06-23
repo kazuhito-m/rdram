@@ -86,13 +86,8 @@ import TreeItem from '~/presentation/tree/TreeItem'
 
 @Component
 export default class DiagramsTreePane extends Vue {
-  @Prop()
   treeItems: TreeItem[] = []
-
-  @Prop()
   treeActiveItemIds: number[] = []
-
-  @Prop()
   treeOpenItemIds: number[] = []
 
   @Inject()
@@ -102,13 +97,6 @@ export default class DiagramsTreePane extends Vue {
   private readonly diagramExportService!: DiagramExportService
 
   // 上(index.vue)と共有すべきもの
-
-  /// タブ関係
-  @Prop()
-  currentTabIndex: number | null = null
-
-  @Prop()
-  openTabs: TreeItem[] = []
 
   /// menu関係
   enableRightClickMenu = false
@@ -141,6 +129,12 @@ export default class DiagramsTreePane extends Vue {
 
   @Emit('onOpendDiagramPropertiesEditor')
   onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+
+  @Emit('onOpenDiagram')
+  onOpenDiagram(_treeItem: TreeItem): void {}
+
+  @Emit('onDeleteDiagram')
+  onDeleteDiagram(_diagramId: number): void {}
 
   // this vue lyfecycle event.
 
@@ -289,27 +283,26 @@ export default class DiagramsTreePane extends Vue {
   }
 
   private openDiagramEditorTabOf(diagramId: number): void {
-    const exists = this.openTabs.some((tab) => tab.id === diagramId)
-    if (!exists) {
-      const clickedItem = this.findTreeItemById(diagramId, this.treeItems)
-      if (!clickedItem) return
-      this.openTabs.push(clickedItem)
-    }
+    const clickedItem = this.findTreeItemById(diagramId)
+    if (!clickedItem) return
+    this.onOpenDiagram(clickedItem)
 
-    const newTabIndex = this.openTabs.findIndex(
-      (tabItem) => tabItem.id === diagramId
-    )
-    this.currentTabIndex = newTabIndex
-    this.onChangeActiveTab(newTabIndex)
+    // const exists = this.openTabs.some((tab) => tab.id === diagramId)
+    // if (!exists) this.openTabs.push(clickedItem)
+    // const newTabIndex = this.openTabs.findIndex(
+    //   (tabItem) => tabItem.id === diagramId
+    // )
+    // this.currentTabIndex = newTabIndex
+    // this.onChangeActiveTab(newTabIndex)
   }
 
-  onChangeActiveTab(newTabIndex: number) {
-    if (newTabIndex === undefined) return
-    const currentTabItem = this.openTabs[newTabIndex]
-    if (!currentTabItem) return
-    this.activeTreeItemOf(currentTabItem.id)
-    this.openParentTreeItem(currentTabItem.id)
-  }
+  // onChangeActiveTab(newTabIndex: number) {
+  //   if (newTabIndex === undefined) return
+  //   const currentTabItem = this.openTabs[newTabIndex]
+  //   if (!currentTabItem) return
+  //   this.activeTreeItemOf(currentTabItem.id)
+  //   this.openParentTreeItem(currentTabItem.id)
+  // }
 
   private activeTreeItemOf(treeItemId: number): void {
     this.treeActiveItemIds.length = 0
@@ -455,15 +448,15 @@ export default class DiagramsTreePane extends Vue {
     })
   }
 
-  private closeTab(tabItemId: number): boolean {
-    const tabs = this.openTabs
-    const tabIndex = tabs.findIndex((tabItem) => tabItem.id === tabItemId)
-    if (tabIndex < 0) return false
-    tabs.splice(tabIndex, 1)
+  // private closeTab(tabItemId: number): boolean {
+  //   const tabs = this.openTabs
+  //   const tabIndex = tabs.findIndex((tabItem) => tabItem.id === tabItemId)
+  //   if (tabIndex < 0) return false
+  //   tabs.splice(tabIndex, 1)
 
-    if (tabs.length === 0) this.treeActiveItemIds.splice(0, 1)
-    return true
-  }
+  //   if (tabs.length === 0) this.treeActiveItemIds.splice(0, 1)
+  //   return true
+  // }
 
   private removeTreeItem(treeItemId: number, treeItems: TreeItem[]): boolean {
     const foundIndex = treeItems.findIndex((item) => item.id === treeItemId)

@@ -3,12 +3,9 @@
     <TwoPainWithSlideBarLayout>
       <template #leftPain>
         <DiagramsTreePane
-          :treeItems="treeItems"
-          :treeActiveItemIds="treeActiveItemIds"
-          :treeOpenItemIds="treeOpenItemIds"
-          :currentTabIndex="currentTabIndex"
-          :openTabs="openTabs"
           @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+          @onOpenDiagram="onOpenDiagram"
+          @onDeleteDiagram="onDeleteDiagram"
         />
       </template>
       <template #rightPain>
@@ -160,6 +157,26 @@ export default class extends Vue {
   }
 
   // component events.
+
+  onOpenDiagram(treeItem: TreeItem): void {
+    const diagramId = treeItem.id;
+    const exists = this.openTabs.some((tab) => tab.id === diagramId)
+    if (!exists) this.openTabs.push(treeItem)
+    const newTabIndex = this.openTabs.findIndex(
+      (tabItem) => tabItem.id === diagramId
+    )
+    this.currentTabIndex = newTabIndex
+    this.onChangeActiveTab(newTabIndex)
+  }
+
+  onDeleteDiagram(diagramId: number): void {
+    const tabs = this.openTabs
+    const tabIndex = tabs.findIndex((tabItem) => tabItem.id === diagramId)
+    if (tabIndex < 0) return 
+    tabs.splice(tabIndex, 1)
+
+    if (tabs.length === 0) this.treeActiveItemIds.splice(0, 1)
+  }
 
   onClickTreeItem(treeItemIdText: string): void {
     if (treeItemIdText === "") return;
@@ -512,16 +529,16 @@ export default class extends Vue {
   }
 
   private openParentTreeItem(treeItemId: number): void {
-    const rdraTop = this.lookUpRdraTopItem();
-    const parentTreeItem = rdraTop.children.find(folderItem =>
-      folderItem.children.some(item => item.id === treeItemId)
-    );
-    if (!parentTreeItem) return;
-    const parentTreeItemId = parentTreeItem.id;
-    const openIds = this.treeOpenItemIds;
-    if (openIds.includes(parentTreeItemId))
-      openIds.splice(openIds.indexOf(parentTreeItemId), 1);
-    openIds.push(parentTreeItemId);
+    // const rdraTop = this.lookUpRdraTopItem();
+    // const parentTreeItem = rdraTop.children.find(folderItem =>
+    //   folderItem.children.some(item => item.id === treeItemId)
+    // );
+    // if (!parentTreeItem) return;
+    // const parentTreeItemId = parentTreeItem.id;
+    // const openIds = this.treeOpenItemIds;
+    // if (openIds.includes(parentTreeItemId))
+    //   openIds.splice(openIds.indexOf(parentTreeItemId), 1);
+    // openIds.push(parentTreeItemId);
   }
 
   private lookUpRdraTopItem(): TreeItem {
