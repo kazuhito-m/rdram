@@ -39,42 +39,18 @@
       </v-list>
     </v-menu>
 
-    <v-menu
-      :value="enableDiagramRightClickMenu"
-      :position-x="menuPositionX"
-      :position-y="menuPositionY"
-      close-on-click
-      close-on-content-click
-      offset-x
-      rounded
-    >
-      <v-list>
-        <v-list-item link @click="onClickMenuCopyDiagram">
-          <v-list-item-title
-            >{{ menuTargetTreeItemName }}コピー...</v-list-item-title
-          >
-        </v-list-item>
-        <v-list-item link @click="onClickMenuRemoveDiagram">
-          <v-list-item-title
-            >{{ menuTargetTreeItemName }}削除</v-list-item-title
-          >
-        </v-list-item>
-        <v-list-item link @click="onClickMenuEditDiagramProperties">
-          <v-list-item-title
-            >{{ menuTargetTreeItemName }}設定...</v-list-item-title
-          >
-        </v-list-item>
-        <v-list-item link @click="onClickMenuExportDiagram">
-          <v-list-item-title
-            >{{ menuTargetTreeItemName }}エクスポート</v-list-item-title
-          >
-        </v-list-item>
-      </v-list>
-    </v-menu>
+    <DiagramRightClickMenu
+      ref="diagramRightClickMenu"
+      @onClickMenuCopyDiagram="onClickMenuCopyDiagram"
+      @onClickMenuRemoveDiagram="onClickMenuRemoveDiagram"
+      @onClickMenuEditDiagramProperties="onClickMenuEditDiagramProperties"
+      @onClickMenuExportDiagram="onClickMenuExportDiagram"
+    />
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
+import DiagramRightClickMenu from './DiagramRightClickMenu.vue'
 import DiagramExportService from '~/application/service/diagram/export/DiagramExportService'
 import Diagram from '~/domain/diagram/Diagram'
 import Diagrams from '~/domain/diagram/Diagrams'
@@ -84,7 +60,11 @@ import StorageRepository from '~/domain/storage/StorageRepository'
 import MessageBox from '~/presentation/MessageBox'
 import TreeItem from '~/presentation/tree/TreeItem'
 
-@Component
+@Component({
+  components: {
+    DiagramRightClickMenu,
+  },
+})
 export default class DiagramsTreePane extends Vue {
   treeItems: TreeItem[] = []
   treeActiveItemIds: number[] = []
@@ -162,25 +142,23 @@ export default class DiagramsTreePane extends Vue {
     const treeItem = this.findTreeItemById(treeItemId, this.treeItems)
     if (!treeItem) return
 
-    this.menuTargetTreeItemId = treeItemId
-    this.menuTargetTreeItemName = `${treeItem.name} の`
-
     this.enableRightClickMenu = false
-    this.enableDiagramRightClickMenu = false
+    // this.enableDiagramRightClickMenu = false
 
-    this.menuPositionX = event.clientX
-    this.menuPositionY = event.clientY
+    const menu = this.$refs.diagramRightClickMenu as DiagramRightClickMenu
+    menu.show(treeItem, event.clientX, event.clientY)
+
     this.$nextTick(() => {
       const isFolder = treeItemId > this.DIAGRAM_FOLDER_ID_MASK
       this.enableRightClickMenu = isFolder
-      this.enableDiagramRightClickMenu = !isFolder
+      // this.enableDiagramRightClickMenu = !isFolder
     })
   }
 
   /// menu click events
 
-  onClickMenuAddDiagram(): void {
-    const item = this.findTreeItemById(this.menuTargetTreeItemId)
+  onClickMenuAddDiagram(diagramId: number): void {
+    const item = this.findTreeItemById(diagramId)
     if (!item) return
     const diagramType = DiagramType.ofId(item.id - this.DIAGRAM_FOLDER_ID_MASK)
     if (!diagramType) return
@@ -201,31 +179,24 @@ export default class DiagramsTreePane extends Vue {
     this.addDiagramView(diagram)
   }
 
-  onClickMenuCopyDiagram(): void {
-    const diagramId = this.menuTargetTreeItemId
-
+  onClickMenuCopyDiagram(diagramId: number): void {
     const diagram = this.copyDiagram(diagramId)
     if (!diagram) return
 
     this.addDiagramView(diagram)
   }
 
-  onClickMenuRemoveDiagram(): void {
-    const diagramId = this.menuTargetTreeItemId
-
+  onClickMenuRemoveDiagram(diagramId: number): void {
     if (!this.removeDiagram(diagramId)) return
-
     this.onDeleteDiagram(diagramId)
     this.removeTreeItem(diagramId, this.treeItems)
   }
 
-  onClickMenuEditDiagramProperties(): void {
-    const diagramId = this.menuTargetTreeItemId
+  onClickMenuEditDiagramProperties(diagramId: number): void {
     this.onOpendDiagramPropertiesEditor(diagramId)
   }
 
-  onClickMenuExportDiagram(): void {
-    const diagramId = this.menuTargetTreeItemId
+  onClickMenuExportDiagram(diagramId: number): void {
     this.diagramExportService!.downloadExportFileOnClient(diagramId)
   }
 
