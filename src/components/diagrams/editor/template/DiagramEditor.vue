@@ -150,7 +150,7 @@ export default class DiagramEditor extends Vue {
     const resource = await this.resourceEditDialog().showForModifyOf(resourceId);
     if (resource.isEmpty()) return;
 
-    const srcResource = this.refrectResourcesOnViewModel(resource);
+    const srcResource = this.reflectResourcesOnViewModel(resource);
     if (!srcResource) return;
 
     this.onRenamedResource(srcResource, resource);
@@ -296,7 +296,7 @@ export default class DiagramEditor extends Vue {
     };
   }
 
-  private refrectResourcesOnViewModel(resource: Resource): Resource | null {
+  private reflectResourcesOnViewModel(resource: Resource): Resource | null {
     const resources = this.allResourcesOnCurrentProduct;
     const i = resources
       .findIndex(r => r.resourceId === resource.resourceId);
