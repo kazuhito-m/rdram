@@ -23,22 +23,6 @@
       </template>
     </v-treeview>
 
-    <v-menu
-      :value="enableRightClickMenu"
-      :position-x="menuPositionX"
-      :position-y="menuPositionY"
-      close-on-click
-      close-on-content-click
-      offset-x
-      rounded
-    >
-      <v-list>
-        <v-list-item link @click="onClickMenuAddDiagram">
-          <v-list-item-title>図の追加...</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-
     <DiagramRightClickMenu
       ref="diagramRightClickMenu"
       @onClickMenuAddDiagram="onClickMenuAddDiagram"
@@ -76,16 +60,6 @@ export default class DiagramsTreePane extends Vue {
 
   @Inject()
   private readonly diagramExportService!: DiagramExportService
-
-  // 上(index.vue)と共有すべきもの
-
-  /// menu関係
-  enableRightClickMenu = false
-  enableDiagramRightClickMenu = false
-  menuTargetTreeItemId: number = 0
-  menuTargetTreeItemName = ''
-  menuPositionX = 0
-  menuPositionY = 0
 
   // constants
 
@@ -143,17 +117,8 @@ export default class DiagramsTreePane extends Vue {
     const treeItem = this.findTreeItemById(treeItemId, this.treeItems)
     if (!treeItem) return
 
-    // this.enableRightClickMenu = false
-    // this.enableDiagramRightClickMenu = false
-
     const menu = this.$refs.diagramRightClickMenu as DiagramRightClickMenu
     menu.show(treeItem, event.clientX, event.clientY)
-
-    // this.$nextTick(() => {
-    //   const isFolder = treeItemId > DiagramsTreePane.DIAGRAM_FOLDER_ID_MASK
-    //   this.enableRightClickMenu = isFolder
-    //   this.enableDiagramRightClickMenu = !isFolder
-    // })
   }
 
   /// menu click events
