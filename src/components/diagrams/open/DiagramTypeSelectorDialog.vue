@@ -128,7 +128,7 @@ export default class DiagramTypeSelectorDialog extends Vue {
   private findRelateDiagrams(resourceId: number): Diagrams {
     const product = this.repository?.getCurrentProduct() as Product
     this.resource = product.resources.of(resourceId) as Resource
-    return product.diagramOfResourceRelate(resourceId)
+    return product.diagramsOfResourceRelate(resourceId)
   }
 
   private fixedDiagramId(): number {

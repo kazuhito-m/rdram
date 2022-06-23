@@ -67,9 +67,17 @@ export default class Product {
         return "";
     }
 
+    public meageDiagramsByIdOf(newDiagrams: Diagram[]): Product {
+        const initialDiagrams = this.diagrams;
+        const mergedDiagrams = newDiagrams.reduce(
+            (diagrams, diagram) => diagrams.mergeByIdOf(diagram),
+            initialDiagrams
+        );
+        return this.withDiagrams(mergedDiagrams);
+    }
+
     public meageDiagramByIdOf(newDiagram: Diagram): Product {
-        const newDiagrams = this.diagrams.mergeByIdOf(newDiagram);
-        return this.withDiagrams(newDiagrams);
+        return this.meageDiagramsByIdOf([newDiagram]);
     }
 
     public meageResourceOf(newResource: Resource): Product {
@@ -205,13 +213,16 @@ export default class Product {
         return this.resources.findOf(useRecourceIds);
     }
 
-    public diagramOfResourceRelate(resourceId: number): Diagrams {
-        const resource = this.resources.of(resourceId);
-        if (!resource) return Diagrams.empty();
-
+    public relateDiagramsOf(resource: Resource): Diagrams {
         const diagramTypes = Product.correspondingDiagramTypesOf(resource);
         return this.diagrams.typesOf(...diagramTypes)
             .findByNameOf(resource.name);
+    }
+
+    public diagramsOfResourceRelate(resourceId: number): Diagrams {
+        const resource = this.resources.of(resourceId);
+        if (!resource) return Diagrams.empty();
+        return this.relateDiagramsOf(resource);
     }
 
     // utility methods.

@@ -115,6 +115,7 @@
                 @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
                 @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
                 @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+                @onRenamedResource="onRenamedResource"
               />
             </v-tab-item>
           </v-tabs-items>
@@ -321,7 +322,11 @@ export default class extends Vue {
 
     this.openDiagramEditorTabOf(diagramId);
   }
-  
+
+  onRenamedResource(src: Resource, dest: Resource): void {
+    this.reflectResourceRenameToDiagrams(src, dest);
+  }
+
   // private methods.
 
   private buildTreeItems(product: Product): TreeItem[] {
@@ -601,6 +606,46 @@ export default class extends Vue {
     product.resources
       .filter(r => nowIdDictionary.includes(r.resourceId))
       .forEach(r => alreadyResources.push(r));
+  }
+
+  private reflectResourceRenameToDiagrams(src: Resource, dest: Resource): void {
+    if (src.name === dest.name) return;
+    if (!Product.hasCorrespondingDiagramTypeOf(src)) return;
+
+    const product = this.repository.getCurrentProduct();
+    if (!product) return;
+
+    const relateDaigrams = product.relateDiagramsOf(src);
+    if (relateDaigrams.isEmpty()) return;
+
+    if (!this.confirmDiagramRename(src, dest, relateDaigrams)) return;
+
+    const renameDiagrams = relateDaigrams
+      .map(diagram => diagram.renameOf(dest.name))
+      .filter(d => {
+        const exists = product.diagrams.existsSameOf(d);
+        if (exists) alert(`名前を変更しようとした図\n  [${d.type.name}]:${d.name}\nが存在したため変更できませんでした。`)
+        return !exists;
+      });
+
+    const upProduct = product.meageDiagramsByIdOf(renameDiagrams);
+    this.repository.registerCurrentProduct(upProduct);
+
+    this.reflectTreeAndTabOf(renameDiagrams);
+  }
+
+  private confirmDiagramRename(src: Resource, dest: Resource, relateDaigrams: Diagrams): boolean {
+    let message = `変更前の名前 [${src.name}] に関連する図があります。\n\n`
+    message+=relateDaigrams.map(d => `  [${d.type.name}]:${d.name}`).join("\n")
+    message+=`\n\n合わせて名前を [${dest.name}] 変更しますか？`
+    return confirm(message);
+  }
+
+  private reflectTreeAndTabOf(diagrams: Diagram[]): void {
+    for (const diagram of diagrams) {
+      const item = this.findTreeItemById(diagram.id);
+      if (item) item.name = diagram.name;
+    }
   }
 }
 </script>
