@@ -52,6 +52,8 @@ export default class Folder {
         folderItem.children = typeMap.get(type)?.map(d => this.makeDiagramItem(d))
             .filter(d => d)
             .map(d => d as TreeItem) as TreeItem[]
+        if (folderItem.children.length === 0)
+            folderItem.children = [Folder.EMPTY_TREE_ITEM];
         return folderItem;
     }
 
