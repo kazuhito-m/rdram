@@ -180,10 +180,7 @@ export default class DiagramsTreePane extends Vue {
   /// menu click events
 
   onClickMenuAddDiagram(): void {
-    const item = this.findTreeItemById(
-      this.menuTargetTreeItemId,
-      this.treeItems
-    )
+    const item = this.findTreeItemById(this.menuTargetTreeItemId)
     if (!item) return
     const diagramType = DiagramType.ofId(item.id - this.DIAGRAM_FOLDER_ID_MASK)
     if (!diagramType) return
@@ -235,6 +232,7 @@ export default class DiagramsTreePane extends Vue {
   // public method
 
   activeItemAndFolderOpen(diagramId: number): void {
+    if (!this.findAndReflectDiagramToTreeOf(diagramId)) return
     this.activeTreeItemOf(diagramId)
     this.openParentTreeItem(diagramId)
   }
@@ -460,6 +458,17 @@ export default class DiagramsTreePane extends Vue {
     return treeItems.some((item) =>
       this.removeTreeItem(treeItemId, item.children)
     )
+  }
+
+  private findAndReflectDiagramToTreeOf(diagramId: number): boolean {
+    const existsItem = this.findTreeItemById(diagramId)
+    if (existsItem) return true
+
+    const diagram = this.repository.getCurrentProduct()?.diagrams.of(diagramId)
+    if (!diagram) return false
+
+    this.addDiagramView(diagram)
+    return true
   }
 }
 </script>
