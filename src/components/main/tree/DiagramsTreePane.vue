@@ -2,10 +2,10 @@
   <div class="treeview-container">
     <v-treeview
       :items="treeItems"
-      activatable
-      open-on-click
       :active.sync="treeActiveItemIds"
       :open.sync="treeOpenItemIds"
+      activatable
+      open-on-click
       transition
       dark
       dense
@@ -74,7 +74,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Inject, Emit, Prop } from 'nuxt-property-decorator'
+import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
 import DiagramExportService from '~/application/service/diagram/export/DiagramExportService'
 import Diagram from '~/domain/diagram/Diagram'
 import Diagrams from '~/domain/diagram/Diagrams'

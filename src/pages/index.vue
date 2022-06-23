@@ -528,7 +528,7 @@ export default class extends Vue {
     this.openParentTreeItem(currentTabItem.id);
   }
 
-  private openParentTreeItem(treeItemId: number): void {
+  private openParentTreeItem(_treeItemId: number): void {
     // const rdraTop = this.lookUpRdraTopItem();
     // const parentTreeItem = rdraTop.children.find(folderItem =>
     //   folderItem.children.some(item => item.id === treeItemId)
