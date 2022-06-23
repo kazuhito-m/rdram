@@ -81,14 +81,11 @@ import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import DiagramTypeSelectorDialog from "@/components/diagrams/open/DiagramTypeSelectorDialog.vue";
 import TreeItem from "@/presentation/tree/TreeItem"; 
-import MessageBox from "@/presentation/MessageBox";
-import DiagramType from "@/domain/diagram/DiagramType";
 import Product from "@/domain/product/Product";
 import Diagrams from "@/domain/diagram/Diagrams";
 import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
 import StorageRepository from "@/domain/storage/StorageRepository";
-import DiagramExportService from "@/application/service/diagram/export/DiagramExportService";
 
 @Component({
   components: {
