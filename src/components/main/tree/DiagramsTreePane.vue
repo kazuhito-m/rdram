@@ -74,7 +74,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
+import { Component, Vue, Inject, Emit, Prop } from 'nuxt-property-decorator'
 import DiagramExportService from '~/application/service/diagram/export/DiagramExportService'
 import Diagram from '~/domain/diagram/Diagram'
 import Diagrams from '~/domain/diagram/Diagrams'
@@ -86,8 +86,11 @@ import TreeItem from '~/presentation/tree/TreeItem'
 
 @Component
 export default class DiagramsTreePane extends Vue {
+  @Prop()
   treeItems: TreeItem[] = []
+  @Prop()
   treeActiveItemIds: number[] = []
+  @Prop()
   treeOpenItemIds: number[] = []
 
   @Inject()
@@ -99,7 +102,9 @@ export default class DiagramsTreePane extends Vue {
   // 上(index.vue)と共有すべきもの
 
   /// タブ関係
+  @Prop()
   currentTabIndex: number | null = null
+  @Prop()
   openTabs: TreeItem[] = []
 
   /// menu関係
@@ -133,6 +138,14 @@ export default class DiagramsTreePane extends Vue {
 
   @Emit('onOpendDiagramPropertiesEditor')
   onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+
+  // this vue lyfecycle event.
+
+  created(): void {
+    const product = this.repository.getCurrentProduct()
+    if (!product) return
+    this.treeItems = this.buildTreeItems(product)
+  }
 
   // component events.
 
@@ -234,6 +247,42 @@ export default class DiagramsTreePane extends Vue {
       if (child) return child
     }
     return null
+  }
+
+  private buildTreeItems(product: Product): TreeItem[] {
+    const items: TreeItem[] = []
+    let rdraTop: TreeItem
+    Object.keys(this.TOP_FOLDERS).forEach((tfName) => {
+      const id = this.TOP_FOLDERS[tfName]
+      const item = {
+        id,
+        name: tfName,
+        children: [] as TreeItem[],
+        disabled: false,
+        iconKey: '',
+        iconCaption: '',
+      }
+      if (tfName === 'RDRA 2.0') {
+        rdraTop = item
+        this.treeOpenItemIds.push(rdraTop.id)
+      } else item.children.push(this.EMPTY_ITEMS)
+      items.push(item)
+    })
+
+    DiagramType.values()
+      .map((type) => {
+        return {
+          id: type.id + this.DIAGRAM_FOLDER_ID_MASK,
+          name: type.name,
+          children: [this.EMPTY_ITEMS],
+        } as TreeItem
+      })
+      .forEach((item) => rdraTop.children.push(item))
+
+    product.diagrams.forEach((diagram) =>
+      this.addDiagramTreeItem(diagram, items)
+    )
+    return items
   }
 
   private openDiagramEditorTabOf(diagramId: number): void {

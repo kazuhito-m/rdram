@@ -2,71 +2,14 @@
   <v-layout>
     <TwoPainWithSlideBarLayout>
       <template #leftPain>
-        <div class="treeview-container">
-          <v-treeview
-            :items="treeItems"
-            activatable
-            open-on-click
-            :active.sync="treeActiveItemIds"
-            :open.sync="treeOpenItemIds"
-            transition
-            dark
-            dense
-            @update:active="onClickTreeItem"
-          >
-            <template #label="{item}">
-              <div
-                :data-item-id="item.id"
-                class="right-click-area"
-                @click.right.prevent="onRightClickTreeItem"
-              >
-                <v-icon v-if="item.iconKey">{{ item.iconKey }}</v-icon>
-                {{ item.name }}
-              </div>
-            </template>
-          </v-treeview>
-
-          <v-menu
-            :value="enableRightClickMenu"
-            :close-on-click="true"
-            :close-on-content-click="true"
-            :offset-x="true"
-            :rounded="true"
-            :position-x="menuPositionX"
-            :position-y="menuPositionY"
-          >
-            <v-list>
-              <v-list-item link @click="onClickMenuAddDiagram">
-                <v-list-item-title>図の追加...</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
-          <v-menu
-            :value="enableDiagramRightClickMenu"
-            :position-x="menuPositionX"
-            :position-y="menuPositionY"
-            close-on-click
-            close-on-content-click
-            offset-x
-            rounded
-          >
-            <v-list>
-              <v-list-item link @click="onClickMenuCopyDiagram">
-                <v-list-item-title>{{ menuTargetTreeItemName }}コピー...</v-list-item-title>
-              </v-list-item>
-              <v-list-item link @click="onClickMenuRemoveDiagram">
-                <v-list-item-title>{{ menuTargetTreeItemName }}削除</v-list-item-title>
-              </v-list-item>
-              <v-list-item link @click="onClickMenuEditDiagramProperties">
-                <v-list-item-title>{{ menuTargetTreeItemName }}設定...</v-list-item-title>
-              </v-list-item>
-              <v-list-item link @click="onClickMenuExportDiagram">
-                <v-list-item-title>{{ menuTargetTreeItemName }}エクスポート</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </div>
+        <DiagramsTreePane
+          :treeItems="treeItems"
+          :treeActiveItemIds="treeActiveItemIds"
+          :treeOpenItemIds="treeOpenItemIds"
+          :currentTabIndex="currentTabIndex"
+          :openTabs="openTabs"
+          @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+        />
       </template>
       <template #rightPain>
         <div class="tabview-container">
@@ -135,6 +78,7 @@
 <script lang="ts">
 import { Component, Vue, Inject } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
+import DiagramsTreePane from "@/components/main/tree/DiagramsTreePane.vue";
 import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import DiagramTypeSelectorDialog from "@/components/diagrams/open/DiagramTypeSelectorDialog.vue";
@@ -151,6 +95,7 @@ import DiagramExportService from "@/application/service/diagram/export/DiagramEx
 @Component({
   components: {
     TwoPainWithSlideBarLayout,
+    DiagramsTreePane,
     DiagramEditorContainer,
     DiagramPropertiesEditDialog,
     DiagramTypeSelectorDialog
@@ -208,8 +153,6 @@ export default class extends Vue {
     if (!product) return;
 
     this.currentProduct = product;
-
-    this.treeItems = this.buildTreeItems(product);
 
     product.resources.forEach(resource =>
       this.allResourcesOnCurrentProduct.push(resource)
