@@ -11,16 +11,39 @@
       @input="close"
     >
       <v-list>
-        <v-list-item link @click="onClickMenuCopyDiagram(diagramId)">
+        <v-list-item
+          link
+          v-if="isFolder"
+          @click="onClickMenuAddDiagram(diagramId)"
+        >
+          <v-list-item-title>図の追加...</v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          link
+          v-if="isDiagram"
+          @click="onClickMenuCopyDiagram(diagramId)"
+        >
           <v-list-item-title>{{ diagramName }} のコピー...</v-list-item-title>
         </v-list-item>
-        <v-list-item link @click="onClickMenuRemoveDiagram(diagramId)">
+        <v-list-item
+          link
+          v-if="isDiagram"
+          @click="onClickMenuRemoveDiagram(diagramId)"
+        >
           <v-list-item-title>{{ diagramName }} の削除</v-list-item-title>
         </v-list-item>
-        <v-list-item link @click="onClickMenuEditDiagramProperties(diagramId)">
+        <v-list-item
+          link
+          v-if="isDiagram"
+          @click="onClickMenuEditDiagramProperties(diagramId)"
+        >
           <v-list-item-title>{{ diagramName }} の設定...</v-list-item-title>
         </v-list-item>
-        <v-list-item link @click="onClickMenuExportDiagram(diagramId)">
+        <v-list-item
+          link
+          v-if="isDiagram"
+          @click="onClickMenuExportDiagram(diagramId)"
+        >
           <v-list-item-title
             >{{ diagramName }} のエクスポート</v-list-item-title
           >
@@ -32,6 +55,7 @@
 <script lang="ts">
 import { Component, Vue, Emit } from 'nuxt-property-decorator'
 import TreeItem from '~/presentation/tree/TreeItem'
+// import DiagramsTreePane from './DiagramsTreePane.vue'
 
 @Component
 export default class DiagramRightClickMenu extends Vue {
@@ -41,6 +65,14 @@ export default class DiagramRightClickMenu extends Vue {
 
   diagramId = 0
   diagramName = ''
+
+  isFolder = false
+  isDiagram = false
+
+  @Emit('onClickMenuAddDiagram')
+  onClickMenuAddDiagram(_diagramId: number): void {
+    this.close()
+  }
 
   @Emit('onClickMenuCopyDiagram')
   onClickMenuCopyDiagram(_diagramId: number): void {
@@ -65,6 +97,9 @@ export default class DiagramRightClickMenu extends Vue {
   // public method
 
   show(treeItem: TreeItem, x: number, y: number): void {
+    this.isFolder = treeItem.id > 1000000 // TOOD 定数
+    this.isDiagram = !this.isFolder
+
     this.diagramId = treeItem.id
     this.diagramName = treeItem.name
 

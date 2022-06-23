@@ -41,6 +41,7 @@
 
     <DiagramRightClickMenu
       ref="diagramRightClickMenu"
+      @onClickMenuAddDiagram="onClickMenuAddDiagram"
       @onClickMenuCopyDiagram="onClickMenuCopyDiagram"
       @onClickMenuRemoveDiagram="onClickMenuRemoveDiagram"
       @onClickMenuEditDiagramProperties="onClickMenuEditDiagramProperties"
@@ -103,7 +104,7 @@ export default class DiagramsTreePane extends Vue {
     iconCaption: '',
   }
 
-  private readonly DIAGRAM_FOLDER_ID_MASK: number = 1000000
+  public static readonly DIAGRAM_FOLDER_ID_MASK: number = 1000000
 
   // emits
 
@@ -142,17 +143,17 @@ export default class DiagramsTreePane extends Vue {
     const treeItem = this.findTreeItemById(treeItemId, this.treeItems)
     if (!treeItem) return
 
-    this.enableRightClickMenu = false
+    // this.enableRightClickMenu = false
     // this.enableDiagramRightClickMenu = false
 
     const menu = this.$refs.diagramRightClickMenu as DiagramRightClickMenu
     menu.show(treeItem, event.clientX, event.clientY)
 
-    this.$nextTick(() => {
-      const isFolder = treeItemId > this.DIAGRAM_FOLDER_ID_MASK
-      this.enableRightClickMenu = isFolder
-      // this.enableDiagramRightClickMenu = !isFolder
-    })
+    // this.$nextTick(() => {
+    //   const isFolder = treeItemId > DiagramsTreePane.DIAGRAM_FOLDER_ID_MASK
+    //   this.enableRightClickMenu = isFolder
+    //   this.enableDiagramRightClickMenu = !isFolder
+    // })
   }
 
   /// menu click events
@@ -160,7 +161,9 @@ export default class DiagramsTreePane extends Vue {
   onClickMenuAddDiagram(diagramId: number): void {
     const item = this.findTreeItemById(diagramId)
     if (!item) return
-    const diagramType = DiagramType.ofId(item.id - this.DIAGRAM_FOLDER_ID_MASK)
+    const diagramType = DiagramType.ofId(
+      item.id - DiagramsTreePane.DIAGRAM_FOLDER_ID_MASK
+    )
     if (!diagramType) return
 
     const product = this.repository.getCurrentProduct()
@@ -262,7 +265,7 @@ export default class DiagramsTreePane extends Vue {
     DiagramType.values()
       .map((type) => {
         return {
-          id: type.id + this.DIAGRAM_FOLDER_ID_MASK,
+          id: type.id + DiagramsTreePane.DIAGRAM_FOLDER_ID_MASK,
           name: type.name,
           children: [this.EMPTY_ITEMS],
         } as TreeItem
@@ -348,7 +351,8 @@ export default class DiagramsTreePane extends Vue {
     const rdraTopId = this.TOP_FOLDERS['RDRA 2.0']
     const rdraTop = treeItems.find((i) => i.id === rdraTopId)
     if (!rdraTop) return null
-    const maskedDialogTypeId = diagramType.id + this.DIAGRAM_FOLDER_ID_MASK
+    const maskedDialogTypeId =
+      diagramType.id + DiagramsTreePane.DIAGRAM_FOLDER_ID_MASK
     const folderItem = rdraTop.children.find((i) => i.id === maskedDialogTypeId)
     if (!folderItem) return null
     return folderItem
