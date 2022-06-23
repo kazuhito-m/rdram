@@ -100,39 +100,8 @@ import DiagramExportService from "@/application/service/diagram/export/DiagramEx
   }
 })
 export default class extends Vue {
-  private readonly TOP_FOLDERS: { [key: string]: number } = {
-    "RDRA 2.0": -1,
-    カスタム: -2,
-    分析: -3
-  };
-
-  private readonly EMPTY_ITEMS: TreeItem = {
-    id: 0,
-    name: "(空)",
-    children: [],
-    disabled: true,
-    iconKey: "",
-    iconCaption: "",
-  };
-
-  private readonly DIAGRAM_FOLDER_ID_MASK: number = 1000000;
-
   @Inject()
   private readonly repository!: StorageRepository;
-
-  @Inject()
-  private readonly diagramExportService! : DiagramExportService;
-
-  treeItems: TreeItem[] = [];
-  treeActiveItemIds: number[] = [];
-  treeOpenItemIds: number[] = [];
-
-  enableRightClickMenu = false;
-  enableDiagramRightClickMenu = false;
-  menuTargetTreeItemId: number = 0;
-  menuTargetTreeItemName = "";
-  menuPositionX = 0;
-  menuPositionY = 0;
 
   propertiesEditorDiagramId = 0;
   lastPropertiesUpdatedDiagramId = 0;
@@ -171,12 +140,7 @@ export default class extends Vue {
   }
 
   onDeleteDiagram(diagramId: number): void {
-    const tabs = this.openTabs
-    const tabIndex = tabs.findIndex((tabItem) => tabItem.id === diagramId)
-    if (tabIndex < 0) return 
-    tabs.splice(tabIndex, 1)
-
-    if (tabs.length === 0) this.treeActiveItemIds.splice(0, 1)
+    this.closeTab(diagramId);
   }
 
   onClickCloseTab(event: MouseEvent) {
@@ -240,8 +204,7 @@ export default class extends Vue {
     const tabIndex = tabs.findIndex(tabItem => tabItem.id === tabItemId);
     if (tabIndex < 0) return false;
     tabs.splice(tabIndex, 1);
-
-    if (tabs.length === 0) this.treeActiveItemIds.splice(0, 1);
+    if (tabs.length === 0) this.clearSelectedOnTree();
     return true;
   }
 
@@ -303,6 +266,11 @@ export default class extends Vue {
   private reflectTreeAndTabOf(diagrams: Diagram[]): void {
     const treePain = this.$refs.diagramsTreePane as DiagramsTreePane;
     treePain.reflectTreeAndTabOf(diagrams);
+  }
+
+  private clearSelectedOnTree(): void {
+    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane;
+    treePain.clearSelected();
   }
 }
 </script>

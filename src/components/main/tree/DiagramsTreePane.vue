@@ -247,9 +247,13 @@ export default class DiagramsTreePane extends Vue {
 
   reflectTreeAndTabOf(diagrams: Diagram[]): void {
     for (const diagram of diagrams) {
-      const item = this.findTreeItemById(diagram.id);
-      if (item) item.name = diagram.name;
+      const item = this.findTreeItemById(diagram.id)
+      if (item) item.name = diagram.name
     }
+  }
+
+  clearSelected(): void {
+    this.treeActiveItemIds.splice(0, 1)
   }
 
   // private method
