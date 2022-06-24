@@ -304,7 +304,7 @@ export default class CanvasSettingToolBar extends Vue {
 .canvas-float-toolbar {
   /* position:fixed; */
   /* height: 50px; */
-  width: 500px;
+  width: 520px;
   left: 2%;
   top: -10%;
   display: block;

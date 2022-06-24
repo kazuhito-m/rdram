@@ -155,6 +155,9 @@ export default class DiagramEditorContainer extends Vue {
   @Emit('onRenamedResource')
   onRenamedResource(_src: Resource, _dest: Resource): void {}
 
+  @Emit('onUpdateResoucesOnContainer')
+  onUpdateResoucesOnContainer(): void {}
+
   diagram?: Diagram
 
   public created(): void {
@@ -162,12 +165,8 @@ export default class DiagramEditorContainer extends Vue {
   }
 
   onUpdateResoucesOnEditor(): void {
-    console.log(`onUpdateResoucesOnEditor()`)
     this.onUpdateResoucesOnContainer()
   }
-
-  @Emit('onUpdateResoucesOnContainer')
-  onUpdateResoucesOnContainer(): void {}
 
   diagramOf(diagramId: number): Diagram | undefined {
     const product = this.repository.getCurrentProduct()
