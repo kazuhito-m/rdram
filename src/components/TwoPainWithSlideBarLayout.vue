@@ -135,7 +135,13 @@ export default class TwoPainWithSlideBarLayout extends Vue {
 
 .slidebar {
   width: 8px;
-  background-color: gray;
+  background-color: #404040;
   cursor: col-resize;
+  transition: 0.25s;
+}
+
+.slidebar:hover {
+  background-color: #A0A0A0;
+  transition: 0.25s;
 }
 </style>
