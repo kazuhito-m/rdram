@@ -70,6 +70,10 @@ export default class FolderTreeFactory {
         return diagramType.id + FolderTreeFactory.DIAGRAM_FOLDER_ID_MASK;
     }
 
+    public isDiagramTypeFolder(treeItem: TreeItem): boolean {
+        return treeItem.id > FolderTreeFactory.DIAGRAM_FOLDER_ID_MASK;
+    }
+
     public static get(): FolderTreeFactory {
         return new FolderTreeFactory();
     }

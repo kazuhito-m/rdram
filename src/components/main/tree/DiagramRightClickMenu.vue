@@ -55,6 +55,7 @@
 <script lang="ts">
 import { Component, Vue, Emit } from 'nuxt-property-decorator'
 import TreeItem from '@/components/main/tree/TreeItem'
+import FolderTreeFactory from './FolderTreeFactory'
 
 @Component
 export default class DiagramRightClickMenu extends Vue {
@@ -96,7 +97,7 @@ export default class DiagramRightClickMenu extends Vue {
   // public method
 
   show(treeItem: TreeItem, x: number, y: number): void {
-    this.isFolder = treeItem.id > 1000000 // TOOD 定数
+    this.isFolder = FolderTreeFactory.get().isDiagramTypeFolder(treeItem)
     this.isDiagram = !this.isFolder
 
     this.diagramId = treeItem.id

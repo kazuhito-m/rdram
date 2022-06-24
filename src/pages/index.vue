@@ -41,7 +41,7 @@ import DiagramsTabPane from "@/components/main/tab/DiagramsTabPane.vue";
 import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import DiagramTypeSelectorDialog from "@/components/diagrams/open/DiagramTypeSelectorDialog.vue";
-import TreeItem from "@/presentation/tree/TreeItem"; 
+import TreeItem from "@/components/main/tree/TreeItem"; 
 import Product from "@/domain/product/Product";
 import Diagrams from "@/domain/diagram/Diagrams";
 import Diagram from "@/domain/diagram/Diagram";
