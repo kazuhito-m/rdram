@@ -47,9 +47,9 @@
 <script lang="ts">
 import { Component, Vue, Emit, Prop } from 'nuxt-property-decorator'
 import DiagramEditorContainer from '@/components/diagrams/DiagramEditorContainer.vue'
-import Diagram from '~/domain/diagram/Diagram'
-import Resource from '~/domain/resource/Resource'
-import TreeItem from '~/presentation/tree/TreeItem'
+import Diagram from '@/domain/diagram/Diagram'
+import Resource from '@/domain/resource/Resource'
+import TreeItem from '@/presentation/tree/TreeItem'
 
 @Component({
   components: {
@@ -63,10 +63,10 @@ export default class DiagramRightClickMenu extends Vue {
   // Props
 
   @Prop({ required: true })
-  allResourcesOnCurrentProduct?: Resource[]
+  readonly allResourcesOnCurrentProduct?: Resource[]
 
   @Prop({ required: true })
-  lastPropertiesUpdatedDiagramId?: number
+  readonly lastPropertiesUpdatedDiagramId?: number
 
   // emits
 
@@ -101,9 +101,6 @@ export default class DiagramRightClickMenu extends Vue {
     const currentTabItem = this.openTabs[newTabIndex]
     if (!currentTabItem) return
 
-    // const treePain = this.$refs.diagramsTreePane as DiagramsTreePane
-    // treePain.activeItemAndFolderOpen(currentTabItem.id)
-
     this.onChangeCurrentDiagram(currentTabItem.id)
   }
 
@@ -117,20 +114,9 @@ export default class DiagramRightClickMenu extends Vue {
     this.closeTab(tabItemId)
   }
 
-  private closeTab(tabItemId: number): boolean {
-    const tabs = this.openTabs
-    const tabIndex = tabs.findIndex((tabItem) => tabItem.id === tabItemId)
-    if (tabIndex < 0) return false
-    tabs.splice(tabIndex, 1)
-    // if (tabs.length === 0) this.clearSelectedOnTree()
-
-    if (tabs.length === 0) this.onAllClosedDiagram()
-    return true
-  }
-
   // public method.
 
-  public openDiagram(treeItem: TreeItem): void {
+  openDiagram(treeItem: TreeItem): void {
     const diagramId = treeItem.id
     const exists = this.openTabs.some((tab) => tab.id === diagramId)
     if (!exists) this.openTabs.push(treeItem)
@@ -139,6 +125,16 @@ export default class DiagramRightClickMenu extends Vue {
     )
     this.currentTabIndex = newTabIndex
     this.onChangeActiveTab(newTabIndex)
+  }
+
+  closeTab(tabItemId: number): boolean {
+    const tabs = this.openTabs
+    const tabIndex = tabs.findIndex((tabItem) => tabItem.id === tabItemId)
+    if (tabIndex < 0) return false
+    tabs.splice(tabIndex, 1)
+
+    if (tabs.length === 0) this.onAllClosedDiagram()
+    return true
   }
 }
 </script>

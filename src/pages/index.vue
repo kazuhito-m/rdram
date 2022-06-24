@@ -60,11 +60,7 @@ export default class extends Vue {
   propertiesEditorDiagramId = 0;
   lastPropertiesUpdatedDiagramId = 0;
 
-  currentTabIndex: number | null = null;
-  openTabs: TreeItem[] = [];
-
   allResourcesOnCurrentProduct: Resource[] = [];
-
   currentProduct?: Product;
 
   // this vue lyfecycle event.
@@ -88,17 +84,8 @@ export default class extends Vue {
   }
 
   onDeleteDiagram(diagramId: number): void {
-    this.closeTab(diagramId);
-  }
-
-  onClickCloseTab(event: MouseEvent) {
-    if (!event.target) return;
-    const element = event.target as HTMLElement;
-    const data = element.getAttribute("data-item-id");
-    if (!data) return;
-    const tabItemId = parseInt(data, 10);
-
-    this.closeTab(tabItemId);
+    const tabPane = this.$refs.diagramsTabPane as DiagramsTabPane;
+    tabPane.closeTab(diagramId);
   }
 
   onUpdateResoucesOnContainer(): void {
@@ -136,15 +123,6 @@ export default class extends Vue {
     this.reflectResourceRenameToDiagrams(src, dest);
   }
 
-  onChangeActiveTab(newTabIndex: number) {
-    if (newTabIndex === undefined) return;
-    const currentTabItem = this.openTabs[newTabIndex];
-    if (!currentTabItem) return;
-
-    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane;
-    treePain.activeItemAndFolderOpen(currentTabItem.id);
-  }
-
   onChangeCurrentDiagram(diagramId: number): void {
     const treePain = this.$refs.diagramsTreePane as DiagramsTreePane
     treePain.activeItemAndFolderOpen(diagramId)
@@ -155,15 +133,6 @@ export default class extends Vue {
   }
 
   // private methods.
-
-  private closeTab(tabItemId: number): boolean {
-    const tabs = this.openTabs;
-    const tabIndex = tabs.findIndex(tabItem => tabItem.id === tabItemId);
-    if (tabIndex < 0) return false;
-    tabs.splice(tabIndex, 1);
-    if (tabs.length === 0) this.clearSelectedOnTree();
-    return true;
-  }
 
   private reloadAllResources(): void {
     const product = this.repository.getCurrentProduct();
