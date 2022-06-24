@@ -45,6 +45,8 @@ import StorageRepository from '~/domain/storage/StorageRepository'
 import MessageBox from '~/presentation/MessageBox'
 import TreeItem from '~/presentation/tree/TreeItem'
 import Folder from './Folder'
+import TreeWrapper from './TreeWrapper'
+import FolderTreeFactory from './FolderTreeFactory'
 
 @Component({
   components: {
@@ -55,6 +57,9 @@ export default class DiagramsTreePane extends Vue {
   treeItems: TreeItem[] = []
   treeActiveItemIds: number[] = []
   treeOpenItemIds: number[] = []
+
+  private tree = new TreeWrapper(this.treeItems)
+  private treeFactory = FolderTreeFactory.get()
 
   @Inject()
   private readonly repository!: StorageRepository
@@ -78,8 +83,9 @@ export default class DiagramsTreePane extends Vue {
   created(): void {
     const product = this.repository.getCurrentProduct()
     if (!product) return
-    this.treeItems = Folder.buildTree(product.diagrams)
+    this.treeItems = this.treeFactory.buildTree(product.diagrams)
     this.treeOpenItemIds.push(Folder.RDRAM20.id)
+    this.tree = new TreeWrapper(this.treeItems)
   }
 
   // component events.
@@ -97,7 +103,7 @@ export default class DiagramsTreePane extends Vue {
     if (!data) return
     const treeItemId = parseInt(data, 10)
     if (treeItemId <= 0) return
-    const treeItem = this.findTreeItemById(treeItemId, this.treeItems)
+    const treeItem = this.tree.findTreeItemById(treeItemId)
     if (!treeItem) return
 
     const menu = this.$refs.diagramRightClickMenu as DiagramRightClickMenu
@@ -107,9 +113,9 @@ export default class DiagramsTreePane extends Vue {
   /// menu click events
 
   onClickMenuAddDiagram(treeItemId: number): void {
-    const item = this.findTreeItemById(treeItemId)
+    const item = this.tree.findTreeItemById(treeItemId)
     if (!item) return
-    const diagramType = Folder.diagramTypeFrom(item)
+    const diagramType = this.treeFactory.diagramTypeFrom(item)
     if (!diagramType) return
 
     const product = this.repository.getCurrentProduct()
@@ -138,7 +144,7 @@ export default class DiagramsTreePane extends Vue {
   onClickMenuRemoveDiagram(diagramId: number): void {
     if (!this.removeDiagram(diagramId)) return
     this.onDeleteDiagram(diagramId)
-    this.removeTreeItem(diagramId, this.treeItems)
+    this.tree.removeTreeItem(diagramId)
   }
 
   onClickMenuEditDiagramProperties(diagramId: number): void {
@@ -158,14 +164,14 @@ export default class DiagramsTreePane extends Vue {
   }
 
   openDiagramEditorTabOf(diagramId: number): void {
-    const clickedItem = this.findTreeItemById(diagramId)
+    const clickedItem = this.tree.findTreeItemById(diagramId)
     if (!clickedItem) return
     this.onOpenDiagram(clickedItem)
   }
 
   reflectTreeAndTabOf(diagrams: Diagram[]): void {
     for (const diagram of diagrams) {
-      const item = this.findTreeItemById(diagram.id)
+      const item = this.tree.findTreeItemById(diagram.id)
       if (item) item.name = diagram.name
     }
   }
@@ -176,38 +182,21 @@ export default class DiagramsTreePane extends Vue {
 
   // private method
 
-  private findTreeItemById(
-    treeItemId: number,
-    treeItems: TreeItem[] = this.treeItems
-  ): TreeItem | null {
-    for (const item of treeItems) {
-      if (item.id === treeItemId) return item
-      const child = this.findTreeItemById(treeItemId, item.children)
-      if (child) return child
-    }
-    return null
-  }
-
   private activeTreeItemOf(treeItemId: number): void {
     this.treeActiveItemIds.length = 0
     this.treeActiveItemIds.push(treeItemId)
   }
 
   private openParentTreeItem(treeItemId: number): void {
-    const rdraTop = this.lookUpRdraTopItem()
+    const rdraTop = this.tree.lookUpRdraTopItem()
     const parentTreeItem = rdraTop.children.find((folderItem) =>
       folderItem.children.some((item) => item.id === treeItemId)
     )
     if (!parentTreeItem) return
-    const parentTreeItemId = parentTreeItem.id
+    const parentId = parentTreeItem.id
     const openIds = this.treeOpenItemIds
-    if (openIds.includes(parentTreeItemId))
-      openIds.splice(openIds.indexOf(parentTreeItemId), 1)
-    openIds.push(parentTreeItemId)
-  }
-
-  private lookUpRdraTopItem(): TreeItem {
-    return this.treeItems.find((t) => t.id === Folder.RDRAM20.id) as TreeItem
+    if (openIds.includes(parentId)) openIds.splice(openIds.indexOf(parentId), 1)
+    openIds.push(parentId)
   }
 
   private promptNewDiagramName(
@@ -231,50 +220,9 @@ export default class DiagramsTreePane extends Vue {
   }
 
   private addDiagramView(diagram: Diagram): void {
-    this.addDiagramTreeItem(diagram, this.treeItems)
+    this.tree.addDiagramTreeItem(diagram)
     this.activeTreeItemOf(diagram.id)
     this.openParentTreeItem(diagram.id)
-  }
-
-  private addDiagramTreeItem(
-    diagram: Diagram,
-    treeItems: TreeItem[]
-  ): TreeItem | null {
-    const folderItem = this.folderItemOf(diagram.type, treeItems)
-    if (!folderItem) return null
-    const children = folderItem.children
-
-    if (children.length === 1 && children[0] === Folder.EMPTY_TREE_ITEM)
-      children.length = 0
-
-    const diagramTreeItem = this.diagramToTreeItem(diagram)
-    children.push(diagramTreeItem)
-
-    return diagramTreeItem
-  }
-
-  private folderItemOf(
-    diagramType: DiagramType,
-    treeItems: TreeItem[]
-  ): TreeItem | null {
-    const rdraTop = treeItems.find((i) => i.id === Folder.RDRAM20.id)
-    if (!rdraTop) return null
-    const treeItemId = Folder.treeItemIdFrom(diagramType)
-    const folderItem = rdraTop.children.find((i) => i.id === treeItemId)
-    if (!folderItem) return null
-    return folderItem
-  }
-
-  private diagramToTreeItem(diagram: Diagram): TreeItem {
-    const type = diagram.type
-    return {
-      id: diagram.id,
-      name: diagram.name,
-      children: [],
-      disabled: false,
-      iconKey: type.iconKey,
-      iconCaption: type.name,
-    }
   }
 
   private copyDiagram(diagramId: number): Diagram | null {
@@ -330,20 +278,8 @@ export default class DiagramsTreePane extends Vue {
     })
   }
 
-  private removeTreeItem(treeItemId: number, treeItems: TreeItem[]): boolean {
-    const foundIndex = treeItems.findIndex((item) => item.id === treeItemId)
-    if (foundIndex >= 0) {
-      treeItems.splice(foundIndex, 1)
-      if (treeItems.length === 0) treeItems.push(Folder.EMPTY_TREE_ITEM)
-      return true
-    }
-    return treeItems.some((item) =>
-      this.removeTreeItem(treeItemId, item.children)
-    )
-  }
-
   private findAndReflectDiagramToTreeOf(diagramId: number): boolean {
-    const existsItem = this.findTreeItemById(diagramId)
+    const existsItem = this.tree.findTreeItemById(diagramId)
     if (existsItem) return true
 
     const diagram = this.repository.getCurrentProduct()?.diagrams.of(diagramId)
