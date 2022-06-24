@@ -14,7 +14,7 @@
       @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
     />
     <!-- main pain -->
-    <TwoPainWithSlideBarLayout notAdsorptionLeftWhenDoubleClick="true" defaultLeftPainWidth="80%">
+    <TwoPainWithSlideBarLayout adsorptionRightWhenDoubleClick="true" defaultLeftPainWidth="80%">
       <template #leftPain>
         <DiagramCanvas
           ref="diagramCanvas"

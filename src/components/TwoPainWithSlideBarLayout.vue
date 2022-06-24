@@ -32,7 +32,7 @@ export default class TwoPainWithSlideBarLayout extends Vue {
   private leftPainWidth: string = ''
 
   @Prop()
-  private readonly notAdsorptionLeftWhenDoubleClick?: boolean
+  private readonly adsorptionRightWhenDoubleClick?: boolean // 右に吸着モード(デフォルトは左吸着)
 
   @Prop()
   private readonly defaultLeftPainWidth?: string
@@ -46,7 +46,7 @@ export default class TwoPainWithSlideBarLayout extends Vue {
   onDoubleClickSlideBar(): void {
     const leftPain = this.$refs.leftPain as HTMLElement
     const leftPainStyle = leftPain.style
-    if (!this.notAdsorptionLeftWhenDoubleClick) {
+    if (!this.adsorptionRightWhenDoubleClick) {
       leftPainStyle.display = this.adsorptionLeft() ? 'inline' : 'none'
       return
     }
