@@ -24,6 +24,11 @@
         />
       </template>
     </TwoPainWithSlideBarLayout>
+    <DiagramPropertiesEditDialog
+      :diagramId="propertiesEditorDiagramId"
+      @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
+      @onClose="onCloseDiagramPropertiesEditDialog"
+    />
     <DiagramTypeSelectorDialog ref="diagramTypeSelectorDialog"/>
   </v-layout>
 </template>
