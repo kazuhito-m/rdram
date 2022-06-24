@@ -29,7 +29,7 @@ import Uuid from '@/domain/world/Uuid'
 @Component
 export default class TwoPainWithSlideBarLayout extends Vue {
   private dragId?: string
-  private leftPainWidth: string = ''
+  private leftPainWidth = ''
 
   @Prop()
   private readonly adsorptionRightWhenDoubleClick?: boolean // 右に吸着モード(デフォルトは左吸着)
@@ -52,13 +52,19 @@ export default class TwoPainWithSlideBarLayout extends Vue {
     }
     const rightPain = this.$refs.rightPain as HTMLElement
     const rightPainStyle = rightPain.style
-    const fixed = !this.leftPainWidth
 
+    if (this.leftPainWidth !== '') {
+      leftPainStyle.width = this.leftPainWidth
+      this.leftPainWidth = ''
+    } else {
+      this.leftPainWidth = leftPainStyle.width
+      leftPainStyle.width = '100%'
+    }
+
+    const fixed = this.leftPainWidth !== ''
     rightPainStyle.display = fixed ? 'none' : 'inline'
-    leftPainStyle.resize = fixed ? 'none' : 'horizontal'
-    leftPainStyle.width = fixed ? '100%' : this.leftPainWidth
-    this.leftPainWidth = fixed ? leftPainStyle.width : ''
 
+    console.log('leftPainWidth:', this.leftPainWidth)
     console.log('leftPainStyle.width:', leftPainStyle.width)
   }
 
@@ -89,6 +95,10 @@ export default class TwoPainWithSlideBarLayout extends Vue {
   private adsorptionLeft(): boolean {
     const leftPain = this.$refs.leftPain as HTMLElement
     return leftPain.style.display === 'none'
+  }
+
+  private adsorptionRight(): boolean {
+    return this.leftPainWidth !== ''
   }
 }
 </script>
