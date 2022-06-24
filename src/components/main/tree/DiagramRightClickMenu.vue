@@ -54,7 +54,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Emit } from 'nuxt-property-decorator'
-import TreeItem from '~/presentation/tree/TreeItem'
+import TreeItem from '@/components/main/tree/TreeItem'
 
 @Component
 export default class DiagramRightClickMenu extends Vue {
