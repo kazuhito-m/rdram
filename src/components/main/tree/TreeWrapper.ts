@@ -1,6 +1,6 @@
 import Folder from "./Folder";
 import FolderTreeFactory from "./FolderTreeFactory";
-import TreeItem from "@/presentation/tree/TreeItem";
+import TreeItem from "@/components/main/tree/TreeItem";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagram from "@/domain/diagram/Diagram";
 

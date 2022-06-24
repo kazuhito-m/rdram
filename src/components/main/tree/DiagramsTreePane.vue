@@ -44,7 +44,7 @@ import DiagramExportService from '@/application/service/diagram/export/DiagramEx
 import Diagram from '@/domain/diagram/Diagram'
 import Product from '@/domain/product/Product'
 import StorageRepository from '@/domain/storage/StorageRepository'
-import TreeItem from '@/presentation/tree/TreeItem'
+import TreeItem from '@/components/main/tree/TreeItem'
 
 @Component({
   components: {
