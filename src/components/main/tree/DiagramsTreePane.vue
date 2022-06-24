@@ -44,6 +44,7 @@ import Product from '~/domain/product/Product'
 import StorageRepository from '~/domain/storage/StorageRepository'
 import MessageBox from '~/presentation/MessageBox'
 import TreeItem from '~/presentation/tree/TreeItem'
+import Folder from './Folder'
 
 @Component({
   components: {
@@ -96,7 +97,8 @@ export default class DiagramsTreePane extends Vue {
   created(): void {
     const product = this.repository.getCurrentProduct()
     if (!product) return
-    this.treeItems = this.buildTreeItems(product)
+    this.treeItems = Folder.buildTree(product.diagrams)
+    this.treeOpenItemIds.push(Folder.RDRAM20.id)
   }
 
   // component events.

@@ -35,8 +35,9 @@ export default class Folder {
 
     private static makeTreeTopFolder(folder: Folder, diagrams: Diagrams): TreeItem {
         const item = this.makeItem(folder);
-        if (!folder.equals(Folder.RDRAM20))
-            item.children = this.makeTreeRdram20Folders(diagrams);
+        item.children = folder.equals(Folder.RDRAM20)
+            ? this.makeTreeRdram20Folders(diagrams)
+            : [Folder.EMPTY_TREE_ITEM];
         return item;
     }
 
