@@ -22,7 +22,7 @@ export default class Folder {
 
     public static EMPTY_TREE_ITEM = Folder.makeItem(Folder.EMPTY, true);
 
-    public static readonly DIAGRAM_FOLDER_ID_MASK: number = 1000000
+    private static readonly DIAGRAM_FOLDER_ID_MASK = 1000000;
 
     public equals(folder: Folder): boolean {
         return this.id === folder.id;
@@ -79,6 +79,15 @@ export default class Folder {
             iconKey: type.iconKey,
             iconCaption: type.name,
         }
+    }
+
+    public static diagramTypeFrom(treeItem: TreeItem): DiagramType | undefined {
+        const typeId = treeItem.id - Folder.DIAGRAM_FOLDER_ID_MASK;
+        return DiagramType.ofId(typeId);
+    }
+
+    public static treeItemIdFrom(diagramType: DiagramType): number {
+        return diagramType.id + Folder.DIAGRAM_FOLDER_ID_MASK;
     }
 
     private static of(id: number, name: string): Folder {

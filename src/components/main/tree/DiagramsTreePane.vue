@@ -106,12 +106,10 @@ export default class DiagramsTreePane extends Vue {
 
   /// menu click events
 
-  onClickMenuAddDiagram(diagramId: number): void {
-    const item = this.findTreeItemById(diagramId)
+  onClickMenuAddDiagram(treeItemId: number): void {
+    const item = this.findTreeItemById(treeItemId)
     if (!item) return
-    const diagramType = DiagramType.ofId(
-      item.id - Folder.DIAGRAM_FOLDER_ID_MASK
-    )
+    const diagramType = Folder.diagramTypeFrom(item)
     if (!diagramType) return
 
     const product = this.repository.getCurrentProduct()
@@ -261,8 +259,8 @@ export default class DiagramsTreePane extends Vue {
   ): TreeItem | null {
     const rdraTop = treeItems.find((i) => i.id === Folder.RDRAM20.id)
     if (!rdraTop) return null
-    const maskedDialogTypeId = diagramType.id + Folder.DIAGRAM_FOLDER_ID_MASK
-    const folderItem = rdraTop.children.find((i) => i.id === maskedDialogTypeId)
+    const treeItemId = Folder.treeItemIdFrom(diagramType)
+    const folderItem = rdraTop.children.find((i) => i.id === treeItemId)
     if (!folderItem) return null
     return folderItem
   }
