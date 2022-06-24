@@ -3,10 +3,10 @@
     <v-tabs
       v-show="openTabs.length > 0"
       v-model="currentTabIndex"
-      @change="onChangeActiveTab"
       background-color="primary"
       show-arrows
       dark
+      @change="onChangeActiveTab"
     >
       <v-tab v-for="item in openTabs" :key="item.id" class="tab-title">
         <v-tooltip bottom open-delay="1000">
@@ -81,7 +81,7 @@ export default class DiagramRightClickMenu extends Vue {
   @Emit('onRenamedResource')
   onRenamedResource(_src: Resource, _dest: Resource): void {}
 
-  //----
+  // ----
 
   @Emit('onChangeCurrentDiagram')
   onChangeCurrentDiagram(_diagramId: number): void {}
