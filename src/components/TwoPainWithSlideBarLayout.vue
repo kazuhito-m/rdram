@@ -1,6 +1,7 @@
 <template>
   <v-flex class="text-center">
     <div
+      ref="painContainer"
       class="pain-container"
       @dragover="onDragOverMasterPainSlideBar"
       @drop="onDropMasterPainSlideBar"
@@ -89,14 +90,13 @@ export default class TwoPainWithSlideBarLayout extends Vue {
     if (event.dataTransfer?.getData('text') !== this.dragId) return
     if (this.adsorptionLeft || this.adsorptionRight) return
 
+    const painContainer = this.$refs.painContainer as HTMLElement
+    const absoluteLeft = painContainer.getBoundingClientRect().left
+
     const leftPain = this.$refs.leftPain as HTMLElement
     const style = leftPain.style
-    let painLeft = 0
-    if (style.left) {
-      const left = style.left
-      if (left.match('px$')) painLeft = parseInt(left.replace('px', ''), 10)
-    }
-    style.width = event.x - painLeft + 'px'
+
+    style.width = event.pageX - absoluteLeft + 'px'
   }
 
   private get adsorptionLeft(): boolean {
