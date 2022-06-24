@@ -53,7 +53,7 @@ export default class TwoPainWithSlideBarLayout extends Vue {
     const rightPain = this.$refs.rightPain as HTMLElement
     const rightPainStyle = rightPain.style
 
-    if (this.leftPainWidth !== '') {
+    if (this.adsorptionRight()) {
       leftPainStyle.width = this.leftPainWidth
       this.leftPainWidth = ''
     } else {
@@ -61,8 +61,7 @@ export default class TwoPainWithSlideBarLayout extends Vue {
       leftPainStyle.width = '100%'
     }
 
-    const fixed = this.leftPainWidth !== ''
-    rightPainStyle.display = fixed ? 'none' : 'inline'
+    rightPainStyle.display = this.adsorptionRight() ? 'none' : 'inline'
 
     console.log('leftPainWidth:', this.leftPainWidth)
     console.log('leftPainStyle.width:', leftPainStyle.width)
