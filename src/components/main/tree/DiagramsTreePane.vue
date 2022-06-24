@@ -36,15 +36,15 @@
 <script lang="ts">
 import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
 import DiagramRightClickMenu from './DiagramRightClickMenu.vue'
+import Folder from './Folder'
+import TreeWrapper from './TreeWrapper'
+import FolderTreeFactory from './FolderTreeFactory'
+import Prompts from './Prompts'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
 import Diagram from '@/domain/diagram/Diagram'
 import Product from '@/domain/product/Product'
 import StorageRepository from '@/domain/storage/StorageRepository'
 import TreeItem from '@/presentation/tree/TreeItem'
-import Folder from './Folder'
-import TreeWrapper from './TreeWrapper'
-import FolderTreeFactory from './FolderTreeFactory'
-import Prompts from './Prompts'
 
 @Component({
   components: {

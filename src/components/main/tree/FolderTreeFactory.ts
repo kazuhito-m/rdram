@@ -1,8 +1,8 @@
+import Folder from "./Folder";
 import TreeItem from "@/presentation/tree/TreeItem";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagrams from "@/domain/diagram/Diagrams";
 import Diagram from "@/domain/diagram/Diagram";
-import Folder from "./Folder";
 
 export default class FolderTreeFactory {
     public static readonly EMPTY_TREE_ITEM = FolderTreeFactory.get().makeItem(Folder.EMPTY, true);
@@ -43,7 +43,7 @@ export default class FolderTreeFactory {
             id: folder.id,
             name: folder.name,
             children: [],
-            disabled: disabled,
+            disabled,
             iconKey: '',
             iconCaption: '',
         }

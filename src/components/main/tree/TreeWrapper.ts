@@ -1,8 +1,8 @@
+import Folder from "./Folder";
+import FolderTreeFactory from "./FolderTreeFactory";
 import TreeItem from "@/presentation/tree/TreeItem";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagram from "@/domain/diagram/Diagram";
-import Folder from "./Folder";
-import FolderTreeFactory from "./FolderTreeFactory";
 
 export default class TreeWrapper {
     constructor(public readonly treeItems: TreeItem[]) { }
