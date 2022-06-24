@@ -29,7 +29,7 @@ import Uuid from "@/domain/world/Uuid";
 @Component
 export default class TwoPainWithSlideBarLayout extends Vue {
   @Prop()
-  private adsorptionLeftWhenDoubleClick?: boolean;
+  private readonly adsorptionLeftWhenDoubleClick?: boolean;
 
   @Prop()
   private readonly defaultLeftPainWidth?: string;
@@ -37,13 +37,13 @@ export default class TwoPainWithSlideBarLayout extends Vue {
   private dragId?: string;
   private leftPainWidth: string | null = null;
 
-  private mounted(): void {
+  mounted(): void {
     if (!this.defaultLeftPainWidth) return;
     const leftPain = this.$refs.leftPain as HTMLElement;
     leftPain.style.width = this.defaultLeftPainWidth;
   }
 
-  public onDoubleClickSlideBar(): void {
+  onDoubleClickSlideBar(): void {
     const leftPain = this.$refs.leftPain as HTMLElement;
     const leftPainStyle = leftPain.style;
     if (this.adsorptionLeftWhenDoubleClick) {
@@ -66,16 +66,16 @@ export default class TwoPainWithSlideBarLayout extends Vue {
     }
   }
 
-  private onDragStartMasterPainSlideBar(event: DragEvent): void {
+  onDragStartMasterPainSlideBar(event: DragEvent): void {
     this.dragId = Uuid.generate();
     event.dataTransfer?.setData("text", this.dragId);
   }
 
-  private onDragOverMasterPainSlideBar(event: DragEvent): void {
+  onDragOverMasterPainSlideBar(event: DragEvent): void {
     event?.preventDefault();
   }
 
-  private onDropMasterPainSlideBar(event: DragEvent): void {
+  onDropMasterPainSlideBar(event: DragEvent): void {
     event.preventDefault();
     if (event.dataTransfer?.getData("text") !== this.dragId) return;
     const leftPain = this.$refs.leftPain as HTMLElement;
