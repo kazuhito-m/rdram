@@ -46,11 +46,16 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Emit, Prop } from 'nuxt-property-decorator'
+import DiagramEditorContainer from '@/components/diagrams/DiagramEditorContainer.vue'
 import Diagram from '~/domain/diagram/Diagram'
 import Resource from '~/domain/resource/Resource'
 import TreeItem from '~/presentation/tree/TreeItem'
 
-@Component
+@Component({
+  components: {
+    DiagramEditorContainer,
+  },
+})
 export default class DiagramRightClickMenu extends Vue {
   currentTabIndex: number | null = null
   openTabs: TreeItem[] = []
@@ -58,10 +63,10 @@ export default class DiagramRightClickMenu extends Vue {
   // Props
 
   @Prop({ required: true })
-  allResourcesOnCurrentProduct: Resource[] = []
+  allResourcesOnCurrentProduct?: Resource[]
 
   @Prop({ required: true })
-  lastPropertiesUpdatedDiagramId = 0
+  lastPropertiesUpdatedDiagramId?: number
 
   // emits
 
@@ -137,4 +142,23 @@ export default class DiagramRightClickMenu extends Vue {
   }
 }
 </script>
-<style scoped></style>
+<style scoped>
+.tabview-container {
+  min-height: 0%;
+  height: 100%;
+}
+
+.tab-title {
+  text-transform: none;
+}
+
+.dialog-editor-container {
+  position: relative;
+  width: 100%;
+  height: 97%;
+}
+
+.dialog-editor-tab-item {
+  transition: none;
+}
+</style>

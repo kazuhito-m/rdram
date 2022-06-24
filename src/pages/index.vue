@@ -10,63 +10,18 @@
         />
       </template>
       <template #rightPain>
-        <div class="tabview-container">
-          <v-tabs
-            v-show="openTabs.length > 0"
-            v-model="currentTabIndex"
-            background-color="primary"
-            show-arrows
-            dark
-            @change="onChangeActiveTab"
-          >
-            <v-tab
-              v-for="item in openTabs"
-              :key="item.id"
-              class="tab-title"
-            >
-              <v-tooltip bottom open-delay="1000">
-                <template #activator="{ on, attrs }">
-                  <v-icon v-if="item.iconKey" v-bind="attrs" v-on="on">{{ item.iconKey }}</v-icon>
-                </template>
-                <span>{{ item.iconCaption }}</span>
-              </v-tooltip>
-              {{ item.name }}
-              <v-btn
-                :data-item-id="item.id"
-                dark
-                small
-                icon
-                @click="onClickCloseTab"
-              >
-                <v-icon
-                  dark
-                  :data-item-id="item.id"
-                >mdi-close-box</v-icon>
-              </v-btn>
-            </v-tab>
-          </v-tabs>
-
-          <v-tabs-items v-model="currentTabIndex" class="dialog-editor-container">
-            <v-tab-item v-for="item in openTabs" :key="item.id" class="dialog-editor-tab-item">
-              <DiagramEditorContainer
-                :diagram-id="item.id"
-                :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
-                :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-                @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
-                @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
-                @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
-                @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-                @onRenamedResource="onRenamedResource"
-              />
-            </v-tab-item>
-          </v-tabs-items>
-
-          <DiagramPropertiesEditDialog
-            :diagramId="propertiesEditorDiagramId"
-            @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
-            @onClose="onCloseDiagramPropertiesEditDialog"
-          />
-        </div>
+        <DiagramsTabPane 
+          ref="diagramsTabPane"
+          :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+          :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+          @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
+          @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
+          @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+          @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+          @onRenamedResource="onRenamedResource"
+          @onChangeCurrentDiagram="onChangeCurrentDiagram"
+          @onAllClosedDiagram="onAllClosedDiagram"
+        />
       </template>
     </TwoPainWithSlideBarLayout>
     <DiagramTypeSelectorDialog ref="diagramTypeSelectorDialog"/>
@@ -77,6 +32,7 @@
 import { Component, Vue, Inject } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramsTreePane from "@/components/main/tree/DiagramsTreePane.vue";
+import DiagramsTabPane from "@/components/main/tab/DiagramsTabPane.vue";
 import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import DiagramTypeSelectorDialog from "@/components/diagrams/open/DiagramTypeSelectorDialog.vue";
@@ -91,6 +47,7 @@ import StorageRepository from "@/domain/storage/StorageRepository";
   components: {
     TwoPainWithSlideBarLayout,
     DiagramsTreePane,
+    DiagramsTabPane,
     DiagramEditorContainer,
     DiagramPropertiesEditDialog,
     DiagramTypeSelectorDialog
@@ -126,14 +83,8 @@ export default class extends Vue {
   // component events.
 
   onOpenDiagram(treeItem: TreeItem): void {
-    const diagramId = treeItem.id;
-    const exists = this.openTabs.some((tab) => tab.id === diagramId)
-    if (!exists) this.openTabs.push(treeItem)
-    const newTabIndex = this.openTabs.findIndex(
-      (tabItem) => tabItem.id === diagramId
-    )
-    this.currentTabIndex = newTabIndex
-    this.onChangeActiveTab(newTabIndex)
+    const tabPane = this.$refs.diagramsTabPane as DiagramsTabPane;
+    tabPane.openDiagram(treeItem);
   }
 
   onDeleteDiagram(diagramId: number): void {
@@ -192,6 +143,15 @@ export default class extends Vue {
 
     const treePain = this.$refs.diagramsTreePane as DiagramsTreePane;
     treePain.activeItemAndFolderOpen(currentTabItem.id);
+  }
+
+  onChangeCurrentDiagram(diagramId: number): void {
+    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane
+    treePain.activeItemAndFolderOpen(diagramId)
+  }
+
+  onAllClosedDiagram(): void {
+    this.clearSelectedOnTree()
   }
 
   // private methods.
@@ -300,24 +260,5 @@ export default class extends Vue {
   width: 8px;
   background-color: gray;
   cursor: col-resize;
-}
-
-.tabview-container {
-  min-height: 0%;
-  height: 100%;
-}
-
-.dialog-editor-container {
-  position: relative;
-  width: 100%;
-  height: 97%;
-}
-
-.dialog-editor-tab-item {
-  transition: none;
-}
-
-.tab-title {
-  text-transform: none;
 }
 </style>
