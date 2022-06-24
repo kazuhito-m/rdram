@@ -10,9 +10,9 @@ export default class Folder {
     ) { }
 
     public static readonly RDRAM20 = Folder.of(-1, "RDRA 2.0");
-    public static readonly CUSTOM = Folder.of(-2, "カスタム");
-    public static readonly ANALYZE = Folder.of(-3, "分析");
-    public static readonly EMPTY = Folder.of(0, "(空)");
+    private static readonly CUSTOM = Folder.of(-2, "カスタム");
+    private static readonly ANALYZE = Folder.of(-3, "分析");
+    private static readonly EMPTY = Folder.of(0, "(空)");
 
     private static readonly TOP_FOLDERS = [
         Folder.RDRAM20,
@@ -20,9 +20,9 @@ export default class Folder {
         Folder.ANALYZE,
     ];
 
-    private static EMPTY_TREE_ITEM = Folder.makeItem(Folder.EMPTY, true);
+    public static EMPTY_TREE_ITEM = Folder.makeItem(Folder.EMPTY, true);
 
-    private static readonly DIAGRAM_FOLDER_ID_MASK: number = 1000000
+    public static readonly DIAGRAM_FOLDER_ID_MASK: number = 1000000
 
     public equals(folder: Folder): boolean {
         return this.id === folder.id;
