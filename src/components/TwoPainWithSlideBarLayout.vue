@@ -30,6 +30,8 @@ import Uuid from '@/domain/world/Uuid'
 export default class TwoPainWithSlideBarLayout extends Vue {
   private dragId?: string
 
+  private leftPainDisplay = 'none'
+
   private adsorptionRight = false
   private leftPainWidth = ''
   private rightPainWidth = ''
@@ -50,7 +52,9 @@ export default class TwoPainWithSlideBarLayout extends Vue {
     const leftPain = this.$refs.leftPain as HTMLElement
     const leftPainStyle = leftPain.style
     if (!this.adsorptionRightWhenDoubleClick) {
-      leftPainStyle.display = this.adsorptionLeft ? 'inline' : 'none'
+      const last = leftPainStyle.display
+      leftPainStyle.display = this.leftPainDisplay
+      this.leftPainDisplay = last
       return
     }
     const rightPain = this.$refs.rightPain as HTMLElement
@@ -69,9 +73,6 @@ export default class TwoPainWithSlideBarLayout extends Vue {
     }
 
     rightPainStyle.display = this.adsorptionRight ? 'none' : 'inline'
-
-    console.log('leftPainWidth:', this.leftPainWidth)
-    console.log('leftPainStyle.width:', leftPainStyle.width)
   }
 
   onDragStartMasterPainSlideBar(event: DragEvent): void {
