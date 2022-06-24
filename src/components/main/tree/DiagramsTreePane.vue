@@ -36,17 +36,15 @@
 <script lang="ts">
 import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
 import DiagramRightClickMenu from './DiagramRightClickMenu.vue'
-import DiagramExportService from '~/application/service/diagram/export/DiagramExportService'
-import Diagram from '~/domain/diagram/Diagram'
-import Diagrams from '~/domain/diagram/Diagrams'
-import DiagramType from '~/domain/diagram/DiagramType'
-import Product from '~/domain/product/Product'
-import StorageRepository from '~/domain/storage/StorageRepository'
-import MessageBox from '~/presentation/MessageBox'
-import TreeItem from '~/presentation/tree/TreeItem'
+import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
+import Diagram from '@/domain/diagram/Diagram'
+import Product from '@/domain/product/Product'
+import StorageRepository from '@/domain/storage/StorageRepository'
+import TreeItem from '@/presentation/tree/TreeItem'
 import Folder from './Folder'
 import TreeWrapper from './TreeWrapper'
 import FolderTreeFactory from './FolderTreeFactory'
+import Prompts from './Prompts'
 
 @Component({
   components: {
@@ -59,7 +57,8 @@ export default class DiagramsTreePane extends Vue {
   treeOpenItemIds: number[] = []
 
   private tree = new TreeWrapper(this.treeItems)
-  private treeFactory = FolderTreeFactory.get()
+  private readonly treeFactory = FolderTreeFactory.get()
+  private readonly prompts = new Prompts()
 
   @Inject()
   private readonly repository!: StorageRepository
@@ -122,13 +121,11 @@ export default class DiagramsTreePane extends Vue {
     if (!product) return
     const diagrams = product.diagrams
 
-    const message = `追加する ${diagramType.name} の名前を入力してください。`
-    const name = this.promptNewDiagramName(message, '', diagramType, diagrams)
+    const name = this.prompts.promptNewDiagramName(diagramType, diagrams)
     if (!name) return
 
     const modifiedProduct = product.createAndAddDiagram(name, diagramType)
     const diagram = modifiedProduct.diagrams.last()
-
     this.repository.registerCurrentProduct(modifiedProduct)
 
     this.addDiagramView(diagram)
@@ -199,26 +196,6 @@ export default class DiagramsTreePane extends Vue {
     openIds.push(parentId)
   }
 
-  private promptNewDiagramName(
-    message: string,
-    defaultName: string,
-    diagramType: DiagramType,
-    diagrams: Diagrams
-  ): string {
-    const messageBox = new MessageBox()
-    const name = messageBox.prompt(message, defaultName, (inputText) => {
-      if (inputText.length > Diagram.NAME_MAX_LENGTH) {
-        alert(`${Diagram.NAME_MAX_LENGTH}文字以内で入力してください。`)
-        return false
-      }
-      const exists = diagrams.existsSameTypeAndName(inputText, diagramType)
-      if (exists) alert(`既に同名の ${diagramType.name} が在ります。`)
-      return !exists
-    })
-    if (name) return name
-    return ''
-  }
-
   private addDiagramView(diagram: Diagram): void {
     this.tree.addDiagramTreeItem(diagram)
     this.activeTreeItemOf(diagram.id)
@@ -229,16 +206,7 @@ export default class DiagramsTreePane extends Vue {
     let distDiagram = null
     const result = this.modifyDiagram(diagramId, (srcDiagram, product) => {
       const diagrams = product.diagrams
-
-      const message =
-        `${srcDiagram.name} をコピーします。` +
-        `コピー後の ${srcDiagram.type.name} の名前を入力してください。`
-      const name = this.promptNewDiagramName(
-        message,
-        srcDiagram.defaultNameWhenCopy(),
-        srcDiagram.type,
-        diagrams
-      )
+      const name = this.prompts.promptCopyDiagramName(srcDiagram, diagrams)
       if (!name) return null
 
       distDiagram = srcDiagram.cloneWith(diagrams.generateDiagramId(), name)
@@ -268,10 +236,7 @@ export default class DiagramsTreePane extends Vue {
   private removeDiagram(diagramId: number): boolean {
     return this.modifyDiagram(diagramId, (diagram, product) => {
       if (diagram.placements.length > 0) {
-        const message =
-          '指定された図は編集されています。\n(アイコンが配置されています)\n' +
-          `${diagram.name} を削除してもよろしいですか。`
-        if (!window.confirm(message)) return null
+        if (!this.prompts.confirmDeleteDiagramWithIcon(diagram)) return null
       }
       const removedDiagrams = product.diagrams.remove(diagram)
       return product.withDiagrams(removedDiagrams)
