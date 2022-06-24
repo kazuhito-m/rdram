@@ -23,69 +23,69 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "nuxt-property-decorator";
-import Uuid from "@/domain/world/Uuid";
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import Uuid from '@/domain/world/Uuid'
 
 @Component
 export default class TwoPainWithSlideBarLayout extends Vue {
   @Prop()
-  private readonly adsorptionLeftWhenDoubleClick?: boolean;
+  private readonly adsorptionLeftWhenDoubleClick?: boolean
 
   @Prop()
-  private readonly defaultLeftPainWidth?: string;
+  private readonly defaultLeftPainWidth?: string
 
-  private dragId?: string;
-  private leftPainWidth: string | null = null;
+  private dragId?: string
+  private leftPainWidth: string | null = null
 
   mounted(): void {
-    if (!this.defaultLeftPainWidth) return;
-    const leftPain = this.$refs.leftPain as HTMLElement;
-    leftPain.style.width = this.defaultLeftPainWidth;
+    if (!this.defaultLeftPainWidth) return
+    const leftPain = this.$refs.leftPain as HTMLElement
+    leftPain.style.width = this.defaultLeftPainWidth
   }
 
   onDoubleClickSlideBar(): void {
-    const leftPain = this.$refs.leftPain as HTMLElement;
-    const leftPainStyle = leftPain.style;
+    const leftPain = this.$refs.leftPain as HTMLElement
+    const leftPainStyle = leftPain.style
     if (this.adsorptionLeftWhenDoubleClick) {
-      const rightPain = this.$refs.rightPain as HTMLElement;
-      const rightPainStyle = rightPain.style;
+      const rightPain = this.$refs.rightPain as HTMLElement
+      const rightPainStyle = rightPain.style
       if (this.leftPainWidth === null) {
-        rightPainStyle.display = "none";
-        this.leftPainWidth = leftPainStyle.width;
-        leftPainStyle.width = "100%";
-        leftPainStyle.resize = "none";
+        rightPainStyle.display = 'none'
+        this.leftPainWidth = leftPainStyle.width
+        leftPainStyle.width = '100%'
+        leftPainStyle.resize = 'none'
       } else {
-        rightPainStyle.display = "inline";
-        leftPainStyle.resize = "horizontal";
-        leftPainStyle.width = this.leftPainWidth;
-        this.leftPainWidth = null;
+        rightPainStyle.display = 'inline'
+        leftPainStyle.resize = 'horizontal'
+        leftPainStyle.width = this.leftPainWidth
+        this.leftPainWidth = null
       }
     } else {
       leftPainStyle.display =
-        leftPainStyle.display === "none" ? "inline" : "none";
+        leftPainStyle.display === 'none' ? 'inline' : 'none'
     }
   }
 
   onDragStartMasterPainSlideBar(event: DragEvent): void {
-    this.dragId = Uuid.generate();
-    event.dataTransfer?.setData("text", this.dragId);
+    this.dragId = Uuid.generate()
+    event.dataTransfer?.setData('text', this.dragId)
   }
 
   onDragOverMasterPainSlideBar(event: DragEvent): void {
-    event?.preventDefault();
+    event?.preventDefault()
   }
 
   onDropMasterPainSlideBar(event: DragEvent): void {
-    event.preventDefault();
-    if (event.dataTransfer?.getData("text") !== this.dragId) return;
-    const leftPain = this.$refs.leftPain as HTMLElement;
-    const style = leftPain.style;
-    let painLeft = 0;
+    event.preventDefault()
+    if (event.dataTransfer?.getData('text') !== this.dragId) return
+    const leftPain = this.$refs.leftPain as HTMLElement
+    const style = leftPain.style
+    let painLeft = 0
     if (style.left) {
-      const left = style.left;
-      if (left.match("px$")) painLeft = parseInt(left.replace("px", ""), 10);
+      const left = style.left
+      if (left.match('px$')) painLeft = parseInt(left.replace('px', ''), 10)
     }
-    style.width = event.x - painLeft + "px";
+    style.width = event.x - painLeft + 'px'
   }
 }
 </script>
