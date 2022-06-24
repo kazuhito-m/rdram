@@ -29,7 +29,10 @@ import Uuid from '@/domain/world/Uuid'
 @Component
 export default class TwoPainWithSlideBarLayout extends Vue {
   private dragId?: string
+
+  private adsorptionRight = false
   private leftPainWidth = ''
+  private rightPainWidth = ''
 
   @Prop()
   private readonly adsorptionRightWhenDoubleClick?: boolean // 右に吸着モード(デフォルトは左吸着)
@@ -47,21 +50,25 @@ export default class TwoPainWithSlideBarLayout extends Vue {
     const leftPain = this.$refs.leftPain as HTMLElement
     const leftPainStyle = leftPain.style
     if (!this.adsorptionRightWhenDoubleClick) {
-      leftPainStyle.display = this.adsorptionLeft() ? 'inline' : 'none'
+      leftPainStyle.display = this.adsorptionLeft ? 'inline' : 'none'
       return
     }
     const rightPain = this.$refs.rightPain as HTMLElement
     const rightPainStyle = rightPain.style
 
-    if (this.adsorptionRight()) {
-      leftPainStyle.width = this.leftPainWidth
-      this.leftPainWidth = ''
-    } else {
+    this.adsorptionRight = !this.adsorptionRight
+
+    if (this.adsorptionRight) {
       this.leftPainWidth = leftPainStyle.width
+      this.rightPainWidth = rightPainStyle.width
+      rightPainStyle.width = '0%'
       leftPainStyle.width = '100%'
+    } else {
+      rightPainStyle.width = this.rightPainWidth
+      leftPainStyle.width = this.leftPainWidth
     }
 
-    rightPainStyle.display = this.adsorptionRight() ? 'none' : 'inline'
+    rightPainStyle.display = this.adsorptionRight ? 'none' : 'inline'
 
     console.log('leftPainWidth:', this.leftPainWidth)
     console.log('leftPainStyle.width:', leftPainStyle.width)
@@ -78,9 +85,9 @@ export default class TwoPainWithSlideBarLayout extends Vue {
 
   onDropMasterPainSlideBar(event: DragEvent): void {
     event.preventDefault()
-    if (this.adsorptionLeft()) return
-
     if (event.dataTransfer?.getData('text') !== this.dragId) return
+    if (this.adsorptionLeft || this.adsorptionRight) return
+
     const leftPain = this.$refs.leftPain as HTMLElement
     const style = leftPain.style
     let painLeft = 0
@@ -91,13 +98,9 @@ export default class TwoPainWithSlideBarLayout extends Vue {
     style.width = event.x - painLeft + 'px'
   }
 
-  private adsorptionLeft(): boolean {
+  private get adsorptionLeft(): boolean {
     const leftPain = this.$refs.leftPain as HTMLElement
     return leftPain.style.display === 'none'
-  }
-
-  private adsorptionRight(): boolean {
-    return this.leftPainWidth !== ''
   }
 }
 </script>
