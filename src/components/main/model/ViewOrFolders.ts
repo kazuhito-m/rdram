@@ -1,7 +1,21 @@
 import ViewOrFolder from "./ViewOrFolder";
+import Diagram from "@/domain/diagram/Diagram";
 
 export default class ViewOrFolders {
     constructor(public readonly values: ViewOrFolder[]) { }
+
+    addOf(diagram: Diagram): void {
+        const folder = this.rdra20DiagramFolders()
+            .find(f => f.rdra20DiagramType().equals(diagram.type));
+        if (!folder) return;
+        const items = folder.children
+
+        if (items.length === 1 && items[0].equals(ViewOrFolder.EMPTY))
+            items.splice(0);
+
+        const item = ViewOrFolder.rdra20DiagramOf(diagram);
+        items.push(item);
+    }
 
     uniqueAll(items: ViewOrFolder[] = this.values): ViewOrFolder[] {
         const uniqueMap = new Map<number, ViewOrFolder>();

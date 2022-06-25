@@ -1,7 +1,6 @@
-import DiagramType from "@/domain/diagram/DiagramType";
-import Diagram from "@/domain/diagram/Diagram";
-import ViewOrFolder from "~/components/main/model/ViewOrFolder";
 import ViewOrFoldersTemplate from "../model/ViewOrFoldersTemplate";
+import DiagramType from "@/domain/diagram/DiagramType";
+import ViewOrFolder from "@/components/main/model/ViewOrFolder";
 
 export default class TreeWrapper {
     constructor(public readonly treeItems: ViewOrFolder[]) { }
@@ -33,20 +32,6 @@ export default class TreeWrapper {
         const folderItem = rdraTop.children.find((i) => i.id === treeItemId)
         if (!folderItem) return null
         return folderItem
-    }
-
-    addDiagramTreeItem(diagram: Diagram): ViewOrFolder | null {
-        const folderItem = this.folderItemOf(diagram.type)
-        if (!folderItem) return null
-        const children = folderItem.children
-
-        if (children.length === 1 && children[0].equals(ViewOrFolder.EMPTY))
-            children.length = 0
-
-        const diagramViewOrFolder = ViewOrFolder.rdra20DiagramOf(diagram)
-        children.push(diagramViewOrFolder)
-
-        return diagramViewOrFolder
     }
 
     lookUpRdraTopItem(): ViewOrFolder {
