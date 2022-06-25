@@ -1,5 +1,3 @@
-import ViewOrFoldersTemplate from "../model/ViewOrFoldersTemplate";
-import DiagramType from "@/domain/diagram/DiagramType";
 import ViewOrFolder from "@/components/main/model/ViewOrFolder";
 
 export default class TreeWrapper {
@@ -12,14 +10,6 @@ export default class TreeWrapper {
             if (child) return child;
         }
         return null;
-    }
-
-    folderItemOf(diagramType: DiagramType): ViewOrFolder | null {
-        const rdraTop = this.lookUpRdraTopItem();
-        const treeItemId = ViewOrFoldersTemplate.idOf(diagramType)
-        const folderItem = rdraTop.children.find((i) => i.id === treeItemId)
-        if (!folderItem) return null
-        return folderItem
     }
 
     lookUpRdraTopItem(): ViewOrFolder {
