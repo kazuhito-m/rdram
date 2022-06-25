@@ -4,6 +4,7 @@
       :items="treeItems"
       :active.sync="treeActiveItemIds"
       :open.sync="treeOpenItemIds"
+      item-key="id"
       activatable
       open-on-click
       transition
@@ -36,15 +37,14 @@
 <script lang="ts">
 import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
 import DiagramRightClickMenu from './DiagramRightClickMenu.vue'
-import Folder from './Folder'
-import TreeWrapper from './TreeWrapper'
-import FolderTreeFactory from './FolderTreeFactory'
+import ViewOrFoldersTemplate from '@/components/main/model/ViewOrFoldersTemplate'
+import ViewOrFolders from '@/components/main/model/ViewOrFolders'
+import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Prompts from '@/components/main/Prompts'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
 import Diagram from '@/domain/diagram/Diagram'
 import Product from '@/domain/product/Product'
 import StorageRepository from '@/domain/storage/StorageRepository'
-import TreeItem from '@/components/main/tree/TreeItem'
 
 @Component({
   components: {
@@ -52,12 +52,11 @@ import TreeItem from '@/components/main/tree/TreeItem'
   },
 })
 export default class DiagramsTreePane extends Vue {
-  treeItems: TreeItem[] = []
+  treeItems: ViewOrFolder[] = []
   treeActiveItemIds: number[] = []
   treeOpenItemIds: number[] = []
 
-  private tree = new TreeWrapper(this.treeItems)
-  private readonly treeFactory = FolderTreeFactory.get()
+  private tree = new ViewOrFolders([])
   private readonly prompts = new Prompts()
 
   @Inject()
@@ -72,7 +71,7 @@ export default class DiagramsTreePane extends Vue {
   onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   @Emit('onOpenDiagram')
-  onOpenDiagram(_treeItem: TreeItem): void {}
+  onOpenDiagram(_treeItem: ViewOrFolder): void {}
 
   @Emit('onDeleteDiagram')
   onDeleteDiagram(_diagramId: number): void {}
@@ -82,9 +81,10 @@ export default class DiagramsTreePane extends Vue {
   created(): void {
     const product = this.repository.getCurrentProduct()
     if (!product) return
-    this.treeItems = this.treeFactory.buildTree(product.diagrams)
-    this.treeOpenItemIds.push(Folder.RDRAM20.id)
-    this.tree = new TreeWrapper(this.treeItems)
+    const tree = ViewOrFoldersTemplate.build(product.diagrams)
+    this.treeItems = tree.values
+    this.treeOpenItemIds.push(ViewOrFolder.RDRAM20_FOLDER.id)
+    this.tree = tree
   }
 
   // component events.
@@ -102,7 +102,7 @@ export default class DiagramsTreePane extends Vue {
     if (!data) return
     const treeItemId = parseInt(data, 10)
     if (treeItemId <= 0) return
-    const treeItem = this.tree.findTreeItemById(treeItemId)
+    const treeItem = this.tree.findOf(treeItemId)
     if (!treeItem) return
 
     const menu = this.$refs.diagramRightClickMenu as DiagramRightClickMenu
@@ -112,10 +112,9 @@ export default class DiagramsTreePane extends Vue {
   /// menu click events
 
   onClickMenuAddDiagram(treeItemId: number): void {
-    const item = this.tree.findTreeItemById(treeItemId)
+    const item = this.tree.findOf(treeItemId)
     if (!item) return
-    const diagramType = this.treeFactory.diagramTypeFrom(item)
-    if (!diagramType) return
+    const diagramType = item.rdra20DiagramType()
 
     const product = this.repository.getCurrentProduct()
     if (!product) return
@@ -141,7 +140,7 @@ export default class DiagramsTreePane extends Vue {
   onClickMenuRemoveDiagram(diagramId: number): void {
     if (!this.removeDiagram(diagramId)) return
     this.onDeleteDiagram(diagramId)
-    this.tree.removeTreeItem(diagramId)
+    this.tree.removeOf(diagramId)
   }
 
   onClickMenuEditDiagramProperties(diagramId: number): void {
@@ -161,14 +160,14 @@ export default class DiagramsTreePane extends Vue {
   }
 
   openDiagramEditorTabOf(diagramId: number): void {
-    const clickedItem = this.tree.findTreeItemById(diagramId)
+    const clickedItem = this.tree.findOf(diagramId)
     if (!clickedItem) return
     this.onOpenDiagram(clickedItem)
   }
 
   reflectTreeAndTabOf(diagrams: Diagram[]): void {
     for (const diagram of diagrams) {
-      const item = this.tree.findTreeItemById(diagram.id)
+      const item = this.tree.findOf(diagram.id)
       if (item) item.name = diagram.name
     }
   }
@@ -185,7 +184,7 @@ export default class DiagramsTreePane extends Vue {
   }
 
   private openParentTreeItem(treeItemId: number): void {
-    const rdraTop = this.tree.lookUpRdraTopItem()
+    const rdraTop = this.tree.rdra20Folder()
     const parentTreeItem = rdraTop.children.find((folderItem) =>
       folderItem.children.some((item) => item.id === treeItemId)
     )
@@ -197,7 +196,7 @@ export default class DiagramsTreePane extends Vue {
   }
 
   private addDiagramView(diagram: Diagram): void {
-    this.tree.addDiagramTreeItem(diagram)
+    this.tree.addOf(diagram)
     this.activeTreeItemOf(diagram.id)
     this.openParentTreeItem(diagram.id)
   }
@@ -244,7 +243,7 @@ export default class DiagramsTreePane extends Vue {
   }
 
   private findAndReflectDiagramToTreeOf(diagramId: number): boolean {
-    const existsItem = this.tree.findTreeItemById(diagramId)
+    const existsItem = this.tree.findOf(diagramId)
     if (existsItem) return true
 
     const diagram = this.repository.getCurrentProduct()?.diagrams.of(diagramId)

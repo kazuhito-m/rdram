@@ -38,10 +38,9 @@ import { Component, Vue, Inject } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
 import DiagramsTreePane from "@/components/main/tree/DiagramsTreePane.vue";
 import DiagramsTabPane from "@/components/main/tab/DiagramsTabPane.vue";
-import DiagramEditorContainer from "@/components/diagrams/DiagramEditorContainer.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import DiagramTypeSelectorDialog from "@/components/diagrams/open/DiagramTypeSelectorDialog.vue";
-import TreeItem from "@/components/main/tree/TreeItem"; 
+import ViewOrFolder from "@/components/main/model/ViewOrFolder";
 import Product from "@/domain/product/Product";
 import Diagrams from "@/domain/diagram/Diagrams";
 import Diagram from "@/domain/diagram/Diagram";
@@ -53,7 +52,6 @@ import StorageRepository from "@/domain/storage/StorageRepository";
     TwoPainWithSlideBarLayout,
     DiagramsTreePane,
     DiagramsTabPane,
-    DiagramEditorContainer,
     DiagramPropertiesEditDialog,
     DiagramTypeSelectorDialog
   }
@@ -83,7 +81,7 @@ export default class extends Vue {
 
   // component events.
 
-  onOpenDiagram(treeItem: TreeItem): void {
+  onOpenDiagram(treeItem: ViewOrFolder): void {
     const tabPane = this.$refs.diagramsTabPane as DiagramsTabPane;
     tabPane.openDiagram(treeItem);
   }
