@@ -36,9 +36,9 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
-import ViewOrFoldersTemplate from '../model/ViewOrFoldersTemplate'
-import ViewOrFolders from '../model/ViewOrFolders'
 import DiagramRightClickMenu from './DiagramRightClickMenu.vue'
+import ViewOrFoldersTemplate from '@/components/main/model/ViewOrFoldersTemplate'
+import ViewOrFolders from '@/components/main/model/ViewOrFolders'
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Prompts from '@/components/main/Prompts'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
