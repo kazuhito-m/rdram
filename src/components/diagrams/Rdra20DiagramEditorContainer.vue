@@ -133,7 +133,7 @@ import StorageRepository from '@/domain/storage/StorageRepository'
     VariationAndConditionDiagramEditor,
   },
 })
-export default class DiagramEditorContainer extends Vue {
+export default class Rdra20DiagramEditorContainer extends Vue {
   @Inject()
   readonly repository!: StorageRepository
 
