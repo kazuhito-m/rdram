@@ -36,7 +36,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
-import ViewOrFolder from '../ViewOrFolder'
+import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import DiagramRightClickMenu from './DiagramRightClickMenu.vue'
 import TreeWrapper from './TreeWrapper'
 import FolderTreeFactory from './FolderTreeFactory'

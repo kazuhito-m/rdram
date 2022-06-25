@@ -1,5 +1,5 @@
-import ViewOrFolders from "../ViewOrFolders";
-import ViewOrFolder from "../ViewOrFolder";
+import ViewOrFolders from "@/components/main/model/ViewOrFolders";
+import ViewOrFolder from "@/components/main/model//ViewOrFolder";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagrams from "@/domain/diagram/Diagrams";
 

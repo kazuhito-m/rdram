@@ -40,7 +40,7 @@ import DiagramsTreePane from "@/components/main/tree/DiagramsTreePane.vue";
 import DiagramsTabPane from "@/components/main/tab/DiagramsTabPane.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import DiagramTypeSelectorDialog from "@/components/diagrams/open/DiagramTypeSelectorDialog.vue";
-import ViewOrFolder from "@/components/main/ViewOrFolder";
+import ViewOrFolder from "@/components/main/model/ViewOrFolder";
 import Product from "@/domain/product/Product";
 import Diagrams from "@/domain/diagram/Diagrams";
 import Diagram from "@/domain/diagram/Diagram";

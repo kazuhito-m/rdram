@@ -1,7 +1,7 @@
 import FolderTreeFactory from "./FolderTreeFactory";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagram from "@/domain/diagram/Diagram";
-import ViewOrFolder from "@/components/main/ViewOrFolder";
+import ViewOrFolder from "~/components/main/model/ViewOrFolder";
 
 export default class TreeWrapper {
     constructor(public readonly treeItems: ViewOrFolder[]) { }

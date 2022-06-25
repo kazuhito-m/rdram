@@ -1,4 +1,4 @@
-import ViewOrFolders from "@/components/main/ViewOrFolders";
+import ViewOrFolders from "@/components/main/model/ViewOrFolders";
 import DiagramType from "@/domain/diagram/DiagramType";
 
 describe('ViewOrFolders', () => {
