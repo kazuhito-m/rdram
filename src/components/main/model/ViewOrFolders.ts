@@ -1,13 +1,14 @@
 import ViewOrFolder from "./ViewOrFolder";
 import Range from "@/domain/basic/Range";
 import DiagramType from "@/domain/diagram/DiagramType";
+import Diagrams from "~/domain/diagram/Diagrams";
 
 export default class ViewOrFolders {
     constructor(public readonly values: ViewOrFolder[]) { }
 
     // constant and static methods.
 
-    static TREE = new ViewOrFolders([
+    static TREE_TEMPLATE = new ViewOrFolders([
         ViewOrFolder.RDRAM20_FOLDER
             .with(...
                 DiagramType.values()
@@ -35,7 +36,7 @@ export default class ViewOrFolders {
     }
 
     static ALL: ViewOrFolder[] = ViewOrFolders
-        .uniqueAllViewOrFolder(ViewOrFolders.TREE.values);
+        .uniqueAllViewOrFolder(ViewOrFolders.TREE_TEMPLATE.values);
 
     private static filterOfIdRange(idRange: Range, items: ViewOrFolder[]): ViewOrFolder[] {
         return items.filter(item => idRange.in(item.id));
@@ -49,6 +50,23 @@ export default class ViewOrFolders {
 
     static RDRA20_TYPE_FOLDERS: ViewOrFolder[] = ViewOrFolders
         .filterOfIdRange(ViewOrFolder.RDRA20_TYPE_IDS, ViewOrFolders.ALL);
+
+    static build(diagrams: Diagrams): ViewOrFolder[] {
+        const tree = ViewOrFolders.TREE_TEMPLATE.clone();
+        const diagramFolders = tree.rdra20DiagramFolders();
+        const typeMap = diagrams.groupOfType();
+        for (const folder of diagramFolders) {
+            const diagramsOfType = typeMap.get(folder.rdra20DiagramType());
+            if (!diagramsOfType || diagramsOfType.length === 0) continue;
+
+            const children = folder.children;
+            children.splice(0);
+            diagramsOfType
+                .map(d => ViewOrFolder.rdra20DiagramOf(d))
+                .forEach(vof => children.push(vof));
+        }
+        return tree.values;
+    }
 
     // normarl methods.
 

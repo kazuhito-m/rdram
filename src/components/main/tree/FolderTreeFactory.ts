@@ -5,22 +5,7 @@ import Diagrams from "@/domain/diagram/Diagrams";
 
 export default class FolderTreeFactory {
     public buildTree(diagrams: Diagrams): ViewOrFolder[] {
-        const tree = ViewOrFolders.TREE.clone();
-        const diagramFolders = tree.rdra20DiagramFolders();
-
-        const typeMap = diagrams.groupOfType();
-        for (const folder of diagramFolders) {
-            const diagramsOfType = typeMap.get(folder.rdra20DiagramType());
-            if (!diagramsOfType || diagramsOfType.length === 0) continue;
-
-            const children = folder.children;
-            children.splice(0);
-            diagramsOfType
-                .map(d => ViewOrFolder.rdra20DiagramOf(d))
-                .forEach(vof => children.push(vof));
-        }
-
-        return tree.values;
+        return ViewOrFolders.build(diagrams);
     }
 
     public diagramTypeFrom(item: ViewOrFolder): DiagramType | undefined {
