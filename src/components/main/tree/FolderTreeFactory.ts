@@ -1,13 +1,8 @@
 import ViewOrFolder from "@/components/main/model//ViewOrFolder";
 import DiagramType from "@/domain/diagram/DiagramType";
-import Diagrams from "@/domain/diagram/Diagrams";
 import ViewOrFoldersTemplate from "@/components/main/model/ViewOrFoldersTemplate";
 
 export default class FolderTreeFactory {
-    public buildTree(diagrams: Diagrams): ViewOrFolder[] {
-        return ViewOrFoldersTemplate.build(diagrams);
-    }
-
     public diagramTypeFrom(item: ViewOrFolder): DiagramType | undefined {
         return item.rdra20DiagramType();
     }
