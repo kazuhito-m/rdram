@@ -116,8 +116,7 @@ export default class DiagramsTreePane extends Vue {
   onClickMenuAddDiagram(treeItemId: number): void {
     const item = this.tree.findTreeItemById(treeItemId)
     if (!item) return
-    const diagramType = this.treeFactory.diagramTypeFrom(item)
-    if (!diagramType) return
+    const diagramType = item.rdra20DiagramType();
 
     const product = this.repository.getCurrentProduct()
     if (!product) return
