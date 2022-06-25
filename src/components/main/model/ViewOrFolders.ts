@@ -17,6 +17,24 @@ export default class ViewOrFolders {
         items.push(item);
     }
 
+    removeOf(id: number, items: ViewOrFolder[] = this.values): boolean {
+        const index = items.findIndex(item => item.id === id);
+        if (index < 0) return items.some(item => this.removeOf(id, item.children));
+
+        items.splice(index, 1)
+        if (items.length === 0) items.push(ViewOrFolder.EMPTY)
+        return true
+    }
+
+    findOf(id: number, items: ViewOrFolder[] = this.values): ViewOrFolder | null {
+        for (const item of items) {
+            if (item.id === id) return item;
+            const found = this.findOf(id, item.children);
+            if (found) return found;
+        }
+        return null;
+    }
+
     uniqueAll(items: ViewOrFolder[] = this.values): ViewOrFolder[] {
         const uniqueMap = new Map<number, ViewOrFolder>();
         for (const i of items) {
@@ -32,15 +50,6 @@ export default class ViewOrFolders {
         const rdra20 = this.findOf(ViewOrFolder.RDRAM20_FOLDER.id);
         if (!rdra20) return [];
         return rdra20.children;
-    }
-
-    findOf(id: number, items: ViewOrFolder[] = this.values): ViewOrFolder | null {
-        for (const item of items) {
-            if (item.id === id) return item;
-            const found = this.findOf(id, item.children);
-            if (found) return found;
-        }
-        return null;
     }
 
     clone(): ViewOrFolders {

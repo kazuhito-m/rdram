@@ -14,18 +14,6 @@ export default class TreeWrapper {
         return null;
     }
 
-    removeTreeItem(treeItemId: number, treeItems: ViewOrFolder[] = this.treeItems): boolean {
-        const foundIndex = treeItems.findIndex((item) => item.id === treeItemId)
-        if (foundIndex >= 0) {
-            treeItems.splice(foundIndex, 1)
-            if (treeItems.length === 0) treeItems.push(ViewOrFolder.EMPTY)
-            return true
-        }
-        return treeItems.some((item) =>
-            this.removeTreeItem(treeItemId, item.children)
-        )
-    }
-
     folderItemOf(diagramType: DiagramType): ViewOrFolder | null {
         const rdraTop = this.lookUpRdraTopItem();
         const treeItemId = ViewOrFoldersTemplate.idOf(diagramType)

@@ -143,7 +143,7 @@ export default class DiagramsTreePane extends Vue {
   onClickMenuRemoveDiagram(diagramId: number): void {
     if (!this.removeDiagram(diagramId)) return
     this.onDeleteDiagram(diagramId)
-    this.tree.removeTreeItem(diagramId)
+    this.viewOrFolders.removeOf(diagramId)
   }
 
   onClickMenuEditDiagramProperties(diagramId: number): void {
