@@ -97,7 +97,7 @@ export default class DiagramRightClickMenu extends Vue {
   // public method
 
   show(treeItem: ViewOrFolder, x: number, y: number): void {
-    this.isFolder = FolderTreeFactory.get().isDiagramTypeFolder(treeItem)
+    this.isFolder = treeItem.isRdra20DiagramTypeFolder();
     this.isDiagram = !this.isFolder
 
     this.diagramId = treeItem.id
