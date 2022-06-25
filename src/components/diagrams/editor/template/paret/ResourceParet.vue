@@ -1,156 +1,168 @@
 <template lang="html">
   <div class="paret-panel">
-  <v-expansion-panels  v-model="paretsOpen" multiple focusable dark>
-    <v-expansion-panel
-      v-for="resourceType in availableResourceTypes"
-      :key="resourceType.id"
-    >
-      <v-expansion-panel-header>
-        <div class="omit-long-text">
-          <v-icon :id="resourceType.iconKey">{{ resourceType.iconKey }}</v-icon>
-          {{ resourceType.name }}
-        </div>
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <v-list dark dence>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title class="chip-container">
-                <v-chip
-                  color="primary"
-                  dark
-                  outlined
-                  draggable
-                  :data-resource-type-id="resourceType.id"
-                  @dragstart="onDragStartNewCompany"
-                >
-                  <v-icon>{{ resourceType.iconKey }}</v-icon>新規追加
-                </v-chip>
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+    <v-expansion-panels v-model="paretsOpen" multiple focusable dark>
+      <v-expansion-panel
+        v-for="resourceType in availableResourceTypes"
+        :key="resourceType.id"
+      >
+        <v-expansion-panel-header>
+          <div class="omit-long-text">
+            <v-icon :id="resourceType.iconKey">{{
+              resourceType.iconKey
+            }}</v-icon>
+            {{ resourceType.name }}
+          </div>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-list dark dence>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title class="chip-container">
+                  <v-chip
+                    color="primary"
+                    dark
+                    outlined
+                    draggable
+                    :data-resource-type-id="resourceType.id"
+                    @dragstart="onDragStartNewCompany"
+                  >
+                    <v-icon>{{ resourceType.iconKey }}</v-icon
+                    >新規追加
+                  </v-chip>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
 
-          <v-list-item
-            v-for="resource in allResourcesOnCurrentProduct.filter(r => filterDisplayParet(r, resourceType, usedResouceIds))"
-            :key="resource.resourceId"
-          >
-            <v-list-item-content>
-              <v-list-item-title class="chip-container">
-                <v-chip
-                  :data-resource-id="resource.resourceId"
-                  color="primary"
-                  dark
-                  draggable
-                  @dragstart="onDragStartResource"
-                  @contextmenu="onRightClickResource"
-                >
-                  <v-icon>{{ resourceType.iconKey }}</v-icon>
-                  {{ resource.name }}
-                </v-chip>
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
+            <v-list-item
+              v-for="resource in allResourcesOnCurrentProduct.filter((r) =>
+                filterDisplayParet(r, resourceType, usedResouceIds)
+              )"
+              :key="resource.resourceId"
+            >
+              <v-list-item-content>
+                <v-list-item-title class="chip-container">
+                  <v-chip
+                    :data-resource-id="resource.resourceId"
+                    color="primary"
+                    dark
+                    draggable
+                    @dragstart="onDragStartResource"
+                    @contextmenu="onRightClickResource"
+                  >
+                    <v-icon>{{ resourceType.iconKey }}</v-icon>
+                    {{ resource.name }}
+                  </v-chip>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
 
-    <v-expansion-panel>
-      <v-expansion-panel-header>
-        <div class="omit-long-text">
-          <v-icon>mdi-clipboard-check-multiple-outline</v-icon>この図で使用済
-        </div>
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <v-list dark dence>
-          <v-list-item
-            v-for="usedResource in allResourcesOnCurrentProduct.filter(r => filterUsedList(r, usedResouceIds))"
-            :key="usedResource.resourceId"
-          >
-            <v-list-item-content>
-              <v-list-item-title class="chip-container">
-                <v-chip
-                  dark
-                  :data-resource-id="usedResource.resourceId"
-                  data-resource-on-diagram="true"
-                  @contextmenu="onRightClickResource"
-                >
-                  <v-icon>{{ iconKeyOf(usedResource) }}</v-icon>
-                  {{ usedResource.name }}
-                </v-chip>
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
-  </v-expansion-panels>
+      <v-expansion-panel>
+        <v-expansion-panel-header>
+          <div class="omit-long-text">
+            <v-icon>mdi-clipboard-check-multiple-outline</v-icon>この図で使用済
+          </div>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-list dark dence>
+            <v-list-item
+              v-for="usedResource in allResourcesOnCurrentProduct.filter((r) =>
+                filterUsedList(r, usedResouceIds)
+              )"
+              :key="usedResource.resourceId"
+            >
+              <v-list-item-content>
+                <v-list-item-title class="chip-container">
+                  <v-chip
+                    dark
+                    :data-resource-id="usedResource.resourceId"
+                    data-resource-on-diagram="true"
+                    @contextmenu="onRightClickResource"
+                  >
+                    <v-icon>{{ iconKeyOf(usedResource) }}</v-icon>
+                    {{ usedResource.name }}
+                  </v-chip>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Emit } from "vue-property-decorator";
-import ResourceType from "@/domain/resource/ResourceType";
-import Resource from "@/domain/resource/Resource";
-import Product from "@/domain/product/Product";
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
+import ResourceType from '@/domain/resource/ResourceType'
+import Resource from '@/domain/resource/Resource'
+import Product from '@/domain/product/Product'
 
 @Component
 export default class ResourceParet extends Vue {
-  readonly availableResourceTypes: ResourceType[] = [];
-  readonly paretsOpen: number[] = [];
+  readonly availableResourceTypes: ResourceType[] = []
+  readonly paretsOpen: number[] = []
 
   @Prop({ required: true })
-  private readonly diagramId!: number;
+  private readonly diagramId!: number
 
   @Prop({ required: true })
-  private readonly product!: Product;
+  private readonly product!: Product
 
   @Prop({ required: true })
-  readonly allResourcesOnCurrentProduct!: Resource[];
+  readonly allResourcesOnCurrentProduct!: Resource[]
 
   @Prop({ required: true })
-  readonly usedResouceIds!: number[];
+  readonly usedResouceIds!: number[]
 
-  @Emit("onShowResourceMenu")
-  private onShowResourceMenu(_resource: Resource, _x: number, _y: number): void {}
+  @Emit('onShowResourceMenu')
+  private onShowResourceMenu(
+    _resource: Resource,
+    _x: number,
+    _y: number
+  ): void {}
 
   created(): void {
-    const diagram = this.product.diagrams.of(this.diagramId);
-    if (!diagram) return;
+    const diagram = this.product.diagrams.of(this.diagramId)
+    if (!diagram) return
 
     diagram
       .availableResourceTypes()
-      .forEach(resourceType => this.availableResourceTypes.push(resourceType));
+      .forEach((resourceType) => this.availableResourceTypes.push(resourceType))
   }
 
   onDragStartNewCompany(event: DragEvent): void {
-    if (!event.target) return;
-    const target = event.target as HTMLElement;
-    const text = target.getAttribute("data-resource-type-id");
-    if (!text) return;
-    const resourceTypeId = parseInt(text, 10);
-    event.dataTransfer?.setData("text", "-" + resourceTypeId);
+    if (!event.target) return
+    const target = event.target as HTMLElement
+    const text = target.getAttribute('data-resource-type-id')
+    if (!text) return
+    const resourceTypeId = parseInt(text, 10)
+    event.dataTransfer?.setData('text', '-' + resourceTypeId)
   }
 
   onDragStartResource(event: DragEvent): void {
-    const chip = event.srcElement as HTMLElement;
-    const resourceIdText = chip.getAttribute("data-resource-id") as string;
-    event.dataTransfer?.setData("text", resourceIdText);
+    const chip = event.srcElement as HTMLElement
+    const resourceIdText = chip.getAttribute('data-resource-id') as string
+    event.dataTransfer?.setData('text', resourceIdText)
   }
 
   onRightClickResource(event: MouseEvent): void {
-    event.preventDefault();
+    event.preventDefault()
 
-    const src = event.srcElement as HTMLElement;
-    const chip = src.parentElement as HTMLElement; // FIXME ちょっと「Veutifyの構造を知りすぎてる」気がする。手が在れば変えたい。
-    const resourceIdText = chip.getAttribute("data-resource-id") as string;
-    if (!resourceIdText) return;
-    const resourceId = Number(resourceIdText);
+    const src = event.srcElement as HTMLElement
+    const chip = src.parentElement as HTMLElement // FIXME ちょっと「Veutifyの構造を知りすぎてる」気がする。手が在れば変えたい。
+    const resourceIdText = chip.getAttribute('data-resource-id') as string
+    if (!resourceIdText) return
+    const resourceId = Number(resourceIdText)
 
-    const resource = this.allResourcesOnCurrentProduct
-      .find(r => r.resourceId === resourceId);
-    if (!resource) return;
+    const resource = this.allResourcesOnCurrentProduct.find(
+      (r) => r.resourceId === resourceId
+    )
+    if (!resource) return
 
-    this.onShowResourceMenu(resource, event.x, event.y);
+    this.onShowResourceMenu(resource, event.x, event.y)
   }
 
   filterDisplayParet(
@@ -158,22 +170,19 @@ export default class ResourceParet extends Vue {
     resourceType: ResourceType,
     usedResouceIds: number[]
   ): boolean {
-    const diagram = this.product.diagrams.of(this.diagramId);
-    if (!diagram) return false;
-    if (!resource.type.equals(resourceType)) return false;
-    return !usedResouceIds.includes(resource.resourceId);
+    const diagram = this.product.diagrams.of(this.diagramId)
+    if (!diagram) return false
+    if (!resource.type.equals(resourceType)) return false
+    return !usedResouceIds.includes(resource.resourceId)
   }
 
-  filterUsedList(
-    resource: Resource,
-    usedResouceIds: number[]
-  ): boolean {
-    return usedResouceIds.includes(resource.resourceId);
+  filterUsedList(resource: Resource, usedResouceIds: number[]): boolean {
+    return usedResouceIds.includes(resource.resourceId)
   }
 
   iconKeyOf(resource: Resource): string {
-    if (!resource) return "";
-    return resource.type.iconKey;
+    if (!resource) return ''
+    return resource.type.iconKey
   }
 }
 </script>
