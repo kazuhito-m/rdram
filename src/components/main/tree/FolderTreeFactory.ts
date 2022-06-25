@@ -1,11 +1,11 @@
-import ViewOrFolders from "@/components/main/model/ViewOrFolders";
 import ViewOrFolder from "@/components/main/model//ViewOrFolder";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagrams from "@/domain/diagram/Diagrams";
+import ViewOrFoldersTemplate from "@/components/main/model/ViewOrFoldersTemplate";
 
 export default class FolderTreeFactory {
     public buildTree(diagrams: Diagrams): ViewOrFolder[] {
-        return ViewOrFolders.build(diagrams);
+        return ViewOrFoldersTemplate.build(diagrams);
     }
 
     public diagramTypeFrom(item: ViewOrFolder): DiagramType | undefined {
@@ -13,7 +13,7 @@ export default class FolderTreeFactory {
     }
 
     public treeItemIdFrom(diagramType: DiagramType): number {
-        const folder = ViewOrFolders.RDRA20_TYPE_FOLDERS
+        const folder = ViewOrFoldersTemplate.RDRA20_TYPE_FOLDERS
             .find(f => diagramType.equals(f.rdra20DiagramType()));
         return folder ? folder.id : 0;
     }
