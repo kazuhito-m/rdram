@@ -2,12 +2,11 @@ import TreeItem from "./tree/TreeItem";
 import Range from "@/domain/basic/Range";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagram from "~/domain/diagram/Diagram";
-import Folder from "./tree/Folder";
 
 export default class ViewOrFolder implements TreeItem {
     constructor(
         public readonly id: number,
-        public readonly name: string,
+        public name: string, // TODO イミュータブルで行けるようにしたい
         public readonly children: ViewOrFolder[],
         public readonly disabled: boolean,
         public readonly folder: boolean,
@@ -19,8 +18,8 @@ export default class ViewOrFolder implements TreeItem {
     static readonly CUSTOM_FOLDER = of(-2, "カスタム", true);
     static readonly ANALYSIS_FOLDER = of(-3, "分析", true);
 
-    static readonly ICON_LIST = of(2000000000000001, "アイコン一覧", false, "mdi-format-list-bulleted-type");
-    static readonly SCREEN_TRANSITION = of(2000000000000002, "画面遷移", false, "mdi-file-tree-outline");
+    static readonly ICON_LIST = of(3000000000000001, "アイコン一覧", false, "mdi-format-list-bulleted-type");
+    static readonly SCREEN_TRANSITION = of(3000000000000002, "画面遷移", false, "mdi-file-tree-outline");
 
     static readonly EMPTY = new ViewOrFolder(0, "(空)", [], true, false, "", "");
 
@@ -41,7 +40,7 @@ export default class ViewOrFolder implements TreeItem {
     rdra20DiagramType(): DiagramType {
         const range = ViewOrFolder.RDRA20_TYPE_IDS;
         if (!range.in(this.id))
-            throw "図フォルダじゃないのにType取得を呼びだした。";
+            throw new Error("図フォルダじゃないのにType取得を呼びだした。");
         return DiagramType.ofId(this.id - range.start) as DiagramType;
     }
 

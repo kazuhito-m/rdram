@@ -1,13 +1,10 @@
-import Folder from "./Folder";
-import TreeItem from "@/components/main/tree/TreeItem";
-import DiagramType from "@/domain/diagram/DiagramType";
-import Diagrams from "@/domain/diagram/Diagrams";
-import Diagram from "@/domain/diagram/Diagram";
 import ViewOrFolders from "../ViewOrFolders";
 import ViewOrFolder from "../ViewOrFolder";
+import DiagramType from "@/domain/diagram/DiagramType";
+import Diagrams from "@/domain/diagram/Diagrams";
 
 export default class FolderTreeFactory {
-    public buildTree(diagrams: Diagrams): TreeItem[] {
+    public buildTree(diagrams: Diagrams): ViewOrFolder[] {
         const tree = ViewOrFolders.TREE.clone();
         const diagramFolders = tree.rdra20DiagramFolders();
 
@@ -24,18 +21,6 @@ export default class FolderTreeFactory {
         }
 
         return tree.values;
-    }
-
-    public makeDiagramItem(diagram: Diagram): TreeItem {
-        const type = diagram.type
-        return {
-            id: diagram.id,
-            name: diagram.name,
-            children: [],
-            disabled: false,
-            iconKey: type.iconKey,
-            iconCaption: type.name,
-        }
     }
 
     public diagramTypeFrom(item: ViewOrFolder): DiagramType | undefined {

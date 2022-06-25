@@ -1,4 +1,3 @@
-import Folder from "./Folder";
 import FolderTreeFactory from "./FolderTreeFactory";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagram from "@/domain/diagram/Diagram";
@@ -53,6 +52,6 @@ export default class TreeWrapper {
     }
 
     lookUpRdraTopItem(): ViewOrFolder {
-        return this.findTreeItemById(Folder.RDRAM20.id) as ViewOrFolder;
+        return this.findTreeItemById(ViewOrFolder.RDRAM20_FOLDER.id) as ViewOrFolder;
     }
 }

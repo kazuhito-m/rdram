@@ -36,8 +36,8 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
+import ViewOrFolder from '../ViewOrFolder'
 import DiagramRightClickMenu from './DiagramRightClickMenu.vue'
-import Folder from './Folder'
 import TreeWrapper from './TreeWrapper'
 import FolderTreeFactory from './FolderTreeFactory'
 import Prompts from '@/components/main/Prompts'
@@ -45,7 +45,6 @@ import DiagramExportService from '@/application/service/diagram/export/DiagramEx
 import Diagram from '@/domain/diagram/Diagram'
 import Product from '@/domain/product/Product'
 import StorageRepository from '@/domain/storage/StorageRepository'
-import TreeItem from '@/components/main/tree/TreeItem'
 
 @Component({
   components: {
@@ -53,7 +52,7 @@ import TreeItem from '@/components/main/tree/TreeItem'
   },
 })
 export default class DiagramsTreePane extends Vue {
-  treeItems: TreeItem[] = []
+  treeItems: ViewOrFolder[] = []
   treeActiveItemIds: number[] = []
   treeOpenItemIds: number[] = []
 
@@ -73,7 +72,7 @@ export default class DiagramsTreePane extends Vue {
   onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   @Emit('onOpenDiagram')
-  onOpenDiagram(_treeItem: TreeItem): void {}
+  onOpenDiagram(_treeItem:ViewOrFolder): void {}
 
   @Emit('onDeleteDiagram')
   onDeleteDiagram(_diagramId: number): void {}
@@ -84,7 +83,7 @@ export default class DiagramsTreePane extends Vue {
     const product = this.repository.getCurrentProduct()
     if (!product) return
     this.treeItems = this.treeFactory.buildTree(product.diagrams)
-    this.treeOpenItemIds.push(Folder.RDRAM20.id)
+    this.treeOpenItemIds.push(ViewOrFolder.RDRAM20_FOLDER.id)
     this.tree = new TreeWrapper(this.treeItems)
   }
 
