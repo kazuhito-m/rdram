@@ -1,4 +1,3 @@
-import FolderTreeFactory from "./FolderTreeFactory";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagram from "@/domain/diagram/Diagram";
 import ViewOrFolder from "~/components/main/model/ViewOrFolder";
@@ -6,8 +5,6 @@ import ViewOrFoldersTemplate from "../model/ViewOrFoldersTemplate";
 
 export default class TreeWrapper {
     constructor(public readonly treeItems: ViewOrFolder[]) { }
-
-    private readonly factory = FolderTreeFactory.get();
 
     findTreeItemById(treeItemId: number, treeItems: ViewOrFolder[] = this.treeItems): ViewOrFolder | null {
         for (const item of treeItems) {

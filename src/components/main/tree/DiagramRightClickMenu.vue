@@ -54,7 +54,6 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Emit } from 'nuxt-property-decorator'
-import FolderTreeFactory from './FolderTreeFactory'
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 
 @Component

@@ -39,7 +39,6 @@ import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
 import ViewOrFoldersTemplate from '../model/ViewOrFoldersTemplate'
 import DiagramRightClickMenu from './DiagramRightClickMenu.vue'
 import TreeWrapper from './TreeWrapper'
-import FolderTreeFactory from './FolderTreeFactory'
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Prompts from '@/components/main/Prompts'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
@@ -58,7 +57,6 @@ export default class DiagramsTreePane extends Vue {
   treeOpenItemIds: number[] = []
 
   private tree = new TreeWrapper(this.treeItems)
-  private readonly treeFactory = FolderTreeFactory.get()
   private readonly prompts = new Prompts()
 
   @Inject()
