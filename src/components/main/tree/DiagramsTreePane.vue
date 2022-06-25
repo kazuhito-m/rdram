@@ -58,7 +58,7 @@ export default class DiagramsTreePane extends Vue {
   treeOpenItemIds: number[] = []
 
   private tree = new TreeWrapper(this.treeItems)
-  private viewOrFolders = new ViewOrFolders([]);
+  private viewOrFolders = new ViewOrFolders([])
   private readonly prompts = new Prompts()
 
   @Inject()
@@ -87,7 +87,7 @@ export default class DiagramsTreePane extends Vue {
     this.treeItems = viewOrFolders.values
     this.treeOpenItemIds.push(ViewOrFolder.RDRAM20_FOLDER.id)
     this.tree = new TreeWrapper(this.treeItems)
-    this.viewOrFolders = viewOrFolders;
+    this.viewOrFolders = viewOrFolders
   }
 
   // component events.
@@ -117,7 +117,7 @@ export default class DiagramsTreePane extends Vue {
   onClickMenuAddDiagram(treeItemId: number): void {
     const item = this.tree.findTreeItemById(treeItemId)
     if (!item) return
-    const diagramType = item.rdra20DiagramType();
+    const diagramType = item.rdra20DiagramType()
 
     const product = this.repository.getCurrentProduct()
     if (!product) return
@@ -187,7 +187,7 @@ export default class DiagramsTreePane extends Vue {
   }
 
   private openParentTreeItem(treeItemId: number): void {
-    const rdraTop = this.tree.lookUpRdraTopItem()
+    const rdraTop = this.viewOrFolders.rdra20Folder()
     const parentTreeItem = rdraTop.children.find((folderItem) =>
       folderItem.children.some((item) => item.id === treeItemId)
     )

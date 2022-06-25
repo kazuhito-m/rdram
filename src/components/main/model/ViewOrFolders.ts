@@ -52,6 +52,10 @@ export default class ViewOrFolders {
         return rdra20.children;
     }
 
+    rdra20Folder(): ViewOrFolder {
+        return this.findOf(ViewOrFolder.RDRAM20_FOLDER.id) as ViewOrFolder;
+    }
+
     clone(): ViewOrFolders {
         const values = this.values.map(i => i.clone());
         return new ViewOrFolders(values);

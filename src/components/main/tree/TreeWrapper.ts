@@ -11,8 +11,4 @@ export default class TreeWrapper {
         }
         return null;
     }
-
-    lookUpRdraTopItem(): ViewOrFolder {
-        return this.findTreeItemById(ViewOrFolder.RDRAM20_FOLDER.id) as ViewOrFolder;
-    }
 }
