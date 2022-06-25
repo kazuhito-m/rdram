@@ -2,6 +2,7 @@ import FolderTreeFactory from "./FolderTreeFactory";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagram from "@/domain/diagram/Diagram";
 import ViewOrFolder from "~/components/main/model/ViewOrFolder";
+import ViewOrFoldersTemplate from "../model/ViewOrFoldersTemplate";
 
 export default class TreeWrapper {
     constructor(public readonly treeItems: ViewOrFolder[]) { }
@@ -31,7 +32,7 @@ export default class TreeWrapper {
 
     folderItemOf(diagramType: DiagramType): ViewOrFolder | null {
         const rdraTop = this.lookUpRdraTopItem();
-        const treeItemId = this.factory.treeItemIdFrom(diagramType)
+        const treeItemId = ViewOrFoldersTemplate.idOf(diagramType)
         const folderItem = rdraTop.children.find((i) => i.id === treeItemId)
         if (!folderItem) return null
         return folderItem

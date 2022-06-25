@@ -52,4 +52,10 @@ export default class ViewOrFoldersTemplate {
         }
         return tree;
     }
+
+    static idOf(diagramType: DiagramType): number {
+        const folder = ViewOrFoldersTemplate.RDRA20_TYPE_FOLDERS
+            .find(f => diagramType.equals(f.rdra20DiagramType()));
+        return folder ? folder.id : 0;
+    }
 }
