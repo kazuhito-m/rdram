@@ -39,7 +39,6 @@ import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
 import ViewOrFoldersTemplate from '../model/ViewOrFoldersTemplate'
 import ViewOrFolders from '../model/ViewOrFolders'
 import DiagramRightClickMenu from './DiagramRightClickMenu.vue'
-import TreeWrapper from './TreeWrapper'
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Prompts from '@/components/main/Prompts'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
@@ -57,7 +56,6 @@ export default class DiagramsTreePane extends Vue {
   treeActiveItemIds: number[] = []
   treeOpenItemIds: number[] = []
 
-  private tree = new TreeWrapper(this.treeItems)
   private viewOrFolders = new ViewOrFolders([])
   private readonly prompts = new Prompts()
 
@@ -86,7 +84,6 @@ export default class DiagramsTreePane extends Vue {
     const viewOrFolders = ViewOrFoldersTemplate.build(product.diagrams)
     this.treeItems = viewOrFolders.values
     this.treeOpenItemIds.push(ViewOrFolder.RDRAM20_FOLDER.id)
-    this.tree = new TreeWrapper(this.treeItems)
     this.viewOrFolders = viewOrFolders
   }
 
