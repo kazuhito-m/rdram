@@ -407,7 +407,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 var transitions = __webpack_require__(140);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/bootable/index.js
-var bootable = __webpack_require__(236);
+var bootable = __webpack_require__(235);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/colorable/index.js
 var colorable = __webpack_require__(40);
@@ -596,10 +596,10 @@ var VExpansionPanelHeader_baseMixins = Object(mixins["a" /* default */])(colorab
   }
 }));
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat.js
-var es_array_flat = __webpack_require__(234);
+var es_array_flat = __webpack_require__(233);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.unscopables.flat.js
-var es_array_unscopables_flat = __webpack_require__(235);
+var es_array_unscopables_flat = __webpack_require__(234);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VExpansionPanel/VExpansionPanel.sass
 var VExpansionPanel_VExpansionPanel = __webpack_require__(877);

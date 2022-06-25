@@ -2314,7 +2314,7 @@ var DownloadCustomFile_DownloadCustomFile = /*#__PURE__*/Object(createClass["a" 
 
 
 // EXTERNAL MODULE: ./src/domain/client/WithTimestampFileName.ts
-var WithTimestampFileName = __webpack_require__(237);
+var WithTimestampFileName = __webpack_require__(236);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/template/canvas/DiagramCanvas.vue?vue&type=script&lang=ts&
 
