@@ -20,17 +20,17 @@ export default class ViewOrFolders {
         return rdra20.children;
     }
 
-    findOf(id: number): ViewOrFolder | undefined {
-        return this.values.find(i => i.id === id);
+    findOf(id: number, items: ViewOrFolder[] = this.values): ViewOrFolder | null {
+        for (const item of items) {
+            if (item.id === id) return item;
+            const found = this.findOf(id, item.children);
+            if (found) return found;
+        }
+        return null;
     }
 
     clone(): ViewOrFolders {
         const values = this.values.map(i => i.clone());
         return new ViewOrFolders(values);
-    }
-
-    idOf(id: number): ViewOrFolder | undefined {
-        return ViewOrFolders.ALL
-            .find(item => item.id === id);
     }
 }

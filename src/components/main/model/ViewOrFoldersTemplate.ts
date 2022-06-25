@@ -1,8 +1,8 @@
 import ViewOrFolder from "./ViewOrFolder";
+import ViewOrFolders from "./ViewOrFolders";
 import Range from "@/domain/basic/Range";
 import DiagramType from "@/domain/diagram/DiagramType";
-import Diagrams from "~/domain/diagram/Diagrams";
-import ViewOrFolders from "./ViewOrFolders";
+import Diagrams from "@/domain/diagram/Diagrams";
 
 export default class ViewOrFoldersTemplate {
     static readonly TREE = new ViewOrFolders([
@@ -36,7 +36,7 @@ export default class ViewOrFoldersTemplate {
     static readonly RDRA20_TYPE_FOLDERS: ViewOrFolder[] = ViewOrFoldersTemplate
         .filterOfIdRange(ViewOrFolder.RDRA20_TYPE_IDS, ViewOrFoldersTemplate.ALL);
 
-    static build(diagrams: Diagrams): ViewOrFolder[] {
+    static build(diagrams: Diagrams): ViewOrFolders {
         const tree = ViewOrFoldersTemplate.TREE.clone();
         const diagramFolders = tree.rdra20DiagramFolders();
         const typeMap = diagrams.groupOfType();
@@ -50,6 +50,6 @@ export default class ViewOrFoldersTemplate {
                 .map(d => ViewOrFolder.rdra20DiagramOf(d))
                 .forEach(vof => children.push(vof));
         }
-        return tree.values;
+        return tree;
     }
 }
