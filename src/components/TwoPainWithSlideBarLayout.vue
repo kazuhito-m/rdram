@@ -1,6 +1,7 @@
 <template>
   <v-flex class="text-center">
     <div
+      ref="painContainer"
       class="pain-container"
       @dragover="onDragOverMasterPainSlideBar"
       @drop="onDropMasterPainSlideBar"
@@ -23,69 +24,84 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "nuxt-property-decorator";
-import Uuid from "@/domain/world/Uuid";
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import Uuid from '@/domain/world/Uuid'
 
 @Component
 export default class TwoPainWithSlideBarLayout extends Vue {
-  @Prop()
-  private adsorptionLeftWhenDoubleClick?: boolean;
+  private dragId?: string
+
+  private leftPainDisplay = 'none'
+
+  private adsorptionRight = false
+  private leftPainWidth = ''
+  private rightPainWidth = ''
 
   @Prop()
-  private readonly defaultLeftPainWidth?: string;
+  private readonly adsorptionRightWhenDoubleClick?: boolean // 右に吸着モード(デフォルトは左吸着)
 
-  private dragId?: string;
-  private leftPainWidth: string | null = null;
+  @Prop()
+  private readonly defaultLeftPainWidth?: string
 
-  private mounted(): void {
-    if (!this.defaultLeftPainWidth) return;
-    const leftPain = this.$refs.leftPain as HTMLElement;
-    leftPain.style.width = this.defaultLeftPainWidth;
+  mounted(): void {
+    if (!this.defaultLeftPainWidth) return
+    const leftPain = this.$refs.leftPain as HTMLElement
+    leftPain.style.width = this.defaultLeftPainWidth
   }
 
-  public onDoubleClickSlideBar(): void {
-    const leftPain = this.$refs.leftPain as HTMLElement;
-    const leftPainStyle = leftPain.style;
-    if (this.adsorptionLeftWhenDoubleClick) {
-      const rightPain = this.$refs.rightPain as HTMLElement;
-      const rightPainStyle = rightPain.style;
-      if (this.leftPainWidth === null) {
-        rightPainStyle.display = "none";
-        this.leftPainWidth = leftPainStyle.width;
-        leftPainStyle.width = "100%";
-        leftPainStyle.resize = "none";
-      } else {
-        rightPainStyle.display = "inline";
-        leftPainStyle.resize = "horizontal";
-        leftPainStyle.width = this.leftPainWidth;
-        this.leftPainWidth = null;
-      }
+  onDoubleClickSlideBar(): void {
+    const leftPain = this.$refs.leftPain as HTMLElement
+    const leftPainStyle = leftPain.style
+    if (!this.adsorptionRightWhenDoubleClick) {
+      const last = leftPainStyle.display
+      leftPainStyle.display = this.leftPainDisplay
+      this.leftPainDisplay = last
+      return
+    }
+    const rightPain = this.$refs.rightPain as HTMLElement
+    const rightPainStyle = rightPain.style
+
+    this.adsorptionRight = !this.adsorptionRight
+
+    if (this.adsorptionRight) {
+      this.leftPainWidth = leftPainStyle.width
+      this.rightPainWidth = rightPainStyle.width
+      rightPainStyle.width = '0%'
+      leftPainStyle.width = '100%'
     } else {
-      leftPainStyle.display =
-        leftPainStyle.display === "none" ? "inline" : "none";
+      rightPainStyle.width = this.rightPainWidth
+      leftPainStyle.width = this.leftPainWidth
     }
+
+    rightPainStyle.display = this.adsorptionRight ? 'none' : 'inline'
   }
 
-  private onDragStartMasterPainSlideBar(event: DragEvent): void {
-    this.dragId = Uuid.generate();
-    event.dataTransfer?.setData("text", this.dragId);
+  onDragStartMasterPainSlideBar(event: DragEvent): void {
+    this.dragId = Uuid.generate()
+    event.dataTransfer?.setData('text', this.dragId)
   }
 
-  private onDragOverMasterPainSlideBar(event: DragEvent): void {
-    event?.preventDefault();
+  onDragOverMasterPainSlideBar(event: DragEvent): void {
+    event?.preventDefault()
   }
 
-  private onDropMasterPainSlideBar(event: DragEvent): void {
-    event.preventDefault();
-    if (event.dataTransfer?.getData("text") !== this.dragId) return;
-    const leftPain = this.$refs.leftPain as HTMLElement;
-    const style = leftPain.style;
-    let painLeft = 0;
-    if (style.left) {
-      const left = style.left;
-      if (left.match("px$")) painLeft = parseInt(left.replace("px", ""), 10);
-    }
-    style.width = event.x - painLeft + "px";
+  onDropMasterPainSlideBar(event: DragEvent): void {
+    event.preventDefault()
+    if (event.dataTransfer?.getData('text') !== this.dragId) return
+    if (this.adsorptionLeft || this.adsorptionRight) return
+
+    const painContainer = this.$refs.painContainer as HTMLElement
+    const absoluteLeft = painContainer.getBoundingClientRect().left
+
+    const leftPain = this.$refs.leftPain as HTMLElement
+    const style = leftPain.style
+
+    style.width = event.pageX - absoluteLeft + 'px'
+  }
+
+  private get adsorptionLeft(): boolean {
+    const leftPain = this.$refs.leftPain as HTMLElement
+    return leftPain.style.display === 'none'
   }
 }
 </script>
@@ -104,21 +120,28 @@ export default class TwoPainWithSlideBarLayout extends Vue {
 
 .left-pain {
   overflow: hidden;
+  resize: none;
   text-align: left;
-  resize: both;
   width: 250px;
 }
 
 .right-pain {
+  overflow: hidden;
+  resize: none;
   flex-grow: 1;
   width: 0%;
   min-width: 0px;
-  overflow: hidden;
 }
 
 .slidebar {
   width: 8px;
-  background-color: gray;
+  background-color: #404040;
   cursor: col-resize;
+  transition: 0.25s;
+}
+
+.slidebar:hover {
+  background-color: #A0A0A0;
+  transition: 0.25s;
 }
 </style>
