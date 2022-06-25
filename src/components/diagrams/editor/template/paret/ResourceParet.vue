@@ -64,7 +64,7 @@
         <v-list dark dence>
           <v-list-item
             v-for="usedResource in allResourcesOnCurrentProduct.filter(r => filterUsedList(r, usedResouceIds))"
-            :key="usedResource.id"
+            :key="usedResource.resourceId"
           >
             <v-list-item-content>
               <v-list-item-title class="chip-container">
@@ -95,25 +95,25 @@ import Product from "@/domain/product/Product";
 
 @Component
 export default class ResourceParet extends Vue {
+  readonly availableResourceTypes: ResourceType[] = [];
+  readonly paretsOpen: number[] = [];
+
   @Prop({ required: true })
   private readonly diagramId!: number;
 
   @Prop({ required: true })
-  private readonly allResourcesOnCurrentProduct!: Resource[];
-
-  @Prop({ required: true })
-  private readonly usedResouceIds!: number;
-
-  @Prop({ required: true })
   private readonly product!: Product;
 
-  private readonly availableResourceTypes: ResourceType[] = [];
-  private readonly paretsOpen: number[] = [];
+  @Prop({ required: true })
+  readonly allResourcesOnCurrentProduct!: Resource[];
+
+  @Prop({ required: true })
+  readonly usedResouceIds!: number[];
 
   @Emit("onShowResourceMenu")
   private onShowResourceMenu(_resource: Resource, _x: number, _y: number): void {}
 
-  public created(): void {
+  created(): void {
     const diagram = this.product.diagrams.of(this.diagramId);
     if (!diagram) return;
 
@@ -122,7 +122,7 @@ export default class ResourceParet extends Vue {
       .forEach(resourceType => this.availableResourceTypes.push(resourceType));
   }
 
-  public onDragStartNewCompany(event: DragEvent): void {
+  onDragStartNewCompany(event: DragEvent): void {
     if (!event.target) return;
     const target = event.target as HTMLElement;
     const text = target.getAttribute("data-resource-type-id");
@@ -131,13 +131,13 @@ export default class ResourceParet extends Vue {
     event.dataTransfer?.setData("text", "-" + resourceTypeId);
   }
 
-  public onDragStartResource(event: DragEvent): void {
+  onDragStartResource(event: DragEvent): void {
     const chip = event.srcElement as HTMLElement;
     const resourceIdText = chip.getAttribute("data-resource-id") as string;
     event.dataTransfer?.setData("text", resourceIdText);
   }
 
-  private onRightClickResource(event: MouseEvent): void {
+  onRightClickResource(event: MouseEvent): void {
     event.preventDefault();
 
     const src = event.srcElement as HTMLElement;
@@ -153,7 +153,7 @@ export default class ResourceParet extends Vue {
     this.onShowResourceMenu(resource, event.x, event.y);
   }
 
-  private filterDisplayParet(
+  filterDisplayParet(
     resource: Resource,
     resourceType: ResourceType,
     usedResouceIds: number[]
@@ -164,14 +164,14 @@ export default class ResourceParet extends Vue {
     return !usedResouceIds.includes(resource.resourceId);
   }
 
-  private filterUsedList(
+  filterUsedList(
     resource: Resource,
     usedResouceIds: number[]
   ): boolean {
     return usedResouceIds.includes(resource.resourceId);
   }
 
-  private iconKeyOf(resource: Resource): string {
+  iconKeyOf(resource: Resource): string {
     if (!resource) return "";
     return resource.type.iconKey;
   }
