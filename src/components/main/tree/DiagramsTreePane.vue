@@ -4,6 +4,7 @@
       :items="treeItems"
       :active.sync="treeActiveItemIds"
       :open.sync="treeOpenItemIds"
+      item-key="id"
       activatable
       open-on-click
       transition

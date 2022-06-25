@@ -1,15 +1,15 @@
 import Folder from "./Folder";
 import FolderTreeFactory from "./FolderTreeFactory";
-import TreeItem from "@/components/main/tree/TreeItem";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagram from "@/domain/diagram/Diagram";
+import ViewOrFolder from "../ViewOrFolder";
 
 export default class TreeWrapper {
-    constructor(public readonly treeItems: TreeItem[]) { }
+    constructor(public readonly treeItems: ViewOrFolder[]) { }
 
     private readonly factory = FolderTreeFactory.get();
 
-    public findTreeItemById(treeItemId: number, treeItems: TreeItem[] = this.treeItems): TreeItem | null {
+    findTreeItemById(treeItemId: number, treeItems: ViewOrFolder[] = this.treeItems): ViewOrFolder | null {
         for (const item of treeItems) {
             if (item.id === treeItemId) return item;
             const child = this.findTreeItemById(treeItemId, item.children);
@@ -18,11 +18,11 @@ export default class TreeWrapper {
         return null;
     }
 
-    public removeTreeItem(treeItemId: number, treeItems: TreeItem[] = this.treeItems): boolean {
+    removeTreeItem(treeItemId: number, treeItems: ViewOrFolder[] = this.treeItems): boolean {
         const foundIndex = treeItems.findIndex((item) => item.id === treeItemId)
         if (foundIndex >= 0) {
             treeItems.splice(foundIndex, 1)
-            if (treeItems.length === 0) treeItems.push(FolderTreeFactory.EMPTY_TREE_ITEM)
+            if (treeItems.length === 0) treeItems.push(ViewOrFolder.EMPTY)
             return true
         }
         return treeItems.some((item) =>
@@ -30,7 +30,7 @@ export default class TreeWrapper {
         )
     }
 
-    public folderItemOf(diagramType: DiagramType): TreeItem | null {
+    folderItemOf(diagramType: DiagramType): ViewOrFolder | null {
         const rdraTop = this.lookUpRdraTopItem();
         const treeItemId = this.factory.treeItemIdFrom(diagramType)
         const folderItem = rdraTop.children.find((i) => i.id === treeItemId)
@@ -38,21 +38,21 @@ export default class TreeWrapper {
         return folderItem
     }
 
-    public addDiagramTreeItem(diagram: Diagram): TreeItem | null {
+    addDiagramTreeItem(diagram: Diagram): ViewOrFolder | null {
         const folderItem = this.folderItemOf(diagram.type)
         if (!folderItem) return null
         const children = folderItem.children
 
-        if (children.length === 1 && children[0] === FolderTreeFactory.EMPTY_TREE_ITEM)
+        if (children.length === 1 && children[0].equals(ViewOrFolder.EMPTY))
             children.length = 0
 
-        const diagramTreeItem = this.factory.makeDiagramItem(diagram)
-        children.push(diagramTreeItem)
+        const diagramViewOrFolder = ViewOrFolder.rdra20DiagramOf(diagram)
+        children.push(diagramViewOrFolder)
 
-        return diagramTreeItem
+        return diagramViewOrFolder
     }
 
-    public lookUpRdraTopItem(): TreeItem {
-        return this.findTreeItemById(Folder.RDRAM20.id) as TreeItem;
+    lookUpRdraTopItem(): ViewOrFolder {
+        return this.findTreeItemById(Folder.RDRAM20.id) as ViewOrFolder;
     }
 }

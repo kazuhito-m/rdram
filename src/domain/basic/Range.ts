@@ -1,6 +1,6 @@
 export default class Range {
     private constructor(
-        private readonly start: number,
+        public readonly start: number,
         private readonly end: number,
     ) { }
 

@@ -1,58 +1,74 @@
-import Range from "~/domain/basic/Range";
-import DiagramType from "~/domain/diagram/DiagramType";
 import ViewOrFolder from "./ViewOrFolder";
+import Range from "@/domain/basic/Range";
+import DiagramType from "@/domain/diagram/DiagramType";
 
 export default class ViewOrFolders {
-    constructor(
-        public readonly node: ViewOrFolder,
-        public readonly reafs: ViewOrFolders[],
-    ) { }
+    constructor(public readonly values: ViewOrFolder[]) { }
 
-    static TREE = [
-        of(ViewOrFolder.RDRAM20_FOLDER,
-            DiagramType.values()
-                .map(type => ViewOrFolder.rdram20DiagramTypeFolderOf(type))
-                .map(vof => of(vof, [of(ViewOrFolder.EMPTY)]))
-        ),
-        of(ViewOrFolder.CUSTOM_FOLDER,
-            [of(ViewOrFolder.EMPTY)]
-        ),
-        of(ViewOrFolder.ANALYSIS_FOLDER, [
-            of(ViewOrFolder.ICON_LIST),
-            of(ViewOrFolder.SCREEN_TRANSITION)
-        ]),
-    ];
+    // constant and static methods.
 
-    private static uniqueAllViewOrFolder(items: ViewOrFolders[]): ViewOrFolder[] {
-        const uniqueSet = new Set<ViewOrFolder>();
+    static TREE = new ViewOrFolders([
+        ViewOrFolder.RDRAM20_FOLDER
+            .with(...
+                DiagramType.values()
+                    .map(type => ViewOrFolder.rdra20DiagramTypeFolderOf(type))
+                    .map(vof => vof.with(ViewOrFolder.EMPTY))
+            ),
+        ViewOrFolder.CUSTOM_FOLDER
+            .with(ViewOrFolder.EMPTY),
+        ViewOrFolder.ANALYSIS_FOLDER
+            .with(
+                ViewOrFolder.ICON_LIST,
+                ViewOrFolder.SCREEN_TRANSITION
+            ),
+    ]);
+
+    private static uniqueAllViewOrFolder(items: ViewOrFolder[]): ViewOrFolder[] {
+        const uniqueMap = new Map<number, ViewOrFolder>();
         for (const i of items) {
-            uniqueSet.add(i.node);
-            for (const j of ViewOrFolders.uniqueAllViewOrFolder(i.reafs)) {
-                uniqueSet.add(j);
+            uniqueMap.set(i.id, i);
+            for (const j of ViewOrFolders.uniqueAllViewOrFolder(i.children)) {
+                uniqueMap.set(j.id, j);
             }
         }
-        return Array.from(uniqueSet);
+        return Array.from(uniqueMap.values());
     }
 
-    static ALL = ViewOrFolders
-        .uniqueAllViewOrFolder(ViewOrFolders.TREE);
+    static ALL: ViewOrFolder[] = ViewOrFolders
+        .uniqueAllViewOrFolder(ViewOrFolders.TREE.values);
 
     private static filterOfIdRange(idRange: Range, items: ViewOrFolder[]): ViewOrFolder[] {
         return items.filter(item => idRange.in(item.id));
     }
 
-    static TOP_FOLDERS = ViewOrFolders
+    static TOP_FOLDERS: ViewOrFolder[] = ViewOrFolders
         .filterOfIdRange(ViewOrFolder.TOP_FOLDER_IDS, ViewOrFolders.ALL);
 
-    static ANALYSIS = ViewOrFolders
+    static ANALYSIS: ViewOrFolder[] = ViewOrFolders
         .filterOfIdRange(ViewOrFolder.ANALYSIS_IDS, ViewOrFolders.ALL);
+
+    static RDRA20_TYPE_FOLDERS: ViewOrFolder[] = ViewOrFolders
+        .filterOfIdRange(ViewOrFolder.RDRA20_TYPE_IDS, ViewOrFolders.ALL);
+
+    // normarl methods.
+
+    rdra20DiagramFolders(): ViewOrFolder[] {
+        const rdra20 = this.findOf(ViewOrFolder.RDRAM20_FOLDER.id);
+        if (!rdra20) return [];
+        return rdra20.children;
+    }
+
+    findOf(id: number): ViewOrFolder | undefined {
+        return this.values.find(i => i.id === id);
+    }
+
+    clone(): ViewOrFolders {
+        const values = this.values.map(i => i.clone());
+        return new ViewOrFolders(values);
+    }
 
     idOf(id: number): ViewOrFolder | undefined {
         return ViewOrFolders.ALL
             .find(item => item.id === id);
     }
-}
-
-function of(node: ViewOrFolder, reafs: ViewOrFolders[] = []): ViewOrFolders {
-    return new ViewOrFolders(node, reafs);
 }

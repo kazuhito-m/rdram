@@ -3,50 +3,27 @@ import TreeItem from "@/components/main/tree/TreeItem";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagrams from "@/domain/diagram/Diagrams";
 import Diagram from "@/domain/diagram/Diagram";
+import ViewOrFolders from "../ViewOrFolders";
+import ViewOrFolder from "../ViewOrFolder";
 
 export default class FolderTreeFactory {
-    public static readonly EMPTY_TREE_ITEM = FolderTreeFactory.get().makeItem(Folder.EMPTY, true);
-    private static readonly DIAGRAM_FOLDER_ID_MASK = 1000000;
-
     public buildTree(diagrams: Diagrams): TreeItem[] {
-        return Folder.TOP_FOLDERS
-            .map(f => this.makeTreeTopFolder(f, diagrams));
-    }
+        const tree = ViewOrFolders.TREE.clone();
+        const diagramFolders = tree.rdra20DiagramFolders();
 
-    private makeTreeTopFolder(folder: Folder, diagrams: Diagrams): TreeItem {
-        const item = this.makeItem(folder);
-        item.children = folder.equals(Folder.RDRAM20)
-            ? this.makeTreeRdram20Folders(diagrams)
-            : [FolderTreeFactory.EMPTY_TREE_ITEM];
-        return item;
-    }
-
-    private makeTreeRdram20Folders(diagrams: Diagrams): TreeItem[] {
         const typeMap = diagrams.groupOfType();
-        return DiagramType.values()
-            .map(type => this.makeDiagramFolderOfGroupingType(type, typeMap))
-    }
+        for (const folder of diagramFolders) {
+            const diagramsOfType = typeMap.get(folder.rdra20DiagramType());
+            if (!diagramsOfType || diagramsOfType.length === 0) continue;
 
-    private makeDiagramFolderOfGroupingType(type: DiagramType, typeMap: Map<DiagramType, Diagram[]>): TreeItem {
-        const folder = Folder.of(type.id + FolderTreeFactory.DIAGRAM_FOLDER_ID_MASK, type.name);
-        const folderItem = this.makeItem(folder);
-        folderItem.children = typeMap.get(type)?.map(d => this.makeDiagramItem(d))
-            .filter(d => d)
-            .map(d => d as TreeItem) as TreeItem[]
-        if (folderItem.children.length === 0)
-            folderItem.children = [FolderTreeFactory.EMPTY_TREE_ITEM];
-        return folderItem;
-    }
-
-    private makeItem(folder: Folder, disabled = false): TreeItem {
-        return {
-            id: folder.id,
-            name: folder.name,
-            children: [],
-            disabled,
-            iconKey: '',
-            iconCaption: '',
+            const children = folder.children;
+            children.splice(0);
+            diagramsOfType
+                .map(d => ViewOrFolder.rdra20DiagramOf(d))
+                .forEach(vof => children.push(vof));
         }
+
+        return tree.values;
     }
 
     public makeDiagramItem(diagram: Diagram): TreeItem {
@@ -61,17 +38,18 @@ export default class FolderTreeFactory {
         }
     }
 
-    public diagramTypeFrom(treeItem: TreeItem): DiagramType | undefined {
-        const typeId = treeItem.id - FolderTreeFactory.DIAGRAM_FOLDER_ID_MASK;
-        return DiagramType.ofId(typeId);
+    public diagramTypeFrom(item: ViewOrFolder): DiagramType | undefined {
+        return item.rdra20DiagramType();
     }
 
     public treeItemIdFrom(diagramType: DiagramType): number {
-        return diagramType.id + FolderTreeFactory.DIAGRAM_FOLDER_ID_MASK;
+        const folder = ViewOrFolders.RDRA20_TYPE_FOLDERS
+            .find(f => diagramType.equals(f.rdra20DiagramType()));
+        return folder ? folder.id : 0;
     }
 
-    public isDiagramTypeFolder(treeItem: TreeItem): boolean {
-        return treeItem.id > FolderTreeFactory.DIAGRAM_FOLDER_ID_MASK;
+    public isDiagramTypeFolder(item: ViewOrFolder): boolean {
+        return item.isRdra20DiagramTypeFolder();
     }
 
     public static get(): FolderTreeFactory {
