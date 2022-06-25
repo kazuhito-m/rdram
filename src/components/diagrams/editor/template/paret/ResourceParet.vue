@@ -143,7 +143,7 @@ export default class ResourceParet extends Vue {
   }
 
   onDragStartResource(event: DragEvent): void {
-    const chip = event.srcElement as HTMLElement
+    const chip = event.target as HTMLElement
     const resourceIdText = chip.getAttribute('data-resource-id') as string
     event.dataTransfer?.setData('text', resourceIdText)
   }
@@ -151,7 +151,9 @@ export default class ResourceParet extends Vue {
   onRightClickResource(event: MouseEvent): void {
     event.preventDefault()
 
-    const src = event.srcElement as HTMLElement
+    console.log('event:', event)
+
+    const src = event.target as HTMLElement
     const chip = src.parentElement as HTMLElement // FIXME ちょっと「Veutifyの構造を知りすぎてる」気がする。手が在れば変えたい。
     const resourceIdText = chip.getAttribute('data-resource-id') as string
     if (!resourceIdText) return
@@ -181,8 +183,7 @@ export default class ResourceParet extends Vue {
   }
 
   iconKeyOf(resource: Resource): string {
-    if (!resource) return ''
-    return resource.type.iconKey
+    return resource ? resource.type.iconKey : ''
   }
 }
 </script>
