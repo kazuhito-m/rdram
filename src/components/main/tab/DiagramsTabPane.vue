@@ -47,9 +47,9 @@
 <script lang="ts">
 import { Component, Vue, Emit, Prop } from 'nuxt-property-decorator'
 import Rdra20DiagramEditorContainer from '@/components/diagrams/Rdra20DiagramEditorContainer.vue'
+import ViewOrFolder from '@/components/main/ViewOrFolder'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
-import TreeItem from '@/components/main/tree/TreeItem'
 
 @Component({
   components: {
@@ -58,7 +58,7 @@ import TreeItem from '@/components/main/tree/TreeItem'
 })
 export default class DiagramRightClickMenu extends Vue {
   currentTabIndex: number | null = null
-  openTabs: TreeItem[] = []
+  openTabs: ViewOrFolder[] = []
 
   // Props
 
@@ -116,7 +116,7 @@ export default class DiagramRightClickMenu extends Vue {
 
   // public method.
 
-  openDiagram(treeItem: TreeItem): void {
+  openDiagram(treeItem: ViewOrFolder): void {
     const diagramId = treeItem.id
     const exists = this.openTabs.some((tab) => tab.id === diagramId)
     if (!exists) this.openTabs.push(treeItem)

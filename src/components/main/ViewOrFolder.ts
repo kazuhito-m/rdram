@@ -1,9 +1,8 @@
-import TreeItem from "./tree/TreeItem";
 import Range from "@/domain/basic/Range";
 import DiagramType from "@/domain/diagram/DiagramType";
-import Diagram from "~/domain/diagram/Diagram";
+import Diagram from "@/domain/diagram/Diagram";
 
-export default class ViewOrFolder implements TreeItem {
+export default class ViewOrFolder {
     constructor(
         public readonly id: number,
         public name: string, // TODO イミュータブルで行けるようにしたい
