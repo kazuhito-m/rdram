@@ -2,13 +2,14 @@ import TreeItem from "./tree/TreeItem";
 import Range from "@/domain/basic/Range";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Diagram from "~/domain/diagram/Diagram";
+import Folder from "./tree/Folder";
 
 export default class ViewOrFolder implements TreeItem {
     constructor(
         public readonly id: number,
         public readonly name: string,
         public readonly children: ViewOrFolder[],
-        public readonly disabled: boolean | undefined,
+        public readonly disabled: boolean,
         public readonly folder: boolean,
         public readonly iconKey: string = "",
         public readonly iconCaption: string,
@@ -75,19 +76,17 @@ export default class ViewOrFolder implements TreeItem {
 
     static rdra20DiagramOf(diagram: Diagram): ViewOrFolder {
         const type = diagram.type
-        return new ViewOrFolder(
+        return of(
             diagram.id,
             diagram.name,
-            [],
-            false,
             false,
             type.iconKey,
-            type.name,
+            type.name
         );
     }
 }
 
-function of(id: number, name: string, folder = false, iconKey: string = ""): ViewOrFolder {
+function of(id: number, name: string, folder = false, iconKey = "", iconCaption = ""): ViewOrFolder {
     return new ViewOrFolder(
         id,
         name,
@@ -95,6 +94,6 @@ function of(id: number, name: string, folder = false, iconKey: string = ""): Vie
         false,
         folder,
         iconKey,
-        "",
+        iconCaption,
     );
 }
