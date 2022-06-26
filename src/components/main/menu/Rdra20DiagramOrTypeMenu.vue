@@ -50,13 +50,13 @@ export default class Rdra20DiagramOrTypeMenu extends Vue {
   readonly item!: ViewOrFolder
 
   @Emit('onAddedDiagram')
-  private onAddedDiagram(diagram: Diagram): void {}
+  private onAddedDiagram(_diagram: Diagram): void {}
 
   @Emit('onRemovedDiagram')
-  private onRemovedDiagram(diagramId: number): void {}
+  private onRemovedDiagram(_diagramId: number): void {}
 
   @Emit('onOpendDiagramPropertiesEditor')
-  private onOpendDiagramPropertiesEditor(diagramId: number): void {}
+  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   onClickMenuAddDiagram(): void {
     const diagram = this.addDiagram(this.item.rdra20DiagramType())

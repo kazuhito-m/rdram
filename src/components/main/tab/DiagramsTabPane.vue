@@ -12,8 +12,8 @@
         v-for="item in openTabs"
         :key="item.id"
         :data-item-id="item.id"
-        @click.right.prevent="onRightClickTabItem"
         class="tab-title"
+        @click.right.prevent="onRightClickTabItem"
       >
         <v-tooltip bottom open-delay="1000">
           <template #activator="{ on, attrs }">
@@ -56,7 +56,6 @@ import Rdra20DiagramEditorContainer from '@/components/diagrams/Rdra20DiagramEdi
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
-import { assertBreakStatement } from '@babel/types'
 
 @Component({
   components: {
@@ -167,7 +166,7 @@ export default class DiagramRightClickMenu extends Vue {
     if (!data) return ViewOrFolder.EMPTY
     const tabItemId = parseInt(data, 10)
     const foundItem = this.openTabs.find((tab) => tab.id === tabItemId)
-    return foundItem ? foundItem : ViewOrFolder.EMPTY
+    return foundItem || ViewOrFolder.EMPTY
   }
 }
 </script>

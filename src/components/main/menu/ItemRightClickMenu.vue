@@ -22,9 +22,9 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Emit, Prop } from 'nuxt-property-decorator'
-import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import TabClickMenu from './TabClickMenu.vue'
 import Rdra20DiagramOrTypeMenu from './Rdra20DiagramOrTypeMenu.vue'
+import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Diagram from '@/domain/diagram/Diagram'
 
 @Component({
@@ -51,7 +51,7 @@ export default class DiagramRightClickMenu extends Vue {
   onRemovedDiagram(_diagramId: number): void {}
 
   @Emit('onOpendDiagramPropertiesEditor')
-  onOpendDiagramPropertiesEditor(diagramId: number): void {}
+  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   // public method
 
