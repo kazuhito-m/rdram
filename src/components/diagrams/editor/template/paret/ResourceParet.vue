@@ -107,6 +107,8 @@ import ResourceType from '@/domain/resource/ResourceType'
 import Resource from '@/domain/resource/Resource'
 import Product from '@/domain/product/Product'
 import DragAndDropValue from '@/components/diagrams/editor/template/DragAndDropValue'
+import DragAndDropResourceType from '../dad/DragAndDropResourceType'
+import DragAndDropResourceId from '../dad/DragAndDropResourceId'
 
 @Component
 export default class ResourceParet extends Vue {
@@ -145,15 +147,15 @@ export default class ResourceParet extends Vue {
     const typeId = parseInt(text, 10)
     const resourceType = ResourceType.ofId(typeId)
     if (!resourceType) return
-    const ddv = DragAndDropValue.resourceTypeOf(resourceType)
-    event.dataTransfer?.setData('text/plain', ddv.toString())
+    const ddrt = DragAndDropResourceType.prototypeOf().renew(resourceType)
+    event.dataTransfer?.setData('text/plain', ddrt.toString())
   }
 
   onDragStartResource(event: DragEvent): void {
     const chip = event.target as HTMLElement
     const id = this.resourceIdOf(chip)
-    const ddv = DragAndDropValue.resourceIdOf(id)
-    event.dataTransfer?.setData('text/plain', ddv.toString())
+    const ddri = DragAndDropResourceId.prototypeOf().renew(id)
+    event.dataTransfer?.setData('text/plain', ddri.toString())
   }
 
   onRightClickResource(event: MouseEvent): void {

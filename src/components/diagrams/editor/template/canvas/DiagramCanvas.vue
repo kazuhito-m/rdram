@@ -68,7 +68,9 @@ import DownloadFileName from '@/domain/client/DownloadFileName'
 import RdramDownloadFileName from '@/domain/client/WithTimestampFileName'
 import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
-import DragAndDropValue from '@/components/diagrams/editor/template/DragAndDropValue'
+import DragAndDropResourceType from '@/components/diagrams/editor/template/dad/DragAndDropResourceType'
+import DragAndDropResourceId from '@/components/diagrams/editor/template/dad/DragAndDropResourceId'
+import { text } from 'body-parser'
 
 @Component({
   components: {
@@ -340,24 +342,24 @@ export default class DiagramCanvas extends Vue {
 
     const textData = event.dataTransfer?.getData('text/plain')
     if (!textData) return
-    const ddv = DragAndDropValue.parseOf(textData)
-    if (ddv.isInvalid()) return
+    const ddrt = DragAndDropResourceType.prototypeOf().parseOf(textData)
 
     // 新規追加時。
-    if (ddv.isResourceType()) {
-      const resourceType = ddv.toResourceType()
+    if (!ddrt.isInvalid()) {
+      const resourceType = ddrt.id()
       if (!resourceType) return
       this.onOpenResourceEditorWhenCreate(resourceType)
       return
     }
 
-    if (!ddv.isResourceId()) return
+    const ddri = DragAndDropResourceId.prototypeOf().parseOf(textData)
+    if (ddri.isInvalid()) return
 
     const product = this.repository.getCurrentProduct() as Product
     const diagram = product.diagrams.of(this.diagramId)
     if (!diagram) return
 
-    const resource = product.resources.of(ddv.toResourceId())
+    const resource = product.resources.of(ddri.id())
     if (!resource) return
 
     this.addPlacement(resource)
