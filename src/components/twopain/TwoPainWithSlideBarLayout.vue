@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import DragAndDropSlideBar from './DragAndDropSlideBarValue'
+import DragAndDropSlideBar from './DragAndDropSlideBarId'
 import Uuid from '@/domain/world/Uuid'
 
 @Component
