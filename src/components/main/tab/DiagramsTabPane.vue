@@ -11,6 +11,7 @@
       <v-tab
         v-for="item in openTabs"
         :key="item.id"
+        :data-item-id="item.id"
         @click.right.prevent="onRightClickTabItem"
         class="tab-title"
       >
@@ -23,8 +24,8 @@
           <span>{{ item.iconCaption }}</span>
         </v-tooltip>
         {{ item.name }}
-        <v-btn :data-item-id="item.id" dark small icon @click="onClickCloseTab">
-          <v-icon dark :data-item-id="item.id">mdi-close-box</v-icon>
+        <v-btn dark small icon @click="onClickCloseTab">
+          <v-icon dark>mdi-close-box</v-icon>
         </v-btn>
       </v-tab>
     </v-tabs>
@@ -55,6 +56,7 @@ import Rdra20DiagramEditorContainer from '@/components/diagrams/Rdra20DiagramEdi
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
+import { assertBreakStatement } from '@babel/types'
 
 @Component({
   components: {
@@ -117,33 +119,18 @@ export default class DiagramRightClickMenu extends Vue {
   }
 
   onClickCloseTab(event: MouseEvent) {
-    if (!event.target) return
-    const element = event.target as HTMLElement
-    const data = element.getAttribute('data-item-id')
-    if (!data) return
-    const tabItemId = parseInt(data, 10)
-
-    this.closeTab(tabItemId)
+    const clickItem = this.itemOf(event)
+    if (clickItem.isEmpty()) return
+    this.closeTab(clickItem.id)
   }
 
   onRightClickTabItem(event: MouseEvent): void {
-    if (!event.target) return
-    const element = event.target as HTMLElement
-
-    alert('test')
-
-    // const data = element.getAttribute('data-item-id')
-    // if (!data) return
-    // const treeItemId = parseInt(data, 10)
-    // if (treeItemId <= 0) return
-    // const treeItem = this.tree.findOf(treeItemId)
-    // if (!treeItem) return
-
-    // const menu = this.$refs.diagramRightClickMenu as DiagramRightClickMenu
-    // menu.show(treeItem, event.clientX, event.clientY)
+    const clickItem = this.itemOf(event)
+    if (clickItem.isEmpty()) return
+    this.onRightClick(clickItem, event.x, event.y)
   }
 
-  // public method.
+  // public methods.
 
   openDiagram(treeItem: ViewOrFolder): void {
     const diagramId = treeItem.id
@@ -164,6 +151,23 @@ export default class DiagramRightClickMenu extends Vue {
 
     if (tabs.length === 0) this.onAllClosedDiagram()
     return true
+  }
+
+  // private methods.
+
+  private itemOf(clickEvent: MouseEvent): ViewOrFolder {
+    clickEvent.preventDefault()
+    if (!clickEvent.target) return ViewOrFolder.EMPTY
+    let element: HTMLElement | null = clickEvent.target as HTMLElement
+    let data: string | null = null
+    do {
+      data = element!.getAttribute('data-item-id')
+      if (data) break
+    } while ((element = element.parentElement))
+    if (!data) return ViewOrFolder.EMPTY
+    const tabItemId = parseInt(data, 10)
+    const foundItem = this.openTabs.find((tab) => tab.id === tabItemId)
+    return foundItem ? foundItem : ViewOrFolder.EMPTY
   }
 }
 </script>

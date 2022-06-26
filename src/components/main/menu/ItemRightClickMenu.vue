@@ -10,14 +10,8 @@
       rounded
       @input="close"
     >
-      <TabClickMenu 
-        v-if="tabClick"
-        :item="item" 
-        :openTabs="openTabs" 
-      />
-      <Rdra20DiagramOrTypeMenu 
-        :item="item"
-      />
+      <TabClickMenu v-if="tabClick" :item="item" :openTabs="openTabs" />
+      <Rdra20DiagramOrTypeMenu :item="item" />
     </v-menu>
   </div>
 </template>
@@ -46,10 +40,12 @@ export default class DiagramRightClickMenu extends Vue {
 
   // public method
 
-  show(item: ViewOrFolder, x: number, y: number, tabClick = false): void {
+  show(item: ViewOrFolder, x: number, y: number, tabClick: boolean): void {
     this.positionX = x
     this.positionY = y
     this.tabClick = tabClick
+
+    console.log('openTabs:', this.openTabs)
 
     this.item = item
 

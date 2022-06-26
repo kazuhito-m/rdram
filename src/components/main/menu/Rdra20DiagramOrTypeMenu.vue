@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-list>
+    <v-list dence>
       <v-list-item v-if="isFolder" link @click="onClickMenuAddDiagram">
         <v-list-item-title>図の追加...</v-list-item-title>
       </v-list-item>
@@ -24,15 +24,16 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 
 @Component
 export default class Rdra20DiagramOrTypeMenu extends Vue {
-  item = ViewOrFolder.EMPTY
-
   isFolder = false
   isDiagram = false
+
+  @Prop()
+  readonly item!: ViewOrFolder
 
   onClickMenuAddDiagram(): void {
     this.addDiagram()

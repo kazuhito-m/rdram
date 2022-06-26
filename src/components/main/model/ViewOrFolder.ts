@@ -36,6 +36,10 @@ export default class ViewOrFolder {
         return ViewOrFolder.RDRA20_TYPE_IDS.in(this.id);
     }
 
+    isEmpty(): boolean {
+        return this.equals(ViewOrFolder.EMPTY);
+    }
+
     rdra20DiagramType(): DiagramType {
         const range = ViewOrFolder.RDRA20_TYPE_IDS;
         if (!range.in(this.id))

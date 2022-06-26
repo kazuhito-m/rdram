@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <ItemRightClickMenu 
-      refs="itemRightClickMenu" 
+      ref="itemRightClickMenu"
       :openTabs="openTabs"
     />
     <TwoPainWithSlideBarLayout>
