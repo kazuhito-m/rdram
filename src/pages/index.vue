@@ -3,6 +3,9 @@
     <ItemRightClickMenu 
       ref="itemRightClickMenu"
       :openTabs="openTabs"
+      @onAddedDiagram="onAddedDiagram"
+      @onRemovedDiagram="onRemovedDiagram"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     />
     <TwoPainWithSlideBarLayout>
       <template #leftPain>
@@ -148,6 +151,18 @@ export default class extends Vue {
   onTabRightClick(item: ViewOrFolder, x: number, y:number): void {
     const menu = this.$refs.itemRightClickMenu as ItemRightClickMenu
     menu.show(item, x, y, true);
+  }
+
+  /// menu click events.
+
+  onAddedDiagram(diagram: Diagram): void {
+    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane
+    treePain.addDiagramView(diagram)
+  }
+
+  onRemovedDiagram(diagramId: number): void {
+    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane
+    treePain.removeDiagramView(diagramId)
   }
 
   // private methods.

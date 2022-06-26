@@ -139,8 +139,7 @@ export default class DiagramsTreePane extends Vue {
 
   onClickMenuRemoveDiagram(diagramId: number): void {
     if (!this.removeDiagram(diagramId)) return
-    this.onDeleteDiagram(diagramId)
-    this.tree.removeOf(diagramId)
+    this.removeDiagramView(diagramId)
   }
 
   onClickMenuEditDiagramProperties(diagramId: number): void {
@@ -176,6 +175,17 @@ export default class DiagramsTreePane extends Vue {
     this.treeActiveItemIds.splice(0, 1)
   }
 
+  addDiagramView(diagram: Diagram): void {
+    this.tree.addOf(diagram)
+    this.activeTreeItemOf(diagram.id)
+    this.openParentTreeItem(diagram.id)
+  }
+
+  removeDiagramView(diagramId: number ): void {
+    this.onDeleteDiagram(diagramId)
+    this.tree.removeOf(diagramId)
+  }
+
   // private method
 
   private activeTreeItemOf(treeItemId: number): void {
@@ -193,12 +203,6 @@ export default class DiagramsTreePane extends Vue {
     const openIds = this.treeOpenItemIds
     if (openIds.includes(parentId)) openIds.splice(openIds.indexOf(parentId), 1)
     openIds.push(parentId)
-  }
-
-  private addDiagramView(diagram: Diagram): void {
-    this.tree.addOf(diagram)
-    this.activeTreeItemOf(diagram.id)
-    this.openParentTreeItem(diagram.id)
   }
 
   private copyDiagram(diagramId: number): Diagram | null {
