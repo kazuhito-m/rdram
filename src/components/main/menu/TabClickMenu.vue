@@ -2,7 +2,16 @@
   <div>
     <v-list dence>
       <v-list-item link @click="onClickCloseTab">
-        <v-list-item-title>このタブを閉じる</v-list-item-title>
+        <v-list-item-title>他のタブを全て閉じる</v-list-item-title>
+      </v-list-item>
+      <v-list-item link @click="onClickCloseTab">
+        <v-list-item-title>左のタブの全てを閉じる</v-list-item-title>
+      </v-list-item>
+      <v-list-item link @click="onClickCloseTab">
+        <v-list-item-title>右のタブの全てを閉じる</v-list-item-title>
+      </v-list-item>
+      <v-list-item link @click="onClickCloseTab">
+        <v-list-item-title>タブを全て閉じる</v-list-item-title>
       </v-list-item>
     </v-list>
   </div>
