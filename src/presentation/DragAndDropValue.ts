@@ -36,8 +36,8 @@ export default abstract class DragAndDropValue<T> {
         return this.of(parts[0], value)
     }
 
-    renew(slideBarId: T): DragAndDropValue<T> {
-        return this.of(this.typeName(), this.convIdToValue(slideBarId));
+    renew(id: T): DragAndDropValue<T> {
+        return this.of(this.typeName(), this.convIdToValue(id));
     }
 
     protected empty(): DragAndDropValue<T> {
