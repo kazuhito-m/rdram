@@ -21,7 +21,7 @@
           :diagramId="diagramId"
           :product="product"
           :usedResouceIds="usedResouceIds"
-          :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+          :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
           :iconMap="iconMap"
           :eventAnalyzer="eventAnalyzer"
@@ -39,7 +39,7 @@
       <template #rightPain>
         <ResourceParet
           :diagramId="diagramId"
-          :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+          :allResources="allResources"
           :usedResouceIds="usedResouceIds"
           :product="product"
           @onShowResourceMenu="onShowResourceMenu"
@@ -97,7 +97,7 @@ export default class DiagramEditor extends Vue {
   readonly diagramId!: number;
 
   @Prop({ required: true })
-  readonly allResourcesOnCurrentProduct!: Resource[];
+  readonly allResources!: Resource[];
 
   @Prop({ required: true })
   readonly lastPropertiesUpdatedDiagramId!: number;
@@ -297,7 +297,7 @@ export default class DiagramEditor extends Vue {
   }
 
   private reflectResourcesOnViewModel(resource: Resource): Resource | null {
-    const resources = this.allResourcesOnCurrentProduct;
+    const resources = this.allResources;
     const i = resources
       .findIndex(r => r.resourceId === resource.resourceId);
     if (i < 0) return null;

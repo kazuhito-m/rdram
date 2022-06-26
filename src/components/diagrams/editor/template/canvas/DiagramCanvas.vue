@@ -87,7 +87,7 @@ export default class DiagramCanvas extends Vue {
   private readonly usedResouceIds!: number[]
 
   @Prop({ required: true })
-  private readonly allResourcesOnCurrentProduct!: Resource[]
+  private readonly allResources!: Resource[]
 
   @Prop({ required: true })
   private readonly lastPropertiesUpdatedDiagramId!: number
@@ -187,11 +187,11 @@ export default class DiagramCanvas extends Vue {
     this.onChangeZoomBySlider(this.zoom() + 0.001) // 再描画がうまく行くHack
   }
 
-  @Watch('allResourcesOnCurrentProduct')
+  @Watch('allResources')
   private onChangeResourcesOnProduct(): void {
     if (!this.lastResourcesCache) return
 
-    const nowResources = this.allResourcesOnCurrentProduct
+    const nowResources = this.allResources
     const cache = this.lastResourcesCache
     const whenResouce = nowResources.length < cache.size
     if (whenResouce) {
@@ -419,7 +419,7 @@ export default class DiagramCanvas extends Vue {
   private drawDiagram(diagram: Diagram) {
     diagram.placements.forEach((p) => this.usedResouceIds.push(p.resourceId))
 
-    const allResources = new Resources(this.allResourcesOnCurrentProduct)
+    const allResources = new Resources(this.allResources)
 
     const iconViewModels = diagram.placements
       .filter((placement) => allResources.existsIdOf(placement.resourceId))
@@ -524,7 +524,7 @@ export default class DiagramCanvas extends Vue {
     icon.toBack(afterIcon)
 
     // Debug
-    // const allResources = new Resources(this.allResourcesOnCurrentProduct);
+    // const allResources = new Resources(this.allResources);
     // console.log("対象のIcon:", targetIconVM.toString(allResources));
     // sortedIconVMs
     //   .forEach(i => console.log(i.toString(allResources)));
@@ -761,7 +761,7 @@ export default class DiagramCanvas extends Vue {
   }
 
   private cacheNowResources(): void {
-    const nowResources = this.allResourcesOnCurrentProduct
+    const nowResources = this.allResources
     const dic = new Map<number, Resource>()
     nowResources.forEach((r) => dic.set(r.resourceId, r))
     this.lastResourcesCache = dic

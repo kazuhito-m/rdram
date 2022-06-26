@@ -34,7 +34,7 @@
             </v-list-item>
 
             <v-list-item
-              v-for="resource in allResourcesOnCurrentProduct.filter((r) =>
+              v-for="resource in allResources.filter((r) =>
                 filterDisplayParet(r, resourceType, usedResouceIds)
               )"
               :key="resource.resourceId"
@@ -68,7 +68,7 @@
         <v-expansion-panel-content>
           <v-list dark dence>
             <v-list-item
-              v-for="usedResource in allResourcesOnCurrentProduct.filter((r) =>
+              v-for="usedResource in allResources.filter((r) =>
                 filterUsedList(r, usedResouceIds)
               )"
               :key="usedResource.resourceId"
@@ -119,12 +119,12 @@ export default class ResourceParet extends Vue {
   private readonly product!: Product
 
   @Prop({ required: true })
-  readonly allResourcesOnCurrentProduct!: Resource[]
+  readonly allResources!: Resource[]
 
   @Prop({ required: true })
   readonly usedResouceIds!: number[]
 
-  @Emit('onShowResourceMenu')
+  @Emit()
   private onShowResourceMenu(
     _resource: Resource,
     _x: number,
@@ -157,18 +157,11 @@ export default class ResourceParet extends Vue {
 
   onRightClickResource(event: MouseEvent): void {
     event.preventDefault()
-
-    console.log('event:', event)
-
     const src = event.target as HTMLElement
-    const chip = src.parentElement as HTMLElement // FIXME ちょっと「Veutifyの構造を知りすぎてる」気がする。手が在れば変えたい。
-    const resourceIdText = chip.getAttribute('data-resource-id') as string
-    if (!resourceIdText) return
-    const resourceId = Number(resourceIdText)
-
-    const resource = this.allResourcesOnCurrentProduct.find(
-      (r) => r.resourceId === resourceId
-    )
+    if (!src.parentElement) return
+    const id = this.resourceIdOf(src.parentElement) // FIXME ちょっと「Veutifyの構造を知りすぎてる」気がする。手が在れば変えたい。
+    if (id === 0) return
+    const resource = this.allResources.find(r => r.resourceId === id)
     if (!resource) return
 
     this.onShowResourceMenu(resource, event.x, event.y)
@@ -187,6 +180,12 @@ export default class ResourceParet extends Vue {
 
   filterUsedList(resource: Resource, usedResouceIds: number[]): boolean {
     return usedResouceIds.includes(resource.resourceId)
+  }
+
+  private resourceIdOf(chip: HTMLElement): number {
+    const resourceIdText = chip.getAttribute('data-resource-id') as string
+    if (!resourceIdText) return 0
+    return Number(resourceIdText)
   }
 }
 </script>
