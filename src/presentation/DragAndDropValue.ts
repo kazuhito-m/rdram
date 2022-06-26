@@ -6,13 +6,13 @@ export default abstract class DragAndDropValue<T> {
 
     protected abstract typeName(): string;
 
-    protected abstract convIdToValue(id: T): string ;
+    protected abstract convIdToValue(id: T): string;
 
-    protected abstract convValueToId(value: string): T ;
+    protected abstract convValueToId(value: string): T;
 
-    protected abstract of(type: string, value: string): DragAndDropValue<T> ;
+    protected abstract of(type: string, value: string): DragAndDropValue<T>;
 
-    protected abstract empty(): DragAndDropValue<T> ;
+    protected abstract empty(): DragAndDropValue<T>;
 
     is(): boolean {
         return this.type === this.typeName();
