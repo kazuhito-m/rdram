@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { Component, Vue, Inject } from "nuxt-property-decorator";
-import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
+import TwoPainWithSlideBarLayout from "@/components/twopain/TwoPainWithSlideBarLayout.vue";
 import DiagramsTreePane from "@/components/main/tree/DiagramsTreePane.vue";
 import DiagramsTabPane from "@/components/main/tab/DiagramsTabPane.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
