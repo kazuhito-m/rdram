@@ -16,6 +16,13 @@ export default class DragAndDropSlideBarId {
         return value;
     }
 
+    protected of(type: string, value: string): DragAndDropSlideBarId {
+        return new DragAndDropSlideBarId(type, value);
+    }
+
+    protected empty(): DragAndDropSlideBarId {
+        return DragAndDropSlideBarId.prototypeOf();
+    }
 
     is(): boolean {
         return this.type === this.typeName();
@@ -38,22 +45,14 @@ export default class DragAndDropSlideBarId {
         const parts = text.split(":");
         const value = this.convIdToValue(parts[1]);
         if (value.length === 0) return this.empty();
-        return new DragAndDropSlideBarId(parts[0], value)
+        return this.of(parts[0], value)
     }
 
-    protected empty(): DragAndDropSlideBarId {
-        return DragAndDropSlideBarId.prototypeOf();
+    renew(slideBarId: string): DragAndDropSlideBarId {
+        return this.of(this.typeName(), this.convIdToValue(slideBarId));
     }
 
     static prototypeOf(): DragAndDropSlideBarId {
         return new DragAndDropSlideBarId("", "");
-    }
-
-    renew(slideBarId: string): DragAndDropSlideBarId {
-        return new DragAndDropSlideBarId(this.typeName(), this.convIdToValue(slideBarId));
-    }
-
-    protected of(type: string, value: string): DragAndDropSlideBarId {
-        return new DragAndDropSlideBarId(type, value);
     }
 }
