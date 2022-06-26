@@ -28,6 +28,10 @@ export default class ViewOrFolder {
     private static CUSTOM_IDS = ViewOrFolder.RDRA20_TYPE_IDS.nextTo(3000000000000000);
     static ANALYSIS_IDS = ViewOrFolder.CUSTOM_IDS.nextTo(4000000000000000);
 
+    isRdra20Diagram(): boolean {
+        return ViewOrFolder.RDRA20_DIAGRAM_IDS.in(this.id);
+    }
+
     isAnalysis(): boolean {
         return ViewOrFolder.ANALYSIS_IDS.in(this.id);
     }
