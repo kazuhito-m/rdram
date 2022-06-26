@@ -8,7 +8,12 @@
       dark
       @change="onChangeActiveTab"
     >
-      <v-tab v-for="item in openTabs" :key="item.id" class="tab-title">
+      <v-tab
+        v-for="item in openTabs"
+        :key="item.id"
+        @click.right.prevent="onRightClickTabItem"
+        class="tab-title"
+      >
         <v-tooltip bottom open-delay="1000">
           <template #activator="{ on, attrs }">
             <v-icon v-if="item.iconKey" v-bind="attrs" v-on="on">{{
@@ -58,9 +63,11 @@ import Resource from '@/domain/resource/Resource'
 })
 export default class DiagramRightClickMenu extends Vue {
   currentTabIndex: number | null = null
-  openTabs: ViewOrFolder[] = []
 
   // Props
+
+  @Prop({ required: true })
+  readonly openTabs!: ViewOrFolder[]
 
   @Prop({ required: true })
   readonly allResources?: Resource[]
@@ -86,13 +93,18 @@ export default class DiagramRightClickMenu extends Vue {
   @Emit('onRenamedResource')
   onRenamedResource(_src: Resource, _dest: Resource): void {}
 
-  // ----
+  /// open/close editor.
 
   @Emit('onChangeCurrentDiagram')
   onChangeCurrentDiagram(_diagramId: number): void {}
 
   @Emit('onAllClosedDiagram')
   onAllClosedDiagram(): void {}
+
+  /// click
+
+  @Emit('onRightClick')
+  onRightClick(_item: ViewOrFolder, _x: number, _y: number): void {}
 
   // component events.
 
@@ -112,6 +124,23 @@ export default class DiagramRightClickMenu extends Vue {
     const tabItemId = parseInt(data, 10)
 
     this.closeTab(tabItemId)
+  }
+
+  onRightClickTabItem(event: MouseEvent): void {
+    if (!event.target) return
+    const element = event.target as HTMLElement
+
+    alert('test')
+
+    // const data = element.getAttribute('data-item-id')
+    // if (!data) return
+    // const treeItemId = parseInt(data, 10)
+    // if (treeItemId <= 0) return
+    // const treeItem = this.tree.findOf(treeItemId)
+    // if (!treeItem) return
+
+    // const menu = this.$refs.diagramRightClickMenu as DiagramRightClickMenu
+    // menu.show(treeItem, event.clientX, event.clientY)
   }
 
   // public method.

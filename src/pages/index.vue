@@ -1,5 +1,9 @@
 <template>
   <v-layout>
+    <ItemRightClickMenu 
+      refs="itemRightClickMenu" 
+      :openTabs="openTabs"
+    />
     <TwoPainWithSlideBarLayout>
       <template #leftPain>
         <DiagramsTreePane
@@ -10,8 +14,9 @@
         />
       </template>
       <template #rightPain>
-        <DiagramsTabPane 
+        <DiagramsTabPane
           ref="diagramsTabPane"
+          :openTabs="openTabs"
           :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
           @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
@@ -21,6 +26,7 @@
           @onRenamedResource="onRenamedResource"
           @onChangeCurrentDiagram="onChangeCurrentDiagram"
           @onAllClosedDiagram="onAllClosedDiagram"
+          @onRightClick="onTabRightClick"
         />
       </template>
     </TwoPainWithSlideBarLayout>
@@ -29,7 +35,7 @@
       @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
       @onClose="onCloseDiagramPropertiesEditDialog"
     />
-    <DiagramTypeSelectorDialog ref="diagramTypeSelectorDialog"/>
+    <DiagramTypeSelectorDialog ref="diagramTypeSelectorDialog" />
   </v-layout>
 </template>
 
@@ -38,6 +44,7 @@ import { Component, Vue, Inject } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/components/twopain/TwoPainWithSlideBarLayout.vue";
 import DiagramsTreePane from "@/components/main/tree/DiagramsTreePane.vue";
 import DiagramsTabPane from "@/components/main/tab/DiagramsTabPane.vue";
+import ItemRightClickMenu from "@/components/main/menu/ItemRightClickMenu.vue"
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import DiagramTypeSelectorDialog from "@/components/diagrams/open/DiagramTypeSelectorDialog.vue";
 import ViewOrFolder from "@/components/main/model/ViewOrFolder";
@@ -52,6 +59,7 @@ import StorageRepository from "@/domain/storage/StorageRepository";
     TwoPainWithSlideBarLayout,
     DiagramsTreePane,
     DiagramsTabPane,
+    ItemRightClickMenu,
     DiagramPropertiesEditDialog,
     DiagramTypeSelectorDialog
   }
@@ -65,6 +73,8 @@ export default class extends Vue {
 
   allResources: Resource[] = [];
   currentProduct?: Product;
+
+  readonly openTabs: ViewOrFolder[] = []
 
   // this vue lyfecycle event.
 
@@ -132,7 +142,12 @@ export default class extends Vue {
   }
 
   onAllClosedDiagram(): void {
-    this.clearSelectedOnTree()
+    this.clearSelectedOnTree();
+  }
+
+  onTabRightClick(item: ViewOrFolder, x: number, y:number): void {
+    const menu = this.$refs.itemRightClickMenu as ItemRightClickMenu
+    menu.show(item, x, y, true);
   }
 
   // private methods.
@@ -203,7 +218,6 @@ export default class extends Vue {
   }
 }
 </script>
-
 
 <style scoped>
 .pain-container {
