@@ -124,7 +124,7 @@ export default class ResourceParet extends Vue {
   @Prop({ required: true })
   readonly usedResouceIds!: number[]
 
-  @Emit()
+  @Emit('onShowResourceMenu')
   private onShowResourceMenu(
     _resource: Resource,
     _x: number,
@@ -161,7 +161,7 @@ export default class ResourceParet extends Vue {
     if (!src.parentElement) return
     const id = this.resourceIdOf(src.parentElement) // FIXME ちょっと「Veutifyの構造を知りすぎてる」気がする。手が在れば変えたい。
     if (id === 0) return
-    const resource = this.allResources.find(r => r.resourceId === id)
+    const resource = this.allResources.find((r) => r.resourceId === id)
     if (!resource) return
 
     this.onShowResourceMenu(resource, event.x, event.y)
