@@ -35,9 +35,6 @@ import DiagramExportService from '@/application/service/diagram/export/DiagramEx
 
 @Component
 export default class Rdra20DiagramOrTypeMenu extends Vue {
-  isFolder = false
-  isDiagram = false
-
   private readonly prompts = new Prompts()
 
   @Inject()
@@ -87,11 +84,12 @@ export default class Rdra20DiagramOrTypeMenu extends Vue {
     return this.item.name
   }
 
-  // public method
+  get isFolder(): boolean {
+    return this.item.isRdra20DiagramTypeFolder()
+  }
 
-  mounted(): void {
-    this.isFolder = this.item.isRdra20DiagramTypeFolder()
-    this.isDiagram = !this.isFolder
+  get isDiagram(): boolean {
+    return this.item.isRdra20Diagram()
   }
 
   // private method

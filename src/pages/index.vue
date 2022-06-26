@@ -14,6 +14,7 @@
           @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
           @onOpenDiagram="onOpenDiagram"
           @onDeleteDiagram="onDeleteDiagram"
+          @onRightClick="onTreeRightClick"
         />
       </template>
       <template #rightPain>
@@ -148,9 +149,12 @@ export default class extends Vue {
     this.clearSelectedOnTree();
   }
 
+  onTreeRightClick(item: ViewOrFolder, x: number, y:number): void {
+    this.showRightClickMenu(item, x, y, false);
+  }
+
   onTabRightClick(item: ViewOrFolder, x: number, y:number): void {
-    const menu = this.$refs.itemRightClickMenu as ItemRightClickMenu
-    menu.show(item, x, y, true);
+    this.showRightClickMenu(item, x, y, true);
   }
 
   /// menu click events.
@@ -230,6 +234,11 @@ export default class extends Vue {
   private clearSelectedOnTree(): void {
     const treePain = this.$refs.diagramsTreePane as DiagramsTreePane;
     treePain.clearSelected();
+  }
+
+  private showRightClickMenu(item: ViewOrFolder, x: number, y:number, tabClick: boolean): void {
+    const menu = this.$refs.itemRightClickMenu as ItemRightClickMenu
+    menu.show(item, x, y, tabClick);
   }
 }
 </script>

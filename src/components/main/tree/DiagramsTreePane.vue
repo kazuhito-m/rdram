@@ -76,6 +76,12 @@ export default class DiagramsTreePane extends Vue {
   @Emit('onDeleteDiagram')
   onDeleteDiagram(_diagramId: number): void {}
 
+  /// click
+
+  @Emit('onRightClick')
+  onRightClick(_item: ViewOrFolder, _x: number, _y: number): void {}
+
+
   // this vue lyfecycle event.
 
   created(): void {
@@ -100,13 +106,12 @@ export default class DiagramsTreePane extends Vue {
     const element = event.target as HTMLElement
     const data = element.getAttribute('data-item-id')
     if (!data) return
-    const treeItemId = parseInt(data, 10)
-    if (treeItemId <= 0) return
-    const treeItem = this.tree.findOf(treeItemId)
-    if (!treeItem) return
+    const itemId = parseInt(data, 10)
+    if (itemId <= 0) return
+    const item = this.tree.findOf(itemId)
+    if (!item) return
 
-    const menu = this.$refs.diagramRightClickMenu as DiagramRightClickMenu
-    menu.show(treeItem, event.clientX, event.clientY)
+    this.onRightClick(item, event.x, event.y)
   }
 
   /// menu click events

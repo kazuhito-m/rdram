@@ -32,6 +32,10 @@ export default class ViewOrFolder {
         return ViewOrFolder.ANALYSIS_IDS.in(this.id);
     }
 
+    isRdra20Diagram(): boolean {
+        return ViewOrFolder.RDRA20_DIAGRAM_IDS.in(this.id);
+    }
+
     isRdra20DiagramTypeFolder(): boolean {
         return ViewOrFolder.RDRA20_TYPE_IDS.in(this.id);
     }
