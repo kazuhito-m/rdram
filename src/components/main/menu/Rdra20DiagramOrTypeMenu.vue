@@ -4,18 +4,18 @@
       <v-list-item v-if="isFolder" link @click="onClickMenuAddDiagram">
         <v-list-item-title>図の追加...</v-list-item-title>
       </v-list-item>
-      <v-list-item v-if="isDiagram" link @click="onClickMenuCopyDiagram">
-        <v-list-item-title>{{ diagramName }} のコピー...</v-list-item-title>
-      </v-list-item>
-      <v-list-item v-if="isDiagram" link @click="onClickMenuRemoveDiagram">
-        <v-list-item-title>{{ diagramName }} の削除</v-list-item-title>
-      </v-list-item>
       <v-list-item
         v-if="isDiagram"
         link
         @click="onClickMenuEditDiagramProperties"
       >
         <v-list-item-title>{{ diagramName }} の設定...</v-list-item-title>
+      </v-list-item>
+      <v-list-item v-if="isDiagram" link @click="onClickMenuCopyDiagram">
+        <v-list-item-title>{{ diagramName }} のコピー...</v-list-item-title>
+      </v-list-item>
+      <v-list-item v-if="isDiagram" link @click="onClickMenuRemoveDiagram">
+        <v-list-item-title>{{ diagramName }} の削除</v-list-item-title>
       </v-list-item>
       <v-list-item v-if="isDiagram" link @click="onClickMenuExportDiagram">
         <v-list-item-title>{{ diagramName }} のエクスポート</v-list-item-title>
