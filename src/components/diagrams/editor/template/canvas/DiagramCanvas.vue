@@ -70,7 +70,6 @@ import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
 import DragAndDropResourceType from '@/components/diagrams/editor/template/dad/DragAndDropResourceType'
 import DragAndDropResourceId from '@/components/diagrams/editor/template/dad/DragAndDropResourceId'
-import { text } from 'body-parser'
 
 @Component({
   components: {
