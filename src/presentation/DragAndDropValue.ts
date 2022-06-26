@@ -17,12 +17,16 @@ export default class DragAndDropValue {
         return this.type === DragAndDropValue.RT;
     }
 
+    isInvalid(): boolean {
+        return this.value === 0;
+    }
+
     toResourceId(): number {
         return this.value;
     }
 
-    toResourceType(): ResourceType {
-        return ResourceType.ofId(this.value) as ResourceType;
+    toResourceType(): ResourceType | undefined {
+        return ResourceType.ofId(this.value);
     }
 
     toString(): string {

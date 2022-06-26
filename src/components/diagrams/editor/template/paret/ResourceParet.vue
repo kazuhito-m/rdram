@@ -106,6 +106,7 @@ import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import ResourceType from '@/domain/resource/ResourceType'
 import Resource from '@/domain/resource/Resource'
 import Product from '@/domain/product/Product'
+import DragAndDropValue from '~/presentation/DragAndDropValue'
 
 @Component
 export default class ResourceParet extends Vue {
@@ -141,14 +142,18 @@ export default class ResourceParet extends Vue {
     const target = event.target as HTMLElement
     const text = target.getAttribute('data-resource-type-id')
     if (!text) return
-    const resourceTypeId = parseInt(text, 10)
-    event.dataTransfer?.setData('text/plain', '-' + resourceTypeId)
+    const typeId = parseInt(text, 10)
+    const resourceType = ResourceType.ofId(typeId)
+    if (!resourceType) return
+    const ddv = DragAndDropValue.resourceTypeOf(resourceType)
+    event.dataTransfer?.setData('text/plain', ddv.toString())
   }
 
   onDragStartResource(event: DragEvent): void {
     const chip = event.target as HTMLElement
-    const id = this.resourceIdOf(chip) + ''
-    event.dataTransfer?.setData('text/plain', id)
+    const id = this.resourceIdOf(chip)
+    const ddv = DragAndDropValue.resourceIdOf(id)
+    event.dataTransfer?.setData('text/plain', ddv.toString())
   }
 
   onRightClickResource(event: MouseEvent): void {
