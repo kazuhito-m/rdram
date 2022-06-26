@@ -10,7 +10,10 @@
       rounded
       @input="close"
     >
-      <TabClickMenu v-if="tabClick" :item="item" :openTabs="openTabs" />
+      <TabClickMenu
+       v-if="tabClick && openTabs.length > 1" 
+       :item="item"
+        :openTabs="openTabs" />
       <Rdra20DiagramOrTypeMenu
         :item="item"
         @onAddedDiagram="onAddedDiagram"
