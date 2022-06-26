@@ -11,7 +11,6 @@
       <template #leftPain>
         <DiagramsTreePane
           ref="diagramsTreePane"
-          @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
           @onOpenDiagram="onOpenDiagram"
           @onDeleteDiagram="onDeleteDiagram"
           @onRightClick="onTreeRightClick"

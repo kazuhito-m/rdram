@@ -23,52 +23,28 @@
         </div>
       </template>
     </v-treeview>
-
-    <DiagramRightClickMenu
-      ref="diagramRightClickMenu"
-      @onClickMenuAddDiagram="onClickMenuAddDiagram"
-      @onClickMenuCopyDiagram="onClickMenuCopyDiagram"
-      @onClickMenuRemoveDiagram="onClickMenuRemoveDiagram"
-      @onClickMenuEditDiagramProperties="onClickMenuEditDiagramProperties"
-      @onClickMenuExportDiagram="onClickMenuExportDiagram"
-    />
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
-import DiagramRightClickMenu from './DiagramRightClickMenu.vue'
 import ViewOrFoldersTemplate from '@/components/main/model/ViewOrFoldersTemplate'
 import ViewOrFolders from '@/components/main/model/ViewOrFolders'
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
-import Prompts from '@/components/main/Prompts'
-import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
 import Diagram from '@/domain/diagram/Diagram'
-import Product from '@/domain/product/Product'
 import StorageRepository from '@/domain/storage/StorageRepository'
 
-@Component({
-  components: {
-    DiagramRightClickMenu,
-  },
-})
+@Component
 export default class DiagramsTreePane extends Vue {
   treeItems: ViewOrFolder[] = []
   treeActiveItemIds: number[] = []
   treeOpenItemIds: number[] = []
 
   private tree = new ViewOrFolders([])
-  private readonly prompts = new Prompts()
 
   @Inject()
   private readonly repository!: StorageRepository
 
-  @Inject()
-  private readonly diagramExportService!: DiagramExportService
-
   // emits
-
-  @Emit('onOpendDiagramPropertiesEditor')
-  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   @Emit('onOpenDiagram')
   onOpenDiagram(_treeItem: ViewOrFolder): void {}
@@ -80,7 +56,6 @@ export default class DiagramsTreePane extends Vue {
 
   @Emit('onRightClick')
   onRightClick(_item: ViewOrFolder, _x: number, _y: number): void {}
-
 
   // this vue lyfecycle event.
 
@@ -102,57 +77,9 @@ export default class DiagramsTreePane extends Vue {
   }
 
   onRightClickTreeItem(event: MouseEvent): void {
-    if (!event.target) return
-    const element = event.target as HTMLElement
-    const data = element.getAttribute('data-item-id')
-    if (!data) return
-    const itemId = parseInt(data, 10)
-    if (itemId <= 0) return
-    const item = this.tree.findOf(itemId)
+    const item = this.treeItemByClickEventOf(event)
     if (!item) return
-
     this.onRightClick(item, event.x, event.y)
-  }
-
-  /// menu click events
-
-  onClickMenuAddDiagram(treeItemId: number): void {
-    const item = this.tree.findOf(treeItemId)
-    if (!item) return
-    const diagramType = item.rdra20DiagramType()
-
-    const product = this.repository.getCurrentProduct()
-    if (!product) return
-    const diagrams = product.diagrams
-
-    const name = this.prompts.promptNewDiagramName(diagramType, diagrams)
-    if (!name) return
-
-    const modifiedProduct = product.createAndAddDiagram(name, diagramType)
-    const diagram = modifiedProduct.diagrams.last()
-    this.repository.registerCurrentProduct(modifiedProduct)
-
-    this.addDiagramView(diagram)
-  }
-
-  onClickMenuCopyDiagram(diagramId: number): void {
-    const diagram = this.copyDiagram(diagramId)
-    if (!diagram) return
-
-    this.addDiagramView(diagram)
-  }
-
-  onClickMenuRemoveDiagram(diagramId: number): void {
-    if (!this.removeDiagram(diagramId)) return
-    this.removeDiagramView(diagramId)
-  }
-
-  onClickMenuEditDiagramProperties(diagramId: number): void {
-    this.onOpendDiagramPropertiesEditor(diagramId)
-  }
-
-  onClickMenuExportDiagram(diagramId: number): void {
-    this.diagramExportService!.downloadExportFileOnClient(diagramId)
   }
 
   // public method
@@ -186,7 +113,7 @@ export default class DiagramsTreePane extends Vue {
     this.openParentTreeItem(diagram.id)
   }
 
-  removeDiagramView(diagramId: number ): void {
+  removeDiagramView(diagramId: number): void {
     this.onDeleteDiagram(diagramId)
     this.tree.removeOf(diagramId)
   }
@@ -210,47 +137,6 @@ export default class DiagramsTreePane extends Vue {
     openIds.push(parentId)
   }
 
-  private copyDiagram(diagramId: number): Diagram | null {
-    let distDiagram = null
-    const result = this.modifyDiagram(diagramId, (srcDiagram, product) => {
-      const diagrams = product.diagrams
-      const name = this.prompts.promptCopyDiagramName(srcDiagram, diagrams)
-      if (!name) return null
-
-      distDiagram = srcDiagram.cloneWith(diagrams.generateDiagramId(), name)
-      const addedDiagrams = diagrams.add(distDiagram)
-      return product.withDiagrams(addedDiagrams)
-    })
-    return result ? distDiagram : null
-  }
-
-  private modifyDiagram(
-    diagramId: number,
-    func: (diagram: Diagram, product: Product) => Product | null
-  ): boolean {
-    const product = this.repository.getCurrentProduct()
-    if (!product) return true
-    const diagrams = product.diagrams
-    const diagram = diagrams.of(diagramId)
-    if (!diagram) return true
-
-    const modifedProduct = func(diagram, product)
-
-    if (!modifedProduct) return false
-    this.repository.registerCurrentProduct(modifedProduct)
-    return true
-  }
-
-  private removeDiagram(diagramId: number): boolean {
-    return this.modifyDiagram(diagramId, (diagram, product) => {
-      if (diagram.placements.length > 0) {
-        if (!this.prompts.confirmDeleteDiagramWithIcon(diagram)) return null
-      }
-      const removedDiagrams = product.diagrams.remove(diagram)
-      return product.withDiagrams(removedDiagrams)
-    })
-  }
-
   private findAndReflectDiagramToTreeOf(diagramId: number): boolean {
     const existsItem = this.tree.findOf(diagramId)
     if (existsItem) return true
@@ -260,6 +146,16 @@ export default class DiagramsTreePane extends Vue {
 
     this.addDiagramView(diagram)
     return true
+  }
+
+  private treeItemByClickEventOf(event: MouseEvent): ViewOrFolder | null {
+    if (!event.target) return null
+    const element = event.target as HTMLElement
+    const data = element.getAttribute('data-item-id')
+    if (!data) return null
+    const itemId = parseInt(data, 10)
+    if (itemId <= 0) return null
+    return this.tree.findOf(itemId)
   }
 }
 </script>
