@@ -25,6 +25,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import DragAndDropSlideBar from './DragAndDropSlideBarId'
 import Uuid from '@/domain/world/Uuid'
 
 @Component
@@ -78,7 +79,8 @@ export default class TwoPainWithSlideBarLayout extends Vue {
 
   onDragStartMasterPainSlideBar(event: DragEvent): void {
     this.dragId = Uuid.generate()
-    event.dataTransfer?.setData('text', this.dragId)
+    const ddv = DragAndDropSlideBar.prototypeOf().renew(this.dragId)
+    event.dataTransfer?.setData('text/plain', ddv.toString())
   }
 
   onDragOverMasterPainSlideBar(event: DragEvent): void {
@@ -87,7 +89,11 @@ export default class TwoPainWithSlideBarLayout extends Vue {
 
   onDropMasterPainSlideBar(event: DragEvent): void {
     event.preventDefault()
-    if (event.dataTransfer?.getData('text') !== this.dragId) return
+    const ddv = DragAndDropSlideBar.prototypeOf().parseOf(
+      event.dataTransfer?.getData('text/plain')
+    )
+    if (ddv.isInvalid()) return
+    if (ddv.id() !== this.dragId) return
     if (this.adsorptionLeft || this.adsorptionRight) return
 
     const painContainer = this.$refs.painContainer as HTMLElement
@@ -141,7 +147,7 @@ export default class TwoPainWithSlideBarLayout extends Vue {
 }
 
 .slidebar:hover {
-  background-color: #A0A0A0;
+  background-color: #a0a0a0;
   transition: 0.25s;
 }
 </style>

@@ -68,6 +68,8 @@ import DownloadFileName from '@/domain/client/DownloadFileName'
 import RdramDownloadFileName from '@/domain/client/WithTimestampFileName'
 import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
+import DragAndDropResourceType from '@/components/diagrams/editor/template/dad/DragAndDropResourceType'
+import DragAndDropResourceId from '@/components/diagrams/editor/template/dad/DragAndDropResourceId'
 
 @Component({
   components: {
@@ -87,7 +89,7 @@ export default class DiagramCanvas extends Vue {
   private readonly usedResouceIds!: number[]
 
   @Prop({ required: true })
-  private readonly allResourcesOnCurrentProduct!: Resource[]
+  private readonly allResources!: Resource[]
 
   @Prop({ required: true })
   private readonly lastPropertiesUpdatedDiagramId!: number
@@ -187,11 +189,11 @@ export default class DiagramCanvas extends Vue {
     this.onChangeZoomBySlider(this.zoom() + 0.001) // 再描画がうまく行くHack
   }
 
-  @Watch('allResourcesOnCurrentProduct')
+  @Watch('allResources')
   private onChangeResourcesOnProduct(): void {
     if (!this.lastResourcesCache) return
 
-    const nowResources = this.allResourcesOnCurrentProduct
+    const nowResources = this.allResources
     const cache = this.lastResourcesCache
     const whenResouce = nowResources.length < cache.size
     if (whenResouce) {
@@ -337,23 +339,26 @@ export default class DiagramCanvas extends Vue {
     this.dropXOnCanvas = event.offsetX * zoom
     this.dropYOnCanvas = event.offsetY * zoom
 
-    const textData = event.dataTransfer?.getData('text')
+    const textData = event.dataTransfer?.getData('text/plain')
     if (!textData) return
-    const resourceId = parseInt(textData, 10)
-    const isAddNew = resourceId < 0
+    const ddrt = DragAndDropResourceType.prototypeOf().parseOf(textData)
 
     // 新規追加時。
-    if (isAddNew) {
-      const resourceType = ResourceType.ofId(resourceId * -1) as ResourceType
+    if (!ddrt.isInvalid()) {
+      const resourceType = ddrt.id()
+      if (!resourceType) return
       this.onOpenResourceEditorWhenCreate(resourceType)
       return
     }
+
+    const ddri = DragAndDropResourceId.prototypeOf().parseOf(textData)
+    if (ddri.isInvalid()) return
 
     const product = this.repository.getCurrentProduct() as Product
     const diagram = product.diagrams.of(this.diagramId)
     if (!diagram) return
 
-    const resource = product.resources.of(resourceId)
+    const resource = product.resources.of(ddri.id())
     if (!resource) return
 
     this.addPlacement(resource)
@@ -419,7 +424,7 @@ export default class DiagramCanvas extends Vue {
   private drawDiagram(diagram: Diagram) {
     diagram.placements.forEach((p) => this.usedResouceIds.push(p.resourceId))
 
-    const allResources = new Resources(this.allResourcesOnCurrentProduct)
+    const allResources = new Resources(this.allResources)
 
     const iconViewModels = diagram.placements
       .filter((placement) => allResources.existsIdOf(placement.resourceId))
@@ -524,7 +529,7 @@ export default class DiagramCanvas extends Vue {
     icon.toBack(afterIcon)
 
     // Debug
-    // const allResources = new Resources(this.allResourcesOnCurrentProduct);
+    // const allResources = new Resources(this.allResources);
     // console.log("対象のIcon:", targetIconVM.toString(allResources));
     // sortedIconVMs
     //   .forEach(i => console.log(i.toString(allResources)));
@@ -761,7 +766,7 @@ export default class DiagramCanvas extends Vue {
   }
 
   private cacheNowResources(): void {
-    const nowResources = this.allResourcesOnCurrentProduct
+    const nowResources = this.allResources
     const dic = new Map<number, Resource>()
     nowResources.forEach((r) => dic.set(r.resourceId, r))
     this.lastResourcesCache = dic

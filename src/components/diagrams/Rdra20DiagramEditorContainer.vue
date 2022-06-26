@@ -3,7 +3,7 @@
     <SystemContextDiagramEditor
       v-if="is('システムコンテキスト図')"
       :diagramId="diagram.id"
-      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -13,7 +13,7 @@
     <RequestModelDiagramEditor
       v-if="is('要求モデル図')"
       :diagramId="diagram.id"
-      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -23,7 +23,7 @@
     <BusinessContextDiagramEditor
       v-if="is('ビジネスコンテキスト図')"
       :diagramId="diagram.id"
-      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -33,7 +33,7 @@
     <BusinessUseCaseDiagramEditor
       v-if="is('ビジネスユースケース図')"
       :diagramId="diagram.id"
-      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -43,7 +43,7 @@
     <BusinessFlowDiagramEditor
       v-if="is('業務フロー図')"
       :diagramId="diagram.id"
-      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -53,7 +53,7 @@
     <UsageSceneDiagramEditor
       v-if="is('利用シーン図')"
       :diagramId="diagram.id"
-      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -63,7 +63,7 @@
     <InfomationModelEditor
       v-if="is('情報モデル図')"
       :diagramId="diagram.id"
-      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -73,7 +73,7 @@
     <StateModelEditor
       v-if="is('状態モデル図')"
       :diagramId="diagram.id"
-      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -83,7 +83,7 @@
     <UseCaseCompositeDiagramEditor
       v-if="is('ユースケース複合図')"
       :diagramId="diagram.id"
-      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -93,7 +93,7 @@
     <VariationAndConditionDiagramEditor
       v-if="is('バリエーション・条件')"
       :diagramId="diagram.id"
-      :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+      :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -141,7 +141,7 @@ export default class Rdra20DiagramEditorContainer extends Vue {
   readonly diagramId!: number
 
   @Prop({ required: true })
-  allResourcesOnCurrentProduct?: Resource[]
+  allResources?: Resource[]
 
   @Prop({ required: true })
   lastPropertiesUpdatedDiagramId?: number

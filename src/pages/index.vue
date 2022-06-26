@@ -12,7 +12,7 @@
       <template #rightPain>
         <DiagramsTabPane 
           ref="diagramsTabPane"
-          :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+          :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
           @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
           @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { Component, Vue, Inject } from "nuxt-property-decorator";
-import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
+import TwoPainWithSlideBarLayout from "@/components/twopain/TwoPainWithSlideBarLayout.vue";
 import DiagramsTreePane from "@/components/main/tree/DiagramsTreePane.vue";
 import DiagramsTabPane from "@/components/main/tab/DiagramsTabPane.vue";
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
@@ -63,7 +63,7 @@ export default class extends Vue {
   propertiesEditorDiagramId = 0;
   lastPropertiesUpdatedDiagramId = 0;
 
-  allResourcesOnCurrentProduct: Resource[] = [];
+  allResources: Resource[] = [];
   currentProduct?: Product;
 
   // this vue lyfecycle event.
@@ -75,7 +75,7 @@ export default class extends Vue {
     this.currentProduct = product;
 
     product.resources.forEach(resource =>
-      this.allResourcesOnCurrentProduct.push(resource)
+      this.allResources.push(resource)
     );
   }
 
@@ -142,7 +142,7 @@ export default class extends Vue {
     if (!product) return;
     // 削除されていないか確認。
     const nowIdDictionary = product.resources.map(r => r.resourceId);
-    const alreadyResources = this.allResourcesOnCurrentProduct;
+    const alreadyResources = this.allResources;
     for (let i = alreadyResources.length - 1; i >= 0; i--) {
       const alredy = alreadyResources[i];
       const foundIndex = nowIdDictionary.indexOf(alredy.resourceId);

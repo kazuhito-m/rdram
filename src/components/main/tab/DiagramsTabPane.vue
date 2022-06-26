@@ -32,7 +32,7 @@
       >
         <Rdra20DiagramEditorContainer
           :diagram-id="item.id"
-          :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+          :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
           @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
           @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
@@ -63,7 +63,7 @@ export default class DiagramRightClickMenu extends Vue {
   // Props
 
   @Prop({ required: true })
-  readonly allResourcesOnCurrentProduct?: Resource[]
+  readonly allResources?: Resource[]
 
   @Prop({ required: true })
   readonly lastPropertiesUpdatedDiagramId?: number

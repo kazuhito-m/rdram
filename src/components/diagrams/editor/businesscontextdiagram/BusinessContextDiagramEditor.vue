@@ -1,7 +1,7 @@
 <template>
   <DiagramEditor
     :diagramId="diagramId"
-    :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+    :allResources="allResources"
     :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
     :eventAnalyzer="eventAnalyzer"
     :iconGenerators="iconGenerators"
@@ -49,7 +49,7 @@ export default class InfomationModelEditor extends Vue {
   readonly diagramId!: number
 
   @Prop({ required: true })
-  readonly allResourcesOnCurrentProduct!: Resource[]
+  readonly allResources!: Resource[]
 
   @Prop({ required: true })
   readonly lastPropertiesUpdatedDiagramId?: number
