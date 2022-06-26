@@ -4,10 +4,10 @@
       <v-list-item v-if="visibleOtherClose" @click="onClickOtherClose" link>
         <v-list-item-title>他のタブをすべて閉じる</v-list-item-title>
       </v-list-item>
-      <v-list-item v-if="visibleLeftClose" @click="onClickLeftClose" link>
+      <v-list-item v-if="visibleSideClose" @click="onClickLeftClose" link>
         <v-list-item-title>左のタブをすべて閉じる</v-list-item-title>
       </v-list-item>
-      <v-list-item v-if="visibleRightClose" @click="onClickRightClose" link>
+      <v-list-item v-if="visibleSideClose" @click="onClickRightClose" link>
         <v-list-item-title>右のタブをすべて閉じる</v-list-item-title>
       </v-list-item>
       <v-list-item @click="onClickAllClose" link>
@@ -29,19 +29,14 @@ export default class TabClickMenu extends Vue {
   readonly openTabs!: ViewOrFolder[]
 
   get visibleOtherClose(): boolean {
-    return this.visibleLeftClose && this.visibleRightClose
+    return this.openTabs.length > 1
   }
 
-  get visibleLeftClose(): boolean {
+  get visibleSideClose(): boolean {
+    const item = this.item
     const tabs = this.openTabs
-    if (tabs.length < 2) return false
-    return !tabs[0].equals(this.item)
-  }
-
-  get visibleRightClose(): boolean {
-    const tabs = this.openTabs
-    if (tabs.length < 2) return false
-    return !tabs[tabs.length - 1].equals(this.item)
+    if (tabs.length < 3) return false
+    return !tabs[0].equals(item) && !tabs[tabs.length - 1].equals(item)
   }
 
   onClickOtherClose(): void {
