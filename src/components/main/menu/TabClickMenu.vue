@@ -1,16 +1,16 @@
 <template>
   <div>
     <v-list dence>
-      <v-list-item v-if="visibleOtherClose" @click="onClickOtherClose" link>
+      <v-list-item v-if="visibleOtherClose" link @click="onClickOtherClose">
         <v-list-item-title>他のタブをすべて閉じる</v-list-item-title>
       </v-list-item>
-      <v-list-item v-if="visibleSideClose" @click="onClickLeftClose" link>
+      <v-list-item v-if="visibleSideClose" link @click="onClickLeftClose">
         <v-list-item-title>左のタブをすべて閉じる</v-list-item-title>
       </v-list-item>
-      <v-list-item v-if="visibleSideClose" @click="onClickRightClose" link>
+      <v-list-item v-if="visibleSideClose" link @click="onClickRightClose">
         <v-list-item-title>右のタブをすべて閉じる</v-list-item-title>
       </v-list-item>
-      <v-list-item @click="onClickAllClose" link>
+      <v-list-item link @click="onClickAllClose">
         <v-list-item-title>タブをすべて閉じる</v-list-item-title>
       </v-list-item>
     </v-list>
