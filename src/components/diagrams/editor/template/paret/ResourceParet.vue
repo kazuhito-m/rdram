@@ -106,7 +106,7 @@ import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import ResourceType from '@/domain/resource/ResourceType'
 import Resource from '@/domain/resource/Resource'
 import Product from '@/domain/product/Product'
-import DragAndDropValue from '~/presentation/DragAndDropValue'
+import DragAndDropValue from '@/components/diagrams/editor/template/DragAndDropValue'
 
 @Component
 export default class ResourceParet extends Vue {

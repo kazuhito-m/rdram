@@ -68,7 +68,7 @@ import DownloadFileName from '@/domain/client/DownloadFileName'
 import RdramDownloadFileName from '@/domain/client/WithTimestampFileName'
 import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
-import DragAndDropValue from '~/presentation/DragAndDropValue'
+import DragAndDropValue from '@/components/diagrams/editor/template/DragAndDropValue'
 
 @Component({
   components: {
