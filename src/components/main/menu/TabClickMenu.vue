@@ -7,7 +7,7 @@
       <v-list-item v-if="visibleLeftClose" @click="onClickLeftClose" link>
         <v-list-item-title>左のタブをすべて閉じる</v-list-item-title>
       </v-list-item>
-      <v-list-item v-if="visibleRightClose" @click="onClickRightCloseTab" link>
+      <v-list-item v-if="visibleRightClose" @click="onClickRightClose" link>
         <v-list-item-title>右のタブをすべて閉じる</v-list-item-title>
       </v-list-item>
       <v-list-item @click="onClickAllClose" link>
@@ -50,15 +50,24 @@ export default class TabClickMenu extends Vue {
   }
 
   onClickLeftClose(): void {
-    alert('閉じクリ。tab:' + this.item.id + ', タブ数:' + this.openTabs.length)
+    const index = this.selectedIndex()
+    if (index < 0) return
+    this.openTabs.splice(0, index)
   }
 
   onClickRightClose(): void {
-    alert('閉じクリ。tab:' + this.item.id + ', タブ数:' + this.openTabs.length)
+    const index = this.selectedIndex()
+    if (index < 0) return
+    this.openTabs.splice(index + 1)
   }
 
   onClickAllClose(): void {
     this.openTabs.splice(0)
+  }
+
+  private selectedIndex(): number {
+    const t = this.item
+    return this.openTabs.findIndex((i) => i.equals(t))
   }
 }
 </script>
