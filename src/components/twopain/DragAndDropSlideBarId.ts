@@ -1,4 +1,4 @@
-import DragAndDropValue from "~/presentation/DragAndDropValue";
+import DragAndDropValue from "@/presentation/DragAndDropValue";
 
 export default class DragAndDropSlideBarId extends DragAndDropValue<string> {
     constructor(type: string, value: string) {
