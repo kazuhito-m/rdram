@@ -1,4 +1,4 @@
-export default class DragAndDropSlideBar {
+export default class DragAndDropSlideBarId {
     constructor(
         private readonly type: string,
         private readonly value: string
@@ -33,27 +33,27 @@ export default class DragAndDropSlideBar {
         return `${this.type}:${this.value}`;
     }
 
-    parseOf(text?: string): DragAndDropSlideBar {
+    parseOf(text?: string): DragAndDropSlideBarId {
         if (!text) return this.empty();
         const parts = text.split(":");
         const value = this.convIdToValue(parts[1]);
         if (value.length === 0) return this.empty();
-        return new DragAndDropSlideBar(parts[0], value)
+        return new DragAndDropSlideBarId(parts[0], value)
     }
 
-    protected empty(): DragAndDropSlideBar {
-        return DragAndDropSlideBar.prototypeOf();
+    protected empty(): DragAndDropSlideBarId {
+        return DragAndDropSlideBarId.prototypeOf();
     }
 
-    static prototypeOf(): DragAndDropSlideBar {
-        return new DragAndDropSlideBar("", "");
+    static prototypeOf(): DragAndDropSlideBarId {
+        return new DragAndDropSlideBarId("", "");
     }
 
-    renew(slideBarId: string): DragAndDropSlideBar {
-        return new DragAndDropSlideBar(this.typeName(), this.convIdToValue(slideBarId));
+    renew(slideBarId: string): DragAndDropSlideBarId {
+        return new DragAndDropSlideBarId(this.typeName(), this.convIdToValue(slideBarId));
     }
 
-    protected of(type: string, value: string): DragAndDropSlideBar {
-        return new DragAndDropSlideBar(type, value);
+    protected of(type: string, value: string): DragAndDropSlideBarId {
+        return new DragAndDropSlideBarId(type, value);
     }
 }
