@@ -125,11 +125,7 @@ export default class ResourceParet extends Vue {
   readonly usedResouceIds!: number[]
 
   @Emit('onShowResourceMenu')
-  private onShowResourceMenu(
-    _resource: Resource,
-    _x: number,
-    _y: number
-  ): void {}
+  private onShowResourceMenu(_r: Resource, _x: number, _y: number): void {}
 
   created(): void {
     const diagram = this.product.diagrams.of(this.diagramId)
@@ -146,13 +142,13 @@ export default class ResourceParet extends Vue {
     const text = target.getAttribute('data-resource-type-id')
     if (!text) return
     const resourceTypeId = parseInt(text, 10)
-    event.dataTransfer?.setData('text', '-' + resourceTypeId)
+    event.dataTransfer?.setData('text/plain', '-' + resourceTypeId)
   }
 
   onDragStartResource(event: DragEvent): void {
     const chip = event.target as HTMLElement
-    const resourceIdText = chip.getAttribute('data-resource-id') as string
-    event.dataTransfer?.setData('text', resourceIdText)
+    const id = this.resourceIdOf(chip) + ''
+    event.dataTransfer?.setData('text/plain', id)
   }
 
   onRightClickResource(event: MouseEvent): void {
