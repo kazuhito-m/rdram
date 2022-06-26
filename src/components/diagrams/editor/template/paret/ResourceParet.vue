@@ -81,7 +81,14 @@
                     data-resource-on-diagram="true"
                     @contextmenu="onRightClickResource"
                   >
-                    <v-icon>{{ iconKeyOf(usedResource) }}</v-icon>
+                    <v-tooltip left open-delay="2000">
+                      <template #activator="{ on, attrs }">
+                        <v-icon v-bind="attrs" v-on="on">
+                          {{ usedResource.type.iconKey }}
+                        </v-icon>
+                      </template>
+                      <span>{{ usedResource.type.name }}</span>
+                    </v-tooltip>
                     {{ usedResource.name }}
                   </v-chip>
                 </v-list-item-title>
@@ -180,10 +187,6 @@ export default class ResourceParet extends Vue {
 
   filterUsedList(resource: Resource, usedResouceIds: number[]): boolean {
     return usedResouceIds.includes(resource.resourceId)
-  }
-
-  iconKeyOf(resource: Resource): string {
-    return resource ? resource.type.iconKey : ''
   }
 }
 </script>
