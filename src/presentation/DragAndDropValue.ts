@@ -12,8 +12,6 @@ export default abstract class DragAndDropValue<T> {
 
     protected abstract of(type: string, value: string): DragAndDropValue<T>;
 
-    protected abstract empty(): DragAndDropValue<T>;
-
     is(): boolean {
         return this.type === this.typeName();
     }
@@ -40,5 +38,9 @@ export default abstract class DragAndDropValue<T> {
 
     renew(slideBarId: T): DragAndDropValue<T> {
         return this.of(this.typeName(), this.convIdToValue(slideBarId));
+    }
+
+    protected empty(): DragAndDropValue<T> {
+        return this.of("", "");
     }
 }

@@ -22,10 +22,6 @@ export default class DragAndDropResourceId extends DragAndDropValue<number> {
         return new DragAndDropResourceId(type, value);
     }
 
-    protected empty(): DragAndDropResourceId {
-        return DragAndDropResourceId.prototypeOf();
-    }
-
     static prototypeOf(): DragAndDropResourceId {
         return new DragAndDropResourceId("", "");
     }

@@ -21,10 +21,6 @@ export default class DragAndDropSlideBarId extends DragAndDropValue<string> {
         return new DragAndDropSlideBarId(type, value);
     }
 
-    protected empty(): DragAndDropSlideBarId {
-        return DragAndDropSlideBarId.prototypeOf();
-    }
-
     static prototypeOf(): DragAndDropSlideBarId {
         return new DragAndDropSlideBarId("", "");
     }

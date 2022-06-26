@@ -24,10 +24,6 @@ export default class DragAndDropResourceType extends DragAndDropValue<ResourceTy
         return new DragAndDropResourceType(type, value);
     }
 
-    protected empty(): DragAndDropResourceType {
-        return DragAndDropResourceType.prototypeOf();
-    }
-
     static prototypeOf(): DragAndDropResourceType {
         return new DragAndDropResourceType("", "");
     }
