@@ -1,6 +1,6 @@
 <template lang="html">
-  <v-overlay v-if="visible">
-    <v-progress-circular size="200" width="300" color="white" indeterminate />
+  <v-overlay v-if="loading" id="loading">
+    <v-progress-circular indeterminate />
   </v-overlay>
 </template>
 
@@ -9,13 +9,13 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 
 @Component
 export default class Loading extends Vue {
-  visible: boolean = false
+  loading: boolean = false
 
   startTime: number = 0
 
-  @Watch('visible')
+  @Watch('loading')
   private onChangeVisible() {
-    if (this.visible) {
+    if (this.loading) {
       this.startTime = performance.now()
       console.log(`Loading表示開始。${new Date()}`)
       return
@@ -27,13 +27,21 @@ export default class Loading extends Vue {
   }
 
   start() {
-    this.visible = true
+    this.loading = true
   }
 
   finish() {
-    this.visible = false
+    this.loading = false
   }
 }
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.dialog.centered-dialog {
+  background: #282c2dad;
+  box-shadow: none;
+  border-radius: 6px;
+  width: auto;
+  color: whitesmoke;
+}
+</style>
