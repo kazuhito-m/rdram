@@ -1,5 +1,5 @@
 <template>
-  <div class="diagram-pain-container">
+  <div class="diagram-pane-container">
     <!-- editor or menu parts -->
     <ResourceEditDialog
       ref="resourceEditDialog"
@@ -13,9 +13,9 @@
       @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
       @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
     />
-    <!-- main pain -->
-    <TwoPainWithSlideBarLayout adsorptionRightWhenDoubleClick="true" defaultLeftPainWidth="80%">
-      <template #leftPain>
+    <!-- main pane -->
+    <TwoPaneWithSlideBarLayout adsorptionRightWhenDoubleClick="true" defaultLeftPaneWidth="80%">
+      <template #leftPane>
         <DiagramCanvas
           ref="diagramCanvas"
           :diagramId="diagramId"
@@ -36,7 +36,7 @@
           @onShowConnectorMenu="onShowConnectorMenu"
         />
       </template>
-      <template #rightPain>
+      <template #rightPane>
         <ResourceParet
           :diagramId="diagramId"
           :allResources="allResources"
@@ -45,7 +45,7 @@
           @onShowResourceMenu="onShowResourceMenu"
         />
       </template>
-    </TwoPainWithSlideBarLayout>
+    </TwoPaneWithSlideBarLayout>
     <v-snackbar v-model="warnBar" timeout="2000">
       {{ warnMessage }}
       <template #action="{ attrs }">
@@ -65,7 +65,7 @@ import {
 } from "nuxt-property-decorator";
 
 import ResourceRightClickMenu from "./ResourceRightClickMenu.vue";
-import TwoPainWithSlideBarLayout from "@/components/twopain/TwoPainWithSlideBarLayout.vue";
+import TwoPaneWithSlideBarLayout from "@/components/twopane/TwoPaneWithSlideBarLayout.vue";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import ResourceParet from "@/components/diagrams/editor/template/paret/ResourceParet.vue";
 import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
@@ -83,7 +83,7 @@ import Placement from "@/domain/diagram/placement/Placement";
 
 @Component({
   components: {
-    TwoPainWithSlideBarLayout,
+    TwoPaneWithSlideBarLayout,
     DiagramCanvas,
     ResourceParet,
     ResourceEditDialog,
@@ -320,7 +320,7 @@ export default class DiagramEditor extends Vue {
 </script>
 
 <style type="sass" scoped>
-.diagram-pain-container {
+.diagram-pane-container {
   display: flex;
   position: absolute;
   height: 100%;

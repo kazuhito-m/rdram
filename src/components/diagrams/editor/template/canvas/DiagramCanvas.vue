@@ -414,9 +414,9 @@ export default class DiagramCanvas extends Vue {
     // canvasのスクロールを制御するコードがまだないので、このままにしておく。
     // 必要になったらここを思い出すこと。(無理だろ…)
     //
-    // const editorPain = this.$refs.editorPain as HTMLElement;
-    // editorPain.id = `editorPain${this.diagramId}`;
-    // canvas.setScrollArea(`#${editorPain.id}`);
+    // const editorPane = this.$refs.editorPane as HTMLElement;
+    // editorPane.id = `editorPane${this.diagramId}`;
+    // canvas.setScrollArea(`#${editorPane.id}`);
 
     this.canvas = canvas
   }
