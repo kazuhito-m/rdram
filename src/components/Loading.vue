@@ -1,6 +1,6 @@
 <template lang="html">
   <v-overlay v-if="visible">
-    <v-progress-circular indeterminate size="64"></v-progress-circular>
+    <v-progress-circular size="200" width="300" color="white" indeterminate />
   </v-overlay>
 </template>
 
@@ -26,11 +26,11 @@ export default class Loading extends Vue {
     this.startTime = 0
   }
 
-  public start() {
+  start() {
     this.visible = true
   }
 
-  public finish() {
+  finish() {
     this.visible = false
   }
 }

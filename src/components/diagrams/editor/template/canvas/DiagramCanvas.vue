@@ -225,24 +225,24 @@ export default class DiagramCanvas extends Vue {
   }
 
   mounted() {
-    this.$nuxt.$loading.start()
+    this.withLoadingScreen(() => {
+      this.initialize()
+    })
+  }
 
+  private initialize(): void {
     this.cacheNowResources()
 
-    this.$nextTick(() => {
-      const diagram = this.product?.diagrams.of(this.diagramId)
-      if (!diagram) return
+    const diagram = this.product?.diagrams.of(this.diagramId)
+    if (!diagram) return
 
-      const guideType = CanvasGuideType.ofId(diagram.canvasGuideTypeId)
+    const guideType = CanvasGuideType.ofId(diagram.canvasGuideTypeId)
 
-      this.showCanvas()
-      this.fixCanvasPosition()
-      this.addCanvasEvent()
-      this.drawDiagram(diagram)
-      this.onChangeCanvasGuideType(guideType)
-
-      this.$nuxt.$loading.finish() // FIXME フラグ管理的には正しいタイミングで動いているが、Loding画面出てこない。修正要。
-    })
+    this.showCanvas()
+    this.fixCanvasPosition()
+    this.addCanvasEvent()
+    this.drawDiagram(diagram)
+    this.onChangeCanvasGuideType(guideType)
   }
 
   // public by other diarogs
@@ -793,6 +793,15 @@ export default class DiagramCanvas extends Vue {
     const pos = this.calculateCenterPositionOf(icon)
     const toolTip = this.$refs.iconToolTip as IconToolTip
     toolTip.move(pos.x(), pos.y())
+  }
+
+  private withLoadingScreen(actions: () => void) {
+    this.$nuxt.$loading.start()
+    const timer = setInterval(() => {
+      clearInterval(timer)
+      actions()
+      this.$nuxt.$loading.finish()
+    }, 1)
   }
 }
 </script>
