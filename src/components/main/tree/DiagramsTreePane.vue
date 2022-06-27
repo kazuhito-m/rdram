@@ -104,7 +104,7 @@ export default class DiagramsTreePane extends Vue {
   }
 
   clearSelected(): void {
-    this.treeActiveItemIds.splice(0, 1)
+    this.treeActiveItemIds.splice(0)
   }
 
   addDiagramView(diagram: Diagram): void {
@@ -121,7 +121,7 @@ export default class DiagramsTreePane extends Vue {
   // private method
 
   private activeTreeItemOf(treeItemId: number): void {
-    this.treeActiveItemIds.length = 0
+    this.clearSelected()
     this.treeActiveItemIds.push(treeItemId)
   }
 

@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Inject } from "nuxt-property-decorator";
+import { Component, Vue, Inject, Watch } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/components/twopain/TwoPainWithSlideBarLayout.vue";
 import DiagramsTreePane from "@/components/main/tree/DiagramsTreePane.vue";
 import DiagramsTabPane from "@/components/main/tab/DiagramsTabPane.vue";
@@ -78,6 +78,13 @@ export default class extends Vue {
   currentProduct?: Product;
 
   readonly openTabs: ViewOrFolder[] = []
+
+  @Watch(`openTabs`)
+  private onChangeOpenTabs(changedOpenTabs: ViewOrFolder[]) {
+    if (changedOpenTabs.length > 0) return;
+    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane;
+    treePain.clearSelected();
+  }
 
   // this vue lyfecycle event.
 
