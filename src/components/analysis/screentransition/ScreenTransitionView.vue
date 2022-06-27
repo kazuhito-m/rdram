@@ -181,7 +181,7 @@ export default class ScreenTransitionView extends Vue {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 td {
   padding: 5px 1px;
 }
