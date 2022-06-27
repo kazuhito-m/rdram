@@ -17,8 +17,8 @@ export default class ViewOrFolder {
     static readonly CUSTOM_FOLDER = of(-2, "カスタム", true);
     static readonly ANALYSIS_FOLDER = of(-3, "分析", true);
 
-    static readonly ICON_LIST = of(3000000000000001, "アイコン一覧", false, "mdi-format-list-bulleted-type");
-    static readonly SCREEN_TRANSITION = of(3000000000000002, "画面遷移", false, "mdi-file-tree-outline");
+    static readonly ICON_LIST = of(3000000000000001, "アイコン一覧", false, "mdi-format-list-bulleted-type", '分析:アイコン一覧');
+    static readonly SCREEN_TRANSITION = of(3000000000000002, "画面遷移", false, "mdi-file-tree-outline", '分析:画面遷移');
 
     static readonly EMPTY = new ViewOrFolder(0, "(空)", [], true, false, "", "");
 
