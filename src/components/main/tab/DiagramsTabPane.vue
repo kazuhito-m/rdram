@@ -99,9 +99,6 @@ export default class DiagramRightClickMenu extends Vue {
   @Emit('onChangeCurrentDiagram')
   onChangeCurrentDiagram(_diagramId: number): void {}
 
-  @Emit('onAllClosedDiagram')
-  onAllClosedDiagram(): void {}
-
   /// click
 
   @Emit('onRightClick')
@@ -147,8 +144,6 @@ export default class DiagramRightClickMenu extends Vue {
     const tabIndex = tabs.findIndex((tabItem) => tabItem.id === tabItemId)
     if (tabIndex < 0) return false
     tabs.splice(tabIndex, 1)
-
-    if (tabs.length === 0) this.onAllClosedDiagram()
     return true
   }
 

@@ -28,7 +28,6 @@
           @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
           @onRenamedResource="onRenamedResource"
           @onChangeCurrentDiagram="onChangeCurrentDiagram"
-          @onAllClosedDiagram="onAllClosedDiagram"
           @onRightClick="onTabRightClick"
         />
       </template>
@@ -81,9 +80,7 @@ export default class extends Vue {
 
   @Watch(`openTabs`)
   private onChangeOpenTabs(changedOpenTabs: ViewOrFolder[]) {
-    if (changedOpenTabs.length > 0) return;
-    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane;
-    treePain.clearSelected();
+    if (changedOpenTabs.length === 0) this.clearSelectedOnTree();
   }
 
   // this vue lyfecycle event.
@@ -149,10 +146,6 @@ export default class extends Vue {
   onChangeCurrentDiagram(diagramId: number): void {
     const treePain = this.$refs.diagramsTreePane as DiagramsTreePane
     treePain.activeItemAndFolderOpen(diagramId)
-  }
-
-  onAllClosedDiagram(): void {
-    this.clearSelectedOnTree();
   }
 
   onTreeRightClick(item: ViewOrFolder, x: number, y:number): void {
