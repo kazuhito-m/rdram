@@ -31,6 +31,7 @@ export default abstract class DragAndDropValue<T> {
     parseOf(text?: string): DragAndDropValue<T> {
         if (!text) return this.empty();
         const parts = text.split(":");
+        if (parts.length < 2) return this.empty();
         const value = parts[1];
         if (value.length === 0) return this.empty();
         return this.of(parts[0], value)
