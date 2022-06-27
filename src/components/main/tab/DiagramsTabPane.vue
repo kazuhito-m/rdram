@@ -37,7 +37,7 @@
         class="dialog-editor-tab-item"
       >
         <Rdra20DiagramEditorContainer
-          :diagram-id="item.id"
+          :diagramId="item.id"
           :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
           @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
