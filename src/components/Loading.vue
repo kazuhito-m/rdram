@@ -1,35 +1,39 @@
 <template lang="html">
-  <v-overlay v-if="loading">
+  <v-overlay v-if="visible">
     <v-progress-circular indeterminate size="64"></v-progress-circular>
   </v-overlay>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from 'vue-property-decorator'
 
 @Component
 export default class Loading extends Vue {
-  protected loading: boolean = false;
+  visible: boolean = false
 
-  private startTime: number = 0;
+  startTime: number = 0
+
+  @Watch('visible')
+  private onChangeVisible() {
+    if (this.visible) {
+      this.startTime = performance.now()
+      console.log(`Loading表示開始。${new Date()}`)
+      return
+    }
+
+    const time = performance.now() - this.startTime
+    console.log(`Loading表示終了。${new Date()} 表示時間:${time.toFixed(3)} ms`)
+    this.startTime = 0
+  }
 
   public start() {
-    this.startTime = performance.now();
-    console.log(`Loading表示開始。${new Date()}`);
-
-    this.loading = true;
+    this.visible = true
   }
 
   public finish() {
-    this.loading = false;
-
-    const time = performance.now() - this.startTime;
-    console.log(`Loading表示終了。${new Date()} 表示時間:${time.toFixed(3)} ms`);
-
-    this.startTime = 0;
+    this.visible = false
   }
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
