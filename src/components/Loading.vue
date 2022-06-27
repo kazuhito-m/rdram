@@ -37,10 +37,6 @@ export default class Loading extends Vue {
 </script>
 
 <style lang="scss">
-div.v-overlay__scrim {
-  opacity: 0.5 !important;
-  // background-color: white !important;
-}
 circle.v-progress-circular__overlay {
   color: green;
   caret-color: green;
