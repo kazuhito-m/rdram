@@ -1,17 +1,25 @@
 <template>
   <v-layout>
+    <ItemRightClickMenu 
+      ref="itemRightClickMenu"
+      :openTabs="openTabs"
+      @onAddedDiagram="onAddedDiagram"
+      @onRemovedDiagram="onRemovedDiagram"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+    />
     <TwoPainWithSlideBarLayout>
       <template #leftPain>
         <DiagramsTreePane
           ref="diagramsTreePane"
-          @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
           @onOpenDiagram="onOpenDiagram"
           @onDeleteDiagram="onDeleteDiagram"
+          @onRightClick="onTreeRightClick"
         />
       </template>
       <template #rightPain>
-        <DiagramsTabPane 
+        <DiagramsTabPane
           ref="diagramsTabPane"
+          :openTabs="openTabs"
           :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
           @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
@@ -20,7 +28,7 @@
           @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
           @onRenamedResource="onRenamedResource"
           @onChangeCurrentDiagram="onChangeCurrentDiagram"
-          @onAllClosedDiagram="onAllClosedDiagram"
+          @onRightClick="onTabRightClick"
         />
       </template>
     </TwoPainWithSlideBarLayout>
@@ -29,15 +37,16 @@
       @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
       @onClose="onCloseDiagramPropertiesEditDialog"
     />
-    <DiagramTypeSelectorDialog ref="diagramTypeSelectorDialog"/>
+    <DiagramTypeSelectorDialog ref="diagramTypeSelectorDialog" />
   </v-layout>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Inject } from "nuxt-property-decorator";
+import { Component, Vue, Inject, Watch } from "nuxt-property-decorator";
 import TwoPainWithSlideBarLayout from "@/components/twopain/TwoPainWithSlideBarLayout.vue";
 import DiagramsTreePane from "@/components/main/tree/DiagramsTreePane.vue";
 import DiagramsTabPane from "@/components/main/tab/DiagramsTabPane.vue";
+import ItemRightClickMenu from "@/components/main/menu/ItemRightClickMenu.vue"
 import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
 import DiagramTypeSelectorDialog from "@/components/diagrams/open/DiagramTypeSelectorDialog.vue";
 import ViewOrFolder from "@/components/main/model/ViewOrFolder";
@@ -52,6 +61,7 @@ import StorageRepository from "@/domain/storage/StorageRepository";
     TwoPainWithSlideBarLayout,
     DiagramsTreePane,
     DiagramsTabPane,
+    ItemRightClickMenu,
     DiagramPropertiesEditDialog,
     DiagramTypeSelectorDialog
   }
@@ -65,6 +75,13 @@ export default class extends Vue {
 
   allResources: Resource[] = [];
   currentProduct?: Product;
+
+  readonly openTabs: ViewOrFolder[] = []
+
+  @Watch(`openTabs`)
+  private onChangeOpenTabs(changedOpenTabs: ViewOrFolder[]) {
+    if (changedOpenTabs.length === 0) this.clearSelectedOnTree();
+  }
 
   // this vue lyfecycle event.
 
@@ -131,8 +148,24 @@ export default class extends Vue {
     treePain.activeItemAndFolderOpen(diagramId)
   }
 
-  onAllClosedDiagram(): void {
-    this.clearSelectedOnTree()
+  onTreeRightClick(item: ViewOrFolder, x: number, y:number): void {
+    this.showRightClickMenu(item, x, y, false);
+  }
+
+  onTabRightClick(item: ViewOrFolder, x: number, y:number): void {
+    this.showRightClickMenu(item, x, y, true);
+  }
+
+  /// menu click events.
+
+  onAddedDiagram(diagram: Diagram): void {
+    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane
+    treePain.addDiagramView(diagram)
+  }
+
+  onRemovedDiagram(diagramId: number): void {
+    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane
+    treePain.removeDiagramView(diagramId)
   }
 
   // private methods.
@@ -201,9 +234,13 @@ export default class extends Vue {
     const treePain = this.$refs.diagramsTreePane as DiagramsTreePane;
     treePain.clearSelected();
   }
+
+  private showRightClickMenu(item: ViewOrFolder, x: number, y:number, tabClick: boolean): void {
+    const menu = this.$refs.itemRightClickMenu as ItemRightClickMenu
+    menu.show(item, x, y, tabClick);
+  }
 }
 </script>
-
 
 <style scoped>
 .pain-container {
