@@ -1,6 +1,6 @@
 <template lang="html">
-  <v-overlay v-if="loading" id="loading">
-    <v-progress-circular indeterminate />
+  <v-overlay v-if="loading">
+    <v-progress-circular size="140" width="14" indeterminate />
   </v-overlay>
 </template>
 
@@ -36,12 +36,10 @@ export default class Loading extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-.dialog.centered-dialog {
-  background: #282c2dad;
-  box-shadow: none;
-  border-radius: 6px;
-  width: auto;
-  color: whitesmoke;
+<style lang="scss">
+circle.v-progress-circular__overlay {
+  color: green !important;
+  caret-color: green !important;
+  z-index: 9999;
 }
 </style>
