@@ -37,6 +37,7 @@
         class="dialog-editor-tab-item"
       >
         <Rdra20DiagramEditorContainer
+          v-if="item.isRdra20Diagram()"
           :diagramId="item.id"
           :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
@@ -45,6 +46,11 @@
           @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
           @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
           @onRenamedResource="onRenamedResource"
+        />
+
+        <AnalysisContainer 
+          v-if="item.isAnalysis()"
+          :analysisViewId="item.id"
         />
       </v-tab-item>
     </v-tabs-items>
@@ -56,10 +62,12 @@ import Rdra20DiagramEditorContainer from '@/components/diagrams/Rdra20DiagramEdi
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
+import AnalysisContainer from '@/components/analysis/AnalysisContainer.vue'
 
 @Component({
   components: {
     Rdra20DiagramEditorContainer,
+    AnalysisContainer,
   },
 })
 export default class DiagramRightClickMenu extends Vue {
