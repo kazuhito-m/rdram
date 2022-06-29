@@ -1,10 +1,10 @@
-import Relations from "../relation/Relations";
+import Rdra20DiagramType from "./rdra20/Rdra20DiagramType";
+import Relations from "@/domain/relation/Relations";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Placement from "@/domain/diagram/placement/Placement";
 import Relation from "@/domain/relation/Relation";
 import Resource from "@/domain/resource/Resource";
-import Rdra20DiagramType from "./rdra20/Rdra20DiagramType";
-import ResourceType from "../resource/ResourceType";
+import ResourceType from "@/domain/resource/ResourceType";
 
 export default abstract class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;
