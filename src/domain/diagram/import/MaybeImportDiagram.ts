@@ -37,7 +37,7 @@ export default class MaybeImportDiagram {
             && d.placements.length >= 0
             && d.width > 0
             && d.height > 0
-            && d.canvasGuideTypeId > 0;
+            && d.canvasGuideType > 0;
     }
 
     private checkOfLogicalResources(): boolean {

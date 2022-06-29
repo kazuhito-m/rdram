@@ -5,13 +5,12 @@ import Placement from "@/domain/diagram/placement/Placement";
 import Relation from "@/domain/relation/Relation";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
+import { CanvasGuideType } from "./CanvasGuideType";
 
 export default abstract class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;
     public static readonly MAX_WIDTH = 7680;
     public static readonly MAX_HEIGHT = 4320;
-
-    public static readonly DEFAULT_CANVAS_GUIDE_ID = 1; // TODO CavasGuideTypeのEnumをPresentation層からDomain層側に引き剥がして、定数化する。
 
     constructor(
         public readonly id: number,
@@ -21,7 +20,7 @@ export default abstract class Diagram {
         public readonly placements: Placement[],
         public readonly width: number,
         public readonly height: number,
-        public readonly canvasGuideTypeId: number,
+        public readonly canvasGuideType: CanvasGuideType,
     ) { }
 
     public abstract availableResourceTypes(): ResourceType[];
@@ -34,7 +33,7 @@ export default abstract class Diagram {
         placements: Placement[],
         width: number,
         height: number,
-        canvasGuideTypeId: number,
+        canvasGuideType: CanvasGuideType,
     ): Diagram;
 
     public abstract createPlacement(resource: Resource, left: number, top: number): Placement | null;
@@ -87,7 +86,7 @@ export default abstract class Diagram {
             this.placements,
             this.width,
             this.height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 
@@ -100,7 +99,7 @@ export default abstract class Diagram {
             placements,
             this.width,
             this.height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 
@@ -215,7 +214,7 @@ export default abstract class Diagram {
             this.placements,
             this.width,
             this.height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 
@@ -228,7 +227,7 @@ export default abstract class Diagram {
             this.placements,
             width,
             height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 
@@ -241,7 +240,7 @@ export default abstract class Diagram {
             this.placements.map(placement => placement.clone()),
             this.width,
             this.height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 
@@ -272,7 +271,7 @@ export default abstract class Diagram {
             this.placements.filter(p => p.resourceId !== resourceId),
             this.width,
             this.height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 }

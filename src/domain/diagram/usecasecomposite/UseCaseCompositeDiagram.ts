@@ -4,6 +4,7 @@ import Placement from "@/domain/diagram/placement/Placement";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
+import { CanvasGuideType } from "../CanvasGuideType";
 
 export default class UseCaseCompositeDiagram extends Diagram {
     protected constructor(
@@ -14,7 +15,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
         placements: Placement[],
         width: number,
         height: number,
-        canvasGuideTypeId: number,
+        canvasGuideType: CanvasGuideType,
     ) {
         super(
             id,
@@ -24,7 +25,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
             placements,
             width,
             height,
-            canvasGuideTypeId,
+            canvasGuideType,
         );
     }
 
@@ -66,7 +67,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
         );
     }
 
-    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideTypeId: number): UseCaseCompositeDiagram {
+    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideType: CanvasGuideType): UseCaseCompositeDiagram {
         return new UseCaseCompositeDiagram(
             id,
             typeId,
@@ -75,7 +76,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
             placements,
             width,
             height,
-            canvasGuideTypeId,
+            canvasGuideType,
         );
     }
 
@@ -88,7 +89,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
             this.placements,
             this.width,
             this.height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 
@@ -101,7 +102,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
             this.placements,
             this.width,
             this.height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 
@@ -114,7 +115,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
             placements,
             this.width,
             this.height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 
@@ -127,7 +128,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
             this.placements,
             width,
             height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 
@@ -140,7 +141,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
             this.placements.map(placement => placement.clone()),
             this.width,
             this.height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 
@@ -154,7 +155,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
             this.placements.filter(p => p.resourceId !== resourceId),
             this.width,
             this.height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 
@@ -167,7 +168,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
             [],
             1024,
             768,
-            Diagram.DEFAULT_CANVAS_GUIDE_ID,
+            CanvasGuideType.NOTHING,
         );
     }
 }

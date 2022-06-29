@@ -6,6 +6,7 @@ import Resource from "@/domain/resource/Resource";
 import Diagram from "@/domain/diagram/Diagram";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import Rdra20Diagram from "@/domain/diagram/rdra20/Rdra20Diagram";
+import { CanvasGuideType } from "../../CanvasGuideType";
 
 export default class SystemContextDiagram extends Rdra20Diagram {
     protected constructor(
@@ -16,7 +17,7 @@ export default class SystemContextDiagram extends Rdra20Diagram {
         placements: Placement[],
         width: number,
         height: number,
-        canvasGuideTypeId: number,
+        canvasGuideType: CanvasGuideType,
     ) {
         super(
             id,
@@ -26,7 +27,7 @@ export default class SystemContextDiagram extends Rdra20Diagram {
             placements,
             width,
             height,
-            canvasGuideTypeId,
+            canvasGuideType,
         );
     }
 
@@ -59,7 +60,7 @@ export default class SystemContextDiagram extends Rdra20Diagram {
         );
     }
 
-    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideTypeId: number): SystemContextDiagram {
+    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideType: CanvasGuideType): SystemContextDiagram {
         return new SystemContextDiagram(
             id,
             typeId,
@@ -68,7 +69,7 @@ export default class SystemContextDiagram extends Rdra20Diagram {
             placements,
             width,
             height,
-            canvasGuideTypeId,
+            canvasGuideType,
         );
     }
 
@@ -81,7 +82,7 @@ export default class SystemContextDiagram extends Rdra20Diagram {
             [],
             1024,
             768,
-            Diagram.DEFAULT_CANVAS_GUIDE_ID,
+            CanvasGuideType.GEOMETRY,
         );
         // 特殊処理、Resource種が「システム」で、かつ「ひとつだけ」なら予め足してしまう。
         const resoucesOfSystem = resources.typeOf(ResourceType.システム);

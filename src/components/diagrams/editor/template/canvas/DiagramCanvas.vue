@@ -236,7 +236,9 @@ export default class DiagramCanvas extends Vue {
     const diagram = this.product?.diagrams.of(this.diagramId)
     if (!diagram) return
 
-    const guideType = Draw2dCanvasGuideType.ofId(diagram.canvasGuideTypeId)
+    const guideType = Draw2dCanvasGuideType.of(diagram.canvasGuideType)
+
+console.log("guideType:", guideType)
 
     this.showCanvas()
     this.fixCanvasPosition()
