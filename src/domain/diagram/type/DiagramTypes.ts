@@ -3,7 +3,7 @@ import Rdra20DiagramType from "../rdra20/Rdra20DiagramType";
 import DiagramType from "./DiagramType";
 
 export default class DiagramTypes {
-    static readonly ALL_TYPES: DiagramType[] = [];
+    static readonly ALL_TYPES = DiagramType.ALL;
 
     static readonly RDRA20_TYPES = DiagramTypes.ALL_TYPES
         .filter(t => Rdra20DiagramType.システムコンテキスト図.sameTypeIdOf(t.id));

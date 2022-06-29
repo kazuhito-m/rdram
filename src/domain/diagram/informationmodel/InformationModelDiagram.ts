@@ -1,7 +1,7 @@
+import Rdra20DiagramType from "../rdra20/Rdra20DiagramType";
 import Diagram from "@/domain/diagram/Diagram";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
-import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 
@@ -51,6 +51,19 @@ export default class InformationModelDiagram extends Diagram {
             width,
             height,
             resource.resourceId
+        );
+    }
+
+    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideTypeId: number): InformationModelDiagram {
+        return new InformationModelDiagram(
+            id,
+            typeId,
+            name,
+            relations,
+            placements,
+            width,
+            height,
+            canvasGuideTypeId,
         );
     }
 
@@ -136,7 +149,7 @@ export default class InformationModelDiagram extends Diagram {
     public static prototypeOf(newDiagramId: number, name: string): InformationModelDiagram {
         return new InformationModelDiagram(
             newDiagramId,
-            DiagramType.情報モデル図.id,
+            Rdra20DiagramType.情報モデル図.id,
             name.trim(),
             [],
             [],

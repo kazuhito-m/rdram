@@ -1,5 +1,4 @@
 import Diagram from "./Diagram";
-import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import BusinessContextDiagram from "./businesscontext/BusinessContextDiagram";
 import BusinessUseCaseDiagram from "./businessusecase/BusinessUseCaseDiagram";
 import InformationModelDiagram from "./informationmodel/InformationModelDiagram";
@@ -10,6 +9,7 @@ import UsageSceneDiagram from "./usagescene/UsageSceneDiagram";
 import BusinessFlowDiagram from "./businessflow/BusinessFlowDiagram";
 import UseCaseCompositeDiagram from "./usecasecomposite/UseCaseCompositeDiagram";
 import VariationAndConditionDiagram from "./variationandcondition/VariationAndConditionDiagram";
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import Resources from "@/domain/resource/Resources";
 
 export default class DiagramFactory {

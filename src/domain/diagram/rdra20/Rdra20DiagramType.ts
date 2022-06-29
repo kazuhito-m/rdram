@@ -1,6 +1,10 @@
 import DiagramType from "../type/DiagramType";
 
 export default class Rdra20DiagramType extends DiagramType {
+    constructor(id: number, name: string, iconKey: string) {
+        super(id, name, iconKey);
+    }
+
     static システムコンテキスト図 = new Rdra20DiagramType(1, 'システムコンテキスト図', "mdi-alpha-s-box");
     static 要求モデル図 = new Rdra20DiagramType(2, '要求モデル図', "mdi-alpha-r-box");
     static ビジネスコンテキスト図 = new Rdra20DiagramType(3, 'ビジネスコンテキスト図', "mdi-alpha-c-box");
@@ -11,13 +15,6 @@ export default class Rdra20DiagramType extends DiagramType {
     static 状態モデル図 = new Rdra20DiagramType(6, '状態モデル図', "mdi-state-machine");
     static ユースケース複合図 = new Rdra20DiagramType(7, 'ユースケース複合図', "mdi-set-none");
     static バリエーション条件 = new Rdra20DiagramType(8, 'バリエーション・条件', "mdi-vector-combine");
-
-    static readonly ALL: Rdra20DiagramType[] = [];
-
-    constructor(id: number, name: string, iconKey: string) {
-        super(id, name, iconKey);
-        Rdra20DiagramType.ALL.push(this);
-    }
 
     sameTypeIdOf(typeId: number): boolean {
         return typeId > 0 && typeId <= 1000;

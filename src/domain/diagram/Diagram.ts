@@ -1,10 +1,10 @@
+import DiagramTypes from "./type/DiagramTypes";
 import Relations from "@/domain/relation/Relations";
 import DiagramType from "@/domain/diagram/type/DiagramType";
 import Placement from "@/domain/diagram/placement/Placement";
 import Relation from "@/domain/relation/Relation";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
-import DiagramTypes from "./type/DiagramTypes";
 
 export default abstract class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;
