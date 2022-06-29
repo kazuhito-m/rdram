@@ -3,7 +3,7 @@ import BusinessContextDiagram from "./businesscontext/BusinessContextDiagram";
 import BusinessUseCaseDiagram from "./businessusecase/BusinessUseCaseDiagram";
 import InformationModelDiagram from "./informationmodel/InformationModelDiagram";
 import StateModelDiagram from "./statemodel/StateModelDiagram";
-import SystemContextDiagram from "./systemcontext/SystemContextDiagram";
+import SystemContextDiagram from "./rdra20/systemcontext/SystemContextDiagram";
 import RequestModelDiagram from "./requrestmodel/RequestModelDiagram";
 import UsageSceneDiagram from "./usagescene/UsageSceneDiagram";
 import BusinessFlowDiagram from "./businessflow/BusinessFlowDiagram";

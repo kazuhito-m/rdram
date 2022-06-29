@@ -18,7 +18,7 @@ import Relation from '@/domain/relation/Relation';
 import Scenario from '@/domain/resource/Scenario';
 import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
 
-import SystemContextDiagram from '@/domain/diagram/systemcontext/SystemContextDiagram';
+import SystemContextDiagram from '@/domain/diagram/rdra20/systemcontext/SystemContextDiagram';
 import BusinessContextDiagram from '@/domain/diagram/businesscontext/BusinessContextDiagram'
 import InformationModelDiagram from '@/domain/diagram/informationmodel/InformationModelDiagram';
 import StateModelDiagram from '@/domain/diagram/statemodel/StateModelDiagram';
