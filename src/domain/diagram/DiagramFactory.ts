@@ -7,7 +7,7 @@ import SystemContextDiagram from "./rdra20/systemcontext/SystemContextDiagram";
 import UsageSceneDiagram from "./rdra20/usagescene/UsageSceneDiagram";
 import BusinessFlowDiagram from "./rdra20/businessflow/BusinessFlowDiagram";
 import UseCaseCompositeDiagram from "./rdra20/usecasecomposite/UseCaseCompositeDiagram";
-import VariationAndConditionDiagram from "./variationandcondition/VariationAndConditionDiagram";
+import VariationAndConditionDiagram from "./rdra20/variationandcondition/VariationAndConditionDiagram";
 import RequestModelDiagram from "@/domain/diagram/rdra20/requrestmodel/RequestModelDiagram";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import Resources from "@/domain/resource/Resources";

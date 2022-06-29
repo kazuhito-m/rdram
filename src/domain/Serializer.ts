@@ -27,7 +27,7 @@ import BusinessUseCaseDiagram from '@/domain/diagram/rdra20/businessusecase/Busi
 import BusinessFlowDiagram from '@/domain/diagram/rdra20/businessflow/BusinessFlowDiagram';
 import UsageSceneDiagram from '@/domain/diagram/rdra20/usagescene/UsageSceneDiagram';
 import UseCaseCompositeDiagram from '~/domain/diagram/rdra20/usecasecomposite/UseCaseCompositeDiagram';
-import VariationAndConditionDiagram from '@/domain/diagram/variationandcondition/VariationAndConditionDiagram';
+import VariationAndConditionDiagram from '~/domain/diagram/rdra20/variationandcondition/VariationAndConditionDiagram';
 import Variation from "@/domain/resource/Variation";
 import Condition from "@/domain/resource/Condition";
 import TableTypeCondition from "@/domain/resource/TableTypeCondition";
