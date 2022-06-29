@@ -1,4 +1,4 @@
-import { CanvasGuideType } from "../CanvasGuideType";
+import { CanvasGuideType } from "../../CanvasGuideType";
 import Diagram from "@/domain/diagram/Diagram";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";

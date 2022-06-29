@@ -21,7 +21,7 @@ import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
 import SystemContextDiagram from '@/domain/diagram/rdra20/systemcontext/SystemContextDiagram';
 import BusinessContextDiagram from '@/domain/diagram/rdra20/businesscontext/BusinessContextDiagram'
 import InformationModelDiagram from '@/domain/diagram/informationmodel/InformationModelDiagram';
-import StateModelDiagram from '@/domain/diagram/statemodel/StateModelDiagram';
+import StateModelDiagram from '~/domain/diagram/rdra20/statemodel/StateModelDiagram';
 import RequestModelDiagram from '@/domain/diagram/rdra20/requrestmodel/RequestModelDiagram';
 import BusinessUseCaseDiagram from '@/domain/diagram/rdra20/businessusecase/BusinessUseCaseDiagram';
 import BusinessFlowDiagram from '@/domain/diagram/rdra20/businessflow/BusinessFlowDiagram';
