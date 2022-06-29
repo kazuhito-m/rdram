@@ -31,9 +31,16 @@
       offset-y 
     >
       <template #activator="{ on, attrs }">
-        <v-btn dark small icon v-bind="attrs" v-on="on">
-          <v-icon>{{ canvasGuideType.iconKey }}</v-icon>
-        </v-btn>
+        <div v-bind="attrs" v-on="on">
+          <v-tooltip top open-delay="1000">
+            <template #activator="{ on, attrs }">
+              <v-btn dark small icon v-bind="attrs" v-on="on">
+                <v-icon>{{ canvasGuideType.iconKey }}</v-icon>
+              </v-btn>
+            </template>
+            <span>ガイド形状 : {{ canvasGuideType.caption }}</span>
+          </v-tooltip>
+        </div>
       </template>
 
       <v-list>
