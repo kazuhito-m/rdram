@@ -29,7 +29,7 @@ import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Prompts from '@/components/main/Prompts'
 import StorageRepository from '@/domain/storage/StorageRepository'
 import Diagram from '@/domain/diagram/Diagram'
-import DiagramType from '@/domain/diagram/DiagramType'
+import DiagramType from '@/domain/diagram/type/DiagramType'
 import Product from '@/domain/product/Product'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
 

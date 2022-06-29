@@ -2,8 +2,9 @@ import IconNameArrangeVM from "./IconNameArrangeVM";
 import { BehaviorWhenNameConflict } from "@/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
 import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
-import DiagramType from "@/domain/diagram/DiagramType";
+import DiagramType from "@/domain/diagram/type/DiagramType";
 import Product from "@/domain/product/Product";
+import DiagramTypes from "@/domain/diagram/type/DiagramTypes";
 
 export default class UserArrangeVM {
     constructor(
@@ -98,7 +99,7 @@ export default class UserArrangeVM {
             userArrange.conflictDiagramName.behavior,
             userArrange.isColidedDiagramName(),
             userArrange.conflictDiagramName.sourceId,
-            DiagramType.ofId(userArrange.conflictDiagramName.sourceType) as DiagramType,
+            DiagramTypes.byId(userArrange.conflictDiagramName.sourceType) as DiagramType,
             [],
             product
         );

@@ -1,15 +1,15 @@
 import { Activity, BUC, Business } from "../structure/TangoRdra";
 import Product from "@/domain/product/Product";
-import DiagramType from "@/domain/diagram/DiagramType";
 import Diagram from "@/domain/diagram/Diagram";
 import Resources from "@/domain/resource/Resources";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 
 export default class BusinessesPartMaker {
     public make(product: Product): Business[] {
         return product.diagrams
-            .typeOf(DiagramType.ビジネスユースケース図)
+            .typeOf(Rdra20DiagramType.ビジネスユースケース図)
             .map(diagram => this.makeBusiness(diagram, product));
     }
 
@@ -37,7 +37,7 @@ export default class BusinessesPartMaker {
         } as BUC;
 
         const ucDiagram = product.diagrams
-            .typeOf(DiagramType.ユースケース複合図)
+            .typeOf(Rdra20DiagramType.ユースケース複合図)
             .nameOf(buc.name);
         if (!ucDiagram) return result;
 

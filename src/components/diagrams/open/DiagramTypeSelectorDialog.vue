@@ -62,11 +62,12 @@
 <script lang="ts">
 import { Component, Vue, Inject } from 'vue-property-decorator'
 import StorageRepository from '@/domain/storage/StorageRepository'
-import DiagramType from '@/domain/diagram/DiagramType'
 import Resource from '@/domain/resource/Resource'
 import Product from '@/domain/product/Product'
 import Diagram from '@/domain/diagram/Diagram'
 import Diagrams from '@/domain/diagram/Diagrams'
+import DiagramTypes from '@/domain/diagram/type/DiagramTypes'
+import DiagramType from '@/domain/diagram/type/DiagramType'
 
 @Component
 export default class DiagramTypeSelectorDialog extends Vue {
@@ -132,7 +133,7 @@ export default class DiagramTypeSelectorDialog extends Vue {
   }
 
   private fixedDiagramId(): number {
-    const diagramType = DiagramType.ofId(this.diagramTypeId) as DiagramType
+    const diagramType = DiagramTypes.byId(this.diagramTypeId) as DiagramType
 
     const diagrams = this.findRelateDiagrams(this.resource.resourceId)
     if (diagrams.length === 0)

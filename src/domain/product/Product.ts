@@ -232,7 +232,7 @@ export default class Product {
             .correspondingDiagramTypesOf(resource.type);
     }
 
-    public static hasCorrespondingRdra20DiagramTypeOf(resource: Resource): boolean {
+    public static hasCorrespondingDiagramTypeOf(resource: Resource): boolean {
         return this.corespondResDic()
             .hasCorrespondingDiagramTypeOf(resource.type);
     }
