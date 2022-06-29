@@ -6,7 +6,7 @@
       :diagramId="diagramId"
       :canvasGuideType="canvasGuideType"
       @onChangeZoomBySlider="onChangeZoomBySlider"
-      @onChangeDraw2dCanvasGuideType="onChangeDraw2dCanvasGuideType"
+      @onChangeCanvasGuideType="onChangeCanvasGuideType"
       @onPngDownload="onPngDownload"
       @onSvgDownload="onSvgDownload"
       @onDiagramExport="onDiagramExport"
@@ -242,7 +242,7 @@ export default class DiagramCanvas extends Vue {
     this.fixCanvasPosition()
     this.addCanvasEvent()
     this.drawDiagram(diagram)
-    this.onChangeDraw2dCanvasGuideType(guideType)
+    this.onChangeCanvasGuideType(guideType)
   }
 
   // public by other diarogs
@@ -284,7 +284,7 @@ export default class DiagramCanvas extends Vue {
     this.canvas.setZoom(zoom, false)
   }
 
-  onChangeDraw2dCanvasGuideType(canvasGuideType: Draw2dCanvasGuideType): void {
+  onChangeCanvasGuideType(canvasGuideType: Draw2dCanvasGuideType): void {
     const canvas = this.canvas
     const beforeDraw2dCanvasGuideType = this.canvasGuideType
     if (beforeDraw2dCanvasGuideType.canvasPolicy)
