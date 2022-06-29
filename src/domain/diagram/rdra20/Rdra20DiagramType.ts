@@ -12,6 +12,13 @@ export default class Rdra20DiagramType extends DiagramType {
     static ユースケース複合図 = new Rdra20DiagramType(7, 'ユースケース複合図', "mdi-set-none");
     static バリエーション条件 = new Rdra20DiagramType(8, 'バリエーション・条件', "mdi-vector-combine");
 
+    static readonly ALL: Rdra20DiagramType[] = [];
+
+    constructor(id: number, name: string, iconKey: string) {
+        super(id, name, iconKey);
+        Rdra20DiagramType.ALL.push(this);
+    }
+
     sameTypeIdOf(typeId: number): boolean {
         return typeId > 0 && typeId <= 1000;
     }

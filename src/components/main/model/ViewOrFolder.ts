@@ -1,6 +1,8 @@
 import Range from "@/domain/basic/Range";
-import DiagramType from "@/domain/diagram/DiagramType";
 import Diagram from "@/domain/diagram/Diagram";
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
+import DiagramType from "~/domain/diagram/type/DiagramType";
+import DiagramTypes from "~/domain/diagram/type/DiagramTypes";
 
 export default class ViewOrFolder {
     constructor(
@@ -44,11 +46,11 @@ export default class ViewOrFolder {
         return this.equals(ViewOrFolder.EMPTY);
     }
 
-    rdra20DiagramType(): DiagramType {
+    rdra20DiagramType(): Rdra20DiagramType {
         const range = ViewOrFolder.RDRA20_TYPE_IDS;
         if (!range.in(this.id))
             throw new Error("図フォルダじゃないのにType取得を呼びだした。");
-        return DiagramType.ofId(this.id - range.start) as DiagramType;
+        return DiagramTypes.byId(this.id - range.start) as Rdra20DiagramType;
     }
 
     equals(value: ViewOrFolder): boolean {

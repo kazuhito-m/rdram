@@ -1,9 +1,9 @@
 import Diagram from "@/domain/diagram/Diagram";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
-import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 
 export default class VariationAndConditionDiagram extends Diagram {
     protected constructor(
@@ -45,6 +45,19 @@ export default class VariationAndConditionDiagram extends Diagram {
             0,
             resource.resourceId,
             false,
+        );
+    }
+
+    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideTypeId: number): VariationAndConditionDiagram {
+        return new VariationAndConditionDiagram(
+            id,
+            typeId,
+            name,
+            relations,
+            placements,
+            width,
+            height,
+            canvasGuideTypeId,
         );
     }
 
@@ -130,7 +143,7 @@ export default class VariationAndConditionDiagram extends Diagram {
     public static prototypeOf(newDiagramId: number, name: string): VariationAndConditionDiagram {
         return new VariationAndConditionDiagram(
             newDiagramId,
-            DiagramType.バリエーション条件.id,
+            Rdra20DiagramType.バリエーション条件.id,
             name.trim(),
             [],
             [],

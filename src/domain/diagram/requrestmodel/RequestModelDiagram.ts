@@ -1,9 +1,9 @@
-import Diagram from "@/domain/diagram/Diagram";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
-import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
+import Diagram from "@/domain/diagram/Diagram";
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 
 export default class RequestModelDiagram extends Diagram {
     protected constructor(
@@ -53,6 +53,19 @@ export default class RequestModelDiagram extends Diagram {
             width,
             height,
             resource.resourceId
+        );
+    }
+
+    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideTypeId: number): RequestModelDiagram {
+        return new RequestModelDiagram(
+            id,
+            typeId,
+            name,
+            relations,
+            placements,
+            width,
+            height,
+            canvasGuideTypeId,
         );
     }
 
@@ -138,7 +151,7 @@ export default class RequestModelDiagram extends Diagram {
     public static prototypeOf(newDiagramId: number, name: string): RequestModelDiagram {
         return new RequestModelDiagram(
             newDiagramId,
-            DiagramType.要求モデル図.id,
+            Rdra20DiagramType.要求モデル図.id,
             name.trim(),
             [],
             [],

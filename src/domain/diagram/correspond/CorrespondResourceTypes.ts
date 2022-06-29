@@ -1,5 +1,5 @@
 import ResourceType from "@/domain/resource/ResourceType";
-import DiagramType from "@/domain/diagram/DiagramType";
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 
 /**
  * 図対応するリソースタイプの定義を責務とするクラス。
@@ -8,11 +8,11 @@ import DiagramType from "@/domain/diagram/DiagramType";
  */
 export default class CorrespondResourceTypes {
     private static readonly MAP = new Map([
-        [ResourceType.業務.id, [DiagramType.ビジネスユースケース図]],
-        [ResourceType.ビジネスユースケース.id, [DiagramType.ユースケース複合図, DiagramType.利用シーン図]],
+        [ResourceType.業務.id, [Rdra20DiagramType.ビジネスユースケース図]],
+        [ResourceType.ビジネスユースケース.id, [Rdra20DiagramType.ユースケース複合図, Rdra20DiagramType.利用シーン図]],
     ]);
 
-    public correspondingDiagramTypesOf(resourceType: ResourceType): DiagramType[] {
+    public correspondingDiagramTypesOf(resourceType: ResourceType): Rdra20DiagramType[] {
         const result = CorrespondResourceTypes.MAP.get(resourceType.id);
         if (!result) return [];
         return result.slice();

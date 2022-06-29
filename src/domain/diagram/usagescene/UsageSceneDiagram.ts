@@ -1,7 +1,7 @@
 import Diagram from "@/domain/diagram/Diagram";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
-import DiagramType from "@/domain/diagram/DiagramType";
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 
@@ -57,6 +57,19 @@ export default class UsageSceneDiagram extends Diagram {
             width,
             height,
             resource.resourceId
+        );
+    }
+
+    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideTypeId: number): Diagram {
+        return new UsageSceneDiagram(
+            id,
+            typeId,
+            name,
+            relations,
+            placements,
+            width,
+            height,
+            canvasGuideTypeId,
         );
     }
 
@@ -142,7 +155,7 @@ export default class UsageSceneDiagram extends Diagram {
     public static prototypeOf(newDiagramId: number, name: string): UsageSceneDiagram {
         return new UsageSceneDiagram(
             newDiagramId,
-            DiagramType.利用シーン図.id,
+            Rdra20DiagramType.利用シーン図.id,
             name.trim(),
             [],
             [],

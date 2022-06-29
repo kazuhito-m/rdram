@@ -1,10 +1,10 @@
-import Rdra20DiagramType from "./rdra20/Rdra20DiagramType";
 import Relations from "@/domain/relation/Relations";
-import DiagramType from "@/domain/diagram/DiagramType";
+import DiagramType from "@/domain/diagram/type/DiagramType";
 import Placement from "@/domain/diagram/placement/Placement";
 import Relation from "@/domain/relation/Relation";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
+import DiagramTypes from "./type/DiagramTypes";
 
 export default abstract class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;
@@ -13,7 +13,7 @@ export default abstract class Diagram {
 
     public static readonly DEFAULT_CANVAS_GUIDE_ID = 1; // TODO CavasGuideTypeのEnumをPresentation層からDomain層側に引き剥がして、定数化する。
 
-    protected constructor(
+    constructor(
         public readonly id: number,
         protected readonly typeId: number,
         public readonly name: string,
@@ -193,8 +193,8 @@ export default abstract class Diagram {
             .some(relation => relation.id === relationId)
     }
 
-    public get type(): Rdra20DiagramType {
-        return DiagramType.ofId(this.typeId) as Rdra20DiagramType;
+    public get type(): DiagramType {
+        return DiagramTypes.byId(this.typeId) as DiagramType;
     }
 
     protected ngType(resourceType: ResourceType): boolean {

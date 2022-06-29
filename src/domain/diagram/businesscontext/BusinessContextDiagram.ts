@@ -1,7 +1,7 @@
 import Diagram from "@/domain/diagram/Diagram";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
-import DiagramType from "@/domain/diagram/DiagramType";
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 
@@ -67,6 +67,19 @@ export default class BusinessContextDiagram extends Diagram {
             width,
             height,
             resource.resourceId
+        );
+    }
+
+    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideTypeId: number): BusinessContextDiagram {
+        return new BusinessContextDiagram(
+            id,
+            typeId,
+            name,
+            relations,
+            placements,
+            width,
+            height,
+            canvasGuideTypeId,
         );
     }
 
@@ -152,7 +165,7 @@ export default class BusinessContextDiagram extends Diagram {
     public static prototypeOf(newDiagramId: number, name: string): BusinessContextDiagram {
         return new BusinessContextDiagram(
             newDiagramId,
-            DiagramType.ビジネスコンテキスト図.id,
+            Rdra20DiagramType.ビジネスコンテキスト図.id,
             name.trim(),
             [],
             [],

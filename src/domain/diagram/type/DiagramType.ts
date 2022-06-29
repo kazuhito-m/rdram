@@ -6,7 +6,6 @@ export default abstract class DiagramType {
         public readonly name: string,
         public readonly iconKey: string,
     ) {
-       DiagramTypes.record(this);
     }
 
     equals(other: DiagramType | null): boolean {

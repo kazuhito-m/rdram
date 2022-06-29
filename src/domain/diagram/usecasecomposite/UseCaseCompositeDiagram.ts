@@ -1,7 +1,7 @@
 import Diagram from "@/domain/diagram/Diagram";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
-import DiagramType from "@/domain/diagram/DiagramType";
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 
@@ -32,7 +32,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
         return [
             ResourceType.アクター,
             ResourceType.アクティビティ,
-            ResourceType.ユースケース,            
+            ResourceType.ユースケース,
             ResourceType.情報,
             ResourceType.画面,
             ResourceType.イベント,
@@ -66,6 +66,19 @@ export default class UseCaseCompositeDiagram extends Diagram {
         );
     }
 
+    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideTypeId: number): UseCaseCompositeDiagram {
+        return new UseCaseCompositeDiagram(
+            id,
+            typeId,
+            name,
+            relations,
+            placements,
+            width,
+            height,
+            canvasGuideTypeId,
+        );
+    }
+
     public with(name: string): UseCaseCompositeDiagram {
         return new UseCaseCompositeDiagram(
             this.id,
@@ -92,7 +105,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
         );
     }
 
-    public  replacePlacement(placements: Placement[]): UseCaseCompositeDiagram {
+    public replacePlacement(placements: Placement[]): UseCaseCompositeDiagram {
         return new UseCaseCompositeDiagram(
             this.id,
             this.typeId,
@@ -148,7 +161,7 @@ export default class UseCaseCompositeDiagram extends Diagram {
     public static prototypeOf(newDiagramId: number, name: string): UseCaseCompositeDiagram {
         return new UseCaseCompositeDiagram(
             newDiagramId,
-            DiagramType.ユースケース複合図.id,
+            Rdra20DiagramType.ユースケース複合図.id,
             name.trim(),
             [],
             [],

@@ -11,7 +11,11 @@ export default class DiagramTypes {
     static readonly CUSTOM_TYPES = DiagramTypes.ALL_TYPES
         .filter(t => CustomDiagramType.フリースタイル図.sameTypeIdOf(t.id));
 
-    static record(type: DiagramType): void {
+    public static record(type: DiagramType): void {
         DiagramTypes.ALL_TYPES.push(type);
+    }
+
+    static byId(typeId: number): DiagramType | undefined {
+        return this.ALL_TYPES.find(t => t.id === typeId);
     }
 }
