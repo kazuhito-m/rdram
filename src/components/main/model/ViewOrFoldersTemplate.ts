@@ -58,4 +58,9 @@ export default class ViewOrFoldersTemplate {
             .find(f => diagramType.equals(f.rdra20DiagramType()));
         return folder ? folder.id : 0;
     }
+
+    static analysisNameOf(name: string): ViewOrFolder | undefined {
+        return ViewOrFoldersTemplate.ANALYSIS
+            .find(a => a.name === name);
+    }
 }

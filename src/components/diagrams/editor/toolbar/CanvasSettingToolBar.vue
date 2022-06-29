@@ -142,7 +142,7 @@ export default class CanvasSettingToolBar extends Vue {
     this.canvasZoom = zoom;
   }
 
-  private onResizeEditorPain(event: ResizeObserverEntry[]): void {
+  private onResizeEditorPane(event: ResizeObserverEntry[]): void {
     // FIXME Tabの非アクティブ時に裏で無限呼び出され、することへの対策。今の所「ResizeObzerverを削除」くらいしか手がないが…。
     if (event[0].target.clientHeight === 0) return;
     const toolBar = this.getToolBarElement();
@@ -168,7 +168,7 @@ export default class CanvasSettingToolBar extends Vue {
   private addResizeListenerCanvasContainer(): void {
     const container = this.getCanvasContainer();
     if (!container) return;
-    const observer = new ResizeObserver(this.onResizeEditorPain);
+    const observer = new ResizeObserver(this.onResizeEditorPane);
     observer.observe(container);
   }
 
@@ -286,7 +286,7 @@ export default class CanvasSettingToolBar extends Vue {
     return document.getElementById(this.toolBarId) as HTMLElement;
   }
 
-  private getEditorPain(): HTMLElement | null {
+  private getEditorPane(): HTMLElement | null {
     const parent = this.getToolBarElement().parentElement;
     if (!parent) return null;
     return parent;

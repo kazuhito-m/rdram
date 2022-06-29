@@ -7,8 +7,8 @@
       @onRemovedDiagram="onRemovedDiagram"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     />
-    <TwoPainWithSlideBarLayout>
-      <template #leftPain>
+    <TwoPaneWithSlideBarLayout>
+      <template #leftPane>
         <DiagramsTreePane
           ref="diagramsTreePane"
           @onOpenDiagram="onOpenDiagram"
@@ -16,7 +16,7 @@
           @onRightClick="onTreeRightClick"
         />
       </template>
-      <template #rightPain>
+      <template #rightPane>
         <DiagramsTabPane
           ref="diagramsTabPane"
           :openTabs="openTabs"
@@ -31,7 +31,7 @@
           @onRightClick="onTabRightClick"
         />
       </template>
-    </TwoPainWithSlideBarLayout>
+    </TwoPaneWithSlideBarLayout>
     <DiagramPropertiesEditDialog
       :diagramId="propertiesEditorDiagramId"
       @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import { Component, Vue, Inject, Watch } from "nuxt-property-decorator";
-import TwoPainWithSlideBarLayout from "@/components/twopain/TwoPainWithSlideBarLayout.vue";
+import TwoPaneWithSlideBarLayout from "@/components/twopane/TwoPaneWithSlideBarLayout.vue";
 import DiagramsTreePane from "@/components/main/tree/DiagramsTreePane.vue";
 import DiagramsTabPane from "@/components/main/tab/DiagramsTabPane.vue";
 import ItemRightClickMenu from "@/components/main/menu/ItemRightClickMenu.vue"
@@ -58,7 +58,7 @@ import StorageRepository from "@/domain/storage/StorageRepository";
 
 @Component({
   components: {
-    TwoPainWithSlideBarLayout,
+    TwoPaneWithSlideBarLayout,
     DiagramsTreePane,
     DiagramsTabPane,
     ItemRightClickMenu,
@@ -135,8 +135,8 @@ export default class extends Vue {
 
     if (diagramId === DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID) return;
 
-    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane;
-    treePain.activeItemAndFolderOpen(diagramId);
+    const treePane = this.$refs.diagramsTreePane as DiagramsTreePane;
+    treePane.activeItemAndFolderOpen(diagramId);
   }
 
   onRenamedResource(src: Resource, dest: Resource): void {
@@ -144,8 +144,8 @@ export default class extends Vue {
   }
 
   onChangeCurrentDiagram(diagramId: number): void {
-    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane
-    treePain.activeItemAndFolderOpen(diagramId)
+    const treePane = this.$refs.diagramsTreePane as DiagramsTreePane
+    treePane.activeItemAndFolderOpen(diagramId)
   }
 
   onTreeRightClick(item: ViewOrFolder, x: number, y:number): void {
@@ -159,13 +159,13 @@ export default class extends Vue {
   /// menu click events.
 
   onAddedDiagram(diagram: Diagram): void {
-    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane
-    treePain.addDiagramView(diagram)
+    const treePane = this.$refs.diagramsTreePane as DiagramsTreePane
+    treePane.addDiagramView(diagram)
   }
 
   onRemovedDiagram(diagramId: number): void {
-    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane
-    treePain.removeDiagramView(diagramId)
+    const treePane = this.$refs.diagramsTreePane as DiagramsTreePane
+    treePane.removeDiagramView(diagramId)
   }
 
   // private methods.
@@ -226,13 +226,13 @@ export default class extends Vue {
   }
 
   private reflectTreeAndTabOf(diagrams: Diagram[]): void {
-    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane;
-    treePain.reflectTreeAndTabOf(diagrams);
+    const treePane = this.$refs.diagramsTreePane as DiagramsTreePane;
+    treePane.reflectTreeAndTabOf(diagrams);
   }
 
   private clearSelectedOnTree(): void {
-    const treePain = this.$refs.diagramsTreePane as DiagramsTreePane;
-    treePain.clearSelected();
+    const treePane = this.$refs.diagramsTreePane as DiagramsTreePane;
+    treePane.clearSelected();
   }
 
   private showRightClickMenu(item: ViewOrFolder, x: number, y:number, tabClick: boolean): void {
@@ -243,7 +243,7 @@ export default class extends Vue {
 </script>
 
 <style scoped>
-.pain-container {
+.pane-container {
   display: flex;
   height: 100%;
   width: 100%;
@@ -254,14 +254,14 @@ export default class extends Vue {
   margin-left: unset;
 }
 
-.left-pain {
+.left-pane {
   /* resizeを指定するため 'visible'以外を指定 */
   width: 20%;
   overflow: auto;
   text-align: left;
 }
 
-.right-pain {
+.right-pane {
   flex-grow: 1;
 }
 
