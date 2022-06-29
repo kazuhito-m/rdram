@@ -1,4 +1,4 @@
-import { CanvasGuideType } from "../CanvasGuideType";
+import { CanvasGuideType } from "@/domain/diagram/CanvasGuideType";
 import Diagram from "@/domain/diagram/Diagram";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
@@ -81,85 +81,6 @@ export default class BusinessContextDiagram extends Diagram {
             width,
             height,
             canvasGuideType,
-        );
-    }
-
-    public with(name: string): BusinessContextDiagram {
-        return new BusinessContextDiagram(
-            this.id,
-            this.typeId,
-            name.trim(),
-            this.relations,
-            this.placements,
-            this.width,
-            this.height,
-            this.canvasGuideType,
-        );
-    }
-
-    public replaceRelations(relations: Relation[]): BusinessContextDiagram {
-        return new BusinessContextDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            relations,
-            this.placements,
-            this.width,
-            this.height,
-            this.canvasGuideType,
-        );
-    }
-
-    public replacePlacement(placements: Placement[]): BusinessContextDiagram {
-        return new BusinessContextDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            this.relations,
-            placements,
-            this.width,
-            this.height,
-            this.canvasGuideType,
-        );
-    }
-
-    public resize(width: number, height: number): BusinessContextDiagram {
-        return new BusinessContextDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            this.relations,
-            this.placements,
-            width,
-            height,
-            this.canvasGuideType,
-        );
-    }
-
-    public cloneWith(newDiagramId: number, newName: string): BusinessContextDiagram {
-        return new BusinessContextDiagram(
-            newDiagramId,
-            this.typeId,
-            newName,
-            this.relations.map(relation => relation.clone()),
-            this.placements.map(placement => placement.clone()),
-            this.width,
-            this.height,
-            this.canvasGuideType,
-        );
-    }
-
-    public removeResouceOf(resource: Resource): BusinessContextDiagram {
-        const resourceId = resource.resourceId;
-        return new BusinessContextDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            this.relations.filter(r => !r.isRelatedTo(resourceId)),
-            this.placements.filter(p => p.resourceId !== resourceId),
-            this.width,
-            this.height,
-            this.canvasGuideType,
         );
     }
 

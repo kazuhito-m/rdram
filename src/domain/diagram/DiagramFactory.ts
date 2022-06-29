@@ -1,5 +1,5 @@
 import Diagram from "./Diagram";
-import BusinessContextDiagram from "./businesscontext/BusinessContextDiagram";
+import BusinessContextDiagram from "./rdra20/businesscontext/BusinessContextDiagram";
 import BusinessUseCaseDiagram from "./businessusecase/BusinessUseCaseDiagram";
 import InformationModelDiagram from "./informationmodel/InformationModelDiagram";
 import StateModelDiagram from "./statemodel/StateModelDiagram";
