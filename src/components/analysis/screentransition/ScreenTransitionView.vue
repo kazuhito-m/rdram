@@ -4,7 +4,7 @@
     <v-card flat>
       <v-toolbar dense>
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        画面遷移
+        画面遷移 …は一度挫折しているので未実装です、以下はガワだけのイメージ
         <v-spacer></v-spacer>
         <v-btn icon>
           <v-icon>mdi-magnify</v-icon>
