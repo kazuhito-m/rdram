@@ -162,7 +162,7 @@ export default class BusinessFlowDiagram extends Diagram {
             [],
             768,
             1024,
-            CanvasGuideType.NOTHING,
+            CanvasGuideType.GRID,
         );
     }
 }
