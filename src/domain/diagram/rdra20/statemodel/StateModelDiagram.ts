@@ -1,4 +1,4 @@
-import { CanvasGuideType } from "../../CanvasGuideType";
+import { CanvasGuideType } from "@/domain/diagram/CanvasGuideType";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
@@ -75,85 +75,6 @@ export default class StateModelDiagram extends Rdra20Diagram {
             width,
             height,
             canvasGuideType,
-        );
-    }
-
-    public with(name: string): StateModelDiagram {
-        return new StateModelDiagram(
-            this.id,
-            this.typeId,
-            name.trim(),
-            this.relations,
-            this.placements,
-            this.width,
-            this.height,
-            this.canvasGuideType,
-        );
-    }
-
-    public replacePlacement(placements: Placement[]): StateModelDiagram {
-        return new StateModelDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            this.relations,
-            placements,
-            this.width,
-            this.height,
-            this.canvasGuideType,
-        );
-    }
-
-    public replaceRelations(relations: Relation[]): StateModelDiagram {
-        return new StateModelDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            relations,
-            this.placements,
-            this.width,
-            this.height,
-            this.canvasGuideType,
-        );
-    }
-
-    public resize(width: number, height: number): StateModelDiagram {
-        return new StateModelDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            this.relations,
-            this.placements,
-            width,
-            height,
-            this.canvasGuideType
-        );
-    }
-
-    public cloneWith(newDiagramId: number, newName: string): StateModelDiagram {
-        return new StateModelDiagram(
-            newDiagramId,
-            this.typeId,
-            newName,
-            this.relations.map(relation => relation.clone()),
-            this.placements.map(placement => placement.clone()),
-            this.width,
-            this.height,
-            this.canvasGuideType,
-        );
-    }
-
-    public removeResouceOf(resource: Resource): StateModelDiagram {
-        const resourceId = resource.resourceId;
-        return new StateModelDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            this.relations.filter(r => !r.isRelatedTo(resourceId)),
-            this.placements.filter(p => p.resourceId !== resourceId),
-            this.width,
-            this.height,
-            this.canvasGuideType,
         );
     }
 
