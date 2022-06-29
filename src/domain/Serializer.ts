@@ -22,7 +22,7 @@ import SystemContextDiagram from '@/domain/diagram/rdra20/systemcontext/SystemCo
 import BusinessContextDiagram from '@/domain/diagram/businesscontext/BusinessContextDiagram'
 import InformationModelDiagram from '@/domain/diagram/informationmodel/InformationModelDiagram';
 import StateModelDiagram from '@/domain/diagram/statemodel/StateModelDiagram';
-import RequestModelDiagram from '@/domain/diagram/requrestmodel/RequestModelDiagram';
+import RequestModelDiagram from '~/domain/diagram/rdra20/requrestmodel/RequestModelDiagram';
 import BusinessUseCaseDiagram from '@/domain/diagram/businessusecase/BusinessUseCaseDiagram';
 import BusinessFlowDiagram from '@/domain/diagram/businessflow/BusinessFlowDiagram';
 import UsageSceneDiagram from '@/domain/diagram/usagescene/UsageSceneDiagram';

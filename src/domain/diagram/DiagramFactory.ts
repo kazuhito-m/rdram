@@ -4,11 +4,11 @@ import BusinessUseCaseDiagram from "./businessusecase/BusinessUseCaseDiagram";
 import InformationModelDiagram from "./informationmodel/InformationModelDiagram";
 import StateModelDiagram from "./statemodel/StateModelDiagram";
 import SystemContextDiagram from "./rdra20/systemcontext/SystemContextDiagram";
-import RequestModelDiagram from "./requrestmodel/RequestModelDiagram";
 import UsageSceneDiagram from "./usagescene/UsageSceneDiagram";
 import BusinessFlowDiagram from "./businessflow/BusinessFlowDiagram";
 import UseCaseCompositeDiagram from "./usecasecomposite/UseCaseCompositeDiagram";
 import VariationAndConditionDiagram from "./variationandcondition/VariationAndConditionDiagram";
+import RequestModelDiagram from "@/domain/diagram/rdra20/requrestmodel/RequestModelDiagram";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import Resources from "@/domain/resource/Resources";
 
