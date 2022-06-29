@@ -1,6 +1,6 @@
 import CustomDiagramType from "../custom/CustomDiagramType";
-import DiagramType from "./DiagramType";
 import Rdra20DiagramType from "../rdra20/Rdra20DiagramType";
+import DiagramType from "./DiagramType";
 
 export default class DiagramTypes {
     static readonly ALL_TYPES: DiagramType[] = [];
