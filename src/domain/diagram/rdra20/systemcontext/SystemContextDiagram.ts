@@ -5,8 +5,9 @@ import Resources from "@/domain/resource/Resources";
 import Resource from "@/domain/resource/Resource";
 import Diagram from "@/domain/diagram/Diagram";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
+import Rdra20Diagram from "@/domain/diagram/rdra20/Rdra20Diagram";
 
-export default class SystemContextDiagram extends Diagram {
+export default class SystemContextDiagram extends Rdra20Diagram {
     protected constructor(
         id: number,
         typeId: number,
