@@ -8,7 +8,7 @@ export default class IconNameArrangeVM {
         public readonly srcName: string,
         public destName: string,
         private _behavior: BehaviorWhenNameConflict,
-        private readonly sourceId: number,
+        public readonly sourceId: number,
         public readonly resourceType: ResourceType,
         private parent: UserArrangeVM
     ) { }

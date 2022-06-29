@@ -31,7 +31,7 @@ export default class UserArrangeVM {
             this.srcDiagramName,
             new ConflictNameBehavior(
                 this._behavior,
-                this.srcDiagramName,
+                this.isConfrictDiagramName ? this.srcDiagramName : "",
                 this.destDiagramName,
                 this.sourceId,
                 this.diagramType.id
