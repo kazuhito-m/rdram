@@ -1,12 +1,27 @@
 <template>
-  <div class="diagram-pain-container">
-    <TwoPainWithSlideBarLayout adsorptionLeftWhenDoubleClick="true" defaultLeftPainWidth="80%">
-      <template #leftPain>
+  <div class="diagram-pane-container">
+    <!-- editor or menu parts -->
+    <ResourceEditDialog
+      ref="resourceEditDialog"
+      :diagramId="diagramId"
+      @onUpdatedResource="onUpdatedResource"
+    />
+    <ResourceRightClickMenu 
+      ref="resourceRightClickMenu"
+      @onEditResource="onEditResource"
+      @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
+      @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
+    />
+    <!-- main pane -->
+    <TwoPaneWithSlideBarLayout adsorptionRightWhenDoubleClick="true" defaultLeftPaneWidth="80%">
+      <template #leftPane>
         <DiagramCanvas
+          ref="diagramCanvas"
           :diagramId="diagramId"
           :product="product"
           :usedResouceIds="usedResouceIds"
-          :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+          :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
           :iconMap="iconMap"
           :eventAnalyzer="eventAnalyzer"
@@ -15,20 +30,22 @@
           @onMergePlacement="onMergePlacement"
           @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
           @onShowWarnBar="onShowWarnBar"
+          @onEditResource="onEditResource"
+          @onShowResourceMenu="onShowResourceMenu"
+          @onOpenResourceEditorWhenCreate="onOpenResourceEditorWhenCreate"
+          @onShowConnectorMenu="onShowConnectorMenu"
         />
       </template>
-      <template #rightPain>
+      <template #rightPane>
         <ResourceParet
           :diagramId="diagramId"
-          :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+          :allResources="allResources"
           :usedResouceIds="usedResouceIds"
           :product="product"
-          @onDeleteResourceOnDiagram="onDeleteResourceOnDiagram"
-          @onDeleteResourceOnProduct="onDeleteResourceOnProduct"
+          @onShowResourceMenu="onShowResourceMenu"
         />
       </template>
-    </TwoPainWithSlideBarLayout>
-
+    </TwoPaneWithSlideBarLayout>
     <v-snackbar v-model="warnBar" timeout="2000">
       {{ warnMessage }}
       <template #action="{ attrs }">
@@ -47,9 +64,11 @@ import {
   Emit
 } from "nuxt-property-decorator";
 
-import TwoPainWithSlideBarLayout from "@/components/TwoPainWithSlideBarLayout.vue";
+import ResourceRightClickMenu from "./ResourceRightClickMenu.vue";
+import TwoPaneWithSlideBarLayout from "@/components/twopane/TwoPaneWithSlideBarLayout.vue";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import ResourceParet from "@/components/diagrams/editor/template/paret/ResourceParet.vue";
+import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
 
 import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
 import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
@@ -59,83 +78,96 @@ import StorageRepository from "@/domain/storage/StorageRepository";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
+import ResourceType from "@/domain/resource/ResourceType";
 import Placement from "@/domain/diagram/placement/Placement";
 
 @Component({
   components: {
-    TwoPainWithSlideBarLayout,
+    TwoPaneWithSlideBarLayout,
     DiagramCanvas,
-    ResourceParet
+    ResourceParet,
+    ResourceEditDialog,
+    ResourceRightClickMenu,
   }
 })
 export default class DiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
-  private readonly diagramId!: number;
+  readonly diagramId!: number;
 
   @Prop({ required: true })
-  private readonly allResourcesOnCurrentProduct!: Resource[];
+  readonly allResources!: Resource[];
 
   @Prop({ required: true })
-  private readonly lastPropertiesUpdatedDiagramId!: number;
+  readonly lastPropertiesUpdatedDiagramId!: number;
 
   @Prop({ required: true })
-  private readonly eventAnalyzer!: EventAnalyzer;
+  readonly eventAnalyzer!: EventAnalyzer;
 
   @Prop({ required: true })
-  private readonly iconGenerators!: IconGenerator<Resource>[];
+  readonly iconGenerators!: IconGenerator<Resource>[];
 
   // Emits
 
   @Emit("onUpdateResources")
-  private onUpdateResources(): void {}
+  onUpdateResources(): void {}
 
   @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
-  public created(): void {
-    this.product = this.getCurrentProduct();
-  }
+  @Emit("onOpenDiagramOfResourceRelate")
+  onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+
+  @Emit("onRenamedResource")
+  onRenamedResource(_src: Resource, _dest: Resource): void {}
 
   // this class properties
 
   @Inject()
   private repository!: StorageRepository;
 
-  private readonly usedResouceIds: number[] = [];
-  private readonly iconMap: { [key: string]: IconFontAndChar } = {};
-  private product!: Product;
+  readonly usedResouceIds: number[] = [];
+  readonly iconMap: { [key: string]: IconFontAndChar } = {};
+  product!: Product;
 
-  private warnBar: boolean = false;
-  private warnMessage: string = "";
+  warnBar: boolean = false;
+  warnMessage: string = "";
 
   // Vue events(life cycle events)
 
-  public mounted() {
-    const diagram = this.product.diagrams.of(this.diagramId) as Diagram;
-    this.intializeIconCharMap(diagram);
+  created(): void {
+    this.product = this.getCurrentProduct();
   }
 
-  private onShowWarnBar(text: string): void {
-    this.warnMessage = text;
-    this.warnBar = true;
+  mounted() {
+    this.intializeIconCharMap(this.diagram());
   }
 
   // children component events.
 
-  private onDeleteResourceOnDiagram(resourceId: number): void {
+  async onEditResource(resourceId: number): Promise<void> {
+    const resource = await this.resourceEditDialog().showForModifyOf(resourceId);
+    if (resource.isEmpty()) return;
+
+    const srcResource = this.reflectResourcesOnViewModel(resource);
+    if (!srcResource) return;
+
+    this.onRenamedResource(srcResource, resource);
+  }
+
+  onDeleteResourceOnDiagram(resourceId: number): void {
     const diagram = this.deleteResourceOnDiagram(resourceId);
     if (!diagram) return;
     this.onMergePlacement(diagram.placements);
   }
 
-  private onDeleteResourceOnProduct(resourceId: number): void {
+  onDeleteResourceOnProduct(resourceId: number): void {
     this.deleteResourceOnProduct(resourceId);
     this.onUpdateResources();
   }
 
-  private onMergePlacement(diffTarget: Placement[]) {
+  onMergePlacement(diffTarget: Placement[]) {
     const usedResouceIds = this.usedResouceIds;
     const idSet = new Set(diffTarget.map(p => p.resourceId));
     for (let i = usedResouceIds.length - 1; i >= 0; i--) {
@@ -146,7 +178,50 @@ export default class DiagramEditor extends Vue {
     idSet.forEach(id => usedResouceIds.push(id));
   }
 
+  onShowResourceMenu(resource: Resource, x: number, y: number): void {
+    const diagramCanvas = this.$refs.diagramCanvas as DiagramCanvas;
+    diagramCanvas.visibleConnectorMenu = false;
+
+    const resourceMenu = this.$refs.resourceRightClickMenu as ResourceRightClickMenu;
+    resourceMenu.show(resource, this.diagram(), x, y); // TODO 右クリックメニューを表示する度にローカルストレージを呼ぶのをやめたい
+  }
+
+  onShowConnectorMenu(): void {
+    const resourceMenu = this.$refs.resourceRightClickMenu as ResourceRightClickMenu;
+    resourceMenu.close();
+  }
+
+  async onOpenResourceEditorWhenCreate(resourceType: ResourceType): Promise<void> {
+    const resource = await this.resourceEditDialog().showForCreateNew(resourceType);
+    if (resource.isEmpty()) return;
+    this.onUpdatedResource(resource)
+  }
+
+  onUpdatedResource(resource: Resource): void {
+    const diagramCanvas = this.$refs.diagramCanvas as DiagramCanvas;
+    diagramCanvas.addPlacement(resource);
+    this.onUpdateResources();
+  }
+
+  onShowWarnBar(text: string): void {
+    this.warnMessage = text;
+    this.warnBar = true;
+  }
+
   // private methods.
+
+  private getCurrentProduct(): Product {
+    return this.repository.getCurrentProduct() as Product;
+  }
+
+  private diagram(): Diagram {
+    const product = this.getCurrentProduct();
+    return product.diagrams.of(this.diagramId) as Diagram;
+  }
+
+  private resourceEditDialog(): ResourceEditDialog {
+    return this.$refs.resourceEditDialog as ResourceEditDialog;
+  }
 
   private deleteResourceOnDiagram(resourceId: number): Diagram | null {
     const product = this.getCurrentProduct();
@@ -166,7 +241,7 @@ export default class DiagramEditor extends Vue {
     return modifiedDiagram;
   }
 
-  public confirmResourceDelete(
+  private confirmResourceDelete(
     resourceIds: number[],
     diagram: Diagram
   ): boolean {
@@ -176,20 +251,24 @@ export default class DiagramEditor extends Vue {
     return confirm(message);
   }
 
-  private getCurrentProduct(): Product {
-    return this.repository.getCurrentProduct() as Product;
-  }
-
   private deleteResourceOnProduct(resourceId: number): void {
     const product = this.getCurrentProduct();
     const resource = product.resources.of(resourceId);
+    const thisDiagram = product.diagrams.of(this.diagramId);
     if (!resource) return;
 
-    const usedCount = product.diagrams.countOfUsingOf(resource);
-    if (usedCount > 0) {
+    const usings = product.diagrams.using(resource);
+    if (usings.length > 0) {
+      let diagramInfo = `${usings.length}個の図`;
+      if (usings.length === 1) {
+        const diagram = usings.last();
+        diagramInfo = diagram.id === thisDiagram?.id
+          ? "この図のみ"
+          : `「${diagram.name}(${diagram.type.name})」`
+      }
       const message =
-        `「${resource.name}」は、現在 ${usedCount}個 のダイアグラムで参照されています。\n` +
-        "削除する場合、それらのダイアログのアイコンや関連のすべては削除されます。\n" +
+        `「${resource.name}」は現在、${diagramInfo}で参照されています。\n` +
+        "削除する場合、図のアイコンや関連のすべては削除されます。\n" +
         `${resource.name} を削除してもよろしいですか。`;
       if (!window.confirm(message)) return;
     }
@@ -217,6 +296,18 @@ export default class DiagramEditor extends Vue {
     };
   }
 
+  private reflectResourcesOnViewModel(resource: Resource): Resource | null {
+    const resources = this.allResources;
+    const i = resources
+      .findIndex(r => r.resourceId === resource.resourceId);
+    if (i < 0) return null;
+
+    const beforeResoruce = resources[i];
+    resources.splice(i, 1);
+    resources.push(resource);
+    return beforeResoruce;
+  }
+
   private dumpDiagram(diagram: Diagram, prefix: string) {
     console.log(`---- ${prefix} Diagram情報 start ----`);
     diagram.placements.forEach(i => console.log(`位置;${i.resourceId}`));
@@ -229,7 +320,7 @@ export default class DiagramEditor extends Vue {
 </script>
 
 <style type="sass" scoped>
-.diagram-pain-container {
+.diagram-pane-container {
   display: flex;
   position: absolute;
   height: 100%;

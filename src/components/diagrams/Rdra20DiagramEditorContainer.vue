@@ -1,0 +1,184 @@
+<template>
+  <div>
+    <SystemContextDiagramEditor
+      v-if="is('システムコンテキスト図')"
+      :diagramId="diagram.id"
+      :allResources="allResources"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+      @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onRenamedResource="onRenamedResource"
+    />
+    <RequestModelDiagramEditor
+      v-if="is('要求モデル図')"
+      :diagramId="diagram.id"
+      :allResources="allResources"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+      @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onRenamedResource="onRenamedResource"
+    />
+    <BusinessContextDiagramEditor
+      v-if="is('ビジネスコンテキスト図')"
+      :diagramId="diagram.id"
+      :allResources="allResources"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+      @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onRenamedResource="onRenamedResource"
+    />
+    <BusinessUseCaseDiagramEditor
+      v-if="is('ビジネスユースケース図')"
+      :diagramId="diagram.id"
+      :allResources="allResources"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+      @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onRenamedResource="onRenamedResource"
+    />
+    <BusinessFlowDiagramEditor
+      v-if="is('業務フロー図')"
+      :diagramId="diagram.id"
+      :allResources="allResources"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+      @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onRenamedResource="onRenamedResource"
+    />
+    <UsageSceneDiagramEditor
+      v-if="is('利用シーン図')"
+      :diagramId="diagram.id"
+      :allResources="allResources"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+      @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onRenamedResource="onRenamedResource"
+    />
+    <InfomationModelEditor
+      v-if="is('情報モデル図')"
+      :diagramId="diagram.id"
+      :allResources="allResources"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+      @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onRenamedResource="onRenamedResource"
+    />
+    <StateModelEditor
+      v-if="is('状態モデル図')"
+      :diagramId="diagram.id"
+      :allResources="allResources"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+      @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onRenamedResource="onRenamedResource"
+    />
+    <UseCaseCompositeDiagramEditor
+      v-if="is('ユースケース複合図')"
+      :diagramId="diagram.id"
+      :allResources="allResources"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+      @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onRenamedResource="onRenamedResource"
+    />
+    <VariationAndConditionDiagramEditor
+      v-if="is('バリエーション・条件')"
+      :diagramId="diagram.id"
+      :allResources="allResources"
+      :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+      @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+      @onRenamedResource="onRenamedResource"
+    />
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Prop, Inject, Emit } from 'nuxt-property-decorator'
+import BusinessContextDiagramEditor from '@/components/diagrams/editor/businesscontextdiagram/BusinessContextDiagramEditor.vue'
+import BusinessUseCaseDiagramEditor from '@/components/diagrams/editor/businessusecasediagram/BusinessUseCaseDiagramEditor.vue'
+import BusinessFlowDiagramEditor from '@/components/diagrams/editor/businessflowdiagram/BusinessFlowDiagramEditor.vue'
+import UsageSceneDiagramEditor from '@/components/diagrams/editor/usagescenediagram/UsageSceneDiagramEditor.vue'
+import SystemContextDiagramEditor from '@/components/diagrams/editor/systemcontextdiagram/SystemContextDiagramEditor.vue'
+import RequestModelDiagramEditor from '@/components/diagrams/editor/requrestmodel/RequestModelDiagramEditor.vue'
+import InfomationModelEditor from '@/components/diagrams/editor/infomationmodel/InfomationModelEditor.vue'
+import StateModelEditor from '@/components/diagrams/editor/statemodel/StateModelEditor.vue'
+import UseCaseCompositeDiagramEditor from '@/components/diagrams/editor/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue'
+import VariationAndConditionDiagramEditor from '@/components/diagrams/editor/variationandcondition/VariationAndConditionDiagramEditor.vue'
+import Diagram from '@/domain/diagram/Diagram'
+import Resource from '@/domain/resource/Resource'
+import StorageRepository from '@/domain/storage/StorageRepository'
+
+@Component({
+  components: {
+    SystemContextDiagramEditor,
+    RequestModelDiagramEditor,
+    BusinessContextDiagramEditor,
+    BusinessUseCaseDiagramEditor,
+    BusinessFlowDiagramEditor,
+    UsageSceneDiagramEditor,
+    InfomationModelEditor,
+    StateModelEditor,
+    UseCaseCompositeDiagramEditor,
+    VariationAndConditionDiagramEditor,
+  },
+})
+export default class Rdra20DiagramEditorContainer extends Vue {
+  @Inject()
+  readonly repository!: StorageRepository
+
+  @Prop({ required: true })
+  readonly diagramId!: number
+
+  @Prop({ required: true })
+  allResources?: Resource[]
+
+  @Prop({ required: true })
+  lastPropertiesUpdatedDiagramId?: number
+
+  @Emit('onOpendDiagramPropertiesEditor')
+  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+
+  @Emit('onOpenDiagramOfResourceRelate')
+  onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+
+  @Emit('onRenamedResource')
+  onRenamedResource(_src: Resource, _dest: Resource): void {}
+
+  @Emit('onUpdateResoucesOnContainer')
+  onUpdateResoucesOnContainer(): void {}
+
+  diagram?: Diagram
+
+  public created(): void {
+    this.diagram = this.diagramOf(this.diagramId)
+  }
+
+  onUpdateResoucesOnEditor(): void {
+    this.onUpdateResoucesOnContainer()
+  }
+
+  diagramOf(diagramId: number): Diagram | undefined {
+    const product = this.repository.getCurrentProduct()
+    if (!product) return undefined
+    return product.diagrams.of(diagramId)
+  }
+
+  is(typeName: string): boolean {
+    if (!this.diagram) return false
+    return this.diagram.type.name === typeName
+  }
+}
+</script>
+
+<style></style>

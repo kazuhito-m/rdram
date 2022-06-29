@@ -1,73 +1,80 @@
 <template>
   <DiagramEditor
     :diagramId="diagramId"
-    :allResourcesOnCurrentProduct="allResourcesOnCurrentProduct"
+    :allResources="allResources"
     :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
     :eventAnalyzer="eventAnalyzer"
     :iconGenerators="iconGenerators"
     @onUpdateResources="onUpdateResources"
     @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+    @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+    @onRenamedResource="onRenamedResource"
   />
 </template>
 
 <script lang="ts">
-import { Prop, Component, Vue, Emit } from "nuxt-property-decorator";
-import DiagramEditor from "@/components/diagrams/editor/template/DiagramEditor.vue";
+import { Prop, Component, Vue, Emit } from 'nuxt-property-decorator'
+import DiagramEditor from '@/components/diagrams/editor/template/DiagramEditor.vue'
 
-import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
-import GenericConnectPortsEvents from "@/components/diagrams/editor/template/event/events/GenericConnectPortsEvents";
-import GemerocDeleteShapeEvents from "@/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents";
-import GenericMoveShapeEvents from "@/components/diagrams/editor/template/event/events/GenericMoveShapeEvents";
-import GenericResizeShapeEvents from "@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents";
+import EventAnalyzer from '@/components/diagrams/editor/template/event/EventAnalyzer'
+import GenericConnectPortsEvents from '@/components/diagrams/editor/template/event/events/GenericConnectPortsEvents'
+import GemerocDeleteShapeEvents from '@/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents'
+import GenericMoveShapeEvents from '@/components/diagrams/editor/template/event/events/GenericMoveShapeEvents'
+import GenericResizeShapeEvents from '@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents'
 
-import IconGenerator from "@/components/diagrams/icon/IconGenerator";
-import ActorIconGenerator from "@/components/diagrams/editor/template/icon/ActorIconGenerator";
-import RequestIconGenerator from "@/components/diagrams/editor/template/icon/RequestIconGenerator";
-import RequirementIconGenerator from "@/components/diagrams/editor/template/icon/RequirementIconGenerator";
+import IconGenerator from '@/components/diagrams/icon/IconGenerator'
+import ActorIconGenerator from '@/components/diagrams/editor/template/icon/ActorIconGenerator'
+import RequestIconGenerator from '@/components/diagrams/editor/template/icon/RequestIconGenerator'
+import RequirementIconGenerator from '@/components/diagrams/editor/template/icon/RequirementIconGenerator'
 
-import Resource from "@/domain/resource/Resource";
+import Resource from '@/domain/resource/Resource'
 
 @Component({
   components: {
-    DiagramEditor
-  }
+    DiagramEditor,
+  },
 })
 export default class RequestModelDiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
-  private readonly diagramId!: number;
+  readonly diagramId!: number
 
   @Prop({ required: true })
-  private readonly allResourcesOnCurrentProduct!: Resource[];
- 
+  readonly allResources!: Resource[]
+
   @Prop({ required: true })
-  private readonly lastPropertiesUpdatedDiagramId?: number;
+  readonly lastPropertiesUpdatedDiagramId?: number
 
   // This class fields;
 
-  private readonly eventAnalyzer = new EventAnalyzer([
+  readonly eventAnalyzer = new EventAnalyzer([
     new GemerocDeleteShapeEvents(),
     new GenericConnectPortsEvents(),
     new GenericMoveShapeEvents(),
-    new GenericResizeShapeEvents()
-  ]);
+    new GenericResizeShapeEvents(),
+  ])
 
-  private readonly iconGenerators: IconGenerator<Resource>[] = [
+  readonly iconGenerators: IconGenerator<Resource>[] = [
     new ActorIconGenerator(),
     new RequestIconGenerator(),
-    new RequirementIconGenerator()
-  ];
+    new RequirementIconGenerator(),
+  ]
 
   // Emits
 
-  @Emit("onUpdateResources")
-  private onUpdateResources(): void {}
+  @Emit('onUpdateResources')
+  onUpdateResources(): void {}
 
-  @Emit("onOpendDiagramPropertiesEditor")
-  private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+  @Emit('onOpendDiagramPropertiesEditor')
+  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+
+  @Emit('onOpenDiagramOfResourceRelate')
+  onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+
+  @Emit('onRenamedResource')
+  onRenamedResource(_src: Resource, _dest: Resource): void {}
 }
 </script>
 
-<style>
-</style>
+<style></style>

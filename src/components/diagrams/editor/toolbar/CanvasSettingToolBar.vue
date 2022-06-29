@@ -93,9 +93,6 @@ export default class CanvasSettingToolBar extends Vue {
   private readonly diagramId!: number;
 
   @Prop({ required: true })
-  private readonly canvasZoom!: number;
-
-  @Prop({ required: true })
   private canvasGuideType!: CanvasGuideType;
 
   @Emit("onChangeCanvasGuideType")
@@ -118,6 +115,8 @@ export default class CanvasSettingToolBar extends Vue {
   private dragStartLayerX = 0;
   private dragStartLayerY = 0;
 
+  private canvasZoom = 1;
+
   private lastContainerWidth = 0;
   private lastContainerHeight = 0;
 
@@ -139,9 +138,11 @@ export default class CanvasSettingToolBar extends Vue {
   }
 
   @Emit("onChangeZoomBySlider")
-  private onChangeZoomParent(_zoom: number) {}
+  private onChangeZoomParent(zoom: number) {
+    this.canvasZoom = zoom;
+  }
 
-  private onResizeEditorPain(event: ResizeObserverEntry[]): void {
+  private onResizeEditorPane(event: ResizeObserverEntry[]): void {
     // FIXME Tabの非アクティブ時に裏で無限呼び出され、することへの対策。今の所「ResizeObzerverを削除」くらいしか手がないが…。
     if (event[0].target.clientHeight === 0) return;
     const toolBar = this.getToolBarElement();
@@ -167,7 +168,7 @@ export default class CanvasSettingToolBar extends Vue {
   private addResizeListenerCanvasContainer(): void {
     const container = this.getCanvasContainer();
     if (!container) return;
-    const observer = new ResizeObserver(this.onResizeEditorPain);
+    const observer = new ResizeObserver(this.onResizeEditorPane);
     observer.observe(container);
   }
 
@@ -285,7 +286,7 @@ export default class CanvasSettingToolBar extends Vue {
     return document.getElementById(this.toolBarId) as HTMLElement;
   }
 
-  private getEditorPain(): HTMLElement | null {
+  private getEditorPane(): HTMLElement | null {
     const parent = this.getToolBarElement().parentElement;
     if (!parent) return null;
     return parent;
@@ -303,7 +304,7 @@ export default class CanvasSettingToolBar extends Vue {
 .canvas-float-toolbar {
   /* position:fixed; */
   /* height: 50px; */
-  width: 500px;
+  width: 520px;
   left: 2%;
   top: -10%;
   display: block;

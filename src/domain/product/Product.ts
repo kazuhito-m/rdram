@@ -9,6 +9,7 @@ import ResourceFactory from '@/domain/resource/ResourceFactory';
 import DiagramType from '@/domain/diagram/DiagramType';
 import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
 import Relation from '@/domain/relation/Relation';
+import CorrespondResourceTypes from "@/domain/diagram/correspond/CorrespondResourceTypes";
 
 export default class Product {
     constructor(
@@ -23,7 +24,7 @@ export default class Product {
 
     public relationable(relation: Relation, diagramId: number): string {
         const diagram = this.diagrams.of(diagramId);
-        if (!diagram) return "指定されたダイアグラムがありません。";
+        if (!diagram) return "指定された図がありません。";
 
         const relationPlus = this.resources.relationWithResourcesOf(relation);
         if (!relationPlus) return "対応するリソースがありません。";
@@ -66,9 +67,17 @@ export default class Product {
         return "";
     }
 
+    public meageDiagramsByIdOf(newDiagrams: Diagram[]): Product {
+        const initialDiagrams = this.diagrams;
+        const mergedDiagrams = newDiagrams.reduce(
+            (diagrams, diagram) => diagrams.mergeByIdOf(diagram),
+            initialDiagrams
+        );
+        return this.withDiagrams(mergedDiagrams);
+    }
+
     public meageDiagramByIdOf(newDiagram: Diagram): Product {
-        const newDiagrams = this.diagrams.mergeByIdOf(newDiagram);
-        return this.withDiagrams(newDiagrams);
+        return this.meageDiagramsByIdOf([newDiagram]);
     }
 
     public meageResourceOf(newResource: Resource): Product {
@@ -202,6 +211,34 @@ export default class Product {
         const useRecourceIds = diagram.placements
             .map(placement => placement.resourceId);
         return this.resources.findOf(useRecourceIds);
+    }
+
+    public relateDiagramsOf(resource: Resource): Diagrams {
+        const diagramTypes = Product.correspondingDiagramTypesOf(resource);
+        return this.diagrams.typesOf(...diagramTypes)
+            .findByNameOf(resource.name);
+    }
+
+    public diagramsOfResourceRelate(resourceId: number): Diagrams {
+        const resource = this.resources.of(resourceId);
+        if (!resource) return Diagrams.empty();
+        return this.relateDiagramsOf(resource);
+    }
+
+    // utility methods.
+
+    public static correspondingDiagramTypesOf(resource: Resource): DiagramType[] {
+        return this.corespondResDic()
+            .correspondingDiagramTypesOf(resource.type);
+    }
+
+    public static hasCorrespondingDiagramTypeOf(resource: Resource): boolean {
+        return this.corespondResDic()
+            .hasCorrespondingDiagramTypeOf(resource.type);
+    }
+
+    private static corespondResDic(): CorrespondResourceTypes {
+        return new CorrespondResourceTypes();
     }
 
     // factory methods
