@@ -1,12 +1,12 @@
-import { CanvasGuideType } from "../CanvasGuideType";
-import Diagram from "@/domain/diagram/Diagram";
+import { CanvasGuideType } from "@/domain/diagram/CanvasGuideType";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
+import Rdra20Diagram from "@/domain/diagram/rdra20/Rdra20Diagram";
 
-export default class BusinessUseCaseDiagram extends Diagram {
+export default class BusinessUseCaseDiagram extends Rdra20Diagram {
     protected constructor(
         id: number,
         typeId: number,
@@ -83,85 +83,6 @@ export default class BusinessUseCaseDiagram extends Diagram {
             width,
             height,
             canvasGuideType,
-        );
-    }
-
-    public with(name: string): BusinessUseCaseDiagram {
-        return new BusinessUseCaseDiagram(
-            this.id,
-            this.typeId,
-            name.trim(),
-            this.relations,
-            this.placements,
-            this.width,
-            this.height,
-            this.canvasGuideType,
-        );
-    }
-
-    public replaceRelations(relations: Relation[]): BusinessUseCaseDiagram {
-        return new BusinessUseCaseDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            relations,
-            this.placements,
-            this.width,
-            this.height,
-            this.canvasGuideType,
-        );
-    }
-
-    public replacePlacement(placements: Placement[]): BusinessUseCaseDiagram {
-        return new BusinessUseCaseDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            this.relations,
-            placements,
-            this.width,
-            this.height,
-            this.canvasGuideType,
-        );
-    }
-
-    public resize(width: number, height: number): BusinessUseCaseDiagram {
-        return new BusinessUseCaseDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            this.relations,
-            this.placements,
-            width,
-            height,
-            this.canvasGuideType,
-        );
-    }
-
-    public cloneWith(newDiagramId: number, newName: string): BusinessUseCaseDiagram {
-        return new BusinessUseCaseDiagram(
-            newDiagramId,
-            this.typeId,
-            newName,
-            this.relations.map(relation => relation.clone()),
-            this.placements.map(placement => placement.clone()),
-            this.width,
-            this.height,
-            this.canvasGuideType,
-        );
-    }
-
-    public removeResouceOf(resource: Resource): BusinessUseCaseDiagram {
-        const resourceId = resource.resourceId;
-        return new BusinessUseCaseDiagram(
-            this.id,
-            this.typeId,
-            this.name,
-            this.relations.filter(r => !r.isRelatedTo(resourceId)),
-            this.placements.filter(p => p.resourceId !== resourceId),
-            this.width,
-            this.height,
-            this.canvasGuideType,
         );
     }
 
