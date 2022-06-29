@@ -1,12 +1,12 @@
-import Relations from "../relation/Relations";
+import Rdra20DiagramType from "./rdra20/Rdra20DiagramType";
+import Relations from "@/domain/relation/Relations";
 import DiagramType from "@/domain/diagram/DiagramType";
 import Placement from "@/domain/diagram/placement/Placement";
 import Relation from "@/domain/relation/Relation";
-import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
-import Resources from "@/domain/resource/Resources";
+import ResourceType from "@/domain/resource/ResourceType";
 
-export default class Diagram {
+export default abstract class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;
     public static readonly MAX_WIDTH = 7680;
     public static readonly MAX_HEIGHT = 4320;
@@ -22,16 +22,22 @@ export default class Diagram {
         public readonly width: number,
         public readonly height: number,
         public readonly canvasGuideTypeId: number,
-    ) {
-    }
+    ) { }
 
-    public availableResourceTypes(): ResourceType[] {
-        return [];
-    }
+    public abstract availableResourceTypes(): ResourceType[];
 
-    public createPlacement(_resource: Resource, _left: number, _top: number): Placement | null {
-        throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
-    }
+    protected abstract renew(
+        id: number,
+        typeId: number,
+        name: string,
+        relations: Relation[],   // TODO Relationsに置き換えたい
+        placements: Placement[],
+        width: number,
+        height: number,
+        canvasGuideTypeId: number,
+    ): Diagram;
+
+    public abstract createPlacement(resource: Resource, left: number, top: number): Placement | null;
 
     public createPlacementAtCenter(resource: Resource): Placement | null {
         const newPlacement = this.createPlacement(resource, 0, 0);
@@ -70,6 +76,32 @@ export default class Diagram {
 
     public renameOf(newName: string): Diagram {
         return this.cloneWith(this.id, newName);
+    }
+
+    public replaceRelations(relations: Relation[]): Diagram {
+        return this.renew(
+            this.id,
+            this.typeId,
+            this.name,
+            relations,
+            this.placements,
+            this.width,
+            this.height,
+            this.canvasGuideTypeId,
+        );
+    }
+
+    public replacePlacement(placements: Placement[]): Diagram {
+        return this.renew(
+            this.id,
+            this.typeId,
+            this.name,
+            this.relations,
+            placements,
+            this.width,
+            this.height,
+            this.canvasGuideTypeId,
+        );
     }
 
     public modifyPlacementOf(placement: Placement): Diagram {
@@ -125,14 +157,6 @@ export default class Diagram {
         return this.replacePlacement(newValues);
     }
 
-    public replaceRelations(_relations: Relation[]): Diagram {
-        throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
-    }
-
-    public replacePlacement(_placements: Placement[]): Diagram {
-        throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
-    }
-
     public sameOf(other: Diagram) {
         return this.type.equals(other.type)
             && this.name === other.name;
@@ -169,8 +193,8 @@ export default class Diagram {
             .some(relation => relation.id === relationId)
     }
 
-    public get type(): DiagramType {
-        return DiagramType.ofId(this.typeId) as DiagramType;
+    public get type(): Rdra20DiagramType {
+        return DiagramType.ofId(this.typeId) as Rdra20DiagramType;
     }
 
     protected ngType(resourceType: ResourceType): boolean {
@@ -183,7 +207,7 @@ export default class Diagram {
     }
 
     public with(name: string): Diagram {
-        return new Diagram(
+        return this.renew(
             this.id,
             this.typeId,
             name.trim(),
@@ -196,7 +220,7 @@ export default class Diagram {
     }
 
     public resize(width: number, height: number): Diagram {
-        return new Diagram(
+        return this.renew(
             this.id,
             this.typeId,
             this.name,
@@ -209,7 +233,7 @@ export default class Diagram {
     }
 
     public cloneWith(newDiagramId: number, newName: string): Diagram {
-        return new Diagram(
+        return this.renew(
             newDiagramId,
             this.typeId,
             newName,
@@ -240,7 +264,7 @@ export default class Diagram {
 
     public removeResouceOf(resource: Resource): Diagram {
         const resourceId = resource.resourceId;
-        return new Diagram(
+        return this.renew(
             this.id,
             this.typeId,
             this.name,
@@ -249,19 +273,6 @@ export default class Diagram {
             this.width,
             this.height,
             this.canvasGuideTypeId,
-        );
-    }
-
-    public static genericPrototypeOf(newDiagramId: number, name: string, diagramType: DiagramType, _resources: Resources): Diagram {
-        return new Diagram(
-            newDiagramId,
-            diagramType.id,
-            name.trim(),
-            [],
-            [],
-            1024,
-            768,
-            Diagram.DEFAULT_CANVAS_GUIDE_ID,
         );
     }
 }
