@@ -6,7 +6,7 @@
       :diagramId="diagramId"
       :canvasGuideType="canvasGuideType"
       @onChangeZoomBySlider="onChangeZoomBySlider"
-      @onChangeCanvasGuideType="onChangeCanvasGuideType"
+      @onChangeDraw2dCanvasGuideType="onChangeDraw2dCanvasGuideType"
       @onPngDownload="onPngDownload"
       @onSvgDownload="onSvgDownload"
       @onDiagramExport="onDiagramExport"
@@ -50,7 +50,7 @@ import CanvasSettingToolBar from '@/components/diagrams/editor/toolbar/CanvasSet
 import ConnectorRightClickMenuAndEditor from '@/components/diagrams/editor/template/canvas/ConnectorRightClickMenuAndEditor.vue'
 
 import EventAnalyzer from '@/components/diagrams/editor/template/event/EventAnalyzer'
-import CanvasGuideType from '@/components/diagrams/editor/toolbar/CanvasGuideType'
+import Draw2dCanvasGuideType from '@/components/diagrams/editor/toolbar/Draw2dCanvasGuideType'
 import RouterTypeDraw2dConverter from '@/components/diagrams/editor/template/RouterTypeDraw2dConverter'
 import IconGenerator from '@/components/diagrams/icon/IconGenerator'
 import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar'
@@ -118,7 +118,7 @@ export default class DiagramCanvas extends Vue {
 
   private canvas!: draw2d.Canvas
   canvasId!: string
-  canvasGuideType = CanvasGuideType.なし
+  canvasGuideType = Draw2dCanvasGuideType.なし
 
   private lastResourcesCache: Map<number, Resource> | null = null
 
@@ -236,13 +236,13 @@ export default class DiagramCanvas extends Vue {
     const diagram = this.product?.diagrams.of(this.diagramId)
     if (!diagram) return
 
-    const guideType = CanvasGuideType.ofId(diagram.canvasGuideTypeId)
+    const guideType = Draw2dCanvasGuideType.ofId(diagram.canvasGuideTypeId)
 
     this.showCanvas()
     this.fixCanvasPosition()
     this.addCanvasEvent()
     this.drawDiagram(diagram)
-    this.onChangeCanvasGuideType(guideType)
+    this.onChangeDraw2dCanvasGuideType(guideType)
   }
 
   // public by other diarogs
@@ -284,11 +284,11 @@ export default class DiagramCanvas extends Vue {
     this.canvas.setZoom(zoom, false)
   }
 
-  onChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {
+  onChangeDraw2dCanvasGuideType(canvasGuideType: Draw2dCanvasGuideType): void {
     const canvas = this.canvas
-    const beforeCanvasGuideType = this.canvasGuideType
-    if (beforeCanvasGuideType.canvasPolicy)
-      canvas.uninstallEditPolicy(beforeCanvasGuideType.canvasPolicy)
+    const beforeDraw2dCanvasGuideType = this.canvasGuideType
+    if (beforeDraw2dCanvasGuideType.canvasPolicy)
+      canvas.uninstallEditPolicy(beforeDraw2dCanvasGuideType.canvasPolicy)
     if (canvasGuideType.canvasPolicy)
       canvas.installEditPolicy(canvasGuideType.canvasPolicy)
     // 「何故か、背景が真っ黒になってしまう」対策。ちょーーっとだけリサイズする。

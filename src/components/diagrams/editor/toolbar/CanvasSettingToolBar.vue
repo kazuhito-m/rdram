@@ -79,7 +79,7 @@ import { Prop, Component, Vue, Emit } from "nuxt-property-decorator";
 import { ResizeObserverEntry } from "resize-observer/lib/ResizeObserverEntry";
 import { ResizeObserver } from "resize-observer";
 import CanvasZoomSlider from "./CanvasZoomSlider.vue";
-import CanvasGuideType from "./CanvasGuideType";
+import Draw2dCanvasGuideType from "./Draw2dCanvasGuideType";
 
 @Component({
   components: {
@@ -93,13 +93,13 @@ export default class CanvasSettingToolBar extends Vue {
   private readonly diagramId!: number;
 
   @Prop({ required: true })
-  private canvasGuideType!: CanvasGuideType;
+  canvasGuideType!: Draw2dCanvasGuideType;
 
   @Emit("onChangeCanvasGuideType")
-  private onChangeCanvasGuideType(_canvasGuideType: CanvasGuideType): void {}
+  private onChangeCanvasGuideType(_canvasGuideType: Draw2dCanvasGuideType): void {}
 
   @Emit("onPngDownload")
-  private onPngDownload(): void {}
+  onPngDownload(): void {}
 
   @Emit("onSvgDownload")
   private onSvgDownLoad(): void {}
@@ -110,12 +110,12 @@ export default class CanvasSettingToolBar extends Vue {
   @Emit("onOpendDiagramPropertiesEditor")
   private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
-  private toolBarId!: string;
-  private toolBarCollapse = true;
+  toolBarId!: string;
+  toolBarCollapse = true;
   private dragStartLayerX = 0;
   private dragStartLayerY = 0;
 
-  private canvasZoom = 1;
+  canvasZoom = 1;
 
   private lastContainerWidth = 0;
   private lastContainerHeight = 0;
@@ -133,7 +133,7 @@ export default class CanvasSettingToolBar extends Vue {
     this.moveToolBarOnFirstPosition();
   }
 
-  private onChangeZoom(zoom: number) {
+  onChangeZoom(zoom: number) {
     this.onChangeZoomParent(zoom);
   }
 
@@ -161,7 +161,7 @@ export default class CanvasSettingToolBar extends Vue {
     this.lastContainerHeight = c.clientHeight;
   }
 
-  private onDblClickZoomPercentage(): void {
+  onDblClickZoomPercentage(): void {
     this.onChangeZoomParent(1);
   }
 
@@ -189,12 +189,12 @@ export default class CanvasSettingToolBar extends Vue {
     style.top = `${top}px`;
   }
 
-  private onMouseDownToolBar(event: any) {
+  onMouseDownToolBar(event: any) {
     this.dragStartLayerX = event.layerX;
     this.dragStartLayerY = event.layerY;
   }
 
-  private onDragStartToolBar(event: DragEvent): void {
+  onDragStartToolBar(event: DragEvent): void {
     event.dataTransfer?.setData("text", this.toolBarId);
   }
 
@@ -244,7 +244,7 @@ export default class CanvasSettingToolBar extends Vue {
   /**
    * バーを畳む時「左畳み」ではなく「右畳み」にする。
    */
-  private onClickBarCollapseToggle(): void {
+  onClickBarCollapseToggle(): void {
     const toolBar = this.getToolBarElement();
     const beforeWidth = toolBar.offsetWidth;
     this.toolBarCollapse = !this.toolBarCollapse;
@@ -255,29 +255,29 @@ export default class CanvasSettingToolBar extends Vue {
     });
   }
 
-  private calcZoomPercentage(): string {
+  calcZoomPercentage(): string {
     return `${Math.floor(100 / this.canvasZoom)}%`;
   }
 
-  private canvasGuideTypes(): CanvasGuideType[] {
-    return CanvasGuideType.values().filter(
+  canvasGuideTypes(): Draw2dCanvasGuideType[] {
+    return Draw2dCanvasGuideType.values().filter(
       type => !type.equals(this.canvasGuideType)
     );
   }
 
-  private onClickChangeCanvasGuideType(canvasGuideType: CanvasGuideType): void {
+  onClickChangeCanvasGuideType(canvasGuideType: Draw2dCanvasGuideType): void {
     this.onChangeCanvasGuideType(canvasGuideType);
   }
 
-  private onClickSvgDownload(): void {
+  onClickSvgDownload(): void {
     this.onSvgDownLoad();
   }
 
-  private onClickDiagramExport(): void {
+  onClickDiagramExport(): void {
     this.onDiagramExport();
   }
 
-  private onClickEditDiagramProperties(): void {
+  onClickEditDiagramProperties(): void {
     this.onOpendDiagramPropertiesEditor(this.diagramId);
   }
 
