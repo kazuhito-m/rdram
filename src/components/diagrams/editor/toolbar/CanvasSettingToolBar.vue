@@ -33,6 +33,7 @@
       <template #activator="{ on, attrs }">
         <div v-bind="attrs" v-on="on">
           <v-tooltip top open-delay="1000">
+            <!-- eslint-disable-next-line vue/no-template-shadow -->
             <template #activator="{ on, attrs }">
               <v-btn dark small icon v-bind="attrs" v-on="on">
                 <v-icon>{{ canvasGuideType.iconKey }}</v-icon>
