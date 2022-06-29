@@ -2,7 +2,7 @@ import draw2d from "draw2d";
 import { CanvasGuideType } from "~/domain/diagram/CanvasGuideType";
 
 export default class Draw2dCanvasGuideType {
-    private static readonly vs: Draw2dCanvasGuideType[] = [];
+    private static readonly vs: any[] = [];
 
     static なし = new Draw2dCanvasGuideType(CanvasGuideType.NOTHING, "mdi-grid-off", "なし(白地)", null);
     static グリッド = new Draw2dCanvasGuideType(CanvasGuideType.GRID, "mdi-grid", "グリッド(方眼・格子状)", new draw2d.policy.canvas.SnapToGridEditPolicy());

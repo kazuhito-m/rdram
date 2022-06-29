@@ -1,12 +1,11 @@
+import { CanvasGuideType } from "../../CanvasGuideType";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resources from "@/domain/resource/Resources";
 import Resource from "@/domain/resource/Resource";
-import Diagram from "@/domain/diagram/Diagram";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import Rdra20Diagram from "@/domain/diagram/rdra20/Rdra20Diagram";
-import { CanvasGuideType } from "../../CanvasGuideType";
 
 export default class SystemContextDiagram extends Rdra20Diagram {
     protected constructor(

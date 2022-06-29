@@ -1,10 +1,10 @@
+import { CanvasGuideType } from "../CanvasGuideType";
 import Diagram from "@/domain/diagram/Diagram";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
-import { CanvasGuideType } from "../CanvasGuideType";
 
 export default class UsageSceneDiagram extends Diagram {
     protected constructor(
