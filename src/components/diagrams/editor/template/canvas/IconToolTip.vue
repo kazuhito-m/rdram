@@ -4,11 +4,11 @@
       v-model="visible"
       top
       absolute
-      z-index="1"
+      z-index="3"
       :position-x="positionX"
       :position-y="positionY"
     >
-      <span>
+      <span @click="close()">
         <div>種類 : {{ type.name }}</div>
         <div v-if="description.length > 0">
           <!-- eslint-disable-next-line vue/no-v-html -->
