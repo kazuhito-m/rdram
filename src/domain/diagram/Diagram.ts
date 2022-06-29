@@ -205,19 +205,6 @@ export default abstract class Diagram {
         return new Relations(this.relations.slice())
     }
 
-    public with(name: string): Diagram {
-        return this.renew(
-            this.id,
-            this.typeId,
-            name.trim(),
-            this.relations,
-            this.placements,
-            this.width,
-            this.height,
-            this.canvasGuideType,
-        );
-    }
-
     public resize(width: number, height: number): Diagram {
         return this.renew(
             this.id,
