@@ -25,7 +25,7 @@ import StateModelDiagram from '@/domain/diagram/statemodel/StateModelDiagram';
 import RequestModelDiagram from '@/domain/diagram/rdra20/requrestmodel/RequestModelDiagram';
 import BusinessUseCaseDiagram from '@/domain/diagram/rdra20/businessusecase/BusinessUseCaseDiagram';
 import BusinessFlowDiagram from '@/domain/diagram/rdra20/businessflow/BusinessFlowDiagram';
-import UsageSceneDiagram from '@/domain/diagram/usagescene/UsageSceneDiagram';
+import UsageSceneDiagram from '@/domain/diagram/rdra20/usagescene/UsageSceneDiagram';
 import UseCaseCompositeDiagram from '@/domain/diagram/usecasecomposite/UseCaseCompositeDiagram';
 import VariationAndConditionDiagram from '@/domain/diagram/variationandcondition/VariationAndConditionDiagram';
 import Variation from "@/domain/resource/Variation";

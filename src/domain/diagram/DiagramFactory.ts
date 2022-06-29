@@ -4,7 +4,7 @@ import BusinessUseCaseDiagram from "./rdra20/businessusecase/BusinessUseCaseDiag
 import InformationModelDiagram from "./informationmodel/InformationModelDiagram";
 import StateModelDiagram from "./statemodel/StateModelDiagram";
 import SystemContextDiagram from "./rdra20/systemcontext/SystemContextDiagram";
-import UsageSceneDiagram from "./usagescene/UsageSceneDiagram";
+import UsageSceneDiagram from "./rdra20/usagescene/UsageSceneDiagram";
 import BusinessFlowDiagram from "./rdra20/businessflow/BusinessFlowDiagram";
 import UseCaseCompositeDiagram from "./usecasecomposite/UseCaseCompositeDiagram";
 import VariationAndConditionDiagram from "./variationandcondition/VariationAndConditionDiagram";

@@ -1,12 +1,12 @@
-import { CanvasGuideType } from "../CanvasGuideType";
-import Diagram from "@/domain/diagram/Diagram";
+import { CanvasGuideType } from "@/domain/diagram/CanvasGuideType";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
+import Rdra20Diagram from "@/domain/diagram/rdra20/Rdra20Diagram";
 
-export default class UsageSceneDiagram extends Diagram {
+export default class UsageSceneDiagram extends Rdra20Diagram {
     protected constructor(
         id: number,
         typeId: number,
@@ -61,7 +61,7 @@ export default class UsageSceneDiagram extends Diagram {
         );
     }
 
-    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideType: CanvasGuideType): Diagram {
+    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideType: CanvasGuideType): UsageSceneDiagram {
         return new UsageSceneDiagram(
             id,
             typeId,
