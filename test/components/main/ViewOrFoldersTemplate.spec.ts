@@ -1,5 +1,5 @@
 import ViewOrFoldersTemplate from "@/components/main/model/ViewOrFoldersTemplate";
-import DiagramTypes from "~/domain/diagram/type/DiagramTypes";
+import DiagramTypes from "@/domain/diagram/type/DiagramTypes";
 
 describe('ViewOrFoldersTemplate', () => {
     test('テンプレートと成るツリーから「唯一」となる全件リストを取得できる', () => {
