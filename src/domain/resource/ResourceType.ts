@@ -1,7 +1,7 @@
 import { IconShape } from "./IconShape";
 
 export default class ResourceType {
-    private static readonly vs: any[] = [];
+    private static readonly ALL: any[] = [];
 
     static システム = of(1, 'システム', 'mdi-desktop-mac-dashboard', 0, 0, [IconShape.その他カスタム]);
     static 自社システム = of(2, '自社システム', 'mdi-desktop-tower-monitor');
@@ -64,7 +64,7 @@ export default class ResourceType {
         public readonly defaultHeight: number,
         public readonly iconShapes: IconShape[]
     ) {
-        ResourceType.vs.push(this);
+        ResourceType.ALL.push(this);
     }
 
     public equals(other: ResourceType | null): boolean {
@@ -73,11 +73,11 @@ export default class ResourceType {
     }
 
     public static values(): ResourceType[] {
-        return ResourceType.vs;
+        return ResourceType.ALL;
     }
 
     public static ofId(id: number): ResourceType | undefined {
-        return this.vs
+        return this.ALL
             .find(item => item.id === id);
     }
 }
