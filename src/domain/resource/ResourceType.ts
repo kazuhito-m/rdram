@@ -9,7 +9,7 @@ export default class ResourceType {
     static 目的 = of(4, '目的', 'mdi-bullseye-arrow', 0, 0, [IconShape.記述]);
     static アクター = of(5, 'アクター', 'mdi-account', 0, 0, [IconShape.シンプル, IconShape.その他カスタム]);
 
-    static 要求 = of(6, '要求', 'mdi-hand-heart-outline', 0, 0, [IconShape.記述]);
+    static 要求 = of(6, '要求', 'mdi-hand-heart-outline', 200, 37, [IconShape.記述]);
     static 要件 = of(7, '要件', 'mdi-handshake-outline', 200, 37, [IconShape.記述]);
 
     static 業務 = of(8, '業務', 'mdi-cog-outline', 105, 35, [IconShape.サークル]);
@@ -24,7 +24,7 @@ export default class ResourceType {
     static 条件 = of(17, '条件', 'mdi-call-split', 0, 0, [IconShape.表形式, IconShape.シンプル]);
 
     static 利用シーン = of(25, '利用シーン', 'mdi-video-account');
-    static シナリオ = of(32, 'シナリオ', 'mdi-script-text-outline', 350, 75, [IconShape.記述]);
+    static シナリオ = of(32, 'シナリオ', 'mdi-script-text-outline', 300, 75, [IconShape.記述]);
     static ユースケース = of(23, 'ユースケース', 'mdi-alpha-u-circle-outline', 105, 35, [IconShape.サークル]);
 
     static 情報 = of(18, '情報', 'mdi-text-box-outline');

@@ -39,26 +39,9 @@ export default class BusinessFlowDiagram extends Rdra20Diagram {
     }
 
     public createPlacement(resource: Resource, left: number, top: number): Placement | null {
-        if (this.ngType(resource.type)) return null;
-
-        let width = 0;
-        let height = 0;
-        const resType = resource.type;
-        if (ResourceType.アクター.equals(resType)) {
-            width = 280;
-            height = 700;
-        }
-        if (ResourceType.ユースケース.equals(resType)) {
-            width = 105;
-            height = 35;
-        }
-        return new Placement(
-            left,
-            top,
-            width,
-            height,
-            resource.resourceId
-        );
+        const placement = super.createPlacement(resource, left, top);
+        if (!placement || !ResourceType.アクター.equals(resource.type)) return placement;
+        return placement!.resize(280, 700);
     }
 
     protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideType: CanvasGuideType): BusinessFlowDiagram {
