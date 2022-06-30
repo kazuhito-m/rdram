@@ -10,7 +10,7 @@ import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
 import { BehaviorWhenNameConflict } from "@/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
 import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
-import DiagramType from "@/domain/diagram/DiagramType";
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
 
 describe('DiagramImportService', () => {
@@ -53,7 +53,7 @@ describe('DiagramImportService', () => {
     test('ユーザがリソースへ「既存」(何も変更せず/default)を指定し、成功する。', async () => {
       // 準備
       const product = Product.prototypeOf("SampleSystem")
-        .createAndAddDiagram("FOR_TEST", DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
+        .createAndAddDiagram("FOR_TEST", Rdra20DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
 
       const mockStorageRepository = new MockStorageRepository(product);
       const sut = new DiagramImportService(mockStorageRepository, new FileSystemDatasouce());
@@ -122,7 +122,7 @@ describe('DiagramImportService', () => {
     test('ユーザがリソースへ「置換」指定し、成功する。', async () => {
       // 準備
       const product = Product.prototypeOf("SampleSystem")
-        .createAndAddDiagram("FOR_TEST", DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
+        .createAndAddDiagram("FOR_TEST", Rdra20DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
 
       const mockStorageRepository = new MockStorageRepository(product);
       const sut = new DiagramImportService(mockStorageRepository, new FileSystemDatasouce());
@@ -176,7 +176,7 @@ describe('DiagramImportService', () => {
     test('ユーザがリソースへ「別名」指定し、成功する。', async () => {
       // 準備
       const product = Product.prototypeOf("SampleSystem")
-        .createAndAddDiagram("FOR_TEST", DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
+        .createAndAddDiagram("FOR_TEST", Rdra20DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
 
       const mockStorageRepository = new MockStorageRepository(product);
       const sut = new DiagramImportService(mockStorageRepository, new FileSystemDatasouce());
@@ -240,7 +240,7 @@ describe('DiagramImportService', () => {
     test('ユーザが図へ「別名」指定し、成功する。', async () => {
       // 準備
       const product = Product.prototypeOf("SampleSystem")
-        .createAndAddDiagram("FOR_TEST", DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
+        .createAndAddDiagram("FOR_TEST", Rdra20DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
 
       const mockStorageRepository = new MockStorageRepository(product);
       const sut = new DiagramImportService(mockStorageRepository, new FileSystemDatasouce());
@@ -272,7 +272,7 @@ describe('DiagramImportService', () => {
 
       const diagrams = modifiedProduct.diagrams;
       expect(diagrams.length).toEqual(2); // 「別名」を指定したので一つ増える。
-      const diagramExists = diagrams.existsSameTypeAndName("FOR_TESTという図名が重複したので置換した名前", DiagramType.システムコンテキスト図);
+      const diagramExists = diagrams.existsSameTypeAndName("FOR_TESTという図名が重複したので置換した名前", Rdra20DiagramType.システムコンテキスト図);
       expect(diagramExists).toEqual(true);
 
       expect(passedArrange).not.toBeNull();
@@ -283,7 +283,7 @@ describe('DiagramImportService', () => {
     test('ユーザにキャンセルされた場合。', async () => {
       // 準備
       const product = Product.prototypeOf("SampleSystem")
-        .createAndAddDiagram("FOR_TEST", DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
+        .createAndAddDiagram("FOR_TEST", Rdra20DiagramType.システムコンテキスト図); // システムアイコン置いたシステムコンテキスト図一つだけのプロダクト
 
       const mockStorageRepository = new MockStorageRepository(product);
       const sut = new DiagramImportService(mockStorageRepository, new FileSystemDatasouce());

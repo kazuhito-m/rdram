@@ -1,11 +1,11 @@
 import { StateGroup, UseCase, State } from '@/domain/tangordra/export/structure/TangoRdra';
 import Diagram from '@/domain/diagram/Diagram';
-import DiagramType from '@/domain/diagram/DiagramType';
 import Product from '@/domain/product/Product';
 import Relation from '@/domain/relation/Relation';
 import Resources from '@/domain/resource/Resources';
 import ResourceType from '@/domain/resource/ResourceType';
-import Resource from '~/domain/resource/Resource';
+import Resource from '@/domain/resource/Resource';
+import Rdra20DiagramType from '@/domain/diagram/rdra20/Rdra20DiagramType';
 
 export default class StatusPartMaker {
     public make(product: Product): StateGroup[] {
@@ -14,7 +14,7 @@ export default class StatusPartMaker {
         const usecases = allResources.typeOf(ResourceType.ユースケース);
 
         return product.diagrams
-            .typeOf(DiagramType.状態モデル図)
+            .typeOf(Rdra20DiagramType.状態モデル図)
             .map(diagram => this.makeStateGroup(diagram, states, usecases))
             .filter(stateGroup => stateGroup.value.length > 0);
     }

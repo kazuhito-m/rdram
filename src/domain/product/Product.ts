@@ -6,7 +6,7 @@ import Diagram from '@/domain/diagram/Diagram';
 import Resource from '@/domain/resource/Resource';
 import ResourceType from '@/domain/resource/ResourceType';
 import ResourceFactory from '@/domain/resource/ResourceFactory';
-import DiagramType from '@/domain/diagram/DiagramType';
+import Rdra20DiagramType from '@/domain/diagram/rdra20/Rdra20DiagramType';
 import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
 import Relation from '@/domain/relation/Relation';
 import CorrespondResourceTypes from "@/domain/diagram/correspond/CorrespondResourceTypes";
@@ -188,7 +188,7 @@ export default class Product {
         return this.withResources(addedResources);
     }
 
-    public createAndAddDiagram(name: string, diagramType: DiagramType): Product {
+    public createAndAddDiagram(name: string, diagramType: Rdra20DiagramType): Product {
         const diagrams = this.diagrams;
         const diagram = diagrams.createNewDiagram(name, diagramType, this.resources);
         const addedDiagrams = diagrams.add(diagram);
@@ -227,7 +227,7 @@ export default class Product {
 
     // utility methods.
 
-    public static correspondingDiagramTypesOf(resource: Resource): DiagramType[] {
+    public static correspondingDiagramTypesOf(resource: Resource): Rdra20DiagramType[] {
         return this.corespondResDic()
             .correspondingDiagramTypesOf(resource.type);
     }

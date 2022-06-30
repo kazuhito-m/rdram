@@ -1,19 +1,18 @@
-import Relations from "../relation/Relations";
-import DiagramType from "@/domain/diagram/DiagramType";
+import DiagramTypes from "./type/DiagramTypes";
+import { CanvasGuideType } from "./CanvasGuideType";
+import Relations from "@/domain/relation/Relations";
+import DiagramType from "@/domain/diagram/type/DiagramType";
 import Placement from "@/domain/diagram/placement/Placement";
 import Relation from "@/domain/relation/Relation";
-import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
-import Resources from "@/domain/resource/Resources";
+import ResourceType from "@/domain/resource/ResourceType";
 
-export default class Diagram {
+export default abstract class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;
     public static readonly MAX_WIDTH = 7680;
     public static readonly MAX_HEIGHT = 4320;
 
-    public static readonly DEFAULT_CANVAS_GUIDE_ID = 1; // TODO CavasGuideTypeのEnumをPresentation層からDomain層側に引き剥がして、定数化する。
-
-    protected constructor(
+    constructor(
         public readonly id: number,
         protected readonly typeId: number,
         public readonly name: string,
@@ -21,16 +20,33 @@ export default class Diagram {
         public readonly placements: Placement[],
         public readonly width: number,
         public readonly height: number,
-        public readonly canvasGuideTypeId: number,
-    ) {
-    }
+        public readonly canvasGuideType: CanvasGuideType,
+    ) { }
 
-    public availableResourceTypes(): ResourceType[] {
-        return [];
-    }
+    public abstract availableResourceTypes(): ResourceType[];
 
-    public createPlacement(_resource: Resource, _left: number, _top: number): Placement | null {
-        throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
+    protected abstract renew(
+        id: number,
+        typeId: number,
+        name: string,
+        relations: Relation[],   // TODO Relationsに置き換えたい
+        placements: Placement[],
+        width: number,
+        height: number,
+        canvasGuideType: CanvasGuideType,
+    ): Diagram;
+
+    public createPlacement(resource: Resource, left: number, top: number): Placement | null {
+        const type = resource.type;
+        if (this.ngType(type)) return null;
+        return new Placement(
+            left,
+            top,
+            type.defaultWidth,
+            type.defaultHeight,
+            resource.resourceId,
+            false,
+        );
     }
 
     public createPlacementAtCenter(resource: Resource): Placement | null {
@@ -70,6 +86,32 @@ export default class Diagram {
 
     public renameOf(newName: string): Diagram {
         return this.cloneWith(this.id, newName);
+    }
+
+    public replaceRelations(relations: Relation[]): Diagram {
+        return this.renew(
+            this.id,
+            this.typeId,
+            this.name,
+            relations,
+            this.placements,
+            this.width,
+            this.height,
+            this.canvasGuideType,
+        );
+    }
+
+    public replacePlacement(placements: Placement[]): Diagram {
+        return this.renew(
+            this.id,
+            this.typeId,
+            this.name,
+            this.relations,
+            placements,
+            this.width,
+            this.height,
+            this.canvasGuideType,
+        );
     }
 
     public modifyPlacementOf(placement: Placement): Diagram {
@@ -125,14 +167,6 @@ export default class Diagram {
         return this.replacePlacement(newValues);
     }
 
-    public replaceRelations(_relations: Relation[]): Diagram {
-        throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
-    }
-
-    public replacePlacement(_placements: Placement[]): Diagram {
-        throw new Error('このメソッドが呼ばれるのはおかしいです。サブクラスで実装してください。');
-    }
-
     public sameOf(other: Diagram) {
         return this.type.equals(other.type)
             && this.name === other.name;
@@ -170,7 +204,7 @@ export default class Diagram {
     }
 
     public get type(): DiagramType {
-        return DiagramType.ofId(this.typeId) as DiagramType;
+        return DiagramTypes.byId(this.typeId) as DiagramType;
     }
 
     protected ngType(resourceType: ResourceType): boolean {
@@ -182,21 +216,8 @@ export default class Diagram {
         return new Relations(this.relations.slice())
     }
 
-    public with(name: string): Diagram {
-        return new Diagram(
-            this.id,
-            this.typeId,
-            name.trim(),
-            this.relations,
-            this.placements,
-            this.width,
-            this.height,
-            this.canvasGuideTypeId,
-        );
-    }
-
     public resize(width: number, height: number): Diagram {
-        return new Diagram(
+        return this.renew(
             this.id,
             this.typeId,
             this.name,
@@ -204,12 +225,12 @@ export default class Diagram {
             this.placements,
             width,
             height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 
     public cloneWith(newDiagramId: number, newName: string): Diagram {
-        return new Diagram(
+        return this.renew(
             newDiagramId,
             this.typeId,
             newName,
@@ -217,7 +238,7 @@ export default class Diagram {
             this.placements.map(placement => placement.clone()),
             this.width,
             this.height,
-            this.canvasGuideTypeId,
+            this.canvasGuideType,
         );
     }
 
@@ -240,7 +261,7 @@ export default class Diagram {
 
     public removeResouceOf(resource: Resource): Diagram {
         const resourceId = resource.resourceId;
-        return new Diagram(
+        return this.renew(
             this.id,
             this.typeId,
             this.name,
@@ -248,20 +269,7 @@ export default class Diagram {
             this.placements.filter(p => p.resourceId !== resourceId),
             this.width,
             this.height,
-            this.canvasGuideTypeId,
-        );
-    }
-
-    public static genericPrototypeOf(newDiagramId: number, name: string, diagramType: DiagramType, _resources: Resources): Diagram {
-        return new Diagram(
-            newDiagramId,
-            diagramType.id,
-            name.trim(),
-            [],
-            [],
-            1024,
-            768,
-            Diagram.DEFAULT_CANVAS_GUIDE_ID,
+            this.canvasGuideType,
         );
     }
 }

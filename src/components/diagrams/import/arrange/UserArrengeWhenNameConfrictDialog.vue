@@ -182,8 +182,9 @@
           color="green darken-1"
           :disabled="!validated"
           @click="onOkClick"
-          >OK</v-btn
         >
+          OK
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -195,8 +196,8 @@ import Behaviors from './Behaviors'
 import UserArrangeVM from './UserArrangeVM'
 import IconNameArrangeVM from './IconNameArrangeVM'
 import UserArrangeOfImportDiagram from '@/domain/diagram/import/userarrange/UserArrangeOfImportDiagram'
-import StorageRepository from '~/domain/storage/StorageRepository'
-import Product from '~/domain/product/Product'
+import StorageRepository from '@/domain/storage/StorageRepository'
+import Product from '@/domain/product/Product'
 
 @Component
 export default class UserArrengeWhenNameConfrictDialog extends Vue {
@@ -252,7 +253,7 @@ export default class UserArrengeWhenNameConfrictDialog extends Vue {
   }
 
   public validateIconName(iconName: IconNameArrangeVM): string | boolean {
-    const result = iconName.validateIconName();
+    const result = iconName.validateIconName()
     this.validateAll()
     return result
   }

@@ -1,6 +1,6 @@
 import DiagramExportService from "@/application/service/diagram/export/DiagramExportService";
 import DownloadFile from "@/domain/client/DownloadFile";
-import BusinessContextDiagram from "@/domain/diagram/businesscontext/BusinessContextDiagram";
+import BusinessContextDiagram from "~/domain/diagram/rdra20/businesscontext/BusinessContextDiagram";
 import Diagram from "@/domain/diagram/Diagram";
 import Placement from "@/domain/diagram/placement/Placement";
 import Product from "@/domain/product/Product";

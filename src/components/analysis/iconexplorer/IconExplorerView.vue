@@ -1,5 +1,5 @@
 <template>
-  <div>未実装。実装されるまで少々お待ちください。</div>
+  <div>未実装。実装されるまでお待ちください。</div>
 </template>
 
 <script lang="ts">

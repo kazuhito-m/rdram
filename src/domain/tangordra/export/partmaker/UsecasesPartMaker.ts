@@ -1,9 +1,9 @@
 import { Usecase } from "../structure/TangoRdra";
 import Product from "@/domain/product/Product";
-import DiagramType from "@/domain/diagram/DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resources from "@/domain/resource/Resources";
 import Resource from "@/domain/resource/Resource";
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 
 export default class UsecasesPartMaker {
     public make(product: Product): Usecase[] {
@@ -27,7 +27,7 @@ export default class UsecasesPartMaker {
         } as Usecase;
 
         const maybeRelatedResources = product.diagrams
-            .typeOf(DiagramType.ユースケース複合図)
+            .typeOf(Rdra20DiagramType.ユースケース複合図)
             .allRelations()
             .uniqueIgnoreDirection()
             .filter(relation => relation.isRelatedTo(usecase.resourceId))

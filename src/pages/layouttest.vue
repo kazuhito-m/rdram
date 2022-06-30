@@ -85,8 +85,8 @@ import UserArrengeWhenNameConfrictDialog from "@/components/diagrams/import/arra
 import UserArrangeOfImportDiagram from "~/domain/diagram/import/userarrange/UserArrangeOfImportDiagram";
 import ConflictNameBehavior from "~/domain/diagram/import/conflictname/ConflictNameBehavior";
 import { BehaviorWhenNameConflict } from "~/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
-import DiagramType from "~/domain/diagram/DiagramType";
-import ResourceType from "~/domain/resource/ResourceType";
+import ResourceType from "@/domain/resource/ResourceType";
+import Rdra20DiagramType from "~/domain/diagram/rdra20/Rdra20DiagramType";
 
 @Component({
   components: {
@@ -99,7 +99,7 @@ export default class extends Vue {
 
   private slider: number = 100;
 
-  private readonly LINE_TYPE: { [key: string]: any } = {
+  readonly LINE_TYPE: { [key: string]: any } = {
     // InteractiveManhattan(操作ポイント付きマンハッタン)があるので、普通のはイラんかな。
     // "draw2d.layout.connection.ManhattanConnectionRouter": new draw2d.layout.connection.ManhattanConnectionRouter(),
     // 角付きマンハッタン…はわかりにくいから要らんかな。
@@ -823,10 +823,10 @@ export default class extends Vue {
   private async onClickUserArrengeDialog(): Promise<void> {
     const arrange = new UserArrangeOfImportDiagram(
       "元の図の名前(親側)",
-      new ConflictNameBehavior(BehaviorWhenNameConflict.別名 ,"元の図の名前(子側)", "", 1, DiagramType.システムコンテキスト図.id), // ConflictNameBehavior.empty(),
+      new ConflictNameBehavior(BehaviorWhenNameConflict.別名 ,"元の図の名前(子側)", "", 1, Rdra20DiagramType.システムコンテキスト図.id), // ConflictNameBehavior.empty(),
       [
         new ConflictNameBehavior(BehaviorWhenNameConflict.既存,"元のアイコンの名前(1)", "", 1, ResourceType.システム.id),
-        new ConflictNameBehavior(BehaviorWhenNameConflict.置換,"元のアイコンの名前(2)", "", 2, ResourceType.住宅.id),
+        new ConflictNameBehavior(BehaviorWhenNameConflict.置換,"元のアイコンの名前(2)", "", 2, ResourceType.建物.id),
         new ConflictNameBehavior(BehaviorWhenNameConflict.別名,"元のアイコンの名前(3)", "", 3, ResourceType.サービス.id)
       ]
     );

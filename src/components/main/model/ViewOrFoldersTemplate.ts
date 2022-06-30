@@ -1,14 +1,15 @@
 import ViewOrFolder from "./ViewOrFolder";
 import ViewOrFolders from "./ViewOrFolders";
 import Range from "@/domain/basic/Range";
-import DiagramType from "@/domain/diagram/DiagramType";
 import Diagrams from "@/domain/diagram/Diagrams";
+import DiagramTypes from "@/domain/diagram/type/DiagramTypes";
+import Rdra20DiagramType from "~/domain/diagram/rdra20/Rdra20DiagramType";
 
 export default class ViewOrFoldersTemplate {
     static readonly TREE = new ViewOrFolders([
         ViewOrFolder.RDRAM20_FOLDER
             .with(...
-                DiagramType.values()
+                DiagramTypes.RDRA20_TYPES
                     .map(type => ViewOrFolder.rdra20DiagramTypeFolderOf(type))
                     .map(vof => vof.with(ViewOrFolder.EMPTY))
             ),
@@ -53,7 +54,7 @@ export default class ViewOrFoldersTemplate {
         return tree;
     }
 
-    static idOf(diagramType: DiagramType): number {
+    static idOf(diagramType: Rdra20DiagramType): number {
         const folder = ViewOrFoldersTemplate.RDRA20_TYPE_FOLDERS
             .find(f => diagramType.equals(f.rdra20DiagramType()));
         return folder ? folder.id : 0;

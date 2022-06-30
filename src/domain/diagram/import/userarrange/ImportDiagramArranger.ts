@@ -39,8 +39,8 @@ export default class ImportDiagramArranger {
             }
         }
 
-        if (userArrange.isColidedDiagramName()) {
-            const conflictDiagramName = userArrange.conflictDiagramName as ConflictNameBehavior;
+        const conflictDiagramName = userArrange.conflictDiagramName as ConflictNameBehavior;
+        if (!conflictDiagramName.isEmpty()) {
             if (conflictDiagramName.behavior === BehaviorWhenNameConflict.既存) return null; // 入力からは入ってこない前提。「既存」というなら「Importしない」と同義。
             if (conflictDiagramName.behavior === BehaviorWhenNameConflict.別名)
                 diagram = diagram.renameOf(conflictDiagramName.destinationName);

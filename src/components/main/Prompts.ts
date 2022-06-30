@@ -1,6 +1,6 @@
 import Diagram from "@/domain/diagram/Diagram"
 import Diagrams from "@/domain/diagram/Diagrams"
-import DiagramType from "@/domain/diagram/DiagramType"
+import DiagramType from "@/domain/diagram/type/DiagramType"
 import MessageBox from "@/presentation/MessageBox"
 
 export default class Prompts {

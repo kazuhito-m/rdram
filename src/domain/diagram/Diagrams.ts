@@ -1,6 +1,7 @@
+import DiagramTypes from "./type/DiagramTypes";
 import Relations from "@/domain/relation/Relations";
 import Diagram from "@/domain/diagram/Diagram";
-import DiagramType from "@/domain/diagram/DiagramType";
+import DiagramType from "@/domain/diagram/type/DiagramType";
 import DiagramFactory from "@/domain/diagram/DiagramFactory";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
@@ -146,7 +147,7 @@ export default class Diagrams {
 
     public groupOfType(): Map<DiagramType, Diagram[]> {
         const map = new Map<DiagramType, Diagram[]>();
-        DiagramType.values()
+        DiagramTypes.ALL_TYPES
             .forEach(type => map.set(type, []));
         this.values
             .forEach(d => map.get(d.type)?.push(d));
