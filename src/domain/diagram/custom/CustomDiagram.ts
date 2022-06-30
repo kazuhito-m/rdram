@@ -1,5 +1,5 @@
-import Diagram from "@/domain/diagram/Diagram";
 import CustomDiagramType from "./CustomDiagramType";
+import Diagram from "@/domain/diagram/Diagram";
 
 export default abstract class CustomDiagram extends Diagram {
     public get type(): CustomDiagramType {
