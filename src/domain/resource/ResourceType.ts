@@ -28,7 +28,7 @@ export default class ResourceType {
     static ユースケース = of(23, 'ユースケース', 'mdi-alpha-u-circle-outline', 105, 35, [IconShape.サークル]);
 
     static 情報 = of(18, '情報', 'mdi-text-box-outline');
-    static 情報グループ = of(19, '情報グループ', 'mdi-text-box-multiple-outline', 0, 0, [IconShape.範囲]);
+    static 情報グループ = of(19, '情報グループ', 'mdi-text-box-multiple-outline', 80, 35, [IconShape.範囲]);
     static 画面 = of(20, '画面', 'mdi-application');
 
     static アクティビティ = of(21, 'アクティビティ', 'mdi-alpha-a-box-outline', 0, 0, [IconShape.シンプル, IconShape.その他カスタム]);

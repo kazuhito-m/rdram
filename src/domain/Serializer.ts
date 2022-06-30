@@ -20,14 +20,14 @@ import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
 
 import SystemContextDiagram from '@/domain/diagram/rdra20/systemcontext/SystemContextDiagram';
 import BusinessContextDiagram from '@/domain/diagram/rdra20/businesscontext/BusinessContextDiagram'
-import InformationModelDiagram from '@/domain/diagram/informationmodel/InformationModelDiagram';
-import StateModelDiagram from '~/domain/diagram/rdra20/statemodel/StateModelDiagram';
+import InformationModelDiagram from '@/domain/diagram/rdra20/informationmodel/InformationModelDiagram';
+import StateModelDiagram from '@/domain/diagram/rdra20/statemodel/StateModelDiagram';
 import RequestModelDiagram from '@/domain/diagram/rdra20/requrestmodel/RequestModelDiagram';
 import BusinessUseCaseDiagram from '@/domain/diagram/rdra20/businessusecase/BusinessUseCaseDiagram';
 import BusinessFlowDiagram from '@/domain/diagram/rdra20/businessflow/BusinessFlowDiagram';
 import UsageSceneDiagram from '@/domain/diagram/rdra20/usagescene/UsageSceneDiagram';
-import UseCaseCompositeDiagram from '~/domain/diagram/rdra20/usecasecomposite/UseCaseCompositeDiagram';
-import VariationAndConditionDiagram from '~/domain/diagram/rdra20/variationandcondition/VariationAndConditionDiagram';
+import UseCaseCompositeDiagram from '@/domain/diagram/rdra20/usecasecomposite/UseCaseCompositeDiagram';
+import VariationAndConditionDiagram from '@/domain/diagram/rdra20/variationandcondition/VariationAndConditionDiagram';
 import Variation from "@/domain/resource/Variation";
 import Condition from "@/domain/resource/Condition";
 import TableTypeCondition from "@/domain/resource/TableTypeCondition";
