@@ -68,16 +68,16 @@ import Product from "@/domain/product/Product";
 })
 export default class DiagramPropertiesEditDialog extends Vue {
   @Prop({ required: true })
-  private readonly diagramId!: number;
+  readonly diagramId!: number;
 
   @Emit("onUpdatedDiagramProperties")
   private onUpdatedDiagramProperties(_diagram: Diagram): void {}
 
   @Emit("onClose")
-  private onClose(): void {}
+  onClose(): void {}
 
   @Watch("diagramId")
-  private onChangeDiagramId(): void {
+  onChangeDiagramId(): void {
     if (!Number.isInteger(this.diagramId)) return;
     const id = Number(this.diagramId);
     if (id > 0) this.onShow();
@@ -86,17 +86,17 @@ export default class DiagramPropertiesEditDialog extends Vue {
   @Inject()
   private repository?: StorageRepository;
 
-  private consent = false;
-  private subTitle = "";
-  private title = "";
-  private iconKey = "";
-  private old!: Diagram;
+  consent = false;
+  subTitle = "";
+  title = "";
+  iconKey = "";
+  old!: Diagram;
 
-  private name = "";
-  private width = "";
-  private height = "";
+  name = "";
+  width = "";
+  height = "";
 
-  private onShow(): void {
+  onShow(): void {
     this.consent = false;
     const product = this.repository?.getCurrentProduct();
     const diagram = product?.diagrams.of(this.diagramId);
@@ -123,19 +123,19 @@ export default class DiagramPropertiesEditDialog extends Vue {
     );
   }
 
-  private get nameMaxLength(): number {
+  get nameMaxLength(): number {
     return Diagram.NAME_MAX_LENGTH;
   }
 
-  private getWidth(): number {
+  getWidth(): number {
     return Number(this.width);
   }
 
-  private getHeight(): number {
+  getHeight(): number {
     return Number(this.height);
   }
 
-  private validateName(): string | boolean {
+  validateName(): string | boolean {
     this.consent = false;
     const name = this.name;
     if (name.length === 0) return "入力してください。";
@@ -145,11 +145,11 @@ export default class DiagramPropertiesEditDialog extends Vue {
     return true;
   }
 
-  private validateWidith(): string | boolean {
+  validateWidith(): string | boolean {
     return this.validateSize(this.width, Diagram.MAX_WIDTH);
   }
 
-  private validateHeight(): string | boolean {
+  validateHeight(): string | boolean {
     return this.validateSize(this.height, Diagram.MAX_HEIGHT);
   }
 
@@ -165,7 +165,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
     return true;
   }
 
-  private onClickUpdateExecute(): void {
+  onClickUpdateExecute(): void {
     if (!this.consent) return;
     const diagram = this.registerDiagramProperties();
     if (!diagram) return;
@@ -179,7 +179,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
     if (!product || !diagram) return null;
 
     const modified = diagram
-      .with(this.name)
+      .renameOf(this.name)
       .resize(this.getWidth(), this.getHeight());
     if (!this.logicalValidation(modified, product)) return null;
 
