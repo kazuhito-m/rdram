@@ -3,7 +3,6 @@ import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
-import Resource from "@/domain/resource/Resource";
 import Rdra20Diagram from "@/domain/diagram/rdra20/Rdra20Diagram";
 
 export default class UseCaseCompositeDiagram extends Rdra20Diagram {
@@ -46,25 +45,6 @@ export default class UseCaseCompositeDiagram extends Rdra20Diagram {
             ResourceType.システム,
             ResourceType.建物
         ];
-    }
-
-    public createPlacement(resource: Resource, left: number, top: number): Placement | null {
-        if (this.ngType(resource.type)) return null;
-
-        let width = 0;
-        let height = 0;
-        if (ResourceType.ユースケース.equals(resource.type)) {
-            width = 105;
-            height = 35;
-        }
-        return new Placement(
-            left,
-            top,
-            width,
-            height,
-            resource.resourceId,
-            false,
-        );
     }
 
     protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideType: CanvasGuideType): UseCaseCompositeDiagram {

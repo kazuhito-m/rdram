@@ -37,18 +37,6 @@ export default class VariationAndConditionDiagram extends Rdra20Diagram {
         ];
     }
 
-    public createPlacement(resource: Resource, left: number, top: number): Placement | null {
-        if (this.ngType(resource.type)) return null;
-        return new Placement(
-            left,
-            top,
-            0,
-            0,
-            resource.resourceId,
-            false,
-        );
-    }
-
     protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideType: CanvasGuideType): VariationAndConditionDiagram {
         return new VariationAndConditionDiagram(
             id,

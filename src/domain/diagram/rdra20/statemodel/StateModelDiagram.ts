@@ -39,30 +39,9 @@ export default class StateModelDiagram extends Rdra20Diagram {
     }
 
     public createPlacement(resource: Resource, left: number, top: number): Placement | null {
-        if (this.ngType(resource.type)) return null;
-
-        let width = 0;
-        let height = 0;
-        const resType = resource.type;
-        if (ResourceType.ユースケース.equals(resType)) {
-            width = 120;
-            height = 40;
-        }
-        if (ResourceType.状態.equals(resType)) {
-            width = 160;
-            height = 40;
-        }
-        if (ResourceType.状態グループ.equals(resType)) {
-            width = 200;
-            height = 120;
-        }
-        return new Placement(
-            left,
-            top,
-            width,
-            height,
-            resource.resourceId
-        );
+        const placement = super.createPlacement(resource, left, top);
+        if (!placement || !ResourceType.ユースケース.equals(resource.type)) return placement;
+        return placement!.resize(120, 40);
     }
 
     protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideType: CanvasGuideType): StateModelDiagram {
