@@ -3,29 +3,29 @@ import { IconShape } from "./IconShape";
 export default class ResourceType {
     private static readonly ALL: any[] = [];
 
-    static システム = of(1, 'システム', 'mdi-desktop-mac-dashboard', 0, 0, [IconShape.その他カスタム]);
+    static システム = of(1, 'システム', 'mdi-desktop-mac-dashboard', 350, 75, [IconShape.その他カスタム]);
     static 自社システム = of(2, '自社システム', 'mdi-desktop-tower-monitor');
     static 外部システム = of(3, '外部システム', 'mdi-server');
     static 目的 = of(4, '目的', 'mdi-bullseye-arrow', 0, 0, [IconShape.記述]);
     static アクター = of(5, 'アクター', 'mdi-account', 0, 0, [IconShape.シンプル, IconShape.その他カスタム]);
 
     static 要求 = of(6, '要求', 'mdi-hand-heart-outline', 0, 0, [IconShape.記述]);
-    static 要件 = of(7, '要件', 'mdi-handshake-outline', 0, 0, [IconShape.記述]);
+    static 要件 = of(7, '要件', 'mdi-handshake-outline', 200, 37, [IconShape.記述]);
 
-    static 業務 = of(8, '業務', 'mdi-cog-outline', 0, 0, [IconShape.サークル]);
+    static 業務 = of(8, '業務', 'mdi-cog-outline', 105, 35, [IconShape.サークル]);
     static 商品 = of(9, '商品', 'mdi-package-variant-closed');
     static 建物 = of(10, '建物', 'mdi-home-variant');
     static 契約 = of(11, '契約', 'mdi-file-key-outline');
     static サービス = of(12, 'サービス', 'mdi-room-service-outline');
-    static 組織 = of(13, '組織', 'mdi-sitemap', 0, 0, [IconShape.範囲]);
-    static 会社 = of(14, '会社', 'mdi-office-building-outline', 0, 0, [IconShape.範囲]);
+    static 組織 = of(13, '組織', 'mdi-sitemap', 80, 35, [IconShape.範囲]);
+    static 会社 = of(14, '会社', 'mdi-office-building-outline', 80, 35, [IconShape.範囲]);
     static 在庫 = of(15, '在庫', 'mdi-stack-exchange', 0, 0, [IconShape.範囲]);
     static 配送 = of(16, '配送', 'mdi-truck-outline');
     static 条件 = of(17, '条件', 'mdi-call-split', 0, 0, [IconShape.表形式, IconShape.シンプル]);
 
     static 利用シーン = of(25, '利用シーン', 'mdi-video-account');
-    static シナリオ = of(32, 'シナリオ', 'mdi-script-text-outline',);
-    static ユースケース = of(23, 'ユースケース', 'mdi-alpha-u-circle-outline', 0, 0, [IconShape.サークル]);
+    static シナリオ = of(32, 'シナリオ', 'mdi-script-text-outline', 350, 75, [IconShape.記述]);
+    static ユースケース = of(23, 'ユースケース', 'mdi-alpha-u-circle-outline', 105, 35, [IconShape.サークル]);
 
     static 情報 = of(18, '情報', 'mdi-text-box-outline');
     static 情報グループ = of(19, '情報グループ', 'mdi-text-box-multiple-outline', 0, 0, [IconShape.範囲]);
@@ -33,11 +33,11 @@ export default class ResourceType {
 
     static アクティビティ = of(21, 'アクティビティ', 'mdi-alpha-a-box-outline', 0, 0, [IconShape.シンプル, IconShape.その他カスタム]);
     static イベント = of(22, 'イベント', 'mdi-lightning-bolt');
-    static ビジネスユースケース = of(24, 'ビジネスユースケース', 'mdi-alpha-b-circle-outline', 0, 0, [IconShape.サークル]);
+    static ビジネスユースケース = of(24, 'ビジネスユースケース', 'mdi-alpha-b-circle-outline', 105, 35, [IconShape.サークル]);
     static タイマー = of(26, 'タイマー', 'mdi-clock-outline');
 
-    static 状態 = of(27, '状態', 'mdi-circle-slice-4');
-    static 状態グループ = of(28, '状態グループ', 'mdi-circle-slice-4', 0, 0, [IconShape.範囲]);
+    static 状態 = of(27, '状態', 'mdi-circle-slice-4', 160, 40, [IconShape.サークル]);
+    static 状態グループ = of(28, '状態グループ', 'mdi-circle-slice-4', 200, 120, [IconShape.範囲]);
 
     static バリエーション = of(29, 'バリエーション', 'mdi-lock-pattern', 0, 0, [IconShape.表形式, IconShape.シンプル]);
     static 表形式の条件 = of(30, '表形式の条件', 'mdi-table', 0, 0, [IconShape.表形式, IconShape.シンプル]);
