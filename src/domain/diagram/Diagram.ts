@@ -36,7 +36,18 @@ export default abstract class Diagram {
         canvasGuideType: CanvasGuideType,
     ): Diagram;
 
-    public abstract createPlacement(resource: Resource, left: number, top: number): Placement | null;
+    public createPlacement(resource: Resource, left: number, top: number): Placement | null {
+        const type = resource.type;
+        if (this.ngType(type)) return null;
+        return new Placement(
+            left,
+            top,
+            type.defaultWidth,
+            type.defaultHeight,
+            resource.resourceId,
+            false,
+        );
+    }
 
     public createPlacementAtCenter(resource: Resource): Placement | null {
         const newPlacement = this.createPlacement(resource, 0, 0);
