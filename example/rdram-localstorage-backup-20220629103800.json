@@ -55,7 +55,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "SystemContextDiagram"
                         },
                         {
@@ -76,7 +76,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "RequestModelDiagram"
                         },
                         {
@@ -164,7 +164,7 @@
                             ],
                             "width": 768,
                             "height": 1024,
-                            "canvasGuideTypeId": 2,
+                            "canvasGuideType": 2,
                             "__CLASS_NAME": "BusinessFlowDiagram"
                         },
                         {
@@ -185,7 +185,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UsageSceneDiagram"
                         }
                     ],
@@ -830,7 +830,7 @@
                             ],
                             "width": 1200,
                             "height": 900,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "BusinessContextDiagram"
                         },
                         {
@@ -905,7 +905,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "VariationAndConditionDiagram"
                         },
                         {
@@ -1700,7 +1700,7 @@
                             ],
                             "width": 1024,
                             "height": 850,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "InformationModelDiagram"
                         },
                         {
@@ -1989,7 +1989,7 @@
                             ],
                             "width": 768,
                             "height": 1024,
-                            "canvasGuideTypeId": 2,
+                            "canvasGuideType": 2,
                             "__CLASS_NAME": "StateModelDiagram"
                         },
                         {
@@ -2192,7 +2192,7 @@
                             ],
                             "width": 768,
                             "height": 1024,
-                            "canvasGuideTypeId": 2,
+                            "canvasGuideType": 2,
                             "__CLASS_NAME": "StateModelDiagram"
                         },
                         {
@@ -2442,7 +2442,7 @@
                             ],
                             "width": 768,
                             "height": 1024,
-                            "canvasGuideTypeId": 2,
+                            "canvasGuideType": 2,
                             "__CLASS_NAME": "StateModelDiagram"
                         },
                         {
@@ -2752,7 +2752,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "BusinessUseCaseDiagram"
                         },
                         {
@@ -2937,7 +2937,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "BusinessUseCaseDiagram"
                         },
                         {
@@ -3178,7 +3178,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "BusinessUseCaseDiagram"
                         },
                         {
@@ -3441,7 +3441,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "BusinessUseCaseDiagram"
                         },
                         {
@@ -3558,7 +3558,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "BusinessUseCaseDiagram"
                         },
                         {
@@ -3647,7 +3647,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "BusinessUseCaseDiagram"
                         },
                         {
@@ -3745,7 +3745,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "BusinessUseCaseDiagram"
                         },
                         {
@@ -4293,7 +4293,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -4830,7 +4830,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -5147,7 +5147,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -5416,7 +5416,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -5552,7 +5552,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -5831,7 +5831,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -6015,7 +6015,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -6179,7 +6179,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -6553,7 +6553,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -6727,7 +6727,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -7025,7 +7025,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -7257,7 +7257,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -7508,7 +7508,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -7654,7 +7654,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -7924,7 +7924,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -8269,7 +8269,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -8443,7 +8443,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -8627,7 +8627,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -8744,7 +8744,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -8871,7 +8871,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -8950,7 +8950,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -9220,7 +9220,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -9394,7 +9394,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         }
                     ],
@@ -11772,7 +11772,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "SystemContextDiagram"
                         },
                         {
@@ -11953,7 +11953,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "RequestModelDiagram"
                         },
                         {
@@ -12099,7 +12099,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "InformationModelDiagram"
                         },
                         {
@@ -12186,7 +12186,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "VariationAndConditionDiagram"
                         },
                         {
@@ -12275,7 +12275,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "BusinessUseCaseDiagram"
                         },
                         {
@@ -12441,7 +12441,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "BusinessUseCaseDiagram"
                         },
                         {
@@ -12606,7 +12606,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "BusinessUseCaseDiagram"
                         },
                         {
@@ -12848,7 +12848,7 @@
                             ],
                             "width": 1024,
                             "height": 1024,
-                            "canvasGuideTypeId": 2,
+                            "canvasGuideType": 2,
                             "__CLASS_NAME": "StateModelDiagram"
                         },
                         {
@@ -13032,7 +13032,7 @@
                             ],
                             "width": 768,
                             "height": 1024,
-                            "canvasGuideTypeId": 2,
+                            "canvasGuideType": 2,
                             "__CLASS_NAME": "StateModelDiagram"
                         },
                         {
@@ -13253,7 +13253,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "BusinessContextDiagram"
                         },
                         {
@@ -13427,7 +13427,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -13899,7 +13899,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -14102,7 +14102,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -14276,7 +14276,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UsageSceneDiagram"
                         },
                         {
@@ -14488,7 +14488,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -14661,7 +14661,7 @@
                             ],
                             "width": 768,
                             "height": 1024,
-                            "canvasGuideTypeId": 2,
+                            "canvasGuideType": 2,
                             "__CLASS_NAME": "BusinessFlowDiagram"
                         },
                         {
@@ -14864,7 +14864,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         }
                     ],
@@ -16070,7 +16070,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
                         },
                         {
@@ -16130,7 +16130,7 @@
                             ],
                             "width": 1024,
                             "height": 768,
-                            "canvasGuideTypeId": 1,
+                            "canvasGuideType": 1,
                             "__CLASS_NAME": "SystemContextDiagram"
                         },
                         {
@@ -16151,7 +16151,7 @@
                             ],
                             "width": 768,
                             "height": 1024,
-                            "canvasGuideTypeId": 2,
+                            "canvasGuideType": 2,
                             "__CLASS_NAME": "BusinessFlowDiagram"
                         }
                     ],
