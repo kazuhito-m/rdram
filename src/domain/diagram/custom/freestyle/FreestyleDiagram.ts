@@ -1,12 +1,12 @@
 import { CanvasGuideType } from "@/domain/diagram/CanvasGuideType";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
-import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
-import Rdra20Diagram from "@/domain/diagram/rdra20/Rdra20Diagram";
+import CustomDiagram from "@/domain/diagram/custom/CustomDiagram";
+import CustomDiagramType from "@/domain/diagram/custom/CustomDiagramType";
 
-export default class BusinessContextDiagram extends Rdra20Diagram {
+export default class FreestyleDiagram extends CustomDiagram {
     protected constructor(
         id: number,
         typeId: number,
@@ -71,8 +71,8 @@ export default class BusinessContextDiagram extends Rdra20Diagram {
         );
     }
 
-    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideType: CanvasGuideType): BusinessContextDiagram {
-        return new BusinessContextDiagram(
+    protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideType: CanvasGuideType): FreestyleDiagram {
+        return new FreestyleDiagram(
             id,
             typeId,
             name,
@@ -84,10 +84,10 @@ export default class BusinessContextDiagram extends Rdra20Diagram {
         );
     }
 
-    public static prototypeOf(newDiagramId: number, name: string): BusinessContextDiagram {
-        return new BusinessContextDiagram(
+    public static prototypeOf(newDiagramId: number, name: string): FreestyleDiagram {
+        return new FreestyleDiagram(
             newDiagramId,
-            Rdra20DiagramType.ビジネスコンテキスト図.id,
+            CustomDiagramType.フリースタイル図.id,
             name.trim(),
             [],
             [],
