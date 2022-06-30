@@ -44,7 +44,7 @@ export default class UseCaseCompositeDiagram extends Rdra20Diagram {
             ResourceType.外部システム,
             ResourceType.自社システム,
             ResourceType.システム,
-            ResourceType.住宅
+            ResourceType.建物
         ];
     }
 

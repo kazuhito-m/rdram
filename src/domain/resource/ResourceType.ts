@@ -14,7 +14,7 @@ export default class ResourceType {
 
     static 業務 = of(8, '業務', 'mdi-cog-outline', 0, 0, [IconShape.サークル]);
     static 商品 = of(9, '商品', 'mdi-package-variant-closed');
-    static 住宅 = of(10, '建物', 'mdi-home-variant');
+    static 建物 = of(10, '建物', 'mdi-home-variant');
     static 契約 = of(11, '契約', 'mdi-file-key-outline');
     static サービス = of(12, 'サービス', 'mdi-room-service-outline');
     static 組織 = of(13, '組織', 'mdi-sitemap', 0, 0, [IconShape.範囲]);

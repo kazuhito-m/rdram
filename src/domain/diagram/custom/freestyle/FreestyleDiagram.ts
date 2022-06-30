@@ -34,7 +34,7 @@ export default class FreestyleDiagram extends CustomDiagram {
             ResourceType.業務,
             ResourceType.アクター,
             ResourceType.商品,
-            ResourceType.住宅,
+            ResourceType.建物,
             ResourceType.契約,
             ResourceType.サービス,
             ResourceType.組織,
