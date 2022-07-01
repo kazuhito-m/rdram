@@ -17,7 +17,7 @@ import { Prop, Component, Vue, Emit } from 'nuxt-property-decorator'
 import DiagramEditor from '@/components/diagrams/editor/template/DiagramEditor.vue'
 
 import EventAnalyzer from '@/components/diagrams/editor/template/event/EventAnalyzer'
-import BusinessFlowConnectPortsEvents from '@/components/diagrams/editor/businessflowdiagram/event/BusinessFlowConnectPortsEvents'
+import BusinessFlowConnectPortsEvents from '@/components/diagrams/editor/rdra20/businessflowdiagram/event/BusinessFlowConnectPortsEvents'
 import GemerocDeleteShapeEvents from '@/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents'
 import GenericMoveShapeEvents from '@/components/diagrams/editor/template/event/events/GenericMoveShapeEvents'
 import GenericResizeShapeEvents from '@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents'
