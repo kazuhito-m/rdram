@@ -58,7 +58,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Emit, Prop } from 'nuxt-property-decorator'
-import Rdra20DiagramEditorContainer from '@/components/diagrams/Rdra20DiagramEditorContainer.vue'
+import Rdra20DiagramEditorContainer from '@/components/diagrams/editor/rdra20/Rdra20DiagramEditorContainer.vue'
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
