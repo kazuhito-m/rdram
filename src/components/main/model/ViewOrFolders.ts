@@ -1,12 +1,16 @@
 import ViewOrFolder from "./ViewOrFolder";
 import Diagram from "@/domain/diagram/Diagram";
+import CustomDiagramType from "~/domain/diagram/custom/CustomDiagramType";
 
 export default class ViewOrFolders {
     constructor(public readonly values: ViewOrFolder[]) { }
 
     addOf(diagram: Diagram): void {
-        const folder = this.rdra20DiagramFolders()
-            .find(f => f.rdra20DiagramType().equals(diagram.type));
+        const fodlers = CustomDiagramType.as(diagram.type)
+            ? this.customDiagramFolders()
+            : this.rdra20DiagramFolders();
+        const folder = fodlers
+            .find(f => f.diagramType().equals(diagram.type));
         if (!folder) return;
         const items = folder.children
 

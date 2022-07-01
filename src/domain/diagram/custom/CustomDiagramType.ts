@@ -10,4 +10,8 @@ export default class CustomDiagramType extends DiagramType {
     sameTypeIdOf(typeId: number): boolean {
         return typeId > 1000
     }
+
+    static as(type: DiagramType) {
+        return CustomDiagramType.フリースタイルの図.sameTypeIdOf(type.id);
+    }
 }
