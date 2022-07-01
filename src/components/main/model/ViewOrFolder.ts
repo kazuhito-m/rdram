@@ -2,6 +2,7 @@ import Range from "@/domain/basic/Range";
 import Diagram from "@/domain/diagram/Diagram";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import CustomDiagramType from "~/domain/diagram/custom/CustomDiagramType";
+import DiagramType from "~/domain/diagram/type/DiagramType";
 import DiagramTypes from "~/domain/diagram/type/DiagramTypes";
 
 export default class ViewOrFolder {
@@ -25,13 +26,13 @@ export default class ViewOrFolder {
     static readonly EMPTY = new ViewOrFolder(0, "(空)", [], true, false, "", "");
 
     static TOP_FOLDER_IDS = Range.of(-3, 0);
-    private static RDRA20_DIAGRAM_IDS = ViewOrFolder.TOP_FOLDER_IDS.nextTo(1000000000000000);
-    static RDRA20_TYPE_IDS = ViewOrFolder.RDRA20_DIAGRAM_IDS.nextTo(2000000000000000);
+    private static DIAGRAM_IDS = ViewOrFolder.TOP_FOLDER_IDS.nextTo(1000000000000000);
+    static RDRA20_TYPE_IDS = ViewOrFolder.DIAGRAM_IDS.nextTo(2000000000000000);
     private static CUSTOM_TYPE_IDS = ViewOrFolder.RDRA20_TYPE_IDS.nextTo(3000000000000000);
     static ANALYSIS_IDS = ViewOrFolder.CUSTOM_TYPE_IDS.nextTo(4000000000000000);
 
     isDiagram(): boolean {
-        return ViewOrFolder.RDRA20_DIAGRAM_IDS.in(this.id);
+        return ViewOrFolder.DIAGRAM_IDS.in(this.id);
     }
 
     isAnalysis(): boolean {
@@ -64,6 +65,12 @@ export default class ViewOrFolder {
         return DiagramTypes.byId(this.id - range.start) as CustomDiagramType;
     }
 
+    diagramType(): DiagramType {
+        return this.isCustomDiagramTypeFolder()
+            ? this.customDiagramType()
+            : this.rdra20DiagramType();
+    }
+
     equals(value: ViewOrFolder): boolean {
         return this.id === value.id;
     }
@@ -93,7 +100,7 @@ export default class ViewOrFolder {
         );
     }
 
-    static rdra20DiagramOf(diagram: Diagram): ViewOrFolder {
+    static diagramOf(diagram: Diagram): ViewOrFolder {
         const type = diagram.type
         return of(
             diagram.id,

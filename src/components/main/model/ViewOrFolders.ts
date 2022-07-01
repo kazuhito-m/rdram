@@ -13,7 +13,7 @@ export default class ViewOrFolders {
         if (items.length === 1 && items[0].equals(ViewOrFolder.EMPTY))
             items.splice(0);
 
-        const item = ViewOrFolder.rdra20DiagramOf(diagram);
+        const item = ViewOrFolder.diagramOf(diagram);
         items.push(item);
     }
 
@@ -50,6 +50,12 @@ export default class ViewOrFolders {
         const rdra20 = this.findOf(ViewOrFolder.RDRAM20_FOLDER.id);
         if (!rdra20) return [];
         return rdra20.children;
+    }
+
+    customDiagramFolders(): ViewOrFolder[] {
+        const custom = this.findOf(ViewOrFolder.CUSTOM_FOLDER.id);
+        if (!custom) return [];
+        return custom.children;
     }
 
     rdra20Folder(): ViewOrFolder {
