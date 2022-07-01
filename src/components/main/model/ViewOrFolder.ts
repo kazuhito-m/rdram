@@ -2,7 +2,6 @@ import Range from "@/domain/basic/Range";
 import Diagram from "@/domain/diagram/Diagram";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import CustomDiagramType from "~/domain/diagram/custom/CustomDiagramType";
-import DiagramType from "~/domain/diagram/type/DiagramType";
 import DiagramTypes from "~/domain/diagram/type/DiagramTypes";
 
 export default class ViewOrFolder {
@@ -28,10 +27,10 @@ export default class ViewOrFolder {
     static TOP_FOLDER_IDS = Range.of(-3, 0);
     private static RDRA20_DIAGRAM_IDS = ViewOrFolder.TOP_FOLDER_IDS.nextTo(1000000000000000);
     static RDRA20_TYPE_IDS = ViewOrFolder.RDRA20_DIAGRAM_IDS.nextTo(2000000000000000);
-    private static CUSTOM_IDS = ViewOrFolder.RDRA20_TYPE_IDS.nextTo(3000000000000000);
-    static ANALYSIS_IDS = ViewOrFolder.CUSTOM_IDS.nextTo(4000000000000000);
+    private static CUSTOM_TYPE_IDS = ViewOrFolder.RDRA20_TYPE_IDS.nextTo(3000000000000000);
+    static ANALYSIS_IDS = ViewOrFolder.CUSTOM_TYPE_IDS.nextTo(4000000000000000);
 
-    isRdra20Diagram(): boolean {
+    isDiagram(): boolean {
         return ViewOrFolder.RDRA20_DIAGRAM_IDS.in(this.id);
     }
 
@@ -43,6 +42,10 @@ export default class ViewOrFolder {
         return ViewOrFolder.RDRA20_TYPE_IDS.in(this.id);
     }
 
+    isCustomDiagramTypeFolder(): boolean {
+        return ViewOrFolder.CUSTOM_TYPE_IDS.in(this.id);
+    }
+
     isEmpty(): boolean {
         return this.equals(ViewOrFolder.EMPTY);
     }
@@ -52,6 +55,13 @@ export default class ViewOrFolder {
         if (!range.in(this.id))
             throw new Error("図フォルダじゃないのにType取得を呼びだした。");
         return DiagramTypes.byId(this.id - range.start) as Rdra20DiagramType;
+    }
+
+    customDiagramType(): CustomDiagramType {
+        const range = ViewOrFolder.CUSTOM_TYPE_IDS;
+        if (!range.in(this.id))
+            throw new Error("図フォルダじゃないのにType取得を呼びだした。");
+        return DiagramTypes.byId(this.id - range.start) as CustomDiagramType;
     }
 
     equals(value: ViewOrFolder): boolean {
@@ -96,7 +106,7 @@ export default class ViewOrFolder {
 
     static customDiagramTypeFolderOf(type: CustomDiagramType): ViewOrFolder {
         return of(
-            this.CUSTOM_IDS.startTo(type.id),
+            this.CUSTOM_TYPE_IDS.startTo(type.id),
             type.name,
             true
         );

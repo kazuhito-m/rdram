@@ -37,7 +37,7 @@
         class="dialog-editor-tab-item"
       >
         <Rdra20DiagramEditorContainer
-          v-if="item.isRdra20Diagram()"
+          v-if="item.isDiagram()"
           :diagramId="item.id"
           :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
