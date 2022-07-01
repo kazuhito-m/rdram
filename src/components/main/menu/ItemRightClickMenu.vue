@@ -36,7 +36,7 @@ import Diagram from '@/domain/diagram/Diagram'
     Rdra20DiagramOrTypeMenu,
   },
 })
-export default class DiagramRightClickMenu extends Vue {
+export default class ItemRightClickMenu extends Vue {
   visible = false
   positionX = 0
   positionY = 0
