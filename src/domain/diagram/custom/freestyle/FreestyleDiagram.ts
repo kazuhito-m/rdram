@@ -29,19 +29,7 @@ export default class FreestyleDiagram extends CustomDiagram {
     }
 
     public availableResourceTypes(): ResourceType[] {
-        return [
-            ResourceType.業務,
-            ResourceType.アクター,
-            ResourceType.商品,
-            ResourceType.建物,
-            ResourceType.契約,
-            ResourceType.サービス,
-            ResourceType.組織,
-            ResourceType.会社,
-            ResourceType.自社システム,
-            ResourceType.外部システム,
-            ResourceType.情報,
-        ];
+        return ResourceType.values();
     }
 
     protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideType: CanvasGuideType): FreestyleDiagram {
