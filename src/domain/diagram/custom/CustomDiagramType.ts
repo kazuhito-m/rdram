@@ -5,7 +5,7 @@ export default class CustomDiagramType extends DiagramType {
         super(id, name, iconKey);
     }
 
-    static フリースタイル図 = new CustomDiagramType(1001, 'フリースタイル図', "mdi-alpha-s-box");
+    static フリースタイルの図 = new CustomDiagramType(1001, 'フリースタイルの図', "mdi-alpha-s-box");
 
     sameTypeIdOf(typeId: number): boolean {
         return typeId > 1000

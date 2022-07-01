@@ -48,7 +48,7 @@ export default class FreestyleDiagram extends CustomDiagram {
     public static prototypeOf(newDiagramId: number, name: string): FreestyleDiagram {
         return new FreestyleDiagram(
             newDiagramId,
-            CustomDiagramType.フリースタイル図.id,
+            CustomDiagramType.フリースタイルの図.id,
             name.trim(),
             [],
             [],
