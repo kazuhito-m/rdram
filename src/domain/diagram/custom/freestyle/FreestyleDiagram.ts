@@ -29,7 +29,8 @@ export default class FreestyleDiagram extends CustomDiagram {
     }
 
     public availableResourceTypes(): ResourceType[] {
-        return ResourceType.values();
+        return ResourceType.values()
+            .filter(type => !type.equals(ResourceType.始点終点));
     }
 
     protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideType: CanvasGuideType): FreestyleDiagram {
