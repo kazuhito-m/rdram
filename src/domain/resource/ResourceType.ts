@@ -42,7 +42,7 @@ export default class ResourceType {
     static バリエーション = of(29, 'バリエーション', 'mdi-lock-pattern', 0, 0, [IconShape.表形式, IconShape.シンプル]);
     static 表形式の条件 = of(30, '表形式の条件', 'mdi-table', 0, 0, [IconShape.表形式, IconShape.シンプル]);
     // static 項目説明 = of(31, '項目説明', '');
-    static スライド = of(32, 'スライド', 'mdi-presentation');
+    static スライド = of(33, 'スライド', 'mdi-presentation');
 
     static 説明ノート = of(101, '説明・ノート', 'mdi-comment-outline', 0, 0, [IconShape.記述]);
     static 始点終点 = of(102, '始点・終点', 'mdi-source-commit-start', 0, 0, [IconShape.その他カスタム]);
