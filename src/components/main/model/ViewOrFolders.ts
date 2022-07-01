@@ -66,6 +66,13 @@ export default class ViewOrFolders {
         return this.findOf(ViewOrFolder.RDRAM20_FOLDER.id) as ViewOrFolder;
     }
 
+    findParentFolderOf(id: number): ViewOrFolder | undefined {
+        return [this.rdra20DiagramFolders(), this.customDiagramFolders()]
+            .flat()
+            .find(folder => folder.children
+                .some((item) => item.id === id))
+    }
+
     clone(): ViewOrFolders {
         const values = this.values.map(i => i.clone());
         return new ViewOrFolders(values);
