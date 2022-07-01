@@ -34,7 +34,7 @@ import Product from '@/domain/product/Product'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
 
 @Component
-export default class Rdra20DiagramOrTypeMenu extends Vue {
+export default class DiagramOrTypeMenu extends Vue {
   private readonly prompts = new Prompts()
 
   @Inject()
