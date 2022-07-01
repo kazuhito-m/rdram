@@ -1,6 +1,7 @@
 import Range from "@/domain/basic/Range";
 import Diagram from "@/domain/diagram/Diagram";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
+import CustomDiagramType from "~/domain/diagram/custom/CustomDiagramType";
 import DiagramType from "~/domain/diagram/type/DiagramType";
 import DiagramTypes from "~/domain/diagram/type/DiagramTypes";
 
@@ -74,7 +75,7 @@ export default class ViewOrFolder {
         return this.with(...newChildren);
     }
 
-    static rdra20DiagramTypeFolderOf(type: DiagramType): ViewOrFolder {
+    static rdra20DiagramTypeFolderOf(type: Rdra20DiagramType): ViewOrFolder {
         return of(
             this.RDRA20_TYPE_IDS.startTo(type.id),
             type.name,
@@ -90,6 +91,14 @@ export default class ViewOrFolder {
             false,
             type.iconKey,
             type.name
+        );
+    }
+
+    static customDiagramTypeFolderOf(type: CustomDiagramType): ViewOrFolder {
+        return of(
+            this.CUSTOM_IDS.startTo(type.id),
+            type.name,
+            true
         );
     }
 }

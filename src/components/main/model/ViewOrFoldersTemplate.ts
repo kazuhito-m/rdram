@@ -3,7 +3,7 @@ import ViewOrFolders from "./ViewOrFolders";
 import Range from "@/domain/basic/Range";
 import Diagrams from "@/domain/diagram/Diagrams";
 import DiagramTypes from "@/domain/diagram/type/DiagramTypes";
-import Rdra20DiagramType from "~/domain/diagram/rdra20/Rdra20DiagramType";
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 
 export default class ViewOrFoldersTemplate {
     static readonly TREE = new ViewOrFolders([
@@ -14,7 +14,11 @@ export default class ViewOrFoldersTemplate {
                     .map(vof => vof.with(ViewOrFolder.EMPTY))
             ),
         ViewOrFolder.CUSTOM_FOLDER
-            .with(ViewOrFolder.EMPTY),
+            .with(...
+                DiagramTypes.CUSTOM_TYPES
+                    .map(type => ViewOrFolder.customDiagramTypeFolderOf(type))
+                    .map(vof => vof.with(ViewOrFolder.EMPTY))
+            ),
         ViewOrFolder.ANALYSIS_FOLDER
             .with(
                 ViewOrFolder.ICON_LIST,
