@@ -54,7 +54,7 @@ export default abstract class GenericTextCardIconGenerator extends IconGenerator
         icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 105, y: 27 }));
         text.add(icon, new TopLeftLocator());
 
-        this.makeSingleHybridPort(icon);
+        this.makeSingleHybridPort(text);
 
         text.setUserData(new IconStatus());
 
