@@ -6,8 +6,8 @@ import Placement from "@/domain/diagram/placement/Placement";
 import Relation from "@/domain/relation/Relation";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
-import RelationWithResources from "../relation/RelationWithResources";
-import StartOrEndPoint from "../resource/StartOrEndPoint";
+import RelationWithResources from "@/domain/relation/RelationWithResources";
+import StartOrEndPoint from "@/domain/resource/StartOrEndPoint";
 
 export default abstract class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;

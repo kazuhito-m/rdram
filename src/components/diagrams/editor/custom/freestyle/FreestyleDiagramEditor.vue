@@ -1,5 +1,6 @@
 <template>
-  <DiagramEditor :diagramId="diagramId" :allResources="allResources"
+  <DiagramEditor
+:diagramId="diagramId" :allResources="allResources"
     :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId" :eventAnalyzer="eventAnalyzer"
     :iconGenerators="iconGenerators" @onUpdateResources="onUpdateResources"
     @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -8,6 +9,8 @@
 
 <script lang="ts">
 import { Prop, Component, Vue, Emit } from 'nuxt-property-decorator'
+import StateIconGenerator from '../../template/icon/StateIconGenerator'
+import StateGroupIconGenerator from '../../template/icon/StateGroupIconGenerator'
 import DiagramEditor from '@/components/diagrams/editor/template/DiagramEditor.vue'
 
 import Resource from '@/domain/resource/Resource'
@@ -33,8 +36,6 @@ import SystemForSystemContextIconGenerator from '@/components/diagrams/editor/te
 import TableTypeConditionIconGenerator from '@/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator'
 import UseCaseIconGenerator from '@/components/diagrams/editor/template/icon/UseCaseIconGenerator'
 import VariationIconGenerator from '@/components/diagrams/editor/template/icon/VariationIconGenerator'
-import StateIconGenerator from '../../template/icon/StateIconGenerator'
-import StateGroupIconGenerator from '../../template/icon/StateGroupIconGenerator'
 
 @Component({
   components: {
