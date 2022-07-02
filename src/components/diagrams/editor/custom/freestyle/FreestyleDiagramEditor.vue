@@ -78,7 +78,7 @@ export default class FreestyleDiagramEditor extends Vue {
     new RequestIconGenerator(),
     new RequirementIconGenerator(),
     new ScenarioIconGenerator(),
-    new StateIconGenerator(),
+    new StateIconGenerator(true),
     new StateGroupIconGenerator(true),
   ]
 

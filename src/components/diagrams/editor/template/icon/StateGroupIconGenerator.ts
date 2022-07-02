@@ -79,10 +79,8 @@ export default class StateGroupIconGenerator implements IconGenerator<Resource> 
 
         waku.setUserData(new IconStatus(IconZOrderLevel.AREA));
 
-        if (this.isSinglePort)
-            this.makeSingleHybridPort(waku);
-        else
-            this.makeDoubleVectorPorts(waku);
+        if (this.isSinglePort) this.makeSingleHybridPort(waku);
+        else this.makeDoubleVectorPorts(waku);
 
         return waku;
     }

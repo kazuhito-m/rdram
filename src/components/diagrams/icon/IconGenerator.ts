@@ -4,7 +4,7 @@ import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
 import Placement from "@/domain/diagram/placement/Placement";
 
-export default interface IconGenerator<T extends Resource> {
-    resourceType(): ResourceType;
-    generate(placement: Placement, resource: T, iconChar: IconFontAndChar): Figure;
+export default abstract class IconGenerator<T extends Resource> {
+    public abstract resourceType(): ResourceType;
+    public abstract generate(placement: Placement, resource: T, iconChar: IconFontAndChar): Figure;
 }

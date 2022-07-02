@@ -53,14 +53,28 @@ export default abstract class GenericTextEllipseIconGenerator implements IconGen
 
         oval.add(moji, new draw2d.layout.locator.CenterLocator());
         oval.add(icon, new draw2d.layout.locator.XYAbsPortLocator({ x: -14, y: -17 }));
-        oval.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
-        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
-        const port = oval.getPorts().last();
-        const anchor = new draw2d.layout.anchor.FanConnectionAnchor(oval);
-        port.setConnectionAnchor(anchor);
+
+        this.makeSingleHybridPort(oval);
 
         oval.setUserData(new IconStatus());
 
         return oval;
+    }
+
+    protected makeDoubleVectorPorts(icon: any): void {
+        icon.createPort("input", new draw2d.layout.locator.TopLocator());
+        icon.createPort("output", new draw2d.layout.locator.BottomLocator());
+
+        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(icon);
+        const port = icon.getOutputPorts().last() as any;
+        port.setConnectionAnchor(anchor);
+    }
+
+    protected makeSingleHybridPort(icon: any): void {
+        icon.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
+        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
+        const port = icon.getPorts().last();
+        const anchor = new draw2d.layout.anchor.FanConnectionAnchor(icon);
+        port.setConnectionAnchor(anchor);
     }
 }
