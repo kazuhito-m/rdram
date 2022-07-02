@@ -595,9 +595,9 @@ export default class DiagramCanvas extends Vue {
         (port: any) =>
           port.NAME === portTypeName || port.NAME === 'draw2d.HybridPort'
       )
-    if (foundPort || depth > 3) return foundPort
+    if (foundPort || depth > 1) return foundPort // 一つ下の子FigureまでPortを追う。
 
-    const next = depth + 1  // 一つ下の子FigureまでPortを追う。
+    const next = depth + 1
     for (const child of figure.getChildren().asArray()) {
       const found = this.searchPortOf(child, portTypeName, next)
       if (found) return found

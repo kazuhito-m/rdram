@@ -38,7 +38,6 @@ export default abstract class GenericAreaIconGenerator extends IconGenerator<Res
             padding: 0,
             bgColor: "#FFFFFF",
             alpha: 1,
-            id // Portはここに付ける。GenericConnectPortsEventsでは「Portの属してるIDがResourseIdと捉える」ため冗長でも入れとく。
         });
 
         const name = new draw2d.shape.basic.Label({
