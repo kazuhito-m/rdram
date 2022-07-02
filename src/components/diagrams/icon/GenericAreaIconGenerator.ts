@@ -37,7 +37,8 @@ export default abstract class GenericAreaIconGenerator extends IconGenerator<Res
             stroke: 0,
             padding: 0,
             bgColor: "#FFFFFF",
-            alpha: 1
+            alpha: 1,
+            id // Portはここに付ける。GenericConnectPortsEventsでは「Portの属してるIDがResourseIdと捉える」ため冗長でも入れとく。
         });
 
         const name = new draw2d.shape.basic.Label({
@@ -48,13 +49,10 @@ export default abstract class GenericAreaIconGenerator extends IconGenerator<Res
             selectable: false
         });
 
-        waku.createPort(
-            "hybrid",
-            new draw2d.layout.locator.XYAbsPortLocator({ x: 15, y: -17 })
-        );
-
         icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 105, y: 27 }));
         waku.add(icon, new TopLeftLocator());
+
+        this.makeSingleHybridPort(icon);
 
         waku.setUserData(new IconStatus(IconZOrderLevel.AREA));
 
