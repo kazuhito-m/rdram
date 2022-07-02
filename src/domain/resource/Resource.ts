@@ -56,8 +56,6 @@ export default class Resource {
     }
 
     protected clone(): Resource {
-        // const serializer = new Serializer();
-        // return serializer.cloningOf(this);
         return new Resource(
             this.resourceId,
             this.resourceTypeId,

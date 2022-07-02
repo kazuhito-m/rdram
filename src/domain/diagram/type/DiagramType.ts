@@ -9,7 +9,6 @@ export default abstract class DiagramType {
         DiagramType.ALL.push(this);
     }
 
-
     equals(other: DiagramType | null): boolean {
         if (!other) return false;
         return other.id === this.id;

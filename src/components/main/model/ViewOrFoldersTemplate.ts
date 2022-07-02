@@ -3,7 +3,7 @@ import ViewOrFolders from "./ViewOrFolders";
 import Range from "@/domain/basic/Range";
 import Diagrams from "@/domain/diagram/Diagrams";
 import DiagramTypes from "@/domain/diagram/type/DiagramTypes";
-import Rdra20DiagramType from "~/domain/diagram/rdra20/Rdra20DiagramType";
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 
 export default class ViewOrFoldersTemplate {
     static readonly TREE = new ViewOrFolders([
@@ -14,7 +14,11 @@ export default class ViewOrFoldersTemplate {
                     .map(vof => vof.with(ViewOrFolder.EMPTY))
             ),
         ViewOrFolder.CUSTOM_FOLDER
-            .with(ViewOrFolder.EMPTY),
+            .with(...
+                DiagramTypes.CUSTOM_TYPES
+                    .map(type => ViewOrFolder.customDiagramTypeFolderOf(type))
+                    .map(vof => vof.with(ViewOrFolder.EMPTY))
+            ),
         ViewOrFolder.ANALYSIS_FOLDER
             .with(
                 ViewOrFolder.ICON_LIST,
@@ -39,18 +43,25 @@ export default class ViewOrFoldersTemplate {
 
     static build(diagrams: Diagrams): ViewOrFolders {
         const tree = ViewOrFoldersTemplate.TREE.clone();
-        const diagramFolders = tree.rdra20DiagramFolders();
         const typeMap = diagrams.groupOfType();
-        for (const folder of diagramFolders) {
-            const diagramsOfType = typeMap.get(folder.rdra20DiagramType());
-            if (!diagramsOfType || diagramsOfType.length === 0) continue;
 
-            const children = folder.children;
-            children.splice(0);
-            diagramsOfType
-                .map(d => ViewOrFolder.rdra20DiagramOf(d))
-                .forEach(vof => children.push(vof));
+        const diagramFodlerSets = [
+            tree.rdra20DiagramFolders(),
+            tree.customDiagramFolders()
+        ];
+        for (const diagramFolders of diagramFodlerSets) {
+            for (const folder of diagramFolders) {
+                const diagramsOfType = typeMap.get(folder.diagramType());
+                if (!diagramsOfType || diagramsOfType.length === 0) continue;
+
+                const children = folder.children;
+                children.splice(0);
+                diagramsOfType
+                    .map(d => ViewOrFolder.diagramOf(d))
+                    .forEach(vof => children.push(vof));
+            }
         }
+
         return tree;
     }
 

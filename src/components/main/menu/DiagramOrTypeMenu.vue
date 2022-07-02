@@ -34,7 +34,7 @@ import Product from '@/domain/product/Product'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
 
 @Component
-export default class Rdra20DiagramOrTypeMenu extends Vue {
+export default class DiagramOrTypeMenu extends Vue {
   private readonly prompts = new Prompts()
 
   @Inject()
@@ -56,7 +56,11 @@ export default class Rdra20DiagramOrTypeMenu extends Vue {
   private onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   onClickMenuAddDiagram(): void {
-    const diagram = this.addDiagram(this.item.rdra20DiagramType())
+    const item = this.item
+    const diagramType = item.isCustomDiagramTypeFolder()
+      ? item.customDiagramType()
+      : item.rdra20DiagramType()
+    const diagram = this.addDiagram(diagramType)
     if (!diagram) return
     this.onAddedDiagram(diagram)
   }
@@ -85,11 +89,12 @@ export default class Rdra20DiagramOrTypeMenu extends Vue {
   }
 
   get isFolder(): boolean {
-    return this.item.isRdra20DiagramTypeFolder()
+    const item = this.item
+    return item.isRdra20DiagramTypeFolder() || item.isCustomDiagramTypeFolder()
   }
 
   get isDiagram(): boolean {
-    return this.item.isRdra20Diagram()
+    return this.item.isDiagram()
   }
 
   // private method

@@ -29,42 +29,7 @@ export default class Product {
         const relationPlus = this.resources.relationWithResourcesOf(relation);
         if (!relationPlus) return "対応するリソースがありません。";
 
-        const relations = diagram.allRelations(); // TODO Diagram側にこれをつけたい。
-        if (relations.exists(relation)) return "すでに関連が存在します。";
-
-        if (relationPlus.fromType.equals(ResourceType.始点終点)) {
-            const startPoint = relationPlus.fromResource as StartOrEndPoint;
-            if (startPoint.startPoint) {
-                if (relations.existsFromResource(startPoint)) {
-                    return "始点からは一つの関連しか引けません。"
-                }
-            }
-        }
-
-        if (relationPlus.existsType(ResourceType.始点終点)) {
-            if (!relationPlus.existsType(ResourceType.アクティビティ)
-                && !relationPlus.existsType(ResourceType.状態)
-                && !relationPlus.existsType(ResourceType.状態グループ)) {
-                return "そのアイコン種類の間に関連は引けません。"
-            }
-        }
-
-        if (relationPlus.betweenBothFromTo(ResourceType.アクティビティ)) {
-            if (relations.existsBothReversivle(relation)) return "すでに関連が存在します。";
-            return "";
-        }
-
-        if (relationPlus.existsType(ResourceType.状態) || relationPlus.existsType(ResourceType.状態グループ)) {
-            if (!relationPlus.existsType(ResourceType.ユースケース)
-                && !relationPlus.existsType(ResourceType.始点終点)) {
-                return "そのアイコン種類の間に関連は引けません。";
-            }
-            return "";
-        }
-
-        if (relations.existsOrReversivle(relation)) return "すでに関連が存在します。";
-
-        return "";
+        return diagram.relationable(relationPlus);
     }
 
     public meageDiagramsByIdOf(newDiagrams: Diagram[]): Product {

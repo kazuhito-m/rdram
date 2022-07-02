@@ -8,14 +8,18 @@ import UsageSceneDiagram from "./rdra20/usagescene/UsageSceneDiagram";
 import BusinessFlowDiagram from "./rdra20/businessflow/BusinessFlowDiagram";
 import UseCaseCompositeDiagram from "./rdra20/usecasecomposite/UseCaseCompositeDiagram";
 import VariationAndConditionDiagram from "./rdra20/variationandcondition/VariationAndConditionDiagram";
+import DiagramType from "./type/DiagramType";
 import RequestModelDiagram from "@/domain/diagram/rdra20/requrestmodel/RequestModelDiagram";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
+import FreestyleDiagram from "@/domain/diagram/custom/freestyle/FreestyleDiagram";
+import CustomDiagramType from "@/domain/diagram/custom/CustomDiagramType";
 import Resources from "@/domain/resource/Resources";
 
 export default class DiagramFactory {
     constructor(private readonly resources: Resources) { }
 
-    public create(newDiagramId: number, name: string, diagramType: Rdra20DiagramType): Diagram {
+    public create(newDiagramId: number, name: string, diagramType: DiagramType): Diagram {
+        // Rdram2.0
         if (Rdra20DiagramType.システムコンテキスト図.equals(diagramType))
             return SystemContextDiagram.prototypeOf(newDiagramId, name, this.resources);
         if (Rdra20DiagramType.要求モデル図.equals(diagramType))
@@ -36,6 +40,11 @@ export default class DiagramFactory {
             return UseCaseCompositeDiagram.prototypeOf(newDiagramId, name);
         if (Rdra20DiagramType.バリエーション条件.equals(diagramType))
             return VariationAndConditionDiagram.prototypeOf(newDiagramId, name);
+
+        // カスタム
+        if (CustomDiagramType.フリースタイルの図.equals(diagramType))
+            return FreestyleDiagram.prototypeOf(newDiagramId, name);
+
         // それ以外(未定義なものが来た時)
         throw new Error("タイプに対応する図が見つからなかった。")
     }

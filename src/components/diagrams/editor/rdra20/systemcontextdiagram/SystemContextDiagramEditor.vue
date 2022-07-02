@@ -17,16 +17,15 @@ import { Prop, Component, Vue, Emit } from 'nuxt-property-decorator'
 import DiagramEditor from '@/components/diagrams/editor/template/DiagramEditor.vue'
 
 import EventAnalyzer from '@/components/diagrams/editor/template/event/EventAnalyzer'
-import BusinessFlowConnectPortsEvents from '@/components/diagrams/editor/businessflowdiagram/event/BusinessFlowConnectPortsEvents'
+import GenericConnectPortsEvents from '@/components/diagrams/editor/template/event/events/GenericConnectPortsEvents'
 import GemerocDeleteShapeEvents from '@/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents'
 import GenericMoveShapeEvents from '@/components/diagrams/editor/template/event/events/GenericMoveShapeEvents'
 import GenericResizeShapeEvents from '@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents'
 
 import IconGenerator from '@/components/diagrams/icon/IconGenerator'
-import ActorAndLaneIconGenerator from '@/components/diagrams/editor/template/icon/ActorAndLaneIconGenerator'
-import ActivityForBusinessFlowIconGenerator from '@/components/diagrams/editor/template/icon/ActivityForBusinessFlowIconGenerator'
-import UseCaseIconGenerator from '@/components/diagrams/editor/template/icon/UseCaseIconGenerator'
-import StartOrEndPointIconGenerator from '@/components/diagrams/editor/template/icon/StartOrEndPointIconGenerator'
+
+import SystemForSystemContextIconGenerator from '@/components/diagrams/editor/template/icon/SystemForSystemContextIconGenerator'
+import PurposeIconGenerator from '@/components/diagrams/editor/template/icon/PurposeIconGenerator'
 
 import Resource from '@/domain/resource/Resource'
 
@@ -35,7 +34,7 @@ import Resource from '@/domain/resource/Resource'
     DiagramEditor,
   },
 })
-export default class BusinessFlowDiagramEditor extends Vue {
+export default class SystemContextDiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
@@ -51,16 +50,14 @@ export default class BusinessFlowDiagramEditor extends Vue {
 
   readonly eventAnalyzer = new EventAnalyzer([
     new GemerocDeleteShapeEvents(),
-    new BusinessFlowConnectPortsEvents(),
+    new GenericConnectPortsEvents(),
     new GenericMoveShapeEvents(),
     new GenericResizeShapeEvents(),
   ])
 
   readonly iconGenerators: IconGenerator<Resource>[] = [
-    new ActorAndLaneIconGenerator(),
-    new ActivityForBusinessFlowIconGenerator(),
-    new UseCaseIconGenerator(),
-    new StartOrEndPointIconGenerator(),
+    new SystemForSystemContextIconGenerator(),
+    new PurposeIconGenerator(),
   ]
 
   // Emits

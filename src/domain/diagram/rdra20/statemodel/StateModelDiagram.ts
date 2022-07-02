@@ -5,6 +5,7 @@ import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Rdra20Diagram from "@/domain/diagram/rdra20/Rdra20Diagram";
+import RelationWithResources from "@/domain/relation/RelationWithResources";
 
 export default class StateModelDiagram extends Rdra20Diagram {
     protected constructor(
@@ -27,6 +28,20 @@ export default class StateModelDiagram extends Rdra20Diagram {
             height,
             canvasGuideType,
         );
+    }
+
+    public relationableLocalRuleOnDiagramOf(relationPlus: RelationWithResources): string {
+        if (relationPlus.existsType(ResourceType.始点終点)) {
+            if (!relationPlus.existsAnyTypes(ResourceType.状態, ResourceType.状態グループ)) {
+                return "そのアイコン種類の間に関連は引けません。"
+            }
+        }
+        if (relationPlus.existsAnyTypes(ResourceType.状態, ResourceType.状態グループ)) {
+            if (!relationPlus.existsAnyTypes(ResourceType.ユースケース, ResourceType.始点終点)) {
+                return "そのアイコン種類の間に関連は引けません。";
+            }
+        }
+        return "";
     }
 
     public availableResourceTypes(): ResourceType[] {

@@ -7,7 +7,7 @@ import HasContentResource from '@/domain/resource/HasContentResource';
 import ResourceType from '@/domain/resource/ResourceType';
 import Placement from '@/domain/diagram/placement/Placement';
 
-export default abstract class GenericHasContentIconGenerator implements IconGenerator<HasContentResource> {
+export default abstract class GenericHasContentIconGenerator extends IconGenerator<HasContentResource> {
     public abstract resourceType(): ResourceType;
 
     generate(placement: Placement, resource: HasContentResource, iconChar: IconFontAndChar): draw2d.Figure {

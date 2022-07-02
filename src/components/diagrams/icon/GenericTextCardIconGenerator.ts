@@ -8,7 +8,7 @@ import ResourceType from '@/domain/resource/ResourceType';
 import Purpose from '@/domain/resource/Purpose';
 import Placement from '@/domain/diagram/placement/Placement';
 
-export default abstract class GenericTextCardIconGenerator implements IconGenerator<Resource> {
+export default abstract class GenericTextCardIconGenerator extends IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;
 
     public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {
@@ -54,11 +54,7 @@ export default abstract class GenericTextCardIconGenerator implements IconGenera
         icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 105, y: 27 }));
         text.add(icon, new TopLeftLocator());
 
-        text.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
-        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
-        const port = text.getPorts().last();
-        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(text);
-        port.setConnectionAnchor(anchor);
+        this.makeSingleHybridPort(text);
 
         text.setUserData(new IconStatus());
 

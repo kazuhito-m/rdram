@@ -18,17 +18,15 @@ import DiagramEditor from '@/components/diagrams/editor/template/DiagramEditor.v
 
 import EventAnalyzer from '@/components/diagrams/editor/template/event/EventAnalyzer'
 import GenericConnectPortsEvents from '@/components/diagrams/editor/template/event/events/GenericConnectPortsEvents'
-import GemerocDeleteShapeEvents from '@/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents'
+import GenericDeleteShapeEvents from '@/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents'
 import GenericMoveShapeEvents from '@/components/diagrams/editor/template/event/events/GenericMoveShapeEvents'
 import GenericResizeShapeEvents from '@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents'
 
 import IconGenerator from '@/components/diagrams/icon/IconGenerator'
-
-import SystemForSystemContextIconGenerator from '@/components/diagrams/editor/template/icon/SystemForSystemContextIconGenerator'
-import ActorIconGenerator from '@/components/diagrams/editor/template/icon/ActorIconGenerator'
-import OutsideSystemIconGenerator from '@/components/diagrams/editor/template/icon/OutsideSystemIconGenerator'
-import PurposeIconGenerator from '@/components/diagrams/editor/template/icon/PurposeIconGenerator'
-import InHouseSystemIconGenerator from '@/components/diagrams/editor/template/icon/InHouseSystemIconGenerator'
+import UseCaseIconGenerator from '@/components/diagrams/editor/template/icon/UseCaseIconGenerator'
+import VariationIconGenerator from '@/components/diagrams/editor/template/icon/VariationIconGenerator'
+import ConditionIconGenerator from '@/components/diagrams/editor/template/icon/ConditionIconGenerator'
+import TableTypeConditionIconGenerator from '@/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator'
 
 import Resource from '@/domain/resource/Resource'
 
@@ -37,7 +35,7 @@ import Resource from '@/domain/resource/Resource'
     DiagramEditor,
   },
 })
-export default class SystemContextDiagramEditor extends Vue {
+export default class UseCaseCompositeDiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
@@ -52,18 +50,17 @@ export default class SystemContextDiagramEditor extends Vue {
   // This class fields;
 
   readonly eventAnalyzer = new EventAnalyzer([
-    new GemerocDeleteShapeEvents(),
+    new GenericDeleteShapeEvents(),
     new GenericConnectPortsEvents(),
     new GenericMoveShapeEvents(),
     new GenericResizeShapeEvents(),
   ])
 
   readonly iconGenerators: IconGenerator<Resource>[] = [
-    new SystemForSystemContextIconGenerator(),
-    new PurposeIconGenerator(),
-    new ActorIconGenerator(),
-    new OutsideSystemIconGenerator(),
-    new InHouseSystemIconGenerator(),
+    new UseCaseIconGenerator(),
+    new VariationIconGenerator(),
+    new ConditionIconGenerator(),
+    new TableTypeConditionIconGenerator(),
   ]
 
   // Emits

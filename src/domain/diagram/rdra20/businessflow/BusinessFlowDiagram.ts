@@ -1,10 +1,11 @@
-import { CanvasGuideType } from "../../CanvasGuideType";
+import { CanvasGuideType } from "@/domain/diagram/CanvasGuideType";
 import Relation from "@/domain/relation/Relation";
 import Placement from "@/domain/diagram/placement/Placement";
 import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
 import ResourceType from "@/domain/resource/ResourceType";
 import Resource from "@/domain/resource/Resource";
 import Rdra20Diagram from "@/domain/diagram/rdra20/Rdra20Diagram";
+import RelationWithResources from "@/domain/relation/RelationWithResources";
 
 export default class BusinessFlowDiagram extends Rdra20Diagram {
     protected constructor(
@@ -27,6 +28,21 @@ export default class BusinessFlowDiagram extends Rdra20Diagram {
             height,
             canvasGuideType,
         );
+    }
+
+    public relationableLocalRuleOnDiagramOf(relationPlus: RelationWithResources): string {
+        if (relationPlus.existsType(ResourceType.始点終点)) {
+            if (!relationPlus.existsType(ResourceType.アクティビティ)) {
+                return "そのアイコン種類の間に関連は引けません。"
+            }
+        }
+        const relations = this.allRelations();
+        if (relationPlus.betweenBothFromTo(ResourceType.アクティビティ)) {
+            if (relations.existsBothReversivle(relationPlus.source)) {
+                return "すでに関連が存在します。";
+            }
+        }
+        return "";
     }
 
     public availableResourceTypes(): ResourceType[] {

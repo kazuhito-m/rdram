@@ -14,7 +14,7 @@
        v-if="tabClick && openTabs.length > 1" 
        :item="item"
         :openTabs="openTabs" />
-      <Rdra20DiagramOrTypeMenu
+      <DiagramOrTypeMenu
         :item="item"
         @onAddedDiagram="onAddedDiagram"
         @onRemovedDiagram="onRemovedDiagram"
@@ -26,17 +26,17 @@
 <script lang="ts">
 import { Component, Vue, Emit, Prop } from 'nuxt-property-decorator'
 import TabClickMenu from './TabClickMenu.vue'
-import Rdra20DiagramOrTypeMenu from './Rdra20DiagramOrTypeMenu.vue'
+import DiagramOrTypeMenu from './DiagramOrTypeMenu.vue'
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Diagram from '@/domain/diagram/Diagram'
 
 @Component({
   components: {
     TabClickMenu,
-    Rdra20DiagramOrTypeMenu,
+    DiagramOrTypeMenu,
   },
 })
-export default class DiagramRightClickMenu extends Vue {
+export default class ItemRightClickMenu extends Vue {
   visible = false
   positionX = 0
   positionY = 0

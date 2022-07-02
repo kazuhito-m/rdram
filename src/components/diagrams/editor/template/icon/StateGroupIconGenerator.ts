@@ -7,7 +7,9 @@ import ResourceType from '@/domain/resource/ResourceType';
 import Placement from '@/domain/diagram/placement/Placement';
 import IconZOrderLevel from '~/components/diagrams/icon/IconZOrderLevel';
 
-export default class StateGroupIconGenerator implements IconGenerator<Resource> {
+export default class StateGroupIconGenerator extends IconGenerator<Resource> {
+    constructor(private readonly isSinglePort = false) { super(); }
+
     public resourceType(): ResourceType {
         return ResourceType.状態グループ;
     }
@@ -75,14 +77,10 @@ export default class StateGroupIconGenerator implements IconGenerator<Resource> 
         topBox.add(container, new draw2d.layout.locator.CenterLocator());
         waku.add(topBox, new draw2d.layout.locator.XYAbsPortLocator(0, 0));
 
-        waku.createPort("input", new draw2d.layout.locator.TopLocator());
-        waku.createPort("output", new draw2d.layout.locator.BottomLocator());
-
-        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(icon);
-        const port = waku.getOutputPorts().last() as any;
-        port.setConnectionAnchor(anchor);
-
         waku.setUserData(new IconStatus(IconZOrderLevel.AREA));
+
+        if (this.isSinglePort) this.makeSingleHybridPort(waku);
+        else this.makeDoubleVectorPorts(waku);
 
         return waku;
     }

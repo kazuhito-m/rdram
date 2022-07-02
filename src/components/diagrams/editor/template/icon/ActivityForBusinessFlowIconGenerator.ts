@@ -6,7 +6,7 @@ import ResourceType from '@/domain/resource/ResourceType';
 import Resource from '@/domain/resource/Resource';
 import Placement from '@/domain/diagram/placement/Placement';
 
-export default class ActivityForBusinessFlowIconGenerator implements IconGenerator<Resource> {
+export default class ActivityForBusinessFlowIconGenerator extends IconGenerator<Resource> {
     public resourceType(): ResourceType {
         return ResourceType.アクティビティ;
     }
@@ -44,13 +44,7 @@ export default class ActivityForBusinessFlowIconGenerator implements IconGenerat
         });
         outline.add(name, new draw2d.layout.locator.BottomLocator());
 
-
-        outline.createPort("input", new draw2d.layout.locator.TopLocator());
-        outline.createPort("output", new draw2d.layout.locator.BottomLocator());
-
-        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(icon);
-        const port = outline.getOutputPorts().last() as any;
-        port.setConnectionAnchor(anchor);
+        this.makeDoubleVectorPorts(outline);
 
         outline.setUserData(new IconStatus());
 

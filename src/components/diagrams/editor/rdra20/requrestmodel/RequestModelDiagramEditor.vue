@@ -23,7 +23,6 @@ import GenericMoveShapeEvents from '@/components/diagrams/editor/template/event/
 import GenericResizeShapeEvents from '@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents'
 
 import IconGenerator from '@/components/diagrams/icon/IconGenerator'
-import ActorIconGenerator from '@/components/diagrams/editor/template/icon/ActorIconGenerator'
 import RequestIconGenerator from '@/components/diagrams/editor/template/icon/RequestIconGenerator'
 import RequirementIconGenerator from '@/components/diagrams/editor/template/icon/RequirementIconGenerator'
 
@@ -56,7 +55,6 @@ export default class RequestModelDiagramEditor extends Vue {
   ])
 
   readonly iconGenerators: IconGenerator<Resource>[] = [
-    new ActorIconGenerator(),
     new RequestIconGenerator(),
     new RequirementIconGenerator(),
   ]

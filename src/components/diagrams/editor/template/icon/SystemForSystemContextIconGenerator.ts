@@ -6,7 +6,7 @@ import Resource from '@/domain/resource/Resource';
 import ResourceType from '@/domain/resource/ResourceType';
 import Placement from '@/domain/diagram/placement/Placement';
 
-export default class SystemForSystemContextIconGenerator implements IconGenerator<Resource> {
+export default class SystemForSystemContextIconGenerator extends IconGenerator<Resource> {
     public resourceType(): ResourceType {
         return ResourceType.システム;
     }
@@ -51,11 +51,8 @@ export default class SystemForSystemContextIconGenerator implements IconGenerato
 
         oval.add(moji, new draw2d.layout.locator.CenterLocator());
         oval.add(icon, new draw2d.layout.locator.XYRelPortLocator({ x: 47, y: 3 }));
-        oval.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
-        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
-        const port = oval.getPorts().last();
-        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(oval);
-        port.setConnectionAnchor(anchor);
+
+        this.makeSingleHybridPort(oval);
 
         oval.setUserData(new IconStatus());
 

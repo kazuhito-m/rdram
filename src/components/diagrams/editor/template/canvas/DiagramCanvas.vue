@@ -42,6 +42,7 @@ import 'jquery-ui'
 import 'jquery-ui/ui/widgets/draggable'
 import 'jquery-ui/ui/widgets/droppable'
 
+import DefaultIconGenerator from '../icon/DefaultIconGenerator'
 import IconViewModel from './IconViewModel'
 import ZoomValueOnDraw2d from './ZoomValueOnDraw2d'
 import AbsolutePosition from './AbsolutePosition'
@@ -238,7 +239,7 @@ export default class DiagramCanvas extends Vue {
 
     const guideType = Draw2dCanvasGuideType.of(diagram.canvasGuideType)
 
-console.log("guideType:", guideType)
+    console.log('guideType:', guideType)
 
     this.showCanvas()
     this.fixCanvasPosition()
@@ -469,11 +470,7 @@ console.log("guideType:", guideType)
     placement: Placement
   ): Figure | null {
     const type = resource.type
-    const generator = this.choiceIconGenerator(type) as IconGenerator<Resource>
-    if (!generator) {
-      alert(`ジェネレータ無しアイコン生成不能:${type.name}`)
-      return null
-    }
+    const generator = this.choiceIconGenerator(type)
 
     const icon = generator.generate(placement, resource, this.iconStyleOf(type))
     this.setIconEventHandler(icon, resource)
@@ -549,10 +546,11 @@ console.log("guideType:", guideType)
 
   private choiceIconGenerator(
     resourceType: ResourceType
-  ): IconGenerator<Resource> | undefined {
-    return this.iconGenerators.find((g) =>
+  ): IconGenerator<Resource> {
+    const found = this.iconGenerators.find((g) =>
       g.resourceType().equals(resourceType)
     )
+    return found || DefaultIconGenerator.get()
   }
 
   private addConnection(relation: Relation) {

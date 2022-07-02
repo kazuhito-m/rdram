@@ -18,25 +18,16 @@ import DiagramEditor from '@/components/diagrams/editor/template/DiagramEditor.v
 
 import EventAnalyzer from '@/components/diagrams/editor/template/event/EventAnalyzer'
 import GenericConnectPortsEvents from '@/components/diagrams/editor/template/event/events/GenericConnectPortsEvents'
-import GenericDeleteShapeEvents from '@/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents'
+import GemerocDeleteShapeEvents from '@/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents'
 import GenericMoveShapeEvents from '@/components/diagrams/editor/template/event/events/GenericMoveShapeEvents'
 import GenericResizeShapeEvents from '@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents'
 
 import IconGenerator from '@/components/diagrams/icon/IconGenerator'
-import ActorIconGenerator from '@/components/diagrams/editor/template/icon/ActorIconGenerator'
-import ActivityIconGenerator from '@/components/diagrams/editor/template/icon/ActivityIconGenerator'
-import UseCaseIconGenerator from '@/components/diagrams/editor/template/icon/UseCaseIconGenerator'
-import InformationIconGenerator from '@/components/diagrams/editor/template/icon/InformationIconGenerator'
-import ScreenIconGenerator from '@/components/diagrams/editor/template/icon/ScreenIconGenerator'
-import EventIconGenerator from '@/components/diagrams/editor/template/icon/EventIconGenerator'
-import TimerIconGenerator from '@/components/diagrams/editor/template/icon/TimerIconGenerator'
-import VariationIconGenerator from '@/components/diagrams/editor/template/icon/VariationIconGenerator'
+import BusinessUseCaseIconGenerator from '@/components/diagrams/editor/template/icon/BusinessUseCaseIconGenerator'
+import CompanyIconGenerator from '@/components/diagrams/editor/template/icon/CompanyIconGenerator'
+import RoomIconGenerator from '@/components/diagrams/editor/template/icon/RoomIconGenerator'
 import ConditionIconGenerator from '@/components/diagrams/editor/template/icon/ConditionIconGenerator'
 import TableTypeConditionIconGenerator from '@/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator'
-import OutsideSystemIconGenerator from '@/components/diagrams/editor/template/icon/OutsideSystemIconGenerator'
-import InHouseSystemIconGenerator from '@/components/diagrams/editor/template/icon/InHouseSystemIconGenerator'
-import SystemIconGenerator from '@/components/diagrams/editor/template/icon/SystemIconGenerator'
-import FacilityIconGenerator from '@/components/diagrams/editor/template/icon/FacilityIconGenerator'
 
 import Resource from '@/domain/resource/Resource'
 
@@ -45,7 +36,7 @@ import Resource from '@/domain/resource/Resource'
     DiagramEditor,
   },
 })
-export default class UseCaseCompositeDiagramEditor extends Vue {
+export default class BusinessUseCaseDiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
@@ -60,27 +51,18 @@ export default class UseCaseCompositeDiagramEditor extends Vue {
   // This class fields;
 
   readonly eventAnalyzer = new EventAnalyzer([
-    new GenericDeleteShapeEvents(),
+    new GemerocDeleteShapeEvents(),
     new GenericConnectPortsEvents(),
     new GenericMoveShapeEvents(),
     new GenericResizeShapeEvents(),
   ])
 
   readonly iconGenerators: IconGenerator<Resource>[] = [
-    new ActorIconGenerator(),
-    new ActivityIconGenerator(),
-    new UseCaseIconGenerator(),
-    new InformationIconGenerator(),
-    new ScreenIconGenerator(),
-    new EventIconGenerator(),
-    new TimerIconGenerator(),
-    new VariationIconGenerator(),
+    new BusinessUseCaseIconGenerator(),
+    new CompanyIconGenerator(),
+    new RoomIconGenerator(),
     new ConditionIconGenerator(),
     new TableTypeConditionIconGenerator(),
-    new OutsideSystemIconGenerator(),
-    new InHouseSystemIconGenerator(),
-    new SystemIconGenerator(),
-    new FacilityIconGenerator(),
   ]
 
   // Emits

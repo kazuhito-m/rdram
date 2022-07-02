@@ -1,19 +1,23 @@
 import ViewOrFolder from "./ViewOrFolder";
 import Diagram from "@/domain/diagram/Diagram";
+import CustomDiagramType from "~/domain/diagram/custom/CustomDiagramType";
 
 export default class ViewOrFolders {
     constructor(public readonly values: ViewOrFolder[]) { }
 
     addOf(diagram: Diagram): void {
-        const folder = this.rdra20DiagramFolders()
-            .find(f => f.rdra20DiagramType().equals(diagram.type));
+        const fodlers = CustomDiagramType.as(diagram.type)
+            ? this.customDiagramFolders()
+            : this.rdra20DiagramFolders();
+        const folder = fodlers
+            .find(f => f.diagramType().equals(diagram.type));
         if (!folder) return;
         const items = folder.children
 
         if (items.length === 1 && items[0].equals(ViewOrFolder.EMPTY))
             items.splice(0);
 
-        const item = ViewOrFolder.rdra20DiagramOf(diagram);
+        const item = ViewOrFolder.diagramOf(diagram);
         items.push(item);
     }
 
@@ -52,8 +56,21 @@ export default class ViewOrFolders {
         return rdra20.children;
     }
 
+    customDiagramFolders(): ViewOrFolder[] {
+        const custom = this.findOf(ViewOrFolder.CUSTOM_FOLDER.id);
+        if (!custom) return [];
+        return custom.children;
+    }
+
     rdra20Folder(): ViewOrFolder {
         return this.findOf(ViewOrFolder.RDRAM20_FOLDER.id) as ViewOrFolder;
+    }
+
+    findParentFolderOf(id: number): ViewOrFolder | undefined {
+        return [this.rdra20DiagramFolders(), this.customDiagramFolders()]
+            .flat()
+            .find(folder => folder.children
+                .some((item) => item.id === id))
     }
 
     clone(): ViewOrFolders {

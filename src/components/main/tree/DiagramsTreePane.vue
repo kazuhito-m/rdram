@@ -126,11 +126,9 @@ export default class DiagramsTreePane extends Vue {
   }
 
   private openParentTreeItem(treeItemId: number): void {
-    const rdraTop = this.tree.rdra20Folder()
-    const parentTreeItem = rdraTop.children.find((folderItem) =>
-      folderItem.children.some((item) => item.id === treeItemId)
-    )
+    const parentTreeItem = this.tree.findParentFolderOf(treeItemId)
     if (!parentTreeItem) return
+
     const parentId = parentTreeItem.id
     const openIds = this.treeOpenItemIds
     if (openIds.includes(parentId)) openIds.splice(openIds.indexOf(parentId), 1)

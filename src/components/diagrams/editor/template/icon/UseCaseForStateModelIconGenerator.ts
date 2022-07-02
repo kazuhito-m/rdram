@@ -1,4 +1,4 @@
-import draw2d, { Figure } from 'draw2d';
+import { Figure } from 'draw2d';
 import GenericTextEllipseIconGenerator from '@/components/diagrams/icon/GenericTextEllipseIconGenerator';
 import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
 import Resource from '@/domain/resource/Resource';
@@ -17,12 +17,7 @@ export default class UseCaseForStateModelIconGenerator extends GenericTextEllips
         icon.getOutputPorts().asArray()
             .forEach((port: Figure) => icon.removePort(port));
 
-        icon.createPort("input", new draw2d.layout.locator.TopLocator());
-        icon.createPort("output", new draw2d.layout.locator.BottomLocator());
-
-        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(icon);
-        const port = icon.getOutputPorts().last() as any;
-        port.setConnectionAnchor(anchor);
+        this.makeDoubleVectorPorts(icon);
 
         return icon;
     }

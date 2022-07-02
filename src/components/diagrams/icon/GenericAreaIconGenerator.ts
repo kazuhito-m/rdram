@@ -8,7 +8,7 @@ import Resource from '@/domain/resource/Resource';
 import ResourceType from '@/domain/resource/ResourceType';
 import Placement from "@/domain/diagram/placement/Placement";
 
-export default abstract class GenericAreaIconGenerator implements IconGenerator<Resource> {
+export default abstract class GenericAreaIconGenerator extends IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;
 
     public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {

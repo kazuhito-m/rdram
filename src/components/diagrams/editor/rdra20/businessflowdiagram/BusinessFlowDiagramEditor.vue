@@ -17,25 +17,16 @@ import { Prop, Component, Vue, Emit } from 'nuxt-property-decorator'
 import DiagramEditor from '@/components/diagrams/editor/template/DiagramEditor.vue'
 
 import EventAnalyzer from '@/components/diagrams/editor/template/event/EventAnalyzer'
-import GenericConnectPortsEvents from '@/components/diagrams/editor/template/event/events/GenericConnectPortsEvents'
+import BusinessFlowConnectPortsEvents from '@/components/diagrams/editor/rdra20/businessflowdiagram/event/BusinessFlowConnectPortsEvents'
 import GemerocDeleteShapeEvents from '@/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents'
 import GenericMoveShapeEvents from '@/components/diagrams/editor/template/event/events/GenericMoveShapeEvents'
 import GenericResizeShapeEvents from '@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents'
 
 import IconGenerator from '@/components/diagrams/icon/IconGenerator'
-import BusinessUseCaseIconGenerator from '@/components/diagrams/editor/template/icon/BusinessUseCaseIconGenerator'
-import CompanyIconGenerator from '@/components/diagrams/editor/template/icon/CompanyIconGenerator'
-import ActorIconGenerator from '@/components/diagrams/editor/template/icon/ActorIconGenerator'
-import RoomIconGenerator from '@/components/diagrams/editor/template/icon/RoomIconGenerator'
-import GoodsIconGenerator from '@/components/diagrams/editor/template/icon/GoodsIconGenerator'
-import ServiceIconGenerator from '@/components/diagrams/editor/template/icon/ServiceIconGenerator'
-import FacilityIconGenerator from '@/components/diagrams/editor/template/icon/FacilityIconGenerator'
-import ContractIconGenerator from '@/components/diagrams/editor/template/icon/ContractIconGenerator'
-import InHouseSystemIconGenerator from '@/components/diagrams/editor/template/icon/InHouseSystemIconGenerator'
-import OutsideSystemIconGenerator from '@/components/diagrams/editor/template/icon/OutsideSystemIconGenerator'
-import InformationIconGenerator from '@/components/diagrams/editor/template/icon/InformationIconGenerator'
-import ConditionIconGenerator from '@/components/diagrams/editor/template/icon/ConditionIconGenerator'
-import TableTypeConditionIconGenerator from '@/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator'
+import ActorAndLaneIconGenerator from '@/components/diagrams/editor/template/icon/ActorAndLaneIconGenerator'
+import ActivityForBusinessFlowIconGenerator from '@/components/diagrams/editor/template/icon/ActivityForBusinessFlowIconGenerator'
+import UseCaseIconGenerator from '@/components/diagrams/editor/template/icon/UseCaseIconGenerator'
+import StartOrEndPointIconGenerator from '@/components/diagrams/editor/template/icon/StartOrEndPointIconGenerator'
 
 import Resource from '@/domain/resource/Resource'
 
@@ -44,7 +35,7 @@ import Resource from '@/domain/resource/Resource'
     DiagramEditor,
   },
 })
-export default class BusinessUseCaseDiagramEditor extends Vue {
+export default class BusinessFlowDiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
@@ -60,25 +51,16 @@ export default class BusinessUseCaseDiagramEditor extends Vue {
 
   readonly eventAnalyzer = new EventAnalyzer([
     new GemerocDeleteShapeEvents(),
-    new GenericConnectPortsEvents(),
+    new BusinessFlowConnectPortsEvents(),
     new GenericMoveShapeEvents(),
     new GenericResizeShapeEvents(),
   ])
 
   readonly iconGenerators: IconGenerator<Resource>[] = [
-    new BusinessUseCaseIconGenerator(),
-    new CompanyIconGenerator(),
-    new ActorIconGenerator(),
-    new RoomIconGenerator(),
-    new GoodsIconGenerator(),
-    new FacilityIconGenerator(),
-    new ServiceIconGenerator(),
-    new ContractIconGenerator(),
-    new InHouseSystemIconGenerator(),
-    new OutsideSystemIconGenerator(),
-    new InformationIconGenerator(),
-    new ConditionIconGenerator(),
-    new TableTypeConditionIconGenerator(),
+    new ActorAndLaneIconGenerator(),
+    new ActivityForBusinessFlowIconGenerator(),
+    new UseCaseIconGenerator(),
+    new StartOrEndPointIconGenerator(),
   ]
 
   // Emits

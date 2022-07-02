@@ -29,19 +29,8 @@ export default class FreestyleDiagram extends CustomDiagram {
     }
 
     public availableResourceTypes(): ResourceType[] {
-        return [
-            ResourceType.業務,
-            ResourceType.アクター,
-            ResourceType.商品,
-            ResourceType.建物,
-            ResourceType.契約,
-            ResourceType.サービス,
-            ResourceType.組織,
-            ResourceType.会社,
-            ResourceType.自社システム,
-            ResourceType.外部システム,
-            ResourceType.情報,
-        ];
+        return ResourceType.values()
+            .filter(type => !type.equals(ResourceType.始点終点));
     }
 
     protected renew(id: number, typeId: number, name: string, relations: Relation[], placements: Placement[], width: number, height: number, canvasGuideType: CanvasGuideType): FreestyleDiagram {
@@ -60,7 +49,7 @@ export default class FreestyleDiagram extends CustomDiagram {
     public static prototypeOf(newDiagramId: number, name: string): FreestyleDiagram {
         return new FreestyleDiagram(
             newDiagramId,
-            CustomDiagramType.フリースタイル図.id,
+            CustomDiagramType.フリースタイルの図.id,
             name.trim(),
             [],
             [],

@@ -8,6 +8,7 @@
     @onUpdateResources="onUpdateResources"
     @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
     @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+    @onRenamedResource="onRenamedResource"
   />
 </template>
 
@@ -22,10 +23,7 @@ import GenericMoveShapeEvents from '@/components/diagrams/editor/template/event/
 import GenericResizeShapeEvents from '@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents'
 
 import IconGenerator from '@/components/diagrams/icon/IconGenerator'
-import ActorIconGenerator from '@/components/diagrams/editor/template/icon/ActorIconGenerator'
-import UsageSceneIconGenerator from '@/components/diagrams/editor/template/icon/UsageSceneIconGenerator'
-import ScenarioIconGenerator from '@/components/diagrams/editor/template/icon/ScenarioIconGenerator'
-import UseCaseIconGenerator from '@/components/diagrams/editor/template/icon/UseCaseIconGenerator'
+import InformationGroupIconGenerator from '@/components/diagrams/editor/template/icon/InformationGroupIconGenerator'
 
 import Resource from '@/domain/resource/Resource'
 
@@ -34,7 +32,7 @@ import Resource from '@/domain/resource/Resource'
     DiagramEditor,
   },
 })
-export default class UsageSceneDiagramEditor extends Vue {
+export default class InfomationModelEditor extends Vue {
   // Props
 
   @Prop({ required: true })
@@ -56,10 +54,7 @@ export default class UsageSceneDiagramEditor extends Vue {
   ])
 
   readonly iconGenerators: IconGenerator<Resource>[] = [
-    new UsageSceneIconGenerator(),
-    new ScenarioIconGenerator(),
-    new ActorIconGenerator(),
-    new UseCaseIconGenerator(),
+    new InformationGroupIconGenerator(),
   ]
 
   // Emits
@@ -72,6 +67,9 @@ export default class UsageSceneDiagramEditor extends Vue {
 
   @Emit('onOpenDiagramOfResourceRelate')
   onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+
+  @Emit('onRenamedResource')
+  onRenamedResource(_src: Resource, _dest: Resource): void {}
 }
 </script>
 
