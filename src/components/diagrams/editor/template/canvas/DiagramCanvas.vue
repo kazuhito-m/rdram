@@ -2,12 +2,14 @@
   <div ref="convasContainer" class="canvas-container">
     <div :id="canvasId" ref="canvasBase" class="diagram-canvas" />
 
-    <CanvasSettingToolBar :diagramId="diagramId" :canvasGuideType="canvasGuideType"
+    <CanvasSettingToolBar
+:diagramId="diagramId" :canvasGuideType="canvasGuideType"
       @onChangeZoomBySlider="onChangeZoomBySlider" @onChangeCanvasGuideType="onChangeCanvasGuideType"
       @onPngDownload="onPngDownload" @onSvgDownload="onSvgDownload" @onDiagramExport="onDiagramExport"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor" />
 
-    <ConnectorRightClickMenuAndEditor :visible="visibleConnectorMenu" :relation="targetRelation" :menuPositionX="menuX"
+    <ConnectorRightClickMenuAndEditor
+:visible="visibleConnectorMenu" :relation="targetRelation" :menuPositionX="menuX"
       :menuPositionY="menuY" @onUpdateRelation="onUpdateRelation" @onDeleteRelation="onDeleteRelation" />
 
     <IconToolTip ref="iconToolTip" />
@@ -30,6 +32,7 @@ import 'jquery-ui'
 import 'jquery-ui/ui/widgets/draggable'
 import 'jquery-ui/ui/widgets/droppable'
 
+import DefaultIconGenerator from '../icon/DefaultIconGenerator'
 import IconViewModel from './IconViewModel'
 import ZoomValueOnDraw2d from './ZoomValueOnDraw2d'
 import AbsolutePosition from './AbsolutePosition'
@@ -58,7 +61,6 @@ import ClientDownloadRepository from '@/domain/client/ClientDownloadRepository'
 import DiagramExportService from '@/application/service/diagram/export/DiagramExportService'
 import DragAndDropResourceType from '@/components/diagrams/editor/template/dad/DragAndDropResourceType'
 import DragAndDropResourceId from '@/components/diagrams/editor/template/dad/DragAndDropResourceId'
-import DefaultIconGenerator from '../icon/DefaultIconGenerator'
 
 @Component({
   components: {
@@ -536,7 +538,7 @@ export default class DiagramCanvas extends Vue {
     const found = this.iconGenerators.find((g) =>
       g.resourceType().equals(resourceType)
     )
-    return found ? found : DefaultIconGenerator.get();
+    return found || DefaultIconGenerator.get();
   }
 
   private addConnection(relation: Relation) {

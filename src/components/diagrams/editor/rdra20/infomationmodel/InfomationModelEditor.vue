@@ -23,7 +23,6 @@ import GenericMoveShapeEvents from '@/components/diagrams/editor/template/event/
 import GenericResizeShapeEvents from '@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents'
 
 import IconGenerator from '@/components/diagrams/icon/IconGenerator'
-import InformationIconGenerator from '@/components/diagrams/editor/template/icon/InformationIconGenerator'
 import InformationGroupIconGenerator from '@/components/diagrams/editor/template/icon/InformationGroupIconGenerator'
 
 import Resource from '@/domain/resource/Resource'
@@ -55,7 +54,6 @@ export default class InfomationModelEditor extends Vue {
   ])
 
   readonly iconGenerators: IconGenerator<Resource>[] = [
-    new InformationIconGenerator(),
     new InformationGroupIconGenerator(),
   ]
 

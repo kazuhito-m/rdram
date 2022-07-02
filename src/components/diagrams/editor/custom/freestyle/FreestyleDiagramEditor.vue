@@ -24,16 +24,8 @@ import GenericResizeShapeEvents from '@/components/diagrams/editor/template/even
 
 import IconGenerator from '@/components/diagrams/icon/IconGenerator'
 import CompanyIconGenerator from '@/components/diagrams/editor/template/icon/CompanyIconGenerator'
-import ActorIconGenerator from '@/components/diagrams/editor/template/icon/ActorIconGenerator'
 import RoomIconGenerator from '@/components/diagrams/editor/template/icon/RoomIconGenerator'
 import BusinessIconGenerator from '@/components/diagrams/editor/template/icon/BusinessIconGenerator'
-import GoodsIconGenerator from '@/components/diagrams/editor/template/icon/GoodsIconGenerator'
-import ServiceIconGenerator from '@/components/diagrams/editor/template/icon/ServiceIconGenerator'
-import FacilityIconGenerator from '@/components/diagrams/editor/template/icon/FacilityIconGenerator'
-import ContractIconGenerator from '@/components/diagrams/editor/template/icon/ContractIconGenerator'
-import InHouseSystemIconGenerator from '@/components/diagrams/editor/template/icon/InHouseSystemIconGenerator'
-import OutsideSystemIconGenerator from '@/components/diagrams/editor/template/icon/OutsideSystemIconGenerator'
-import InformationIconGenerator from '@/components/diagrams/editor/template/icon/InformationIconGenerator'
 
 import Resource from '@/domain/resource/Resource'
 
@@ -66,15 +58,7 @@ export default class FreestyleDiagramEditor extends Vue {
   readonly iconGenerators: IconGenerator<Resource>[] = [
     new BusinessIconGenerator(),
     new CompanyIconGenerator(),
-    new ActorIconGenerator(),
     new RoomIconGenerator(),
-    new GoodsIconGenerator(),
-    new FacilityIconGenerator(),
-    new ServiceIconGenerator(),
-    new ContractIconGenerator(),
-    new InHouseSystemIconGenerator(),
-    new OutsideSystemIconGenerator(),
-    new InformationIconGenerator(),
   ]
 
   // Emits
