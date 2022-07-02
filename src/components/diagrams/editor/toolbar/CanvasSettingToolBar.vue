@@ -59,7 +59,7 @@
     </v-menu>
 
     <v-btn v-if="!toolBarCollapse" dark small icon>
-      <v-icon @click="onPngDownload">mdi-image</v-icon>
+      <v-icon @click="onClickPngDownload">mdi-image</v-icon>
     </v-btn>
 
     <v-btn v-if="!toolBarCollapse" dark small icon>
@@ -107,7 +107,7 @@ export default class CanvasSettingToolBar extends Vue {
   private onChangeCanvasGuideType(_canvasGuideType: Draw2dCanvasGuideType): void {}
 
   @Emit("onPngDownload")
-  onPngDownload(): void {}
+  private onPngDownload(): void {}
 
   @Emit("onSvgDownload")
   private onSvgDownLoad(): void {}
@@ -275,6 +275,10 @@ export default class CanvasSettingToolBar extends Vue {
 
   onClickChangeCanvasGuideType(canvasGuideType: Draw2dCanvasGuideType): void {
     this.onChangeCanvasGuideType(canvasGuideType);
+  }
+
+  onClickPngDownload():void {
+    this.onPngDownload();
   }
 
   onClickSvgDownload(): void {
