@@ -37,7 +37,7 @@ export default abstract class GenericAreaIconGenerator extends IconGenerator<Res
             stroke: 0,
             padding: 0,
             bgColor: "#FFFFFF",
-            alpha: 1,
+            alpha: 1
         });
 
         const name = new draw2d.shape.basic.Label({
