@@ -5,7 +5,6 @@ import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar';
 import Resource from '@/domain/resource/Resource';
 import ResourceType from '@/domain/resource/ResourceType';
 import Placement from "@/domain/diagram/placement/Placement";
-import { extend } from 'jquery';
 
 export default abstract class GenericSingleIconGenerator extends IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;
@@ -36,11 +35,7 @@ export default abstract class GenericSingleIconGenerator extends IconGenerator<R
             selectable: false
         });
 
-        icon.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
-        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
-        const port = icon.getPorts().last();
-        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(icon);
-        port.setConnectionAnchor(anchor);
+        this.makeSingleHybridPort(icon);
 
         icon.add(name, new draw2d.layout.locator.BottomLocator());
 

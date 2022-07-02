@@ -54,11 +54,7 @@ export default abstract class GenericTextCardIconGenerator extends IconGenerator
         icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 105, y: 27 }));
         text.add(icon, new TopLeftLocator());
 
-        text.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
-        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
-        const port = text.getPorts().last();
-        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(text);
-        port.setConnectionAnchor(anchor);
+        this.makeSingleHybridPort(icon);
 
         text.setUserData(new IconStatus());
 

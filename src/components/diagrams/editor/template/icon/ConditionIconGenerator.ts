@@ -66,11 +66,7 @@ export default class ConditionIconGenerator extends GenericSingleIconGenerator {
         icon.add(name, new draw2d.layout.locator.XYRelPortLocator({ x: 105, y: 27 }));
         container.add(icon, new TopLeftLocator());
 
-        container.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
-        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
-        const port = container.getPorts().last();
-        const anchor = new draw2d.layout.anchor.FanConnectionAnchor(container);
-        port.setConnectionAnchor(anchor);
+        this.makeSingleHybridPort(container);
 
         container.setUserData(new IconStatus());
 

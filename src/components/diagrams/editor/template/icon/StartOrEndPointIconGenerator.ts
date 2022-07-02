@@ -6,7 +6,7 @@ import ResourceType from '@/domain/resource/ResourceType';
 import Placement from '@/domain/diagram/placement/Placement';
 import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
 
-export default class StartOrEndPointIconGenerator implements IconGenerator<StartOrEndPoint> {
+export default class StartOrEndPointIconGenerator extends IconGenerator<StartOrEndPoint> {
     public resourceType(): ResourceType {
         return ResourceType.始点終点;
     }
