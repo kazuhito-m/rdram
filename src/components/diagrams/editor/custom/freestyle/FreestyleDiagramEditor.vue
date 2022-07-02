@@ -1,20 +1,16 @@
 <template>
-  <DiagramEditor
-    :diagramId="diagramId"
-    :allResources="allResources"
-    :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-    :eventAnalyzer="eventAnalyzer"
-    :iconGenerators="iconGenerators"
-    @onUpdateResources="onUpdateResources"
+  <DiagramEditor :diagramId="diagramId" :allResources="allResources"
+    :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId" :eventAnalyzer="eventAnalyzer"
+    :iconGenerators="iconGenerators" @onUpdateResources="onUpdateResources"
     @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
-    @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-    @onRenamedResource="onRenamedResource"
-  />
+    @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate" @onRenamedResource="onRenamedResource" />
 </template>
 
 <script lang="ts">
 import { Prop, Component, Vue, Emit } from 'nuxt-property-decorator'
 import DiagramEditor from '@/components/diagrams/editor/template/DiagramEditor.vue'
+
+import Resource from '@/domain/resource/Resource'
 
 import EventAnalyzer from '@/components/diagrams/editor/template/event/EventAnalyzer'
 import GenericConnectPortsEvents from '@/components/diagrams/editor/template/event/events/GenericConnectPortsEvents'
@@ -26,8 +22,17 @@ import IconGenerator from '@/components/diagrams/icon/IconGenerator'
 import CompanyIconGenerator from '@/components/diagrams/editor/template/icon/CompanyIconGenerator'
 import RoomIconGenerator from '@/components/diagrams/editor/template/icon/RoomIconGenerator'
 import BusinessIconGenerator from '@/components/diagrams/editor/template/icon/BusinessIconGenerator'
-
-import Resource from '@/domain/resource/Resource'
+import BusinessUseCaseIconGenerator from '@/components/diagrams/editor/template/icon/BusinessUseCaseIconGenerator'
+import ConditionIconGenerator from '@/components/diagrams/editor/template/icon/ConditionIconGenerator'
+import InformationGroupIconGenerator from '@/components/diagrams/editor/template/icon/InformationGroupIconGenerator'
+import PurposeIconGenerator from '@/components/diagrams/editor/template/icon/PurposeIconGenerator'
+import RequestIconGenerator from '@/components/diagrams/editor/template/icon/RequestIconGenerator'
+import RequirementIconGenerator from '@/components/diagrams/editor/template/icon/RequirementIconGenerator'
+import ScenarioIconGenerator from '@/components/diagrams/editor/template/icon/ScenarioIconGenerator'
+import SystemForSystemContextIconGenerator from '@/components/diagrams/editor/template/icon/SystemForSystemContextIconGenerator'
+import TableTypeConditionIconGenerator from '@/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator'
+import UseCaseIconGenerator from '@/components/diagrams/editor/template/icon/UseCaseIconGenerator'
+import VariationIconGenerator from '@/components/diagrams/editor/template/icon/VariationIconGenerator'
 
 @Component({
   components: {
@@ -56,25 +61,37 @@ export default class FreestyleDiagramEditor extends Vue {
   ])
 
   readonly iconGenerators: IconGenerator<Resource>[] = [
+    new SystemForSystemContextIconGenerator(),
     new BusinessIconGenerator(),
     new CompanyIconGenerator(),
     new RoomIconGenerator(),
+    new BusinessUseCaseIconGenerator(),
+    new UseCaseIconGenerator(),
+    new ConditionIconGenerator(),
+    new TableTypeConditionIconGenerator(),
+    new VariationIconGenerator(),
+    new InformationGroupIconGenerator(),
+    new PurposeIconGenerator(),
+    new RequestIconGenerator(),
+    new RequirementIconGenerator(),
+    new ScenarioIconGenerator(),
   ]
 
   // Emits
 
   @Emit('onUpdateResources')
-  onUpdateResources(): void {}
+  onUpdateResources(): void { }
 
   @Emit('onOpendDiagramPropertiesEditor')
-  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
+  onOpendDiagramPropertiesEditor(_diagramId: number): void { }
 
   @Emit('onOpenDiagramOfResourceRelate')
-  onOpenDiagramOfResourceRelate(_resourceId: number): void {}
+  onOpenDiagramOfResourceRelate(_resourceId: number): void { }
 
   @Emit("onRenamedResource")
-  onRenamedResource(_src: Resource, _dest: Resource): void {}
+  onRenamedResource(_src: Resource, _dest: Resource): void { }
 }
 </script>
 
-<style></style>
+<style>
+</style>
