@@ -45,6 +45,13 @@ export default class RelationWithResources {
             || typeTwo.equals(this.fromType) && typeOne.equals(this.toType)
     }
 
+    public existsAnyTypes(...resourceTypes: ResourceType[]): boolean {
+        for (const type of resourceTypes) {
+            if (this.existsType(type)) return true;
+        }
+        return false;
+    }
+
     public existsType(resourceType: ResourceType): boolean {
         return resourceType.equals(this.fromType)
             || resourceType.equals(this.toType);

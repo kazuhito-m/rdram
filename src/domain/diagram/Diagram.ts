@@ -53,28 +53,12 @@ export default abstract class Diagram {
             }
         }
 
-        if (relationPlus.existsType(ResourceType.始点終点)) {
-            if (!relationPlus.existsType(ResourceType.アクティビティ)
-                && !relationPlus.existsType(ResourceType.状態)
-                && !relationPlus.existsType(ResourceType.状態グループ)) {
-                return "そのアイコン種類の間に関連は引けません。"
-            }
-        }
+        const message = this.relationableLocalRuleOnDiagramOf(relationPlus);
+        if (message !== "") return message;
 
-        if (relationPlus.betweenBothFromTo(ResourceType.アクティビティ)) {
-            if (relations.existsBothReversivle(relation)) return "すでに関連が存在します。";
-        }
-
-        if (relationPlus.existsType(ResourceType.状態) || relationPlus.existsType(ResourceType.状態グループ)) {
-            if (!relationPlus.existsType(ResourceType.ユースケース)
-                && !relationPlus.existsType(ResourceType.始点終点)) {
-                return "そのアイコン種類の間に関連は引けません。";
-            }
-        }   
-
-        if (relations.existsOrReversivle(relation)) return "すでに関連が存在します。";
-
-        return "";
+        return relations.existsOrReversivle(relation)
+            ? "すでに関連が存在します。"
+            : "";
     }
 
     public relationableLocalRuleOnDiagramOf(_relationPlus: RelationWithResources): string {
