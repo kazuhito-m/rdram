@@ -7,7 +7,7 @@ import ResourceType from '@/domain/resource/ResourceType';
 import Placement from '@/domain/diagram/placement/Placement';
 import IconZOrderLevel from '~/components/diagrams/icon/IconZOrderLevel';
 
-export default class ActorAndLaneIconGenerator implements IconGenerator<Resource> {
+export default class ActorAndLaneIconGenerator extends IconGenerator<Resource> {
     public resourceType(): ResourceType {
         return ResourceType.アクター;
     }
