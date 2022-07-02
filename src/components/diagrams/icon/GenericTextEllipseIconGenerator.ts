@@ -9,7 +9,7 @@ import Placement from "@/domain/diagram/placement/Placement";
 /**
  * 「楕円のテキスト＋左上アイコン」ジェネレータ。
  */
-export default abstract class GenericTextEllipseIconGenerator implements IconGenerator<Resource> {
+export default abstract class GenericTextEllipseIconGenerator extends IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;
 
     public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {
@@ -59,22 +59,5 @@ export default abstract class GenericTextEllipseIconGenerator implements IconGen
         oval.setUserData(new IconStatus());
 
         return oval;
-    }
-
-    protected makeDoubleVectorPorts(icon: any): void {
-        icon.createPort("input", new draw2d.layout.locator.TopLocator());
-        icon.createPort("output", new draw2d.layout.locator.BottomLocator());
-
-        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(icon);
-        const port = icon.getOutputPorts().last() as any;
-        port.setConnectionAnchor(anchor);
-    }
-
-    protected makeSingleHybridPort(icon: any): void {
-        icon.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
-        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
-        const port = icon.getPorts().last();
-        const anchor = new draw2d.layout.anchor.FanConnectionAnchor(icon);
-        port.setConnectionAnchor(anchor);
     }
 }

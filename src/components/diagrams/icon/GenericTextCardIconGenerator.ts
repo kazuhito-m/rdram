@@ -8,7 +8,7 @@ import ResourceType from '@/domain/resource/ResourceType';
 import Purpose from '@/domain/resource/Purpose';
 import Placement from '@/domain/diagram/placement/Placement';
 
-export default abstract class GenericTextCardIconGenerator implements IconGenerator<Resource> {
+export default abstract class GenericTextCardIconGenerator extends IconGenerator<Resource> {
     public abstract resourceType(): ResourceType;
 
     public generate(placement: Placement, resource: Resource, iconChar: IconFontAndChar): Figure {
