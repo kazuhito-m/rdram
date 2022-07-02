@@ -33,6 +33,8 @@ import SystemForSystemContextIconGenerator from '@/components/diagrams/editor/te
 import TableTypeConditionIconGenerator from '@/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator'
 import UseCaseIconGenerator from '@/components/diagrams/editor/template/icon/UseCaseIconGenerator'
 import VariationIconGenerator from '@/components/diagrams/editor/template/icon/VariationIconGenerator'
+import StateIconGenerator from '../../template/icon/StateIconGenerator'
+import StateGroupIconGenerator from '../../template/icon/StateGroupIconGenerator'
 
 @Component({
   components: {
@@ -75,6 +77,8 @@ export default class FreestyleDiagramEditor extends Vue {
     new RequestIconGenerator(),
     new RequirementIconGenerator(),
     new ScenarioIconGenerator(),
+    new StateIconGenerator(),
+    new StateGroupIconGenerator(true),
   ]
 
   // Emits

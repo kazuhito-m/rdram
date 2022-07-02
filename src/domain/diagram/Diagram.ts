@@ -6,6 +6,8 @@ import Placement from "@/domain/diagram/placement/Placement";
 import Relation from "@/domain/relation/Relation";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
+import RelationWithResources from "../relation/RelationWithResources";
+import StartOrEndPoint from "../resource/StartOrEndPoint";
 
 export default abstract class Diagram {
     public static readonly NAME_MAX_LENGTH = 128;
@@ -35,6 +37,49 @@ export default abstract class Diagram {
         height: number,
         canvasGuideType: CanvasGuideType,
     ): Diagram;
+
+    public relationable(relationPlus: RelationWithResources): string {
+        const relation = relationPlus.source;
+        const relations = this.allRelations();
+
+        if (relations.exists(relation)) return "すでに関連が存在します。";
+
+        if (relationPlus.fromType.equals(ResourceType.始点終点)) {
+            const startPoint = relationPlus.fromResource as StartOrEndPoint;
+            if (startPoint.startPoint) {
+                if (relations.existsFromResource(startPoint)) {
+                    return "始点からは一つの関連しか引けません。"
+                }
+            }
+        }
+
+        if (relationPlus.existsType(ResourceType.始点終点)) {
+            if (!relationPlus.existsType(ResourceType.アクティビティ)
+                && !relationPlus.existsType(ResourceType.状態)
+                && !relationPlus.existsType(ResourceType.状態グループ)) {
+                return "そのアイコン種類の間に関連は引けません。"
+            }
+        }
+
+        if (relationPlus.betweenBothFromTo(ResourceType.アクティビティ)) {
+            if (relations.existsBothReversivle(relation)) return "すでに関連が存在します。";
+        }
+
+        if (relationPlus.existsType(ResourceType.状態) || relationPlus.existsType(ResourceType.状態グループ)) {
+            if (!relationPlus.existsType(ResourceType.ユースケース)
+                && !relationPlus.existsType(ResourceType.始点終点)) {
+                return "そのアイコン種類の間に関連は引けません。";
+            }
+        }   
+
+        if (relations.existsOrReversivle(relation)) return "すでに関連が存在します。";
+
+        return "";
+    }
+
+    public relationableLocalRuleOnDiagramOf(_relationPlus: RelationWithResources): string {
+        return "";
+    }
 
     public createPlacement(resource: Resource, left: number, top: number): Placement | null {
         const type = resource.type;

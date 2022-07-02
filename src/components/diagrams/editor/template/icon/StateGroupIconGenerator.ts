@@ -8,6 +8,8 @@ import Placement from '@/domain/diagram/placement/Placement';
 import IconZOrderLevel from '~/components/diagrams/icon/IconZOrderLevel';
 
 export default class StateGroupIconGenerator implements IconGenerator<Resource> {
+    constructor(private readonly isSinglePort = false) { }
+
     public resourceType(): ResourceType {
         return ResourceType.状態グループ;
     }
@@ -75,15 +77,30 @@ export default class StateGroupIconGenerator implements IconGenerator<Resource> 
         topBox.add(container, new draw2d.layout.locator.CenterLocator());
         waku.add(topBox, new draw2d.layout.locator.XYAbsPortLocator(0, 0));
 
-        waku.createPort("input", new draw2d.layout.locator.TopLocator());
-        waku.createPort("output", new draw2d.layout.locator.BottomLocator());
-
-        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(icon);
-        const port = waku.getOutputPorts().last() as any;
-        port.setConnectionAnchor(anchor);
-
         waku.setUserData(new IconStatus(IconZOrderLevel.AREA));
 
+        if (this.isSinglePort)
+            this.makeSingleHybridPort(waku);
+        else
+            this.makeDoubleVectorPorts(waku);
+
         return waku;
+    }
+
+    private makeDoubleVectorPorts(icon: any): void {
+        icon.createPort("input", new draw2d.layout.locator.TopLocator());
+        icon.createPort("output", new draw2d.layout.locator.BottomLocator());
+
+        const anchor = new draw2d.layout.anchor.ChopboxConnectionAnchor(icon);
+        const port = icon.getOutputPorts().last() as any;
+        port.setConnectionAnchor(anchor);
+    }
+
+    private makeSingleHybridPort(icon: any): void {
+        icon.createPort("hybrid", new draw2d.layout.locator.CenterLocator());
+        // PortからではなくFigureから線が出ているように見せるため、アンカー設定。
+        const port = icon.getPorts().last();
+        const anchor = new draw2d.layout.anchor.FanConnectionAnchor(icon);
+        port.setConnectionAnchor(anchor);
     }
 }
