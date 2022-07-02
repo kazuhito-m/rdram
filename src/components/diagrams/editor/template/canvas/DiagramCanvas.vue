@@ -3,14 +3,24 @@
     <div :id="canvasId" ref="canvasBase" class="diagram-canvas" />
 
     <CanvasSettingToolBar
-:diagramId="diagramId" :canvasGuideType="canvasGuideType"
-      @onChangeZoomBySlider="onChangeZoomBySlider" @onChangeCanvasGuideType="onChangeCanvasGuideType"
-      @onPngDownload="onPngDownload" @onSvgDownload="onSvgDownload" @onDiagramExport="onDiagramExport"
-      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor" />
+      :diagramId="diagramId"
+      :canvasGuideType="canvasGuideType"
+      @onChangeZoomBySlider="onChangeZoomBySlider"
+      @onChangeCanvasGuideType="onChangeCanvasGuideType"
+      @onPngDownload="onPngDownload"
+      @onSvgDownload="onSvgDownload"
+      @onDiagramExport="onDiagramExport"
+      @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
+    />
 
     <ConnectorRightClickMenuAndEditor
-:visible="visibleConnectorMenu" :relation="targetRelation" :menuPositionX="menuX"
-      :menuPositionY="menuY" @onUpdateRelation="onUpdateRelation" @onDeleteRelation="onDeleteRelation" />
+      :visible="visibleConnectorMenu"
+      :relation="targetRelation"
+      :menuPositionX="menuX"
+      :menuPositionY="menuY"
+      @onUpdateRelation="onUpdateRelation"
+      @onDeleteRelation="onDeleteRelation"
+    />
 
     <IconToolTip ref="iconToolTip" />
   </div>
@@ -131,23 +141,23 @@ export default class DiagramCanvas extends Vue {
   // This view callback(Emit).
 
   @Emit('onUpdateResources')
-  private onUpdateResources(): void { }
+  private onUpdateResources(): void {}
 
   @Emit('onMergePlacement')
-  private onMergePlacement(_diffTarget: Placement[]) { }
+  private onMergePlacement(_diffTarget: Placement[]) {}
 
   @Emit('onOpendDiagramPropertiesEditor')
-  onOpendDiagramPropertiesEditor(_diagramId: number): void { }
+  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   @Emit('onShowWarnBar')
-  private onShowWarnBar(_text: string): void { }
+  private onShowWarnBar(_text: string): void {}
 
   @Emit('onShowResourceMenu')
   private onShowResourceMenu(
     _resource: Resource,
     _x: number,
     _y: number
-  ): void { }
+  ): void {}
 
   @Emit('onEditResource')
   private onEditResource(_resourceId: number): void {
@@ -155,10 +165,10 @@ export default class DiagramCanvas extends Vue {
   }
 
   @Emit('onOpenResourceEditorWhenCreate')
-  private onOpenResourceEditorWhenCreate(_resourceType: ResourceType): void { }
+  private onOpenResourceEditorWhenCreate(_resourceType: ResourceType): void {}
 
   @Emit('onShowConnectorMenu')
-  private onShowConnectorMenu(): void { }
+  private onShowConnectorMenu(): void {}
 
   // Watch event.
 
@@ -229,7 +239,7 @@ export default class DiagramCanvas extends Vue {
 
     const guideType = Draw2dCanvasGuideType.of(diagram.canvasGuideType)
 
-    console.log("guideType:", guideType)
+    console.log('guideType:', guideType)
 
     this.showCanvas()
     this.fixCanvasPosition()
@@ -534,11 +544,13 @@ export default class DiagramCanvas extends Vue {
     //   .forEach(i => console.log("ZOrder:",i.icon.getZOrder(), ", ID:", i.toString(allResources)));
   }
 
-  private choiceIconGenerator(resourceType: ResourceType): IconGenerator<Resource> {
+  private choiceIconGenerator(
+    resourceType: ResourceType
+  ): IconGenerator<Resource> {
     const found = this.iconGenerators.find((g) =>
       g.resourceType().equals(resourceType)
     )
-    return found || DefaultIconGenerator.get();
+    return found || DefaultIconGenerator.get()
   }
 
   private addConnection(relation: Relation) {
