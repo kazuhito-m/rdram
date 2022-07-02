@@ -36,7 +36,7 @@ import {
   Watch,
 } from 'vue-property-decorator'
 
-import draw2d, { Figure } from 'draw2d'
+import draw2d, { Figure, Port } from 'draw2d'
 import 'jquery'
 import 'jquery-ui'
 import 'jquery-ui/ui/widgets/draggable'
@@ -574,17 +574,35 @@ export default class DiagramCanvas extends Vue {
     resourceId: number,
     canvas: draw2d.Canvas,
     fromPort: boolean
-  ): any {
-    const targetFigure = canvas.getFigure(String(resourceId))
-    if (!targetFigure) return null
+  ): Port | undefined {
+    const targetFigure = canvas.getFigure(String(resourceId)) as Figure
+    console.log('Figure:', targetFigure)
+    if (!targetFigure) return undefined
     const portTypeName = fromPort ? 'draw2d.OutputPort' : 'draw2d.InputPort'
-    return targetFigure
+    return this.searchPortOf(targetFigure, portTypeName)
+  }
+
+  private searchPortOf(
+    figure: Figure,
+    portTypeName: string,
+    depth = 0
+  ): Port | undefined {
+    const target = figure as any
+    const foundPort = target
       .getPorts(false)
       .asArray()
       .find(
         (port: any) =>
           port.NAME === portTypeName || port.NAME === 'draw2d.HybridPort'
       )
+    if (foundPort || depth > 1) return foundPort // 一つ下の子FigureまでPortを追う。
+
+    const next = depth + 1
+    for (const child of figure.getChildren().asArray()) {
+      const found = this.searchPortOf(child, portTypeName, next)
+      if (found) return found
+    }
+    return undefined
   }
 
   private addConnectionLabel(connection: any, relation: Relation): void {
