@@ -1,10 +1,10 @@
+import { Figure } from "draw2d";
 import EventsOfType from "@/components/diagrams/editor/template/event/EventsOfType";
 import EventGist from "@/components/diagrams/editor/template/event/EventGist";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import Product from "@/domain/product/Product";
 import Relation from "@/domain/relation/Relation";
 import Diagram from "@/domain/diagram/Diagram";
-import { Figure } from "draw2d";
 
 export default class GenericConnectPortsEvents implements EventsOfType<Diagram, DiagramCanvas> {
     public eventGists: EventGist[] = [];
@@ -68,11 +68,11 @@ export default class GenericConnectPortsEvents implements EventsOfType<Diagram, 
         if (this.isNumeric(target.getId()))
             return parseInt(target.getId(), 10);
 
-        if (depth > 1) return undefined; // 一つ上の親FigureまでPortを追う。
+        if (depth > 1) return undefined; // 一つ上の親Figureまでidを追う。
         return this.searchPortId(target.getParent(), depth + 1);
     }
 
     private isNumeric(value: any): boolean {
-        return Number.isInteger(value) && value !== NaN && value !== Infinity;
+        return Number.isInteger(value) && !isNaN(value) && value !== Infinity;
     }
 }
