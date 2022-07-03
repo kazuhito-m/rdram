@@ -144,6 +144,8 @@ export default class DiagramsTreePane extends Vue {
     const openIds = this.treeOpenItemIds
     if (openIds.includes(parentId)) openIds.splice(openIds.indexOf(parentId), 1)
     openIds.push(parentId)
+
+    this.openParentTreeItem(parentId)
   }
 
   private findAndReflectDiagramToTreeOf(diagramId: number): boolean {
