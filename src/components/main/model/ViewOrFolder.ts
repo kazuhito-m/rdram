@@ -28,7 +28,7 @@ export default class ViewOrFolder {
     static TOP_FOLDER_IDS = Range.of(-3, 0);
     private static DIAGRAM_IDS = ViewOrFolder.TOP_FOLDER_IDS.nextTo(1000000000000000);
     static RDRA20_TYPE_IDS = ViewOrFolder.DIAGRAM_IDS.nextTo(2000000000000000);
-    private static CUSTOM_TYPE_IDS = ViewOrFolder.RDRA20_TYPE_IDS.nextTo(3000000000000000);
+    static CUSTOM_TYPE_IDS = ViewOrFolder.RDRA20_TYPE_IDS.nextTo(3000000000000000);
     static ANALYSIS_IDS = ViewOrFolder.CUSTOM_TYPE_IDS.nextTo(4000000000000000);
 
     isDiagram(): boolean {

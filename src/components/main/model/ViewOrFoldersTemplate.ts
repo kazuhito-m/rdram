@@ -41,6 +41,9 @@ export default class ViewOrFoldersTemplate {
     static readonly RDRA20_TYPE_FOLDERS: ViewOrFolder[] = ViewOrFoldersTemplate
         .filterOfIdRange(ViewOrFolder.RDRA20_TYPE_IDS, ViewOrFoldersTemplate.ALL);
 
+    static readonly CUSTOM_TYPE_FOLDERS: ViewOrFolder[] = ViewOrFoldersTemplate
+        .filterOfIdRange(ViewOrFolder.CUSTOM_TYPE_IDS, ViewOrFoldersTemplate.ALL);
+
     static build(diagrams: Diagrams): ViewOrFolders {
         const tree = ViewOrFoldersTemplate.TREE.clone();
         const typeMap = diagrams.groupOfType();
@@ -74,5 +77,15 @@ export default class ViewOrFoldersTemplate {
     static analysisNameOf(name: string): ViewOrFolder | undefined {
         return ViewOrFoldersTemplate.ANALYSIS
             .find(a => a.name === name);
+    }
+
+    static allFolderIds(): number[] {
+        return [
+            ViewOrFoldersTemplate.TOP_FOLDERS,
+            ViewOrFoldersTemplate.RDRA20_TYPE_FOLDERS,
+            ViewOrFoldersTemplate.CUSTOM_TYPE_FOLDERS
+        ]
+            .flat()
+            .map(item => item.id);
     }
 }

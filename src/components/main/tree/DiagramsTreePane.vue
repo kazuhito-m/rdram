@@ -118,6 +118,17 @@ export default class DiagramsTreePane extends Vue {
     this.tree.removeOf(diagramId)
   }
 
+  openAll() {
+    this.treeOpenItemIds.splice(0)
+    ViewOrFoldersTemplate.allFolderIds().forEach((id) =>
+      this.treeOpenItemIds.push(id)
+    )
+  }
+
+  closeAll() {
+    this.treeOpenItemIds.splice(0)
+  }
+
   // private method
 
   private activeTreeItemOf(treeItemId: number): void {
@@ -130,9 +141,15 @@ export default class DiagramsTreePane extends Vue {
     if (!parentTreeItem) return
 
     const parentId = parentTreeItem.id
-    const openIds = this.treeOpenItemIds
-    if (openIds.includes(parentId)) openIds.splice(openIds.indexOf(parentId), 1)
-    openIds.push(parentId)
+    this.reAddValueOnArray(parentId, this.treeOpenItemIds)
+
+    this.openParentTreeItem(parentId)
+  }
+
+  private reAddValueOnArray(value: number, values: number[]): void {
+    const existsIndex = values.indexOf(value)
+    if (existsIndex >= 0) values.splice(existsIndex, 1)
+    values.push(value)
   }
 
   private findAndReflectDiagramToTreeOf(diagramId: number): boolean {

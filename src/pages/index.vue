@@ -9,6 +9,10 @@
     />
     <TwoPaneWithSlideBarLayout>
       <template #leftPane>
+        <AllOpenCloseOperationBar 
+          @onOpenAll="onOpenAllTree"
+          @onCloseAll="onCloseAllTree"
+        />
         <DiagramsTreePane
           ref="diagramsTreePane"
           @onOpenDiagram="onOpenDiagram"
@@ -55,12 +59,14 @@ import Diagrams from "@/domain/diagram/Diagrams";
 import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
 import StorageRepository from "@/domain/storage/StorageRepository";
+import AllOpenCloseOperationBar from "@/components/main/tool/AllOpenCloseOperationBar.vue";
 
 @Component({
   components: {
     TwoPaneWithSlideBarLayout,
     DiagramsTreePane,
     DiagramsTabPane,
+    AllOpenCloseOperationBar,
     ItemRightClickMenu,
     DiagramPropertiesEditDialog,
     DiagramTypeSelectorDialog
@@ -83,6 +89,16 @@ export default class extends Vue {
     if (changedOpenTabs.length === 0) this.clearSelectedOnTree();
   }
 
+  // propertyies.
+
+  private get tabPane(): DiagramsTabPane {
+    return this.$refs.diagramsTabPane as DiagramsTabPane;
+  }
+
+  private get treePane(): DiagramsTreePane {
+    return this.$refs.diagramsTreePane as DiagramsTreePane;
+  }
+
   // this vue lyfecycle event.
 
   created(): void {
@@ -99,13 +115,11 @@ export default class extends Vue {
   // component events.
 
   onOpenDiagram(treeItem: ViewOrFolder): void {
-    const tabPane = this.$refs.diagramsTabPane as DiagramsTabPane;
-    tabPane.openDiagram(treeItem);
+    this.tabPane.openDiagram(treeItem);
   }
 
   onDeleteDiagram(diagramId: number): void {
-    const tabPane = this.$refs.diagramsTabPane as DiagramsTabPane;
-    tabPane.closeTab(diagramId);
+    this.tabPane.closeTab(diagramId);
   }
 
   onUpdateResoucesOnContainer(): void {
@@ -135,8 +149,7 @@ export default class extends Vue {
 
     if (diagramId === DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID) return;
 
-    const treePane = this.$refs.diagramsTreePane as DiagramsTreePane;
-    treePane.activeItemAndFolderOpen(diagramId);
+    this.treePane.activeItemAndFolderOpen(diagramId);
   }
 
   onRenamedResource(src: Resource, dest: Resource): void {
@@ -144,8 +157,7 @@ export default class extends Vue {
   }
 
   onChangeCurrentDiagram(diagramId: number): void {
-    const treePane = this.$refs.diagramsTreePane as DiagramsTreePane
-    treePane.activeItemAndFolderOpen(diagramId)
+    this.treePane.activeItemAndFolderOpen(diagramId)
   }
 
   onTreeRightClick(item: ViewOrFolder, x: number, y:number): void {
@@ -159,13 +171,21 @@ export default class extends Vue {
   /// menu click events.
 
   onAddedDiagram(diagram: Diagram): void {
-    const treePane = this.$refs.diagramsTreePane as DiagramsTreePane
-    treePane.addDiagramView(diagram)
+    this.treePane.addDiagramView(diagram)
   }
 
   onRemovedDiagram(diagramId: number): void {
-    const treePane = this.$refs.diagramsTreePane as DiagramsTreePane
-    treePane.removeDiagramView(diagramId)
+    this.treePane.removeDiagramView(diagramId)
+  }
+
+  /// All Open or Close operation bar.
+
+  onOpenAllTree(): void {
+    this.treePane.openAll()
+  }
+
+  onCloseAllTree(): void {
+    this.treePane.closeAll()
   }
 
   // private methods.
