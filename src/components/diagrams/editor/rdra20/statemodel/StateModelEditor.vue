@@ -36,7 +36,7 @@ import Diagram from '@/domain/diagram/Diagram'
     DiagramEditor,
   },
 })
-export default class InfomationModelEditor extends Vue {
+export default class StateModelEditor extends Vue {
   // Props
 
   @Prop({ required: true })
