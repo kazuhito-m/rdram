@@ -239,8 +239,6 @@ export default class DiagramCanvas extends Vue {
 
     const guideType = Draw2dCanvasGuideType.of(diagram.canvasGuideType)
 
-    console.log('guideType:', guideType)
-
     this.showCanvas()
     this.fixCanvasPosition()
     this.addCanvasEvent()
@@ -576,7 +574,6 @@ export default class DiagramCanvas extends Vue {
     fromPort: boolean
   ): Port | undefined {
     const targetFigure = canvas.getFigure(String(resourceId)) as Figure
-    console.log('Figure:', targetFigure)
     if (!targetFigure) return undefined
     const portTypeName = fromPort ? 'draw2d.OutputPort' : 'draw2d.InputPort'
     return this.searchPortOf(targetFigure, portTypeName)
