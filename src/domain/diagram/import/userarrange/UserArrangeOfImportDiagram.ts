@@ -1,6 +1,6 @@
+import Rdra20DiagramType from "@/domain/diagram/rdra20/Rdra20DiagramType";
+import DiagramType from "@/domain/diagram/type/DiagramType";
 import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
-import Rdra20DiagramType from "../../rdra20/Rdra20DiagramType";
-import DiagramType from "../../type/DiagramType";
 
 export default class UserArrangeOfImportDiagram {
     constructor(

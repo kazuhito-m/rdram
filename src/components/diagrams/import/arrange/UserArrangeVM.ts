@@ -4,7 +4,6 @@ import UserArrangeOfImportDiagram from "@/domain/diagram/import/userarrange/User
 import ConflictNameBehavior from "@/domain/diagram/import/conflictname/ConflictNameBehavior";
 import DiagramType from "@/domain/diagram/type/DiagramType";
 import Product from "@/domain/product/Product";
-import DiagramTypes from "@/domain/diagram/type/DiagramTypes";
 
 export default class UserArrangeVM {
     constructor(
