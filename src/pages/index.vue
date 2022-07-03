@@ -59,7 +59,7 @@ import Diagrams from "@/domain/diagram/Diagrams";
 import Diagram from "@/domain/diagram/Diagram";
 import Resource from "@/domain/resource/Resource";
 import StorageRepository from "@/domain/storage/StorageRepository";
-import AllOpenCloseOperationBar from "@/components/main/part/AllOpenCloseOperationBar.vue";
+import AllOpenCloseOperationBar from "@/components/main/tool/AllOpenCloseOperationBar.vue";
 
 @Component({
   components: {
