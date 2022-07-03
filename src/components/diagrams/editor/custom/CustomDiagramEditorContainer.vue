@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Inject, Emit } from 'nuxt-property-decorator'
+import { Component, Vue, Prop, Emit } from 'nuxt-property-decorator'
 import FreestyleDiagramEditor from '@/components/diagrams/editor/custom/freestyle/FreestyleDiagramEditor.vue'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
@@ -47,7 +47,6 @@ export default class CustomDiagramEditorContainer extends Vue {
   onUpdateResoucesOnContainer(): void {}
 
   is(typeName: string): boolean {
-    if (!this.diagram) return false
     return this.diagram.type.name === typeName
   }
 }

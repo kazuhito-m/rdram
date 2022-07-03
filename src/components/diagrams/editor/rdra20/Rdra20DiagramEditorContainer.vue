@@ -104,7 +104,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Inject, Emit } from 'nuxt-property-decorator'
+import { Component, Vue, Prop, Emit } from 'nuxt-property-decorator'
 import BusinessContextDiagramEditor from '@/components/diagrams/editor/rdra20/businesscontextdiagram/BusinessContextDiagramEditor.vue'
 import BusinessUseCaseDiagramEditor from '@/components/diagrams/editor/rdra20/businessusecasediagram/BusinessUseCaseDiagramEditor.vue'
 import BusinessFlowDiagramEditor from '@/components/diagrams/editor/rdra20/businessflowdiagram/BusinessFlowDiagramEditor.vue'
@@ -155,7 +155,6 @@ export default class Rdra20DiagramEditorContainer extends Vue {
   onUpdateResoucesOnContainer(): void {}
 
   is(typeName: string): boolean {
-    if (!this.diagram) return false
     return this.diagram.type.name === typeName
   }
 }
