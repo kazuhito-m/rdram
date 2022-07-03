@@ -9,7 +9,7 @@ export default class BusinessFlowConnectPortsEvents extends GenericConnectPortsE
     }
 
     /**
-     * 「業務フロー図」だけは「フローとして関連線の方向が在る」ので、判定を上書き。
+     * 「業務フロー図」は「フローとして関連線の方向が在る」ので、判定を上書き。
      */
     protected customizeRelation(original: Relation, product: Product): Relation {
         if (!product.isFlowRelation(original)) return original;

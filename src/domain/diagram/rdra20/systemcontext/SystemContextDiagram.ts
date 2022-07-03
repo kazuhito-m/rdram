@@ -61,7 +61,7 @@ export default class SystemContextDiagram extends Rdra20Diagram {
             [],
             1024,
             768,
-            CanvasGuideType.GEOMETRY,
+            CanvasGuideType.NOTHING,
         );
         // 特殊処理、Resource種が「システム」で、かつ「ひとつだけ」なら予め足してしまう。
         const resoucesOfSystem = resources.typeOf(ResourceType.システム);

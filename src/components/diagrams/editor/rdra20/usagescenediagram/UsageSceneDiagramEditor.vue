@@ -1,6 +1,6 @@
 <template>
   <DiagramEditor
-    :diagramId="diagramId"
+    :diagram="diagram"
     :allResources="allResources"
     :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
     :eventAnalyzer="eventAnalyzer"
@@ -26,6 +26,7 @@ import ScenarioIconGenerator from '@/components/diagrams/editor/template/icon/Sc
 import UseCaseIconGenerator from '@/components/diagrams/editor/template/icon/UseCaseIconGenerator'
 
 import Resource from '@/domain/resource/Resource'
+import Diagram from '@/domain/diagram/Diagram'
 
 @Component({
   components: {
@@ -36,7 +37,7 @@ export default class UsageSceneDiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
-  readonly diagramId!: number
+  readonly diagram!: Diagram
 
   @Prop({ required: true })
   readonly allResources!: Resource[]

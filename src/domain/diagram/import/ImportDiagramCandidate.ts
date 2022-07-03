@@ -1,6 +1,7 @@
 import Resource from "@/domain/resource/Resource";
 import Diagram from "@/domain/diagram/Diagram";
 import Product from "@/domain/product/Product";
+import DiagramType from "@/domain/diagram/type/DiagramType";
 
 /**
  * 図のインポート候補。
@@ -52,5 +53,9 @@ export default class ImportDiagramCandidate {
         return modifiedProduct
             .withResources(fixedResources)
             .mergeDiagramWhenSameOf(fixedDiagram);
+    }
+
+    public get diagramType(): DiagramType {
+        return this.diagram.type;
     }
 }

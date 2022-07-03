@@ -1,6 +1,6 @@
 <template>
   <DiagramEditor
-    :diagramId="diagramId"
+    :diagram="diagram"
     :allResources="allResources"
     :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
     :eventAnalyzer="eventAnalyzer"
@@ -30,6 +30,7 @@ import ConditionIconGenerator from '@/components/diagrams/editor/template/icon/C
 import TableTypeConditionIconGenerator from '@/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator'
 
 import Resource from '@/domain/resource/Resource'
+import Diagram from '@/domain/diagram/Diagram'
 
 @Component({
   components: {
@@ -40,7 +41,7 @@ export default class BusinessUseCaseDiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
-  readonly diagramId!: number
+  readonly diagram!: Diagram
 
   @Prop({ required: true })
   readonly allResources!: Resource[]

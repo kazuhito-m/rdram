@@ -1,6 +1,6 @@
 <template>
   <DiagramEditor
-    :diagramId="diagramId"
+    :diagram="diagram"
     :allResources="allResources"
     :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
     :eventAnalyzer="eventAnalyzer"
@@ -27,6 +27,7 @@ import RequestIconGenerator from '@/components/diagrams/editor/template/icon/Req
 import RequirementIconGenerator from '@/components/diagrams/editor/template/icon/RequirementIconGenerator'
 
 import Resource from '@/domain/resource/Resource'
+import Diagram from '@/domain/diagram/Diagram'
 
 @Component({
   components: {
@@ -37,7 +38,7 @@ export default class RequestModelDiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
-  readonly diagramId!: number
+  readonly diagram!: Diagram
 
   @Prop({ required: true })
   readonly allResources!: Resource[]

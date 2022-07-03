@@ -828,7 +828,8 @@ export default class extends Vue {
         new ConflictNameBehavior(BehaviorWhenNameConflict.既存,"元のアイコンの名前(1)", "", 1, ResourceType.システム.id),
         new ConflictNameBehavior(BehaviorWhenNameConflict.置換,"元のアイコンの名前(2)", "", 2, ResourceType.建物.id),
         new ConflictNameBehavior(BehaviorWhenNameConflict.別名,"元のアイコンの名前(3)", "", 3, ResourceType.サービス.id)
-      ]
+      ],
+      Rdra20DiagramType.要求モデル図
     );
 
     const dialog = this.$refs.userArrangeDialog as UserArrengeWhenNameConfrictDialog;

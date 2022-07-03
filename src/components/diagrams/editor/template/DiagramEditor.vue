@@ -3,7 +3,7 @@
     <!-- editor or menu parts -->
     <ResourceEditDialog
       ref="resourceEditDialog"
-      :diagramId="diagramId"
+      :diagramId="diagram.id"
       @onUpdatedResource="onUpdatedResource"
     />
     <ResourceRightClickMenu 
@@ -18,8 +18,7 @@
       <template #leftPane>
         <DiagramCanvas
           ref="diagramCanvas"
-          :diagramId="diagramId"
-          :product="product"
+          :diagram="diagram"
           :usedResouceIds="usedResouceIds"
           :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
@@ -38,10 +37,9 @@
       </template>
       <template #rightPane>
         <ResourceParet
-          :diagramId="diagramId"
+          :diagram="diagram"
           :allResources="allResources"
           :usedResouceIds="usedResouceIds"
-          :product="product"
           @onShowResourceMenu="onShowResourceMenu"
         />
       </template>
@@ -94,7 +92,7 @@ export default class DiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
-  readonly diagramId!: number;
+  readonly diagram!: Diagram;
 
   @Prop({ required: true })
   readonly allResources!: Resource[];
@@ -129,7 +127,6 @@ export default class DiagramEditor extends Vue {
 
   readonly usedResouceIds: number[] = [];
   readonly iconMap: { [key: string]: IconFontAndChar } = {};
-  product!: Product;
 
   warnBar: boolean = false;
   warnMessage: string = "";
@@ -137,11 +134,10 @@ export default class DiagramEditor extends Vue {
   // Vue events(life cycle events)
 
   created(): void {
-    this.product = this.getCurrentProduct();
   }
 
   mounted() {
-    this.intializeIconCharMap(this.diagram());
+    this.intializeIconCharMap();
   }
 
   // children component events.
@@ -183,7 +179,7 @@ export default class DiagramEditor extends Vue {
     diagramCanvas.visibleConnectorMenu = false;
 
     const resourceMenu = this.$refs.resourceRightClickMenu as ResourceRightClickMenu;
-    resourceMenu.show(resource, this.diagram(), x, y); // TODO 右クリックメニューを表示する度にローカルストレージを呼ぶのをやめたい
+    resourceMenu.show(resource, this.loadDiagram(), x, y); // TODO 右クリックメニューを表示する度にローカルストレージを呼ぶのをやめたい
   }
 
   onShowConnectorMenu(): void {
@@ -214,9 +210,9 @@ export default class DiagramEditor extends Vue {
     return this.repository.getCurrentProduct() as Product;
   }
 
-  private diagram(): Diagram {
+  private loadDiagram(): Diagram {
     const product = this.getCurrentProduct();
-    return product.diagrams.of(this.diagramId) as Diagram;
+    return product.diagrams.of(this.diagram.id) as Diagram;
   }
 
   private resourceEditDialog(): ResourceEditDialog {
@@ -225,7 +221,7 @@ export default class DiagramEditor extends Vue {
 
   private deleteResourceOnDiagram(resourceId: number): Diagram | null {
     const product = this.getCurrentProduct();
-    const diagram = product.diagrams.of(this.diagramId) as Diagram;
+    const diagram = product.diagrams.of(this.diagram.id) as Diagram;
     const resource = product.resources.of(resourceId);
     if (!resource) return null;
 
@@ -236,7 +232,6 @@ export default class DiagramEditor extends Vue {
     const modifiedProduct = product.withDiagrams(diagrams);
 
     this.repository.registerCurrentProduct(modifiedProduct);
-    this.product = modifiedProduct;
 
     return modifiedDiagram;
   }
@@ -254,7 +249,7 @@ export default class DiagramEditor extends Vue {
   private deleteResourceOnProduct(resourceId: number): void {
     const product = this.getCurrentProduct();
     const resource = product.resources.of(resourceId);
-    const thisDiagram = product.diagrams.of(this.diagramId);
+    const thisDiagram = product.diagrams.of(this.diagram.id);
     if (!resource) return;
 
     const usings = product.diagrams.using(resource);
@@ -276,11 +271,10 @@ export default class DiagramEditor extends Vue {
     const modifiedProduct = product.removeOf(resource);
 
     this.repository.registerCurrentProduct(modifiedProduct);
-    this.product = modifiedProduct;
   }
 
-  private intializeIconCharMap(diagram: Diagram): void {
-    diagram
+  private intializeIconCharMap(): void {
+    this.diagram
       .availableResourceTypes()
       .map(resourceType => resourceType.iconKey)
       .forEach(i => (this.iconMap[i] = this.analyzeMdiIconCharOf(i)));
@@ -306,15 +300,6 @@ export default class DiagramEditor extends Vue {
     resources.splice(i, 1);
     resources.push(resource);
     return beforeResoruce;
-  }
-
-  private dumpDiagram(diagram: Diagram, prefix: string) {
-    console.log(`---- ${prefix} Diagram情報 start ----`);
-    diagram.placements.forEach(i => console.log(`位置;${i.resourceId}`));
-    diagram.allRelations().forEach(i =>
-      console.log(`線;${i.id}, from:${i.fromResourceId}, to:${i.toResourceId}`)
-    );
-    console.log(`---- ${prefix} Diagram情報 end ----`);
   }
 }
 </script>
