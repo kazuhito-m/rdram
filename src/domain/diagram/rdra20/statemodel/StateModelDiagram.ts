@@ -31,6 +31,11 @@ export default class StateModelDiagram extends Rdra20Diagram {
     }
 
     public relationableLocalRuleOnDiagramOf(relationPlus: RelationWithResources): string {
+        const relations = this.allRelations();
+        const relation = relationPlus.source;
+
+        if (relations.exists(relation)) return "すでに関連が存在します。"
+
         if (relationPlus.existsType(ResourceType.始点終点)) {
             if (!relationPlus.existsAnyTypes(ResourceType.状態, ResourceType.状態グループ)) {
                 return "そのアイコン種類の間に関連は引けません。"

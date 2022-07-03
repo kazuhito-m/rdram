@@ -39,30 +39,29 @@ export default abstract class Diagram {
     ): Diagram;
 
     public relationable(relationPlus: RelationWithResources): string {
-        const relation = relationPlus.source;
         const relations = this.allRelations();
 
-        if (relations.exists(relation)) return "すでに関連が存在します。";
+        const message = this.relationableLocalRuleOnDiagramOf(relationPlus);
+        if (message !== "") return message;
 
         if (relationPlus.fromType.equals(ResourceType.始点終点)) {
             const startPoint = relationPlus.fromResource as StartOrEndPoint;
             if (startPoint.startPoint) {
                 if (relations.existsFromResource(startPoint)) {
-                    return "始点からは一つの関連しか引けません。"
+                    return "始点からは一つの関連しか引けません。";
                 }
             }
         }
+        return "";
+    }
 
-        const message = this.relationableLocalRuleOnDiagramOf(relationPlus);
-        if (message !== "") return message;
+    public relationableLocalRuleOnDiagramOf(relationPlus: RelationWithResources): string {
+        const relation = relationPlus.source;
+        const relations = this.allRelations();
 
         return relations.existsOrReversivle(relation)
             ? "すでに関連が存在します。"
             : "";
-    }
-
-    public relationableLocalRuleOnDiagramOf(_relationPlus: RelationWithResources): string {
-        return "";
     }
 
     public createPlacement(resource: Resource, left: number, top: number): Placement | null {
