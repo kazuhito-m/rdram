@@ -32,14 +32,7 @@ export default class EventAnalyzer {
     }
 
     private recursiveAnalyzeEvent(targetCommand: any, rootCommand: any): EventGist[] {
-        const eventGist: EventGist = {
-            eventType: targetCommand.getLabel(),
-            figure: targetCommand.figure,
-            source: targetCommand.source,
-            target: targetCommand.target,
-            connection: targetCommand.connection,
-            rootCommand,
-        };
+        const eventGist = EventGist.of(targetCommand, rootCommand);
         const results: EventGist[] = [eventGist];
 
         if (!targetCommand || !targetCommand.commands) return results;
