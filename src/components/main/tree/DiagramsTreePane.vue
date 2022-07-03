@@ -118,6 +118,17 @@ export default class DiagramsTreePane extends Vue {
     this.tree.removeOf(diagramId)
   }
 
+  openAll() {
+    this.treeOpenItemIds.splice(0)
+    ViewOrFoldersTemplate.allFolderIds().forEach((id) =>
+      this.treeOpenItemIds.push(id)
+    )
+  }
+
+  closeAll() {
+    this.treeOpenItemIds.splice(0)
+  }
+
   // private method
 
   private activeTreeItemOf(treeItemId: number): void {

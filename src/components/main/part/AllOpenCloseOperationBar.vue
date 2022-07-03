@@ -1,11 +1,11 @@
 <template>
-  <v-card light class="test">
+  <v-card>
     <v-card-actions>
       <v-spacer />
-      <v-btn x-small icon>
+      <v-btn x-small icon @click="onOpenAll">
         <v-icon small>mdi-plus-box-multiple</v-icon>
       </v-btn>
-      <v-btn x-small icon>
+      <v-btn x-small icon @click="onCloseAll">
         <v-icon small>mdi-minus-box-multiple</v-icon>
       </v-btn>
     </v-card-actions>
@@ -17,7 +17,11 @@ import { Component, Vue, Emit, Prop } from 'nuxt-property-decorator'
 
 @Component
 export default class AllOpenCloseOperationBar extends Vue {
+  @Emit('onOpenAll')
+  onOpenAll(): void {}
 
+  @Emit('onCloseAll')
+  onCloseAll(): void {}
 }
 </script>
 
