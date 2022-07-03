@@ -2,100 +2,100 @@
   <div>
     <SystemContextDiagramEditor
       v-if="is('システムコンテキスト図')"
-      :diagramId="diagram.id"
+      :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
       @onRenamedResource="onRenamedResource"
     />
     <RequestModelDiagramEditor
       v-if="is('要求モデル図')"
-      :diagramId="diagram.id"
+      :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
       @onRenamedResource="onRenamedResource"
     />
     <BusinessContextDiagramEditor
       v-if="is('ビジネスコンテキスト図')"
-      :diagramId="diagram.id"
+      :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
       @onRenamedResource="onRenamedResource"
     />
     <BusinessUseCaseDiagramEditor
       v-if="is('ビジネスユースケース図')"
-      :diagramId="diagram.id"
+      :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
       @onRenamedResource="onRenamedResource"
     />
     <BusinessFlowDiagramEditor
       v-if="is('業務フロー図')"
-      :diagramId="diagram.id"
+      :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
       @onRenamedResource="onRenamedResource"
     />
     <UsageSceneDiagramEditor
       v-if="is('利用シーン図')"
-      :diagramId="diagram.id"
+      :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
       @onRenamedResource="onRenamedResource"
     />
     <InfomationModelEditor
       v-if="is('情報モデル図')"
-      :diagramId="diagram.id"
+      :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
       @onRenamedResource="onRenamedResource"
     />
     <StateModelEditor
       v-if="is('状態モデル図')"
-      :diagramId="diagram.id"
+      :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
       @onRenamedResource="onRenamedResource"
     />
     <UseCaseCompositeDiagramEditor
       v-if="is('ユースケース複合図')"
-      :diagramId="diagram.id"
+      :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
       @onRenamedResource="onRenamedResource"
     />
     <VariationAndConditionDiagramEditor
       v-if="is('バリエーション・条件')"
-      :diagramId="diagram.id"
+      :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
       @onRenamedResource="onRenamedResource"
@@ -117,7 +117,6 @@ import UseCaseCompositeDiagramEditor from '@/components/diagrams/editor/rdra20/u
 import VariationAndConditionDiagramEditor from '@/components/diagrams/editor/rdra20/variationandcondition/VariationAndConditionDiagramEditor.vue'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
-import StorageRepository from '@/domain/storage/StorageRepository'
 
 @Component({
   components: {
@@ -134,17 +133,14 @@ import StorageRepository from '@/domain/storage/StorageRepository'
   },
 })
 export default class Rdra20DiagramEditorContainer extends Vue {
-  @Inject()
-  readonly repository!: StorageRepository
-
   @Prop({ required: true })
   readonly diagram!: Diagram
 
   @Prop({ required: true })
-  allResources?: Resource[]
+  readonly allResources?: Resource[]
 
   @Prop({ required: true })
-  lastPropertiesUpdatedDiagramId?: number
+  readonly lastPropertiesUpdatedDiagramId?: number
 
   @Emit('onOpendDiagramPropertiesEditor')
   onOpendDiagramPropertiesEditor(_diagramId: number): void {}
@@ -157,10 +153,6 @@ export default class Rdra20DiagramEditorContainer extends Vue {
 
   @Emit('onUpdateResoucesOnContainer')
   onUpdateResoucesOnContainer(): void {}
-
-  onUpdateResoucesOnEditor(): void {
-    this.onUpdateResoucesOnContainer()
-  }
 
   is(typeName: string): boolean {
     if (!this.diagram) return false
