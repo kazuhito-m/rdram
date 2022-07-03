@@ -37,7 +37,8 @@ export default class UserArrangeVM {
                 this.diagramType.id
             ),
             this.iconNames
-                .map(i => i.toDomain())
+                .map(i => i.toDomain()),
+            this.diagramType
         );
     }
 
@@ -99,7 +100,7 @@ export default class UserArrangeVM {
             userArrange.conflictDiagramName.behavior,
             userArrange.isColidedDiagramName(),
             userArrange.conflictDiagramName.sourceId,
-            DiagramTypes.byId(userArrange.conflictDiagramName.sourceType) as DiagramType,
+            userArrange.diagramType,
             [],
             product
         );

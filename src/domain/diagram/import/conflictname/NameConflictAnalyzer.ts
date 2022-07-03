@@ -22,6 +22,6 @@ export default class NameConflictAnalyzer {
             .filter(r => allResources.existsSameOf(r))
             .map(r => ConflictNameBehavior.prototypeResourceOf(r));
 
-        return new UserArrangeOfImportDiagram(diagram.name, colidedName, sameResources);
+        return new UserArrangeOfImportDiagram(diagram.name, colidedName, sameResources, diagram.type);
     }
 }
