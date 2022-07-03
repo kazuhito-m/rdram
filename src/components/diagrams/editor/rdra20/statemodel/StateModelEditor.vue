@@ -17,7 +17,7 @@ import { Prop, Component, Vue, Emit } from 'nuxt-property-decorator'
 import DiagramEditor from '@/components/diagrams/editor/template/DiagramEditor.vue'
 
 import EventAnalyzer from '@/components/diagrams/editor/template/event/EventAnalyzer'
-import GenericConnectPortsEvents from '@/components/diagrams/editor/template/event/events/GenericConnectPortsEvents'
+import StateModelConnectPortsEvents from '@/components/diagrams/editor/rdra20/statemodel/event/StateModelConnectPortsEvents'
 import GemerocDeleteShapeEvents from '@/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents'
 import GenericMoveShapeEvents from '@/components/diagrams/editor/template/event/events/GenericMoveShapeEvents'
 import GenericResizeShapeEvents from '@/components/diagrams/editor/template/event/events/GenericResizeShapeEvents'
@@ -52,7 +52,7 @@ export default class StateModelEditor extends Vue {
 
   readonly eventAnalyzer = new EventAnalyzer([
     new GemerocDeleteShapeEvents(),
-    new GenericConnectPortsEvents(),
+    new StateModelConnectPortsEvents(),
     new GenericMoveShapeEvents(),
     new GenericResizeShapeEvents(),
   ])
