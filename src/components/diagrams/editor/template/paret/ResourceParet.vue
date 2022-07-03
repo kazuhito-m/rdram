@@ -174,8 +174,6 @@ export default class ResourceParet extends Vue {
     resourceType: ResourceType,
     usedResouceIds: number[]
   ): boolean {
-    const diagram = this.product.diagrams.of(this.diagramId)
-    if (!diagram) return false
     if (!resource.type.equals(resourceType)) return false
     return !usedResouceIds.includes(resource.resourceId)
   }
