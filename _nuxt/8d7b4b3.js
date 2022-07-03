@@ -1147,9 +1147,9 @@ var Diagram = /*#__PURE__*/function () {
   Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(Diagram, [{
     key: "relationable",
     value: function relationable(relationPlus) {
-      var relation = relationPlus.source;
       var relations = this.allRelations();
-      if (relations.exists(relation)) return "すでに関連が存在します。";
+      var message = this.relationableLocalRuleOnDiagramOf(relationPlus);
+      if (message !== "") return message;
 
       if (relationPlus.fromType.equals(_domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_20__[/* default */ "a"].始点終点)) {
         var startPoint = relationPlus.fromResource;
@@ -1161,14 +1161,14 @@ var Diagram = /*#__PURE__*/function () {
         }
       }
 
-      var message = this.relationableLocalRuleOnDiagramOf(relationPlus);
-      if (message !== "") return message;
-      return relations.existsOrReversivle(relation) ? "すでに関連が存在します。" : "";
+      return "";
     }
   }, {
     key: "relationableLocalRuleOnDiagramOf",
-    value: function relationableLocalRuleOnDiagramOf(_relationPlus) {
-      return "";
+    value: function relationableLocalRuleOnDiagramOf(relationPlus) {
+      var relation = relationPlus.source;
+      var relations = this.allRelations();
+      return relations.existsOrReversivle(relation) ? "すでに関連が存在します。" : "";
     }
   }, {
     key: "createPlacement",
@@ -3800,6 +3800,10 @@ var StateModelDiagram = /*#__PURE__*/function (_Rdra20Diagram) {
   Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(StateModelDiagram, [{
     key: "relationableLocalRuleOnDiagramOf",
     value: function relationableLocalRuleOnDiagramOf(relationPlus) {
+      var relations = this.allRelations();
+      var relation = relationPlus.source;
+      if (relations.exists(relation)) return "すでに関連が存在します。";
+
       if (relationPlus.existsType(_domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].始点終点)) {
         if (!relationPlus.existsAnyTypes(_domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].状態, _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].状態グループ)) {
           return "そのアイコン種類の間に関連は引けません。";
