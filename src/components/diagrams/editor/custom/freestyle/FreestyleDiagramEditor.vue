@@ -1,10 +1,15 @@
 <template>
   <DiagramEditor
-:diagramId="diagramId" :allResources="allResources"
-    :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId" :eventAnalyzer="eventAnalyzer"
-    :iconGenerators="iconGenerators" @onUpdateResources="onUpdateResources"
+    :diagramId="diagramId"
+    :allResources="allResources"
+    :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+    :eventAnalyzer="eventAnalyzer"
+    :iconGenerators="iconGenerators"
+    @onUpdateResources="onUpdateResources"
     @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
-    @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate" @onRenamedResource="onRenamedResource" />
+    @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
+    @onRenamedResource="onRenamedResource"
+  />
 </template>
 
 <script lang="ts">
@@ -85,18 +90,17 @@ export default class FreestyleDiagramEditor extends Vue {
   // Emits
 
   @Emit('onUpdateResources')
-  onUpdateResources(): void { }
+  onUpdateResources(): void {}
 
   @Emit('onOpendDiagramPropertiesEditor')
-  onOpendDiagramPropertiesEditor(_diagramId: number): void { }
+  onOpendDiagramPropertiesEditor(_diagramId: number): void {}
 
   @Emit('onOpenDiagramOfResourceRelate')
-  onOpenDiagramOfResourceRelate(_resourceId: number): void { }
+  onOpenDiagramOfResourceRelate(_resourceId: number): void {}
 
-  @Emit("onRenamedResource")
-  onRenamedResource(_src: Resource, _dest: Resource): void { }
+  @Emit('onRenamedResource')
+  onRenamedResource(_src: Resource, _dest: Resource): void {}
 }
 </script>
 
-<style>
-</style>
+<style></style>
