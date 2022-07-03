@@ -1,4 +1,3 @@
-import { Figure } from "draw2d";
 import EventsOfType from "@/components/diagrams/editor/template/event/EventsOfType";
 import EventGist from "@/components/diagrams/editor/template/event/EventGist";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
