@@ -1,7 +1,7 @@
 <template>
   <div>
     <FreestyleDiagramEditor
-      v-if="is('フリースタイルの図')"
+      v-if="is('フリースタイル図')"
       :diagramId="diagram.id"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"

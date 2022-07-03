@@ -9,7 +9,7 @@ export default class DiagramTypes {
         .filter(t => Rdra20DiagramType.システムコンテキスト図.sameTypeIdOf(t.id));
 
     static readonly CUSTOM_TYPES = DiagramTypes.ALL_TYPES
-        .filter(t => CustomDiagramType.フリースタイルの図.sameTypeIdOf(t.id));
+        .filter(t => CustomDiagramType.フリースタイル図.sameTypeIdOf(t.id));
 
     public static record(type: DiagramType): void {
         DiagramTypes.ALL_TYPES.push(type);

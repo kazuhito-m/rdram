@@ -5,13 +5,13 @@ export default class CustomDiagramType extends DiagramType {
         super(id, name, iconKey);
     }
 
-    static readonly フリースタイルの図 = new CustomDiagramType(1001, 'フリースタイルの図', "mdi-all-inclusive-box");
+    static readonly フリースタイル図 = new CustomDiagramType(1001, 'フリースタイル図', "mdi-all-inclusive-box");
 
     sameTypeIdOf(typeId: number): boolean {
         return typeId > 1000
     }
 
     static as(type: DiagramType) {
-        return CustomDiagramType.フリースタイルの図.sameTypeIdOf(type.id);
+        return CustomDiagramType.フリースタイル図.sameTypeIdOf(type.id);
     }
 }

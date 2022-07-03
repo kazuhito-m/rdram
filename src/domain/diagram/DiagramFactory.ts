@@ -42,7 +42,7 @@ export default class DiagramFactory {
             return VariationAndConditionDiagram.prototypeOf(newDiagramId, name);
 
         // カスタム
-        if (CustomDiagramType.フリースタイルの図.equals(diagramType))
+        if (CustomDiagramType.フリースタイル図.equals(diagramType))
             return FreestyleDiagram.prototypeOf(newDiagramId, name);
 
         // それ以外(未定義なものが来た時)
