@@ -84,7 +84,7 @@ import AnalysisContainer from '@/components/analysis/AnalysisContainer.vue'
     AnalysisContainer,
   },
 })
-export default class DiagramRightClickMenu extends Vue {
+export default class DiagramsTabPane extends Vue {
   currentTabIndex: number | null = null
 
   // Props
