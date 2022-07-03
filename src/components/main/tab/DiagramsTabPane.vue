@@ -36,19 +36,7 @@
         :key="item.id"
         class="dialog-editor-tab-item"
       >
-        <Rdra20DiagramEditorContainer
-          v-if="item.isDiagram()"
-          :diagramId="item.id"
-          :allResources="allResources"
-          :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-          @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
-          @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
-          @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
-          @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
-          @onRenamedResource="onRenamedResource"
-        />
-
-        <CustomDiagramEditorContainer
+        <DiagramEditorContainer
           v-if="item.isDiagram()"
           :diagramId="item.id"
           :allResources="allResources"
@@ -70,8 +58,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Emit, Prop } from 'nuxt-property-decorator'
-import Rdra20DiagramEditorContainer from '@/components/diagrams/editor/rdra20/Rdra20DiagramEditorContainer.vue'
-import CustomDiagramEditorContainer from '@/components/diagrams/editor/custom/CustomDiagramEditorContainer.vue'
+import DiagramEditorContainer from '@/components/diagrams/editor/DiagramEditorContainer.vue'
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
@@ -79,8 +66,7 @@ import AnalysisContainer from '@/components/analysis/AnalysisContainer.vue'
 
 @Component({
   components: {
-    Rdra20DiagramEditorContainer,
-    CustomDiagramEditorContainer,
+    DiagramEditorContainer,
     AnalysisContainer,
   },
 })

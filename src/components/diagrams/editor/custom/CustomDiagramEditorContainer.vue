@@ -26,11 +26,8 @@ import StorageRepository from '@/domain/storage/StorageRepository'
   },
 })
 export default class CustomDiagramEditorContainer extends Vue {
-  @Inject()
-  readonly repository!: StorageRepository
-
   @Prop({ required: true })
-  readonly diagramId!: number
+  readonly diagram!: Diagram
 
   @Prop({ required: true })
   allResources?: Resource[]
@@ -50,20 +47,8 @@ export default class CustomDiagramEditorContainer extends Vue {
   @Emit('onUpdateResoucesOnContainer')
   onUpdateResoucesOnContainer(): void {}
 
-  diagram?: Diagram
-
-  public created(): void {
-    this.diagram = this.diagramOf(this.diagramId)
-  }
-
   onUpdateResoucesOnEditor(): void {
     this.onUpdateResoucesOnContainer()
-  }
-
-  diagramOf(diagramId: number): Diagram | undefined {
-    const product = this.repository.getCurrentProduct()
-    if (!product) return undefined
-    return product.diagrams.of(diagramId)
   }
 
   is(typeName: string): boolean {

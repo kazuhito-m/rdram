@@ -138,7 +138,7 @@ export default class Rdra20DiagramEditorContainer extends Vue {
   readonly repository!: StorageRepository
 
   @Prop({ required: true })
-  readonly diagramId!: number
+  readonly diagram!: Diagram
 
   @Prop({ required: true })
   allResources?: Resource[]
@@ -158,20 +158,8 @@ export default class Rdra20DiagramEditorContainer extends Vue {
   @Emit('onUpdateResoucesOnContainer')
   onUpdateResoucesOnContainer(): void {}
 
-  diagram?: Diagram
-
-  public created(): void {
-    this.diagram = this.diagramOf(this.diagramId)
-  }
-
   onUpdateResoucesOnEditor(): void {
     this.onUpdateResoucesOnContainer()
-  }
-
-  diagramOf(diagramId: number): Diagram | undefined {
-    const product = this.repository.getCurrentProduct()
-    if (!product) return undefined
-    return product.diagrams.of(diagramId)
   }
 
   is(typeName: string): boolean {
