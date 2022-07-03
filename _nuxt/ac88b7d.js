@@ -1928,7 +1928,7 @@ DiagramTypes.RDRA20_TYPES = DiagramTypes.ALL_TYPES.filter(function (t) {
   return _domain_diagram_rdra20_Rdra20DiagramType__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"].システムコンテキスト図.sameTypeIdOf(t.id);
 });
 DiagramTypes.CUSTOM_TYPES = DiagramTypes.ALL_TYPES.filter(function (t) {
-  return _domain_diagram_custom_CustomDiagramType__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].フリースタイルの図.sameTypeIdOf(t.id);
+  return _domain_diagram_custom_CustomDiagramType__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].フリースタイル図.sameTypeIdOf(t.id);
 });
 
 /***/ }),
@@ -1981,7 +1981,7 @@ var CustomDiagramType = /*#__PURE__*/function (_DiagramType) {
   }], [{
     key: "as",
     value: function as(type) {
-      return CustomDiagramType.フリースタイルの図.sameTypeIdOf(type.id);
+      return CustomDiagramType.フリースタイル図.sameTypeIdOf(type.id);
     }
   }]);
 
@@ -1989,7 +1989,7 @@ var CustomDiagramType = /*#__PURE__*/function (_DiagramType) {
 }(_domain_diagram_type_DiagramType__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"]);
 
 
-CustomDiagramType.フリースタイルの図 = new CustomDiagramType(1001, 'フリースタイルの図', "mdi-all-inclusive-box");
+CustomDiagramType.フリースタイル図 = new CustomDiagramType(1001, 'フリースタイル図', "mdi-all-inclusive-box");
 
 /***/ }),
 
@@ -2842,7 +2842,7 @@ var DiagramFactory_DiagramFactory = /*#__PURE__*/function () {
       if (Rdra20DiagramType["a" /* default */].ユースケース複合図.equals(diagramType)) return UseCaseCompositeDiagram["a" /* default */].prototypeOf(newDiagramId, name);
       if (Rdra20DiagramType["a" /* default */].バリエーション条件.equals(diagramType)) return VariationAndConditionDiagram["a" /* default */].prototypeOf(newDiagramId, name); // カスタム
 
-      if (CustomDiagramType["a" /* default */].フリースタイルの図.equals(diagramType)) return FreestyleDiagram["a" /* default */].prototypeOf(newDiagramId, name); // それ以外(未定義なものが来た時)
+      if (CustomDiagramType["a" /* default */].フリースタイル図.equals(diagramType)) return FreestyleDiagram["a" /* default */].prototypeOf(newDiagramId, name); // それ以外(未定義なものが来た時)
 
       throw new Error("タイプに対応する図が見つからなかった。");
     }
@@ -4456,7 +4456,7 @@ var FreestyleDiagram_FreestyleDiagram = /*#__PURE__*/function (_CustomDiagram) {
   }], [{
     key: "prototypeOf",
     value: function prototypeOf(newDiagramId, name) {
-      return new FreestyleDiagram(newDiagramId, CustomDiagramType["a" /* default */].フリースタイルの図.id, name.trim(), [], [], 1024, 768, CanvasGuideType["a" /* CanvasGuideType */].NOTHING);
+      return new FreestyleDiagram(newDiagramId, CustomDiagramType["a" /* default */].フリースタイル図.id, name.trim(), [], [], 1024, 768, CanvasGuideType["a" /* CanvasGuideType */].NOTHING);
     }
   }]);
 
