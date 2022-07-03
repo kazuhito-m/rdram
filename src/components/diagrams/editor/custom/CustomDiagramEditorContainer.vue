@@ -5,7 +5,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-      @onUpdateResources="onUpdateResoucesOnEditor"
+      @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
       @onRenamedResource="onRenamedResource"
@@ -45,10 +45,6 @@ export default class CustomDiagramEditorContainer extends Vue {
 
   @Emit('onUpdateResoucesOnContainer')
   onUpdateResoucesOnContainer(): void {}
-
-  onUpdateResoucesOnEditor(): void {
-    this.onUpdateResoucesOnContainer()
-  }
 
   is(typeName: string): boolean {
     if (!this.diagram) return false
