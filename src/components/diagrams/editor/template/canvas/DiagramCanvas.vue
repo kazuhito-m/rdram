@@ -128,6 +128,8 @@ export default class DiagramCanvas extends Vue {
   private dropXOnCanvas = 0
   private dropYOnCanvas = 0
 
+  private initialized = false
+
   // Properties.
 
   private zoom(): number {
@@ -180,9 +182,7 @@ export default class DiagramCanvas extends Vue {
     const diagramId = this.diagramId
     if (diagramId !== this.lastPropertiesUpdatedDiagramId) return
 
-    const product = this.repository.getCurrentProduct() as Product
-    const diagram = product.diagrams.of(diagramId)
-    if (!diagram) return
+    const diagram = this.loadDiagram()
 
     const c = this.canvas
     if (c.getWidth() === diagram.width && c.getHeight() === diagram.height)
@@ -638,8 +638,10 @@ export default class DiagramCanvas extends Vue {
    * キャンバス側から、逆にデータにあるかを調べ、削除されてそうなものが在れば消す。
    */
   private reverceSyncCavansDeleteThings(): void {
-    const product = this.repository.getCurrentProduct() as Product
-    const diagram = product.diagrams.of(this.diagramId) as Diagram
+    // 初期ロード時、onChangeUsedResouceIds() が走ってしまい、LocalSterageからの読み出しが走ってしまう。
+    // そのため「一度目だけは外からもちこまれたdiagramを使う」ようにする。(ダーティーハック)
+    const diagram = this.initialized ? this.loadDiagram() : this.diagram
+    this.initialized = true
 
     const canvas = this.canvas
     canvas.getLines().each((_: number, line: any) => {
@@ -691,8 +693,7 @@ export default class DiagramCanvas extends Vue {
   }
 
   private redrawIcons(resources: Resource[]) {
-    const product = this.repository.getCurrentProduct() as Product
-    const diagram = product.diagrams.of(this.diagramId) as Diagram
+    const diagram = this.loadDiagram()
     resources.forEach((resource) => this.redrawIcon(resource, diagram))
   }
 
@@ -771,8 +772,7 @@ export default class DiagramCanvas extends Vue {
     func: (diagram: Diagram, product: Product) => Diagram | null
   ): void {
     const product = this.repository.getCurrentProduct() as Product
-    const diagram = product.diagrams.of(this.diagramId)
-    if (!diagram) return
+    const diagram = this.loadDiagram() as Diagram
 
     const modifiedDiagram = func(diagram, product)
     if (modifiedDiagram === null) return
@@ -810,6 +810,11 @@ export default class DiagramCanvas extends Vue {
     const pos = this.calculateCenterPositionOf(icon)
     const toolTip = this.$refs.iconToolTip as IconToolTip
     toolTip.move(pos.x(), pos.y())
+  }
+
+  private loadDiagram(): Diagram {
+    const product = this.repository.getCurrentProduct() as Product
+    return product.diagrams.of(this.diagramId) as Diagram
   }
 
   private withLoadingScreen(actions: () => void) {
