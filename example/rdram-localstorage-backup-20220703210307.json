@@ -1,7 +1,7 @@
 {
-    "updateAt": "2022-06-29T01:37:31.593Z",
+    "updateAt": "2022-07-03T12:02:47.439Z",
     "status": {
-        "currentProductId": "6a0375a9-fb91-4803-a514-de073c54f3e5",
+        "currentProductId": "9d94821b-4992-47ea-8369-269d5a350bb6",
         "__CLASS_NAME": "Status"
     },
     "products": {
@@ -267,7 +267,7 @@
                 "__CLASS_NAME": "Product"
             },
             {
-                "updateAt": "2022-04-13T19:37:43.237Z",
+                "updateAt": "2022-07-03T12:01:46.093Z",
                 "id": "25ec5905-4e32-4802-9ae3-62349e9f1dca",
                 "name": "基幹システム",
                 "userSettings": {
@@ -1702,748 +1702,6 @@
                             "height": 850,
                             "canvasGuideType": 1,
                             "__CLASS_NAME": "InformationModelDiagram"
-                        },
-                        {
-                            "id": 4,
-                            "typeId": 6,
-                            "name": "受注の状態遷移",
-                            "relations": [
-                                {
-                                    "id": "d00be40f-b5c7-a259-773f-66b72006f66c",
-                                    "fromResourceId": 2,
-                                    "toResourceId": 109,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "c6bba707-69eb-d908-e379-9020397e137f",
-                                    "fromResourceId": 109,
-                                    "toResourceId": 110,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "47a74f07-0b0d-6b9f-af92-0e96b7e51eb4",
-                                    "fromResourceId": 110,
-                                    "toResourceId": 111,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "292c1ed3-5927-7f31-eee6-f4e348b05311",
-                                    "fromResourceId": 111,
-                                    "toResourceId": 112,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "350f9fa4-07ba-f1b9-1425-d0d5e219cc36",
-                                    "fromResourceId": 113,
-                                    "toResourceId": 114,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "1b54a04e-89bf-ef2e-86ec-f8cbd4bdb3c2",
-                                    "fromResourceId": 114,
-                                    "toResourceId": 115,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "a8457b3f-7bcf-1f4f-b7a4-0ca39608842e",
-                                    "fromResourceId": 114,
-                                    "toResourceId": 118,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "b7da77ba-1483-3616-6668-30bd5cdea87a",
-                                    "fromResourceId": 118,
-                                    "toResourceId": 3,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "a5872518-aeb3-9754-64c2-92cef61880f7",
-                                    "fromResourceId": 112,
-                                    "toResourceId": 119,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "c636dc87-1411-c3d0-2828-7a001392c587",
-                                    "fromResourceId": 112,
-                                    "toResourceId": 120,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "2b03384f-bdab-01ca-95fa-059fc167df44",
-                                    "fromResourceId": 120,
-                                    "toResourceId": 112,
-                                    "routerTypeId": 4,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "93401ecb-b0d6-b384-0390-592a4cd33f15",
-                                    "fromResourceId": 119,
-                                    "toResourceId": 114,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "b910ce72-9682-ade7-05a3-5db3a0bc241f",
-                                    "fromResourceId": 114,
-                                    "toResourceId": 121,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "5d4129ff-44cc-3029-d605-03b35a011e91",
-                                    "fromResourceId": 121,
-                                    "toResourceId": 3,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "fec84e49-6dd4-ee32-f8a2-323d6467f76b",
-                                    "fromResourceId": 112,
-                                    "toResourceId": 113,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                }
-                            ],
-                            "placements": [
-                                {
-                                    "x": 120,
-                                    "y": 20,
-                                    "width": 0,
-                                    "height": 0,
-                                    "resourceId": 2,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 100,
-                                    "y": 60,
-                                    "width": 80,
-                                    "height": 40,
-                                    "resourceId": 109,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 80,
-                                    "y": 120,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 110,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 152,
-                                    "y": 200,
-                                    "width": 80,
-                                    "height": 40,
-                                    "resourceId": 111,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 312,
-                                    "y": 260,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 112,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 112,
-                                    "y": 360,
-                                    "width": 82,
-                                    "height": 40,
-                                    "resourceId": 113,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 272,
-                                    "y": 420,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 114,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 112,
-                                    "y": 460,
-                                    "width": 81,
-                                    "height": 40,
-                                    "resourceId": 115,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 20,
-                                    "y": 300,
-                                    "width": 200,
-                                    "height": 220,
-                                    "resourceId": 116,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 112,
-                                    "y": 560,
-                                    "width": 80,
-                                    "height": 40,
-                                    "resourceId": 118,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 132,
-                                    "y": 700,
-                                    "width": 0,
-                                    "height": 0,
-                                    "resourceId": 3,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 512,
-                                    "y": 340,
-                                    "width": 80,
-                                    "height": 40,
-                                    "resourceId": 119,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 432,
-                                    "y": 440,
-                                    "width": 80,
-                                    "height": 40,
-                                    "resourceId": 120,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 332,
-                                    "y": 560,
-                                    "width": 93,
-                                    "height": 40,
-                                    "resourceId": 121,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                }
-                            ],
-                            "width": 768,
-                            "height": 1024,
-                            "canvasGuideType": 2,
-                            "__CLASS_NAME": "StateModelDiagram"
-                        },
-                        {
-                            "id": 5,
-                            "typeId": 6,
-                            "name": "受注残の状態遷移",
-                            "relations": [
-                                {
-                                    "id": "18df788c-6035-2517-6803-cf4ae7c02182",
-                                    "fromResourceId": 2,
-                                    "toResourceId": 123,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "20dbbc68-ae64-b981-f86a-d3d951f4468f",
-                                    "fromResourceId": 123,
-                                    "toResourceId": 122,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "80130203-42b6-c61e-e8d5-3bc92e471ded",
-                                    "fromResourceId": 122,
-                                    "toResourceId": 124,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "5b4015eb-35f4-33a3-7563-8d16ed4476ae",
-                                    "fromResourceId": 124,
-                                    "toResourceId": 125,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "645a4c14-8de7-1e27-7a74-8d38b5b3529c",
-                                    "fromResourceId": 124,
-                                    "toResourceId": 126,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "0f1070e7-044b-eda3-3397-fc19dcf20807",
-                                    "fromResourceId": 126,
-                                    "toResourceId": 127,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "fabffade-c876-0508-4e89-ef0647a669ad",
-                                    "fromResourceId": 127,
-                                    "toResourceId": 114,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "396b296f-e9d2-b0f6-cc1d-3740d80a1f13",
-                                    "fromResourceId": 114,
-                                    "toResourceId": 118,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "0adb6ddf-396c-0c12-8f27-6e4a04f61f0f",
-                                    "fromResourceId": 125,
-                                    "toResourceId": 118,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "44f09e9c-5581-bd16-8546-2fadce902a15",
-                                    "fromResourceId": 118,
-                                    "toResourceId": 3,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                }
-                            ],
-                            "placements": [
-                                {
-                                    "x": 340,
-                                    "y": 20,
-                                    "width": 0,
-                                    "height": 0,
-                                    "resourceId": 2,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 440,
-                                    "y": 120,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 122,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 280,
-                                    "y": 60,
-                                    "width": 160,
-                                    "height": 40,
-                                    "resourceId": 123,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 280,
-                                    "y": 180,
-                                    "width": 160,
-                                    "height": 40,
-                                    "resourceId": 124,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 140,
-                                    "y": 260,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 125,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 460,
-                                    "y": 260,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 126,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 280,
-                                    "y": 320,
-                                    "width": 160,
-                                    "height": 40,
-                                    "resourceId": 127,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 460,
-                                    "y": 440,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 114,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 280,
-                                    "y": 560,
-                                    "width": 160,
-                                    "height": 40,
-                                    "resourceId": 118,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 340,
-                                    "y": 620,
-                                    "width": 0,
-                                    "height": 0,
-                                    "resourceId": 3,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                }
-                            ],
-                            "width": 768,
-                            "height": 1024,
-                            "canvasGuideType": 2,
-                            "__CLASS_NAME": "StateModelDiagram"
-                        },
-                        {
-                            "id": 6,
-                            "typeId": 6,
-                            "name": "発注の状態遷移",
-                            "relations": [
-                                {
-                                    "id": "4aea4289-4d8f-4df2-f0f3-4a32eb913705",
-                                    "fromResourceId": 2,
-                                    "toResourceId": 123,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "2517d6b8-ed1b-c207-f85c-62a86454cace",
-                                    "fromResourceId": 123,
-                                    "toResourceId": 122,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "ee2e2e15-51f4-d9ca-6bf7-841ee8403f98",
-                                    "fromResourceId": 122,
-                                    "toResourceId": 124,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "eca8b70c-8e04-09bb-e15d-b07ad0d7358b",
-                                    "fromResourceId": 124,
-                                    "toResourceId": 129,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "4dde52cd-d379-ecb4-998f-927ae23c268b",
-                                    "fromResourceId": 128,
-                                    "toResourceId": 129,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "0c5b0e73-e9d8-ce80-83e4-e4f8a54482e6",
-                                    "fromResourceId": 129,
-                                    "toResourceId": 130,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "bd284983-d462-3cf1-91c7-968da14c7382",
-                                    "fromResourceId": 130,
-                                    "toResourceId": 126,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "5a61aeba-95aa-bfdb-099d-61cf81c26fc1",
-                                    "fromResourceId": 126,
-                                    "toResourceId": 131,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "0ee78e1b-ab8a-bbbc-303b-853fbebf5b57",
-                                    "fromResourceId": 126,
-                                    "toResourceId": 128,
-                                    "routerTypeId": 4,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "2879a735-d6cb-7e3f-123f-b1f23594394d",
-                                    "fromResourceId": 131,
-                                    "toResourceId": 133,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "2ed6a237-4397-8b5f-d5da-3bd4c264098a",
-                                    "fromResourceId": 133,
-                                    "toResourceId": 132,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "fa0fb608-30aa-30a1-19e1-ba09dca4c66c",
-                                    "fromResourceId": 132,
-                                    "toResourceId": 3,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                }
-                            ],
-                            "placements": [
-                                {
-                                    "x": 220,
-                                    "y": 20,
-                                    "width": 0,
-                                    "height": 0,
-                                    "resourceId": 2,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 200,
-                                    "y": 60,
-                                    "width": 80,
-                                    "height": 40,
-                                    "resourceId": 123,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 180,
-                                    "y": 120,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 122,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 280,
-                                    "y": 180,
-                                    "width": 80,
-                                    "height": 40,
-                                    "resourceId": 124,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 480,
-                                    "y": 180,
-                                    "width": 80,
-                                    "height": 40,
-                                    "resourceId": 128,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 320,
-                                    "y": 240,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 129,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 200,
-                                    "y": 340,
-                                    "width": 80,
-                                    "height": 40,
-                                    "resourceId": 130,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 200,
-                                    "y": 500,
-                                    "width": 80,
-                                    "height": 40,
-                                    "resourceId": 131,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 320,
-                                    "y": 420,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 126,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 200,
-                                    "y": 660,
-                                    "width": 80,
-                                    "height": 40,
-                                    "resourceId": 132,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 320,
-                                    "y": 580,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 133,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 220,
-                                    "y": 720,
-                                    "width": 0,
-                                    "height": 0,
-                                    "resourceId": 3,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 100,
-                                    "y": 280,
-                                    "width": 200,
-                                    "height": 280,
-                                    "resourceId": 134,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                }
-                            ],
-                            "width": 768,
-                            "height": 1024,
-                            "canvasGuideType": 2,
-                            "__CLASS_NAME": "StateModelDiagram"
                         },
                         {
                             "id": 7,
@@ -9396,6 +8654,729 @@
                             "height": 768,
                             "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
+                        },
+                        {
+                            "id": 4,
+                            "typeId": 6,
+                            "name": "受注の状態遷移",
+                            "relations": [
+                                {
+                                    "id": "3ba31416-4807-66da-e404-d7a884c79955",
+                                    "fromResourceId": 2,
+                                    "toResourceId": 109,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "40e31622-4df1-40cd-8abc-5f4e3da06cf8",
+                                    "fromResourceId": 109,
+                                    "toResourceId": 110,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "07d24852-7cf9-ee39-8634-c4868d27cfae",
+                                    "fromResourceId": 112,
+                                    "toResourceId": 113,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "e5e04a8a-94c6-cb44-0f20-c0be6d6813ae",
+                                    "fromResourceId": 113,
+                                    "toResourceId": 114,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "f49aac46-d136-e772-cba1-597a9b363356",
+                                    "fromResourceId": 114,
+                                    "toResourceId": 115,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "a82fd890-5c3a-a90b-5a60-574cc551d4c1",
+                                    "fromResourceId": 114,
+                                    "toResourceId": 118,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "ef9a3dff-b11a-b413-b891-39a150d1cc96",
+                                    "fromResourceId": 118,
+                                    "toResourceId": 3,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "8ed6139f-dd29-419b-01d6-6404d027485d",
+                                    "fromResourceId": 121,
+                                    "toResourceId": 3,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "3c4f62d6-8b81-07c9-2cfe-c747928368c4",
+                                    "fromResourceId": 112,
+                                    "toResourceId": 120,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "48da66f4-81ff-76b2-06f2-96bdcc3d6787",
+                                    "fromResourceId": 112,
+                                    "toResourceId": 119,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "0210ed1b-c391-affa-489a-3fc6220f776e",
+                                    "fromResourceId": 119,
+                                    "toResourceId": 114,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "0cb3927e-ff44-3213-a5d6-89897193df90",
+                                    "fromResourceId": 114,
+                                    "toResourceId": 121,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "06bafba2-3640-783f-8ed9-a5da7266a84a",
+                                    "fromResourceId": 110,
+                                    "toResourceId": 113,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "d8e053e9-d3b6-7e66-45ed-6246087a9867",
+                                    "fromResourceId": 120,
+                                    "toResourceId": 112,
+                                    "routerTypeId": 4,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                }
+                            ],
+                            "placements": [
+                                {
+                                    "x": 120,
+                                    "y": 20,
+                                    "width": 0,
+                                    "height": 0,
+                                    "resourceId": 2,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 100,
+                                    "y": 60,
+                                    "width": 80,
+                                    "height": 40,
+                                    "resourceId": 109,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 80,
+                                    "y": 120,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 110,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 312,
+                                    "y": 260,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 112,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 112,
+                                    "y": 360,
+                                    "width": 82,
+                                    "height": 40,
+                                    "resourceId": 113,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 272,
+                                    "y": 420,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 114,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 112,
+                                    "y": 460,
+                                    "width": 81,
+                                    "height": 40,
+                                    "resourceId": 115,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 20,
+                                    "y": 300,
+                                    "width": 200,
+                                    "height": 220,
+                                    "resourceId": 116,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 112,
+                                    "y": 560,
+                                    "width": 80,
+                                    "height": 40,
+                                    "resourceId": 118,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 132,
+                                    "y": 700,
+                                    "width": 0,
+                                    "height": 0,
+                                    "resourceId": 3,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 512,
+                                    "y": 340,
+                                    "width": 80,
+                                    "height": 40,
+                                    "resourceId": 119,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 432,
+                                    "y": 440,
+                                    "width": 80,
+                                    "height": 40,
+                                    "resourceId": 120,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 332,
+                                    "y": 560,
+                                    "width": 93,
+                                    "height": 40,
+                                    "resourceId": 121,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                }
+                            ],
+                            "width": 768,
+                            "height": 1024,
+                            "canvasGuideType": 2,
+                            "__CLASS_NAME": "StateModelDiagram"
+                        },
+                        {
+                            "id": 6,
+                            "typeId": 6,
+                            "name": "発注の状態遷移",
+                            "relations": [
+                                {
+                                    "id": "1a81e5e7-3b5e-db25-b690-1cb33ea27e50",
+                                    "fromResourceId": 2,
+                                    "toResourceId": 123,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "8e7849fd-7f44-894f-f769-17b56d61a31f",
+                                    "fromResourceId": 123,
+                                    "toResourceId": 122,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "e0c02563-74dd-41f9-7350-5f7eca927b44",
+                                    "fromResourceId": 122,
+                                    "toResourceId": 124,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "6ad71d03-65a0-b159-b9c6-4cd190433201",
+                                    "fromResourceId": 128,
+                                    "toResourceId": 129,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "48413c00-bf34-cea1-049f-567aa8eccba7",
+                                    "fromResourceId": 124,
+                                    "toResourceId": 129,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "648a1f8d-582d-2eb1-8832-d80947b599a8",
+                                    "fromResourceId": 129,
+                                    "toResourceId": 130,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "a5d3c548-7473-44b9-1ca6-9f475e4d464a",
+                                    "fromResourceId": 130,
+                                    "toResourceId": 126,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "ff21c5df-eb73-29db-0b2a-ced9b484200d",
+                                    "fromResourceId": 126,
+                                    "toResourceId": 131,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "b47c1b92-3da0-f114-1879-aa4703174281",
+                                    "fromResourceId": 131,
+                                    "toResourceId": 133,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "64c95992-b678-aede-6cbc-6f4a41586280",
+                                    "fromResourceId": 133,
+                                    "toResourceId": 132,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "0eeb75d0-97a3-41fa-1443-20c9dcf455ad",
+                                    "fromResourceId": 132,
+                                    "toResourceId": 3,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "970b97af-2b9b-3603-0bd3-0f53e08d7b1e",
+                                    "fromResourceId": 126,
+                                    "toResourceId": 128,
+                                    "routerTypeId": 4,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                }
+                            ],
+                            "placements": [
+                                {
+                                    "x": 220,
+                                    "y": 20,
+                                    "width": 0,
+                                    "height": 0,
+                                    "resourceId": 2,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 200,
+                                    "y": 60,
+                                    "width": 80,
+                                    "height": 40,
+                                    "resourceId": 123,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 180,
+                                    "y": 120,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 122,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 280,
+                                    "y": 180,
+                                    "width": 80,
+                                    "height": 40,
+                                    "resourceId": 124,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 480,
+                                    "y": 180,
+                                    "width": 80,
+                                    "height": 40,
+                                    "resourceId": 128,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 320,
+                                    "y": 240,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 129,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 200,
+                                    "y": 340,
+                                    "width": 80,
+                                    "height": 40,
+                                    "resourceId": 130,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 200,
+                                    "y": 500,
+                                    "width": 80,
+                                    "height": 40,
+                                    "resourceId": 131,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 320,
+                                    "y": 420,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 126,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 200,
+                                    "y": 660,
+                                    "width": 80,
+                                    "height": 40,
+                                    "resourceId": 132,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 300,
+                                    "y": 580,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 133,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 220,
+                                    "y": 740,
+                                    "width": 0,
+                                    "height": 0,
+                                    "resourceId": 3,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 100,
+                                    "y": 280,
+                                    "width": 200,
+                                    "height": 280,
+                                    "resourceId": 134,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                }
+                            ],
+                            "width": 768,
+                            "height": 1024,
+                            "canvasGuideType": 2,
+                            "__CLASS_NAME": "StateModelDiagram"
+                        },
+                        {
+                            "id": 5,
+                            "typeId": 6,
+                            "name": "受注残の状態遷移",
+                            "relations": [
+                                {
+                                    "id": "2fb844fc-61b8-90ea-23c4-672ac71cff87",
+                                    "fromResourceId": 2,
+                                    "toResourceId": 123,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "15df20f4-1a49-d276-b1d4-6cdaa0a9541a",
+                                    "fromResourceId": 123,
+                                    "toResourceId": 122,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "aebf2abc-2188-3aa2-3467-79ad0ba909ab",
+                                    "fromResourceId": 122,
+                                    "toResourceId": 124,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "8f822758-f4ba-0ef8-1c5c-9db969c43c0c",
+                                    "fromResourceId": 124,
+                                    "toResourceId": 125,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "8ce11abf-2528-459f-ced1-329a00114180",
+                                    "fromResourceId": 124,
+                                    "toResourceId": 126,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "6b90613b-166d-f163-52a8-f2bab68a4862",
+                                    "fromResourceId": 126,
+                                    "toResourceId": 127,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "f1d72a9c-7a61-e8ac-94a9-2232536ca46f",
+                                    "fromResourceId": 125,
+                                    "toResourceId": 118,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "35661edf-2894-f516-8fa6-1b7aadf3c527",
+                                    "fromResourceId": 114,
+                                    "toResourceId": 118,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "e7f5227c-56a5-a339-b61d-36d8b774222f",
+                                    "fromResourceId": 127,
+                                    "toResourceId": 114,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "54b12bf1-daf8-da07-9674-6d0d95959f77",
+                                    "fromResourceId": 118,
+                                    "toResourceId": 3,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                }
+                            ],
+                            "placements": [
+                                {
+                                    "x": 340,
+                                    "y": 20,
+                                    "width": 0,
+                                    "height": 0,
+                                    "resourceId": 2,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 440,
+                                    "y": 145.974,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 122,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 280,
+                                    "y": 85.974,
+                                    "width": 160,
+                                    "height": 40,
+                                    "resourceId": 123,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 280,
+                                    "y": 205.974,
+                                    "width": 160,
+                                    "height": 40,
+                                    "resourceId": 124,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 140,
+                                    "y": 285.974,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 125,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 460,
+                                    "y": 285.974,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 126,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 280,
+                                    "y": 345.974,
+                                    "width": 160,
+                                    "height": 40,
+                                    "resourceId": 127,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 460,
+                                    "y": 465.974,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 114,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 280,
+                                    "y": 585.974,
+                                    "width": 160,
+                                    "height": 40,
+                                    "resourceId": 118,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 340,
+                                    "y": 660,
+                                    "width": 0,
+                                    "height": 0,
+                                    "resourceId": 3,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                }
+                            ],
+                            "width": 768,
+                            "height": 1024,
+                            "canvasGuideType": 2,
+                            "__CLASS_NAME": "StateModelDiagram"
                         }
                     ],
                     "__CLASS_NAME": "Diagrams"
@@ -11667,7 +11648,7 @@
                 "__CLASS_NAME": "Product"
             },
             {
-                "updateAt": "2022-04-07T18:15:01.125Z",
+                "updateAt": "2022-07-03T12:02:23.550Z",
                 "id": "6a0375a9-fb91-4803-a514-de073c54f3e5",
                 "name": "図書館システム",
                 "userSettings": {
@@ -12608,432 +12589,6 @@
                             "height": 768,
                             "canvasGuideType": 1,
                             "__CLASS_NAME": "BusinessUseCaseDiagram"
-                        },
-                        {
-                            "id": 14,
-                            "typeId": 6,
-                            "name": "Web予約の状態",
-                            "relations": [
-                                {
-                                    "id": "d590de7c-7998-1230-a013-cb48ddf698ba",
-                                    "fromResourceId": 2,
-                                    "toResourceId": 38,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "fefd293f-929b-2770-1091-896f77d74ade",
-                                    "fromResourceId": 40,
-                                    "toResourceId": 42,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "30bae8b7-c192-0d0f-9ad2-55e76c332ff9",
-                                    "fromResourceId": 42,
-                                    "toResourceId": 41,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "b1232f9b-da2e-0b27-085a-6a0174d905c6",
-                                    "fromResourceId": 41,
-                                    "toResourceId": 44,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "e1de57c3-8466-e5c8-0e9d-c16a4d07cc24",
-                                    "fromResourceId": 41,
-                                    "toResourceId": 45,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "9035ebdc-42a3-fdd7-284c-a7b8b4b45e53",
-                                    "fromResourceId": 44,
-                                    "toResourceId": 38,
-                                    "routerTypeId": 4,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "61c8688e-255f-8119-94b0-08b847f3b0c3",
-                                    "fromResourceId": 45,
-                                    "toResourceId": 38,
-                                    "routerTypeId": 4,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "39b052e4-fb2b-d30c-a068-b912a67dcaa0",
-                                    "fromResourceId": 38,
-                                    "toResourceId": 3,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "8aae910b-6c55-5e54-879a-96f7104be39d",
-                                    "fromResourceId": 44,
-                                    "toResourceId": 41,
-                                    "routerTypeId": 4,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "00977738-5471-7efc-4f2f-91dcc258bddc",
-                                    "fromResourceId": 38,
-                                    "toResourceId": 70,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "d7f1d90a-d330-faa1-7ddb-12d6eed68f5d",
-                                    "fromResourceId": 70,
-                                    "toResourceId": 40,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "9e84e305-6b21-a182-b515-a1e55bf22943",
-                                    "fromResourceId": 43,
-                                    "toResourceId": 39,
-                                    "routerTypeId": 4,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "1b926b20-b516-d2aa-b833-e9f30339b8c2",
-                                    "fromResourceId": 39,
-                                    "toResourceId": 38,
-                                    "routerTypeId": 4,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                }
-                            ],
-                            "placements": [
-                                {
-                                    "x": 677.283950617284,
-                                    "y": 79.75308641975309,
-                                    "width": 0,
-                                    "height": 0,
-                                    "resourceId": 2,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 860,
-                                    "y": 300,
-                                    "width": 0,
-                                    "height": 0,
-                                    "resourceId": 3,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 680,
-                                    "y": 220,
-                                    "width": 142,
-                                    "height": 40,
-                                    "resourceId": 38,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 420,
-                                    "y": 340,
-                                    "width": 180,
-                                    "height": 40,
-                                    "resourceId": 39,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 240,
-                                    "y": 360,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 40,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 240,
-                                    "y": 500,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 41,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 40,
-                                    "y": 440,
-                                    "width": 147,
-                                    "height": 38,
-                                    "resourceId": 42,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 200,
-                                    "y": 300,
-                                    "width": 200,
-                                    "height": 260,
-                                    "resourceId": 43,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 460,
-                                    "y": 620,
-                                    "width": 140,
-                                    "height": 40,
-                                    "resourceId": 44,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 400,
-                                    "y": 780,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 45,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 396,
-                                    "y": 211,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 70,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                }
-                            ],
-                            "width": 1024,
-                            "height": 1024,
-                            "canvasGuideType": 2,
-                            "__CLASS_NAME": "StateModelDiagram"
-                        },
-                        {
-                            "id": 15,
-                            "typeId": 6,
-                            "name": "蔵書の状態",
-                            "relations": [
-                                {
-                                    "id": "530f2f90-950a-6044-766c-75ee93f560f5",
-                                    "fromResourceId": 2,
-                                    "toResourceId": 64,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "9451d3e2-30e7-1a78-9ce2-cf697d8340d6",
-                                    "fromResourceId": 64,
-                                    "toResourceId": 3,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "1b1c64d3-1f24-2a28-678a-dc24eed0aaa2",
-                                    "fromResourceId": 64,
-                                    "toResourceId": 69,
-                                    "routerTypeId": 4,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "769627f6-bf34-42fe-31d7-8ff69f5f1c09",
-                                    "fromResourceId": 69,
-                                    "toResourceId": 67,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "6352746d-2044-38fc-a78b-dc819ac6c258",
-                                    "fromResourceId": 67,
-                                    "toResourceId": 44,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "85f4e26d-060f-52d1-1ca6-62ed5bbe2382",
-                                    "fromResourceId": 44,
-                                    "toResourceId": 68,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "f4638a43-763c-3ee6-d46f-3acb03511663",
-                                    "fromResourceId": 44,
-                                    "toResourceId": 67,
-                                    "routerTypeId": 4,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "f1b6da38-660c-a6a6-114b-0bf9b66342f9",
-                                    "fromResourceId": 67,
-                                    "toResourceId": 28,
-                                    "routerTypeId": 1,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                },
-                                {
-                                    "id": "5d14104c-72ab-6949-c737-7c562f581b55",
-                                    "fromResourceId": 28,
-                                    "toResourceId": 64,
-                                    "routerTypeId": 4,
-                                    "tipAllow": false,
-                                    "meaning": "",
-                                    "midpoints": [],
-                                    "__CLASS_NAME": "Relation"
-                                }
-                            ],
-                            "placements": [
-                                {
-                                    "x": 400,
-                                    "y": 260,
-                                    "width": 121,
-                                    "height": 40,
-                                    "resourceId": 64,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 500,
-                                    "y": 160,
-                                    "width": 0,
-                                    "height": 0,
-                                    "resourceId": 2,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 580,
-                                    "y": 320,
-                                    "width": 0,
-                                    "height": 0,
-                                    "resourceId": 3,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 195,
-                                    "y": 322,
-                                    "width": 200,
-                                    "height": 247,
-                                    "resourceId": 66,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 235,
-                                    "y": 362,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 67,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 235,
-                                    "y": 502,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 68,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 220,
-                                    "y": 160,
-                                    "width": 140,
-                                    "height": 40,
-                                    "resourceId": 69,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 40,
-                                    "y": 420,
-                                    "width": 120,
-                                    "height": 40,
-                                    "resourceId": 44,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                },
-                                {
-                                    "x": 540,
-                                    "y": 480,
-                                    "width": 158,
-                                    "height": 40,
-                                    "resourceId": 28,
-                                    "alias": false,
-                                    "__CLASS_NAME": "Placement"
-                                }
-                            ],
-                            "width": 768,
-                            "height": 1024,
-                            "canvasGuideType": 2,
-                            "__CLASS_NAME": "StateModelDiagram"
                         },
                         {
                             "id": 16,
@@ -14866,6 +14421,432 @@
                             "height": 768,
                             "canvasGuideType": 1,
                             "__CLASS_NAME": "UseCaseCompositeDiagram"
+                        },
+                        {
+                            "id": 14,
+                            "typeId": 6,
+                            "name": "Web予約の状態",
+                            "relations": [
+                                {
+                                    "id": "d7a451ac-38d3-5fda-6e25-9488fda16385",
+                                    "fromResourceId": 2,
+                                    "toResourceId": 38,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "80be4fe9-f7ec-22c6-d623-117e4247a226",
+                                    "fromResourceId": 38,
+                                    "toResourceId": 3,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "8bf66c80-7387-7016-be67-49d1157c4279",
+                                    "fromResourceId": 38,
+                                    "toResourceId": 70,
+                                    "routerTypeId": 4,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "e0f0b6a1-9c57-71c0-4e15-aff7f54b74a8",
+                                    "fromResourceId": 70,
+                                    "toResourceId": 40,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "f4786d0e-51f0-96af-d65f-bd10e7c5a319",
+                                    "fromResourceId": 40,
+                                    "toResourceId": 42,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "7925535a-07d0-02e3-36ed-8f6acacdeafd",
+                                    "fromResourceId": 42,
+                                    "toResourceId": 41,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "3c605896-a0c2-c45e-fd88-878562d99c6e",
+                                    "fromResourceId": 41,
+                                    "toResourceId": 45,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "a9458ae5-91b5-907a-6c58-b52952691c54",
+                                    "fromResourceId": 43,
+                                    "toResourceId": 39,
+                                    "routerTypeId": 4,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "aeb90b4b-7e0b-3374-b696-23c132dadfb4",
+                                    "fromResourceId": 41,
+                                    "toResourceId": 44,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "86503c6a-46ca-331f-37c6-b0f0d5c415dc",
+                                    "fromResourceId": 44,
+                                    "toResourceId": 41,
+                                    "routerTypeId": 4,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "aa1c2809-36b3-5ec0-9c94-9d64a1af9f03",
+                                    "fromResourceId": 39,
+                                    "toResourceId": 38,
+                                    "routerTypeId": 4,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "eb9135ac-6958-9e3e-77ec-f703749e24e2",
+                                    "fromResourceId": 45,
+                                    "toResourceId": 38,
+                                    "routerTypeId": 4,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "80d25ef9-e477-7217-18bc-1f20ecba7f42",
+                                    "fromResourceId": 44,
+                                    "toResourceId": 38,
+                                    "routerTypeId": 4,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                }
+                            ],
+                            "placements": [
+                                {
+                                    "x": 677.283950617284,
+                                    "y": 79.75308641975309,
+                                    "width": 0,
+                                    "height": 0,
+                                    "resourceId": 2,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 860,
+                                    "y": 300,
+                                    "width": 0,
+                                    "height": 0,
+                                    "resourceId": 3,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 680,
+                                    "y": 260,
+                                    "width": 142,
+                                    "height": 40,
+                                    "resourceId": 38,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 420,
+                                    "y": 340,
+                                    "width": 180,
+                                    "height": 40,
+                                    "resourceId": 39,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 240,
+                                    "y": 360,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 40,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 240,
+                                    "y": 500,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 41,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 40,
+                                    "y": 440,
+                                    "width": 147,
+                                    "height": 38,
+                                    "resourceId": 42,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 200,
+                                    "y": 300,
+                                    "width": 200,
+                                    "height": 260,
+                                    "resourceId": 43,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 460,
+                                    "y": 620,
+                                    "width": 140,
+                                    "height": 40,
+                                    "resourceId": 44,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 400,
+                                    "y": 780,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 45,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 396,
+                                    "y": 211,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 70,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                }
+                            ],
+                            "width": 1024,
+                            "height": 1024,
+                            "canvasGuideType": 2,
+                            "__CLASS_NAME": "StateModelDiagram"
+                        },
+                        {
+                            "id": 15,
+                            "typeId": 6,
+                            "name": "蔵書の状態",
+                            "relations": [
+                                {
+                                    "id": "769627f6-bf34-42fe-31d7-8ff69f5f1c09",
+                                    "fromResourceId": 69,
+                                    "toResourceId": 67,
+                                    "routerTypeId": 1,
+                                    "tipAllow": false,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "7ccfc25b-90b0-f736-2526-d64ff199eb67",
+                                    "fromResourceId": 44,
+                                    "toResourceId": 67,
+                                    "routerTypeId": 4,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "707dec8c-cfeb-8a2b-bb32-3be8919c294c",
+                                    "fromResourceId": 67,
+                                    "toResourceId": 44,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "2b16704d-e14e-1b63-f050-18ecd6175eeb",
+                                    "fromResourceId": 28,
+                                    "toResourceId": 64,
+                                    "routerTypeId": 4,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "3e54bad7-756f-1f7d-666c-000381b23e1b",
+                                    "fromResourceId": 67,
+                                    "toResourceId": 28,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "eb89da4a-ea3f-2009-c710-5a2de4c6e4ae",
+                                    "fromResourceId": 64,
+                                    "toResourceId": 3,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "3729e521-bd3e-0c40-1f8d-21c91b889f2d",
+                                    "fromResourceId": 2,
+                                    "toResourceId": 64,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "1c282882-01d7-6b98-c5dc-9bc45e3b3f18",
+                                    "fromResourceId": 44,
+                                    "toResourceId": 68,
+                                    "routerTypeId": 1,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                },
+                                {
+                                    "id": "5b2566a4-910f-3456-4146-607eab6807f5",
+                                    "fromResourceId": 64,
+                                    "toResourceId": 69,
+                                    "routerTypeId": 4,
+                                    "tipAllow": true,
+                                    "meaning": "",
+                                    "midpoints": [],
+                                    "__CLASS_NAME": "Relation"
+                                }
+                            ],
+                            "placements": [
+                                {
+                                    "x": 400,
+                                    "y": 260,
+                                    "width": 121,
+                                    "height": 40,
+                                    "resourceId": 64,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 500,
+                                    "y": 160,
+                                    "width": 0,
+                                    "height": 0,
+                                    "resourceId": 2,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 580,
+                                    "y": 320,
+                                    "width": 0,
+                                    "height": 0,
+                                    "resourceId": 3,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 195,
+                                    "y": 322,
+                                    "width": 200,
+                                    "height": 247,
+                                    "resourceId": 66,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 235,
+                                    "y": 362,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 67,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 235,
+                                    "y": 502,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 68,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 220,
+                                    "y": 160,
+                                    "width": 140,
+                                    "height": 40,
+                                    "resourceId": 69,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 40,
+                                    "y": 420,
+                                    "width": 120,
+                                    "height": 40,
+                                    "resourceId": 44,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                },
+                                {
+                                    "x": 540,
+                                    "y": 480,
+                                    "width": 158,
+                                    "height": 40,
+                                    "resourceId": 28,
+                                    "alias": false,
+                                    "__CLASS_NAME": "Placement"
+                                }
+                            ],
+                            "width": 768,
+                            "height": 1024,
+                            "canvasGuideType": 2,
+                            "__CLASS_NAME": "StateModelDiagram"
                         }
                     ],
                     "__CLASS_NAME": "Diagrams"
