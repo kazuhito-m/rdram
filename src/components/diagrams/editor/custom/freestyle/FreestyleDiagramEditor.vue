@@ -1,6 +1,6 @@
 <template>
   <DiagramEditor
-    :diagramId="diagramId"
+    :diagram="diagram"
     :allResources="allResources"
     :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
     :eventAnalyzer="eventAnalyzer"
@@ -18,6 +18,7 @@ import StateIconGenerator from '../../template/icon/StateIconGenerator'
 import StateGroupIconGenerator from '../../template/icon/StateGroupIconGenerator'
 import DiagramEditor from '@/components/diagrams/editor/template/DiagramEditor.vue'
 
+import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
 
 import EventAnalyzer from '@/components/diagrams/editor/template/event/EventAnalyzer'
@@ -51,7 +52,7 @@ export default class FreestyleDiagramEditor extends Vue {
   // Props
 
   @Prop({ required: true })
-  readonly diagramId!: number
+  readonly diagram!: Diagram
 
   @Prop({ required: true })
   readonly allResources!: Resource[]

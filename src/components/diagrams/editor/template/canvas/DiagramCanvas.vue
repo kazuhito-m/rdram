@@ -81,10 +81,7 @@ import DragAndDropResourceId from '@/components/diagrams/editor/template/dad/Dra
 })
 export default class DiagramCanvas extends Vue {
   @Prop({ required: true })
-  readonly diagramId!: number
-
-  @Prop({ required: true })
-  private readonly product!: Product
+  readonly diagram!: Diagram // id以外は初期表示用にしか使わない前提。
 
   @Prop({ required: true })
   private readonly usedResouceIds!: number[]
@@ -131,9 +128,15 @@ export default class DiagramCanvas extends Vue {
   private dropXOnCanvas = 0
   private dropYOnCanvas = 0
 
+  // Properties.
+
   private zoom(): number {
     const zoom = this.canvas.getZoom()
     return ZoomValueOnDraw2d.of(zoom).value
+  }
+
+  get diagramId(): number {
+    return this.diagram.id
   }
 
   // Events
@@ -174,10 +177,11 @@ export default class DiagramCanvas extends Vue {
 
   @Watch('lastPropertiesUpdatedDiagramId')
   private onUpdatedDiagramProperties(): void {
-    if (this.diagramId !== this.lastPropertiesUpdatedDiagramId) return
+    const diagramId = this.diagramId
+    if (diagramId !== this.lastPropertiesUpdatedDiagramId) return
 
     const product = this.repository.getCurrentProduct() as Product
-    const diagram = product.diagrams.of(this.diagramId)
+    const diagram = product.diagrams.of(diagramId)
     if (!diagram) return
 
     const c = this.canvas
@@ -220,8 +224,6 @@ export default class DiagramCanvas extends Vue {
   // Vue events.(life cycle events)
 
   created(): void {
-    const diagram = this.product?.diagrams.of(this.diagramId)
-    if (!diagram) return
     this.canvasId = 'canvas' + this.diagramId
   }
 
@@ -234,9 +236,7 @@ export default class DiagramCanvas extends Vue {
   private initialize(): void {
     this.cacheNowResources()
 
-    const diagram = this.product?.diagrams.of(this.diagramId)
-    if (!diagram) return
-
+    const diagram = this.diagram
     const guideType = Draw2dCanvasGuideType.of(diagram.canvasGuideType)
 
     this.showCanvas()
@@ -303,6 +303,7 @@ export default class DiagramCanvas extends Vue {
     const product = this.repository.getCurrentProduct()
     const diagram = product!.diagrams.of(this.diagramId)
     if (!diagram) return
+
     const fileName = this.makeDownloadFileName(diagram, 'png')
     const writer = new draw2d.io.png.Writer()
     writer.marshal(this.canvas, (png: string) => {
@@ -314,6 +315,7 @@ export default class DiagramCanvas extends Vue {
     const product = this.repository.getCurrentProduct()
     const diagram = product!.diagrams.of(this.diagramId)
     if (!diagram) return
+
     const fileName = this.makeDownloadFileName(diagram, 'svg')
     const writer = new draw2d.io.svg.Writer()
     writer.marshal(this.canvas, (svg: string) => {

@@ -2,7 +2,7 @@
   <div>
     <FreestyleDiagramEditor
       v-if="is('フリースタイル図')"
-      :diagramId="diagram.id"
+      :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
       @onUpdateResources="onUpdateResoucesOnEditor"
@@ -18,7 +18,6 @@ import { Component, Vue, Prop, Inject, Emit } from 'nuxt-property-decorator'
 import FreestyleDiagramEditor from '@/components/diagrams/editor/custom/freestyle/FreestyleDiagramEditor.vue'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
-import StorageRepository from '@/domain/storage/StorageRepository'
 
 @Component({
   components: {
@@ -30,10 +29,10 @@ export default class CustomDiagramEditorContainer extends Vue {
   readonly diagram!: Diagram
 
   @Prop({ required: true })
-  allResources?: Resource[]
+  readonly allResources?: Resource[]
 
   @Prop({ required: true })
-  lastPropertiesUpdatedDiagramId?: number
+  readonly lastPropertiesUpdatedDiagramId?: number
 
   @Emit('onOpendDiagramPropertiesEditor')
   onOpendDiagramPropertiesEditor(_diagramId: number): void {}

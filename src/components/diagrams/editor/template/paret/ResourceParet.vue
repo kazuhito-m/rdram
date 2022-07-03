@@ -107,7 +107,7 @@ import DragAndDropResourceType from '@/components/diagrams/editor/template/dad/D
 import DragAndDropResourceId from '@/components/diagrams/editor/template/dad/DragAndDropResourceId'
 import ResourceType from '@/domain/resource/ResourceType'
 import Resource from '@/domain/resource/Resource'
-import Product from '@/domain/product/Product'
+import Diagram from '~/domain/diagram/Diagram'
 
 @Component
 export default class ResourceParet extends Vue {
@@ -115,10 +115,7 @@ export default class ResourceParet extends Vue {
   readonly paretsOpen: number[] = []
 
   @Prop({ required: true })
-  private readonly diagramId!: number
-
-  @Prop({ required: true })
-  private readonly product!: Product
+  private readonly diagram!: Diagram // id以外は初期表示用にしか使わない前提。
 
   @Prop({ required: true })
   readonly allResources!: Resource[]
@@ -130,10 +127,7 @@ export default class ResourceParet extends Vue {
   private onShowResourceMenu(_r: Resource, _x: number, _y: number): void {}
 
   created(): void {
-    const diagram = this.product.diagrams.of(this.diagramId)
-    if (!diagram) return
-
-    diagram
+    this.diagram
       .availableResourceTypes()
       .forEach((resourceType) => this.availableResourceTypes.push(resourceType))
   }
