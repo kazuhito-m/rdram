@@ -36,7 +36,12 @@
         />
       </template>
       <template #rightPane>
+        <AllOpenCloseOperationBar
+          @onOpenAll="onOpenAllParet"
+          @onCloseAll="onCloseAllParet"
+        />
         <ResourceParet
+          ref="resourceParet"
           :diagram="diagram"
           :allResources="allResources"
           :usedResouceIds="usedResouceIds"
@@ -66,6 +71,7 @@ import ResourceRightClickMenu from "./ResourceRightClickMenu.vue";
 import TwoPaneWithSlideBarLayout from "@/components/twopane/TwoPaneWithSlideBarLayout.vue";
 import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramCanvas.vue";
 import ResourceParet from "@/components/diagrams/editor/template/paret/ResourceParet.vue";
+import AllOpenCloseOperationBar from "@/components/main/tool/AllOpenCloseOperationBar.vue";
 import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
 
 import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
@@ -84,6 +90,7 @@ import Placement from "@/domain/diagram/placement/Placement";
     TwoPaneWithSlideBarLayout,
     DiagramCanvas,
     ResourceParet,
+    AllOpenCloseOperationBar,
     ResourceEditDialog,
     ResourceRightClickMenu,
   }
@@ -202,6 +209,18 @@ export default class DiagramEditor extends Vue {
   onShowWarnBar(text: string): void {
     this.warnMessage = text;
     this.warnBar = true;
+  }
+
+  /// All Open or Close operation bar.
+
+  onOpenAllParet(): void {
+    const resourceParet = this.$refs.resourceParet as ResourceParet;
+    resourceParet.openAll();
+  }
+
+  onCloseAllParet(): void {
+    const resourceParet = this.$refs.resourceParet as ResourceParet;
+    resourceParet.closeAll();
   }
 
   // private methods.

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="paret-panel">
-    <v-expansion-panels v-model="paretsOpen" multiple focusable dark>
+    <v-expansion-panels v-model="openParetIndexs" multiple focusable dark>
       <v-expansion-panel
         v-for="resourceType in availableResourceTypes"
         :key="resourceType.id"
@@ -59,7 +59,7 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
 
-      <v-expansion-panel>
+      <v-expansion-panel key="0">
         <v-expansion-panel-header>
           <div class="omit-long-text">
             <v-icon>mdi-clipboard-check-multiple-outline</v-icon>この図で使用済
@@ -107,12 +107,12 @@ import DragAndDropResourceType from '@/components/diagrams/editor/template/dad/D
 import DragAndDropResourceId from '@/components/diagrams/editor/template/dad/DragAndDropResourceId'
 import ResourceType from '@/domain/resource/ResourceType'
 import Resource from '@/domain/resource/Resource'
-import Diagram from '~/domain/diagram/Diagram'
+import Diagram from '@/domain/diagram/Diagram'
 
 @Component
 export default class ResourceParet extends Vue {
   readonly availableResourceTypes: ResourceType[] = []
-  readonly paretsOpen: number[] = []
+  readonly openParetIndexs: number[] = []
 
   @Prop({ required: true })
   private readonly diagram!: Diagram // id以外は初期表示用にしか使わない前提。
@@ -127,6 +127,7 @@ export default class ResourceParet extends Vue {
   private onShowResourceMenu(_r: Resource, _x: number, _y: number): void {}
 
   created(): void {
+    console.log('initial-paretsOpen:', this.openParetIndexs.join(','))
     this.diagram
       .availableResourceTypes()
       .forEach((resourceType) => this.availableResourceTypes.push(resourceType))
@@ -163,6 +164,8 @@ export default class ResourceParet extends Vue {
     this.onShowResourceMenu(resource, event.x, event.y)
   }
 
+  // public methods.
+
   filterDisplayParet(
     resource: Resource,
     resourceType: ResourceType,
@@ -174,6 +177,28 @@ export default class ResourceParet extends Vue {
 
   filterUsedList(resource: Resource, usedResouceIds: number[]): boolean {
     return usedResouceIds.includes(resource.resourceId)
+  }
+
+  closeAll() {
+    console.log('openIds:', this.openParetIndexs)
+    this.openParetIndexs.splice(0)
+  }
+
+  openAll() {
+    console.log('openIds:', this.openParetIndexs)
+    const text = this.availableResourceTypes.map((type) => type.id).join(',')
+    console.log('availableResourceTypeIds:', text)
+
+    const openIds = this.openParetIndexs
+    for (let i = 0; i <= this.availableResourceTypes.length; i++) {
+      this.reAddValueOnArray(i, openIds)
+    }
+  }
+
+  private reAddValueOnArray(value: number, values: number[]): void {
+    const existsIndex = values.indexOf(value)
+    if (existsIndex >= 0) values.splice(existsIndex, 1)
+    values.push(value)
   }
 
   private resourceIdOf(chip: HTMLElement): number {
