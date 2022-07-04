@@ -1,8 +1,9 @@
-import Resource from "~/domain/resource/Resource";
+import Diagram from "@/domain/diagram/Diagram";
+import Resource from "@/domain/resource/Resource";
 
 export default class RelatedResource {
     constructor(
         public readonly resource: Resource,
-        public readonly relateOnDiagramId: number
+        public readonly relateOnDiagrams: Diagram[]
     ) { }
 }
