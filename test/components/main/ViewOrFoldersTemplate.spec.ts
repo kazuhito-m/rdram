@@ -10,7 +10,7 @@ describe('ViewOrFoldersTemplate', () => {
 
     test('フォルダや要素の各定数配列が期待通りである', () => {
         expect(ViewOrFoldersTemplate.TOP_FOLDERS).toHaveLength(3);
-        expect(ViewOrFoldersTemplate.ANALYSIS).toHaveLength(2);
+        expect(ViewOrFoldersTemplate.ANALYSIS).toHaveLength(3);
         expect(ViewOrFoldersTemplate.RDRA20_TYPE_FOLDERS).toHaveLength(DiagramTypes.RDRA20_TYPES.length);
     });
 });
