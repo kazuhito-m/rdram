@@ -59,6 +59,7 @@
                 {{ index + 1 }}
               </td>
               <td class="text-left">
+                <v-icon>{{ ucIcon() }}</v-icon>
                 {{ satisfaction.usecase.name }}
               </td>
               <td class="text-left">
