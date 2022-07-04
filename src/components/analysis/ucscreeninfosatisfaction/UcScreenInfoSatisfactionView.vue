@@ -2,20 +2,29 @@
   <div>
     <v-card flat>
       <v-toolbar dense>
-        <v-btn icon>
+        <v-btn icon @click="reloadSatisfactions()">
           <v-icon>mdi-refresh</v-icon>
         </v-btn>
         UCと画面/情報の充足
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
-        <v-checkbox v-model="onlyNotRelatedScreen" label="画面と未関連のみ" />
+        <v-checkbox
+          v-model="onlyNotRelatedScreen"
+          label="画面と未関連のみ"
+          @click="reloadSatisfactions()"
+        />
         <v-spacer></v-spacer>
         <v-checkbox
           v-model="onlyNotRelatedInfomation"
           label="情報と未関連のみ"
+          @click="reloadSatisfactions()"
         />
         <v-spacer></v-spacer>
-        <v-checkbox v-model="onlyNotUsedInDiagram" label="図で未使用のみ" />
+        <v-checkbox
+          v-model="onlyNotUsedInDiagram"
+          label="図で未使用のみ"
+          @click="reloadSatisfactions()"
+        />
       </v-toolbar>
       <v-card class="main-area">
         <v-simple-table dense fixed-header>
@@ -107,11 +116,13 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.reloadSatisfactions()
   }
 
-  // private method.
+  // public method.
 
-  private reloadSatisfactions(): void {
+  reloadSatisfactions(): void {
     this.withLoadingScreen(() => this.drawTable())
   }
+
+  // private method.
 
   private drawTable(): void {
     const product = this.repository.getCurrentProduct()
