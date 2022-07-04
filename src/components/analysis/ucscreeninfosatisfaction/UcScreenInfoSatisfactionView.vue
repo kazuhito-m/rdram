@@ -77,10 +77,10 @@
 
 <script lang="ts">
 import { Component, Inject, Vue } from 'nuxt-property-decorator'
-import UcScreenInfoSatisfaction from '~/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
-import UcScreenInfoSatisfactionsFactory from '~/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfactionsFactory'
-import ResourceType from '~/domain/resource/ResourceType'
-import StorageRepository from '~/domain/storage/StorageRepository'
+import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
+import UcScreenInfoSatisfactionsFactory from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfactionsFactory'
+import ResourceType from '@/domain/resource/ResourceType'
+import StorageRepository from '@/domain/storage/StorageRepository'
 
 @Component
 export default class UcScreenInfoSatisfactionView extends Vue {
