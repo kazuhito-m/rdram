@@ -62,10 +62,14 @@
                 {{ satisfaction.usecase.name }}
               </td>
               <td class="text-left">
+                <v-avatar color="primary" size="18" tile>
+                  {{ satisfaction.relatedScreens.length }}
+                </v-avatar>
                 <span v-if="satisfaction.isNotRelatedScreen()">なし</span>
                 <span v-else>
                   <span
                     v-for="screen in satisfaction.relatedScreens"
+                    :key="screen.resource.resourceId"
                     class="chip-span"
                   >
                     <v-chip outlined small color="primary">
@@ -76,10 +80,14 @@
                 </span>
               </td>
               <td class="text-left">
+                <v-avatar color="success" size="18" tile>
+                  {{ satisfaction.relatedInfomations.length }}
+                </v-avatar>
                 <span v-if="satisfaction.isNotRelatedInfomation()">なし</span>
                 <span v-else>
                   <span
                     v-for="info in satisfaction.relatedInfomations"
+                    :key="info.resource.resourceId"
                     class="chip-span"
                   >
                     <v-chip outlined small color="success">
@@ -90,10 +98,14 @@
                 </span>
               </td>
               <td class="text-left">
+                <v-avatar color="info" size="18" tile>
+                  {{ satisfaction.usedInDiagrams.length }}
+                </v-avatar>
                 <span v-if="satisfaction.isNotUsedInDiagram()">なし</span>
                 <span v-else>
                   <span
                     v-for="diagram in satisfaction.usedInDiagrams.map((r) => r)"
+                    :key="diagram.id"
                     class="chip-span"
                   >
                     <v-chip outlined label small color="info">
