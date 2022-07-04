@@ -63,15 +63,45 @@
               </td>
               <td class="text-left">
                 <span v-if="satisfaction.isNotRelatedScreen()">なし</span>
-                <span v-else>{{ satisfaction.relatedScreens.length }}</span>
+                <span v-else>
+                  <span
+                    v-for="screen in satisfaction.relatedScreens"
+                    class="chip-span"
+                  >
+                    <v-chip outlined small color="primary">
+                      <v-icon small>{{ screen.resource.type.iconKey }}</v-icon>
+                      {{ screen.resource.name }}
+                    </v-chip>
+                  </span>
+                </span>
               </td>
               <td class="text-left">
                 <span v-if="satisfaction.isNotRelatedInfomation()">なし</span>
-                <span v-else>{{ satisfaction.relatedInfomations.length }}</span>
+                <span v-else>
+                  <span
+                    v-for="info in satisfaction.relatedInfomations"
+                    class="chip-span"
+                  >
+                    <v-chip outlined small color="success">
+                      <v-icon small>{{ info.resource.type.iconKey }}</v-icon>
+                      {{ info.resource.name }}
+                    </v-chip>
+                  </span>
+                </span>
               </td>
               <td class="text-left">
                 <span v-if="satisfaction.isNotUsedInDiagram()">なし</span>
-                <span v-else>{{ satisfaction.usedInDiagrams.length }}</span>
+                <span v-else>
+                  <span
+                    v-for="diagram in satisfaction.usedInDiagrams.map((r) => r)"
+                    class="chip-span"
+                  >
+                    <v-chip outlined label small color="info">
+                      <v-icon small>{{ diagram.type.iconKey }}</v-icon>
+                      {{ diagram.name }}
+                    </v-chip>
+                  </span>
+                </span>
               </td>
               <td class="text-left">
                 {{ satisfaction.usecase.description }}
@@ -146,4 +176,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.chip-span {
+  padding-right: 5px;
+}
+</style>
