@@ -22,7 +22,8 @@ export default class ViewOrFoldersTemplate {
         ViewOrFolder.ANALYSIS_FOLDER
             .with(
                 ViewOrFolder.ICON_LIST,
-                ViewOrFolder.SCREEN_TRANSITION
+                ViewOrFolder.SCREEN_TRANSITION,
+                ViewOrFolder.UC_SCREEN_INFO_SATISFACTION
             ),
     ]);
 
