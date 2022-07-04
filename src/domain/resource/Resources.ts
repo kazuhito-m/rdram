@@ -58,7 +58,7 @@ export default class Resources {
     public sorted(): Resources {
         const results = this.values
             .slice()
-            .sort(this.compareOf);
+            .sort((l, r) => this.compareOf(l, r));
         return new Resources(results);
     }
 
