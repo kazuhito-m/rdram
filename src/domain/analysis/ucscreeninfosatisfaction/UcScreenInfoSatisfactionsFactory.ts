@@ -4,9 +4,10 @@ import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
 import ResourceType from "@/domain/resource/ResourceType";
+import UcScreenInfoSatisfactions from "./UcScreenInfoSatisfactios";
 
 export default class UcScreenInfoSatisfactionsFactory {
-    public createOf(product: Product): UcScreenInfoSatisfaction[] {
+    public createOf(product: Product): UcScreenInfoSatisfactions {
         const diagrams = product.diagrams;
         const sorted = product.resources.sorted();
         const resourceDic = this.makeResourceDic(sorted);
@@ -46,7 +47,7 @@ export default class UcScreenInfoSatisfactionsFactory {
             });
         });
 
-        return ucIds.map(ucId => {
+        const results = ucIds.map(ucId => {
             const uc = resourceDic.get(ucId) as Resource;
             return new UcScreenInfoSatisfaction(
                 uc,
@@ -55,6 +56,8 @@ export default class UcScreenInfoSatisfactionsFactory {
                 this.filterAndRemoveRelatedResources(ucId, infoSatis)
             );
         });
+
+        return new UcScreenInfoSatisfactions(results);
     }
 
     private makeUcToOtherKey(ucId: number, otherSideId: number): string {

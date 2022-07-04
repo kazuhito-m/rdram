@@ -70,7 +70,7 @@
                 <span v-else>{{ satisfaction.relatedInfomations.length }}</span>
               </td>
               <td class="text-left">
-                <span v-if="satisfaction.isNotUsedInDiagrams()">なし</span>
+                <span v-if="satisfaction.isNotUsedInDiagram()">なし</span>
                 <span v-else>{{ satisfaction.usedInDiagrams.length }}</span>
               </td>
               <td class="text-left">
@@ -127,7 +127,13 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   private drawTable(): void {
     const product = this.repository.getCurrentProduct()
     if (!product) return
-    this.satisfactions = this.factory.createOf(product)
+
+    const results = this.factory.createOf(product)
+    this.satisfactions = results.find(
+      this.onlyNotRelatedScreen,
+      this.onlyNotRelatedInfomation,
+      this.onlyNotUsedInDiagram
+    )
   }
 
   private withLoadingScreen(actions: () => void) {

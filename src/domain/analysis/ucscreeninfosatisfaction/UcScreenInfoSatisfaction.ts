@@ -21,7 +21,7 @@ export default class UcScreenInfoSatisfaction {
         return this.relatedInfomations.length === 0;
     }
 
-    public isNotUsedInDiagrams(): boolean {
+    public isNotUsedInDiagram(): boolean {
         return this.usedInDiagrams.length === 0;
     }
 }
