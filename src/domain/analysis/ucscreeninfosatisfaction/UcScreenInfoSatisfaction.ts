@@ -12,4 +12,16 @@ export default class UcScreenInfoSatisfaction {
         public readonly relatedScreens: RelatedResource[],
         public readonly relatedInfomations: RelatedResource[],
     ) { }
+
+    public isNotRelatedScreen(): boolean {
+        return this.relatedScreens.length === 0;
+    }
+
+    public isNotRelatedInfomation(): boolean {
+        return this.relatedInfomations.length === 0;
+    }
+
+    public isNotUsedInDiagrams(): boolean {
+        return this.usedInDiagrams.length === 0;
+    }
 }
