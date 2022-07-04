@@ -55,6 +55,22 @@ export default class Resources {
         return this.typesOf(resourceType);
     }
 
+    public sorted(): Resources {
+        const results = this.values
+            .slice()
+            .sort(this.compareOf);
+        return new Resources(results);
+    }
+
+    private compareOf(left: Resource, right: Resource): number {
+        return this.makeSortKey(left) > this.makeSortKey(right) ? 1 : -1;
+    }
+
+    private makeSortKey(resource: Resource): string {
+        const typeId = String(resource.type.id).padStart(8, "0");
+        return `${typeId}:${resource.name}`;
+    }
+
     // modifies.
 
     public add(resource: Resource): Resources {
