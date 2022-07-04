@@ -18,10 +18,10 @@
             <tr>
               <th class="text-left">No.</th>
               <th class="text-left">
-                <v-icon>{{ ucIcon() }}</v-icon
-                >ユースケース
+                <v-icon>{{ ucIcon() }}</v-icon>
+                ユースケース
               </th>
-              <th>
+              <th class="text-left">
                 <v-icon>mdi-file</v-icon>
                 UCが使われてる図
               </th>
