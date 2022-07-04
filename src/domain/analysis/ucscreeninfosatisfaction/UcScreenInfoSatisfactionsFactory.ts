@@ -1,9 +1,9 @@
+import RelatedResource from "./RelatedResource";
+import UcScreenInfoSatisfaction from "./UcScreenInfoSatisfaction";
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
 import ResourceType from "@/domain/resource/ResourceType";
-import RelatedResource from "./RelatedResource";
-import UcScreenInfoSatisfaction from "./UcScreenInfoSatisfaction";
 
 export default class UcScreenInfoSatisfactionsFactory {
     public createOf(product: Product): UcScreenInfoSatisfaction[] {
