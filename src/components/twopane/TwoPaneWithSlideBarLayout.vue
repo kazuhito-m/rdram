@@ -147,7 +147,7 @@ export default class TwoPaneWithSlideBarLayout extends Vue {
 }
 
 .slidebar:hover {
-  background-color: #a0a0a0;
+  background-color: #007acc;
   transition: 0.25s;
 }
 </style>
