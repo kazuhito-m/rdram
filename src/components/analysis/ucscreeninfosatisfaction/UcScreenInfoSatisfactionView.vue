@@ -117,7 +117,7 @@
                       :data-uc-id="satisfaction.ucId"
                       :data-infomation-id="info.id"
                       @click="dummyClickEvent"
-                      @dblclick="onDoubleClickScreen"
+                      @dblclick="onDoubleClickInfomation"
                       @contextmenu.prevent="onRightClick"
                     >
                       <v-icon small>{{ info.resource.type.iconKey }}</v-icon>
@@ -145,7 +145,7 @@
                       :data-uc-id="satisfaction.ucId"
                       :data-diagram-id="diagram.id"
                       @click="dummyClickEvent"
-                      @dblclick="onDoubleClickScreen"
+                      @dblclick="onDoubleClickDiagram"
                       @contextmenu.prevent="onRightClick"
                     >
                       <v-icon small>{{ diagram.type.iconKey }}</v-icon>
@@ -235,11 +235,19 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   }
 
   onDoubleClickUc(): void {
-    alert('test')
+    alert('onDoubleClickUc')
   }
 
   onDoubleClickScreen(): void {
-    alert('test')
+    alert('onDoubleClickScreen')
+  }
+
+  onDoubleClickInfomation(): void {
+    alert('onDoubleClickInfomation')
+  }
+
+  onDoubleClickDiagram(): void {
+    alert('onDoubleClickDiagram')
   }
 
   dummyClickEvent(): void {}
