@@ -10,4 +10,8 @@ export default class RelatedResource {
     public get id(): number {
         return this.resource.resourceId;
     }
+
+    public get relateCount():number {
+        return this.relateOnDiagrams.length;
+    }
 }

@@ -83,19 +83,29 @@
                     :key="screen.resource.resourceId"
                     class="chip-span"
                   >
-                    <v-chip
-                      outlined
-                      small
+                    <v-badge
                       color="primary"
-                      :data-uc-id="satisfaction.ucId"
-                      :data-screen-id="screen.id"
-                      @click="dummyClickEvent"
-                      @dblclick="onDoubleClickScreen"
-                      @contextmenu.prevent="onRightClick"
+                      overlap
+                      bordered
+                      :value="screen.relateCount > 1"
+                      :content="screen.relateCount"
                     >
-                      <v-icon small>{{ screen.resource.type.iconKey }}</v-icon>
-                      {{ screen.resource.name }}
-                    </v-chip>
+                      <v-chip
+                        outlined
+                        small
+                        color="primary"
+                        :data-uc-id="satisfaction.ucId"
+                        :data-screen-id="screen.id"
+                        @click="dummyClickEvent"
+                        @dblclick="onDoubleClickScreen"
+                        @contextmenu.prevent="onRightClick"
+                      >
+                        <v-icon small>{{
+                          screen.resource.type.iconKey
+                        }}</v-icon>
+                        {{ screen.resource.name }}
+                      </v-chip>
+                    </v-badge>
                   </span>
                 </span>
               </td>
@@ -110,19 +120,27 @@
                     :key="info.resource.resourceId"
                     class="chip-span"
                   >
-                    <v-chip
-                      outlined
-                      small
-                      color="success"
-                      :data-uc-id="satisfaction.ucId"
-                      :data-infomation-id="info.id"
-                      @click="dummyClickEvent"
-                      @dblclick="onDoubleClickInfomation"
-                      @contextmenu.prevent="onRightClick"
+                    <v-badge
+                      color="primary"
+                      overlap
+                      bordered
+                      :value="info.relateCount > 1"
+                      :content="info.relateCount"
                     >
-                      <v-icon small>{{ info.resource.type.iconKey }}</v-icon>
-                      {{ info.resource.name }}
-                    </v-chip>
+                      <v-chip
+                        outlined
+                        small
+                        color="success"
+                        :data-uc-id="satisfaction.ucId"
+                        :data-infomation-id="info.id"
+                        @click="dummyClickEvent"
+                        @dblclick="onDoubleClickInfomation"
+                        @contextmenu.prevent="onRightClick"
+                      >
+                        <v-icon small>{{ info.resource.type.iconKey }}</v-icon>
+                        {{ info.resource.name }}
+                      </v-chip>
+                    </v-badge>
                   </span>
                 </span>
               </td>
