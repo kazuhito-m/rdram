@@ -309,7 +309,6 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   }
 
   private analyzeTargetOf(element: HTMLElement): any {
-    const e = element
     const dataSet = element.dataset as DOMStringMap
     let target = null
     const ucId = Number(dataSet.ucId)
