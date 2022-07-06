@@ -9,7 +9,23 @@
     rounded
     @input="close"
   >
-    <v-list>
+    <v-list v-if="isUseCase">
+      <v-list-item link @click="onClickEdit">
+        <v-list-item-title>編集...</v-list-item-title>
+      </v-list-item>
+      <v-list-item link @click="onClickOpenDiagram">
+        <v-list-item-title>図を開く</v-list-item-title>
+      </v-list-item>
+    </v-list>
+    <v-list v-if="isScreen || isInfomation">
+      <v-list-item link @click="onClickEdit">
+        <v-list-item-title>編集...</v-list-item-title>
+      </v-list-item>
+      <v-list-item link @click="onClickOpenDiagram">
+        <v-list-item-title>図を開く</v-list-item-title>
+      </v-list-item>
+    </v-list>
+    <v-list v-if="isDiagram">
       <v-list-item link @click="onClickEdit">
         <v-list-item-title>編集...</v-list-item-title>
       </v-list-item>
@@ -63,6 +79,8 @@ export default class ColumnRightClickMenu extends Vue {
   private analyzeEnableMenu(): void {
     const target = this.target
     this.isUseCase = target instanceof UcScreenInfoSatisfaction
+    this.isScreen = false
+    this.isInfomation = false
     if (target instanceof RelatedResource) {
       const related = target as RelatedResource
       const type = related.resource.type
@@ -70,10 +88,6 @@ export default class ColumnRightClickMenu extends Vue {
       this.isInfomation = type === ResourceType.情報
     }
     this.isDiagram = target instanceof Diagram
-    console.log("isUseCase", this.isUseCase)
-    console.log("isScreen", this.isScreen)
-    console.log("isInfomation", this.isInfomation)
-    console.log("isDiagram", this.isDiagram)
   }
 
   close(): void {
