@@ -10,6 +10,9 @@
     @input="close"
   >
     <v-list v-if="isUseCase">
+      <v-list-item v-if="isNotUsedInDiagram" link @click="onClickNotImplement">
+        <v-list-item-title>このUCを配置した複合図を作成...</v-list-item-title>
+      </v-list-item>
       <v-list-item link @click="onClickEditUsecase">
         <v-list-item-title>編集...</v-list-item-title>
       </v-list-item>
@@ -56,6 +59,8 @@ export default class ColumnRightClickMenu extends Vue {
   isInfomation = false
   isDiagram = false
 
+  isNotUsedInDiagram = false
+
   showPositionX = 0
   showPositionY = 0
 
@@ -98,9 +103,15 @@ export default class ColumnRightClickMenu extends Vue {
 
   private analyzeEnableMenu(): void {
     const target = this.target
-    this.isUseCase = target instanceof UcScreenInfoSatisfaction
     this.isScreen = false
     this.isInfomation = false
+    this.isNotUsedInDiagram = false
+
+    this.isUseCase = target instanceof UcScreenInfoSatisfaction
+    if (this.isUseCase) {
+      const sat = target as UcScreenInfoSatisfaction
+      this.isNotUsedInDiagram = sat.isNotUsedInDiagram()
+    }
     if (target instanceof RelatedResource) {
       const related = target as RelatedResource
       const type = related.resource.type

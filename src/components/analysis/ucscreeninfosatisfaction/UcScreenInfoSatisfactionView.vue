@@ -13,6 +13,10 @@
         </v-btn>
         UCと画面/情報の充足
         <v-spacer></v-spacer>
+        <v-btn text tile link @click="dummyClickEvent">
+          <v-icon>{{ ucIcon() }}</v-icon
+          >ユースケースの新規作成
+        </v-btn>
         <v-spacer></v-spacer>
         <v-checkbox
           v-model="onlyNotRelatedScreen"
@@ -159,7 +163,18 @@
                 </v-avatar>
               </td>
               <td class="text-left">
-                <span v-if="satisfaction.isNotUsedInDiagram()">なし</span>
+                <span v-if="satisfaction.isNotUsedInDiagram()">
+                  <v-btn
+                    text
+                    tile
+                    link
+                    color="orange"
+                    :data-uc-id="satisfaction.ucId"
+                    @click="dummyClickEvent"
+                  >
+                    なし
+                  </v-btn>
+                </span>
                 <span v-else>
                   <span
                     v-for="diagram in satisfaction.usedInDiagrams.map((r) => r)"
