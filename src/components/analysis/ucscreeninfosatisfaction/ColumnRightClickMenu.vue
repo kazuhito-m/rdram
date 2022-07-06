@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class ColumnRightClickMenu extends Vue {
@@ -57,7 +57,7 @@ export default class ColumnRightClickMenu extends Vue {
   }
 
   private analyzeEnableMenu(): void {
-    console.log(this.target)
+    console.log(typeof this.target)
   }
 
   close(): void {

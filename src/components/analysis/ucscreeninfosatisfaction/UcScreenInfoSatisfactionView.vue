@@ -64,9 +64,9 @@
                   text
                   tile
                   link
-                  @dblclick="onDoubleClickUc"
-                  @contextmenu.prevent="onRightClickUc"
                   :data-uc-id="satisfaction.ucId"
+                  @dblclick="onDoubleClickUc"
+                  @contextmenu.prevent="onRightClick"
                 >
                   <v-icon>{{ ucIcon() }}</v-icon>
                   {{ satisfaction.usecase.name }}
@@ -83,7 +83,16 @@
                     :key="screen.resource.resourceId"
                     class="chip-span"
                   >
-                    <v-chip outlined small color="primary">
+                    <v-chip
+                      outlined
+                      small
+                      color="primary"
+                      @click="dummyClickEvent"
+                      @dblclick="onDoubleClickScreen"
+                      @contextmenu.prevent="onRightClick"
+                      :data-uc-id="satisfaction.ucId"
+                      :data-screen-id="screen.id"
+                    >
                       <v-icon small>{{ screen.resource.type.iconKey }}</v-icon>
                       {{ screen.resource.name }}
                     </v-chip>
@@ -101,7 +110,16 @@
                     :key="info.resource.resourceId"
                     class="chip-span"
                   >
-                    <v-chip outlined small color="success">
+                    <v-chip
+                      outlined
+                      small
+                      color="success"
+                      @click="dummyClickEvent"
+                      @dblclick="onDoubleClickScreen"
+                      @contextmenu.prevent="onRightClick"
+                      :data-uc-id="satisfaction.ucId"
+                      :data-infomation-id="info.id"
+                    >
                       <v-icon small>{{ info.resource.type.iconKey }}</v-icon>
                       {{ info.resource.name }}
                     </v-chip>
@@ -119,7 +137,17 @@
                     :key="diagram.id"
                     class="chip-span"
                   >
-                    <v-chip outlined label small color="info">
+                    <v-chip
+                      outlined
+                      label
+                      small
+                      color="info"
+                      @click="dummyClickEvent"
+                      @dblclick="onDoubleClickScreen"
+                      @contextmenu.prevent="onRightClick"
+                      :data-uc-id="satisfaction.ucId"
+                      :data-diagram-id="diagram.id"
+                    >
                       <v-icon small>{{ diagram.type.iconKey }}</v-icon>
                       {{ diagram.name }}
                     </v-chip>
@@ -139,11 +167,11 @@
 
 <script lang="ts">
 import { Component, Inject, Vue } from 'nuxt-property-decorator'
+import ColumnRightClickMenu from './ColumnRightClickMenu.vue'
 import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
 import UcScreenInfoSatisfactionsFactory from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfactionsFactory'
 import ResourceType from '@/domain/resource/ResourceType'
 import StorageRepository from '@/domain/storage/StorageRepository'
-import ColumnRightClickMenu from './ColumnRightClickMenu.vue'
 
 @Component({
   components: {
@@ -176,13 +204,32 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
   // component events.
 
-  onRightClickUc(event: PointerEvent): void {
+  onRightClick(event: PointerEvent): void {
     const tag = event.currentTarget as HTMLElement
 
-    let target
+    let target = null
     const ucId = Number(tag.dataset.ucId)
-    const satisfaction = this.satisfactions.find((s) => s.ucId === ucId)
-    target = satisfaction
+    const sat = this.satisfactions.find((s) => s.ucId === ucId)
+    if (!sat) return
+    target = sat
+    if (tag.dataset.screenId) {
+      const id = Number(tag.dataset.screenId)
+      const screen = sat.relatedScreens.find((s) => s.id === id)
+      if (!screen) return
+      target = screen
+    }
+    if (tag.dataset.infomationId) {
+      const id = Number(tag.dataset.infomationId)
+      const infomation = sat.relatedInfomations.find((s) => s.id === id)
+      if (!infomation) return
+      target = infomation
+    }
+    if (tag.dataset.diagramId) {
+      const id = Number(tag.dataset.diagramId)
+      const infomation = sat.usedInDiagrams.of(id)
+      if (!infomation) return
+      target = infomation
+    }
 
     this.showMenu(target, event.x, event.y)
   }
@@ -190,6 +237,12 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   onDoubleClickUc(): void {
     alert('test')
   }
+
+  onDoubleClickScreen(): void {
+    alert('test')
+  }
+
+  dummyClickEvent(): void {}
 
   // public method.
 

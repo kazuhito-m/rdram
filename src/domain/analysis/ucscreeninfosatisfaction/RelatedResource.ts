@@ -6,4 +6,8 @@ export default class RelatedResource {
         public readonly resource: Resource,
         public readonly relateOnDiagrams: Diagram[]
     ) { }
+
+    public get id(): number {
+        return this.resource.resourceId;
+    }
 }
