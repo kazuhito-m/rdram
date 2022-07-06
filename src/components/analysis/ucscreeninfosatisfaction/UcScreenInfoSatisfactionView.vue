@@ -87,11 +87,11 @@
                       outlined
                       small
                       color="primary"
+                      :data-uc-id="satisfaction.ucId"
+                      :data-screen-id="screen.id"
                       @click="dummyClickEvent"
                       @dblclick="onDoubleClickScreen"
                       @contextmenu.prevent="onRightClick"
-                      :data-uc-id="satisfaction.ucId"
-                      :data-screen-id="screen.id"
                     >
                       <v-icon small>{{ screen.resource.type.iconKey }}</v-icon>
                       {{ screen.resource.name }}
@@ -114,11 +114,11 @@
                       outlined
                       small
                       color="success"
+                      :data-uc-id="satisfaction.ucId"
+                      :data-infomation-id="info.id"
                       @click="dummyClickEvent"
                       @dblclick="onDoubleClickScreen"
                       @contextmenu.prevent="onRightClick"
-                      :data-uc-id="satisfaction.ucId"
-                      :data-infomation-id="info.id"
                     >
                       <v-icon small>{{ info.resource.type.iconKey }}</v-icon>
                       {{ info.resource.name }}
@@ -142,11 +142,11 @@
                       label
                       small
                       color="info"
+                      :data-uc-id="satisfaction.ucId"
+                      :data-diagram-id="diagram.id"
                       @click="dummyClickEvent"
                       @dblclick="onDoubleClickScreen"
                       @contextmenu.prevent="onRightClick"
-                      :data-uc-id="satisfaction.ucId"
-                      :data-diagram-id="diagram.id"
                     >
                       <v-icon small>{{ diagram.type.iconKey }}</v-icon>
                       {{ diagram.name }}
