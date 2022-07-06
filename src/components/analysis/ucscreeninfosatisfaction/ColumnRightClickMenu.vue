@@ -10,27 +10,30 @@
     @input="close"
   >
     <v-list v-if="isUseCase">
-      <v-list-item link @click="onClickEdit">
+      <v-list-item link @click="onClickEditUsecase">
         <v-list-item-title>編集...</v-list-item-title>
       </v-list-item>
-      <v-list-item link @click="onClickOpenDiagram">
-        <v-list-item-title>図を開く</v-list-item-title>
+      <v-list-item link @click="onClickNotImplement">
+        <v-list-item-title>プロダクト全体から削除</v-list-item-title>
       </v-list-item>
     </v-list>
     <v-list v-if="isScreen || isInfomation">
-      <v-list-item link @click="onClickEdit">
-        <v-list-item-title>編集...</v-list-item-title>
+      <v-list-item link @click="onClickNotImplement">
+        <v-list-item-title>この関連がある図を開く</v-list-item-title>
       </v-list-item>
-      <v-list-item link @click="onClickOpenDiagram">
-        <v-list-item-title>図を開く</v-list-item-title>
+      <v-list-item link @click="onClickNotImplement">
+        <v-list-item-title>この関連を削除</v-list-item-title>
+      </v-list-item>
+      <v-list-item link @click="onClickNotImplement">
+        <v-list-item-title>編集...</v-list-item-title>
       </v-list-item>
     </v-list>
     <v-list v-if="isDiagram">
-      <v-list-item link @click="onClickEdit">
-        <v-list-item-title>編集...</v-list-item-title>
+      <v-list-item link @click="onClickNotImplement">
+        <v-list-item-title>この図を開く</v-list-item-title>
       </v-list-item>
-      <v-list-item link @click="onClickOpenDiagram">
-        <v-list-item-title>図を開く</v-list-item-title>
+      <v-list-item link @click="onClickNotImplement">
+        <v-list-item-title>ユースケースをこの図から削除</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>
@@ -38,10 +41,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import RelatedResource from '~/domain/analysis/ucscreeninfosatisfaction/RelatedResource'
-import UcScreenInfoSatisfaction from '~/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
-import Diagram from '~/domain/diagram/Diagram'
-import ResourceType from '~/domain/resource/ResourceType'
+import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
+import RelatedResource from '@/domain/analysis/ucscreeninfosatisfaction/RelatedResource'
+import Diagram from '@/domain/diagram/Diagram'
+import ResourceType from '@/domain/resource/ResourceType'
 
 @Component
 export default class ColumnRightClickMenu extends Vue {
@@ -56,14 +59,14 @@ export default class ColumnRightClickMenu extends Vue {
   showPositionX = 0
   showPositionY = 0
 
-  onClickEdit(): void {
+  onClickEditUsecase(): void {
     this.close()
     // this.onEditResource(this.resourceId)
   }
 
-  onClickOpenDiagram(): void {
+  onClickNotImplement(): void {
     this.close()
-    // this.onOpenDiagramOfResourceRelate(this.resourceId)
+    alert('Not implement!')
   }
 
   show(target: any, x: number, y: number): void {
