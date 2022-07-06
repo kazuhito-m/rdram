@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ColumnRightClickMenu ref="columnRightClickMenu" />
     <v-card flat>
       <v-toolbar dense>
         <v-btn icon @click="reloadSatisfactions()">
@@ -60,10 +61,12 @@
               </td>
               <td class="text-left">
                 <v-btn
-                  @dblclick="onDoubleClickUc()"
                   text
                   tile
                   link
+                  @dblclick="onDoubleClickUc"
+                  @contextmenu.prevent="onRightClickUc"
+                  :data-uc-id="satisfaction.ucId"
                 >
                   <v-icon>{{ ucIcon() }}</v-icon>
                   {{ satisfaction.usecase.name }}
@@ -140,8 +143,13 @@ import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction
 import UcScreenInfoSatisfactionsFactory from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfactionsFactory'
 import ResourceType from '@/domain/resource/ResourceType'
 import StorageRepository from '@/domain/storage/StorageRepository'
+import ColumnRightClickMenu from './ColumnRightClickMenu.vue'
 
-@Component
+@Component({
+  components: {
+    ColumnRightClickMenu,
+  },
+})
 export default class UcScreenInfoSatisfactionView extends Vue {
   satisfactions: UcScreenInfoSatisfaction[] = []
 
@@ -167,6 +175,17 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   }
 
   // component events.
+
+  onRightClickUc(event: PointerEvent): void {
+    const tag = event.currentTarget as HTMLElement
+
+    let target
+    const ucId = Number(tag.dataset.ucId)
+    const satisfaction = this.satisfactions.find((s) => s.ucId === ucId)
+    target = satisfaction
+
+    this.showMenu(target, event.x, event.y)
+  }
 
   onDoubleClickUc(): void {
     alert('test')
@@ -199,6 +218,11 @@ export default class UcScreenInfoSatisfactionView extends Vue {
       actions()
       this.$nuxt.$loading.finish()
     }, 1)
+  }
+
+  private showMenu(target: any, x: number, y: number): void {
+    const menu = this.$refs.columnRightClickMenu as ColumnRightClickMenu
+    menu.show(target, x, y)
   }
 }
 </script>

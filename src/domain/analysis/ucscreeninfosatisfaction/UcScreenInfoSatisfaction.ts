@@ -13,6 +13,10 @@ export default class UcScreenInfoSatisfaction {
         public readonly relatedInfomations: RelatedResource[],
     ) { }
 
+    public get ucId(): number {
+        return this.usecase.resourceId;
+    }
+
     public isNotRelatedScreen(): boolean {
         return this.relatedScreens.length === 0;
     }
