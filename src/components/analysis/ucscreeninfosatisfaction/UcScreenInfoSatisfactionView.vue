@@ -204,6 +204,7 @@ import ResourceType from '@/domain/resource/ResourceType'
 import StorageRepository from '@/domain/storage/StorageRepository'
 import Resource from '~/domain/resource/Resource'
 import Product from '~/domain/product/Product'
+import Diagram from '~/domain/diagram/Diagram'
 
 @Component({
   components: {
@@ -270,8 +271,10 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     alert('onDoubleClickInfomation')
   }
 
-  onDoubleClickDiagram(): void {
-    alert('onDoubleClickDiagram')
+  onDoubleClickDiagram(event: MouseEvent): void {
+    const element = event.currentTarget as HTMLElement
+    const diagram = this.analyzeTargetOf(element) as Diagram
+    this.onOpenDiagram(diagram.id)
   }
 
   dummyClickEvent(): void {}
