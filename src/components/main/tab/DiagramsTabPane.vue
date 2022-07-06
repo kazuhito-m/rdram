@@ -48,10 +48,11 @@
           @onRenamedResource="onRenamedResource"
         />
 
-        <AnalysisContainer 
+        <AnalysisContainer
           v-if="item.isAnalysis()"
           :analysisViewId="item.id"
           @onRenamedResource="onRenamedResource"
+          @onOpenDiagram="onOpenDiagram"
         />
       </v-tab-item>
     </v-tabs-items>
@@ -102,6 +103,9 @@ export default class DiagramsTabPane extends Vue {
 
   @Emit('onRenamedResource')
   onRenamedResource(_src: Resource, _dest: Resource): void {}
+
+  @Emit('onOpenDiagram')
+  onOpenDiagram(_diagramId: number): void {}
 
   /// open/close editor.
 

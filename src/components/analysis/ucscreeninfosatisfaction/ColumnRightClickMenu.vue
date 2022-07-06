@@ -29,7 +29,7 @@
       </v-list-item>
     </v-list>
     <v-list v-if="isDiagram">
-      <v-list-item link @click="onClickNotImplement">
+      <v-list-item link @click="onClickOpenDiagram">
         <v-list-item-title>この図を開く</v-list-item-title>
       </v-list-item>
       <v-list-item link @click="onClickNotImplement">
@@ -62,7 +62,10 @@ export default class ColumnRightClickMenu extends Vue {
   // emits.
 
   @Emit('onEditResource')
-  private onEditResource(_resourceId: number) {}
+  private onEditResource(_resourceId: number): void {}
+
+  @Emit('onOpenDiagram')
+  private onOpenDiagram(_diagramId: number): void {}
 
   onClickEditUsecase(): void {
     const sat = this.target as UcScreenInfoSatisfaction
@@ -74,8 +77,12 @@ export default class ColumnRightClickMenu extends Vue {
     this.onEditResource(relate.id)
   }
 
+  onClickOpenDiagram(): void {
+    const diagram = this.target as Diagram
+    this.onOpenDiagram(diagram.id)
+  }
+
   onClickNotImplement(): void {
-    this.close()
     alert('Not implement!')
   }
 

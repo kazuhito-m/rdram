@@ -33,6 +33,7 @@
           @onRenamedResource="onRenamedResource"
           @onChangeCurrentDiagram="onChangeCurrentDiagram"
           @onRightClick="onTabRightClick"
+          @onOpenDiagram="onShowDiagram"
         />
       </template>
     </TwoPaneWithSlideBarLayout>
@@ -149,7 +150,7 @@ export default class extends Vue {
 
     if (diagramId === DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID) return;
 
-    this.treePane.activeItemAndFolderOpen(diagramId);
+    this.onShowDiagram(diagramId);
   }
 
   onRenamedResource(src: Resource, dest: Resource): void {
@@ -167,6 +168,10 @@ export default class extends Vue {
 
   onTabRightClick(item: ViewOrFolder, x: number, y:number): void {
     this.showRightClickMenu(item, x, y, true);
+  }
+
+  onShowDiagram(diagramId: number): void {
+       this.treePane.activeItemAndFolderOpen(diagramId); 
   }
 
   /// menu click events.

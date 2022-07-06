@@ -5,6 +5,7 @@
     <UcScreenInfoSatisfactionView
       v-if="is('UCと画面/情報の充足')"
       @onRenamedResource="onRenamedResource"
+      @onOpenDiagram="onOpenDiagram"
     />
   </div>
 </template>
@@ -30,6 +31,9 @@ export default class AnalysisContainer extends Vue {
 
   @Emit('onRenamedResource')
   onRenamedResource(_src: Resource, _dest: Resource): void {}
+
+  @Emit('onOpenDiagram')
+  onOpenDiagram(_diagramId: number): void {}
 
   is(typeName: string): boolean {
     const item = ViewOrFoldersTemplate.analysisNameOf(typeName)

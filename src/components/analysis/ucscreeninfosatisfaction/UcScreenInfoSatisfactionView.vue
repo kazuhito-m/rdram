@@ -3,6 +3,7 @@
     <ColumnRightClickMenu
       ref="columnRightClickMenu"
       @onEditResource="onEditResource"
+      @onOpenDiagram="onOpenDiagram"
     />
     <ResourceEditDialog ref="resourceEditDialog" />
     <v-card flat>
@@ -226,6 +227,9 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
   @Emit('onRenamedResource')
   private onRenamedResource(_src: Resource, _dest: Resource): void {}
+
+  @Emit('onOpenDiagram')
+  onOpenDiagram(_diagramId: number): void {}
 
   // properties.
 
