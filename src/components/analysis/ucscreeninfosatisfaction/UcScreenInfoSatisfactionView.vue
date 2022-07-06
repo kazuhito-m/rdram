@@ -242,50 +242,20 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   // component events.
 
   onRightClick(event: PointerEvent): void {
-    const tag = event.currentTarget as HTMLElement
-
-    let target = null
-    const ucId = Number(tag.dataset.ucId)
-    const sat = this.satisfactions.find((s) => s.ucId === ucId)
-    if (!sat) return
-    target = sat
-    if (tag.dataset.screenId) {
-      const id = Number(tag.dataset.screenId)
-      const screen = sat.relatedScreens.find((s) => s.id === id)
-      if (!screen) return
-      target = screen
-    }
-    if (tag.dataset.infomationId) {
-      const id = Number(tag.dataset.infomationId)
-      const infomation = sat.relatedInfomations.find((s) => s.id === id)
-      if (!infomation) return
-      target = infomation
-    }
-    if (tag.dataset.diagramId) {
-      const id = Number(tag.dataset.diagramId)
-      const infomation = sat.usedInDiagrams.of(id)
-      if (!infomation) return
-      target = infomation
-    }
-
+    const element = event.currentTarget as HTMLElement
+    const target = this.analyzeTargetOf(element)
+    if (!target) return
     this.showMenu(target, event.x, event.y)
   }
 
   async onEditResource(resourceId: number): Promise<void> {
-    const product = this.repository.getCurrentProduct() as Product
-    const src = product.resources.of(resourceId)
-    if (!src) return
-
-    const dest = await this.resourceEditDialog().showForModifyOf(resourceId)
-    if (dest.isEmpty()) return
-
-    this.reloadSatisfactions()
-
-    this.onRenamedResource(src, dest)
+    await this.showResourceDialog(resourceId)
   }
 
-  onDoubleClickUc(): void {
-    alert('onDoubleClickUc')
+  async onDoubleClickUc(event: MouseEvent): Promise<void> {
+    const element = event.currentTarget as HTMLElement
+    const sat = this.analyzeTargetOf(element) as UcScreenInfoSatisfaction
+    await this.showResourceDialog(sat.ucId)
   }
 
   onDoubleClickScreen(): void {
@@ -331,6 +301,35 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     }, 1)
   }
 
+  private analyzeTargetOf(element: HTMLElement): any {
+    const e = element
+    const dataSet = element.dataset as DOMStringMap
+    let target = null
+    const ucId = Number(dataSet.ucId)
+    const sat = this.satisfactions.find((s) => s.ucId === ucId)
+    if (!sat) return
+    target = sat
+    if (dataSet.screenId) {
+      const id = Number(dataSet.screenId)
+      const screen = sat.relatedScreens.find((s) => s.id === id)
+      if (!screen) return
+      target = screen
+    }
+    if (dataSet.infomationId) {
+      const id = Number(dataSet.infomationId)
+      const infomation = sat.relatedInfomations.find((s) => s.id === id)
+      if (!infomation) return
+      target = infomation
+    }
+    if (dataSet.diagramId) {
+      const id = Number(dataSet.diagramId)
+      const infomation = sat.usedInDiagrams.of(id)
+      if (!infomation) return
+      target = infomation
+    }
+    return target
+  }
+
   private showMenu(target: any, x: number, y: number): void {
     const menu = this.$refs.columnRightClickMenu as ColumnRightClickMenu
     menu.show(target, x, y)
@@ -338,6 +337,19 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
   private resourceEditDialog(): ResourceEditDialog {
     return this.$refs.resourceEditDialog as ResourceEditDialog
+  }
+
+  private async showResourceDialog(resourceId: number): Promise<void> {
+    const product = this.repository.getCurrentProduct() as Product
+    const src = product.resources.of(resourceId)
+    if (!src) return
+
+    const dest = await this.resourceEditDialog().showForModifyOf(resourceId)
+    if (dest.isEmpty()) return
+
+    this.reloadSatisfactions()
+
+    this.onRenamedResource(src, dest)
   }
 }
 </script>
