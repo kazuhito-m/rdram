@@ -74,7 +74,7 @@
                   tile
                   link
                   :data-uc-id="satisfaction.ucId"
-                  @dblclick="onDoubleClickUc"
+                  @click="onDoubleClickUc"
                   @contextmenu.prevent="onRightClick"
                 >
                   <v-icon>{{ ucIcon() }}</v-icon>
@@ -188,8 +188,7 @@
                       color="info"
                       :data-uc-id="satisfaction.ucId"
                       :data-diagram-id="diagram.id"
-                      @click="dummyClickEvent"
-                      @dblclick="onDoubleClickDiagram"
+                      @click="onDoubleClickDiagram"
                       @contextmenu.prevent="onRightClick"
                     >
                       <v-icon small>{{ diagram.type.iconKey }}</v-icon>
