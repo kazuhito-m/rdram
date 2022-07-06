@@ -59,8 +59,15 @@
                 {{ index + 1 }}
               </td>
               <td class="text-left">
-                <v-icon>{{ ucIcon() }}</v-icon>
-                {{ satisfaction.usecase.name }}
+                <v-btn
+                  @dblclick="onDoubleClickUc()"
+                  text
+                  tile
+                  link
+                >
+                  <v-icon>{{ ucIcon() }}</v-icon>
+                  {{ satisfaction.usecase.name }}
+                </v-btn>
               </td>
               <td class="text-left">
                 <v-avatar color="primary" size="18" tile>
@@ -147,7 +154,7 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   @Inject()
   readonly repository!: StorageRepository
 
-  // Properties.
+  // properties.
 
   ucIcon = () => ResourceType.ユースケース.iconKey
   screenIcon = () => ResourceType.画面.iconKey
@@ -157,6 +164,12 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
   mounted(): void {
     this.reloadSatisfactions()
+  }
+
+  // component events.
+
+  onDoubleClickUc(): void {
+    alert('test')
   }
 
   // public method.
