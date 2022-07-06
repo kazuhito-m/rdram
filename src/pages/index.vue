@@ -153,6 +153,7 @@ export default class extends Vue {
   }
 
   onRenamedResource(src: Resource, dest: Resource): void {
+    this.reflectResourcesOnViewModel(dest)
     this.reflectResourceRenameToDiagrams(src, dest);
   }
 
@@ -258,6 +259,18 @@ export default class extends Vue {
   private showRightClickMenu(item: ViewOrFolder, x: number, y:number, tabClick: boolean): void {
     const menu = this.$refs.itemRightClickMenu as ItemRightClickMenu
     menu.show(item, x, y, tabClick);
+  }
+
+  private reflectResourcesOnViewModel(resource: Resource): Resource | null {
+    const resources = this.allResources;
+    const i = resources
+      .findIndex(r => r.resourceId === resource.resourceId);
+    if (i < 0) return null;
+
+    const beforeResoruce = resources[i];
+    resources.splice(i, 1);
+    resources.push(resource);
+    return beforeResoruce;
   }
 }
 </script>

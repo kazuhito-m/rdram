@@ -51,6 +51,7 @@
         <AnalysisContainer 
           v-if="item.isAnalysis()"
           :analysisViewId="item.id"
+          @onRenamedResource="onRenamedResource"
         />
       </v-tab-item>
     </v-tabs-items>

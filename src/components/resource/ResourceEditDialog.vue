@@ -84,7 +84,7 @@ export default class ResourceEditDialog extends Vue {
   @Inject()
   private repository?: StorageRepository
 
-  @Prop({ required: true })
+  @Prop()
   private readonly diagramId!: number
 
   @Emit('onUpdatedResource')
@@ -116,14 +116,16 @@ export default class ResourceEditDialog extends Vue {
     if (!product) return null
     const resources = product.resources
     if (!resources) return null
-    const diagram = product.diagrams.of(this.diagramId)
-    if (!diagram) return null
 
     const target = findResourceFunc(resources)
     if (!target) return null
 
+    if (this.diagramId) {
+      const diagram = product.diagrams.of(this.diagramId)
+      if (diagram) this.targetDiagram = diagram
+    }
+
     this.latestResources = resources
-    this.targetDiagram = diagram
 
     return target
   }

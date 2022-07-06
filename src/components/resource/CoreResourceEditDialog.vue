@@ -180,7 +180,7 @@ export default class CoreResourceEditDialog extends Vue {
 
     const sameResource = this.resources.getSameOf(resource);
     if (sameResource) {
-      if (resource.isNotRegister()) {
+      if (resource.isNotRegister() && this.diagram) {
         if (this.diagram.existsResourceOnPlacementOf(sameResource.resourceId)) {
           alert(`既に重複した名前の${typeName}が在り、図に配置されています。`);
           return;

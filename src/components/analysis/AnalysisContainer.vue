@@ -2,16 +2,20 @@
   <div>
     <IconExplorerView v-if="is('アイコン一覧')" />
     <ScreenTransitionView v-if="is('画面遷移')" />
-    <UcScreenInfoSatisfactionView v-if="is('UCと画面/情報の充足')" />
+    <UcScreenInfoSatisfactionView
+      v-if="is('UCと画面/情報の充足')"
+      @onRenamedResource="onRenamedResource"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { Component, Vue, Prop, Emit } from 'nuxt-property-decorator'
 import IconExplorerView from '@/components/analysis/iconexplorer/IconExplorerView.vue'
 import ScreenTransitionView from '@/components/analysis/screentransition/ScreenTransitionView.vue'
 import UcScreenInfoSatisfactionView from '@/components/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfactionView.vue'
 import ViewOrFoldersTemplate from '@/components/main/model/ViewOrFoldersTemplate'
+import Resource from '@/domain/resource/Resource'
 
 @Component({
   components: {
@@ -23,6 +27,9 @@ import ViewOrFoldersTemplate from '@/components/main/model/ViewOrFoldersTemplate
 export default class AnalysisContainer extends Vue {
   @Prop({ required: true })
   readonly analysisViewId!: number
+
+  @Emit('onRenamedResource')
+  onRenamedResource(_src: Resource, _dest: Resource): void {}
 
   is(typeName: string): boolean {
     const item = ViewOrFoldersTemplate.analysisNameOf(typeName)

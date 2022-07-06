@@ -150,13 +150,14 @@ export default class DiagramEditor extends Vue {
   // children component events.
 
   async onEditResource(resourceId: number): Promise<void> {
-    const resource = await this.resourceEditDialog().showForModifyOf(resourceId);
-    if (resource.isEmpty()) return;
+    const product = this.getCurrentProduct();
+    const src = product.resources.of(resourceId);
+    if (!src) return;
 
-    const srcResource = this.reflectResourcesOnViewModel(resource);
-    if (!srcResource) return;
+    const dest = await this.resourceEditDialog().showForModifyOf(resourceId);
+    if (src.isEmpty()) return;
 
-    this.onRenamedResource(srcResource, resource);
+    this.onRenamedResource(src, dest);
   }
 
   onDeleteResourceOnDiagram(resourceId: number): void {
@@ -307,18 +308,6 @@ export default class DiagramEditor extends Vue {
       fontFamily: style.fontFamily,
       charactor: content.replace(/"/g, "")
     };
-  }
-
-  private reflectResourcesOnViewModel(resource: Resource): Resource | null {
-    const resources = this.allResources;
-    const i = resources
-      .findIndex(r => r.resourceId === resource.resourceId);
-    if (i < 0) return null;
-
-    const beforeResoruce = resources[i];
-    resources.splice(i, 1);
-    resources.push(resource);
-    return beforeResoruce;
   }
 }
 </script>

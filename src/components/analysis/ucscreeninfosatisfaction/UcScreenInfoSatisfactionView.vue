@@ -1,6 +1,10 @@
 <template>
   <div>
-    <ColumnRightClickMenu ref="columnRightClickMenu" />
+    <ColumnRightClickMenu
+      ref="columnRightClickMenu"
+      @onEditResource="onEditResource"
+    />
+    <ResourceEditDialog ref="resourceEditDialog" />
     <v-card flat>
       <v-toolbar dense>
         <v-btn icon @click="reloadSatisfactions()">
@@ -190,16 +194,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Inject, Vue } from 'nuxt-property-decorator'
+import { Component, Emit, Inject, Vue } from 'nuxt-property-decorator'
 import ColumnRightClickMenu from './ColumnRightClickMenu.vue'
+import ResourceEditDialog from '@/components/resource/ResourceEditDialog.vue'
 import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
 import UcScreenInfoSatisfactionsFactory from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfactionsFactory'
 import ResourceType from '@/domain/resource/ResourceType'
 import StorageRepository from '@/domain/storage/StorageRepository'
+import Resource from '~/domain/resource/Resource'
+import Product from '~/domain/product/Product'
 
 @Component({
   components: {
     ColumnRightClickMenu,
+    ResourceEditDialog,
   },
 })
 export default class UcScreenInfoSatisfactionView extends Vue {
@@ -213,6 +221,11 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
   @Inject()
   readonly repository!: StorageRepository
+
+  // emits.
+
+  @Emit('onRenamedResource')
+  private onRenamedResource(_src: Resource, _dest: Resource): void {}
 
   // properties.
 
@@ -256,6 +269,19 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     }
 
     this.showMenu(target, event.x, event.y)
+  }
+
+  async onEditResource(resourceId: number): Promise<void> {
+    const product = this.repository.getCurrentProduct() as Product
+    const src = product.resources.of(resourceId)
+    if (!src) return
+
+    const dest = await this.resourceEditDialog().showForModifyOf(resourceId)
+    if (dest.isEmpty()) return
+
+    this.reloadSatisfactions()
+
+    this.onRenamedResource(src, dest)
   }
 
   onDoubleClickUc(): void {
@@ -308,6 +334,10 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   private showMenu(target: any, x: number, y: number): void {
     const menu = this.$refs.columnRightClickMenu as ColumnRightClickMenu
     menu.show(target, x, y)
+  }
+
+  private resourceEditDialog(): ResourceEditDialog {
+    return this.$refs.resourceEditDialog as ResourceEditDialog
   }
 }
 </script>

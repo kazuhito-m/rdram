@@ -24,7 +24,7 @@
       <v-list-item link @click="onClickNotImplement">
         <v-list-item-title>この関連を削除</v-list-item-title>
       </v-list-item>
-      <v-list-item link @click="onClickNotImplement">
+      <v-list-item link @click="onClickEditRelate">
         <v-list-item-title>編集...</v-list-item-title>
       </v-list-item>
     </v-list>
@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Emit, Vue } from 'vue-property-decorator'
 import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
 import RelatedResource from '@/domain/analysis/ucscreeninfosatisfaction/RelatedResource'
 import Diagram from '@/domain/diagram/Diagram'
@@ -59,9 +59,19 @@ export default class ColumnRightClickMenu extends Vue {
   showPositionX = 0
   showPositionY = 0
 
+  // emits.
+
+  @Emit('onEditResource')
+  private onEditResource(_resourceId: number) {}
+
   onClickEditUsecase(): void {
-    this.close()
-    // this.onEditResource(this.resourceId)
+    const sat = this.target as UcScreenInfoSatisfaction
+    this.onEditResource(sat.ucId)
+  }
+
+  onClickEditRelate(): void {
+    const relate = this.target as RelatedResource
+    this.onEditResource(relate.id)
   }
 
   onClickNotImplement(): void {
