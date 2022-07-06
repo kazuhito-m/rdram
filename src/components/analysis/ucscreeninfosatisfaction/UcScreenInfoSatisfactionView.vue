@@ -121,7 +121,7 @@
                     class="chip-span"
                   >
                     <v-badge
-                      color="primary"
+                      color="success"
                       overlap
                       bordered
                       :value="info.relateCount > 1"
