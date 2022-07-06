@@ -36,15 +36,15 @@
                 <v-icon>{{ ucIcon() }}</v-icon>
                 ユースケース
               </th>
-              <th class="text-left">
+              <th class="text-left" colspan="2">
                 <v-icon>{{ screenIcon() }}</v-icon>
                 関連している画面
               </th>
-              <th class="text-left">
+              <th class="text-left" colspan="2">
                 <v-icon>{{ infoIcon() }}</v-icon>
                 関連している情報
               </th>
-              <th class="text-left">
+              <th class="text-left" colspan="2">
                 <v-icon>mdi-file</v-icon>
                 UCが使われてる図
               </th>
@@ -72,10 +72,12 @@
                   {{ satisfaction.usecase.name }}
                 </v-btn>
               </td>
-              <td class="text-left">
+              <td class="count-column text-right">
                 <v-avatar color="primary" size="18" tile>
                   {{ satisfaction.relatedScreens.length }}
                 </v-avatar>
+              </td>
+              <td class="text-left">
                 <span v-if="satisfaction.isNotRelatedScreen()">なし</span>
                 <span v-else>
                   <span
@@ -109,10 +111,12 @@
                   </span>
                 </span>
               </td>
-              <td class="text-left">
+              <td class="count-column text-right">
                 <v-avatar color="success" size="18" tile>
                   {{ satisfaction.relatedInfomations.length }}
                 </v-avatar>
+              </td>
+              <td class="text-left">
                 <span v-if="satisfaction.isNotRelatedInfomation()">なし</span>
                 <span v-else>
                   <span
@@ -144,10 +148,12 @@
                   </span>
                 </span>
               </td>
-              <td class="text-left">
+              <td class="count-column text-right">
                 <v-avatar color="info" size="18" tile>
                   {{ satisfaction.usedInDiagrams.length }}
                 </v-avatar>
+              </td>
+              <td class="text-left">
                 <span v-if="satisfaction.isNotUsedInDiagram()">なし</span>
                 <span v-else>
                   <span
@@ -308,5 +314,9 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 <style lang="scss" scoped>
 .chip-span {
   padding-right: 5px;
+}
+
+.count-column {
+  width: 30px;
 }
 </style>
