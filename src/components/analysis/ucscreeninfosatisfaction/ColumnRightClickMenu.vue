@@ -22,16 +22,20 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import RelatedResource from '~/domain/analysis/ucscreeninfosatisfaction/RelatedResource'
+import UcScreenInfoSatisfaction from '~/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
+import Diagram from '~/domain/diagram/Diagram'
+import ResourceType from '~/domain/resource/ResourceType'
 
 @Component
 export default class ColumnRightClickMenu extends Vue {
   visible = false
   target: any
 
-  enableEdit = false
-  enableOpenDiagram = false
-  enableDeleteOnDiagram = false
-  enableDeleteOnProduct = false
+  isUseCase = false
+  isScreen = false
+  isInfomation = false
+  isDiagram = false
 
   showPositionX = 0
   showPositionY = 0
@@ -57,7 +61,19 @@ export default class ColumnRightClickMenu extends Vue {
   }
 
   private analyzeEnableMenu(): void {
-    console.log(typeof this.target)
+    const target = this.target
+    this.isUseCase = target instanceof UcScreenInfoSatisfaction
+    if (target instanceof RelatedResource) {
+      const related = target as RelatedResource
+      const type = related.resource.type
+      this.isScreen = type === ResourceType.画面
+      this.isInfomation = type === ResourceType.情報
+    }
+    this.isDiagram = target instanceof Diagram
+    console.log("isUseCase", this.isUseCase)
+    console.log("isScreen", this.isScreen)
+    console.log("isInfomation", this.isInfomation)
+    console.log("isDiagram", this.isDiagram)
   }
 
   close(): void {
