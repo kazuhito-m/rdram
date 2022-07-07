@@ -280,8 +280,9 @@ export default abstract class Diagram {
             if (this.isStickOut(placement)) deletePlacements.push(placement)
             else survivePlacements.push(placement);
         }
-        const surviveRelations = this.relations
-            .filter(relation => !deletePlacements.some(p => relation.isRelatedTo(p.resourceId)));
+        // FIXME この処理は要るはず…だが使ってない。究明して正しく使うべし。
+        // const surviveRelations = this.relations
+        //     .filter(relation => !deletePlacements.some(p => relation.isRelatedTo(p.resourceId)));
 
         return this.replacePlacement(survivePlacements)
     }

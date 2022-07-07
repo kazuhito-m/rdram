@@ -1,4 +1,5 @@
-import UserSettings from '@/domain//setting/UserSettings';
+import DiagramType from '@/domain/diagram/type/DiagramType';
+import UserSettings from '@/domain/setting/UserSettings';
 import Resources from '@/domain/resource/Resources';
 import ProductIdentifier from '@/domain/product/ProductIdentifier';
 import Diagrams from '@/domain/diagram/Diagrams';
@@ -10,7 +11,6 @@ import Rdra20DiagramType from '@/domain/diagram/rdra20/Rdra20DiagramType';
 import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
 import Relation from '@/domain/relation/Relation';
 import CorrespondResourceTypes from "@/domain/diagram/correspond/CorrespondResourceTypes";
-import DiagramType from '../diagram/type/DiagramType';
 
 export default class Product {
     constructor(
