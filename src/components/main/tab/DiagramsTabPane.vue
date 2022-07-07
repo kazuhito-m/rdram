@@ -6,7 +6,6 @@
       background-color="primary"
       show-arrows
       dark
-      @change="onChangeActiveTab"
     >
       <v-tab
         v-for="item in openTabs"
@@ -51,6 +50,7 @@
         <AnalysisContainer
           v-if="item.isAnalysis()"
           :analysisViewId="item.id"
+          :activeViewId="activeViewId"
           @onRenamedResource="onRenamedResource"
           @onOpenDiagram="onOpenDiagram"
           @onUpdateResources="onUpdateResoucesOnContainer"
@@ -60,7 +60,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Emit, Prop } from 'nuxt-property-decorator'
+import { Component, Vue, Emit, Prop, Watch } from 'nuxt-property-decorator'
 import DiagramEditorContainer from '@/components/diagrams/editor/DiagramEditorContainer.vue'
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Diagram from '@/domain/diagram/Diagram'
@@ -75,6 +75,7 @@ import AnalysisContainer from '@/components/analysis/AnalysisContainer.vue'
 })
 export default class DiagramsTabPane extends Vue {
   currentTabIndex: number | null = null
+  activeViewId: number = 0
 
   // Props
 
@@ -120,11 +121,14 @@ export default class DiagramsTabPane extends Vue {
 
   // component events.
 
-  onChangeActiveTab(newTabIndex: number) {
-    if (newTabIndex === undefined) return
+  @Watch('currentTabIndex')
+  onChangeActiveTab() {
+    const newTabIndex = this.currentTabIndex
+    if (newTabIndex === null) return
     const currentTabItem = this.openTabs[newTabIndex]
     if (!currentTabItem) return
 
+    this.activeViewId = currentTabItem.id
     this.onChangeCurrentDiagram(currentTabItem.id)
   }
 
@@ -150,7 +154,6 @@ export default class DiagramsTabPane extends Vue {
       (tabItem) => tabItem.id === diagramId
     )
     this.currentTabIndex = newTabIndex
-    this.onChangeActiveTab(newTabIndex)
   }
 
   closeTab(tabItemId: number): boolean {

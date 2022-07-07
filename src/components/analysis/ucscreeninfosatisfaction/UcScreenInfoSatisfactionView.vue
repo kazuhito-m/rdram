@@ -267,6 +267,10 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.reloadSatisfactions()
   }
 
+  onActive() {
+    this.reloadSatisfactions()
+  }
+
   // component events.
 
   onRightClick(event: PointerEvent): void {
