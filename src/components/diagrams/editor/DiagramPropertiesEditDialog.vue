@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Inject, Emit } from 'nuxt-property-decorator'
+import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
 import PropertiesSettingDialog from '@/components/PropertiesSettingDialog.vue'
 import StorageRepository from '@/domain/storage/StorageRepository'
 import Diagram from '@/domain/diagram/Diagram'
