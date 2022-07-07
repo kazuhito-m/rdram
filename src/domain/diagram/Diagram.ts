@@ -284,7 +284,10 @@ export default abstract class Diagram {
             .filter(relation => !deletePlacements.some(p => relation.isRelatedTo(p.resourceId)));
 
         return this.replacePlacement(survivePlacements)
-            .replaceRelations(surviveRelations);
+    }
+
+    public isNotRegister(): boolean {
+        return this.id === 0 && this.name === "";
     }
 
     public removeResouceOf(resource: Resource): Diagram {
