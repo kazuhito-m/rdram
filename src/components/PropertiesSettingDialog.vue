@@ -18,66 +18,68 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text color="normal" @click="onClose">キャンセル</v-btn>
-        <v-btn text :disabled="!consent" color="primary" @click="onClickOk">OK</v-btn>
+        <v-btn text :disabled="!consent" color="primary" @click="onClickOk">
+          OK
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit, Watch } from "nuxt-property-decorator";
+import { Component, Vue, Prop, Emit, Watch } from 'nuxt-property-decorator'
 
 @Component
 export default class PropertiesSettingDialog extends Vue {
   @Prop({ required: true })
-  private readonly id: any | null;
+  readonly id: any | null
 
   @Prop({ required: true })
-  private title!: string;
+  title!: string
 
   @Prop()
-  private readonly iconKey!: string;
+  readonly iconKey!: string
 
   @Prop()
-  private readonly consent!: boolean;
+  readonly consent!: boolean
 
   @Prop()
-  private readonly subTitle!: string;
+  readonly subTitle!: string
 
   @Prop()
-  private readonly width!: number;
+  readonly width!: number
 
   @Prop()
-  private readonly ignoreEscKey!: boolean;
+  private readonly ignoreEscKey!: boolean
 
   @Prop()
-  private readonly ignoreEnterKey!: boolean;
+  private readonly ignoreEnterKey!: boolean
 
-  @Emit("onClose")
-  private onClose(): void {}
+  @Emit('onClose')
+  onClose(): void {}
 
-  @Emit("onClickOk")
-  private onClickOk(): void {}
+  @Emit('onClickOk')
+  onClickOk(): void {}
 
-  @Emit("onShow")
+  // TODO この下二つは「show()パターン」なら要らないはず。このコンポーネントを使ってるものを点検し、できれば削除。
+  @Emit('onShow')
   private onShow(): void {}
 
-  @Watch("id")
+  @Watch('id')
   private onChangeId(): void {
-    if (this.id) this.onShow();
+    if (this.id) this.onShow()
   }
 
-  private onKeyEsc(): void {
-    if (this.ignoreEscKey) return;
-    this.onClose();
+  onKeyEsc(): void {
+    if (this.ignoreEscKey) return
+    this.onClose()
   }
 
-  private onKeyEnter(): void {
-    if (this.ignoreEnterKey) return;
-    this.onClickOk();
+  onKeyEnter(): void {
+    if (this.ignoreEnterKey) return
+    this.onClickOk()
   }
 }
 </script>
 
-<style type="sass" scoped>
-</style>
+<style type="sass" scoped></style>
