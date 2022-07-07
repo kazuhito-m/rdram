@@ -15,11 +15,6 @@
         </v-btn>
         UCと画面/情報の充足
         <v-spacer></v-spacer>
-        <v-btn text tile link @click="onClickNewUseCaseButton">
-          <v-icon>{{ ucIcon() }}</v-icon
-          >ユースケースの新規作成
-        </v-btn>
-        <v-spacer></v-spacer>
         <v-checkbox
           v-model="onlyNotRelatedScreen"
           label="画面と未関連のみ"
@@ -37,6 +32,11 @@
           label="図で未使用のみ"
           @click="reloadSatisfactions()"
         />
+        <v-spacer></v-spacer>
+        <v-btn text tile link @click="onClickNewUseCaseButton">
+          <v-icon>{{ ucIcon() }}</v-icon
+          >ユースケースの新規作成
+        </v-btn>
       </v-toolbar>
       <v-card class="main-area">
         <v-simple-table dense fixed-header>
