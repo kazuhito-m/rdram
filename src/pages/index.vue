@@ -52,7 +52,7 @@ import TwoPaneWithSlideBarLayout from "@/components/twopane/TwoPaneWithSlideBarL
 import DiagramsTreePane from "@/components/main/tree/DiagramsTreePane.vue";
 import DiagramsTabPane from "@/components/main/tab/DiagramsTabPane.vue";
 import ItemRightClickMenu from "@/components/main/menu/ItemRightClickMenu.vue"
-import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
+import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialogOld.vue";
 import DiagramTypeSelectorDialog from "@/components/diagrams/open/DiagramTypeSelectorDialog.vue";
 import ViewOrFolder from "@/components/main/model/ViewOrFolder";
 import Product from "@/domain/product/Product";
