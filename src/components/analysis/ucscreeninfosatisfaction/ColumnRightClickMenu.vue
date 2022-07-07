@@ -10,8 +10,14 @@
     @input="close"
   >
     <v-list v-if="isUseCase">
-      <v-list-item v-if="isNotUsedInDiagram" link @click="onClickNotImplement">
-        <v-list-item-title>このUCを配置したユースケース複合図を作成...</v-list-item-title>
+      <v-list-item
+        v-if="isNotUsedInDiagram"
+        link
+        @click="onClickCreateRelateUcDiagram"
+      >
+        <v-list-item-title>
+          このUCを配置したユースケース複合図を作成...
+        </v-list-item-title>
       </v-list-item>
       <v-list-item link @click="onClickEditUsecase">
         <v-list-item-title>編集...</v-list-item-title>
@@ -71,6 +77,14 @@ export default class ColumnRightClickMenu extends Vue {
 
   @Emit('onOpenDiagram')
   private onOpenDiagram(_diagramId: number): void {}
+
+  @Emit('onCreateRelateUcDiagram')
+  private onCreateRelateUcDiagram(_sat: UcScreenInfoSatisfaction): void {}
+
+  onClickCreateRelateUcDiagram(): void {
+    const sat = this.target as UcScreenInfoSatisfaction
+    this.onCreateRelateUcDiagram(sat)
+  }
 
   onClickEditUsecase(): void {
     const sat = this.target as UcScreenInfoSatisfaction

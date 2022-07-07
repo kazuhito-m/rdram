@@ -4,6 +4,7 @@
       ref="columnRightClickMenu"
       @onEditResource="onEditResource"
       @onOpenDiagram="onOpenDiagram"
+      @onCreateRelateUcDiagram="onCreateRelateUcDiagram"
     />
     <ResourceEditDialog ref="resourceEditDialog" />
     <DiagramPropertiesEditDialog ref="diagraEditDialog" />
@@ -289,6 +290,10 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     }
 
     await this.showResourceDialog(sat.ucId)
+  }
+
+  async onCreateRelateUcDiagram(sat: UcScreenInfoSatisfaction): Promise<void> {
+    await this.showNewUseCaseCompositeDiagramDialog(sat)
   }
 
   onDoubleClickScreen(): void {
