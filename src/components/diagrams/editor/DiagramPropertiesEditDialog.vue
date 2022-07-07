@@ -77,6 +77,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
   @Emit('onClose')
   onClose(): void {
     this.visible = false
+    this.resolve(this.source)
   }
 
   @Inject()
@@ -102,7 +103,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
     if (!this.consent) return
     const diagram = this.registerDiagramProperties()
     if (!diagram) return
-    this.onClose()
+    this.visible = false
     this.resolve(diagram)
   }
 
@@ -190,16 +191,27 @@ export default class DiagramPropertiesEditDialog extends Vue {
 
   private registerDiagramProperties(): Diagram | null {
     const product = this.repository?.getCurrentProduct()
-    const diagram = product?.diagrams.of(this.diagramId)
-    if (!product || !diagram) return null
+    if (!product) return null
 
+    const diagram = this.source
     const modified = diagram.renameOf(this.name).resize(this.width, this.height)
     if (!this.logicalValidation(modified, product)) return null
 
-    const registerd = modified.fixStickOuts()
-    const modifiedProduct = product.meageDiagramByIdOf(registerd)
-    this.repository?.registerCurrentProduct(modifiedProduct)
+    const fixed = modified.fixStickOuts()
 
+    return this.register(fixed, product)
+  }
+
+  private register(diagram: Diagram, product: Product) {
+    let modifiedProduct: Product
+    let registerd = diagram;
+    if (diagram.isNotRegister()) {
+      modifiedProduct = product.addDiagram(diagram)
+      registerd = modifiedProduct.diagrams.last()
+    } else {
+      modifiedProduct = product.meageDiagramByIdOf(diagram)
+    }
+    this.repository!.registerCurrentProduct(modifiedProduct)
     return registerd
   }
 }

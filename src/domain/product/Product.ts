@@ -154,9 +154,15 @@ export default class Product {
     }
 
     public createAndAddDiagram(name: string, diagramType: Rdra20DiagramType): Product {
-        const diagrams = this.diagrams;
-        const diagram = diagrams.createNewDiagram(name, diagramType, this.resources);
-        const addedDiagrams = diagrams.add(diagram);
+        const diagram = this.diagrams
+            .createNewDiagram(name, diagramType, this.resources);
+        const addedDiagrams = this.diagrams.add(diagram);
+        return this.withDiagrams(addedDiagrams);
+    }
+
+    public addDiagram(diagram: Diagram): Product {
+        const renewDiagram = diagram.reIdOf(this.diagrams.generateDiagramId());
+        const addedDiagrams = this.diagrams.add(renewDiagram);
         return this.withDiagrams(addedDiagrams);
     }
 
