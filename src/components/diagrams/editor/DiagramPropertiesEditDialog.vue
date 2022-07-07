@@ -1,12 +1,12 @@
 <template>
   <PropertiesSettingDialog
-    v-model="visible"
+    v-if="visible"
     :id="diagramId"
     :consent="consent"
     :title="title"
     :subTitle="subTitle"
     :iconKey="iconKey"
-    width="400"
+    width="450"
     @onClose="onClose"
     @onClickOk="onClickUpdateExecute"
   >

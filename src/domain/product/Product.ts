@@ -10,6 +10,7 @@ import Rdra20DiagramType from '@/domain/diagram/rdra20/Rdra20DiagramType';
 import StartOrEndPoint from '@/domain/resource/StartOrEndPoint';
 import Relation from '@/domain/relation/Relation';
 import CorrespondResourceTypes from "@/domain/diagram/correspond/CorrespondResourceTypes";
+import DiagramType from '../diagram/type/DiagramType';
 
 export default class Product {
     constructor(
@@ -153,11 +154,14 @@ export default class Product {
         return this.withResources(addedResources);
     }
 
-    public createAndAddDiagram(name: string, diagramType: Rdra20DiagramType): Product {
-        const diagram = this.diagrams
+    public createAndAddDiagram(name: string, diagramType: DiagramType): Product {
+        const diagram = this.createNewDiagram(name, diagramType);
+        return this.addDiagram(diagram)
+    }
+
+    public createNewDiagram(name: string, diagramType: DiagramType) {
+        return this.diagrams
             .createNewDiagram(name, diagramType, this.resources);
-        const addedDiagrams = this.diagrams.add(diagram);
-        return this.withDiagrams(addedDiagrams);
     }
 
     public addDiagram(diagram: Diagram): Product {

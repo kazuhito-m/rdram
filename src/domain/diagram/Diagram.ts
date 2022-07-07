@@ -287,7 +287,7 @@ export default abstract class Diagram {
     }
 
     public isNotRegister(): boolean {
-        return this.id === 0 && this.name === "";
+        return this.name === "";
     }
 
     public removeResouceOf(resource: Resource): Diagram {

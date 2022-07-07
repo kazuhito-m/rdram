@@ -6,6 +6,7 @@
       @onOpenDiagram="onOpenDiagram"
     />
     <ResourceEditDialog ref="resourceEditDialog" />
+    <DiagramPropertiesEditDialog ref="diagraEditDialog" />
     <v-card flat>
       <v-toolbar dense>
         <v-btn icon @click="reloadSatisfactions()">
@@ -170,7 +171,7 @@
                     link
                     color="orange"
                     :data-uc-id="satisfaction.ucId"
-                    @click="dummyClickEvent"
+                    @click="onClickNotUserdInDiagramButton"
                   >
                     なし
                   </v-btn>
@@ -212,18 +213,22 @@
 import { Component, Emit, Inject, Vue } from 'nuxt-property-decorator'
 import ColumnRightClickMenu from './ColumnRightClickMenu.vue'
 import ResourceEditDialog from '@/components/resource/ResourceEditDialog.vue'
+import DiagramPropertiesEditDialog from '@/components/diagrams/editor/DiagramPropertiesEditDialog.vue'
 import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
 import UcScreenInfoSatisfactionsFactory from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfactionsFactory'
 import ResourceType from '@/domain/resource/ResourceType'
 import StorageRepository from '@/domain/storage/StorageRepository'
-import Resource from '~/domain/resource/Resource'
-import Product from '~/domain/product/Product'
-import Diagram from '~/domain/diagram/Diagram'
+import Resource from '@/domain/resource/Resource'
+import Product from '@/domain/product/Product'
+import Diagram from '@/domain/diagram/Diagram'
+import Rdra20DiagramType from '@/domain/diagram/rdra20/Rdra20DiagramType'
+import Placement from '~/domain/diagram/placement/Placement'
 
 @Component({
   components: {
     ColumnRightClickMenu,
     ResourceEditDialog,
+    DiagramPropertiesEditDialog,
   },
 })
 export default class UcScreenInfoSatisfactionView extends Vue {
@@ -245,6 +250,9 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
   @Emit('onOpenDiagram')
   onOpenDiagram(_diagramId: number): void {}
+
+  @Emit('onUpdateResources')
+  onUpdateResources(): void {}
 
   // properties.
 
@@ -293,6 +301,12 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
   async onClickNewUseCaseButton(): Promise<void> {
     await this.showNewUseCaseDialog()
+  }
+
+  async onClickNotUserdInDiagramButton(event: MouseEvent): Promise<void> {
+    const element = event.currentTarget as HTMLElement
+    const sat = this.analyzeTargetOf(element) as UcScreenInfoSatisfaction
+    await this.showNewUseCaseCompositeDiagramDialog(sat)
   }
 
   dummyClickEvent(): void {}
@@ -377,11 +391,30 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   }
 
   async showNewUseCaseDialog(): Promise<void> {
-    const resource = await this.resourceEditDialog().showForCreateNew(
-      ResourceType.ユースケース
-    )
+    const type = ResourceType.ユースケース
+    const resource = await this.resourceEditDialog().showForCreateNew(type)
+
     if (resource.isEmpty()) return
+
     this.reloadSatisfactions()
+  }
+
+  async showNewUseCaseCompositeDiagramDialog(
+    sat: UcScreenInfoSatisfaction
+  ): Promise<void> {
+    const product = this.repository.getCurrentProduct() as Product
+    const type = Rdra20DiagramType.ユースケース複合図
+    const diagram = product.createNewDiagram('', type)
+    const placemnt = diagram.createPlacementAtCenter(sat.usecase) as Placement
+    const withUc = diagram.addPlacement(placemnt)
+
+    const dialog = this.$refs.diagraEditDialog as DiagramPropertiesEditDialog
+    const modified = await dialog.showOf(withUc)
+
+    if (modified.isNotRegister()) return
+
+    this.reloadSatisfactions()
+    this.onOpenDiagram(modified.id)
   }
 }
 </script>
