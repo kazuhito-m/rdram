@@ -397,6 +397,7 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     if (resource.isEmpty()) return
 
     this.reloadSatisfactions()
+    this.onUpdateResources()
   }
 
   async showNewUseCaseCompositeDiagramDialog(

@@ -53,6 +53,7 @@
           :analysisViewId="item.id"
           @onRenamedResource="onRenamedResource"
           @onOpenDiagram="onOpenDiagram"
+          @onUpdateResources="onUpdateResoucesOnContainer"
         />
       </v-tab-item>
     </v-tabs-items>

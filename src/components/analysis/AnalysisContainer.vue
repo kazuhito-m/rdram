@@ -6,6 +6,7 @@
       v-if="is('UCと画面/情報の充足')"
       @onRenamedResource="onRenamedResource"
       @onOpenDiagram="onOpenDiagram"
+      @onUpdateResources="onUpdateResources"
     />
   </div>
 </template>
@@ -31,6 +32,9 @@ export default class AnalysisContainer extends Vue {
 
   @Emit('onRenamedResource')
   onRenamedResource(_src: Resource, _dest: Resource): void {}
+
+  @Emit('onUpdateResources')
+  onUpdateResources(): void {}
 
   @Emit('onOpenDiagram')
   onOpenDiagram(_diagramId: number): void {}
