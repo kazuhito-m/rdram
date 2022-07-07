@@ -11,7 +11,7 @@
   >
     <v-list v-if="isUseCase">
       <v-list-item v-if="isNotUsedInDiagram" link @click="onClickNotImplement">
-        <v-list-item-title>これを配置したユースケース複合図を作成...</v-list-item-title>
+        <v-list-item-title>このUCを配置したユースケース複合図を作成...</v-list-item-title>
       </v-list-item>
       <v-list-item link @click="onClickEditUsecase">
         <v-list-item-title>編集...</v-list-item-title>
