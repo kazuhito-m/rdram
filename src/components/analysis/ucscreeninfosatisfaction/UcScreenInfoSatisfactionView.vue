@@ -75,7 +75,7 @@
                   tile
                   link
                   :data-uc-id="satisfaction.ucId"
-                  @click="onDoubleClickUc"
+                  @click="onClickUc"
                   @contextmenu.prevent="onRightClick"
                 >
                   <v-icon>{{ ucIcon() }}</v-icon>
@@ -279,9 +279,15 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     await this.showResourceDialog(resourceId)
   }
 
-  async onDoubleClickUc(event: MouseEvent): Promise<void> {
+  async onClickUc(event: MouseEvent): Promise<void> {
     const element = event.currentTarget as HTMLElement
     const sat = this.analyzeTargetOf(element) as UcScreenInfoSatisfaction
+
+    if (sat.isNotUsedInDiagram()) {
+      await this.showNewUseCaseCompositeDiagramDialog(sat)
+      return
+    }
+
     await this.showResourceDialog(sat.ucId)
   }
 
@@ -386,7 +392,6 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     if (dest.isEmpty()) return
 
     this.reloadSatisfactions()
-
     this.onRenamedResource(src, dest)
   }
 
