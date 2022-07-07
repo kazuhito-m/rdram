@@ -22,7 +22,7 @@
       <v-list-item link @click="onClickEditUsecase">
         <v-list-item-title>編集...</v-list-item-title>
       </v-list-item>
-      <v-list-item link @click="onClickNotImplement">
+      <v-list-item link @click="onClickRemoveUsecaseOnProduct">
         <v-list-item-title>プロダクト全体から削除</v-list-item-title>
       </v-list-item>
     </v-list>
@@ -81,6 +81,9 @@ export default class ColumnRightClickMenu extends Vue {
   @Emit('onCreateRelateUcDiagram')
   private onCreateRelateUcDiagram(_sat: UcScreenInfoSatisfaction): void {}
 
+  @Emit('onRemoveUsecaseOnProduct')
+  private onRemoveUsecaseOnProduct(_sat: UcScreenInfoSatisfaction): void {}
+
   onClickCreateRelateUcDiagram(): void {
     const sat = this.target as UcScreenInfoSatisfaction
     this.onCreateRelateUcDiagram(sat)
@@ -89,6 +92,11 @@ export default class ColumnRightClickMenu extends Vue {
   onClickEditUsecase(): void {
     const sat = this.target as UcScreenInfoSatisfaction
     this.onEditResource(sat.ucId)
+  }
+
+  onClickRemoveUsecaseOnProduct(): void {
+    const sat = this.target as UcScreenInfoSatisfaction
+    this.onRemoveUsecaseOnProduct(sat)
   }
 
   onClickEditRelate(): void {

@@ -135,7 +135,7 @@ export default class DiagramEditor extends Vue {
 
   readonly usedResouceIds: number[] = [];
   readonly iconMap: { [key: string]: IconFontAndChar } = {};
-  readonly prompts = new Prompts();
+  private readonly prompts = new Prompts();
 
   warnBar: boolean = false;
   warnMessage: string = "";

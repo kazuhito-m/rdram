@@ -5,6 +5,7 @@
       @onEditResource="onEditResource"
       @onOpenDiagram="onOpenDiagram"
       @onCreateRelateUcDiagram="onCreateRelateUcDiagram"
+      @onRemoveUsecaseOnProduct="onRemoveUsecaseOnProduct"
     />
     <ResourceEditDialog ref="resourceEditDialog" />
     <DiagramPropertiesEditDialog ref="diagraEditDialog" />
@@ -224,6 +225,7 @@ import Product from '@/domain/product/Product'
 import Diagram from '@/domain/diagram/Diagram'
 import Rdra20DiagramType from '@/domain/diagram/rdra20/Rdra20DiagramType'
 import Placement from '~/domain/diagram/placement/Placement'
+import Prompts from '~/components/main/Prompts'
 
 @Component({
   components: {
@@ -239,7 +241,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   onlyNotRelatedInfomation = false
   onlyNotUsedInDiagram = false
 
-  private factory = UcScreenInfoSatisfactionsFactory.get()
+  private readonly factory = UcScreenInfoSatisfactionsFactory.get()
+  private readonly prompts = new Prompts()
 
   @Inject()
   readonly repository!: StorageRepository
@@ -298,6 +301,10 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
   async onCreateRelateUcDiagram(sat: UcScreenInfoSatisfaction): Promise<void> {
     await this.showNewUseCaseCompositeDiagramDialog(sat)
+  }
+
+  onRemoveUsecaseOnProduct(sat: UcScreenInfoSatisfaction): void {
+    this.deleteResourceOnProduct(sat)
   }
 
   onDoubleClickScreen(): void {
@@ -430,6 +437,21 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
     this.reloadSatisfactions()
     this.onOpenDiagram(modified.id)
+  }
+
+  private deleteResourceOnProduct(sat: UcScreenInfoSatisfaction): void {
+    const resource = sat.usecase
+    const product = this.repository.getCurrentProduct() as Product
+
+    const usings = product.diagrams.using(resource)
+    const result = this.prompts.confirmDeleteResourceOnProduct(resource, usings)
+    if (!result) return
+
+    const modifiedProduct = product.removeOf(resource)
+    this.repository.registerCurrentProduct(modifiedProduct)
+
+    this.reloadSatisfactions()
+    this.onUpdateResources()
   }
 }
 </script>
