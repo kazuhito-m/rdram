@@ -84,6 +84,7 @@ import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
 import Placement from "@/domain/diagram/placement/Placement";
+import Prompts from "~/components/main/Prompts";
 
 @Component({
   components: {
@@ -134,6 +135,7 @@ export default class DiagramEditor extends Vue {
 
   readonly usedResouceIds: number[] = [];
   readonly iconMap: { [key: string]: IconFontAndChar } = {};
+  readonly prompts = new Prompts();
 
   warnBar: boolean = false;
   warnMessage: string = "";
@@ -273,20 +275,8 @@ export default class DiagramEditor extends Vue {
     if (!resource) return;
 
     const usings = product.diagrams.using(resource);
-    if (usings.length > 0) {
-      let diagramInfo = `${usings.length}個の図`;
-      if (usings.length === 1) {
-        const diagram = usings.last();
-        diagramInfo = diagram.id === thisDiagram?.id
-          ? "この図のみ"
-          : `「${diagram.name}(${diagram.type.name})」`
-      }
-      const message =
-        `「${resource.name}」は現在、${diagramInfo}で参照されています。\n` +
-        "削除する場合、図のアイコンや関連のすべては削除されます。\n" +
-        `${resource.name} を削除してもよろしいですか。`;
-      if (!window.confirm(message)) return;
-    }
+    const result = this.prompts.confirmDeleteResourceOnProduct(resource, usings, thisDiagram);
+    if (!result) return;
 
     const modifiedProduct = product.removeOf(resource);
 
