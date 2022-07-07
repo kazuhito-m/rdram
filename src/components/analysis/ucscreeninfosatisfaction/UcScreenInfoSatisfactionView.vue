@@ -13,7 +13,7 @@
         </v-btn>
         UCと画面/情報の充足
         <v-spacer></v-spacer>
-        <v-btn text tile link @click="dummyClickEvent">
+        <v-btn text tile link @click="onClickNewUseCaseButton">
           <v-icon>{{ ucIcon() }}</v-icon
           >ユースケースの新規作成
         </v-btn>
@@ -291,6 +291,10 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.onOpenDiagram(diagram.id)
   }
 
+  async onClickNewUseCaseButton(): Promise<void> {
+    await this.showNewUseCaseDialog()
+  }
+
   dummyClickEvent(): void {}
 
   // public method.
@@ -370,6 +374,14 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.reloadSatisfactions()
 
     this.onRenamedResource(src, dest)
+  }
+
+  async showNewUseCaseDialog(): Promise<void> {
+    const resource = await this.resourceEditDialog().showForCreateNew(
+      ResourceType.ユースケース
+    )
+    if (resource.isEmpty()) return
+    this.reloadSatisfactions()
   }
 }
 </script>
