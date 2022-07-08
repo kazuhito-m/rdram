@@ -91,8 +91,8 @@ export default class ColumnRightClickMenu extends Vue {
 
   @Emit('onOpenRelateDiagram')
   private onOpenRelateDiagram(
-    resource: Resource,
-    sat: UcScreenInfoSatisfaction
+    _resource: Resource,
+    _sat: UcScreenInfoSatisfaction
   ) {}
 
   // component events.

@@ -215,6 +215,7 @@
 import { Component, Emit, Inject, Vue } from 'nuxt-property-decorator'
 import ColumnRightClickMenu from './ColumnRightClickMenu.vue'
 import UcRelatedDiagramPropertiesEditDialog from './UcRelatedDiagramPropertiesEditDialog.vue'
+import RelatedDiagramsSelector from './RelatedDiagramsSelector.vue'
 import ResourceEditDialog from '@/components/resource/ResourceEditDialog.vue'
 import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
 import UcScreenInfoSatisfactionsFactory from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfactionsFactory'
@@ -225,7 +226,6 @@ import Product from '@/domain/product/Product'
 import Diagram from '@/domain/diagram/Diagram'
 import Prompts from '@/components/main/Prompts'
 import RelatedResource from '@/domain/analysis/ucscreeninfosatisfaction/RelatedResource'
-import RelatedDiagramsSelector from './RelatedDiagramsSelector.vue'
 
 @Component({
   components: {
