@@ -5,17 +5,14 @@
       <div class="my-3">
         同じ関連が在る図が複数あります。どの図を開きますか？
       </div>
-      <v-chip
-        v-for="(diagram, index) in relatedResource.relateOnDiagrams"
-        :key="diagram.id"
-        outlined
-        label
-        color="info"
-        @click="onClickDiagram(diagram)"
-      >
-        <v-icon>{{ diagram.type.iconKey }}</v-icon>
-        {{ diagram.type.name }}
-      </v-chip>
+      <div class="my-3">
+        <span v-for="diagram in diagrams()" :key="diagram.id" class="diagram-chip">
+          <v-chip outlined label color="info" @click="onClickDiagram(diagram)">
+            <v-icon>{{ diagram.type.iconKey }}</v-icon>
+            {{ diagram.name }}
+          </v-chip>
+        </span>
+      </div>
     </v-sheet>
   </v-bottom-sheet>
 </template>
@@ -40,7 +37,7 @@ export default class RelatedDiagramsSelector extends Vue {
   // component events.
 
   onClickDiagram(diagram: Diagram): void {
-    this.close()
+    this.visible = false
     this.resolve(diagram)
   }
 
@@ -59,10 +56,19 @@ export default class RelatedDiagramsSelector extends Vue {
 
   close(): void {
     this.visible = false
+    this.resolve(null)
+  }
+
+  diagrams(): Diagram[] {
+    return this.relatedResource ? this.relatedResource.relateOnDiagrams : []
   }
 
   // private method.
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.diagram-chip {
+  padding-right: 25px;
+}
+</style>

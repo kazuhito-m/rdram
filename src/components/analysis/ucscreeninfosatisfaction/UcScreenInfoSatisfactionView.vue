@@ -10,6 +10,7 @@
     />
     <ResourceEditDialog ref="resourceEditDialog" />
     <UcRelatedDiagramPropertiesEditDialog ref="diagraEditDialog" />
+    <RelatedDiagramsSelector ref="relatedDiagramsSelector" />
     <v-card flat>
       <v-toolbar dense>
         <v-btn icon @click="reloadSatisfactions()">
@@ -223,13 +224,15 @@ import Resource from '@/domain/resource/Resource'
 import Product from '@/domain/product/Product'
 import Diagram from '@/domain/diagram/Diagram'
 import Prompts from '@/components/main/Prompts'
-import RelatedResource from '~/domain/analysis/ucscreeninfosatisfaction/RelatedResource'
+import RelatedResource from '@/domain/analysis/ucscreeninfosatisfaction/RelatedResource'
+import RelatedDiagramsSelector from './RelatedDiagramsSelector.vue'
 
 @Component({
   components: {
     ColumnRightClickMenu,
     ResourceEditDialog,
     UcRelatedDiagramPropertiesEditDialog,
+    RelatedDiagramsSelector,
   },
 })
 export default class UcScreenInfoSatisfactionView extends Vue {
@@ -466,13 +469,20 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.onUpdateResources()
   }
 
-  private openRelateDiagram(
+  private async openRelateDiagram(
     relatedResource: RelatedResource,
     sat: UcScreenInfoSatisfaction
   ) {
-    console.log('relatedResource:', relatedResource)
-    console.log('sat:', sat)
-    // alert(resource.name + ',' + resource.type.name + ',' + sat.usecase.name)
+    if (relatedResource.relateCount === 1) {
+      const diagram = relatedResource.relateOnDiagrams[0]
+      this.onOpenDiagram(diagram.id)
+      return
+    }
+
+    const selector = this.$refs
+      .relatedDiagramsSelector as RelatedDiagramsSelector
+    const selected = await selector.showOf(relatedResource, sat)
+    this.onOpenDiagram(selected.id)
   }
 }
 </script>
