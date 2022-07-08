@@ -223,7 +223,6 @@ import Resource from '@/domain/resource/Resource'
 import Product from '@/domain/product/Product'
 import Diagram from '@/domain/diagram/Diagram'
 import Prompts from '@/components/main/Prompts'
-import { relate } from 'relateurl'
 import RelatedResource from '~/domain/analysis/ucscreeninfosatisfaction/RelatedResource'
 
 @Component({
