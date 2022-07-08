@@ -214,8 +214,8 @@
 <script lang="ts">
 import { Component, Emit, Inject, Vue } from 'nuxt-property-decorator'
 import ColumnRightClickMenu from './ColumnRightClickMenu.vue'
-import ResourceEditDialog from '@/components/resource/ResourceEditDialog.vue'
 import UcRelatedDiagramPropertiesEditDialog from './UcRelatedDiagramPropertiesEditDialog.vue'
+import ResourceEditDialog from '@/components/resource/ResourceEditDialog.vue'
 import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
 import UcScreenInfoSatisfactionsFactory from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfactionsFactory'
 import ResourceType from '@/domain/resource/ResourceType'
@@ -223,9 +223,7 @@ import StorageRepository from '@/domain/storage/StorageRepository'
 import Resource from '@/domain/resource/Resource'
 import Product from '@/domain/product/Product'
 import Diagram from '@/domain/diagram/Diagram'
-import Rdra20DiagramType from '@/domain/diagram/rdra20/Rdra20DiagramType'
-import Placement from '~/domain/diagram/placement/Placement'
-import Prompts from '~/components/main/Prompts'
+import Prompts from '@/components/main/Prompts'
 
 @Component({
   components: {
@@ -424,7 +422,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   async showNewUseCaseCompositeDiagramDialog(
     sat: UcScreenInfoSatisfaction
   ): Promise<void> {
-    const dialog = this.$refs.diagraEditDialog as UcRelatedDiagramPropertiesEditDialog
+    const dialog = this.$refs
+      .diagraEditDialog as UcRelatedDiagramPropertiesEditDialog
     const modified = await dialog.showOf(sat)
 
     if (modified.isNotRegister()) return
