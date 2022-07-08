@@ -27,7 +27,7 @@
       </v-list-item>
     </v-list>
     <v-list v-if="isScreen || isInfomation">
-      <v-list-item link @click="onClickNotImplement">
+      <v-list-item link @click="onClickOpenRelateDiagram">
         <v-list-item-title>この関連がある図を開く</v-list-item-title>
       </v-list-item>
       <v-list-item link @click="onClickNotImplement">
@@ -44,6 +44,9 @@
       <v-list-item link @click="onClickNotImplement">
         <v-list-item-title>ユースケースをこの図から削除</v-list-item-title>
       </v-list-item>
+      <v-list-item link @click="onClickNotImplement">
+        <v-list-item-title>この図を削除</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-menu>
 </template>
@@ -54,11 +57,13 @@ import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction
 import RelatedResource from '@/domain/analysis/ucscreeninfosatisfaction/RelatedResource'
 import Diagram from '@/domain/diagram/Diagram'
 import ResourceType from '@/domain/resource/ResourceType'
+import Resource from '~/domain/resource/Resource'
 
 @Component
 export default class ColumnRightClickMenu extends Vue {
   visible = false
   target: any
+  sat!: UcScreenInfoSatisfaction
 
   isUseCase = false
   isScreen = false
@@ -84,6 +89,14 @@ export default class ColumnRightClickMenu extends Vue {
   @Emit('onRemoveUsecaseOnProduct')
   private onRemoveUsecaseOnProduct(_sat: UcScreenInfoSatisfaction): void {}
 
+  @Emit('onOpenRelateDiagram')
+  private onOpenRelateDiagram(
+    resource: Resource,
+    sat: UcScreenInfoSatisfaction
+  ) {}
+
+  // component events.
+
   onClickCreateRelateUcDiagram(): void {
     const sat = this.target as UcScreenInfoSatisfaction
     this.onCreateRelateUcDiagram(sat)
@@ -97,6 +110,11 @@ export default class ColumnRightClickMenu extends Vue {
   onClickRemoveUsecaseOnProduct(): void {
     const sat = this.target as UcScreenInfoSatisfaction
     this.onRemoveUsecaseOnProduct(sat)
+  }
+
+  onClickOpenRelateDiagram(): void {
+    const resource = this.target as Resource
+    this.onOpenRelateDiagram(resource, this.sat)
   }
 
   onClickEditRelate(): void {
@@ -113,8 +131,9 @@ export default class ColumnRightClickMenu extends Vue {
     alert('Not implement!')
   }
 
-  show(target: any, x: number, y: number): void {
+  show(target: any, sat: UcScreenInfoSatisfaction, x: number, y: number): void {
     this.target = target
+    this.sat = sat
 
     this.analyzeEnableMenu()
 

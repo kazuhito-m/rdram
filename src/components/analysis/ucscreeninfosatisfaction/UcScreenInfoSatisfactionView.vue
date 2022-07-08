@@ -6,6 +6,7 @@
       @onOpenDiagram="onOpenDiagram"
       @onCreateRelateUcDiagram="onCreateRelateUcDiagram"
       @onRemoveUsecaseOnProduct="onRemoveUsecaseOnProduct"
+      @onOpenRelateDiagram="onOpenRelateDiagram"
     />
     <ResourceEditDialog ref="resourceEditDialog" />
     <UcRelatedDiagramPropertiesEditDialog ref="diagraEditDialog" />
@@ -110,8 +111,7 @@
                         color="primary"
                         :data-uc-id="satisfaction.ucId"
                         :data-screen-id="screen.id"
-                        @click="dummyClickEvent"
-                        @dblclick="onDoubleClickScreen"
+                        @click="onClickRelateResource"
                         @contextmenu.prevent="onRightClick"
                       >
                         <v-icon small>{{
@@ -149,8 +149,7 @@
                         color="success"
                         :data-uc-id="satisfaction.ucId"
                         :data-infomation-id="info.id"
-                        @click="dummyClickEvent"
-                        @dblclick="onDoubleClickInfomation"
+                        @click="onClickRelateResource"
                         @contextmenu.prevent="onRightClick"
                       >
                         <v-icon small>{{ info.resource.type.iconKey }}</v-icon>
@@ -224,6 +223,8 @@ import Resource from '@/domain/resource/Resource'
 import Product from '@/domain/product/Product'
 import Diagram from '@/domain/diagram/Diagram'
 import Prompts from '@/components/main/Prompts'
+import { relate } from 'relateurl'
+import RelatedResource from '~/domain/analysis/ucscreeninfosatisfaction/RelatedResource'
 
 @Component({
   components: {
@@ -276,9 +277,10 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
   onRightClick(event: PointerEvent): void {
     const element = event.currentTarget as HTMLElement
+    const sat = this.analyzeSatisfaction(element)
     const target = this.analyzeTargetOf(element)
     if (!target) return
-    this.showMenu(target, event.x, event.y)
+    this.showMenu(target, sat, event.x, event.y)
   }
 
   async onEditResource(resourceId: number): Promise<void> {
@@ -305,12 +307,18 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.deleteResourceOnProduct(sat)
   }
 
-  onDoubleClickScreen(): void {
-    alert('onDoubleClickScreen')
+  onOpenRelateDiagram(
+    resource: RelatedResource,
+    sat: UcScreenInfoSatisfaction
+  ) {
+    this.openRelateDiagram(resource, sat)
   }
 
-  onDoubleClickInfomation(): void {
-    alert('onDoubleClickInfomation')
+  onClickRelateResource(event: MouseEvent): void {
+    const element = event.currentTarget as HTMLElement
+    const sat = this.analyzeSatisfaction(element)
+    const target = this.analyzeTargetOf(element)
+    this.openRelateDiagram(target, sat)
   }
 
   onDoubleClickDiagram(event: MouseEvent): void {
@@ -360,13 +368,20 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     }, 1)
   }
 
-  private analyzeTargetOf(element: HTMLElement): any {
+  private analyzeSatisfaction(element: HTMLElement): UcScreenInfoSatisfaction {
     const dataSet = element.dataset as DOMStringMap
-    let target = null
     const ucId = Number(dataSet.ucId)
     const sat = this.satisfactions.find((s) => s.ucId === ucId)
+    return sat as UcScreenInfoSatisfaction
+  }
+
+  private analyzeTargetOf(element: HTMLElement): any {
+    const sat = this.analyzeSatisfaction(element)
     if (!sat) return
+
+    let target = null
     target = sat
+    const dataSet = element.dataset as DOMStringMap
     if (dataSet.screenId) {
       const id = Number(dataSet.screenId)
       const screen = sat.relatedScreens.find((s) => s.id === id)
@@ -388,9 +403,14 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     return target
   }
 
-  private showMenu(target: any, x: number, y: number): void {
+  private showMenu(
+    target: any,
+    sat: UcScreenInfoSatisfaction,
+    x: number,
+    y: number
+  ): void {
     const menu = this.$refs.columnRightClickMenu as ColumnRightClickMenu
-    menu.show(target, x, y)
+    menu.show(target, sat, x, y)
   }
 
   private resourceEditDialog(): ResourceEditDialog {
@@ -445,6 +465,15 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
     this.reloadSatisfactions()
     this.onUpdateResources()
+  }
+
+  private openRelateDiagram(
+    relatedResource: RelatedResource,
+    sat: UcScreenInfoSatisfaction
+  ) {
+    console.log('relatedResource:', relatedResource)
+    console.log('sat:', sat)
+    // alert(resource.name + ',' + resource.type.name + ',' + sat.usecase.name)
   }
 }
 </script>
