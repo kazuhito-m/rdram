@@ -1,12 +1,28 @@
 <template>
   <v-bottom-sheet v-model="visible" inset open-on-hover>
-    <v-sheet class="text-center" height="200px">
+    <v-sheet class="text-center" height="300px">
       <v-btn class="mt-6" text color="normal" @click="close">close</v-btn>
+      <div class="my-3">以下の関連がある図を開きます。</div>
+      <div class="my-3">
+        <v-chip color="primary">
+          <v-icon>{{ usecase().type.iconKey }}</v-icon>
+          {{ usecase().name }}
+        </v-chip>
+        <v-icon>mdi-arrow-left-right-bold</v-icon>
+        <v-chip color="primary">
+          <v-icon>{{ related().type.iconKey }}</v-icon>
+          {{ related().name }}
+        </v-chip>
+      </div>
       <div class="my-3">
         同じ関連が在る図が複数あります。どの図を開きますか？
       </div>
       <div class="my-3">
-        <span v-for="diagram in diagrams()" :key="diagram.id" class="diagram-chip">
+        <span
+          v-for="diagram in diagrams()"
+          :key="diagram.id"
+          class="diagram-chip"
+        >
           <v-chip outlined label color="info" @click="onClickDiagram(diagram)">
             <v-icon>{{ diagram.type.iconKey }}</v-icon>
             {{ diagram.name }}
@@ -23,6 +39,7 @@ import DiagramPropertiesEditDialog from '@/components/diagrams/editor/DiagramPro
 import Diagram from '@/domain/diagram/Diagram'
 import RelatedResource from '@/domain/analysis/ucscreeninfosatisfaction/RelatedResource'
 import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
+import Resource from '@/domain/resource/Resource'
 
 @Component({
   components: { DiagramPropertiesEditDialog },
@@ -63,7 +80,15 @@ export default class RelatedDiagramsSelector extends Vue {
     return this.relatedResource ? this.relatedResource.relateOnDiagrams : []
   }
 
-  // private method.
+  usecase(): Resource {
+    return this.sat ? this.sat.usecase : Resource.empty()
+  }
+
+  related(): Resource {
+    return this.relatedResource
+      ? this.relatedResource.resource
+      : Resource.empty()
+  }
 }
 </script>
 
