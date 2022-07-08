@@ -10,7 +10,7 @@
           </v-row>
           <v-row>
             <v-col class="pt-1 pb-1">
-              <v-chip color="primary" dark draggable>
+              <v-chip color="primary">
                 <v-icon>{{ usecase.type.iconKey }}</v-icon>
                 {{ usecase.name }}
               </v-chip>
