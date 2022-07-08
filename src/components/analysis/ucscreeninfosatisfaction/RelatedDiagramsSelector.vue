@@ -1,6 +1,6 @@
 <template>
   <v-bottom-sheet v-model="visible" inset open-on-hover>
-    <v-sheet class="text-center" height="300px">
+    <v-sheet class="text-center pb-6">
       <v-btn class="mt-6" text color="normal" @click="close">close</v-btn>
       <div class="my-3">以下の関連がある図を開きます。</div>
       <div class="my-3">
@@ -95,5 +95,6 @@ export default class RelatedDiagramsSelector extends Vue {
 <style scoped>
 .diagram-chip {
   padding-right: 25px;
+  padding-top: 10px;
 }
 </style>
