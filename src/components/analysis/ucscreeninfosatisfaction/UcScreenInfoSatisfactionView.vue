@@ -42,7 +42,7 @@
         </v-btn>
       </v-toolbar>
       <v-card class="main-area">
-        <v-simple-table dense fixed-header>
+        <v-simple-table dense fixed-header :height="ucTableHeight">
           <thead>
             <tr>
               <th class="text-left">No.</th>
@@ -245,6 +245,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   private readonly factory = UcScreenInfoSatisfactionsFactory.get()
   private readonly prompts = new Prompts()
 
+  ucTableHeight = ''
+
   @Inject()
   readonly repository!: StorageRepository
 
@@ -269,6 +271,9 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
   mounted(): void {
     this.reloadSatisfactions()
+
+    this.calcTableHeight()
+    window.addEventListener('resize', this.calcTableHeight)
   }
 
   onActive() {
@@ -483,6 +488,20 @@ export default class UcScreenInfoSatisfactionView extends Vue {
       .relatedDiagramsSelector as RelatedDiagramsSelector
     const selected = await selector.showOf(relatedResource, sat)
     this.onOpenDiagram(selected.id)
+  }
+
+  /**
+   * Layoutの最大値からv-simple-tableのheightを計算し設定する。
+   *
+   * 本来css等で設定するべきものなのだが、
+   * クライアント領域だけにスクロールバーを表示する方法が無いので、
+   * 強制的に計算して設定する。
+   */
+  private calcTableHeight(): void {
+    const layout = document.getElementsByClassName('layout')[0] as HTMLElement
+    const absLayout = layout.getBoundingClientRect()
+    const clientHeight = absLayout.height - 96
+    this.ucTableHeight = `${clientHeight}px`
   }
 }
 </script>
