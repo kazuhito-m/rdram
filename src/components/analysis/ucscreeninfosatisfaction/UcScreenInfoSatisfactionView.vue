@@ -424,14 +424,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   async showNewUseCaseCompositeDiagramDialog(
     sat: UcScreenInfoSatisfaction
   ): Promise<void> {
-    const product = this.repository.getCurrentProduct() as Product
-    const type = Rdra20DiagramType.ユースケース複合図
-    const diagram = product.createNewDiagram('', type)
-    const placemnt = diagram.createPlacementAtCenter(sat.usecase) as Placement
-    const withUc = diagram.addPlacement(placemnt)
-
     const dialog = this.$refs.diagraEditDialog as UcRelatedDiagramPropertiesEditDialog
-    const modified = await dialog.showOf(withUc, undefined)
+    const modified = await dialog.showOf(sat)
 
     if (modified.isNotRegister()) return
 
