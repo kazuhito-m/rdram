@@ -8,7 +8,7 @@
       @onRemoveUsecaseOnProduct="onRemoveUsecaseOnProduct"
     />
     <ResourceEditDialog ref="resourceEditDialog" />
-    <DiagramPropertiesEditDialog ref="diagraEditDialog" />
+    <UcRelatedDiagramPropertiesEditDialog ref="diagraEditDialog" />
     <v-card flat>
       <v-toolbar dense>
         <v-btn icon @click="reloadSatisfactions()">
@@ -215,7 +215,7 @@
 import { Component, Emit, Inject, Vue } from 'nuxt-property-decorator'
 import ColumnRightClickMenu from './ColumnRightClickMenu.vue'
 import ResourceEditDialog from '@/components/resource/ResourceEditDialog.vue'
-import DiagramPropertiesEditDialog from '@/components/diagrams/editor/DiagramPropertiesEditDialog.vue'
+import UcRelatedDiagramPropertiesEditDialog from './UcRelatedDiagramPropertiesEditDialog.vue'
 import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
 import UcScreenInfoSatisfactionsFactory from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfactionsFactory'
 import ResourceType from '@/domain/resource/ResourceType'
@@ -231,7 +231,7 @@ import Prompts from '~/components/main/Prompts'
   components: {
     ColumnRightClickMenu,
     ResourceEditDialog,
-    DiagramPropertiesEditDialog,
+    UcRelatedDiagramPropertiesEditDialog,
   },
 })
 export default class UcScreenInfoSatisfactionView extends Vue {
@@ -430,8 +430,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     const placemnt = diagram.createPlacementAtCenter(sat.usecase) as Placement
     const withUc = diagram.addPlacement(placemnt)
 
-    const dialog = this.$refs.diagraEditDialog as DiagramPropertiesEditDialog
-    const modified = await dialog.showOf(withUc)
+    const dialog = this.$refs.diagraEditDialog as UcRelatedDiagramPropertiesEditDialog
+    const modified = await dialog.showOf(withUc, undefined)
 
     if (modified.isNotRegister()) return
 

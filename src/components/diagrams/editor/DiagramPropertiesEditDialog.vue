@@ -11,6 +11,7 @@
     @onClickOk="onClickUpdateExecute"
   >
     <template #inputPart>
+      <slot name="headMessage"></slot>
       <v-container>
         <v-row>
           <v-col>
@@ -204,7 +205,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
 
   private register(diagram: Diagram, product: Product) {
     let modifiedProduct: Product
-    let registerd = diagram;
+    let registerd = diagram
     if (diagram.isNotRegister()) {
       modifiedProduct = product.addDiagram(diagram)
       registerd = modifiedProduct.diagrams.last()
