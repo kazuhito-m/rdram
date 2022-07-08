@@ -206,7 +206,7 @@ export default class DiagramPropertiesEditDialog extends Vue {
   private register(diagram: Diagram, product: Product) {
     let modifiedProduct: Product
     let registerd = diagram
-    if (diagram.isNotRegister()) {
+    if (this.source.isNotRegister()) {
       modifiedProduct = product.addDiagram(diagram)
       registerd = modifiedProduct.diagrams.last()
     } else {

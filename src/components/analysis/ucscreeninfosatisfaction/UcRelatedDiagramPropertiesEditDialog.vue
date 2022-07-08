@@ -42,8 +42,8 @@ import DiagramPropertiesEditDialog from '@/components/diagrams/editor/DiagramPro
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
 import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction/UcScreenInfoSatisfaction'
-import UseCaseCompositeDiagram from '~/domain/diagram/rdra20/usecasecomposite/UseCaseCompositeDiagram'
-import Placement from '~/domain/diagram/placement/Placement'
+import UseCaseCompositeDiagram from '@/domain/diagram/rdra20/usecasecomposite/UseCaseCompositeDiagram'
+import Placement from '@/domain/diagram/placement/Placement'
 
 @Component({
   components: { DiagramPropertiesEditDialog },
@@ -65,7 +65,7 @@ export default class UcRelatedDiagramPropertiesEditDialog extends Vue {
   // private method.
 
   private makeDiagram(): Diagram {
-    const diagram = UseCaseCompositeDiagram.prototypeOf(-1, '')
+    const diagram = UseCaseCompositeDiagram.prototypeOf(Number.MAX_VALUE, '')
     const placemnt = diagram.createPlacementAtCenter(this.usecase) as Placement
     return diagram.addPlacement(placemnt)
   }
