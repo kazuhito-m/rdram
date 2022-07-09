@@ -127,7 +127,6 @@ export default class ResourceParet extends Vue {
   private onShowResourceMenu(_r: Resource, _x: number, _y: number): void {}
 
   created(): void {
-    console.log('initial-paretsOpen:', this.openParetIndexs.join(','))
     this.diagram
       .availableResourceTypes()
       .forEach((resourceType) => this.availableResourceTypes.push(resourceType))
