@@ -30,7 +30,7 @@
       <v-list-item link @click="onClickOpenRelateDiagram">
         <v-list-item-title>この関連がある図を開く</v-list-item-title>
       </v-list-item>
-      <v-list-item link @click="onClickNotImplement">
+      <v-list-item link @click="onClickRemoveRelation">
         <v-list-item-title>この関連を削除</v-list-item-title>
       </v-list-item>
       <v-list-item link @click="onClickEditRelate">
@@ -89,11 +89,14 @@ export default class ColumnRightClickMenu extends Vue {
   @Emit('onRemoveUsecaseOnProduct')
   private onRemoveUsecaseOnProduct(_sat: UcScreenInfoSatisfaction): void {}
 
-  @Emit('onOpenRelateDiagram')
+  @Emit('nOpenRelateDiagram')
   private onOpenRelateDiagram(
     _resource: Resource,
     _sat: UcScreenInfoSatisfaction
   ) {}
+
+  @Emit('onRemoveRelation')
+  private onRemoveRelation(relate: RelatedResource): void {}
 
   // component events.
 
@@ -125,6 +128,11 @@ export default class ColumnRightClickMenu extends Vue {
   onClickOpenDiagram(): void {
     const diagram = this.target as Diagram
     this.onOpenDiagram(diagram.id)
+  }
+
+  onClickRemoveRelation(): void {
+    const relate = this.target as RelatedResource
+    this.onRemoveRelation(relate)
   }
 
   onClickNotImplement(): void {

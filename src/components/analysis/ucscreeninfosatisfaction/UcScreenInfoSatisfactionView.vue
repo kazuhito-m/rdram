@@ -7,6 +7,7 @@
       @onCreateRelateUcDiagram="onCreateRelateUcDiagram"
       @onRemoveUsecaseOnProduct="onRemoveUsecaseOnProduct"
       @onOpenRelateDiagram="onOpenRelateDiagram"
+      @onRemoveRelation="onRemoveRelation"
     />
     <ResourceEditDialog ref="resourceEditDialog" />
     <UcRelatedDiagramPropertiesEditDialog ref="diagraEditDialog" />
@@ -342,6 +343,10 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     const element = event.currentTarget as HTMLElement
     const sat = this.analyzeTargetOf(element) as UcScreenInfoSatisfaction
     await this.showNewUseCaseCompositeDiagramDialog(sat)
+  }
+
+  onRemoveRelation(relate: RelatedResource): void {
+    alert('onRemoveRelation:' + relate.resource.name)
   }
 
   dummyClickEvent(): void {}
