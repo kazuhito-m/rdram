@@ -342,8 +342,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     await this.showNewUseCaseCompositeDiagramDialog(sat)
   }
 
-  onRemoveRelation(relate: RelatedResource): void {
-    alert('onRemoveRelation:' + relate.resource.name)
+  onRemoveRelation(relate: RelatedResource, sat: UcScreenInfoSatisfaction): void {
+    this.removeRelation(relate, sat)
   }
 
   dummyClickEvent(): void {}
@@ -490,6 +490,10 @@ export default class UcScreenInfoSatisfactionView extends Vue {
       .relatedDiagramsSelector as RelatedDiagramsSelector
     const selected = await selector.showOf(relatedResource, sat)
     this.onOpenDiagram(selected.id)
+  }
+
+  private removeRelation(relate: RelatedResource, sat: UcScreenInfoSatisfaction): void {
+    alert('onRemoveRelation:' + relate.resource.name + ', sat.name:' + sat.usecase.name)
   }
 
   /**
