@@ -77,7 +77,7 @@ export default class RelatedDiagramsSelector extends Vue {
   }
 
   diagrams(): Diagram[] {
-    return this.relatedResource ? this.relatedResource.relateOnDiagrams : []
+    return this.relatedResource ? this.relatedResource.diagrams : []
   }
 
   usecase(): Resource {

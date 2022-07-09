@@ -479,7 +479,7 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     sat: UcScreenInfoSatisfaction
   ) {
     if (relatedResource.relateCount === 1) {
-      const diagram = relatedResource.relateOnDiagrams[0]
+      const diagram = relatedResource.diagrams[0]
       this.onOpenDiagram(diagram.id)
       return
     }

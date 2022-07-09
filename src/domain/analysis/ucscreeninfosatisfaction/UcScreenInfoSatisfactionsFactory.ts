@@ -1,6 +1,7 @@
 import RelatedResource from "./RelatedResource";
 import UcScreenInfoSatisfaction from "./UcScreenInfoSatisfaction";
 import UcScreenInfoSatisfactions from "./UcScreenInfoSatisfactios";
+import RelateOnDiagram from "./RelateOnDiagram";
 import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import Resources from "@/domain/resource/Resources";
@@ -32,18 +33,15 @@ export default class UcScreenInfoSatisfactionsFactory {
                 const otherSide = resourceDic.get(otherSideId);
                 if (!otherSide) return;
 
-                if (screenIds.includes(otherSideId)) {
-                    let sat = screenSatis.get(key);
-                    if (!sat) sat = new RelatedResource(otherSide, []);
-                    sat.relateOnDiagrams.push(diagram);
-                    screenSatis.set(key, sat);
-                }
-                if (infoIds.includes(otherSideId)) {
-                    let sat = infoSatis.get(key);
-                    if (!sat) sat = new RelatedResource(otherSide, []);
-                    sat.relateOnDiagrams.push(diagram);
-                    infoSatis.set(key, sat);
-                }
+                let addTargetSatis: Map<string, RelatedResource> | null = null;
+                if (screenIds.includes(otherSideId)) addTargetSatis = screenSatis;
+                if (infoIds.includes(otherSideId)) addTargetSatis = infoSatis;
+                if (!addTargetSatis) return;
+
+                let sat = addTargetSatis.get(key);
+                if (!sat) sat = new RelatedResource(otherSide, []);
+                sat.relateOnDiagrams.push(new RelateOnDiagram(diagram, relation.id));
+                addTargetSatis.set(key, sat);
             });
         });
 
