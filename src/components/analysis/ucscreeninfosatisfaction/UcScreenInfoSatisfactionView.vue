@@ -262,6 +262,9 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   @Emit('onUpdateResources')
   onUpdateResources(): void {}
 
+  @Emit('onRemovedRelations')
+  onRemovedRelations(_relationIds: string[]):void {}
+
   // properties.
 
   ucIcon = () => ResourceType.ユースケース.iconKey
@@ -493,7 +496,14 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   }
 
   private removeRelation(relate: RelatedResource, sat: UcScreenInfoSatisfaction): void {
-    alert('onRemoveRelation:' + relate.resource.name + ', sat.name:' + sat.usecase.name)
+    const relates = relate.relateOnDiagrams
+    const modifiedDiagrams = relates.map(r => r.diagram.removeRelationsOf([r.relationId]))
+    const product = this.repository.getCurrentProduct() as Product
+    const modifiedProduct =  product.meageDiagramsByIdOf(modifiedDiagrams)
+    this.repository.registerCurrentProduct(modifiedProduct)
+
+    this.reloadSatisfactions()
+    this.onRemovedRelations(relates.map(r => r.relationId))
   }
 
   /**

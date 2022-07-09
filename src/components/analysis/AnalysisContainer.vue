@@ -8,6 +8,7 @@
       @onRenamedResource="onRenamedResource"
       @onOpenDiagram="onOpenDiagram"
       @onUpdateResources="onUpdateResources"
+      @onRemovedRelations="onRemovedRelations"
     />
   </div>
 </template>
@@ -42,6 +43,9 @@ export default class AnalysisContainer extends Vue {
 
   @Emit('onOpenDiagram')
   onOpenDiagram(_diagramId: number): void {}
+
+  @Emit('onRemovedRelations')
+  onRemovedRelations(_relationIds: string[]):void {}
 
   @Watch('activeViewId')
   onChangeActiveView(): void {

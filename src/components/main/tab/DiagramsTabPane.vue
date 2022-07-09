@@ -54,6 +54,7 @@
           @onRenamedResource="onRenamedResource"
           @onOpenDiagram="onOpenDiagram"
           @onUpdateResources="onUpdateResoucesOnContainer"
+          @onRemovedRelations="onRemovedRelations"
         />
       </v-tab-item>
     </v-tabs-items>
@@ -142,6 +143,10 @@ export default class DiagramsTabPane extends Vue {
     const clickItem = this.itemOf(event)
     if (clickItem.isEmpty()) return
     this.onRightClick(clickItem, event.x, event.y)
+  }
+
+  onRemovedRelations(relationIds: string[]):void {
+    relationIds.forEach(i => console.log('削除された関連ID:' + i))
   }
 
   // public methods.
