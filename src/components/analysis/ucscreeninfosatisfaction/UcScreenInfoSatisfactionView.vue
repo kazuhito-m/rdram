@@ -315,11 +315,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.deleteResourceOnProduct(sat)
   }
 
-  onOpenRelateDiagram(
-    resource: RelatedResource,
-    sat: UcScreenInfoSatisfaction
-  ) {
-    this.openRelateDiagram(resource, sat)
+  onOpenRelateDiagram(relate: RelatedResource, sat: UcScreenInfoSatisfaction) {
+    this.openRelateDiagram(relate, sat)
   }
 
   onClickRelateResource(event: MouseEvent): void {

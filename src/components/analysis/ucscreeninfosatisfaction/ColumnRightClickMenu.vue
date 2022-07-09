@@ -89,14 +89,11 @@ export default class ColumnRightClickMenu extends Vue {
   @Emit('onRemoveUsecaseOnProduct')
   private onRemoveUsecaseOnProduct(_sat: UcScreenInfoSatisfaction): void {}
 
-  @Emit('nOpenRelateDiagram')
-  private onOpenRelateDiagram(
-    _resource: Resource,
-    _sat: UcScreenInfoSatisfaction
-  ) {}
+  @Emit('onOpenRelateDiagram')
+  private onOpenRelateDiagram(_relate: RelatedResource, _sat: UcScreenInfoSatisfaction) {}
 
   @Emit('onRemoveRelation')
-  private onRemoveRelation(relate: RelatedResource): void {}
+  private onRemoveRelation(_relate: RelatedResource, _sat: UcScreenInfoSatisfaction): void {}
 
   // component events.
 
@@ -116,8 +113,8 @@ export default class ColumnRightClickMenu extends Vue {
   }
 
   onClickOpenRelateDiagram(): void {
-    const resource = this.target as Resource
-    this.onOpenRelateDiagram(resource, this.sat)
+    const relate = this.target as RelatedResource
+    this.onOpenRelateDiagram(relate, this.sat)
   }
 
   onClickEditRelate(): void {
@@ -132,7 +129,7 @@ export default class ColumnRightClickMenu extends Vue {
 
   onClickRemoveRelation(): void {
     const relate = this.target as RelatedResource
-    this.onRemoveRelation(relate)
+    this.onRemoveRelation(relate, this.sat)
   }
 
   onClickNotImplement(): void {
