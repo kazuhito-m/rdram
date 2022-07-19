@@ -4,7 +4,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery UI :data 1.13.2
+ * jQuery UI :data 1.13.1
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -187,7 +187,7 @@ return $.ui.safeBlur = function( element ) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery UI Scroll Parent 1.13.2
+ * jQuery UI Scroll Parent 1.13.1
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -241,7 +241,7 @@ return $.fn.scrollParent = function( includeHidden ) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery UI Widget 1.13.2
+ * jQuery UI Widget 1.13.1
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -1003,7 +1003,7 @@ return $.widget;
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery UI Draggable 1.13.2
+ * jQuery UI Draggable 1.13.1
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -1043,7 +1043,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 "use strict";
 
 $.widget( "ui.draggable", $.ui.mouse, {
-	version: "1.13.2",
+	version: "1.13.1",
 	widgetEventPrefix: "drag",
 	options: {
 		addClasses: true,
@@ -2268,7 +2268,7 @@ return $.ui.draggable;
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery UI Droppable 1.13.2
+ * jQuery UI Droppable 1.13.1
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -2303,7 +2303,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 "use strict";
 
 $.widget( "ui.droppable", {
-	version: "1.13.2",
+	version: "1.13.1",
 	widgetEventPrefix: "drop",
 	options: {
 		accept: "*",
@@ -2792,7 +2792,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 $.ui = $.ui || {};
 
-return $.ui.version = "1.13.2";
+return $.ui.version = "1.13.1";
 
 } );
 
@@ -2803,7 +2803,7 @@ return $.ui.version = "1.13.2";
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery UI Mouse 1.13.2
+ * jQuery UI Mouse 1.13.1
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -2841,7 +2841,7 @@ $( document ).on( "mouseup", function() {
 } );
 
 return $.widget( "ui.mouse", {
-	version: "1.13.2",
+	version: "1.13.1",
 	options: {
 		cancel: "input, textarea, button, select, option",
 		distance: 1,
