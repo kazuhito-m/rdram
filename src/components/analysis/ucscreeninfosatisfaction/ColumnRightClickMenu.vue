@@ -57,7 +57,6 @@ import UcScreenInfoSatisfaction from '@/domain/analysis/ucscreeninfosatisfaction
 import RelatedResource from '@/domain/analysis/ucscreeninfosatisfaction/RelatedResource'
 import Diagram from '@/domain/diagram/Diagram'
 import ResourceType from '@/domain/resource/ResourceType'
-import Resource from '~/domain/resource/Resource'
 
 @Component
 export default class ColumnRightClickMenu extends Vue {

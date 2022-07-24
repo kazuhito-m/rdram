@@ -495,7 +495,7 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.onOpenDiagram(selected.id)
   }
 
-  private removeRelation(relate: RelatedResource, sat: UcScreenInfoSatisfaction): void {
+  private removeRelation(relate: RelatedResource, _sat: UcScreenInfoSatisfaction): void {
     const relates = relate.relateOnDiagrams
     const modifiedDiagrams = relates.map(r => r.diagram.removeRelationsOf([r.relationId]))
     const product = this.repository.getCurrentProduct() as Product
