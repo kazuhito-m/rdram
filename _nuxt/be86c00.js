@@ -13406,6 +13406,10 @@ __webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateCanvasR
 __webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateCanvasZoomValueOnDraw2d", function() { return DiagramsEditorTemplateCanvasZoomValueOnDraw2d; });
 __webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateDadDragAndDropResourceId", function() { return DiagramsEditorTemplateDadDragAndDropResourceId; });
 __webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateDadDragAndDropResourceType", function() { return DiagramsEditorTemplateDadDragAndDropResourceType; });
+__webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateEventAnalyzeResutEvents", function() { return DiagramsEditorTemplateEventAnalyzeResutEvents; });
+__webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateEventAnalyzer", function() { return DiagramsEditorTemplateEventAnalyzer; });
+__webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateEventGist", function() { return DiagramsEditorTemplateEventGist; });
+__webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateEventEventsOfType", function() { return DiagramsEditorTemplateEventEventsOfType; });
 __webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateIconActivityForBusinessFlowIconGenerator", function() { return DiagramsEditorTemplateIconActivityForBusinessFlowIconGenerator; });
 __webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateIconActorAndLaneIconGenerator", function() { return DiagramsEditorTemplateIconActorAndLaneIconGenerator; });
 __webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateIconBusinessIconGenerator", function() { return DiagramsEditorTemplateIconBusinessIconGenerator; });
@@ -13427,10 +13431,6 @@ __webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateIconTab
 __webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateIconUseCaseForStateModelIconGenerator", function() { return DiagramsEditorTemplateIconUseCaseForStateModelIconGenerator; });
 __webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateIconUseCaseIconGenerator", function() { return DiagramsEditorTemplateIconUseCaseIconGenerator; });
 __webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateIconVariationIconGenerator", function() { return DiagramsEditorTemplateIconVariationIconGenerator; });
-__webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateEventAnalyzeResutEvents", function() { return DiagramsEditorTemplateEventAnalyzeResutEvents; });
-__webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateEventAnalyzer", function() { return DiagramsEditorTemplateEventAnalyzer; });
-__webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateEventGist", function() { return DiagramsEditorTemplateEventGist; });
-__webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateEventEventsOfType", function() { return DiagramsEditorTemplateEventEventsOfType; });
 __webpack_require__.d(components_namespaceObject, "DiagramsEditorTemplateParetResourceParet", function() { return DiagramsEditorTemplateParetResourceParet; });
 __webpack_require__.d(components_namespaceObject, "DiagramsEditorRdra20BusinessflowdiagramEventBusinessFlowConnectPortsEvents", function() { return DiagramsEditorRdra20BusinessflowdiagramEventBusinessFlowConnectPortsEvents; });
 __webpack_require__.d(components_namespaceObject, "DiagramsEditorRdra20StatemodelEventStateModelConnectPortsEvents", function() { return DiagramsEditorRdra20StatemodelEventStateModelConnectPortsEvents; });
@@ -14794,6 +14794,26 @@ var DiagramsEditorTemplateDadDragAndDropResourceType = function DiagramsEditorTe
     return wrapFunctional(c.default || c);
   });
 };
+var DiagramsEditorTemplateEventAnalyzeResutEvents = function DiagramsEditorTemplateEventAnalyzeResutEvents() {
+  return __webpack_require__.e(/* import() | components/diagrams-editor-template-event-analyze-resut-events */ 38).then(__webpack_require__.bind(null, 902)).then(function (c) {
+    return wrapFunctional(c.default || c);
+  });
+};
+var DiagramsEditorTemplateEventAnalyzer = function DiagramsEditorTemplateEventAnalyzer() {
+  return __webpack_require__.e(/* import() | components/diagrams-editor-template-event-analyzer */ 39).then(__webpack_require__.bind(null, 826)).then(function (c) {
+    return wrapFunctional(c.default || c);
+  });
+};
+var DiagramsEditorTemplateEventGist = function DiagramsEditorTemplateEventGist() {
+  return __webpack_require__.e(/* import() | components/diagrams-editor-template-event-gist */ 46).then(__webpack_require__.bind(null, 901)).then(function (c) {
+    return wrapFunctional(c.default || c);
+  });
+};
+var DiagramsEditorTemplateEventEventsOfType = function DiagramsEditorTemplateEventEventsOfType() {
+  return __webpack_require__.e(/* import() | components/diagrams-editor-template-event-events-of-type */ 45).then(__webpack_require__.bind(null, 1019)).then(function (c) {
+    return wrapFunctional(c.default || c);
+  });
+};
 var DiagramsEditorTemplateIconActivityForBusinessFlowIconGenerator = function DiagramsEditorTemplateIconActivityForBusinessFlowIconGenerator() {
   return Promise.all(/* import() | components/diagrams-editor-template-icon-activity-for-business-flow-icon-generator */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(47)]).then(__webpack_require__.bind(null, 944)).then(function (c) {
     return wrapFunctional(c.default || c);
@@ -14896,26 +14916,6 @@ var DiagramsEditorTemplateIconUseCaseIconGenerator = function DiagramsEditorTemp
 };
 var DiagramsEditorTemplateIconVariationIconGenerator = function DiagramsEditorTemplateIconVariationIconGenerator() {
   return Promise.all(/* import() | components/diagrams-editor-template-icon-variation-icon-generator */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(67)]).then(__webpack_require__.bind(null, 920)).then(function (c) {
-    return wrapFunctional(c.default || c);
-  });
-};
-var DiagramsEditorTemplateEventAnalyzeResutEvents = function DiagramsEditorTemplateEventAnalyzeResutEvents() {
-  return __webpack_require__.e(/* import() | components/diagrams-editor-template-event-analyze-resut-events */ 38).then(__webpack_require__.bind(null, 902)).then(function (c) {
-    return wrapFunctional(c.default || c);
-  });
-};
-var DiagramsEditorTemplateEventAnalyzer = function DiagramsEditorTemplateEventAnalyzer() {
-  return __webpack_require__.e(/* import() | components/diagrams-editor-template-event-analyzer */ 39).then(__webpack_require__.bind(null, 826)).then(function (c) {
-    return wrapFunctional(c.default || c);
-  });
-};
-var DiagramsEditorTemplateEventGist = function DiagramsEditorTemplateEventGist() {
-  return __webpack_require__.e(/* import() | components/diagrams-editor-template-event-gist */ 46).then(__webpack_require__.bind(null, 901)).then(function (c) {
-    return wrapFunctional(c.default || c);
-  });
-};
-var DiagramsEditorTemplateEventEventsOfType = function DiagramsEditorTemplateEventEventsOfType() {
-  return __webpack_require__.e(/* import() | components/diagrams-editor-template-event-events-of-type */ 45).then(__webpack_require__.bind(null, 1019)).then(function (c) {
     return wrapFunctional(c.default || c);
   });
 };
