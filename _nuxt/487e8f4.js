@@ -4554,7 +4554,7 @@ var ResourceType_ResourceType = /*#__PURE__*/function () {
 
 
 ResourceType_ResourceType.ALL = [];
-ResourceType_ResourceType.システム = of(1, 'システム', 'mdi-desktop-mac-dashboard', 350, 75, [IconShape.その他カスタム]);
+ResourceType_ResourceType.システム = of(1, 'システム', 'mdi-monitor-dashboard', 350, 75, [IconShape.その他カスタム]);
 ResourceType_ResourceType.自社システム = of(2, '自社システム', 'mdi-desktop-tower-monitor');
 ResourceType_ResourceType.外部システム = of(3, '外部システム', 'mdi-server');
 ResourceType_ResourceType.目的 = of(4, '目的', 'mdi-bullseye-arrow', 0, 0, [IconShape.記述]);
