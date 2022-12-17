@@ -13,6 +13,10 @@ RDRAM
 
 <https://kazuhito-m.github.io/rdram> (暫定、近々変わります)
 
+## Prerequisite
+
+開発に使う `Node.js` のバージョンは、 CIのファイルである `.circleci/config.yml`, `.github/workflows/deploy.yml` を参照。
+
 ## author
 
 Kazuhito Miura ( [@kazuhito_m](https://twitter.com/kazuhito_m "kazuhito_m on Twitter") )
