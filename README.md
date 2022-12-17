@@ -1,5 +1,5 @@
 RDRAM
-==========================
+=====
 
 [![ci](https://github.com/kazuhito-m/rdram/actions/workflows/ci.yml/badge.svg)](https://github.com/kazuhito-m/rdram/actions/workflows/ci.yml) [![gh-pages-deploy](https://github.com/kazuhito-m/rdram/actions/workflows/deploy.yml/badge.svg)](https://github.com/kazuhito-m/rdram/actions/workflows/deploy.yml)
 
@@ -17,6 +17,6 @@ RDRAM
 
 開発に使う `Node.js` のバージョンは、 CIのファイルである `.circleci/config.yml`, `.github/workflows/deploy.yml` を参照。
 
-## author
+## Author
 
 Kazuhito Miura ( [@kazuhito_m](https://twitter.com/kazuhito_m "kazuhito_m on Twitter") )
