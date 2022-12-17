@@ -3,7 +3,7 @@ import { IconShape } from "./IconShape";
 export default class ResourceType {
     private static readonly ALL: any[] = [];
 
-    static システム = of(1, 'システム', 'mdi-desktop-mac-dashboard', 350, 75, [IconShape.その他カスタム]);
+    static システム = of(1, 'システム', 'mdi-monitor-dashboard', 350, 75, [IconShape.その他カスタム]);
     static 自社システム = of(2, '自社システム', 'mdi-desktop-tower-monitor');
     static 外部システム = of(3, '外部システム', 'mdi-server');
     static 目的 = of(4, '目的', 'mdi-bullseye-arrow', 0, 0, [IconShape.記述]);
