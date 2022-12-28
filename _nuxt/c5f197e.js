@@ -8,41 +8,40 @@
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return createSimpleFunctional; });
 /* unused harmony export directiveConfig */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addOnceEventListener; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return passiveSupported; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return passiveSupported; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return addPassiveEventListener; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return getNestedValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return getNestedValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return deepEqual; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return getObjectValueByPath; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return getPropertyFromItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return getObjectValueByPath; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return getPropertyFromItem; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return createRange; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return getZIndex; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return escapeHTML; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return filterObjectOnKeys; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return getZIndex; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return filterObjectOnKeys; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return convertToUnit; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return kebabCase; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return kebabCase; });
 /* unused harmony export isObject */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return keyCodes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return remapInternalIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return keys; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return keyCodes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return remapInternalIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return keys; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return camelize; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return arrayDiff; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return upperFirst; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return upperFirst; });
 /* unused harmony export groupItems */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "C", function() { return wrapInArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return wrapInArray; });
 /* unused harmony export sortItems */
 /* unused harmony export defaultFilter */
 /* unused harmony export searchItems */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return getSlotType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return getSlotType; });
 /* unused harmony export debounce */
 /* unused harmony export throttle */
 /* unused harmony export getPrefixedScopedSlots */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return getSlot; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return getSlot; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return clamp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return padEnd; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return padEnd; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return chunk; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return humanReadableFileSize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return humanReadableFileSize; });
 /* unused harmony export camelizeObjectKeys */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return mergeDeep; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return mergeDeep; });
 /* unused harmony export fillArray */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return composedPath; });
 /* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(14);
@@ -265,16 +264,6 @@ function getZIndex(el) {
   var index = +window.getComputedStyle(el).getPropertyValue('z-index');
   if (!index) return getZIndex(el.parentNode);
   return index;
-}
-var tagsToReplace = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;'
-};
-function escapeHTML(str) {
-  return str.replace(/[&<>]/g, function (tag) {
-    return tagsToReplace[tag] || tag;
-  });
 }
 function filterObjectOnKeys(obj, keys) {
   var filtered = {};
@@ -9003,7 +8992,7 @@ var helpers = __webpack_require__(2);
       return this.$createElement('div', {
         staticClass: 'v-messages__message',
         key: key
-      }, Object(helpers["q" /* getSlot */])(this, 'default', {
+      }, Object(helpers["p" /* getSlot */])(this, 'default', {
         message: message,
         key: key
       }) || [message]);
@@ -9185,15 +9174,16 @@ var baseMixins = Object(mixins["a" /* default */])(binds_attrs["a" /* default */
 
       var extraData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
       var icon = this["".concat(type, "Icon")];
-      var eventName = "click:".concat(Object(helpers["u" /* kebabCase */])(type));
+      var eventName = "click:".concat(Object(helpers["t" /* kebabCase */])(type));
       var hasListener = !!(this.listeners$[eventName] || cb);
       var data = Object(mergeData["a" /* default */])({
         attrs: {
-          'aria-label': hasListener ? Object(helpers["u" /* kebabCase */])(type).split('-')[0] + ' icon' : undefined,
+          'aria-label': hasListener ? Object(helpers["t" /* kebabCase */])(type).split('-')[0] + ' icon' : undefined,
           color: this.validationState,
           dark: this.dark,
           disabled: this.isDisabled,
-          light: this.light
+          light: this.light,
+          tabindex: type === 'clear' ? -1 : undefined
         },
         on: !hasListener ? undefined : {
           click: function click(e) {
@@ -9214,7 +9204,7 @@ var baseMixins = Object(mixins["a" /* default */])(binds_attrs["a" /* default */
       }, extraData);
       return this.$createElement('div', {
         staticClass: "v-input__icon",
-        class: type ? "v-input__icon--".concat(Object(helpers["u" /* kebabCase */])(type)) : undefined
+        class: type ? "v-input__icon--".concat(Object(helpers["t" /* kebabCase */])(type)) : undefined
       }, [this.$createElement(VIcon["a" /* default */], data, icon)]);
     },
     genInputSlot: function genInputSlot() {
@@ -9260,7 +9250,7 @@ var baseMixins = Object(mixins["a" /* default */])(binds_attrs["a" /* default */
         },
         scopedSlots: {
           default: function _default(props) {
-            return Object(helpers["q" /* getSlot */])(_this3, 'message', props);
+            return Object(helpers["p" /* getSlot */])(_this3, 'message', props);
           }
         }
       });
@@ -9577,13 +9567,13 @@ function mergeData() {
 function mergeStyles(target, source) {
   if (!target) return source;
   if (!source) return target;
-  target = Object(_helpers__WEBPACK_IMPORTED_MODULE_20__[/* wrapInArray */ "C"])(typeof target === 'string' ? parseStyle(target) : target);
+  target = Object(_helpers__WEBPACK_IMPORTED_MODULE_20__[/* wrapInArray */ "B"])(typeof target === 'string' ? parseStyle(target) : target);
   return target.concat(typeof source === 'string' ? parseStyle(source) : source);
 }
 function mergeClasses(target, source) {
   if (!source) return target;
   if (!target) return source;
-  return target ? Object(_helpers__WEBPACK_IMPORTED_MODULE_20__[/* wrapInArray */ "C"])(target).concat(source) : source;
+  return target ? Object(_helpers__WEBPACK_IMPORTED_MODULE_20__[/* wrapInArray */ "B"])(target).concat(source) : source;
 }
 function mergeListeners() {
   if (!(arguments.length <= 0 ? undefined : arguments[0])) return arguments.length <= 1 ? undefined : arguments[1];
@@ -10073,6 +10063,8 @@ var ripples = {
       animation.classList.remove('v-ripple__animation--in');
       animation.classList.add('v-ripple__animation--out');
       setTimeout(function () {
+        var _a;
+
         var ripples = el.getElementsByClassName('v-ripple__animation');
 
         if (ripples.length === 1 && el.dataset.previousPosition) {
@@ -10080,7 +10072,7 @@ var ripples = {
           delete el.dataset.previousPosition;
         }
 
-        animation.parentNode && el.removeChild(animation.parentNode);
+        if (((_a = animation.parentNode) === null || _a === void 0 ? void 0 : _a.parentNode) === el) el.removeChild(animation.parentNode);
       }, 300);
     }, delay);
   }
@@ -10173,7 +10165,7 @@ function rippleCancelShow(e) {
 var keyboardRipple = false;
 
 function keyboardRippleShow(e) {
-  if (!keyboardRipple && (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_5__[/* keyCodes */ "v"].enter || e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_5__[/* keyCodes */ "v"].space)) {
+  if (!keyboardRipple && (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_5__[/* keyCodes */ "u"].enter || e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_5__[/* keyCodes */ "u"].space)) {
     keyboardRipple = true;
     rippleShow(e);
   }
@@ -10939,7 +10931,7 @@ var dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'mo
       this.badInput = target.validity && target.validity.badInput;
     },
     onKeyDown: function onKeyDown(e) {
-      if (e.keyCode === helpers["v" /* keyCodes */].enter && this.lazyValue !== this.initialValue) {
+      if (e.keyCode === helpers["u" /* keyCodes */].enter && this.lazyValue !== this.initialValue) {
         this.initialValue = this.lazyValue;
         this.$emit('change', this.initialValue);
       }
@@ -11249,7 +11241,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       var path = '_vnode.data.class.' + (this.exact ? exactActiveClass : activeClass);
       this.$nextTick(function () {
         /* istanbul ignore else */
-        if (!Object(_util_helpers__WEBPACK_IMPORTED_MODULE_15__[/* getObjectValueByPath */ "o"])(_this.$refs.link, path) === _this.isActive) {
+        if (!Object(_util_helpers__WEBPACK_IMPORTED_MODULE_15__[/* getObjectValueByPath */ "n"])(_this.$refs.link, path) === _this.isActive) {
           _this.toggle();
         }
       });
@@ -11565,7 +11557,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         style: {
           height: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_15__[/* convertToUnit */ "h"])(this.computedContentHeight)
         }
-      }, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_15__[/* getSlot */ "q"])(this));
+      }, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_15__[/* getSlot */ "p"])(this));
     },
     genExtension: function genExtension() {
       return this.$createElement('div', {
@@ -11573,7 +11565,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         style: {
           height: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_15__[/* convertToUnit */ "h"])(this.extensionHeight)
         }
-      }, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_15__[/* getSlot */ "q"])(this, 'extension'));
+      }, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_15__[/* getSlot */ "p"])(this, 'extension'));
     }
   },
   render: function render(h) {
@@ -11829,7 +11821,7 @@ var baseMixins = Object(mixins["a" /* default */])(binds_attrs["a" /* default */
             name: 'show',
             value: _this2.isActive
           }]
-        }, Object(helpers["q" /* getSlot */])(_this2))];
+        }, Object(helpers["p" /* getSlot */])(_this2))];
       });
     },
     genPrependIcon: function genPrependIcon() {
@@ -12389,9 +12381,9 @@ function parseHex(hex) {
   }
 
   if (hex.length === 6) {
-    hex = Object(_helpers__WEBPACK_IMPORTED_MODULE_24__[/* padEnd */ "y"])(hex, 8, 'F');
+    hex = Object(_helpers__WEBPACK_IMPORTED_MODULE_24__[/* padEnd */ "x"])(hex, 8, 'F');
   } else {
-    hex = Object(_helpers__WEBPACK_IMPORTED_MODULE_24__[/* padEnd */ "y"])(Object(_helpers__WEBPACK_IMPORTED_MODULE_24__[/* padEnd */ "y"])(hex, 6), 8, 'F');
+    hex = Object(_helpers__WEBPACK_IMPORTED_MODULE_24__[/* padEnd */ "x"])(Object(_helpers__WEBPACK_IMPORTED_MODULE_24__[/* padEnd */ "x"])(hex, 6), 8, 'F');
   }
 
   return "#".concat(hex).toUpperCase().substr(0, 9);
@@ -12687,7 +12679,7 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_7__[/* default */ 
     openOnHover: 'resetActivator'
   },
   mounted: function mounted() {
-    var slotType = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_8__[/* getSlotType */ "r"])(this, 'activator', true);
+    var slotType = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_8__[/* getSlotType */ "q"])(this, 'activator', true);
 
     if (slotType && ['v-slot', 'normal'].includes(slotType)) {
       Object(_util_console__WEBPACK_IMPORTED_MODULE_9__[/* consoleError */ "b"])("The activator slot must be bound, try '<template v-slot:activator=\"{ on }\"><v-btn v-on=\"on\">'", this);
@@ -12710,7 +12702,7 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_7__[/* default */ 
       }
     },
     genActivator: function genActivator() {
-      var node = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_8__[/* getSlot */ "q"])(this, 'activator', Object.assign(this.getValueProxy(), {
+      var node = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_8__[/* getSlot */ "p"])(this, 'activator', Object.assign(this.getValueProxy(), {
         on: this.genActivatorListeners(),
         attrs: this.genActivatorAttributes()
       })) || [];
@@ -12806,7 +12798,7 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_7__[/* default */ 
       return this.activatorElement;
     },
     getContentSlot: function getContentSlot() {
-      return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_8__[/* getSlot */ "q"])(this, 'default', this.getValueProxy(), true);
+      return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_8__[/* getSlot */ "p"])(this, 'default', this.getValueProxy(), true);
     },
     getValueProxy: function getValueProxy() {
       var self = this;
@@ -16028,7 +16020,7 @@ function checkIsActive(e, binding) {
   return isActive(e);
 }
 
-function directive(e, el, binding, vnode) {
+function directive(e, el, binding) {
   var handler = typeof binding.value === 'function' ? binding.value : binding.value.handler;
   el._clickOutside.lastMousedownWasOutside && checkEvent(e, el, binding) && setTimeout(function () {
     checkIsActive(e, binding) && handler && handler(e);
@@ -16052,7 +16044,7 @@ var ClickOutside = {
   // clicks on body
   inserted: function inserted(el, binding, vnode) {
     var onClick = function onClick(e) {
-      return directive(e, el, binding, vnode);
+      return directive(e, el, binding);
     };
 
     var onMousedown = function onMousedown(e) {
@@ -16115,7 +16107,7 @@ function factory() {
   var selected = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   return vue__WEBPACK_IMPORTED_MODULE_0__["default"].extend({
     name: 'positionable',
-    props: selected.length ? Object(_util_helpers__WEBPACK_IMPORTED_MODULE_1__[/* filterObjectOnKeys */ "m"])(availableProps, selected) : availableProps
+    props: selected.length ? Object(_util_helpers__WEBPACK_IMPORTED_MODULE_1__[/* filterObjectOnKeys */ "l"])(availableProps, selected) : availableProps
   });
 }
 /* harmony default export */ __webpack_exports__["a"] = (factory()); // Add a `*` before the second `/`
@@ -16412,7 +16404,7 @@ var helpers = __webpack_require__(2);
   var expandedParentClass = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   var x = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   var sizeProperty = x ? 'width' : 'height';
-  var offsetProperty = "offset".concat(Object(helpers["B" /* upperFirst */])(sizeProperty));
+  var offsetProperty = "offset".concat(Object(helpers["A" /* upperFirst */])(sizeProperty));
   return {
     beforeEnter: function beforeEnter(el) {
       el._parent = el.parentNode;
@@ -17955,7 +17947,7 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_17__[/* default */
       keydown: function keydown(e) {
         if (!_this.disabled) {
           /* istanbul ignore else */
-          if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_15__[/* keyCodes */ "v"].enter) _this.click(e);
+          if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_15__[/* keyCodes */ "u"].enter) _this.click(e);
 
           _this.$emit('keydown', e);
         }
@@ -18612,7 +18604,7 @@ function MutationAction(paramsOrTarget, key, descriptor) {
         if (_this.activeZIndex !== undefined) {
           _this.overlay.zIndex = String(_this.activeZIndex - 1);
         } else if (_this.$el) {
-          _this.overlay.zIndex = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__[/* getZIndex */ "s"])(_this.$el);
+          _this.overlay.zIndex = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__[/* getZIndex */ "r"])(_this.$el);
         }
 
         _this.overlay.value = true;
@@ -18649,8 +18641,8 @@ function MutationAction(paramsOrTarget, key, descriptor) {
       if ('key' in e) {
         if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName) || // https://github.com/vuetifyjs/vuetify/issues/4715
         e.target.isContentEditable) return;
-        var up = [_util_helpers__WEBPACK_IMPORTED_MODULE_4__[/* keyCodes */ "v"].up, _util_helpers__WEBPACK_IMPORTED_MODULE_4__[/* keyCodes */ "v"].pageup];
-        var down = [_util_helpers__WEBPACK_IMPORTED_MODULE_4__[/* keyCodes */ "v"].down, _util_helpers__WEBPACK_IMPORTED_MODULE_4__[/* keyCodes */ "v"].pagedown];
+        var up = [_util_helpers__WEBPACK_IMPORTED_MODULE_4__[/* keyCodes */ "u"].up, _util_helpers__WEBPACK_IMPORTED_MODULE_4__[/* keyCodes */ "u"].pageup];
+        var down = [_util_helpers__WEBPACK_IMPORTED_MODULE_4__[/* keyCodes */ "u"].down, _util_helpers__WEBPACK_IMPORTED_MODULE_4__[/* keyCodes */ "u"].pagedown];
 
         if (up.includes(e.keyCode)) {
           e.deltaY = -1;
@@ -19012,7 +19004,11 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_13__[/* default */
       }
     },
     checkActivatorFixed: function checkActivatorFixed() {
-      if (this.attach !== false) return;
+      if (this.attach !== false) {
+        this.activatorFixed = false;
+        return;
+      }
+
       var el = this.getActivator();
 
       while (el) {
@@ -19529,7 +19525,7 @@ var presets_Presets = /*#__PURE__*/function (_Service) {
 
     _this = _super.call(this); // The default preset
 
-    var defaultPreset = Object(helpers["x" /* mergeDeep */])({}, default_preset); // The user provided preset
+    var defaultPreset = Object(helpers["w" /* mergeDeep */])({}, default_preset); // The user provided preset
 
     var userPreset = parent.userPreset; // The user provided global preset
 
@@ -19541,7 +19537,7 @@ var presets_Presets = /*#__PURE__*/function (_Service) {
       Object(console["c" /* consoleWarn */])('Global presets do not support the **preset** option, it can be safely omitted');
     }
 
-    parent.preset = Object(helpers["x" /* mergeDeep */])(Object(helpers["x" /* mergeDeep */])(defaultPreset, globalPreset), preset);
+    parent.preset = Object(helpers["w" /* mergeDeep */])(Object(helpers["w" /* mergeDeep */])(defaultPreset, globalPreset), preset);
     return _this;
   }
 
@@ -20077,7 +20073,7 @@ var icons_Icons = /*#__PURE__*/function (_Service) {
         component = _preset$Icons$propert.component;
     _this.component = component;
     _this.iconfont = iconfont;
-    _this.values = Object(helpers["x" /* mergeDeep */])(presets[iconfont], values);
+    _this.values = Object(helpers["w" /* mergeDeep */])(presets[iconfont], values);
     return _this;
   }
 
@@ -20130,7 +20126,7 @@ function getTranslation(locale, key) {
   var usingDefault = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
   var defaultLocale = arguments.length > 3 ? arguments[3] : undefined;
   var shortKey = key.replace(LANG_PREFIX, '');
-  var translation = Object(helpers["o" /* getObjectValueByPath */])(locale, shortKey, fallback);
+  var translation = Object(helpers["n" /* getObjectValueByPath */])(locale, shortKey, fallback);
 
   if (translation === fallback) {
     if (usingDefault) {
@@ -20355,7 +20351,7 @@ function genStyles(theme) {
     var value = theme[name];
     css += genBaseColor(name, cssVar ? genColorVariable(name) : value.base);
     cssVar && (variablesCss += "  ".concat(genColorVariableName(name), ": ").concat(value.base, ";\n"));
-    var variants = Object(helpers["w" /* keys */])(value);
+    var variants = Object(helpers["v" /* keys */])(value);
 
     for (var _i = 0; _i < variants.length; ++_i) {
       var _variant = variants[_i];
@@ -20696,7 +20692,7 @@ var theme_Theme = /*#__PURE__*/function (_Service) {
   }, {
     key: "parsedTheme",
     get: function get() {
-      return parse(this.currentTheme || {}, undefined, Object(helpers["n" /* getNestedValue */])(this.options, ['variations'], true));
+      return parse(this.currentTheme || {}, undefined, Object(helpers["m" /* getNestedValue */])(this.options, ['variations'], true));
     } // Is using v2.3 of vue-meta
     // https://github.com/nuxt/vue-meta/releases/tag/v2.3.0
 
@@ -20779,7 +20775,7 @@ var framework_Vuetify = /*#__PURE__*/function () {
 
 framework_Vuetify.install = install;
 framework_Vuetify.installed = false;
-framework_Vuetify.version = "2.6.9";
+framework_Vuetify.version = "2.6.13";
 framework_Vuetify.config = {
   silent: false
 };
@@ -21097,7 +21093,7 @@ function removeActivator(activator) {
   },
   methods: {
     getScopeIdAttrs: function getScopeIdAttrs() {
-      var scopeId = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_9__[/* getObjectValueByPath */ "o"])(this.$vnode, 'context.$options._scopeId');
+      var scopeId = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_9__[/* getObjectValueByPath */ "n"])(this.$vnode, 'context.$options._scopeId');
       return scopeId && Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({}, scopeId, '');
     },
     initDetach: function initDetach() {
@@ -21212,7 +21208,7 @@ function removeActivator(activator) {
       if (typeof window === 'undefined') return 0;
       var content = this.stackElement || this.$refs.content; // Return current zindex if not active
 
-      var index = !this.isActive ? Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__[/* getZIndex */ "s"])(content) : this.getMaxZIndex(this.stackExclude || [content]) + 2;
+      var index = !this.isActive ? Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__[/* getZIndex */ "r"])(content) : this.getMaxZIndex(this.stackExclude || [content]) + 2;
       if (index == null) return index; // Return max current z-index (excluding self) + 2
       // (2 to leave room for an overlay below, if needed)
 
@@ -21225,7 +21221,7 @@ function removeActivator(activator) {
       var base = this.$el; // Start with lowest allowed z-index or z-index of
       // base component's element, whichever is greater
 
-      var zis = [this.stackMinZIndex, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__[/* getZIndex */ "s"])(base)]; // Convert the NodeList to an array to
+      var zis = [this.stackMinZIndex, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__[/* getZIndex */ "r"])(base)]; // Convert the NodeList to an array to
       // prevent an Edge bug with Symbol.iterator
       // https://github.com/vuetifyjs/vuetify/issues/2146
 
@@ -21233,7 +21229,7 @@ function removeActivator(activator) {
 
       for (var index = 0; index < activeElements.length; index++) {
         if (!exclude.includes(activeElements[index])) {
-          zis.push(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__[/* getZIndex */ "s"])(activeElements[index]));
+          zis.push(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__[/* getZIndex */ "r"])(activeElements[index]));
         }
       }
 
@@ -21863,7 +21859,7 @@ var helpers = __webpack_require__(2);
       return this.$createElement('div', {
         staticClass: 'v-responsive__content',
         class: this.contentClass
-      }, Object(helpers["q" /* getSlot */])(this));
+      }, Object(helpers["p" /* getSlot */])(this));
     }
   },
   render: function render(h) {
@@ -22113,7 +22109,7 @@ var hasIntersect = typeof window !== 'undefined' && 'IntersectionObserver' in wi
       return content;
     },
     __genPlaceholder: function __genPlaceholder() {
-      var slot = Object(helpers["q" /* getSlot */])(this, 'placeholder');
+      var slot = Object(helpers["p" /* getSlot */])(this, 'placeholder');
 
       if (slot) {
         var placeholder = this.isLoading ? [this.$createElement('div', {
@@ -23066,7 +23062,7 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_18__[/* default */
   },
   methods: {
     genContent: function genContent() {
-      var slot = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_17__[/* getSlot */ "q"])(this, 'default', {
+      var slot = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_17__[/* getSlot */ "p"])(this, 'default', {
         value: this.internalLazyValue
       });
       if (!slot) return null;
@@ -23267,7 +23263,7 @@ var VIcon = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_23__[/* default */ "a"]
     getIcon: function getIcon() {
       var iconName = '';
       if (this.$slots.default) iconName = this.$slots.default[0].text.trim();
-      return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_21__[/* remapInternalIcon */ "A"])(this, iconName);
+      return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_21__[/* remapInternalIcon */ "z"])(this, iconName);
     },
     getSize: function getSize() {
       var sizes = {
@@ -23277,7 +23273,7 @@ var VIcon = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_23__[/* default */ "a"]
         large: this.large,
         xLarge: this.xLarge
       };
-      var explicitSize = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_21__[/* keys */ "w"])(sizes).find(function (key) {
+      var explicitSize = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_21__[/* keys */ "v"])(sizes).find(function (key) {
         return sizes[key];
       });
       return explicitSize && SIZE_MAP[explicitSize] || Object(_util_helpers__WEBPACK_IMPORTED_MODULE_21__[/* convertToUnit */ "h"])(this.size);
@@ -23923,18 +23919,18 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_29__[/* default */
 
       if (!this.isActive || !this.hasClickableTiles) {
         return;
-      } else if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "v"].tab) {
+      } else if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "u"].tab) {
         this.isActive = false;
         return;
-      } else if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "v"].down) {
+      } else if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "u"].down) {
         this.nextTile();
-      } else if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "v"].up) {
+      } else if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "u"].up) {
         this.prevTile();
-      } else if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "v"].end) {
+      } else if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "u"].end) {
         this.lastTile();
-      } else if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "v"].home) {
+      } else if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "u"].home) {
         this.firstTile();
-      } else if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "v"].enter && this.listIndex !== -1) {
+      } else if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "u"].enter && this.listIndex !== -1) {
         this.tiles[this.listIndex].click();
       } else {
         return;
@@ -24112,7 +24108,7 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_29__[/* default */
     onKeyDown: function onKeyDown(e) {
       var _this6 = this;
 
-      if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "v"].esc) {
+      if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "u"].esc) {
         // Wait for dependent elements to close first
         setTimeout(function () {
           _this6.isActive = false;
@@ -24121,7 +24117,7 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_29__[/* default */
         this.$nextTick(function () {
           return activator && activator.focus();
         });
-      } else if (!this.isActive && [_util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "v"].up, _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "v"].down].includes(e.keyCode)) {
+      } else if (!this.isActive && [_util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "u"].up, _util_helpers__WEBPACK_IMPORTED_MODULE_31__[/* keyCodes */ "u"].down].includes(e.keyCode)) {
         this.isActive = true;
       } // Allow for isActive watcher to generate tile list
 
@@ -24824,7 +24820,7 @@ function inserted(el, binding, vnode) {
   var handlers = createHandlers(binding.value);
   target._touchHandlers = Object(target._touchHandlers);
   target._touchHandlers[vnode.context._uid] = handlers;
-  Object(_util_helpers__WEBPACK_IMPORTED_MODULE_2__[/* keys */ "w"])(handlers).forEach(function (eventName) {
+  Object(_util_helpers__WEBPACK_IMPORTED_MODULE_2__[/* keys */ "v"])(handlers).forEach(function (eventName) {
     target.addEventListener(eventName, handlers[eventName], options);
   });
 }
@@ -24833,7 +24829,7 @@ function unbind(el, binding, vnode) {
   var target = binding.value.parent ? el.parentElement : el;
   if (!target || !target._touchHandlers) return;
   var handlers = target._touchHandlers[vnode.context._uid];
-  Object(_util_helpers__WEBPACK_IMPORTED_MODULE_2__[/* keys */ "w"])(handlers).forEach(function (eventName) {
+  Object(_util_helpers__WEBPACK_IMPORTED_MODULE_2__[/* keys */ "v"])(handlers).forEach(function (eventName) {
     target.removeEventListener(eventName, handlers[eventName]);
   });
   delete target._touchHandlers[vnode.context._uid];
@@ -48908,7 +48904,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(27);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-text-field>.v-input__control>.v-input__slot:before{border-color:rgba(0,0,0,.42)}.theme--light.v-text-field:not(.v-input--has-state):hover>.v-input__control>.v-input__slot:before{border-color:rgba(0,0,0,.87)}.theme--light.v-text-field.v-input--is-disabled .v-input__slot:before{-o-border-image:repeating-linear-gradient(90deg,rgba(0,0,0,.38) 0,rgba(0,0,0,.38) 2px,transparent 0,transparent 4px) 1 repeat;border-image:repeating-linear-gradient(90deg,rgba(0,0,0,.38) 0,rgba(0,0,0,.38) 2px,transparent 0,transparent 4px) 1 repeat}.theme--light.v-text-field--filled>.v-input__control>.v-input__slot{background:rgba(0,0,0,.06)}.theme--light.v-text-field--filled:not(.v-input--is-focused):not(.v-input--has-state)>.v-input__control>.v-input__slot:hover{background:rgba(0,0,0,.12)}.theme--light.v-text-field--solo>.v-input__control>.v-input__slot{background:#fff}.theme--light.v-text-field--solo-inverted>.v-input__control>.v-input__slot{background:rgba(0,0,0,.06)}.theme--light.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot{background:#424242}.theme--light.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input{color:#fff}.theme--light.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input::-moz-placeholder{color:hsla(0,0%,100%,.5)}.theme--light.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input:-ms-input-placeholder{color:hsla(0,0%,100%,.5)}.theme--light.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input::placeholder{color:hsla(0,0%,100%,.5)}.theme--light.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot .v-label{color:hsla(0,0%,100%,.7)}.theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state)>.v-input__control>.v-input__slot fieldset{color:rgba(0,0,0,.38)}.theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state):not(.v-input--is-disabled)>.v-input__control>.v-input__slot:hover fieldset{color:rgba(0,0,0,.86)}.theme--light.v-text-field--outlined:not(.v-input--is-focused).v-input--is-disabled>.v-input__control>.v-input__slot fieldset{color:rgba(0,0,0,.26)}.theme--dark.v-text-field>.v-input__control>.v-input__slot:before{border-color:hsla(0,0%,100%,.7)}.theme--dark.v-text-field:not(.v-input--has-state):hover>.v-input__control>.v-input__slot:before{border-color:#fff}.theme--dark.v-text-field.v-input--is-disabled .v-input__slot:before{-o-border-image:repeating-linear-gradient(90deg,hsla(0,0%,100%,.5) 0,hsla(0,0%,100%,.5) 2px,transparent 0,transparent 4px) 1 repeat;border-image:repeating-linear-gradient(90deg,hsla(0,0%,100%,.5) 0,hsla(0,0%,100%,.5) 2px,transparent 0,transparent 4px) 1 repeat}.theme--dark.v-text-field--filled>.v-input__control>.v-input__slot{background:hsla(0,0%,100%,.08)}.theme--dark.v-text-field--filled:not(.v-input--is-focused):not(.v-input--has-state)>.v-input__control>.v-input__slot:hover{background:hsla(0,0%,100%,.16)}.theme--dark.v-text-field--solo>.v-input__control>.v-input__slot{background:#1e1e1e}.theme--dark.v-text-field--solo-inverted>.v-input__control>.v-input__slot{background:hsla(0,0%,100%,.16)}.theme--dark.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot{background:#fff}.theme--dark.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input{color:rgba(0,0,0,.87)}.theme--dark.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input::-moz-placeholder{color:rgba(0,0,0,.38)}.theme--dark.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input:-ms-input-placeholder{color:rgba(0,0,0,.38)}.theme--dark.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input::placeholder{color:rgba(0,0,0,.38)}.theme--dark.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot .v-label{color:rgba(0,0,0,.6)}.theme--dark.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state)>.v-input__control>.v-input__slot fieldset{color:hsla(0,0%,100%,.24)}.theme--dark.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state):not(.v-input--is-disabled)>.v-input__control>.v-input__slot:hover fieldset{color:#fff}.theme--dark.v-text-field--outlined:not(.v-input--is-focused).v-input--is-disabled>.v-input__control>.v-input__slot fieldset{color:hsla(0,0%,100%,.16)}.v-text-field{padding-top:12px;margin-top:4px}.v-text-field__prefix,.v-text-field__suffix{line-height:20px}.v-text-field input{flex:1 1 auto;line-height:20px;padding:8px 0;max-width:100%;min-width:0;width:100%}.v-text-field .v-input__control,.v-text-field .v-input__slot,.v-text-field fieldset{border-radius:inherit}.v-text-field.v-input--has-state .v-input__control>.v-text-field__details>.v-counter,.v-text-field.v-input--is-disabled .v-input__control>.v-text-field__details>.v-counter,.v-text-field.v-input--is-disabled .v-input__control>.v-text-field__details>.v-messages,.v-text-field .v-input__control,.v-text-field fieldset{color:currentColor}.v-text-field.v-input--dense{padding-top:0}.v-text-field.v-input--dense .v-label{top:4px}.v-text-field.v-input--dense:not(.v-text-field--outlined) .v-text-field__prefix,.v-text-field.v-input--dense:not(.v-text-field--outlined) .v-text-field__suffix,.v-text-field.v-input--dense:not(.v-text-field--outlined) input{padding:4px 0 2px}.v-text-field.v-input--dense:not(.v-text-field--outlined) .v-text-field__prefix{padding-right:4px}.v-text-field.v-input--dense:not(.v-text-field--outlined) .v-text-field__suffix{padding-left:4px}.v-text-field.v-input--dense[type=text]::-ms-clear{display:none}.v-text-field.v-input--dense .v-input__append-inner,.v-text-field.v-input--dense .v-input__prepend-inner{margin-top:0}.v-text-field .v-input__append-inner,.v-text-field .v-input__prepend-inner{align-self:flex-start;display:inline-flex;margin-top:4px;line-height:1;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.v-application--is-ltr .v-text-field .v-input__prepend-inner{margin-right:auto;padding-right:4px}.v-application--is-ltr .v-text-field .v-input__append-inner,.v-application--is-rtl .v-text-field .v-input__prepend-inner{margin-left:auto;padding-left:4px}.v-application--is-rtl .v-text-field .v-input__append-inner{margin-right:auto;padding-right:4px}.v-text-field .v-counter{white-space:nowrap}.v-application--is-ltr .v-text-field .v-counter{margin-left:8px}.v-application--is-rtl .v-text-field .v-counter{margin-right:8px}.v-text-field .v-label{max-width:90%;overflow:hidden;text-overflow:ellipsis;top:6px;white-space:nowrap;pointer-events:none}.v-application--is-ltr .v-text-field .v-label{transform-origin:top left}.v-application--is-rtl .v-text-field .v-label{transform-origin:top right}.v-text-field .v-label--active{max-width:133%;transform:translateY(-18px) scale(.75);pointer-events:auto}.v-text-field>.v-input__control>.v-input__slot{cursor:text}.v-text-field>.v-input__control>.v-input__slot:after,.v-text-field>.v-input__control>.v-input__slot:before{bottom:-1px;content:\"\";left:0;position:absolute;transition:.3s cubic-bezier(.25,.8,.5,1);width:100%}.v-text-field>.v-input__control>.v-input__slot:before{border-color:inherit;border-style:solid;border-width:thin 0 0}.v-text-field>.v-input__control>.v-input__slot:after{background-color:currentColor;border-color:currentcolor;border-style:solid;border-width:thin 0;transform:scaleX(0)}.v-text-field__details{display:flex;flex:1 0 auto;max-width:100%;min-height:14px;overflow:hidden}.v-text-field__prefix,.v-text-field__suffix{align-self:center;cursor:default;transition:color .3s cubic-bezier(.25,.8,.5,1);white-space:nowrap}.v-application--is-ltr .v-text-field__prefix{text-align:right;padding-right:4px}.v-application--is-rtl .v-text-field__prefix{text-align:left;padding-left:4px}.v-text-field__suffix{white-space:nowrap}.v-application--is-ltr .v-text-field__suffix{padding-left:4px}.v-application--is-rtl .v-text-field__suffix{padding-right:4px}.v-application--is-ltr .v-text-field--reverse .v-text-field__prefix{text-align:left;padding-right:0;padding-left:4px}.v-application--is-rtl .v-text-field--reverse .v-text-field__prefix{text-align:right;padding-right:4px;padding-left:0}.v-application--is-ltr .v-text-field--reverse .v-text-field__suffix{padding-left:0;padding-right:4px}.v-application--is-rtl .v-text-field--reverse .v-text-field__suffix{padding-left:4px;padding-right:0}.v-text-field>.v-input__control>.v-input__slot>.v-text-field__slot{display:flex;flex:1 1 auto;position:relative}.v-text-field:not(.v-text-field--is-booted) .v-label,.v-text-field:not(.v-text-field--is-booted) legend{transition:none}.v-text-field--filled,.v-text-field--full-width,.v-text-field--outlined{position:relative}.v-text-field--filled>.v-input__control>.v-input__slot,.v-text-field--full-width>.v-input__control>.v-input__slot,.v-text-field--outlined>.v-input__control>.v-input__slot{align-items:stretch;min-height:56px}.v-text-field--filled.v-input--dense>.v-input__control>.v-input__slot,.v-text-field--full-width.v-input--dense>.v-input__control>.v-input__slot,.v-text-field--outlined.v-input--dense>.v-input__control>.v-input__slot{min-height:52px}.v-text-field--filled.v-input--dense.v-text-field--outlined.v-text-field--filled>.v-input__control>.v-input__slot,.v-text-field--filled.v-input--dense.v-text-field--outlined>.v-input__control>.v-input__slot,.v-text-field--filled.v-input--dense.v-text-field--single-line>.v-input__control>.v-input__slot,.v-text-field--full-width.v-input--dense.v-text-field--outlined.v-text-field--filled>.v-input__control>.v-input__slot,.v-text-field--full-width.v-input--dense.v-text-field--outlined>.v-input__control>.v-input__slot,.v-text-field--full-width.v-input--dense.v-text-field--single-line>.v-input__control>.v-input__slot,.v-text-field--outlined.v-input--dense.v-text-field--outlined.v-text-field--filled>.v-input__control>.v-input__slot,.v-text-field--outlined.v-input--dense.v-text-field--outlined>.v-input__control>.v-input__slot,.v-text-field--outlined.v-input--dense.v-text-field--single-line>.v-input__control>.v-input__slot{min-height:40px}.v-text-field--outlined{border-radius:4px}.v-text-field--enclosed .v-input__append-inner,.v-text-field--enclosed .v-input__append-outer,.v-text-field--enclosed .v-input__prepend-inner,.v-text-field--enclosed .v-input__prepend-outer,.v-text-field--full-width .v-input__append-inner,.v-text-field--full-width .v-input__append-outer,.v-text-field--full-width .v-input__prepend-inner,.v-text-field--full-width .v-input__prepend-outer{margin-top:17px}.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo) .v-input__append-inner,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo) .v-input__append-outer,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo) .v-input__prepend-inner,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo) .v-input__prepend-outer,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo) .v-input__append-inner,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo) .v-input__append-outer,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo) .v-input__prepend-inner,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo) .v-input__prepend-outer{margin-top:14px}.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__append-inner,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__append-outer,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__prepend-inner,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__prepend-outer,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__append-inner,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__append-outer,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__prepend-inner,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__prepend-outer{margin-top:9px}.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__append-inner,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__append-outer,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__prepend-inner,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__prepend-outer,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__append-inner,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__append-outer,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__prepend-inner,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__prepend-outer{margin-top:8px}.v-text-field--filled .v-label,.v-text-field--full-width .v-label{top:18px}.v-text-field--filled .v-label--active,.v-text-field--full-width .v-label--active{transform:translateY(-6px) scale(.75)}.v-text-field--filled.v-input--dense .v-label,.v-text-field--full-width.v-input--dense .v-label{top:17px}.v-text-field--filled.v-input--dense .v-label--active,.v-text-field--full-width.v-input--dense .v-label--active{transform:translateY(-10px) scale(.75)}.v-text-field--filled.v-input--dense.v-text-field--single-line .v-label,.v-text-field--full-width.v-input--dense.v-text-field--single-line .v-label{top:11px}.v-text-field--filled{border-radius:4px 4px 0 0}.v-text-field--filled:not(.v-text-field--single-line) input{margin-top:22px}.v-text-field--filled.v-input--dense:not(.v-text-field--single-line).v-text-field--outlined input{margin-top:0}.v-text-field--filled .v-text-field__prefix,.v-text-field--filled .v-text-field__suffix{max-height:32px;margin-top:20px}.v-text-field--full-width{border-radius:0}.v-text-field--outlined .v-text-field__slot,.v-text-field--single-line .v-text-field__slot{align-items:center}.v-text-field.v-text-field--enclosed{margin:0;padding:0}.v-text-field.v-text-field--enclosed.v-text-field--single-line .v-text-field__prefix,.v-text-field.v-text-field--enclosed.v-text-field--single-line .v-text-field__suffix{margin-top:0}.v-text-field.v-text-field--enclosed:not(.v-text-field--filled) .v-progress-linear__background{display:none}.v-text-field.v-text-field--enclosed .v-text-field__details,.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)>.v-input__control>.v-input__slot{padding:0 12px}.v-text-field.v-text-field--enclosed .v-text-field__details{padding-top:0;margin-bottom:8px}.v-application--is-ltr .v-text-field--reverse input{text-align:right}.v-application--is-rtl .v-text-field--reverse input{text-align:left}.v-application--is-ltr .v-text-field--reverse .v-label{transform-origin:top right}.v-application--is-rtl .v-text-field--reverse .v-label{transform-origin:top left}.v-text-field--reverse .v-text-field__slot,.v-text-field--reverse>.v-input__control>.v-input__slot{flex-direction:row-reverse}.v-text-field--outlined>.v-input__control>.v-input__slot:after,.v-text-field--outlined>.v-input__control>.v-input__slot:before,.v-text-field--rounded>.v-input__control>.v-input__slot:after,.v-text-field--rounded>.v-input__control>.v-input__slot:before,.v-text-field--solo>.v-input__control>.v-input__slot:after,.v-text-field--solo>.v-input__control>.v-input__slot:before{display:none}.v-text-field--outlined,.v-text-field--solo{border-radius:4px}.v-text-field--outlined{margin-bottom:16px;transition:border .3s cubic-bezier(.25,.8,.5,1)}.v-text-field--outlined .v-label{top:18px}.v-text-field--outlined .v-label--active{transform:translateY(-24px) scale(.75)}.v-text-field--outlined.v-input--dense .v-label{top:10px}.v-text-field--outlined.v-input--dense .v-label--active{transform:translateY(-16px) scale(.75)}.v-text-field--outlined fieldset{border-collapse:collapse;border:1px solid;bottom:0;left:0;pointer-events:none;position:absolute;right:0;top:-5px;transition-duration:.15s;transition-property:color;transition-timing-function:cubic-bezier(.25,.8,.25,1)}.v-application--is-ltr .v-text-field--outlined fieldset{padding-left:8px}.v-application--is-ltr .v-text-field--outlined.v-text-field--reverse fieldset,.v-application--is-rtl .v-text-field--outlined fieldset{padding-right:8px}.v-application--is-rtl .v-text-field--outlined.v-text-field--reverse fieldset{padding-left:8px}.v-text-field--outlined legend{line-height:11px;padding:0;transition:width .3s cubic-bezier(.25,.8,.5,1)}.v-application--is-ltr .v-text-field--outlined legend{text-align:left}.v-application--is-rtl .v-text-field--outlined legend{text-align:right}.v-application--is-ltr .v-text-field--outlined.v-text-field--reverse legend{margin-left:auto}.v-application--is-rtl .v-text-field--outlined.v-text-field--reverse legend{margin-right:auto}.v-application--is-ltr .v-text-field--outlined.v-text-field--rounded legend{margin-left:12px}.v-application--is-rtl .v-text-field--outlined.v-text-field--rounded legend{margin-right:12px}.v-text-field--outlined>.v-input__control>.v-input__slot{background:transparent}.v-text-field--outlined .v-text-field__prefix{max-height:32px}.v-text-field--outlined .v-input__append-outer,.v-text-field--outlined .v-input__prepend-outer{margin-top:18px}.v-text-field--outlined.v-input--has-state fieldset,.v-text-field--outlined.v-input--is-focused fieldset{border:2px solid}.v-text-field--rounded{border-radius:28px}.v-text-field--rounded>.v-input__control>.v-input__slot{padding:0 24px}.v-text-field--shaped{border-radius:16px 16px 0 0}.v-text-field.v-text-field--solo .v-label{top:calc(50% - 9px)}.v-text-field.v-text-field--solo .v-input__control{min-height:48px;padding:0}.v-text-field.v-text-field--solo .v-input__control input{caret-color:auto}.v-text-field.v-text-field--solo.v-input--dense>.v-input__control{min-height:38px}.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)>.v-input__control>.v-input__slot{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.v-text-field.v-text-field--solo .v-input__append-inner,.v-text-field.v-text-field--solo .v-input__prepend-inner{align-self:center;margin-top:0}.v-text-field.v-text-field--solo .v-input__append-outer,.v-text-field.v-text-field--solo .v-input__prepend-outer{margin-top:12px}.v-text-field.v-text-field--solo.v-input--dense .v-input__append-outer,.v-text-field.v-text-field--solo.v-input--dense .v-input__prepend-outer{margin-top:7px}.v-text-field.v-input--is-focused>.v-input__control>.v-input__slot:after{transform:scaleX(1)}.v-text-field.v-input--has-state>.v-input__control>.v-input__slot:before{border-color:currentColor}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-text-field>.v-input__control>.v-input__slot:before{border-color:rgba(0,0,0,.42)}.theme--light.v-text-field:not(.v-input--has-state):hover>.v-input__control>.v-input__slot:before{border-color:rgba(0,0,0,.87)}.theme--light.v-text-field.v-input--is-disabled .v-input__slot:before{-o-border-image:repeating-linear-gradient(90deg,rgba(0,0,0,.38) 0,rgba(0,0,0,.38) 2px,transparent 0,transparent 4px) 1 repeat;border-image:repeating-linear-gradient(90deg,rgba(0,0,0,.38) 0,rgba(0,0,0,.38) 2px,transparent 0,transparent 4px) 1 repeat}.theme--light.v-text-field--filled>.v-input__control>.v-input__slot{background:rgba(0,0,0,.06)}.theme--light.v-text-field--filled:not(.v-input--is-focused):not(.v-input--has-state)>.v-input__control>.v-input__slot:hover{background:rgba(0,0,0,.12)}.theme--light.v-text-field--solo>.v-input__control>.v-input__slot{background:#fff}.theme--light.v-text-field--solo-inverted>.v-input__control>.v-input__slot{background:rgba(0,0,0,.06)}.theme--light.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot{background:#424242}.theme--light.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input{color:#fff}.theme--light.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input::-moz-placeholder{color:hsla(0,0%,100%,.5)}.theme--light.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input:-ms-input-placeholder{color:hsla(0,0%,100%,.5)}.theme--light.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input::placeholder{color:hsla(0,0%,100%,.5)}.theme--light.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot .v-label{color:hsla(0,0%,100%,.7)}.theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state)>.v-input__control>.v-input__slot fieldset{color:rgba(0,0,0,.38)}.theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state):not(.v-input--is-disabled)>.v-input__control>.v-input__slot:hover fieldset{color:rgba(0,0,0,.86)}.theme--light.v-text-field--outlined:not(.v-input--is-focused).v-input--is-disabled>.v-input__control>.v-input__slot fieldset{color:rgba(0,0,0,.26)}.theme--dark.v-text-field>.v-input__control>.v-input__slot:before{border-color:hsla(0,0%,100%,.7)}.theme--dark.v-text-field:not(.v-input--has-state):hover>.v-input__control>.v-input__slot:before{border-color:#fff}.theme--dark.v-text-field.v-input--is-disabled .v-input__slot:before{-o-border-image:repeating-linear-gradient(90deg,hsla(0,0%,100%,.5) 0,hsla(0,0%,100%,.5) 2px,transparent 0,transparent 4px) 1 repeat;border-image:repeating-linear-gradient(90deg,hsla(0,0%,100%,.5) 0,hsla(0,0%,100%,.5) 2px,transparent 0,transparent 4px) 1 repeat}.theme--dark.v-text-field--filled>.v-input__control>.v-input__slot{background:hsla(0,0%,100%,.08)}.theme--dark.v-text-field--filled:not(.v-input--is-focused):not(.v-input--has-state)>.v-input__control>.v-input__slot:hover{background:hsla(0,0%,100%,.16)}.theme--dark.v-text-field--solo>.v-input__control>.v-input__slot{background:#1e1e1e}.theme--dark.v-text-field--solo-inverted>.v-input__control>.v-input__slot{background:hsla(0,0%,100%,.16)}.theme--dark.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot{background:#fff}.theme--dark.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input{color:rgba(0,0,0,.87)}.theme--dark.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input::-moz-placeholder{color:rgba(0,0,0,.38)}.theme--dark.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input:-ms-input-placeholder{color:rgba(0,0,0,.38)}.theme--dark.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot input::placeholder{color:rgba(0,0,0,.38)}.theme--dark.v-text-field--solo-inverted.v-input--is-focused>.v-input__control>.v-input__slot .v-label{color:rgba(0,0,0,.6)}.theme--dark.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state)>.v-input__control>.v-input__slot fieldset{color:hsla(0,0%,100%,.24)}.theme--dark.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state):not(.v-input--is-disabled)>.v-input__control>.v-input__slot:hover fieldset{color:#fff}.theme--dark.v-text-field--outlined:not(.v-input--is-focused).v-input--is-disabled>.v-input__control>.v-input__slot fieldset{color:hsla(0,0%,100%,.16)}.v-text-field{padding-top:12px;margin-top:4px}.v-text-field__prefix,.v-text-field__suffix{line-height:20px}.v-text-field input{flex:1 1 auto;line-height:20px;padding:8px 0;max-width:100%;min-width:0;width:100%}.v-text-field .v-input__control,.v-text-field .v-input__slot,.v-text-field fieldset{border-radius:inherit}.v-text-field.v-input--has-state .v-input__control>.v-text-field__details>.v-counter,.v-text-field.v-input--is-disabled .v-input__control>.v-text-field__details>.v-counter,.v-text-field.v-input--is-disabled .v-input__control>.v-text-field__details>.v-messages,.v-text-field .v-input__control,.v-text-field fieldset{color:currentColor}.v-text-field.v-input--dense{padding-top:0}.v-text-field.v-input--dense .v-label{top:4px}.v-text-field.v-input--dense:not(.v-text-field--outlined) .v-text-field__prefix,.v-text-field.v-input--dense:not(.v-text-field--outlined) .v-text-field__suffix,.v-text-field.v-input--dense:not(.v-text-field--outlined) input{padding:4px 0 2px}.v-text-field.v-input--dense:not(.v-text-field--outlined) .v-text-field__prefix{padding-right:4px}.v-text-field.v-input--dense:not(.v-text-field--outlined) .v-text-field__suffix{padding-left:4px}.v-text-field.v-input--dense[type=text]::-ms-clear{display:none}.v-text-field.v-input--dense .v-input__append-inner,.v-text-field.v-input--dense .v-input__prepend-inner{margin-top:0}.v-text-field .v-input__append-inner,.v-text-field .v-input__prepend-inner{align-self:flex-start;display:inline-flex;margin-top:4px;line-height:1;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.v-application--is-ltr .v-text-field .v-input__prepend-inner{margin-right:auto;padding-right:4px}.v-application--is-ltr .v-text-field .v-input__append-inner,.v-application--is-rtl .v-text-field .v-input__prepend-inner{margin-left:auto;padding-left:4px}.v-application--is-rtl .v-text-field .v-input__append-inner{margin-right:auto;padding-right:4px}.v-text-field .v-counter{white-space:nowrap}.v-application--is-ltr .v-text-field .v-counter{margin-left:8px}.v-application--is-rtl .v-text-field .v-counter{margin-right:8px}.v-text-field .v-label{max-width:90%;overflow:hidden;text-overflow:ellipsis;top:6px;white-space:nowrap;pointer-events:none}.v-application--is-ltr .v-text-field .v-label{transform-origin:top left}.v-application--is-rtl .v-text-field .v-label{transform-origin:top right}.v-text-field .v-label--active{max-width:133%;transform:translateY(-18px) scale(.75);pointer-events:auto}.v-text-field>.v-input__control>.v-input__slot{cursor:text}.v-text-field>.v-input__control>.v-input__slot:after,.v-text-field>.v-input__control>.v-input__slot:before{bottom:-1px;content:\"\";left:0;position:absolute;transition:.3s cubic-bezier(.25,.8,.5,1);width:100%}.v-text-field>.v-input__control>.v-input__slot:before{border-color:inherit;border-style:solid;border-width:thin 0 0}.v-text-field>.v-input__control>.v-input__slot:after{background-color:currentColor;border-color:currentcolor;border-style:solid;border-width:thin 0;transform:scaleX(0)}.v-text-field__details{display:flex;flex:1 0 auto;max-width:100%;min-height:14px;overflow:hidden}.v-text-field__prefix,.v-text-field__suffix{align-self:center;cursor:default;transition:color .3s cubic-bezier(.25,.8,.5,1);white-space:nowrap}.v-application--is-ltr .v-text-field__prefix{text-align:right;padding-right:4px}.v-application--is-rtl .v-text-field__prefix{text-align:left;padding-left:4px}.v-text-field__suffix{white-space:nowrap}.v-application--is-ltr .v-text-field__suffix{padding-left:4px}.v-application--is-rtl .v-text-field__suffix{padding-right:4px}.v-application--is-ltr .v-text-field--reverse .v-text-field__prefix{text-align:left;padding-right:0;padding-left:4px}.v-application--is-rtl .v-text-field--reverse .v-text-field__prefix{text-align:right;padding-right:4px;padding-left:0}.v-application--is-ltr .v-text-field--reverse .v-text-field__suffix{padding-left:0;padding-right:4px}.v-application--is-rtl .v-text-field--reverse .v-text-field__suffix{padding-left:4px;padding-right:0}.v-text-field>.v-input__control>.v-input__slot>.v-text-field__slot{display:flex;flex:1 1 auto;position:relative}.v-text-field:not(.v-text-field--is-booted) .v-label,.v-text-field:not(.v-text-field--is-booted) legend{transition:none}.v-text-field--filled,.v-text-field--full-width,.v-text-field--outlined{position:relative}.v-text-field--filled>.v-input__control>.v-input__slot,.v-text-field--full-width>.v-input__control>.v-input__slot,.v-text-field--outlined>.v-input__control>.v-input__slot{align-items:stretch;min-height:56px}.v-text-field--filled.v-input--dense>.v-input__control>.v-input__slot,.v-text-field--full-width.v-input--dense>.v-input__control>.v-input__slot,.v-text-field--outlined.v-input--dense>.v-input__control>.v-input__slot{min-height:52px}.v-text-field--filled.v-input--dense.v-text-field--outlined.v-text-field--filled>.v-input__control>.v-input__slot,.v-text-field--filled.v-input--dense.v-text-field--outlined>.v-input__control>.v-input__slot,.v-text-field--filled.v-input--dense.v-text-field--single-line>.v-input__control>.v-input__slot,.v-text-field--full-width.v-input--dense.v-text-field--outlined.v-text-field--filled>.v-input__control>.v-input__slot,.v-text-field--full-width.v-input--dense.v-text-field--outlined>.v-input__control>.v-input__slot,.v-text-field--full-width.v-input--dense.v-text-field--single-line>.v-input__control>.v-input__slot,.v-text-field--outlined.v-input--dense.v-text-field--outlined.v-text-field--filled>.v-input__control>.v-input__slot,.v-text-field--outlined.v-input--dense.v-text-field--outlined>.v-input__control>.v-input__slot,.v-text-field--outlined.v-input--dense.v-text-field--single-line>.v-input__control>.v-input__slot{min-height:40px}.v-text-field--outlined{border-radius:4px}.v-text-field--enclosed .v-input__append-inner,.v-text-field--enclosed .v-input__append-outer,.v-text-field--enclosed .v-input__prepend-inner,.v-text-field--enclosed .v-input__prepend-outer,.v-text-field--full-width .v-input__append-inner,.v-text-field--full-width .v-input__append-outer,.v-text-field--full-width .v-input__prepend-inner,.v-text-field--full-width .v-input__prepend-outer{margin-top:17px}.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo) .v-input__append-inner,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo) .v-input__append-outer,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo) .v-input__prepend-inner,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo) .v-input__prepend-outer,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo) .v-input__append-inner,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo) .v-input__append-outer,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo) .v-input__prepend-inner,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo) .v-input__prepend-outer{margin-top:14px}.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__append-inner,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__append-outer,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__prepend-inner,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__prepend-outer,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__append-inner,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__append-outer,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__prepend-inner,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--single-line .v-input__prepend-outer{margin-top:9px}.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__append-inner,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__append-outer,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__prepend-inner,.v-text-field--enclosed.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__prepend-outer,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__append-inner,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__append-outer,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__prepend-inner,.v-text-field--full-width.v-input--dense:not(.v-text-field--solo).v-text-field--outlined .v-input__prepend-outer{margin-top:8px}.v-text-field--filled .v-label,.v-text-field--full-width .v-label{top:18px}.v-text-field--filled .v-label--active,.v-text-field--full-width .v-label--active{transform:translateY(-6px) scale(.75)}.v-text-field--filled.v-input--dense .v-label,.v-text-field--full-width.v-input--dense .v-label{top:17px}.v-text-field--filled.v-input--dense .v-label--active,.v-text-field--full-width.v-input--dense .v-label--active{transform:translateY(-10px) scale(.75)}.v-text-field--filled.v-input--dense.v-text-field--single-line .v-label,.v-text-field--full-width.v-input--dense.v-text-field--single-line .v-label{top:11px}.v-text-field--filled{border-radius:4px 4px 0 0}.v-text-field--filled:not(.v-text-field--single-line) input{margin-top:22px}.v-text-field--filled.v-input--dense:not(.v-text-field--single-line).v-text-field--outlined input{margin-top:0}.v-text-field--filled .v-text-field__prefix,.v-text-field--filled .v-text-field__suffix{max-height:32px;margin-top:20px}.v-text-field--full-width{border-radius:0}.v-text-field--outlined .v-text-field__slot,.v-text-field--single-line .v-text-field__slot{align-items:center}.v-text-field.v-text-field--enclosed{margin:0;padding:0}.v-text-field.v-text-field--enclosed.v-text-field--single-line .v-text-field__prefix,.v-text-field.v-text-field--enclosed.v-text-field--single-line .v-text-field__suffix{margin-top:0}.v-text-field.v-text-field--enclosed:not(.v-text-field--filled) .v-progress-linear__background{display:none}.v-text-field.v-text-field--enclosed .v-text-field__details,.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)>.v-input__control>.v-input__slot{padding:0 12px}.v-text-field.v-text-field--enclosed .v-text-field__details{padding-top:0;margin-bottom:8px}.v-application--is-ltr .v-text-field--reverse input{text-align:right}.v-application--is-rtl .v-text-field--reverse input{text-align:left}.v-application--is-ltr .v-text-field--reverse .v-label{transform-origin:top right}.v-application--is-rtl .v-text-field--reverse .v-label{transform-origin:top left}.v-text-field--reverse .v-text-field__slot,.v-text-field--reverse>.v-input__control>.v-input__slot{flex-direction:row-reverse}.v-text-field--outlined>.v-input__control>.v-input__slot:after,.v-text-field--outlined>.v-input__control>.v-input__slot:before,.v-text-field--rounded>.v-input__control>.v-input__slot:after,.v-text-field--rounded>.v-input__control>.v-input__slot:before,.v-text-field--solo>.v-input__control>.v-input__slot:after,.v-text-field--solo>.v-input__control>.v-input__slot:before{display:none}.v-text-field--outlined,.v-text-field--solo{border-radius:4px}.v-text-field--outlined{margin-bottom:16px;transition:border .3s cubic-bezier(.25,.8,.5,1)}.v-text-field--outlined .v-label{top:18px}.v-text-field--outlined .v-label--active{transform:translateY(-24px) scale(.75)}.v-text-field--outlined.v-input--dense .v-label{top:10px}.v-text-field--outlined.v-input--dense .v-label--active{transform:translateY(-16px) scale(.75)}.v-text-field--outlined fieldset{border-collapse:collapse;border:1px solid;bottom:0;left:0;pointer-events:none;position:absolute;right:0;top:-5px;transition-duration:.15s;transition-property:color;transition-timing-function:cubic-bezier(.25,.8,.25,1)}.v-application--is-ltr .v-text-field--outlined fieldset{padding-left:8px}.v-application--is-ltr .v-text-field--outlined.v-text-field--reverse fieldset,.v-application--is-rtl .v-text-field--outlined fieldset{padding-right:8px}.v-application--is-rtl .v-text-field--outlined.v-text-field--reverse fieldset{padding-left:8px}.v-text-field--outlined legend{line-height:11px;padding:0;transition:width .3s cubic-bezier(.25,.8,.5,1)}.v-application--is-ltr .v-text-field--outlined legend{text-align:left}.v-application--is-rtl .v-text-field--outlined legend{text-align:right}.v-application--is-ltr .v-text-field--outlined.v-text-field--reverse legend{margin-left:auto}.v-application--is-rtl .v-text-field--outlined.v-text-field--reverse legend{margin-right:auto}.v-application--is-ltr .v-text-field--outlined.v-text-field--rounded legend{margin-left:12px}.v-application--is-rtl .v-text-field--outlined.v-text-field--rounded legend{margin-right:12px}.v-text-field--outlined>.v-input__control>.v-input__slot{background:transparent}.v-text-field--outlined .v-text-field__prefix{max-height:32px}.v-text-field--outlined .v-input__append-outer,.v-text-field--outlined .v-input__prepend-outer{margin-top:18px}.v-text-field--outlined.v-input--has-state fieldset,.v-text-field--outlined.v-input--is-focused fieldset{border:2px solid}.v-text-field--rounded{border-radius:28px}.v-text-field--rounded>.v-input__control>.v-input__slot{padding:0 24px}.v-text-field--shaped{border-radius:16px 16px 0 0}.v-text-field.v-text-field--solo .v-label{top:calc(50% - 9px)}.v-text-field.v-text-field--solo .v-input__control{min-height:48px;padding:0}.v-text-field.v-text-field--solo .v-input__control input{caret-color:auto}.v-text-field.v-text-field--solo.v-input--dense>.v-input__control{min-height:38px}.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)>.v-input__control>.v-input__slot{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.v-text-field.v-text-field--solo .v-input__append-inner,.v-text-field.v-text-field--solo .v-input__prepend-inner{align-self:center;margin-top:0}.v-text-field.v-text-field--solo .v-input__append-outer,.v-text-field.v-text-field--solo .v-input__prepend-outer{margin-top:12px}.v-text-field.v-text-field--solo.v-input--dense .v-input__append-outer,.v-text-field.v-text-field--solo.v-input--dense .v-input__prepend-outer{margin-top:7px}.v-text-field.v-input--is-focused>.v-input__control>.v-input__slot:after{transform:scaleX(1)}.v-text-field.v-input--has-state>.v-input__control>.v-input__slot:before{border-color:currentColor}.v-text-field .v-input__icon--clear{opacity:0;transition:opacity .3s cubic-bezier(.25,.8,.5,1)}.v-text-field.v-input--is-dirty:hover .v-input__icon--clear,.v-text-field.v-input--is-focused .v-input__icon--clear{opacity:1}", ""]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
@@ -52227,7 +52223,7 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_24__[/* default */
       }
     },
     onKeydown: function onKeydown(e) {
-      if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_26__[/* keyCodes */ "v"].esc && !this.getOpenDependents().length) {
+      if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_26__[/* keyCodes */ "u"].esc && !this.getOpenDependents().length) {
         if (!this.persistent) {
           this.isActive = false;
           var activator = this.getActivator();
@@ -52256,10 +52252,10 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_24__[/* default */
       }) // So we must have focused something outside the dialog and its children
       ) {
         // Find and focus the first available element inside the dialog
-        var focusable = this.$refs.dialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        var focusable = this.$refs.dialog.querySelectorAll('button, [href], input:not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])');
 
         var el = Object(_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(focusable).find(function (el) {
-          return !el.hasAttribute('disabled');
+          return !el.hasAttribute('disabled') && !el.matches('[tabindex="-1"]');
         });
 
         el && el.focus();
@@ -52801,7 +52797,7 @@ var breakpointProps = function () {
 
 var offsetProps = function () {
   return breakpoints.reduce(function (props, val) {
-    props['offset' + Object(_util_helpers__WEBPACK_IMPORTED_MODULE_32__[/* upperFirst */ "B"])(val)] = {
+    props['offset' + Object(_util_helpers__WEBPACK_IMPORTED_MODULE_32__[/* upperFirst */ "A"])(val)] = {
       type: [String, Number],
       default: null
     };
@@ -52811,7 +52807,7 @@ var offsetProps = function () {
 
 var orderProps = function () {
   return breakpoints.reduce(function (props, val) {
-    props['order' + Object(_util_helpers__WEBPACK_IMPORTED_MODULE_32__[/* upperFirst */ "B"])(val)] = {
+    props['order' + Object(_util_helpers__WEBPACK_IMPORTED_MODULE_32__[/* upperFirst */ "A"])(val)] = {
       type: [String, Number],
       default: null
     };
@@ -53140,7 +53136,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     value: {
       default: undefined,
       validator: function validator(val) {
-        return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_20__[/* wrapInArray */ "C"])(val).every(function (v) {
+        return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_20__[/* wrapInArray */ "B"])(val).every(function (v) {
           return v != null && Object(_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(v) === 'object';
         });
       }
@@ -53160,10 +53156,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
             size = _ref$size === void 0 ? 0 : _ref$size;
         return bytes + size;
       }, 0);
-      return this.$vuetify.lang.t(this.counterSizeString, fileCount, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_20__[/* humanReadableFileSize */ "t"])(bytes, this.base === 1024));
+      return this.$vuetify.lang.t(this.counterSizeString, fileCount, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_20__[/* humanReadableFileSize */ "s"])(bytes, this.base === 1024));
     },
     internalArrayValue: function internalArrayValue() {
-      return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_20__[/* wrapInArray */ "C"])(this.internalValue);
+      return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_20__[/* wrapInArray */ "B"])(this.internalValue);
     },
     internalValue: {
       get: function get() {
@@ -53192,7 +53188,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
         var truncatedText = _this.truncateText(name);
 
-        return !_this.showSize ? truncatedText : "".concat(truncatedText, " (").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_20__[/* humanReadableFileSize */ "t"])(size, _this.base === 1024), ")");
+        return !_this.showSize ? truncatedText : "".concat(truncatedText, " (").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_20__[/* humanReadableFileSize */ "s"])(size, _this.base === 1024), ")");
       });
     },
     base: function base() {
@@ -53265,7 +53261,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
       delete input.data.domProps.value; // This solves an issue in Safari where
       // nothing happens when adding a file
-      // do to the input event not firing
+      // due to the input event not firing
       // https://github.com/vuetifyjs/vuetify/issues/7941
 
       delete input.data.on.input;
@@ -53318,8 +53314,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
       var node = _VTextField__WEBPACK_IMPORTED_MODULE_18__[/* default */ "a"].options.methods.genTextFieldSlot.call(this);
       node.data.on = _objectSpread(_objectSpread({}, node.data.on || {}), {}, {
-        click: function click() {
-          return _this5.$refs.input.click();
+        click: function click(e) {
+          // Clicking the label already delegates to input element, so we shouldn't click it twice
+          if (e.target && e.target.nodeName === 'LABEL') return;
+
+          _this5.$refs.input.click();
         }
       });
       return node;
@@ -53455,7 +53454,7 @@ var ALIGNMENT = ['start', 'end', 'center'];
 
 function makeProps(prefix, def) {
   return breakpoints.reduce(function (props, val) {
-    props[prefix + Object(_util_helpers__WEBPACK_IMPORTED_MODULE_32__[/* upperFirst */ "B"])(val)] = def();
+    props[prefix + Object(_util_helpers__WEBPACK_IMPORTED_MODULE_32__[/* upperFirst */ "A"])(val)] = def();
     return props;
   }, {});
 }
@@ -53900,7 +53899,7 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_21__[/* default */
           color: this.validationState,
           focused: this.hasState
         }
-      }, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_20__[/* getSlot */ "q"])(this, 'label') || this.label);
+      }, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_20__[/* getSlot */ "p"])(this, 'label') || this.label);
     },
     genRadio: function genRadio() {
       var _this$attrs$ = this.attrs$,
@@ -54290,7 +54289,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     });
   },
   mounted: function mounted() {
-    if (Object(_util_helpers__WEBPACK_IMPORTED_MODULE_8__[/* getSlotType */ "r"])(this, 'activator', true) === 'v-slot') {
+    if (Object(_util_helpers__WEBPACK_IMPORTED_MODULE_8__[/* getSlotType */ "q"])(this, 'activator', true) === 'v-slot') {
       Object(_util_console__WEBPACK_IMPORTED_MODULE_9__[/* consoleError */ "b"])("v-tooltip's activator slot must be bound, try '<template #activator=\"data\"><v-btn v-on=\"data.on>'", this);
     }
   },
@@ -54325,7 +54324,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       }
 
       listeners.keydown = function (e) {
-        if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_8__[/* keyCodes */ "v"].esc) {
+        if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_8__[/* keyCodes */ "u"].esc) {
           _this2.getActivator(e);
 
           _this2.runDelay('close');
@@ -55053,7 +55052,7 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_24__[/* default */
       return on;
     },
     genPosition: function genPosition(name) {
-      var slot = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* getSlot */ "q"])(this, name);
+      var slot = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* getSlot */ "p"])(this, name);
       if (!slot) return slot;
       return this.$createElement('div', {
         staticClass: "v-navigation-drawer__".concat(name)
@@ -55113,7 +55112,7 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_24__[/* default */
   },
   render: function render(h) {
     var children = [this.genPrepend(), this.genContent(), this.genAppend(), this.genBorder()];
-    if (this.src || Object(_util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* getSlot */ "q"])(this, 'img')) children.unshift(this.genBackground());
+    if (this.src || Object(_util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* getSlot */ "p"])(this, 'img')) children.unshift(this.genBackground());
     return h(this.tag, this.setBackgroundColor(this.color, {
       class: this.classes,
       style: this.styles,
@@ -55386,7 +55385,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           e.stopPropagation();
 
           if (data.on && data.on.input && !props.disabled) {
-            Object(helpers["C" /* wrapInArray */])(data.on.input).forEach(function (f) {
+            Object(helpers["B" /* wrapInArray */])(data.on.input).forEach(function (f) {
               return f(!props.value);
             });
           }
@@ -55633,14 +55632,14 @@ function VSelectList_objectSpread(target) { for (var i = 1; i < arguments.length
     },
     genFilteredText: function genFilteredText(text) {
       text = text || '';
-      if (!this.searchInput || this.noFilter) return Object(helpers["l" /* escapeHTML */])(text);
+      if (!this.searchInput || this.noFilter) return text;
 
       var _this$getMaskedCharac = this.getMaskedCharacters(text),
           start = _this$getMaskedCharac.start,
           middle = _this$getMaskedCharac.middle,
           end = _this$getMaskedCharac.end;
 
-      return "".concat(Object(helpers["l" /* escapeHTML */])(start)).concat(this.genHighlight(middle)).concat(Object(helpers["l" /* escapeHTML */])(end));
+      return [start, this.genHighlight(middle), end];
     },
     genHeader: function genHeader(props) {
       return this.$createElement(components_VSubheader, {
@@ -55648,7 +55647,9 @@ function VSelectList_objectSpread(target) { for (var i = 1; i < arguments.length
       }, props.header);
     },
     genHighlight: function genHighlight(text) {
-      return "<span class=\"v-list-item__mask\">".concat(Object(helpers["l" /* escapeHTML */])(text), "</span>");
+      return this.$createElement('span', {
+        staticClass: 'v-list-item__mask'
+      }, text);
     },
     getMaskedCharacters: function getMaskedCharacters(text) {
       var searchInput = (this.searchInput || '').toString().toLocaleLowerCase();
@@ -55722,12 +55723,7 @@ function VSelectList_objectSpread(target) { for (var i = 1; i < arguments.length
     },
     genTileContent: function genTileContent(item) {
       var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-      var innerHTML = this.genFilteredText(this.getText(item));
-      return this.$createElement(VList["a" /* VListItemContent */], [this.$createElement(VList["b" /* VListItemTitle */], {
-        domProps: {
-          innerHTML: innerHTML
-        }
-      })]);
+      return this.$createElement(VList["a" /* VListItemContent */], [this.$createElement(VList["b" /* VListItemTitle */], [this.genFilteredText(this.getText(item))])]);
     },
     hasItem: function hasItem(item) {
       return this.parsedItems.indexOf(this.getValue(item)) > -1;
@@ -55736,13 +55732,13 @@ function VSelectList_objectSpread(target) { for (var i = 1; i < arguments.length
       return slot.length !== 1 || slot[0].componentOptions == null || slot[0].componentOptions.Ctor.options.name !== 'v-list-item';
     },
     getDisabled: function getDisabled(item) {
-      return Boolean(Object(helpers["p" /* getPropertyFromItem */])(item, this.itemDisabled, false));
+      return Boolean(Object(helpers["o" /* getPropertyFromItem */])(item, this.itemDisabled, false));
     },
     getText: function getText(item) {
-      return String(Object(helpers["p" /* getPropertyFromItem */])(item, this.itemText, item));
+      return String(Object(helpers["o" /* getPropertyFromItem */])(item, this.itemText, item));
     },
     getValue: function getValue(item) {
-      return Object(helpers["p" /* getPropertyFromItem */])(item, this.itemValue, this.getText(item));
+      return Object(helpers["o" /* getPropertyFromItem */])(item, this.itemValue, this.getText(item));
     }
   },
   render: function render() {
@@ -56271,8 +56267,8 @@ var baseMixins = Object(mixins["a" /* default */])(VTextField_VTextField["a" /* 
           readonly: true,
           type: 'text',
           'aria-readonly': String(this.isReadonly),
-          'aria-activedescendant': Object(helpers["o" /* getObjectValueByPath */])(this.$refs.menu, 'activeTile.id'),
-          autocomplete: Object(helpers["o" /* getObjectValueByPath */])(input.data, 'attrs.autocomplete', 'off'),
+          'aria-activedescendant': Object(helpers["n" /* getObjectValueByPath */])(this.$refs.menu, 'activeTile.id'),
+          autocomplete: Object(helpers["n" /* getObjectValueByPath */])(input.data, 'attrs.autocomplete', 'off'),
           placeholder: !this.isDirty && (this.persistentPlaceholder || this.isFocused || !this.hasLabel) ? this.placeholder : undefined
         },
         on: {
@@ -56400,13 +56396,13 @@ var baseMixins = Object(mixins["a" /* default */])(VTextField_VTextField["a" /* 
       return this.$refs.menu ? this.$refs.menu.listIndex : -1;
     },
     getDisabled: function getDisabled(item) {
-      return Object(helpers["p" /* getPropertyFromItem */])(item, this.itemDisabled, false);
+      return Object(helpers["o" /* getPropertyFromItem */])(item, this.itemDisabled, false);
     },
     getText: function getText(item) {
-      return Object(helpers["p" /* getPropertyFromItem */])(item, this.itemText, item);
+      return Object(helpers["o" /* getPropertyFromItem */])(item, this.itemText, item);
     },
     getValue: function getValue(item) {
-      return Object(helpers["p" /* getPropertyFromItem */])(item, this.itemValue, this.getText(item));
+      return Object(helpers["o" /* getPropertyFromItem */])(item, this.itemValue, this.getText(item));
     },
     onBlur: function onBlur(e) {
       e && this.$emit('blur', e);
@@ -56481,14 +56477,14 @@ var baseMixins = Object(mixins["a" /* default */])(VTextField_VTextField["a" /* 
     onKeyDown: function onKeyDown(e) {
       var _this12 = this;
 
-      if (this.isReadonly && e.keyCode !== helpers["v" /* keyCodes */].tab) return;
+      if (this.isReadonly && e.keyCode !== helpers["u" /* keyCodes */].tab) return;
       var keyCode = e.keyCode;
       var menu = this.$refs.menu;
       this.$emit('keydown', e);
       if (!menu) return; // If menu is active, allow default
       // listIndex change from menu
 
-      if (this.isMenuActive && [helpers["v" /* keyCodes */].up, helpers["v" /* keyCodes */].down, helpers["v" /* keyCodes */].home, helpers["v" /* keyCodes */].end, helpers["v" /* keyCodes */].enter].includes(keyCode)) {
+      if (this.isMenuActive && [helpers["u" /* keyCodes */].up, helpers["u" /* keyCodes */].down, helpers["u" /* keyCodes */].home, helpers["u" /* keyCodes */].end, helpers["u" /* keyCodes */].enter].includes(keyCode)) {
         this.$nextTick(function () {
           menu.changeListIndex(e);
 
@@ -56497,18 +56493,18 @@ var baseMixins = Object(mixins["a" /* default */])(VTextField_VTextField["a" /* 
       } // If enter, space, open menu
 
 
-      if ([helpers["v" /* keyCodes */].enter, helpers["v" /* keyCodes */].space].includes(keyCode)) this.activateMenu(); // If menu is not active, up/down/home/end can do
+      if ([helpers["u" /* keyCodes */].enter, helpers["u" /* keyCodes */].space].includes(keyCode)) this.activateMenu(); // If menu is not active, up/down/home/end can do
       // one of 2 things. If multiple, opens the
       // menu, if not, will cycle through all
       // available options
 
-      if (!this.isMenuActive && [helpers["v" /* keyCodes */].up, helpers["v" /* keyCodes */].down, helpers["v" /* keyCodes */].home, helpers["v" /* keyCodes */].end].includes(keyCode)) return this.onUpDown(e); // If escape deactivate the menu
+      if (!this.isMenuActive && [helpers["u" /* keyCodes */].up, helpers["u" /* keyCodes */].down, helpers["u" /* keyCodes */].home, helpers["u" /* keyCodes */].end].includes(keyCode)) return this.onUpDown(e); // If escape deactivate the menu
 
-      if (keyCode === helpers["v" /* keyCodes */].esc) return this.onEscDown(e); // If tab - select item or close menu
+      if (keyCode === helpers["u" /* keyCodes */].esc) return this.onEscDown(e); // If tab - select item or close menu
 
-      if (keyCode === helpers["v" /* keyCodes */].tab) return this.onTabDown(e); // If space preventDefault
+      if (keyCode === helpers["u" /* keyCodes */].tab) return this.onTabDown(e); // If space preventDefault
 
-      if (keyCode === helpers["v" /* keyCodes */].space) return this.onSpaceDown(e);
+      if (keyCode === helpers["u" /* keyCodes */].space) return this.onSpaceDown(e);
     },
     onMenuActiveChange: function onMenuActiveChange(val) {
       // If menu is closing and mulitple
@@ -56599,19 +56595,19 @@ var baseMixins = Object(mixins["a" /* default */])(VTextField_VTextField["a" /* 
         if (!menu.hasClickableTiles) return _this15.activateMenu();
 
         switch (keyCode) {
-          case helpers["v" /* keyCodes */].up:
+          case helpers["u" /* keyCodes */].up:
             menu.prevTile();
             break;
 
-          case helpers["v" /* keyCodes */].down:
+          case helpers["u" /* keyCodes */].down:
             menu.nextTile();
             break;
 
-          case helpers["v" /* keyCodes */].home:
+          case helpers["u" /* keyCodes */].home:
             menu.firstTile();
             break;
 
-          case helpers["v" /* keyCodes */].end:
+          case helpers["u" /* keyCodes */].end:
             menu.lastTile();
             break;
         }

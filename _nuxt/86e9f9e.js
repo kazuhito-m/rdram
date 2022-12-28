@@ -805,11 +805,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         }, 300);
       }
 
-      var mouseUpOptions = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* passiveSupported */ "z"] ? {
+      var mouseUpOptions = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* passiveSupported */ "y"] ? {
         passive: true,
         capture: true
       } : true;
-      var mouseMoveOptions = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* passiveSupported */ "z"] ? {
+      var mouseMoveOptions = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* passiveSupported */ "y"] ? {
         passive: true
       } : false;
       var isTouchEvent = ('touches' in e);
@@ -822,7 +822,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       e.stopPropagation();
       window.clearTimeout(this.mouseTimeout);
       this.thumbPressed = false;
-      var mouseMoveOptions = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* passiveSupported */ "z"] ? {
+      var mouseMoveOptions = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* passiveSupported */ "y"] ? {
         passive: true
       } : false;
       this.app.removeEventListener('touchmove', this.onMouseMove, mouseMoveOptions);
@@ -888,14 +888,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     },
     parseKeyDown: function parseKeyDown(e, value) {
       if (!this.isInteractive) return;
-      var pageup = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "v"].pageup,
-          pagedown = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "v"].pagedown,
-          end = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "v"].end,
-          home = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "v"].home,
-          left = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "v"].left,
-          right = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "v"].right,
-          down = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "v"].down,
-          up = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "v"].up;
+      var pageup = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "u"].pageup,
+          pagedown = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "u"].pagedown,
+          end = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "u"].end,
+          home = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "u"].home,
+          left = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "u"].left,
+          right = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "u"].right,
+          down = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "u"].down,
+          up = _util_helpers__WEBPACK_IMPORTED_MODULE_23__[/* keyCodes */ "u"].up;
       if (![pageup, pagedown, end, home, left, right, down, up].includes(e.keyCode)) return;
       e.preventDefault();
       var step = this.stepNumeric || 1;

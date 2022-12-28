@@ -310,21 +310,21 @@ var VTreeviewNode = baseMixins.extend().extend({
   },
   computed: {
     disabled: function disabled() {
-      return Object(helpers["o" /* getObjectValueByPath */])(this.item, this.itemDisabled) || !this.disablePerNode && this.parentIsDisabled && this.selectionType === 'leaf';
+      return Object(helpers["n" /* getObjectValueByPath */])(this.item, this.itemDisabled) || !this.disablePerNode && this.parentIsDisabled && this.selectionType === 'leaf';
     },
     key: function key() {
-      return Object(helpers["o" /* getObjectValueByPath */])(this.item, this.itemKey);
+      return Object(helpers["n" /* getObjectValueByPath */])(this.item, this.itemKey);
     },
     children: function children() {
       var _this = this;
 
-      var children = Object(helpers["o" /* getObjectValueByPath */])(this.item, this.itemChildren);
+      var children = Object(helpers["n" /* getObjectValueByPath */])(this.item, this.itemChildren);
       return children && children.filter(function (child) {
-        return !_this.treeview.isExcluded(Object(helpers["o" /* getObjectValueByPath */])(child, _this.itemKey));
+        return !_this.treeview.isExcluded(Object(helpers["n" /* getObjectValueByPath */])(child, _this.itemKey));
       });
     },
     text: function text() {
-      return Object(helpers["o" /* getObjectValueByPath */])(this.item, this.itemText);
+      return Object(helpers["n" /* getObjectValueByPath */])(this.item, this.itemText);
     },
     scopedProps: function scopedProps() {
       return {
@@ -488,7 +488,7 @@ var VTreeviewNode = baseMixins.extend().extend({
     },
     genChild: function genChild(item, parentIsDisabled) {
       return this.$createElement(VTreeviewNode, {
-        key: Object(helpers["o" /* getObjectValueByPath */])(item, this.itemKey),
+        key: Object(helpers["n" /* getObjectValueByPath */])(item, this.itemKey),
         props: {
           activatable: this.activatable,
           activeClass: this.activeClass,
@@ -562,7 +562,7 @@ var console = __webpack_require__(20);
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTreeview/util/filterTreeItems.js
 
 function filterTreeItem(item, search, textKey) {
-  var text = Object(helpers["o" /* getObjectValueByPath */])(item, textKey);
+  var text = Object(helpers["n" /* getObjectValueByPath */])(item, textKey);
   return text.toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1;
 }
 function filterTreeItems(filter, item, search, idKey, textKey, childrenKey, excluded) {
@@ -570,7 +570,7 @@ function filterTreeItems(filter, item, search, idKey, textKey, childrenKey, excl
     return true;
   }
 
-  var children = Object(helpers["o" /* getObjectValueByPath */])(item, childrenKey);
+  var children = Object(helpers["n" /* getObjectValueByPath */])(item, childrenKey);
 
   if (children) {
     var match = false;
@@ -584,7 +584,7 @@ function filterTreeItems(filter, item, search, idKey, textKey, childrenKey, excl
     if (match) return true;
   }
 
-  excluded.add(Object(helpers["o" /* getObjectValueByPath */])(item, idKey));
+  excluded.add(Object(helpers["n" /* getObjectValueByPath */])(item, idKey));
   return false;
 }
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTreeview/VTreeview.js
@@ -737,7 +737,7 @@ function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; 
         var _this = this;
 
         var oldKeys = Object.keys(this.nodes).map(function (k) {
-          return Object(helpers["o" /* getObjectValueByPath */])(_this.nodes[k].item, _this.itemKey);
+          return Object(helpers["n" /* getObjectValueByPath */])(_this.nodes[k].item, _this.itemKey);
         });
         var newKeys = this.getKeys(this.items);
         var diff = Object(helpers["c" /* arrayDiff */])(newKeys, oldKeys); // We only want to do stuff if items have changed
@@ -776,7 +776,7 @@ function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; 
     var _this2 = this;
 
     var getValue = function getValue(key) {
-      return _this2.returnObject ? Object(helpers["o" /* getObjectValueByPath */])(key, _this2.itemKey) : key;
+      return _this2.returnObject ? Object(helpers["n" /* getObjectValueByPath */])(key, _this2.itemKey) : key;
     };
 
     this.buildTree(this.items);
@@ -821,7 +821,7 @@ function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; 
       this.updateAll(true);
     } else {
       this.open.forEach(function (key) {
-        return _this3.updateOpen(_this3.returnObject ? Object(helpers["o" /* getObjectValueByPath */])(key, _this3.itemKey) : key, true);
+        return _this3.updateOpen(_this3.returnObject ? Object(helpers["n" /* getObjectValueByPath */])(key, _this3.itemKey) : key, true);
       });
       this.emitOpen();
     }
@@ -832,7 +832,7 @@ function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; 
       var _this4 = this;
 
       Object.keys(this.nodes).forEach(function (key) {
-        return _this4.updateOpen(Object(helpers["o" /* getObjectValueByPath */])(_this4.nodes[key].item, _this4.itemKey), value);
+        return _this4.updateOpen(Object(helpers["n" /* getObjectValueByPath */])(_this4.nodes[key].item, _this4.itemKey), value);
       });
       this.emitOpen();
     },
@@ -840,9 +840,9 @@ function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; 
       var keys = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
       for (var i = 0; i < items.length; i++) {
-        var key = Object(helpers["o" /* getObjectValueByPath */])(items[i], this.itemKey);
+        var key = Object(helpers["n" /* getObjectValueByPath */])(items[i], this.itemKey);
         keys.push(key);
-        var children = Object(helpers["o" /* getObjectValueByPath */])(items[i], this.itemChildren);
+        var children = Object(helpers["n" /* getObjectValueByPath */])(items[i], this.itemChildren);
 
         if (children) {
           keys.push.apply(keys, Object(toConsumableArray["a" /* default */])(this.getKeys(children)));
@@ -860,8 +860,8 @@ function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; 
 
       for (var i = 0; i < items.length; i++) {
         var item = items[i];
-        var key = Object(helpers["o" /* getObjectValueByPath */])(item, this.itemKey);
-        var children = (_a = Object(helpers["o" /* getObjectValueByPath */])(item, this.itemChildren)) !== null && _a !== void 0 ? _a : [];
+        var key = Object(helpers["n" /* getObjectValueByPath */])(item, this.itemKey);
+        var children = (_a = Object(helpers["n" /* getObjectValueByPath */])(item, this.itemChildren)) !== null && _a !== void 0 ? _a : [];
         var oldNode = this.nodes.hasOwnProperty(key) ? this.nodes[key] : {
           isSelected: false,
           isIndeterminate: false,
@@ -873,7 +873,7 @@ function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; 
           vnode: oldNode.vnode,
           parent: parent,
           children: children.map(function (c) {
-            return Object(helpers["o" /* getObjectValueByPath */])(c, _this5.itemKey);
+            return Object(helpers["n" /* getObjectValueByPath */])(c, _this5.itemKey);
           }),
           item: item
         };
@@ -940,7 +940,7 @@ function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; 
       var _this7 = this;
 
       value = this.returnObject ? value.map(function (v) {
-        return Object(helpers["o" /* getObjectValueByPath */])(v, _this7.itemKey);
+        return Object(helpers["n" /* getObjectValueByPath */])(v, _this7.itemKey);
       }) : value;
 
       var old = Object(toConsumableArray["a" /* default */])(cache);
@@ -980,12 +980,12 @@ function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; 
       return parents;
     },
     register: function register(node) {
-      var key = Object(helpers["o" /* getObjectValueByPath */])(node.item, this.itemKey);
+      var key = Object(helpers["n" /* getObjectValueByPath */])(node.item, this.itemKey);
       this.nodes[key].vnode = node;
       this.updateVnodeState(key);
     },
     unregister: function unregister(node) {
-      var key = Object(helpers["o" /* getObjectValueByPath */])(node.item, this.itemKey);
+      var key = Object(helpers["n" /* getObjectValueByPath */])(node.item, this.itemKey);
       if (this.nodes[key]) this.nodes[key].vnode = null;
     },
     isParent: function isParent(key) {
@@ -1025,7 +1025,7 @@ function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; 
           for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
             var descendant = _step3.value;
 
-            if (!Object(helpers["o" /* getObjectValueByPath */])(this.nodes[descendant].item, this.itemDisabled) || isForced) {
+            if (!Object(helpers["n" /* getObjectValueByPath */])(this.nodes[descendant].item, this.itemDisabled) || isForced) {
               this.nodes[descendant].isSelected = isSelected;
               this.nodes[descendant].isIndeterminate = false;
               changed.set(descendant, isSelected);
@@ -1090,7 +1090,7 @@ function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; 
 
       if (!this.nodes.hasOwnProperty(key)) return;
       var node = this.nodes[key];
-      var children = Object(helpers["o" /* getObjectValueByPath */])(node.item, this.itemChildren);
+      var children = Object(helpers["n" /* getObjectValueByPath */])(node.item, this.itemChildren);
 
       if (children && !children.length && node.vnode && !node.vnode.hasLoaded) {
         node.vnode.checkChildren().then(function () {
@@ -1120,10 +1120,10 @@ function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; 
     var _this10 = this;
 
     var children = this.items.length ? this.items.filter(function (item) {
-      return !_this10.isExcluded(Object(helpers["o" /* getObjectValueByPath */])(item, _this10.itemKey));
+      return !_this10.isExcluded(Object(helpers["n" /* getObjectValueByPath */])(item, _this10.itemKey));
     }).map(function (item) {
       var genChild = VTreeview_VTreeviewNode.options.methods.genChild.bind(_this10);
-      return genChild(item, _this10.disabled || Object(helpers["o" /* getObjectValueByPath */])(item, _this10.itemDisabled));
+      return genChild(item, _this10.disabled || Object(helpers["n" /* getObjectValueByPath */])(item, _this10.itemDisabled));
     })
     /* istanbul ignore next */
     : this.$slots.default; // TODO: remove type annotation with TS 3.2

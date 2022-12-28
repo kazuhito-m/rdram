@@ -775,7 +775,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       attrs: {
         'aria-expanded': String(this.isActive)
       }
-    }, Object(helpers["q" /* getSlot */])(this));
+    }, Object(helpers["p" /* getSlot */])(this));
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/transitions/index.js + 2 modules
@@ -842,7 +842,7 @@ var baseMixins = Object(mixins["a" /* default */])(bootable["a" /* default */], 
         }]
       }), [h('div', {
         class: 'v-expansion-panel-content__wrap'
-      }, Object(helpers["q" /* getSlot */])(_this2))])];
+      }, Object(helpers["p" /* getSlot */])(_this2))])];
     }));
   }
 }));
@@ -928,7 +928,7 @@ var VExpansionPanelHeader_baseMixins = Object(mixins["a" /* default */])(colorab
       this.$emit('click', e);
     },
     genIcon: function genIcon() {
-      var icon = Object(helpers["q" /* getSlot */])(this, 'actions') || [this.$createElement(VIcon["a" /* default */], this.expandIcon)];
+      var icon = Object(helpers["p" /* getSlot */])(this, 'actions') || [this.$createElement(VIcon["a" /* default */], this.expandIcon)];
       return this.$createElement(transitions["c" /* VFadeTransition */], [this.$createElement('div', {
         staticClass: 'v-expansion-panel-header__icon',
         class: {
@@ -965,7 +965,7 @@ var VExpansionPanelHeader_baseMixins = Object(mixins["a" /* default */])(colorab
           return _this.hasMousedown = false;
         }
       })
-    }), [Object(helpers["q" /* getSlot */])(this, 'default', {
+    }), [Object(helpers["p" /* getSlot */])(this, 'default', {
       open: this.isActive
     }, true), this.hideActions || this.genIcon()]);
   }
