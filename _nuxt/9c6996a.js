@@ -20782,7 +20782,7 @@ var framework_Vuetify = /*#__PURE__*/function () {
 
 framework_Vuetify.install = install;
 framework_Vuetify.installed = false;
-framework_Vuetify.version = "2.6.13";
+framework_Vuetify.version = "2.6.14";
 framework_Vuetify.config = {
   silent: false
 };
