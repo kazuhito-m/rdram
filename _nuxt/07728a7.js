@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[19,4,15,16,17,18,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,75,76,77,78,79,80,81,82,92,94,95,96,97,98,99,100,101,103,104],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[11,4,12,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,46,49,50,51,52,53,54,55,56,57,58,59,61,62,63,64,66,67,68,69,70,71,72,73,75,76,77,78,79,80,81,82,92,94,95,96,97,98,99,100,101,103,104],{
 
 /***/ 838:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -3326,7 +3326,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("c1d8e262", content, true, {"sourceMap":false});
+var update = add("77b93fa4", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -3381,7 +3381,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("01907af4", content, true, {"sourceMap":false});
+var update = add("5d282c82", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -3996,7 +3996,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("1d31a8d0", content, true, {"sourceMap":false});
+var update = add("11091623", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -6843,7 +6843,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("48751daa", content, true, {"sourceMap":false});
+var update = add("f2e99a00", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -9669,7 +9669,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("63c9496b", content, true, {"sourceMap":false});
+var update = add("8e0b7300", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -12076,563 +12076,19 @@ var StateGroupIconGenerator = /*#__PURE__*/function (_IconGenerator) {
 
 /***/ }),
 
-/***/ 960:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return StartOrEndPointIconGenerator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(837);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _components_diagrams_icon_IconGenerator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(839);
-/* harmony import */ var _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(838);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(3);
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-
-var StartOrEndPointIconGenerator = /*#__PURE__*/function (_IconGenerator) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(StartOrEndPointIconGenerator, _IconGenerator);
-
-  var _super = _createSuper(StartOrEndPointIconGenerator);
-
-  function StartOrEndPointIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, StartOrEndPointIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(StartOrEndPointIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"].始点終点;
-    }
-  }, {
-    key: "generate",
-    value: function generate(placement, point, _iconChar) {
-      var id = String(placement.resourceId);
-      var outline = new draw2d__WEBPACK_IMPORTED_MODULE_7___default.a.shape.basic.Rectangle({
-        id: id,
-        x: placement.x,
-        y: placement.y,
-        width: 40,
-        height: 20,
-        bgColor: "none",
-        alpha: 0,
-        stroke: 0
-      });
-      outline.setResizeable(false);
-      if (point.startPoint) this.decorateStartPint(outline);else this.decorateEndPoint(outline);
-      outline.setUserData(new _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_9__["default"]());
-      return outline;
-    }
-  }, {
-    key: "decorateStartPint",
-    value: function decorateStartPint(outline) {
-      var ten = new draw2d__WEBPACK_IMPORTED_MODULE_7___default.a.shape.basic.Circle({
-        bgColor: "#000000"
-      });
-      ten.setWidth(20);
-      outline.add(ten, new draw2d__WEBPACK_IMPORTED_MODULE_7___default.a.layout.locator.CenterLocator());
-      var port = new draw2d__WEBPACK_IMPORTED_MODULE_7___default.a.OutputPort();
-      outline.addPort(port, new draw2d__WEBPACK_IMPORTED_MODULE_7___default.a.layout.locator.BottomLocator());
-    }
-  }, {
-    key: "decorateEndPoint",
-    value: function decorateEndPoint(outline) {
-      var maru = new draw2d__WEBPACK_IMPORTED_MODULE_7___default.a.shape.basic.Circle({
-        bgColor: "none",
-        stroke: 2
-      });
-      maru.setWidth(20);
-      outline.add(maru, new draw2d__WEBPACK_IMPORTED_MODULE_7___default.a.layout.locator.CenterLocator());
-      var ten = new draw2d__WEBPACK_IMPORTED_MODULE_7___default.a.shape.basic.Circle({
-        bgColor: "#000000",
-        stroke: 1
-      });
-      ten.setWidth(12);
-      outline.add(ten, new draw2d__WEBPACK_IMPORTED_MODULE_7___default.a.layout.locator.CenterLocator());
-      var port = new draw2d__WEBPACK_IMPORTED_MODULE_7___default.a.InputPort();
-      outline.addPort(port, new draw2d__WEBPACK_IMPORTED_MODULE_7___default.a.layout.locator.TopLocator());
-    }
-  }]);
-
-  return StartOrEndPointIconGenerator;
-}(_components_diagrams_icon_IconGenerator__WEBPACK_IMPORTED_MODULE_8__["default"]);
-
-
-
-/***/ }),
-
-/***/ 964:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BusinessFlowConnectPortsEvents; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5);
-/* harmony import */ var _components_diagrams_editor_template_event_events_GenericConnectPortsEvents__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(846);
-/* harmony import */ var _domain_relation_RouterType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(213);
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-var BusinessFlowConnectPortsEvents = /*#__PURE__*/function (_GenericConnectPortsE) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(BusinessFlowConnectPortsEvents, _GenericConnectPortsE);
-
-  var _super = _createSuper(BusinessFlowConnectPortsEvents);
-
-  function BusinessFlowConnectPortsEvents() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, BusinessFlowConnectPortsEvents);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(BusinessFlowConnectPortsEvents, [{
-    key: "prototype",
-    value: function prototype() {
-      return new BusinessFlowConnectPortsEvents();
-    }
-    /**
-     * 「業務フロー図」は「フローとして関連線の方向が在る」ので、判定を上書き。
-     */
-
-  }, {
-    key: "customizeRelation",
-    value: function customizeRelation(original, product) {
-      if (!product.isFlowRelation(original)) return original;
-      return original.changeRouter(_domain_relation_RouterType__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].MANHATTAN).changeTipAllow(true);
-    }
-  }]);
-
-  return BusinessFlowConnectPortsEvents;
-}(_components_diagrams_editor_template_event_events_GenericConnectPortsEvents__WEBPACK_IMPORTED_MODULE_7__["default"]);
-
-
-
-/***/ }),
-
-/***/ 965:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ActorAndLaneIconGenerator; });
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(10);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(16);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(6);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(19);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(837);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _components_diagrams_icon_IconGenerator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(839);
-/* harmony import */ var _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(838);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(3);
-/* harmony import */ var _components_diagrams_icon_IconZOrderLevel__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(840);
-
-
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-
-
-var ActorAndLaneIconGenerator = /*#__PURE__*/function (_IconGenerator) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(ActorAndLaneIconGenerator, _IconGenerator);
-
-  var _super = _createSuper(ActorAndLaneIconGenerator);
-
-  function ActorAndLaneIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(this, ActorAndLaneIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(ActorAndLaneIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"].アクター;
-    }
-  }, {
-    key: "generate",
-    value: function generate(placement, resource, iconChar) {
-      var id = String(placement.resourceId);
-      var waku = new draw2d__WEBPACK_IMPORTED_MODULE_9___default.a.shape.basic.Rectangle({
-        id: id,
-        x: placement.x,
-        y: placement.y,
-        width: placement.width,
-        height: placement.height,
-        minWidth: 100,
-        minHeight: 40,
-        bgColor: "none",
-        color: "#000000",
-        alpha: 1,
-        stroke: 2
-      });
-      var icon = new draw2d__WEBPACK_IMPORTED_MODULE_9___default.a.shape.basic.Label({
-        fontFamily: iconChar.fontFamily,
-        text: iconChar.charactor,
-        fontSize: 28,
-        stroke: 0,
-        padding: 0,
-        bgColor: "#FFFFFF",
-        resizable: false,
-        alpha: 1
-      });
-      var name = new draw2d__WEBPACK_IMPORTED_MODULE_9___default.a.shape.basic.Label({
-        text: resource.name,
-        bold: true,
-        stroke: 0,
-        padding: 0,
-        resizable: false,
-        selectable: false
-      });
-      var container = new draw2d__WEBPACK_IMPORTED_MODULE_9___default.a.shape.layout.TableLayout();
-      container.addRow(icon, name);
-      container.setCellVerticalAlign(0, 0, "middle");
-      container.setCellVerticalAlign(0, 1, "middle");
-      container.setStroke(0);
-      var topBox = new draw2d__WEBPACK_IMPORTED_MODULE_9___default.a.shape.basic.Rectangle({
-        width: placement.width,
-        height: 40,
-        bgColor: "none",
-        color: "#000000",
-        alpha: 1,
-        stroke: 1
-      });
-      waku.on("resize", function (selfFigure) {
-        selfFigure.getChildren().data.forEach(function (i) {
-          return i.setWidth(selfFigure.getWidth());
-        });
-      });
-      topBox.add(container, new draw2d__WEBPACK_IMPORTED_MODULE_9___default.a.layout.locator.CenterLocator());
-      waku.add(topBox, new draw2d__WEBPACK_IMPORTED_MODULE_9___default.a.layout.locator.XYAbsPortLocator(0, 0));
-      waku.setUserData(new _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_11__["default"](_components_diagrams_icon_IconZOrderLevel__WEBPACK_IMPORTED_MODULE_13__["default"].AREA));
-      return waku;
-    }
-  }]);
-
-  return ActorAndLaneIconGenerator;
-}(_components_diagrams_icon_IconGenerator__WEBPACK_IMPORTED_MODULE_10__["default"]);
-
-
-
-/***/ }),
-
-/***/ 966:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ActivityForBusinessFlowIconGenerator; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(16);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(837);
-/* harmony import */ var draw2d__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(draw2d__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _components_diagrams_icon_IconGenerator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(839);
-/* harmony import */ var _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(838);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(3);
-
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-
-var ActivityForBusinessFlowIconGenerator = /*#__PURE__*/function (_IconGenerator) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(ActivityForBusinessFlowIconGenerator, _IconGenerator);
-
-  var _super = _createSuper(ActivityForBusinessFlowIconGenerator);
-
-  function ActivityForBusinessFlowIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, ActivityForBusinessFlowIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(ActivityForBusinessFlowIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].アクティビティ;
-    }
-  }, {
-    key: "generate",
-    value: function generate(placement, resource, iconChar) {
-      var id = String(placement.resourceId);
-      var outline = new draw2d__WEBPACK_IMPORTED_MODULE_8___default.a.shape.basic.Rectangle({
-        id: id,
-        x: placement.x,
-        y: placement.y,
-        width: 40,
-        height: 40,
-        bgColor: "none",
-        stroke: 0
-      });
-      outline.setResizeable(false);
-      var icon = new draw2d__WEBPACK_IMPORTED_MODULE_8___default.a.shape.basic.Label({
-        fontFamily: iconChar.fontFamily,
-        text: iconChar.charactor,
-        fontSize: 35,
-        stroke: 0,
-        padding: 0,
-        bgColor: "#FFFFFF"
-      });
-      outline.add(icon, new draw2d__WEBPACK_IMPORTED_MODULE_8___default.a.layout.locator.CenterLocator());
-      var name = new draw2d__WEBPACK_IMPORTED_MODULE_8___default.a.shape.basic.Label({
-        text: resource.name,
-        stroke: 0,
-        padding: 0,
-        resizable: false,
-        selectable: false
-      });
-      outline.add(name, new draw2d__WEBPACK_IMPORTED_MODULE_8___default.a.layout.locator.BottomLocator());
-      this.makeDoubleVectorPorts(outline);
-      outline.setUserData(new _components_diagrams_icon_IconStatus__WEBPACK_IMPORTED_MODULE_10__["default"]());
-      return outline;
-    }
-  }]);
-
-  return ActivityForBusinessFlowIconGenerator;
-}(_components_diagrams_icon_IconGenerator__WEBPACK_IMPORTED_MODULE_9__["default"]);
-
-
-
-/***/ }),
-
-/***/ 967:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return StateModelConnectPortsEvents; });
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5);
-/* harmony import */ var _components_diagrams_editor_template_event_events_GenericConnectPortsEvents__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(846);
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-var StateModelConnectPortsEvents = /*#__PURE__*/function (_GenericConnectPortsE) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(StateModelConnectPortsEvents, _GenericConnectPortsE);
-
-  var _super = _createSuper(StateModelConnectPortsEvents);
-
-  function StateModelConnectPortsEvents() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(this, StateModelConnectPortsEvents);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(StateModelConnectPortsEvents, [{
-    key: "prototype",
-    value: function prototype() {
-      return new StateModelConnectPortsEvents();
-    }
-    /**
-     * 「状態モデル図」は「関連線の方向が在る」ので、判定を上書き。
-     */
-
-  }, {
-    key: "customizeRelation",
-    value: function customizeRelation(original, product) {
-      if (!product.isFlowRelation(original)) return original;
-      return original.changeTipAllow(true);
-    }
-  }]);
-
-  return StateModelConnectPortsEvents;
-}(_components_diagrams_editor_template_event_events_GenericConnectPortsEvents__WEBPACK_IMPORTED_MODULE_7__["default"]);
-
-
-
-/***/ }),
-
-/***/ 968:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UseCaseForStateModelIconGenerator; });
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
-/* harmony import */ var core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_reflect_construct_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
-/* harmony import */ var _babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(132);
-/* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10);
-/* harmony import */ var _babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(6);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(19);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _components_diagrams_icon_GenericTextEllipseIconGenerator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(857);
-/* harmony import */ var _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(3);
-
-
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-var UseCaseForStateModelIconGenerator = /*#__PURE__*/function (_GenericTextEllipseIc) {
-  Object(_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(UseCaseForStateModelIconGenerator, _GenericTextEllipseIc);
-
-  var _super = _createSuper(UseCaseForStateModelIconGenerator);
-
-  function UseCaseForStateModelIconGenerator() {
-    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(this, UseCaseForStateModelIconGenerator);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(UseCaseForStateModelIconGenerator, [{
-    key: "resourceType",
-    value: function resourceType() {
-      return _domain_resource_ResourceType__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"].ユースケース;
-    }
-  }, {
-    key: "generate",
-    value: function generate(placement, resource, iconChar) {
-      var icon = Object(_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(UseCaseForStateModelIconGenerator.prototype), "generate", this).call(this, placement, resource, iconChar);
-
-      icon.setBackgroundColor("#FFFFAF");
-      icon.getOutputPorts().asArray().forEach(function (port) {
-        return icon.removePort(port);
-      });
-      this.makeDoubleVectorPorts(icon);
-      return icon;
-    }
-  }]);
-
-  return UseCaseForStateModelIconGenerator;
-}(_components_diagrams_icon_GenericTextEllipseIconGenerator__WEBPACK_IMPORTED_MODULE_9__["default"]);
-
-
-
-/***/ }),
-
-/***/ 970:
+/***/ 980:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/businesscontextdiagram/BusinessContextDiagramEditor.vue?vue&type=template&id=b2f91510&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/custom/freestyle/FreestyleDiagramEditor.vue?vue&type=template&id=27d6e40e&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/businesscontextdiagram/BusinessContextDiagramEditor.vue?vue&type=template&id=b2f91510&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/custom/freestyle/FreestyleDiagramEditor.vue?vue&type=template&id=27d6e40e&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(0);
@@ -12663,6 +12119,12 @@ var es_reflect_construct = __webpack_require__(30);
 
 // EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
 var nuxt_property_decorator_umd = __webpack_require__(76);
+
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/StateIconGenerator.ts
+var StateIconGenerator = __webpack_require__(957);
+
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/StateGroupIconGenerator.ts
+var StateGroupIconGenerator = __webpack_require__(958);
 
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue + 5 modules
 var DiagramEditor = __webpack_require__(852);
@@ -12691,985 +12153,17 @@ var RoomIconGenerator = __webpack_require__(941);
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/BusinessIconGenerator.ts
 var BusinessIconGenerator = __webpack_require__(949);
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/businesscontextdiagram/BusinessContextDiagramEditor.vue?vue&type=script&lang=ts&
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-  var c = arguments.length,
-      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-      d;
-  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  }
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-var BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(InfomationModelEditor, _Vue);
-
-  var _super = _createSuper(InfomationModelEditor);
-
-  function InfomationModelEditor() {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, InfomationModelEditor);
-
-    // Props
-    _this = _super.apply(this, arguments); // This class fields;
-
-    _this.eventAnalyzer = new EventAnalyzer["default"]([new GenericDeleteShapeEvents["default"](), new GenericConnectPortsEvents["default"](), new GenericMoveShapeEvents["default"](), new GenericResizeShapeEvents["default"]()]);
-    _this.iconGenerators = [new BusinessIconGenerator["default"](), new CompanyIconGenerator["default"](), new RoomIconGenerator["default"]()];
-    return _this;
-  } // Emits
-
-
-  Object(createClass["a" /* default */])(InfomationModelEditor, [{
-    key: "onUpdateResources",
-    value: function onUpdateResources() {}
-  }, {
-    key: "onOpendDiagramPropertiesEditor",
-    value: function onOpendDiagramPropertiesEditor(_diagramId) {}
-  }, {
-    key: "onOpenDiagramOfResourceRelate",
-    value: function onOpenDiagramOfResourceRelate(_resourceId) {}
-  }, {
-    key: "onRenamedResource",
-    value: function onRenamedResource(_src, _dest) {}
-  }]);
-
-  return InfomationModelEditor;
-}(nuxt_property_decorator_umd["Vue"]);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "diagram", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "allResources", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onUpdateResources", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onOpendDiagramPropertiesEditor", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onOpenDiagramOfResourceRelate", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])("onRenamedResource")], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onRenamedResource", null);
-
-BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
-  components: {
-    DiagramEditor: DiagramEditor["default"]
-  }
-})], BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor);
-/* harmony default export */ var BusinessContextDiagramEditorvue_type_script_lang_ts_ = (BusinessContextDiagramEditorvue_type_script_lang_ts_InfomationModelEditor);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/businesscontextdiagram/BusinessContextDiagramEditor.vue?vue&type=script&lang=ts&
- /* harmony default export */ var businesscontextdiagram_BusinessContextDiagramEditorvue_type_script_lang_ts_ = (BusinessContextDiagramEditorvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(56);
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/businesscontextdiagram/BusinessContextDiagramEditor.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  businesscontextdiagram_BusinessContextDiagramEditorvue_type_script_lang_ts_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var BusinessContextDiagramEditor = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 971:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=template&id=0d7d8982&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=template&id=0d7d8982&
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(0);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(1);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
-var possibleConstructorReturn = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(5);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(17);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
-var es_object_get_own_property_descriptor = __webpack_require__(18);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
-var es_reflect_construct = __webpack_require__(30);
-
-// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
-var nuxt_property_decorator_umd = __webpack_require__(76);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue + 5 modules
-var DiagramEditor = __webpack_require__(852);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/EventAnalyzer.ts
-var EventAnalyzer = __webpack_require__(848);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericConnectPortsEvents.ts
-var GenericConnectPortsEvents = __webpack_require__(846);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents.ts
-var GenericDeleteShapeEvents = __webpack_require__(849);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericMoveShapeEvents.ts
-var GenericMoveShapeEvents = __webpack_require__(850);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericResizeShapeEvents.ts
-var GenericResizeShapeEvents = __webpack_require__(851);
-
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/BusinessUseCaseIconGenerator.ts
 var BusinessUseCaseIconGenerator = __webpack_require__(950);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/CompanyIconGenerator.ts
-var CompanyIconGenerator = __webpack_require__(940);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/RoomIconGenerator.ts
-var RoomIconGenerator = __webpack_require__(941);
 
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ConditionIconGenerator.ts
 var ConditionIconGenerator = __webpack_require__(933);
 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator.ts
-var TableTypeConditionIconGenerator = __webpack_require__(934);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=script&lang=ts&
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-  var c = arguments.length,
-      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-      d;
-  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  }
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(BusinessUseCaseDiagramEditor, _Vue);
-
-  var _super = _createSuper(BusinessUseCaseDiagramEditor);
-
-  function BusinessUseCaseDiagramEditor() {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, BusinessUseCaseDiagramEditor);
-
-    // Props
-    _this = _super.apply(this, arguments); // This class fields;
-
-    _this.eventAnalyzer = new EventAnalyzer["default"]([new GenericDeleteShapeEvents["default"](), new GenericConnectPortsEvents["default"](), new GenericMoveShapeEvents["default"](), new GenericResizeShapeEvents["default"]()]);
-    _this.iconGenerators = [new BusinessUseCaseIconGenerator["default"](), new CompanyIconGenerator["default"](), new RoomIconGenerator["default"](), new ConditionIconGenerator["default"](), new TableTypeConditionIconGenerator["default"]()];
-    return _this;
-  } // Emits
-
-
-  Object(createClass["a" /* default */])(BusinessUseCaseDiagramEditor, [{
-    key: "onUpdateResources",
-    value: function onUpdateResources() {}
-  }, {
-    key: "onOpendDiagramPropertiesEditor",
-    value: function onOpendDiagramPropertiesEditor(_diagramId) {}
-  }, {
-    key: "onOpenDiagramOfResourceRelate",
-    value: function onOpenDiagramOfResourceRelate(_resourceId) {}
-  }, {
-    key: "onRenamedResource",
-    value: function onRenamedResource(_src, _dest) {}
-  }]);
-
-  return BusinessUseCaseDiagramEditor;
-}(nuxt_property_decorator_umd["Vue"]);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "diagram", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "allResources", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "onUpdateResources", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor.prototype, "onRenamedResource", null);
-
-BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
-  components: {
-    DiagramEditor: DiagramEditor["default"]
-  }
-})], BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor);
-/* harmony default export */ var BusinessUseCaseDiagramEditorvue_type_script_lang_ts_ = (BusinessUseCaseDiagramEditorvue_type_script_lang_ts_BusinessUseCaseDiagramEditor);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/businessusecasediagram/BusinessUseCaseDiagramEditor.vue?vue&type=script&lang=ts&
- /* harmony default export */ var businessusecasediagram_BusinessUseCaseDiagramEditorvue_type_script_lang_ts_ = (BusinessUseCaseDiagramEditorvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(56);
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/businessusecasediagram/BusinessUseCaseDiagramEditor.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  businessusecasediagram_BusinessUseCaseDiagramEditorvue_type_script_lang_ts_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var businessusecasediagram_BusinessUseCaseDiagramEditor = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 972:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/businessflowdiagram/BusinessFlowDiagramEditor.vue?vue&type=template&id=5bf5c0eb&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/businessflowdiagram/BusinessFlowDiagramEditor.vue?vue&type=template&id=5bf5c0eb&
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(0);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(1);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
-var possibleConstructorReturn = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(5);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(17);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
-var es_object_get_own_property_descriptor = __webpack_require__(18);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
-var es_reflect_construct = __webpack_require__(30);
-
-// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
-var nuxt_property_decorator_umd = __webpack_require__(76);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue + 5 modules
-var DiagramEditor = __webpack_require__(852);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/EventAnalyzer.ts
-var EventAnalyzer = __webpack_require__(848);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/rdra20/businessflowdiagram/event/BusinessFlowConnectPortsEvents.ts
-var BusinessFlowConnectPortsEvents = __webpack_require__(964);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents.ts
-var GenericDeleteShapeEvents = __webpack_require__(849);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericMoveShapeEvents.ts
-var GenericMoveShapeEvents = __webpack_require__(850);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericResizeShapeEvents.ts
-var GenericResizeShapeEvents = __webpack_require__(851);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ActorAndLaneIconGenerator.ts
-var ActorAndLaneIconGenerator = __webpack_require__(965);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ActivityForBusinessFlowIconGenerator.ts
-var ActivityForBusinessFlowIconGenerator = __webpack_require__(966);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/UseCaseIconGenerator.ts
-var UseCaseIconGenerator = __webpack_require__(935);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/StartOrEndPointIconGenerator.ts
-var StartOrEndPointIconGenerator = __webpack_require__(960);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/businessflowdiagram/BusinessFlowDiagramEditor.vue?vue&type=script&lang=ts&
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-  var c = arguments.length,
-      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-      d;
-  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  }
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-var BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(BusinessFlowDiagramEditor, _Vue);
-
-  var _super = _createSuper(BusinessFlowDiagramEditor);
-
-  function BusinessFlowDiagramEditor() {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, BusinessFlowDiagramEditor);
-
-    // Props
-    _this = _super.apply(this, arguments); // This class fields;
-
-    _this.eventAnalyzer = new EventAnalyzer["default"]([new GenericDeleteShapeEvents["default"](), new BusinessFlowConnectPortsEvents["default"](), new GenericMoveShapeEvents["default"](), new GenericResizeShapeEvents["default"]()]);
-    _this.iconGenerators = [new ActorAndLaneIconGenerator["default"](), new ActivityForBusinessFlowIconGenerator["default"](), new UseCaseIconGenerator["default"](), new StartOrEndPointIconGenerator["default"]()];
-    return _this;
-  } // Emits
-
-
-  Object(createClass["a" /* default */])(BusinessFlowDiagramEditor, [{
-    key: "onUpdateResources",
-    value: function onUpdateResources() {}
-  }, {
-    key: "onOpendDiagramPropertiesEditor",
-    value: function onOpendDiagramPropertiesEditor(_diagramId) {}
-  }, {
-    key: "onOpenDiagramOfResourceRelate",
-    value: function onOpenDiagramOfResourceRelate(_resourceId) {}
-  }, {
-    key: "onRenamedResource",
-    value: function onRenamedResource(_src, _dest) {}
-  }]);
-
-  return BusinessFlowDiagramEditor;
-}(nuxt_property_decorator_umd["Vue"]);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "diagram", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "allResources", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "onUpdateResources", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor.prototype, "onRenamedResource", null);
-
-BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
-  components: {
-    DiagramEditor: DiagramEditor["default"]
-  }
-})], BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor);
-/* harmony default export */ var BusinessFlowDiagramEditorvue_type_script_lang_ts_ = (BusinessFlowDiagramEditorvue_type_script_lang_ts_BusinessFlowDiagramEditor);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/businessflowdiagram/BusinessFlowDiagramEditor.vue?vue&type=script&lang=ts&
- /* harmony default export */ var businessflowdiagram_BusinessFlowDiagramEditorvue_type_script_lang_ts_ = (BusinessFlowDiagramEditorvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(56);
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/businessflowdiagram/BusinessFlowDiagramEditor.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  businessflowdiagram_BusinessFlowDiagramEditorvue_type_script_lang_ts_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var businessflowdiagram_BusinessFlowDiagramEditor = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 973:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/usagescenediagram/UsageSceneDiagramEditor.vue?vue&type=template&id=7578e868&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate}})}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/usagescenediagram/UsageSceneDiagramEditor.vue?vue&type=template&id=7578e868&
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(0);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(1);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
-var possibleConstructorReturn = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(5);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(17);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
-var es_object_get_own_property_descriptor = __webpack_require__(18);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
-var es_reflect_construct = __webpack_require__(30);
-
-// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
-var nuxt_property_decorator_umd = __webpack_require__(76);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue + 5 modules
-var DiagramEditor = __webpack_require__(852);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/EventAnalyzer.ts
-var EventAnalyzer = __webpack_require__(848);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericConnectPortsEvents.ts
-var GenericConnectPortsEvents = __webpack_require__(846);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents.ts
-var GenericDeleteShapeEvents = __webpack_require__(849);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericMoveShapeEvents.ts
-var GenericMoveShapeEvents = __webpack_require__(850);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericResizeShapeEvents.ts
-var GenericResizeShapeEvents = __webpack_require__(851);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ScenarioIconGenerator.ts
-var ScenarioIconGenerator = __webpack_require__(951);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/UseCaseIconGenerator.ts
-var UseCaseIconGenerator = __webpack_require__(935);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/usagescenediagram/UsageSceneDiagramEditor.vue?vue&type=script&lang=ts&
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-  var c = arguments.length,
-      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-      d;
-  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  }
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-
-var UsageSceneDiagramEditorvue_type_script_lang_ts_UsageSceneDiagramEditor = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(UsageSceneDiagramEditor, _Vue);
-
-  var _super = _createSuper(UsageSceneDiagramEditor);
-
-  function UsageSceneDiagramEditor() {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, UsageSceneDiagramEditor);
-
-    // Props
-    _this = _super.apply(this, arguments); // This class fields;
-
-    _this.eventAnalyzer = new EventAnalyzer["default"]([new GenericDeleteShapeEvents["default"](), new GenericConnectPortsEvents["default"](), new GenericMoveShapeEvents["default"](), new GenericResizeShapeEvents["default"]()]);
-    _this.iconGenerators = [new ScenarioIconGenerator["default"](), new UseCaseIconGenerator["default"]()];
-    return _this;
-  } // Emits
-
-
-  Object(createClass["a" /* default */])(UsageSceneDiagramEditor, [{
-    key: "onUpdateResources",
-    value: function onUpdateResources() {}
-  }, {
-    key: "onOpendDiagramPropertiesEditor",
-    value: function onOpendDiagramPropertiesEditor(_diagramId) {}
-  }, {
-    key: "onOpenDiagramOfResourceRelate",
-    value: function onOpenDiagramOfResourceRelate(_resourceId) {}
-  }]);
-
-  return UsageSceneDiagramEditor;
-}(nuxt_property_decorator_umd["Vue"]);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], UsageSceneDiagramEditorvue_type_script_lang_ts_UsageSceneDiagramEditor.prototype, "diagram", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], UsageSceneDiagramEditorvue_type_script_lang_ts_UsageSceneDiagramEditor.prototype, "allResources", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], UsageSceneDiagramEditorvue_type_script_lang_ts_UsageSceneDiagramEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], UsageSceneDiagramEditorvue_type_script_lang_ts_UsageSceneDiagramEditor.prototype, "onUpdateResources", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], UsageSceneDiagramEditorvue_type_script_lang_ts_UsageSceneDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], UsageSceneDiagramEditorvue_type_script_lang_ts_UsageSceneDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
-
-UsageSceneDiagramEditorvue_type_script_lang_ts_UsageSceneDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
-  components: {
-    DiagramEditor: DiagramEditor["default"]
-  }
-})], UsageSceneDiagramEditorvue_type_script_lang_ts_UsageSceneDiagramEditor);
-/* harmony default export */ var UsageSceneDiagramEditorvue_type_script_lang_ts_ = (UsageSceneDiagramEditorvue_type_script_lang_ts_UsageSceneDiagramEditor);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/usagescenediagram/UsageSceneDiagramEditor.vue?vue&type=script&lang=ts&
- /* harmony default export */ var usagescenediagram_UsageSceneDiagramEditorvue_type_script_lang_ts_ = (UsageSceneDiagramEditorvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(56);
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/usagescenediagram/UsageSceneDiagramEditor.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  usagescenediagram_UsageSceneDiagramEditorvue_type_script_lang_ts_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var usagescenediagram_UsageSceneDiagramEditor = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 974:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/systemcontextdiagram/SystemContextDiagramEditor.vue?vue&type=template&id=e90dce44&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/systemcontextdiagram/SystemContextDiagramEditor.vue?vue&type=template&id=e90dce44&
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(0);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(1);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
-var possibleConstructorReturn = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(5);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(17);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
-var es_object_get_own_property_descriptor = __webpack_require__(18);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
-var es_reflect_construct = __webpack_require__(30);
-
-// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
-var nuxt_property_decorator_umd = __webpack_require__(76);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue + 5 modules
-var DiagramEditor = __webpack_require__(852);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/EventAnalyzer.ts
-var EventAnalyzer = __webpack_require__(848);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericConnectPortsEvents.ts
-var GenericConnectPortsEvents = __webpack_require__(846);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents.ts
-var GenericDeleteShapeEvents = __webpack_require__(849);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericMoveShapeEvents.ts
-var GenericMoveShapeEvents = __webpack_require__(850);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericResizeShapeEvents.ts
-var GenericResizeShapeEvents = __webpack_require__(851);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/SystemForSystemContextIconGenerator.ts
-var SystemForSystemContextIconGenerator = __webpack_require__(952);
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/InformationGroupIconGenerator.ts
+var InformationGroupIconGenerator = __webpack_require__(956);
 
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/PurposeIconGenerator.ts
 var PurposeIconGenerator = __webpack_require__(953);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/systemcontextdiagram/SystemContextDiagramEditor.vue?vue&type=script&lang=ts&
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-  var c = arguments.length,
-      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-      d;
-  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  }
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-
-var SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(SystemContextDiagramEditor, _Vue);
-
-  var _super = _createSuper(SystemContextDiagramEditor);
-
-  function SystemContextDiagramEditor() {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, SystemContextDiagramEditor);
-
-    // Props
-    _this = _super.apply(this, arguments); // This class fields;
-
-    _this.eventAnalyzer = new EventAnalyzer["default"]([new GenericDeleteShapeEvents["default"](), new GenericConnectPortsEvents["default"](), new GenericMoveShapeEvents["default"](), new GenericResizeShapeEvents["default"]()]);
-    _this.iconGenerators = [new SystemForSystemContextIconGenerator["default"](), new PurposeIconGenerator["default"]()];
-    return _this;
-  } // Emits
-
-
-  Object(createClass["a" /* default */])(SystemContextDiagramEditor, [{
-    key: "onUpdateResources",
-    value: function onUpdateResources() {}
-  }, {
-    key: "onOpendDiagramPropertiesEditor",
-    value: function onOpendDiagramPropertiesEditor(_diagramId) {}
-  }, {
-    key: "onOpenDiagramOfResourceRelate",
-    value: function onOpenDiagramOfResourceRelate(_resourceId) {}
-  }, {
-    key: "onRenamedResource",
-    value: function onRenamedResource(_src, _dest) {}
-  }]);
-
-  return SystemContextDiagramEditor;
-}(nuxt_property_decorator_umd["Vue"]);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor.prototype, "diagram", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor.prototype, "allResources", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor.prototype, "onUpdateResources", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor.prototype, "onRenamedResource", null);
-
-SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
-  components: {
-    DiagramEditor: DiagramEditor["default"]
-  }
-})], SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor);
-/* harmony default export */ var SystemContextDiagramEditorvue_type_script_lang_ts_ = (SystemContextDiagramEditorvue_type_script_lang_ts_SystemContextDiagramEditor);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/systemcontextdiagram/SystemContextDiagramEditor.vue?vue&type=script&lang=ts&
- /* harmony default export */ var systemcontextdiagram_SystemContextDiagramEditorvue_type_script_lang_ts_ = (SystemContextDiagramEditorvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(56);
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/systemcontextdiagram/SystemContextDiagramEditor.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  systemcontextdiagram_SystemContextDiagramEditorvue_type_script_lang_ts_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var systemcontextdiagram_SystemContextDiagramEditor = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 975:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/requrestmodel/RequestModelDiagramEditor.vue?vue&type=template&id=3ed1746b&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/requrestmodel/RequestModelDiagramEditor.vue?vue&type=template&id=3ed1746b&
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(0);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(1);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
-var possibleConstructorReturn = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(5);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(17);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
-var es_object_get_own_property_descriptor = __webpack_require__(18);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
-var es_reflect_construct = __webpack_require__(30);
-
-// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
-var nuxt_property_decorator_umd = __webpack_require__(76);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue + 5 modules
-var DiagramEditor = __webpack_require__(852);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/EventAnalyzer.ts
-var EventAnalyzer = __webpack_require__(848);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericConnectPortsEvents.ts
-var GenericConnectPortsEvents = __webpack_require__(846);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents.ts
-var GenericDeleteShapeEvents = __webpack_require__(849);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericMoveShapeEvents.ts
-var GenericMoveShapeEvents = __webpack_require__(850);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericResizeShapeEvents.ts
-var GenericResizeShapeEvents = __webpack_require__(851);
 
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/RequestIconGenerator.ts
 var RequestIconGenerator = __webpack_require__(954);
@@ -13677,585 +12171,14 @@ var RequestIconGenerator = __webpack_require__(954);
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/RequirementIconGenerator.ts
 var RequirementIconGenerator = __webpack_require__(955);
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/requrestmodel/RequestModelDiagramEditor.vue?vue&type=script&lang=ts&
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ScenarioIconGenerator.ts
+var ScenarioIconGenerator = __webpack_require__(951);
 
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/SystemForSystemContextIconGenerator.ts
+var SystemForSystemContextIconGenerator = __webpack_require__(952);
 
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-  var c = arguments.length,
-      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-      d;
-  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  }
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-
-var RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(RequestModelDiagramEditor, _Vue);
-
-  var _super = _createSuper(RequestModelDiagramEditor);
-
-  function RequestModelDiagramEditor() {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, RequestModelDiagramEditor);
-
-    // Props
-    _this = _super.apply(this, arguments); // This class fields;
-
-    _this.eventAnalyzer = new EventAnalyzer["default"]([new GenericDeleteShapeEvents["default"](), new GenericConnectPortsEvents["default"](), new GenericMoveShapeEvents["default"](), new GenericResizeShapeEvents["default"]()]);
-    _this.iconGenerators = [new RequestIconGenerator["default"](), new RequirementIconGenerator["default"]()];
-    return _this;
-  } // Emits
-
-
-  Object(createClass["a" /* default */])(RequestModelDiagramEditor, [{
-    key: "onUpdateResources",
-    value: function onUpdateResources() {}
-  }, {
-    key: "onOpendDiagramPropertiesEditor",
-    value: function onOpendDiagramPropertiesEditor(_diagramId) {}
-  }, {
-    key: "onOpenDiagramOfResourceRelate",
-    value: function onOpenDiagramOfResourceRelate(_resourceId) {}
-  }, {
-    key: "onRenamedResource",
-    value: function onRenamedResource(_src, _dest) {}
-  }]);
-
-  return RequestModelDiagramEditor;
-}(nuxt_property_decorator_umd["Vue"]);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor.prototype, "diagram", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor.prototype, "allResources", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor.prototype, "onUpdateResources", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor.prototype, "onRenamedResource", null);
-
-RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
-  components: {
-    DiagramEditor: DiagramEditor["default"]
-  }
-})], RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor);
-/* harmony default export */ var RequestModelDiagramEditorvue_type_script_lang_ts_ = (RequestModelDiagramEditorvue_type_script_lang_ts_RequestModelDiagramEditor);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/requrestmodel/RequestModelDiagramEditor.vue?vue&type=script&lang=ts&
- /* harmony default export */ var requrestmodel_RequestModelDiagramEditorvue_type_script_lang_ts_ = (RequestModelDiagramEditorvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(56);
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/requrestmodel/RequestModelDiagramEditor.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  requrestmodel_RequestModelDiagramEditorvue_type_script_lang_ts_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var requrestmodel_RequestModelDiagramEditor = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 976:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/infomationmodel/InfomationModelEditor.vue?vue&type=template&id=03e47a1b&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/infomationmodel/InfomationModelEditor.vue?vue&type=template&id=03e47a1b&
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(0);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(1);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
-var possibleConstructorReturn = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(5);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(17);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
-var es_object_get_own_property_descriptor = __webpack_require__(18);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
-var es_reflect_construct = __webpack_require__(30);
-
-// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
-var nuxt_property_decorator_umd = __webpack_require__(76);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue + 5 modules
-var DiagramEditor = __webpack_require__(852);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/EventAnalyzer.ts
-var EventAnalyzer = __webpack_require__(848);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericConnectPortsEvents.ts
-var GenericConnectPortsEvents = __webpack_require__(846);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents.ts
-var GenericDeleteShapeEvents = __webpack_require__(849);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericMoveShapeEvents.ts
-var GenericMoveShapeEvents = __webpack_require__(850);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericResizeShapeEvents.ts
-var GenericResizeShapeEvents = __webpack_require__(851);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/InformationGroupIconGenerator.ts
-var InformationGroupIconGenerator = __webpack_require__(956);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/infomationmodel/InfomationModelEditor.vue?vue&type=script&lang=ts&
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-  var c = arguments.length,
-      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-      d;
-  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  }
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-var InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(InfomationModelEditor, _Vue);
-
-  var _super = _createSuper(InfomationModelEditor);
-
-  function InfomationModelEditor() {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, InfomationModelEditor);
-
-    // Props
-    _this = _super.apply(this, arguments); // This class fields;
-
-    _this.eventAnalyzer = new EventAnalyzer["default"]([new GenericDeleteShapeEvents["default"](), new GenericConnectPortsEvents["default"](), new GenericMoveShapeEvents["default"](), new GenericResizeShapeEvents["default"]()]);
-    _this.iconGenerators = [new InformationGroupIconGenerator["default"]()];
-    return _this;
-  } // Emits
-
-
-  Object(createClass["a" /* default */])(InfomationModelEditor, [{
-    key: "onUpdateResources",
-    value: function onUpdateResources() {}
-  }, {
-    key: "onOpendDiagramPropertiesEditor",
-    value: function onOpendDiagramPropertiesEditor(_diagramId) {}
-  }, {
-    key: "onOpenDiagramOfResourceRelate",
-    value: function onOpenDiagramOfResourceRelate(_resourceId) {}
-  }, {
-    key: "onRenamedResource",
-    value: function onRenamedResource(_src, _dest) {}
-  }]);
-
-  return InfomationModelEditor;
-}(nuxt_property_decorator_umd["Vue"]);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "diagram", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "allResources", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onUpdateResources", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onOpendDiagramPropertiesEditor", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onOpenDiagramOfResourceRelate", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor.prototype, "onRenamedResource", null);
-
-InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
-  components: {
-    DiagramEditor: DiagramEditor["default"]
-  }
-})], InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor);
-/* harmony default export */ var InfomationModelEditorvue_type_script_lang_ts_ = (InfomationModelEditorvue_type_script_lang_ts_InfomationModelEditor);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/infomationmodel/InfomationModelEditor.vue?vue&type=script&lang=ts&
- /* harmony default export */ var infomationmodel_InfomationModelEditorvue_type_script_lang_ts_ = (InfomationModelEditorvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(56);
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/infomationmodel/InfomationModelEditor.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  infomationmodel_InfomationModelEditorvue_type_script_lang_ts_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var infomationmodel_InfomationModelEditor = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 977:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/statemodel/StateModelEditor.vue?vue&type=template&id=12fd242b&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/statemodel/StateModelEditor.vue?vue&type=template&id=12fd242b&
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(0);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(1);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
-var possibleConstructorReturn = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(5);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(17);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
-var es_object_get_own_property_descriptor = __webpack_require__(18);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
-var es_reflect_construct = __webpack_require__(30);
-
-// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
-var nuxt_property_decorator_umd = __webpack_require__(76);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue + 5 modules
-var DiagramEditor = __webpack_require__(852);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/EventAnalyzer.ts
-var EventAnalyzer = __webpack_require__(848);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/rdra20/statemodel/event/StateModelConnectPortsEvents.ts
-var StateModelConnectPortsEvents = __webpack_require__(967);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents.ts
-var GenericDeleteShapeEvents = __webpack_require__(849);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericMoveShapeEvents.ts
-var GenericMoveShapeEvents = __webpack_require__(850);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericResizeShapeEvents.ts
-var GenericResizeShapeEvents = __webpack_require__(851);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/UseCaseForStateModelIconGenerator.ts
-var UseCaseForStateModelIconGenerator = __webpack_require__(968);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/StateIconGenerator.ts
-var StateIconGenerator = __webpack_require__(957);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/StateGroupIconGenerator.ts
-var StateGroupIconGenerator = __webpack_require__(958);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/StartOrEndPointIconGenerator.ts
-var StartOrEndPointIconGenerator = __webpack_require__(960);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/statemodel/StateModelEditor.vue?vue&type=script&lang=ts&
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-  var c = arguments.length,
-      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-      d;
-  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  }
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-var StateModelEditorvue_type_script_lang_ts_StateModelEditor = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(StateModelEditor, _Vue);
-
-  var _super = _createSuper(StateModelEditor);
-
-  function StateModelEditor() {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, StateModelEditor);
-
-    // Props
-    _this = _super.apply(this, arguments); // This class fields;
-
-    _this.eventAnalyzer = new EventAnalyzer["default"]([new GenericDeleteShapeEvents["default"](), new StateModelConnectPortsEvents["default"](), new GenericMoveShapeEvents["default"](), new GenericResizeShapeEvents["default"]()]);
-    _this.iconGenerators = [new UseCaseForStateModelIconGenerator["default"](), new StateIconGenerator["default"](), new StateGroupIconGenerator["default"](), new StartOrEndPointIconGenerator["default"]()];
-    return _this;
-  } // Emits
-
-
-  Object(createClass["a" /* default */])(StateModelEditor, [{
-    key: "onUpdateResources",
-    value: function onUpdateResources() {}
-  }, {
-    key: "onOpendDiagramPropertiesEditor",
-    value: function onOpendDiagramPropertiesEditor(_diagramId) {}
-  }, {
-    key: "onOpenDiagramOfResourceRelate",
-    value: function onOpenDiagramOfResourceRelate(_resourceId) {}
-  }, {
-    key: "onRenamedResource",
-    value: function onRenamedResource(_src, _dest) {}
-  }]);
-
-  return StateModelEditor;
-}(nuxt_property_decorator_umd["Vue"]);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], StateModelEditorvue_type_script_lang_ts_StateModelEditor.prototype, "diagram", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], StateModelEditorvue_type_script_lang_ts_StateModelEditor.prototype, "allResources", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], StateModelEditorvue_type_script_lang_ts_StateModelEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], StateModelEditorvue_type_script_lang_ts_StateModelEditor.prototype, "onUpdateResources", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], StateModelEditorvue_type_script_lang_ts_StateModelEditor.prototype, "onOpendDiagramPropertiesEditor", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], StateModelEditorvue_type_script_lang_ts_StateModelEditor.prototype, "onOpenDiagramOfResourceRelate", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], StateModelEditorvue_type_script_lang_ts_StateModelEditor.prototype, "onRenamedResource", null);
-
-StateModelEditorvue_type_script_lang_ts_StateModelEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
-  components: {
-    DiagramEditor: DiagramEditor["default"]
-  }
-})], StateModelEditorvue_type_script_lang_ts_StateModelEditor);
-/* harmony default export */ var StateModelEditorvue_type_script_lang_ts_ = (StateModelEditorvue_type_script_lang_ts_StateModelEditor);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/statemodel/StateModelEditor.vue?vue&type=script&lang=ts&
- /* harmony default export */ var statemodel_StateModelEditorvue_type_script_lang_ts_ = (StateModelEditorvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(56);
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/statemodel/StateModelEditor.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  statemodel_StateModelEditorvue_type_script_lang_ts_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var statemodel_StateModelEditor = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 978:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue?vue&type=template&id=11eb960a&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue?vue&type=template&id=11eb960a&
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(0);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(1);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
-var possibleConstructorReturn = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(5);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(17);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
-var es_object_get_own_property_descriptor = __webpack_require__(18);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
-var es_reflect_construct = __webpack_require__(30);
-
-// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
-var nuxt_property_decorator_umd = __webpack_require__(76);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue + 5 modules
-var DiagramEditor = __webpack_require__(852);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/EventAnalyzer.ts
-var EventAnalyzer = __webpack_require__(848);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericConnectPortsEvents.ts
-var GenericConnectPortsEvents = __webpack_require__(846);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents.ts
-var GenericDeleteShapeEvents = __webpack_require__(849);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericMoveShapeEvents.ts
-var GenericMoveShapeEvents = __webpack_require__(850);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericResizeShapeEvents.ts
-var GenericResizeShapeEvents = __webpack_require__(851);
+// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator.ts
+var TableTypeConditionIconGenerator = __webpack_require__(934);
 
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/UseCaseIconGenerator.ts
 var UseCaseIconGenerator = __webpack_require__(935);
@@ -14263,13 +12186,7 @@ var UseCaseIconGenerator = __webpack_require__(935);
 // EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/VariationIconGenerator.ts
 var VariationIconGenerator = __webpack_require__(942);
 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ConditionIconGenerator.ts
-var ConditionIconGenerator = __webpack_require__(933);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator.ts
-var TableTypeConditionIconGenerator = __webpack_require__(934);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue?vue&type=script&lang=ts&
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/custom/freestyle/FreestyleDiagramEditor.vue?vue&type=script&lang=ts&
 
 
 
@@ -14307,26 +12224,38 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 
 
 
-var UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(UseCaseCompositeDiagramEditor, _Vue);
 
-  var _super = _createSuper(UseCaseCompositeDiagramEditor);
 
-  function UseCaseCompositeDiagramEditor() {
+
+
+
+
+
+
+
+
+
+
+var FreestyleDiagramEditorvue_type_script_lang_ts_FreestyleDiagramEditor = /*#__PURE__*/function (_Vue) {
+  Object(inherits["a" /* default */])(FreestyleDiagramEditor, _Vue);
+
+  var _super = _createSuper(FreestyleDiagramEditor);
+
+  function FreestyleDiagramEditor() {
     var _this;
 
-    Object(classCallCheck["a" /* default */])(this, UseCaseCompositeDiagramEditor);
+    Object(classCallCheck["a" /* default */])(this, FreestyleDiagramEditor);
 
     // Props
     _this = _super.apply(this, arguments); // This class fields;
 
     _this.eventAnalyzer = new EventAnalyzer["default"]([new GenericDeleteShapeEvents["default"](), new GenericConnectPortsEvents["default"](), new GenericMoveShapeEvents["default"](), new GenericResizeShapeEvents["default"]()]);
-    _this.iconGenerators = [new UseCaseIconGenerator["default"](), new VariationIconGenerator["default"](), new ConditionIconGenerator["default"](), new TableTypeConditionIconGenerator["default"]()];
+    _this.iconGenerators = [new SystemForSystemContextIconGenerator["default"](), new BusinessIconGenerator["default"](), new CompanyIconGenerator["default"](), new RoomIconGenerator["default"](), new BusinessUseCaseIconGenerator["default"](), new UseCaseIconGenerator["default"](), new ConditionIconGenerator["default"](), new TableTypeConditionIconGenerator["default"](), new VariationIconGenerator["default"](), new InformationGroupIconGenerator["default"](), new PurposeIconGenerator["default"](), new RequestIconGenerator["default"](), new RequirementIconGenerator["default"](), new ScenarioIconGenerator["default"](), new StateIconGenerator["default"](true), new StateGroupIconGenerator["default"](true)];
     return _this;
   } // Emits
 
 
-  Object(createClass["a" /* default */])(UseCaseCompositeDiagramEditor, [{
+  Object(createClass["a" /* default */])(FreestyleDiagramEditor, [{
     key: "onUpdateResources",
     value: function onUpdateResources() {}
   }, {
@@ -14340,41 +12269,41 @@ var UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagram
     value: function onRenamedResource(_src, _dest) {}
   }]);
 
-  return UseCaseCompositeDiagramEditor;
+  return FreestyleDiagramEditor;
 }(nuxt_property_decorator_umd["Vue"]);
 
 __decorate([Object(nuxt_property_decorator_umd["Prop"])({
   required: true
-})], UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor.prototype, "diagram", void 0);
+})], FreestyleDiagramEditorvue_type_script_lang_ts_FreestyleDiagramEditor.prototype, "diagram", void 0);
 
 __decorate([Object(nuxt_property_decorator_umd["Prop"])({
   required: true
-})], UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor.prototype, "allResources", void 0);
+})], FreestyleDiagramEditorvue_type_script_lang_ts_FreestyleDiagramEditor.prototype, "allResources", void 0);
 
 __decorate([Object(nuxt_property_decorator_umd["Prop"])({
   required: true
-})], UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
+})], FreestyleDiagramEditorvue_type_script_lang_ts_FreestyleDiagramEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
 
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor.prototype, "onUpdateResources", null);
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], FreestyleDiagramEditorvue_type_script_lang_ts_FreestyleDiagramEditor.prototype, "onUpdateResources", null);
 
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], FreestyleDiagramEditorvue_type_script_lang_ts_FreestyleDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
 
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], FreestyleDiagramEditorvue_type_script_lang_ts_FreestyleDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
 
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor.prototype, "onRenamedResource", null);
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], FreestyleDiagramEditorvue_type_script_lang_ts_FreestyleDiagramEditor.prototype, "onRenamedResource", null);
 
-UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
+FreestyleDiagramEditorvue_type_script_lang_ts_FreestyleDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
   components: {
     DiagramEditor: DiagramEditor["default"]
   }
-})], UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor);
-/* harmony default export */ var UseCaseCompositeDiagramEditorvue_type_script_lang_ts_ = (UseCaseCompositeDiagramEditorvue_type_script_lang_ts_UseCaseCompositeDiagramEditor);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue?vue&type=script&lang=ts&
- /* harmony default export */ var usecasecompositediagram_UseCaseCompositeDiagramEditorvue_type_script_lang_ts_ = (UseCaseCompositeDiagramEditorvue_type_script_lang_ts_); 
+})], FreestyleDiagramEditorvue_type_script_lang_ts_FreestyleDiagramEditor);
+/* harmony default export */ var FreestyleDiagramEditorvue_type_script_lang_ts_ = (FreestyleDiagramEditorvue_type_script_lang_ts_FreestyleDiagramEditor);
+// CONCATENATED MODULE: ./src/components/diagrams/editor/custom/freestyle/FreestyleDiagramEditor.vue?vue&type=script&lang=ts&
+ /* harmony default export */ var freestyle_FreestyleDiagramEditorvue_type_script_lang_ts_ = (FreestyleDiagramEditorvue_type_script_lang_ts_); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(56);
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue
+// CONCATENATED MODULE: ./src/components/diagrams/editor/custom/freestyle/FreestyleDiagramEditor.vue
 
 
 
@@ -14383,7 +12312,7 @@ var componentNormalizer = __webpack_require__(56);
 /* normalize component */
 
 var component = Object(componentNormalizer["a" /* default */])(
-  usecasecompositediagram_UseCaseCompositeDiagramEditorvue_type_script_lang_ts_,
+  freestyle_FreestyleDiagramEditorvue_type_script_lang_ts_,
   render,
   staticRenderFns,
   false,
@@ -14393,221 +12322,23 @@ var component = Object(componentNormalizer["a" /* default */])(
   
 )
 
-/* harmony default export */ var usecasecompositediagram_UseCaseCompositeDiagramEditor = __webpack_exports__["default"] = (component.exports);
+/* harmony default export */ var freestyle_FreestyleDiagramEditor = __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ 979:
+/***/ 987:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/variationandcondition/VariationAndConditionDiagramEditor.vue?vue&type=template&id=933d47e6&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('DiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId,"eventAnalyzer":_vm.eventAnalyzer,"iconGenerators":_vm.iconGenerators},on:{"onUpdateResources":_vm.onUpdateResources,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}})}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/custom/CustomDiagramEditorContainer.vue?vue&type=template&id=52b26725&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.is('フリースタイル図'))?_c('FreestyleDiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnContainer,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e()],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/variationandcondition/VariationAndConditionDiagramEditor.vue?vue&type=template&id=933d47e6&
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(0);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(1);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
-var possibleConstructorReturn = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(5);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(17);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
-var es_object_get_own_property_descriptor = __webpack_require__(18);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
-var es_reflect_construct = __webpack_require__(30);
-
-// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
-var nuxt_property_decorator_umd = __webpack_require__(76);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/DiagramEditor.vue + 5 modules
-var DiagramEditor = __webpack_require__(852);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/EventAnalyzer.ts
-var EventAnalyzer = __webpack_require__(848);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericConnectPortsEvents.ts
-var GenericConnectPortsEvents = __webpack_require__(846);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericDeleteShapeEvents.ts
-var GenericDeleteShapeEvents = __webpack_require__(849);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericMoveShapeEvents.ts
-var GenericMoveShapeEvents = __webpack_require__(850);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/event/events/GenericResizeShapeEvents.ts
-var GenericResizeShapeEvents = __webpack_require__(851);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/VariationIconGenerator.ts
-var VariationIconGenerator = __webpack_require__(942);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/ConditionIconGenerator.ts
-var ConditionIconGenerator = __webpack_require__(933);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/template/icon/TableTypeConditionIconGenerator.ts
-var TableTypeConditionIconGenerator = __webpack_require__(934);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/variationandcondition/VariationAndConditionDiagramEditor.vue?vue&type=script&lang=ts&
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-  var c = arguments.length,
-      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-      d;
-  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  }
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-var VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(VariationAndConditionDiagramEditor, _Vue);
-
-  var _super = _createSuper(VariationAndConditionDiagramEditor);
-
-  function VariationAndConditionDiagramEditor() {
-    var _this;
-
-    Object(classCallCheck["a" /* default */])(this, VariationAndConditionDiagramEditor);
-
-    // Props
-    _this = _super.apply(this, arguments); // This class fields;
-
-    _this.eventAnalyzer = new EventAnalyzer["default"]([new GenericDeleteShapeEvents["default"](), new GenericConnectPortsEvents["default"](), new GenericMoveShapeEvents["default"](), new GenericResizeShapeEvents["default"]()]);
-    _this.iconGenerators = [new VariationIconGenerator["default"](), new ConditionIconGenerator["default"](), new TableTypeConditionIconGenerator["default"]()];
-    return _this;
-  } // Emits
-
-
-  Object(createClass["a" /* default */])(VariationAndConditionDiagramEditor, [{
-    key: "onUpdateResources",
-    value: function onUpdateResources() {}
-  }, {
-    key: "onOpendDiagramPropertiesEditor",
-    value: function onOpendDiagramPropertiesEditor(_diagramId) {}
-  }, {
-    key: "onOpenDiagramOfResourceRelate",
-    value: function onOpenDiagramOfResourceRelate(_resourceId) {}
-  }, {
-    key: "onRenamedResource",
-    value: function onRenamedResource(_src, _dest) {}
-  }]);
-
-  return VariationAndConditionDiagramEditor;
-}(nuxt_property_decorator_umd["Vue"]);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor.prototype, "diagram", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor.prototype, "allResources", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor.prototype, "lastPropertiesUpdatedDiagramId", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResources')], VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor.prototype, "onUpdateResources", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor.prototype, "onOpendDiagramPropertiesEditor", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor.prototype, "onOpenDiagramOfResourceRelate", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor.prototype, "onRenamedResource", null);
-
-VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor = __decorate([Object(nuxt_property_decorator_umd["Component"])({
-  components: {
-    DiagramEditor: DiagramEditor["default"]
-  }
-})], VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor);
-/* harmony default export */ var VariationAndConditionDiagramEditorvue_type_script_lang_ts_ = (VariationAndConditionDiagramEditorvue_type_script_lang_ts_VariationAndConditionDiagramEditor);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/variationandcondition/VariationAndConditionDiagramEditor.vue?vue&type=script&lang=ts&
- /* harmony default export */ var variationandcondition_VariationAndConditionDiagramEditorvue_type_script_lang_ts_ = (VariationAndConditionDiagramEditorvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(56);
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/variationandcondition/VariationAndConditionDiagramEditor.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  variationandcondition_VariationAndConditionDiagramEditorvue_type_script_lang_ts_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var variationandcondition_VariationAndConditionDiagramEditor = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 986:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/Rdra20DiagramEditorContainer.vue?vue&type=template&id=6ac82735&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.is('システムコンテキスト図'))?_c('SystemContextDiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnContainer,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('要求モデル図'))?_c('RequestModelDiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnContainer,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('ビジネスコンテキスト図'))?_c('BusinessContextDiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnContainer,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('ビジネスユースケース図'))?_c('BusinessUseCaseDiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnContainer,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('業務フロー図'))?_c('BusinessFlowDiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnContainer,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('利用シーン図'))?_c('UsageSceneDiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnContainer,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('情報モデル図'))?_c('InfomationModelEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnContainer,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('状態モデル図'))?_c('StateModelEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnContainer,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('ユースケース複合図'))?_c('UseCaseCompositeDiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnContainer,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e(),_vm._v(" "),(_vm.is('バリエーション・条件'))?_c('VariationAndConditionDiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnContainer,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e()],1)}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/Rdra20DiagramEditorContainer.vue?vue&type=template&id=6ac82735&
+// CONCATENATED MODULE: ./src/components/diagrams/editor/custom/CustomDiagramEditorContainer.vue?vue&type=template&id=52b26725&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
 var es_reflect_construct = __webpack_require__(30);
@@ -14642,37 +12373,10 @@ var es_function_name = __webpack_require__(16);
 // EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
 var nuxt_property_decorator_umd = __webpack_require__(76);
 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/rdra20/businesscontextdiagram/BusinessContextDiagramEditor.vue + 4 modules
-var BusinessContextDiagramEditor = __webpack_require__(970);
+// EXTERNAL MODULE: ./src/components/diagrams/editor/custom/freestyle/FreestyleDiagramEditor.vue + 4 modules
+var FreestyleDiagramEditor = __webpack_require__(980);
 
-// EXTERNAL MODULE: ./src/components/diagrams/editor/rdra20/businessusecasediagram/BusinessUseCaseDiagramEditor.vue + 4 modules
-var BusinessUseCaseDiagramEditor = __webpack_require__(971);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/rdra20/businessflowdiagram/BusinessFlowDiagramEditor.vue + 4 modules
-var BusinessFlowDiagramEditor = __webpack_require__(972);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/rdra20/usagescenediagram/UsageSceneDiagramEditor.vue + 4 modules
-var UsageSceneDiagramEditor = __webpack_require__(973);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/rdra20/systemcontextdiagram/SystemContextDiagramEditor.vue + 4 modules
-var SystemContextDiagramEditor = __webpack_require__(974);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/rdra20/requrestmodel/RequestModelDiagramEditor.vue + 4 modules
-var RequestModelDiagramEditor = __webpack_require__(975);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/rdra20/infomationmodel/InfomationModelEditor.vue + 4 modules
-var InfomationModelEditor = __webpack_require__(976);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/rdra20/statemodel/StateModelEditor.vue + 4 modules
-var StateModelEditor = __webpack_require__(977);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/rdra20/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue + 4 modules
-var UseCaseCompositeDiagramEditor = __webpack_require__(978);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/rdra20/variationandcondition/VariationAndConditionDiagramEditor.vue + 4 modules
-var VariationAndConditionDiagramEditor = __webpack_require__(979);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/rdra20/Rdra20DiagramEditorContainer.vue?vue&type=script&lang=ts&
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/custom/CustomDiagramEditorContainer.vue?vue&type=script&lang=ts&
 
 
 
@@ -14702,27 +12406,18 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 
 
 
+var CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer = /*#__PURE__*/function (_Vue) {
+  Object(inherits["a" /* default */])(CustomDiagramEditorContainer, _Vue);
 
+  var _super = _createSuper(CustomDiagramEditorContainer);
 
-
-
-
-
-
-
-
-var Rdra20DiagramEditorContainervue_type_script_lang_ts_Rdra20DiagramEditorContainer = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(Rdra20DiagramEditorContainer, _Vue);
-
-  var _super = _createSuper(Rdra20DiagramEditorContainer);
-
-  function Rdra20DiagramEditorContainer() {
-    Object(classCallCheck["a" /* default */])(this, Rdra20DiagramEditorContainer);
+  function CustomDiagramEditorContainer() {
+    Object(classCallCheck["a" /* default */])(this, CustomDiagramEditorContainer);
 
     return _super.apply(this, arguments);
   }
 
-  Object(createClass["a" /* default */])(Rdra20DiagramEditorContainer, [{
+  Object(createClass["a" /* default */])(CustomDiagramEditorContainer, [{
     key: "onOpendDiagramPropertiesEditor",
     value: function onOpendDiagramPropertiesEditor(_diagramId) {}
   }, {
@@ -14741,50 +12436,41 @@ var Rdra20DiagramEditorContainervue_type_script_lang_ts_Rdra20DiagramEditorConta
     }
   }]);
 
-  return Rdra20DiagramEditorContainer;
+  return CustomDiagramEditorContainer;
 }(nuxt_property_decorator_umd["Vue"]);
 
 __decorate([Object(nuxt_property_decorator_umd["Prop"])({
   required: true
-})], Rdra20DiagramEditorContainervue_type_script_lang_ts_Rdra20DiagramEditorContainer.prototype, "diagram", void 0);
+})], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "diagram", void 0);
 
 __decorate([Object(nuxt_property_decorator_umd["Prop"])({
   required: true
-})], Rdra20DiagramEditorContainervue_type_script_lang_ts_Rdra20DiagramEditorContainer.prototype, "allResources", void 0);
+})], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "allResources", void 0);
 
 __decorate([Object(nuxt_property_decorator_umd["Prop"])({
   required: true
-})], Rdra20DiagramEditorContainervue_type_script_lang_ts_Rdra20DiagramEditorContainer.prototype, "lastPropertiesUpdatedDiagramId", void 0);
+})], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "lastPropertiesUpdatedDiagramId", void 0);
 
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], Rdra20DiagramEditorContainervue_type_script_lang_ts_Rdra20DiagramEditorContainer.prototype, "onOpendDiagramPropertiesEditor", null);
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "onOpendDiagramPropertiesEditor", null);
 
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], Rdra20DiagramEditorContainervue_type_script_lang_ts_Rdra20DiagramEditorContainer.prototype, "onOpenDiagramOfResourceRelate", null);
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "onOpenDiagramOfResourceRelate", null);
 
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], Rdra20DiagramEditorContainervue_type_script_lang_ts_Rdra20DiagramEditorContainer.prototype, "onRenamedResource", null);
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "onRenamedResource", null);
 
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResoucesOnContainer')], Rdra20DiagramEditorContainervue_type_script_lang_ts_Rdra20DiagramEditorContainer.prototype, "onUpdateResoucesOnContainer", null);
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResoucesOnContainer')], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "onUpdateResoucesOnContainer", null);
 
-Rdra20DiagramEditorContainervue_type_script_lang_ts_Rdra20DiagramEditorContainer = __decorate([Object(nuxt_property_decorator_umd["Component"])({
+CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer = __decorate([Object(nuxt_property_decorator_umd["Component"])({
   components: {
-    SystemContextDiagramEditor: SystemContextDiagramEditor["default"],
-    RequestModelDiagramEditor: RequestModelDiagramEditor["default"],
-    BusinessContextDiagramEditor: BusinessContextDiagramEditor["default"],
-    BusinessUseCaseDiagramEditor: BusinessUseCaseDiagramEditor["default"],
-    BusinessFlowDiagramEditor: BusinessFlowDiagramEditor["default"],
-    UsageSceneDiagramEditor: UsageSceneDiagramEditor["default"],
-    InfomationModelEditor: InfomationModelEditor["default"],
-    StateModelEditor: StateModelEditor["default"],
-    UseCaseCompositeDiagramEditor: UseCaseCompositeDiagramEditor["default"],
-    VariationAndConditionDiagramEditor: VariationAndConditionDiagramEditor["default"]
+    FreestyleDiagramEditor: FreestyleDiagramEditor["default"]
   }
-})], Rdra20DiagramEditorContainervue_type_script_lang_ts_Rdra20DiagramEditorContainer);
-/* harmony default export */ var Rdra20DiagramEditorContainervue_type_script_lang_ts_ = (Rdra20DiagramEditorContainervue_type_script_lang_ts_Rdra20DiagramEditorContainer);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/Rdra20DiagramEditorContainer.vue?vue&type=script&lang=ts&
- /* harmony default export */ var rdra20_Rdra20DiagramEditorContainervue_type_script_lang_ts_ = (Rdra20DiagramEditorContainervue_type_script_lang_ts_); 
+})], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer);
+/* harmony default export */ var CustomDiagramEditorContainervue_type_script_lang_ts_ = (CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer);
+// CONCATENATED MODULE: ./src/components/diagrams/editor/custom/CustomDiagramEditorContainer.vue?vue&type=script&lang=ts&
+ /* harmony default export */ var custom_CustomDiagramEditorContainervue_type_script_lang_ts_ = (CustomDiagramEditorContainervue_type_script_lang_ts_); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(56);
 
-// CONCATENATED MODULE: ./src/components/diagrams/editor/rdra20/Rdra20DiagramEditorContainer.vue
+// CONCATENATED MODULE: ./src/components/diagrams/editor/custom/CustomDiagramEditorContainer.vue
 
 
 
@@ -14793,7 +12479,7 @@ var componentNormalizer = __webpack_require__(56);
 /* normalize component */
 
 var component = Object(componentNormalizer["a" /* default */])(
-  rdra20_Rdra20DiagramEditorContainervue_type_script_lang_ts_,
+  custom_CustomDiagramEditorContainervue_type_script_lang_ts_,
   render,
   staticRenderFns,
   false,
@@ -14803,7 +12489,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   
 )
 
-/* harmony default export */ var rdra20_Rdra20DiagramEditorContainer = __webpack_exports__["default"] = (component.exports);
+/* harmony default export */ var custom_CustomDiagramEditorContainer = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 

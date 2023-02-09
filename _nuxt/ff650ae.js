@@ -15860,7 +15860,6 @@ function _createApp() {
                 /* NavigationFailureType.redirected */
                 ) return resolve(); // navigated to a different route in router guard
 
-                // navigated to a different route in router guard
                 var unregister = router.afterEach( /*#__PURE__*/function () {
                   var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(to, from) {
                     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -22392,7 +22391,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("b9f570ac", content, true, {"sourceMap":false});
+var update = add("12a17c3f", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 329 */,
@@ -24647,7 +24646,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("744bab4a", content, true, {"sourceMap":false});
+var update = add("38304042", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 359 */
@@ -24922,7 +24921,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("4f4f805e", content, true, {"sourceMap":false});
+var update = add("af98a2c8", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 422 */
@@ -39992,7 +39991,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("2e2bc7da", content, true, {"sourceMap":false});
+var update = add("2b6bf765", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 559 */,
@@ -48180,10 +48179,6 @@ function _render() {
                         // Or route param changed part includes current component and watchParam is not `false`
                         // Or route query is changed and watchQuery returns `true`
 
-                        // Refresh component (call asyncData & fetch) when:
-                        // Route path changed part includes current component
-                        // Or route param changed part includes current component and watchParam is not `false`
-                        // Or route query is changed and watchQuery returns `true`
                         if (_this4._routeChanged && childPathChanged) {
                           Component._dataRefresh = true;
                         } else if (_this4._paramChanged && childPathChanged) {
@@ -48220,7 +48215,6 @@ function _render() {
                         hasFetch = Boolean(Component.options.fetch) && Component.options.fetch.length;
                         loadingIncrease = hasAsyncData && hasFetch ? 30 : 45; // Call asyncData(context)
 
-                        // Call asyncData(context)
                         if (hasAsyncData) {
                           promise = Object(_utils_js__WEBPACK_IMPORTED_MODULE_28__[/* promisify */ "q"])(Component.options.asyncData, app.context);
                           promise.then(function (asyncDataResult) {
@@ -48234,10 +48228,8 @@ function _render() {
                         } // Check disabled page loading
 
 
-                        // Check disabled page loading
                         _this4.$loading.manual = Component.options.loading === false; // Call fetch(context)
 
-                        // Call fetch(context)
                         if (hasFetch) {
                           p = Component.options.fetch(app.context);
 
@@ -48591,7 +48583,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("3d49e0e5", content, true, {"sourceMap":false});
+var update = add("ecda0720", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 659 */
@@ -48621,7 +48613,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("3f95a174", content, true, {"sourceMap":false});
+var update = add("8d9a7702", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 663 */
@@ -48657,7 +48649,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("2840f874", content, true, {"sourceMap":false});
+var update = add("aa7751fe", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 673 */
@@ -48686,7 +48678,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("e003f1f8", content, true, {"sourceMap":false});
+var update = add("2d8355ce", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 676 */
@@ -48719,7 +48711,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("549a5500", content, true, {"sourceMap":false});
+var update = add("be391eea", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 683 */
@@ -48747,7 +48739,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("63000ea3", content, true, {"sourceMap":false});
+var update = add("d469d424", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 685 */
@@ -48776,7 +48768,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("04604cc2", content, true, {"sourceMap":false});
+var update = add("9ef2a566", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 688 */
@@ -48805,7 +48797,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("e23b7040", content, true, {"sourceMap":false});
+var update = add("03030716", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 691 */
@@ -48833,7 +48825,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("cf87dc84", content, true, {"sourceMap":false});
+var update = add("4301d393", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 693 */
@@ -48861,7 +48853,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("2065bca8", content, true, {"sourceMap":false});
+var update = add("0de92506", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 695 */
@@ -48889,7 +48881,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("6b715e77", content, true, {"sourceMap":false});
+var update = add("49e4d9e8", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 697 */
@@ -48931,7 +48923,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("3f1da7f4", content, true, {"sourceMap":false});
+var update = add("17c358c9", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 701 */
@@ -48960,7 +48952,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("22487aae", content, true, {"sourceMap":false});
+var update = add("551381f9", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 704 */
@@ -48988,7 +48980,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("371f82d0", content, true, {"sourceMap":false});
+var update = add("173b45e3", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 706 */
@@ -49016,7 +49008,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("2bb34da4", content, true, {"sourceMap":false});
+var update = add("fe376a8e", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 708 */
@@ -49044,7 +49036,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("3dc908a0", content, true, {"sourceMap":false});
+var update = add("9133a8aa", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 710 */
@@ -49072,7 +49064,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("0e36439c", content, true, {"sourceMap":false});
+var update = add("3ee1adc7", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 712 */
@@ -49100,7 +49092,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("5c37caa6", content, true, {"sourceMap":false});
+var update = add("257dbf7c", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 714 */
@@ -49128,7 +49120,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("7132a15d", content, true, {"sourceMap":false});
+var update = add("2a607730", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 716 */
@@ -49156,7 +49148,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("e8b41e5e", content, true, {"sourceMap":false});
+var update = add("5b815f9c", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 718 */
@@ -49184,7 +49176,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("cdf93b5c", content, true, {"sourceMap":false});
+var update = add("089f96e7", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 720 */
@@ -49212,7 +49204,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("5e8d0e9e", content, true, {"sourceMap":false});
+var update = add("18944cf3", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 722 */
@@ -49240,7 +49232,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("5ee2ef52", content, true, {"sourceMap":false});
+var update = add("ad978da8", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 724 */
@@ -49268,7 +49260,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("516f87f8", content, true, {"sourceMap":false});
+var update = add("67ea5559", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 726 */
@@ -49296,7 +49288,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("73707fd0", content, true, {"sourceMap":false});
+var update = add("434bee9b", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 728 */
@@ -49324,7 +49316,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("197fcea4", content, true, {"sourceMap":false});
+var update = add("edc7f98e", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 730 */
@@ -49352,7 +49344,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("1f651591", content, true, {"sourceMap":false});
+var update = add("e1fd6bb4", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 732 */
@@ -49408,7 +49400,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("83ff91dc", content, true, {"sourceMap":false});
+var update = add("e448b446", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 738 */
@@ -49436,7 +49428,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("5c8fbe94", content, true, {"sourceMap":false});
+var update = add("26e91dcb", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 740 */
@@ -49466,7 +49458,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("5e62c9d0", content, true, {"sourceMap":false});
+var update = add("b740cd36", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 744 */
@@ -49507,7 +49499,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("999cb8a8", content, true, {"sourceMap":false});
+var update = add("43d3bd01", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 747 */
@@ -49535,7 +49527,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("7c06aa28", content, true, {"sourceMap":false});
+var update = add("00b0891a", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 749 */
@@ -49563,7 +49555,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("dc0628f2", content, true, {"sourceMap":false});
+var update = add("0b9a0e92", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 751 */
@@ -49591,7 +49583,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("12a190a6", content, true, {"sourceMap":false});
+var update = add("4be034c2", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 753 */
@@ -51688,7 +51680,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("a9b20584", content, true, {"sourceMap":false});
+var update = add("f866a3da", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 772 */
@@ -51716,7 +51708,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("402355ff", content, true, {"sourceMap":false});
+var update = add("8c7f0dec", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 774 */
@@ -51744,7 +51736,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("1cdf85c7", content, true, {"sourceMap":false});
+var update = add("6928a152", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 776 */
@@ -51772,7 +51764,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("2fba213c", content, true, {"sourceMap":false});
+var update = add("7f478ade", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 778 */
@@ -51800,7 +51792,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("bb35a8d6", content, true, {"sourceMap":false});
+var update = add("7b0adc6a", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 780 */
@@ -51828,7 +51820,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("424d9537", content, true, {"sourceMap":false});
+var update = add("9c2c6c68", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 782 */
@@ -51856,7 +51848,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("c82bbd6a", content, true, {"sourceMap":false});
+var update = add("15ab2140", content, true, {"sourceMap":false});
 
 /***/ }),
 /* 784 */

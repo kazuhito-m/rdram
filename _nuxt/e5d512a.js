@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[11,4,12,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,46,49,50,51,52,53,54,55,56,57,58,59,61,62,63,64,66,67,68,69,70,71,72,73,75,76,77,78,79,80,81,82,92,94,95,96,97,98,99,100,101,103,104],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12,4,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,46,49,50,51,52,53,54,55,56,57,58,59,61,62,63,64,66,67,68,69,70,71,72,73,75,76,77,78,79,80,81,82,92,94,95,96,97,98,99,100,101,103,104],{
 
 /***/ 838:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -3326,7 +3326,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("c1d8e262", content, true, {"sourceMap":false});
+var update = add("77b93fa4", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -3381,7 +3381,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("01907af4", content, true, {"sourceMap":false});
+var update = add("5d282c82", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -3996,7 +3996,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("1d31a8d0", content, true, {"sourceMap":false});
+var update = add("11091623", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -6843,7 +6843,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("48751daa", content, true, {"sourceMap":false});
+var update = add("f2e99a00", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -9669,7 +9669,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("63c9496b", content, true, {"sourceMap":false});
+var update = add("8e0b7300", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -12323,173 +12323,6 @@ var component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* harmony default export */ var freestyle_FreestyleDiagramEditor = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 987:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/custom/CustomDiagramEditorContainer.vue?vue&type=template&id=52b26725&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.is('フリースタイル図'))?_c('FreestyleDiagramEditor',{attrs:{"diagram":_vm.diagram,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResources":_vm.onUpdateResoucesOnContainer,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource}}):_vm._e()],1)}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/custom/CustomDiagramEditorContainer.vue?vue&type=template&id=52b26725&
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
-var es_reflect_construct = __webpack_require__(30);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(0);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(1);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
-var inherits = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
-var possibleConstructorReturn = __webpack_require__(10);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(5);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-var esm_typeof = __webpack_require__(17);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
-var es_object_get_own_property_descriptor = __webpack_require__(18);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
-var es_function_name = __webpack_require__(16);
-
-// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
-var nuxt_property_decorator_umd = __webpack_require__(76);
-
-// EXTERNAL MODULE: ./src/components/diagrams/editor/custom/freestyle/FreestyleDiagramEditor.vue + 4 modules
-var FreestyleDiagramEditor = __webpack_require__(980);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/custom/CustomDiagramEditorContainer.vue?vue&type=script&lang=ts&
-
-
-
-
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
-
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-  var c = arguments.length,
-      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-      d;
-  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  }
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-var CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer = /*#__PURE__*/function (_Vue) {
-  Object(inherits["a" /* default */])(CustomDiagramEditorContainer, _Vue);
-
-  var _super = _createSuper(CustomDiagramEditorContainer);
-
-  function CustomDiagramEditorContainer() {
-    Object(classCallCheck["a" /* default */])(this, CustomDiagramEditorContainer);
-
-    return _super.apply(this, arguments);
-  }
-
-  Object(createClass["a" /* default */])(CustomDiagramEditorContainer, [{
-    key: "onOpendDiagramPropertiesEditor",
-    value: function onOpendDiagramPropertiesEditor(_diagramId) {}
-  }, {
-    key: "onOpenDiagramOfResourceRelate",
-    value: function onOpenDiagramOfResourceRelate(_resourceId) {}
-  }, {
-    key: "onRenamedResource",
-    value: function onRenamedResource(_src, _dest) {}
-  }, {
-    key: "onUpdateResoucesOnContainer",
-    value: function onUpdateResoucesOnContainer() {}
-  }, {
-    key: "is",
-    value: function is(typeName) {
-      return this.diagram.type.name === typeName;
-    }
-  }]);
-
-  return CustomDiagramEditorContainer;
-}(nuxt_property_decorator_umd["Vue"]);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "diagram", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "allResources", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Prop"])({
-  required: true
-})], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "lastPropertiesUpdatedDiagramId", void 0);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "onOpendDiagramPropertiesEditor", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagramOfResourceRelate')], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "onOpenDiagramOfResourceRelate", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRenamedResource')], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "onRenamedResource", null);
-
-__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdateResoucesOnContainer')], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer.prototype, "onUpdateResoucesOnContainer", null);
-
-CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer = __decorate([Object(nuxt_property_decorator_umd["Component"])({
-  components: {
-    FreestyleDiagramEditor: FreestyleDiagramEditor["default"]
-  }
-})], CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer);
-/* harmony default export */ var CustomDiagramEditorContainervue_type_script_lang_ts_ = (CustomDiagramEditorContainervue_type_script_lang_ts_CustomDiagramEditorContainer);
-// CONCATENATED MODULE: ./src/components/diagrams/editor/custom/CustomDiagramEditorContainer.vue?vue&type=script&lang=ts&
- /* harmony default export */ var custom_CustomDiagramEditorContainervue_type_script_lang_ts_ = (CustomDiagramEditorContainervue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(56);
-
-// CONCATENATED MODULE: ./src/components/diagrams/editor/custom/CustomDiagramEditorContainer.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  custom_CustomDiagramEditorContainervue_type_script_lang_ts_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var custom_CustomDiagramEditorContainer = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 

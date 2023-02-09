@@ -1,4 +1,18 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[91,4,7,8,9,11,12,13,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,75,76,77,78,79,80,81,82,87,88,89,92,94,95,96,97,98,99,100,101,103,104],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[106,4,7,8,9,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,103,104,111],{
+
+/***/ 1000:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(27);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-treeview{color:rgba(0,0,0,.87)}.theme--light.v-treeview--hoverable .v-treeview-node__root:hover:before,.theme--light.v-treeview .v-treeview-node--click>.v-treeview-node__root:hover:before{opacity:.04}.theme--light.v-treeview--hoverable .v-treeview-node__root--active:before,.theme--light.v-treeview--hoverable .v-treeview-node__root--active:hover:before,.theme--light.v-treeview--hoverable .v-treeview-node__root:focus:before,.theme--light.v-treeview .v-treeview-node--click>.v-treeview-node__root--active:before,.theme--light.v-treeview .v-treeview-node--click>.v-treeview-node__root--active:hover:before,.theme--light.v-treeview .v-treeview-node--click>.v-treeview-node__root:focus:before{opacity:.12}.theme--light.v-treeview--hoverable .v-treeview-node__root--active:focus:before,.theme--light.v-treeview .v-treeview-node--click>.v-treeview-node__root--active:focus:before{opacity:.16}.theme--light.v-treeview .v-treeview-node__root.v-treeview-node--active:before,.theme--light.v-treeview .v-treeview-node__root.v-treeview-node--active:hover:before{opacity:.12}.theme--light.v-treeview .v-treeview-node__root.v-treeview-node--active:focus:before{opacity:.16}.theme--light.v-treeview .v-treeview-node--disabled>.v-treeview-node__root>.v-treeview-node__content{color:rgba(0,0,0,.38)!important}.theme--dark.v-treeview{color:#fff}.theme--dark.v-treeview--hoverable .v-treeview-node__root:hover:before,.theme--dark.v-treeview .v-treeview-node--click>.v-treeview-node__root:hover:before{opacity:.08}.theme--dark.v-treeview--hoverable .v-treeview-node__root--active:before,.theme--dark.v-treeview--hoverable .v-treeview-node__root--active:hover:before,.theme--dark.v-treeview--hoverable .v-treeview-node__root:focus:before,.theme--dark.v-treeview .v-treeview-node--click>.v-treeview-node__root--active:before,.theme--dark.v-treeview .v-treeview-node--click>.v-treeview-node__root--active:hover:before,.theme--dark.v-treeview .v-treeview-node--click>.v-treeview-node__root:focus:before{opacity:.24}.theme--dark.v-treeview--hoverable .v-treeview-node__root--active:focus:before,.theme--dark.v-treeview .v-treeview-node--click>.v-treeview-node__root--active:focus:before{opacity:.32}.theme--dark.v-treeview .v-treeview-node__root.v-treeview-node--active:before,.theme--dark.v-treeview .v-treeview-node__root.v-treeview-node--active:hover:before{opacity:.24}.theme--dark.v-treeview .v-treeview-node__root.v-treeview-node--active:focus:before{opacity:.32}.theme--dark.v-treeview .v-treeview-node--disabled>.v-treeview-node__root>.v-treeview-node__content{color:hsla(0,0%,100%,.5)!important}.v-treeview-node.v-treeview-node--shaped .v-treeview-node__root,.v-treeview-node.v-treeview-node--shaped .v-treeview-node__root:before{border-bottom-right-radius:24px!important;border-top-right-radius:24px!important}.v-treeview-node.v-treeview-node--shaped .v-treeview-node__root{margin-top:8px;margin-bottom:8px}.v-treeview-node.v-treeview-node--rounded .v-treeview-node__root,.v-treeview-node.v-treeview-node--rounded .v-treeview-node__root:before{border-radius:24px!important}.v-treeview-node.v-treeview-node--rounded .v-treeview-node__root{margin-top:8px;margin-bottom:8px}.v-treeview-node--click>.v-treeview-node__root,.v-treeview-node--click>.v-treeview-node__root>.v-treeview-node__content>*{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.v-treeview-node.v-treeview-node--active .v-treeview-node__content .v-icon{color:inherit}.v-treeview-node__root{display:flex;align-items:center;min-height:48px;padding-left:8px;padding-right:8px;position:relative}.v-treeview-node__root:before{background-color:currentColor;bottom:0;content:\"\";left:0;opacity:0;pointer-events:none;position:absolute;right:0;top:0;transition:.3s cubic-bezier(.25,.8,.5,1)}.v-treeview-node__root:after{content:\"\";font-size:0;min-height:inherit}.v-treeview-node__children{transition:all .2s cubic-bezier(0,0,.2,1)}.v-treeview--dense .v-treeview-node__root{min-height:40px}.v-treeview--dense.v-treeview-node--shaped .v-treeview-node__root,.v-treeview--dense.v-treeview-node--shaped .v-treeview-node__root:before{border-bottom-right-radius:20px!important;border-top-right-radius:20px!important}.v-treeview--dense.v-treeview-node--shaped .v-treeview-node__root{margin-top:8px;margin-bottom:8px}.v-treeview--dense.v-treeview-node--rounded .v-treeview-node__root,.v-treeview--dense.v-treeview-node--rounded .v-treeview-node__root:before{border-radius:20px!important}.v-treeview--dense.v-treeview-node--rounded .v-treeview-node__root{margin-top:8px;margin-bottom:8px}.v-treeview-node__checkbox{width:24px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.v-application--is-ltr .v-treeview-node__checkbox{margin-left:6px}.v-application--is-rtl .v-treeview-node__checkbox{margin-right:6px}.v-treeview-node__toggle{width:24px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.v-treeview-node__toggle--loading{-webkit-animation:progress-circular-rotate 1s linear infinite;animation:progress-circular-rotate 1s linear infinite}.v-application--is-ltr .v-treeview-node__toggle{transform:rotate(-90deg)}.v-application--is-ltr .v-treeview-node__toggle--open{transform:none}.v-application--is-rtl .v-treeview-node__toggle{transform:rotate(90deg)}.v-application--is-rtl .v-treeview-node__toggle--open{transform:none}.v-treeview-node__prepend{min-width:24px}.v-application--is-ltr .v-treeview-node__prepend{margin-right:6px}.v-application--is-rtl .v-treeview-node__prepend{margin-left:6px}.v-treeview-node__append{min-width:24px}.v-application--is-ltr .v-treeview-node__append{margin-left:6px}.v-application--is-rtl .v-treeview-node__append{margin-right:6px}.v-treeview-node__level{width:24px}.v-treeview-node__label{flex:1;font-size:inherit;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.v-treeview-node__content{align-items:center;display:flex;flex-basis:0%;flex-grow:1;flex-shrink:0;min-width:0}.v-treeview-node__content .v-btn{flex-grow:0!important;flex-shrink:1!important}.v-application--is-ltr .v-treeview-node__content{margin-left:6px}.v-application--is-rtl .v-treeview-node__content{margin-right:6px}", ""]);
+// Exports
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
 
 /***/ 1001:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -37,7 +51,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("c176411c", content, true, {"sourceMap":false});
+var update = add("0ee11407", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -82,7 +96,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("8f7a87bc", content, true, {"sourceMap":false});
+var update = add("48e4d577", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -112,7 +126,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("0d135400", content, true, {"sourceMap":false});
+var update = add("348df656", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -127,6 +141,22 @@ ___CSS_LOADER_EXPORT___.push([module.i, ".v-window{overflow:hidden}.v-window__co
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
+
+/***/ }),
+
+/***/ 1013:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1036);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(28).default
+var update = add("a5d60bb0", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -2074,6 +2104,2811 @@ installComponents_default()(component, {AnalysisContainer: __webpack_require__(9
 
 
 installComponents_default()(component, {VBtn: VBtn["a" /* default */],VIcon: VIcon["a" /* default */],VTab: VTab,VTabItem: VTabItem,VTabs: VTabs_VTabs,VTabsItems: VTabsItems,VTooltip: VTooltip["a" /* default */]})
+
+
+/***/ }),
+
+/***/ 1016:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/main/tree/DiagramsTreePane.vue?vue&type=template&id=86a40ca0&scoped=true&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"treeview-container"},[_c('v-treeview',{attrs:{"items":_vm.treeItems,"active":_vm.treeActiveItemIds,"open":_vm.treeOpenItemIds,"item-key":"id","activatable":"","open-on-click":"","transition":"","dark":"","dense":""},on:{"update:active":[function($event){_vm.treeActiveItemIds=$event},_vm.onClickTreeItem],"update:open":function($event){_vm.treeOpenItemIds=$event}},scopedSlots:_vm._u([{key:"label",fn:function(ref){
+var item = ref.item;
+return [_c('div',{staticClass:"right-click-area",attrs:{"data-item-id":item.id},on:{"contextmenu":function($event){$event.preventDefault();return _vm.onRightClickTreeItem.apply(null, arguments)}}},[(item.iconKey)?_c('v-icon',[_vm._v(_vm._s(item.iconKey))]):_vm._e(),_vm._v("\n        "+_vm._s(item.name)+"\n      ")],1)]}}])})],1)}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/main/tree/DiagramsTreePane.vue?vue&type=template&id=86a40ca0&scoped=true&
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
+var es_reflect_construct = __webpack_require__(30);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
+var es_array_slice = __webpack_require__(50);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.from.js
+var es_array_from = __webpack_require__(59);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.iterator.js
+var es_string_iterator = __webpack_require__(43);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
+var es_regexp_exec = __webpack_require__(36);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
+var es_symbol = __webpack_require__(14);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.description.js
+var es_symbol_description = __webpack_require__(44);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.iterator.js
+var es_symbol_iterator = __webpack_require__(78);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+var classCallCheck = __webpack_require__(0);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(1);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
+var inherits = __webpack_require__(11);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
+var possibleConstructorReturn = __webpack_require__(10);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
+var getPrototypeOf = __webpack_require__(5);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
+var esm_typeof = __webpack_require__(17);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
+var es_object_get_own_property_descriptor = __webpack_require__(18);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.iterator.js
+var web_dom_collections_iterator = __webpack_require__(42);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
+var es_function_name = __webpack_require__(16);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.splice.js
+var es_array_splice = __webpack_require__(214);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.for-each.js
+var web_dom_collections_for_each = __webpack_require__(19);
+
+// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
+var nuxt_property_decorator_umd = __webpack_require__(76);
+
+// EXTERNAL MODULE: ./src/components/main/model/ViewOrFoldersTemplate.ts
+var ViewOrFoldersTemplate = __webpack_require__(969);
+
+// EXTERNAL MODULE: ./src/components/main/model/ViewOrFolders.ts
+var ViewOrFolders = __webpack_require__(961);
+
+// EXTERNAL MODULE: ./src/components/main/model/ViewOrFolder.ts + 1 modules
+var ViewOrFolder = __webpack_require__(938);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/main/tree/DiagramsTreePane.vue?vue&type=script&lang=ts&
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+
+
+
+
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+  var c = arguments.length,
+      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+      d;
+  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  }
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+var DiagramsTreePanevue_type_script_lang_ts_DiagramsTreePane = /*#__PURE__*/function (_Vue) {
+  Object(inherits["a" /* default */])(DiagramsTreePane, _Vue);
+
+  var _super = _createSuper(DiagramsTreePane);
+
+  function DiagramsTreePane() {
+    var _this;
+
+    Object(classCallCheck["a" /* default */])(this, DiagramsTreePane);
+
+    _this = _super.apply(this, arguments);
+    _this.treeItems = [];
+    _this.treeActiveItemIds = [];
+    _this.treeOpenItemIds = [];
+    _this.tree = new ViewOrFolders["default"]([]);
+    return _this;
+  } // emits
+
+
+  Object(createClass["a" /* default */])(DiagramsTreePane, [{
+    key: "onOpenDiagram",
+    value: function onOpenDiagram(_treeItem) {}
+  }, {
+    key: "onDeleteDiagram",
+    value: function onDeleteDiagram(_diagramId) {} /// click
+
+  }, {
+    key: "onRightClick",
+    value: function onRightClick(_item, _x, _y) {} // this vue lyfecycle event.
+
+  }, {
+    key: "created",
+    value: function created() {
+      var product = this.repository.getCurrentProduct();
+      if (!product) return;
+      var tree = ViewOrFoldersTemplate["default"].build(product.diagrams);
+      this.treeItems = tree.values;
+      this.treeOpenItemIds.push(ViewOrFolder["default"].RDRAM20_FOLDER.id);
+      this.tree = tree;
+    } // component events.
+
+  }, {
+    key: "onClickTreeItem",
+    value: function onClickTreeItem(treeItemIdText) {
+      if (treeItemIdText === '') return;
+      var diagramId = parseInt(treeItemIdText, 10);
+      this.openDiagramEditorTabOf(diagramId);
+    }
+  }, {
+    key: "onRightClickTreeItem",
+    value: function onRightClickTreeItem(event) {
+      var item = this.treeItemByClickEventOf(event);
+      if (!item) return;
+      this.onRightClick(item, event.x, event.y);
+    } // public method
+
+  }, {
+    key: "activeItemAndFolderOpen",
+    value: function activeItemAndFolderOpen(diagramId) {
+      if (!this.findAndReflectDiagramToTreeOf(diagramId)) return;
+      this.activeTreeItemOf(diagramId);
+      this.openParentTreeItem(diagramId);
+    }
+  }, {
+    key: "openDiagramEditorTabOf",
+    value: function openDiagramEditorTabOf(diagramId) {
+      var clickedItem = this.tree.findOf(diagramId);
+      if (!clickedItem) return;
+      this.onOpenDiagram(clickedItem);
+    }
+  }, {
+    key: "reflectTreeAndTabOf",
+    value: function reflectTreeAndTabOf(diagrams) {
+      var _iterator = _createForOfIteratorHelper(diagrams),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var diagram = _step.value;
+          var item = this.tree.findOf(diagram.id);
+          if (item) item.name = diagram.name;
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+    }
+  }, {
+    key: "clearSelected",
+    value: function clearSelected() {
+      this.treeActiveItemIds.splice(0);
+    }
+  }, {
+    key: "addDiagramView",
+    value: function addDiagramView(diagram) {
+      this.tree.addOf(diagram);
+      this.activeTreeItemOf(diagram.id);
+      this.openParentTreeItem(diagram.id);
+    }
+  }, {
+    key: "removeDiagramView",
+    value: function removeDiagramView(diagramId) {
+      this.onDeleteDiagram(diagramId);
+      this.tree.removeOf(diagramId);
+    }
+  }, {
+    key: "openAll",
+    value: function openAll() {
+      var _this2 = this;
+
+      this.treeOpenItemIds.splice(0);
+      ViewOrFoldersTemplate["default"].allFolderIds().forEach(function (id) {
+        return _this2.treeOpenItemIds.push(id);
+      });
+    }
+  }, {
+    key: "closeAll",
+    value: function closeAll() {
+      this.treeOpenItemIds.splice(0);
+    } // private method
+
+  }, {
+    key: "activeTreeItemOf",
+    value: function activeTreeItemOf(treeItemId) {
+      this.clearSelected();
+      this.treeActiveItemIds.push(treeItemId);
+    }
+  }, {
+    key: "openParentTreeItem",
+    value: function openParentTreeItem(treeItemId) {
+      var parentTreeItem = this.tree.findParentFolderOf(treeItemId);
+      if (!parentTreeItem) return;
+      var parentId = parentTreeItem.id;
+      this.reAddValueOnArray(parentId, this.treeOpenItemIds);
+      this.openParentTreeItem(parentId);
+    }
+  }, {
+    key: "reAddValueOnArray",
+    value: function reAddValueOnArray(value, values) {
+      var existsIndex = values.indexOf(value);
+      if (existsIndex >= 0) values.splice(existsIndex, 1);
+      values.push(value);
+    }
+  }, {
+    key: "findAndReflectDiagramToTreeOf",
+    value: function findAndReflectDiagramToTreeOf(diagramId) {
+      var _a;
+
+      var existsItem = this.tree.findOf(diagramId);
+      if (existsItem) return true;
+      var diagram = (_a = this.repository.getCurrentProduct()) === null || _a === void 0 ? void 0 : _a.diagrams.of(diagramId);
+      if (!diagram) return false;
+      this.addDiagramView(diagram);
+      return true;
+    }
+  }, {
+    key: "treeItemByClickEventOf",
+    value: function treeItemByClickEventOf(event) {
+      if (!event.target) return null;
+      var element = event.target;
+      var data = element.getAttribute('data-item-id');
+      if (!data) return null;
+      var itemId = parseInt(data, 10);
+      if (itemId <= 0) return null;
+      return this.tree.findOf(itemId);
+    }
+  }]);
+
+  return DiagramsTreePane;
+}(nuxt_property_decorator_umd["Vue"]);
+
+__decorate([Object(nuxt_property_decorator_umd["Inject"])()], DiagramsTreePanevue_type_script_lang_ts_DiagramsTreePane.prototype, "repository", void 0);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpenDiagram')], DiagramsTreePanevue_type_script_lang_ts_DiagramsTreePane.prototype, "onOpenDiagram", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onDeleteDiagram')], DiagramsTreePanevue_type_script_lang_ts_DiagramsTreePane.prototype, "onDeleteDiagram", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRightClick')], DiagramsTreePanevue_type_script_lang_ts_DiagramsTreePane.prototype, "onRightClick", null);
+
+DiagramsTreePanevue_type_script_lang_ts_DiagramsTreePane = __decorate([nuxt_property_decorator_umd["Component"]], DiagramsTreePanevue_type_script_lang_ts_DiagramsTreePane);
+/* harmony default export */ var DiagramsTreePanevue_type_script_lang_ts_ = (DiagramsTreePanevue_type_script_lang_ts_DiagramsTreePane);
+// CONCATENATED MODULE: ./src/components/main/tree/DiagramsTreePane.vue?vue&type=script&lang=ts&
+ /* harmony default export */ var tree_DiagramsTreePanevue_type_script_lang_ts_ = (DiagramsTreePanevue_type_script_lang_ts_); 
+// EXTERNAL MODULE: ./src/components/main/tree/DiagramsTreePane.vue?vue&type=style&index=0&id=86a40ca0&scoped=true&lang=css&
+var DiagramsTreePanevue_type_style_index_0_id_86a40ca0_scoped_true_lang_css_ = __webpack_require__(997);
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(56);
+
+// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installComponents.js
+var installComponents = __webpack_require__(58);
+var installComponents_default = /*#__PURE__*/__webpack_require__.n(installComponents);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(338);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTreeview/VTreeview.js + 2 modules
+var VTreeview = __webpack_require__(1037);
+
+// CONCATENATED MODULE: ./src/components/main/tree/DiagramsTreePane.vue
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  tree_DiagramsTreePanevue_type_script_lang_ts_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "86a40ca0",
+  null
+  
+)
+
+/* harmony default export */ var tree_DiagramsTreePane = __webpack_exports__["default"] = (component.exports);
+
+/* vuetify-loader */
+
+
+
+installComponents_default()(component, {VIcon: VIcon["a" /* default */],VTreeview: VTreeview["a" /* default */]})
+
+
+/***/ }),
+
+/***/ 1017:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/main/menu/ItemRightClickMenu.vue?vue&type=template&id=0581d8cb&scoped=true&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('v-menu',{attrs:{"value":_vm.visible,"position-x":_vm.positionX,"position-y":_vm.positionY,"close-on-click":"","close-on-content-click":"","offset-x":"","rounded":""},on:{"input":_vm.close}},[(_vm.tabClick && _vm.openTabs.length > 1)?_c('TabClickMenu',{attrs:{"item":_vm.item,"openTabs":_vm.openTabs}}):_vm._e(),_vm._v(" "),_c('DiagramOrTypeMenu',{attrs:{"item":_vm.item},on:{"onAddedDiagram":_vm.onAddedDiagram,"onRemovedDiagram":_vm.onRemovedDiagram,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor}})],1)],1)}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/main/menu/ItemRightClickMenu.vue?vue&type=template&id=0581d8cb&scoped=true&
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+var classCallCheck = __webpack_require__(0);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(1);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
+var inherits = __webpack_require__(11);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
+var possibleConstructorReturn = __webpack_require__(10);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
+var getPrototypeOf = __webpack_require__(5);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
+var esm_typeof = __webpack_require__(17);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
+var es_object_get_own_property_descriptor = __webpack_require__(18);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
+var es_reflect_construct = __webpack_require__(30);
+
+// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
+var nuxt_property_decorator_umd = __webpack_require__(76);
+
+// EXTERNAL MODULE: ./src/components/main/menu/TabClickMenu.vue + 4 modules
+var TabClickMenu = __webpack_require__(995);
+
+// EXTERNAL MODULE: ./src/components/main/menu/DiagramOrTypeMenu.vue + 4 modules
+var DiagramOrTypeMenu = __webpack_require__(996);
+
+// EXTERNAL MODULE: ./src/components/main/model/ViewOrFolder.ts + 1 modules
+var ViewOrFolder = __webpack_require__(938);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/main/menu/ItemRightClickMenu.vue?vue&type=script&lang=ts&
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+  var c = arguments.length,
+      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+      d;
+  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  }
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+var ItemRightClickMenuvue_type_script_lang_ts_ItemRightClickMenu = /*#__PURE__*/function (_Vue) {
+  Object(inherits["a" /* default */])(ItemRightClickMenu, _Vue);
+
+  var _super = _createSuper(ItemRightClickMenu);
+
+  function ItemRightClickMenu() {
+    var _this;
+
+    Object(classCallCheck["a" /* default */])(this, ItemRightClickMenu);
+
+    _this = _super.apply(this, arguments);
+    _this.visible = false;
+    _this.positionX = 0;
+    _this.positionY = 0;
+    _this.tabClick = false;
+    _this.item = ViewOrFolder["default"].EMPTY;
+    return _this;
+  }
+
+  Object(createClass["a" /* default */])(ItemRightClickMenu, [{
+    key: "onAddedDiagram",
+    value: function onAddedDiagram(_diagram) {}
+  }, {
+    key: "onRemovedDiagram",
+    value: function onRemovedDiagram(_diagramId) {}
+  }, {
+    key: "onOpendDiagramPropertiesEditor",
+    value: function onOpendDiagramPropertiesEditor(_diagramId) {} // public method
+
+  }, {
+    key: "show",
+    value: function show(item, x, y, tabClick) {
+      this.positionX = x;
+      this.positionY = y;
+      this.tabClick = tabClick;
+      console.log('openTabs:', this.openTabs);
+      this.item = item;
+      this.visible = true;
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      this.visible = false;
+    }
+  }]);
+
+  return ItemRightClickMenu;
+}(nuxt_property_decorator_umd["Vue"]);
+
+__decorate([Object(nuxt_property_decorator_umd["Prop"])({
+  required: true
+})], ItemRightClickMenuvue_type_script_lang_ts_ItemRightClickMenu.prototype, "openTabs", void 0);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onAddedDiagram')], ItemRightClickMenuvue_type_script_lang_ts_ItemRightClickMenu.prototype, "onAddedDiagram", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRemovedDiagram')], ItemRightClickMenuvue_type_script_lang_ts_ItemRightClickMenu.prototype, "onRemovedDiagram", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], ItemRightClickMenuvue_type_script_lang_ts_ItemRightClickMenu.prototype, "onOpendDiagramPropertiesEditor", null);
+
+ItemRightClickMenuvue_type_script_lang_ts_ItemRightClickMenu = __decorate([Object(nuxt_property_decorator_umd["Component"])({
+  components: {
+    TabClickMenu: TabClickMenu["default"],
+    DiagramOrTypeMenu: DiagramOrTypeMenu["default"]
+  }
+})], ItemRightClickMenuvue_type_script_lang_ts_ItemRightClickMenu);
+/* harmony default export */ var ItemRightClickMenuvue_type_script_lang_ts_ = (ItemRightClickMenuvue_type_script_lang_ts_ItemRightClickMenu);
+// CONCATENATED MODULE: ./src/components/main/menu/ItemRightClickMenu.vue?vue&type=script&lang=ts&
+ /* harmony default export */ var menu_ItemRightClickMenuvue_type_script_lang_ts_ = (ItemRightClickMenuvue_type_script_lang_ts_); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(56);
+
+// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installComponents.js
+var installComponents = __webpack_require__(58);
+var installComponents_default = /*#__PURE__*/__webpack_require__.n(installComponents);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
+var VMenu = __webpack_require__(341);
+
+// CONCATENATED MODULE: ./src/components/main/menu/ItemRightClickMenu.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  menu_ItemRightClickMenuvue_type_script_lang_ts_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "0581d8cb",
+  null
+  
+)
+
+/* harmony default export */ var menu_ItemRightClickMenu = __webpack_exports__["default"] = (component.exports);
+
+/* vuetify-loader */
+
+
+installComponents_default()(component, {VMenu: VMenu["a" /* default */]})
+
+
+/***/ }),
+
+/***/ 1018:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/DiagramPropertiesEditDialog.vue?vue&type=template&id=e68fd872&scoped=true&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('PropertiesSettingDialog',{attrs:{"id":_vm.diagramId,"consent":_vm.consent,"title":_vm.title,"subTitle":_vm.subTitle,"iconKey":_vm.iconKey,"width":"400"},on:{"onClose":_vm.onClose,"onClickOk":_vm.onClickUpdateExecute,"onShow":_vm.onShow},scopedSlots:_vm._u([{key:"inputPart",fn:function(){return [_c('v-container',[_c('v-row',[_c('v-col',[_c('v-text-field',{attrs:{"label":"名前","counter":"","autofocus":"","rules":[_vm.validateName],"maxlength":_vm.nameMaxLength},model:{value:(_vm.name),callback:function ($$v) {_vm.name=$$v},expression:"name"}})],1)],1),_vm._v(" "),_c('v-row',[_c('v-col',[_c('v-text-field',{attrs:{"label":"横幅(px)","type":"number","rules":[_vm.validateWidith]},model:{value:(_vm.width),callback:function ($$v) {_vm.width=$$v},expression:"width"}})],1),_vm._v(" "),_c('v-col',[_c('v-text-field',{attrs:{"label":"高さ(px)","type":"number","rules":[_vm.validateHeight]},model:{value:(_vm.height),callback:function ($$v) {_vm.height=$$v},expression:"height"}})],1)],1)],1)]},proxy:true}])})}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/diagrams/editor/DiagramPropertiesEditDialog.vue?vue&type=template&id=e68fd872&scoped=true&
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
+var es_reflect_construct = __webpack_require__(30);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+var classCallCheck = __webpack_require__(0);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(1);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
+var inherits = __webpack_require__(11);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
+var possibleConstructorReturn = __webpack_require__(10);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
+var getPrototypeOf = __webpack_require__(5);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
+var esm_typeof = __webpack_require__(17);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
+var es_object_get_own_property_descriptor = __webpack_require__(18);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
+var es_function_name = __webpack_require__(16);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.is-integer.js
+var es_number_is_integer = __webpack_require__(990);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
+var es_number_constructor = __webpack_require__(35);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.to-string.js
+var es_regexp_to_string = __webpack_require__(73);
+
+// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
+var nuxt_property_decorator_umd = __webpack_require__(76);
+
+// EXTERNAL MODULE: ./src/components/PropertiesSettingDialog.vue + 4 modules
+var PropertiesSettingDialog = __webpack_require__(841);
+
+// EXTERNAL MODULE: ./src/domain/diagram/Diagram.ts
+var Diagram = __webpack_require__(174);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/editor/DiagramPropertiesEditDialog.vue?vue&type=script&lang=ts&
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+
+
+
+
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+  var c = arguments.length,
+      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+      d;
+  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  }
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+var DiagramPropertiesEditDialogvue_type_script_lang_ts_DiagramPropertiesEditDialog = /*#__PURE__*/function (_Vue) {
+  Object(inherits["a" /* default */])(DiagramPropertiesEditDialog, _Vue);
+
+  var _super = _createSuper(DiagramPropertiesEditDialog);
+
+  function DiagramPropertiesEditDialog() {
+    var _this;
+
+    Object(classCallCheck["a" /* default */])(this, DiagramPropertiesEditDialog);
+
+    _this = _super.apply(this, arguments);
+    _this.consent = false;
+    _this.subTitle = '';
+    _this.title = '';
+    _this.iconKey = '';
+    _this.name = '';
+    _this.width = '';
+    _this.height = '';
+    return _this;
+  }
+
+  Object(createClass["a" /* default */])(DiagramPropertiesEditDialog, [{
+    key: "onUpdatedDiagramProperties",
+    value: function onUpdatedDiagramProperties(_diagram) {}
+  }, {
+    key: "onClose",
+    value: function onClose() {}
+  }, {
+    key: "onChangeDiagramId",
+    value: function onChangeDiagramId() {
+      if (!Number.isInteger(this.diagramId)) return;
+      var id = Number(this.diagramId);
+      if (id > 0) this.onShow();
+    }
+  }, {
+    key: "onShow",
+    value: function onShow() {
+      var _a;
+
+      this.consent = false;
+      var product = (_a = this.repository) === null || _a === void 0 ? void 0 : _a.getCurrentProduct();
+      var diagram = product === null || product === void 0 ? void 0 : product.diagrams.of(this.diagramId);
+      if (!diagram) return;
+      this.old = diagram;
+      this.title = "".concat(diagram.name, " \u306E\u8A2D\u5B9A");
+      this.subTitle = diagram.type.name;
+      this.iconKey = diagram.type.iconKey;
+      this.showProperties(diagram);
+    }
+  }, {
+    key: "showProperties",
+    value: function showProperties(diagram) {
+      this.name = diagram.name;
+      this.width = diagram.width.toString();
+      this.height = diagram.height.toString();
+    }
+  }, {
+    key: "changed",
+    value: function changed() {
+      var old = this.old;
+      return old.name !== this.name || old.width !== this.getWidth() || old.height !== this.getHeight();
+    }
+  }, {
+    key: "nameMaxLength",
+    get: function get() {
+      return Diagram["a" /* default */].NAME_MAX_LENGTH;
+    }
+  }, {
+    key: "getWidth",
+    value: function getWidth() {
+      return Number(this.width);
+    }
+  }, {
+    key: "getHeight",
+    value: function getHeight() {
+      return Number(this.height);
+    }
+  }, {
+    key: "validateName",
+    value: function validateName() {
+      this.consent = false;
+      var name = this.name;
+      if (name.length === 0) return '入力してください。';
+      var max = this.nameMaxLength;
+      if (name.length > max) return "".concat(max, "\u6587\u5B57\u4EE5\u5185\u3067\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
+      this.consent = this.changed();
+      return true;
+    }
+  }, {
+    key: "validateWidith",
+    value: function validateWidith() {
+      return this.validateSize(this.width, Diagram["a" /* default */].MAX_WIDTH);
+    }
+  }, {
+    key: "validateHeight",
+    value: function validateHeight() {
+      return this.validateSize(this.height, Diagram["a" /* default */].MAX_HEIGHT);
+    }
+  }, {
+    key: "validateSize",
+    value: function validateSize(value, max) {
+      this.consent = false;
+      if (!value) return '入力してください。';
+      if (!Number.isInteger(Number(value))) return '数値を入力して下さい。';
+      var widthNumber = Number(value);
+      var min = 1;
+      if (widthNumber < min) return "".concat(min, " \u4EE5\u4E0A\u3067\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
+      if (widthNumber > max) return "".concat(max, " \u4EE5\u4E0B\u3067\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
+      this.consent = this.changed();
+      return true;
+    }
+  }, {
+    key: "onClickUpdateExecute",
+    value: function onClickUpdateExecute() {
+      if (!this.consent) return;
+      var diagram = this.registerDiagramProperties();
+      if (!diagram) return;
+      this.onUpdatedDiagramProperties(diagram);
+      this.onClose();
+    }
+  }, {
+    key: "registerDiagramProperties",
+    value: function registerDiagramProperties() {
+      var _a, _b;
+
+      var product = (_a = this.repository) === null || _a === void 0 ? void 0 : _a.getCurrentProduct();
+      var diagram = product === null || product === void 0 ? void 0 : product.diagrams.of(this.diagramId);
+      if (!product || !diagram) return null;
+      var modified = diagram.renameOf(this.name).resize(this.getWidth(), this.getHeight());
+      if (!this.logicalValidation(modified, product)) return null;
+      var registerd = modified.fixStickOuts();
+      var modifiedProduct = product.meageDiagramByIdOf(registerd);
+      (_b = this.repository) === null || _b === void 0 ? void 0 : _b.registerCurrentProduct(modifiedProduct);
+      return registerd;
+    }
+  }, {
+    key: "logicalValidation",
+    value: function logicalValidation(diagram, product) {
+      if (product.diagrams.existsSameOf(diagram)) {
+        alert('既に重複した名前の図が在ります。');
+        return false;
+      }
+
+      if (diagram.existsStickOutPlacements()) {
+        var message = 'このサイズ変更を実行すると、はみ出すアイコンがあります。\n' + 'はみ出したアイコンは、実行時に削除されます。\nよろしいですか。';
+        if (!window.confirm(message)) return false;
+      }
+
+      return true;
+    }
+  }]);
+
+  return DiagramPropertiesEditDialog;
+}(nuxt_property_decorator_umd["Vue"]);
+
+__decorate([Object(nuxt_property_decorator_umd["Prop"])({
+  required: true
+})], DiagramPropertiesEditDialogvue_type_script_lang_ts_DiagramPropertiesEditDialog.prototype, "diagramId", void 0);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onUpdatedDiagramProperties')], DiagramPropertiesEditDialogvue_type_script_lang_ts_DiagramPropertiesEditDialog.prototype, "onUpdatedDiagramProperties", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onClose')], DiagramPropertiesEditDialogvue_type_script_lang_ts_DiagramPropertiesEditDialog.prototype, "onClose", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Watch"])('diagramId')], DiagramPropertiesEditDialogvue_type_script_lang_ts_DiagramPropertiesEditDialog.prototype, "onChangeDiagramId", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Inject"])()], DiagramPropertiesEditDialogvue_type_script_lang_ts_DiagramPropertiesEditDialog.prototype, "repository", void 0);
+
+DiagramPropertiesEditDialogvue_type_script_lang_ts_DiagramPropertiesEditDialog = __decorate([Object(nuxt_property_decorator_umd["Component"])({
+  components: {
+    PropertiesSettingDialog: PropertiesSettingDialog["default"]
+  }
+})], DiagramPropertiesEditDialogvue_type_script_lang_ts_DiagramPropertiesEditDialog);
+/* harmony default export */ var DiagramPropertiesEditDialogvue_type_script_lang_ts_ = (DiagramPropertiesEditDialogvue_type_script_lang_ts_DiagramPropertiesEditDialog);
+// CONCATENATED MODULE: ./src/components/diagrams/editor/DiagramPropertiesEditDialog.vue?vue&type=script&lang=ts&
+ /* harmony default export */ var editor_DiagramPropertiesEditDialogvue_type_script_lang_ts_ = (DiagramPropertiesEditDialogvue_type_script_lang_ts_); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(56);
+
+// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installComponents.js
+var installComponents = __webpack_require__(58);
+var installComponents_default = /*#__PURE__*/__webpack_require__.n(installComponents);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
+var VCol = __webpack_require__(822);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
+var VContainer = __webpack_require__(823);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
+var VRow = __webpack_require__(825);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
+var VTextField = __webpack_require__(87);
+
+// CONCATENATED MODULE: ./src/components/diagrams/editor/DiagramPropertiesEditDialog.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  editor_DiagramPropertiesEditDialogvue_type_script_lang_ts_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "e68fd872",
+  null
+  
+)
+
+/* harmony default export */ var editor_DiagramPropertiesEditDialog = __webpack_exports__["default"] = (component.exports);
+
+/* nuxt-component-imports */
+installComponents_default()(component, {PropertiesSettingDialog: __webpack_require__(841).default})
+
+
+/* vuetify-loader */
+
+
+
+
+
+installComponents_default()(component, {VCol: VCol["a" /* default */],VContainer: VContainer["a" /* default */],VRow: VRow["a" /* default */],VTextField: VTextField["a" /* default */]})
+
+
+/***/ }),
+
+/***/ 1019:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/open/DiagramTypeSelectorDialog.vue?vue&type=template&id=6c64ce80&scoped=true&lang=html&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"persistent":"","max-width":"400"},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"esc",27,$event.key,["Esc","Escape"])){ return null; }return _vm.close()}},model:{value:(_vm.visible),callback:function ($$v) {_vm.visible=$$v},expression:"visible"}},[_c('v-card',[(_vm.isRelateDiagramExists)?_c('span',[_c('v-card-title',{staticClass:"headline"},[_c('v-icon',[_vm._v("mdi-selection-multiple")]),_vm._v(" 開く図の種類の選択\n      ")],1),_vm._v(" "),_c('v-card-text',[_vm._v("\n        ["+_vm._s(_vm.resource.type.name)+"]アイコンに対応する図を開きます。"),_c('br'),_vm._v("\n        図の種類を選択してください。\n      ")])],1):_c('span',[_c('v-card-title',{staticClass:"headline"},[_c('v-icon',[_vm._v("mdi-selection-multiple")]),_vm._v(" 新しい図の種類の選択\n      ")],1),_vm._v(" "),_c('v-card-text',[_vm._v("\n        ["+_vm._s(_vm.resource.type.name)+"]アイコンに対応する図を新たに作成します。"),_c('br'),_vm._v("\n        新規作成する図の種類を選択してください。\n      ")])],1),_vm._v(" "),_c('v-card-text',[_vm._v("\n      アイコン(図の名前) :\n      "),_c('v-chip',{attrs:{"color":"primary","dark":"","draggable":""}},[_c('v-tooltip',{attrs:{"bottom":"","open-delay":"500"},scopedSlots:_vm._u([{key:"activator",fn:function(ref){
+var on = ref.on;
+var attrs = ref.attrs;
+return [_c('v-icon',_vm._g(_vm._b({},'v-icon',attrs,false),on),[_vm._v("\n              "+_vm._s(_vm.resource.type.iconKey)+"\n            ")])]}}])},[_vm._v(" "),_c('span',[_vm._v(_vm._s(_vm.resource.type.name))])]),_vm._v("\n        "+_vm._s(_vm.resource.name)+"\n      ")],1),_vm._v(" "),_c('v-radio-group',{scopedSlots:_vm._u([{key:"label",fn:function(){return [_vm._v(" 図の種類 ")]},proxy:true}]),model:{value:(_vm.diagramTypeId),callback:function ($$v) {_vm.diagramTypeId=$$v},expression:"diagramTypeId"}},[_vm._v(" "),_vm._l((_vm.diagramTypes),function(diagramType){return _c('v-radio',{key:diagramType.id,attrs:{"value":diagramType.id},scopedSlots:_vm._u([{key:"label",fn:function(){return [_c('div',[_c('v-icon',[_vm._v(_vm._s(diagramType.iconKey))]),_vm._v("\n              "+_vm._s(diagramType.name)+"\n            ")],1)]},proxy:true}],null,true)})})],2)],1),_vm._v(" "),_c('v-card-actions',[_c('v-spacer'),_vm._v(" "),_c('v-btn',{attrs:{"text":"","color":"normal"},on:{"click":_vm.onClickCancel}},[_vm._v(" キャンセル ")]),_vm._v(" "),_c('v-btn',{attrs:{"text":"","color":"green darken-1"},on:{"click":_vm.onClickOk}},[_vm._v(" OK ")])],1)],1)],1)}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/diagrams/open/DiagramTypeSelectorDialog.vue?vue&type=template&id=6c64ce80&scoped=true&lang=html&
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
+var es_reflect_construct = __webpack_require__(30);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+var classCallCheck = __webpack_require__(0);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(1);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
+var inherits = __webpack_require__(11);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
+var possibleConstructorReturn = __webpack_require__(10);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
+var getPrototypeOf = __webpack_require__(5);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
+var esm_typeof = __webpack_require__(17);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
+var es_object_get_own_property_descriptor = __webpack_require__(18);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.map.js
+var es_array_map = __webpack_require__(37);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
+var es_function_name = __webpack_require__(16);
+
+// EXTERNAL MODULE: ./node_modules/vue-property-decorator/lib/index.js + 14 modules
+var lib = __webpack_require__(23);
+
+// EXTERNAL MODULE: ./src/domain/resource/Resource.ts
+var Resource = __webpack_require__(83);
+
+// EXTERNAL MODULE: ./src/domain/product/Product.ts + 2 modules
+var Product = __webpack_require__(176);
+
+// EXTERNAL MODULE: ./src/domain/diagram/type/DiagramTypes.ts
+var DiagramTypes = __webpack_require__(250);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/diagrams/open/DiagramTypeSelectorDialog.vue?vue&type=script&lang=ts&
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+
+
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+  var c = arguments.length,
+      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+      d;
+  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  }
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var DiagramTypeSelectorDialog_1;
+
+
+
+
+
+var DiagramTypeSelectorDialogvue_type_script_lang_ts_DiagramTypeSelectorDialog = DiagramTypeSelectorDialog_1 = /*#__PURE__*/function (_Vue) {
+  Object(inherits["a" /* default */])(DiagramTypeSelectorDialog, _Vue);
+
+  var _super = _createSuper(DiagramTypeSelectorDialog);
+
+  function DiagramTypeSelectorDialog() {
+    var _this;
+
+    Object(classCallCheck["a" /* default */])(this, DiagramTypeSelectorDialog);
+
+    _this = _super.apply(this, arguments);
+    _this.visible = false;
+    _this.resolve = null;
+    _this.reject = null;
+    _this.diagramTypes = [];
+    _this.resource = Resource["a" /* default */].empty();
+    _this.isRelateDiagramExists = false;
+    _this.diagramTypeId = 0;
+    return _this;
+  }
+
+  Object(createClass["a" /* default */])(DiagramTypeSelectorDialog, [{
+    key: "onClickCancel",
+    value: function onClickCancel() {
+      this.close();
+      this.resolve(DiagramTypeSelectorDialog_1.NOTHING_DIAGRAM_ID);
+    }
+  }, {
+    key: "onClickOk",
+    value: function onClickOk() {
+      var diagramId = this.fixedDiagramId();
+      this.close();
+      this.resolve(diagramId);
+    }
+  }, {
+    key: "show",
+    value: function show(resourceId) {
+      var _this2 = this;
+
+      var diagramIds = this.findRelateDiagramIdsOf(resourceId);
+      if (diagramIds.length === 1) return new Promise(function (resolve) {
+        return resolve(diagramIds[0]);
+      });
+      this.diagramTypeId = this.diagramTypes[0].id;
+      this.visible = true;
+      return new Promise(function (resolve, reject) {
+        _this2.resolve = resolve;
+        _this2.reject = reject;
+      });
+    }
+  }, {
+    key: "findRelateDiagramIdsOf",
+    value: function findRelateDiagramIdsOf(resourceId) {
+      var diagrams = this.findRelateDiagrams(resourceId);
+      if (diagrams.length === 1) return diagrams.map(function (diagram) {
+        return diagram.id;
+      });
+      this.isRelateDiagramExists = diagrams.length > 1;
+
+      if (!this.isRelateDiagramExists) {
+        this.diagramTypes = Product["a" /* default */].correspondingDiagramTypesOf(this.resource);
+        return [];
+      }
+
+      this.diagramTypes = diagrams.map(function (diagram) {
+        return diagram.type;
+      });
+      return diagrams.map(function (diagram) {
+        return diagram.id;
+      });
+    }
+  }, {
+    key: "findRelateDiagrams",
+    value: function findRelateDiagrams(resourceId) {
+      var _a;
+
+      var product = (_a = this.repository) === null || _a === void 0 ? void 0 : _a.getCurrentProduct();
+      this.resource = product.resources.of(resourceId);
+      return product.diagramsOfResourceRelate(resourceId);
+    }
+  }, {
+    key: "fixedDiagramId",
+    value: function fixedDiagramId() {
+      var diagramType = DiagramTypes["a" /* default */].byId(this.diagramTypeId);
+      var diagrams = this.findRelateDiagrams(this.resource.resourceId);
+      if (diagrams.length === 0) return this.createAndAddDiagram(this.resource.name, diagramType).id;
+      var diagram = diagrams.typeOf(diagramType).last();
+      return diagram.id;
+    }
+  }, {
+    key: "createAndAddDiagram",
+    value: function createAndAddDiagram(name, diagramType) {
+      var repository = this.repository;
+      var product = repository.getCurrentProduct();
+      var modifiedProduct = product.createAndAddDiagram(name, diagramType);
+      var diagram = modifiedProduct.diagrams.last();
+      repository.registerCurrentProduct(modifiedProduct);
+      return diagram;
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      this.visible = false;
+    }
+  }]);
+
+  return DiagramTypeSelectorDialog;
+}(lib["Vue"]);
+
+DiagramTypeSelectorDialogvue_type_script_lang_ts_DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID = 0;
+
+__decorate([Object(lib["Inject"])()], DiagramTypeSelectorDialogvue_type_script_lang_ts_DiagramTypeSelectorDialog.prototype, "repository", void 0);
+
+DiagramTypeSelectorDialogvue_type_script_lang_ts_DiagramTypeSelectorDialog = DiagramTypeSelectorDialog_1 = __decorate([lib["Component"]], DiagramTypeSelectorDialogvue_type_script_lang_ts_DiagramTypeSelectorDialog);
+/* harmony default export */ var DiagramTypeSelectorDialogvue_type_script_lang_ts_ = (DiagramTypeSelectorDialogvue_type_script_lang_ts_DiagramTypeSelectorDialog);
+// CONCATENATED MODULE: ./src/components/diagrams/open/DiagramTypeSelectorDialog.vue?vue&type=script&lang=ts&
+ /* harmony default export */ var open_DiagramTypeSelectorDialogvue_type_script_lang_ts_ = (DiagramTypeSelectorDialogvue_type_script_lang_ts_); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(56);
+
+// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installComponents.js
+var installComponents = __webpack_require__(58);
+var installComponents_default = /*#__PURE__*/__webpack_require__.n(installComponents);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(808);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(335);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(21);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
+var VChip = __webpack_require__(294);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
+var VDialog = __webpack_require__(807);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(338);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadio.js
+var VRadio = __webpack_require__(827);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadioGroup.js
+var VRadioGroup = __webpack_require__(828);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(821);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTooltip/VTooltip.js
+var VTooltip = __webpack_require__(830);
+
+// CONCATENATED MODULE: ./src/components/diagrams/open/DiagramTypeSelectorDialog.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  open_DiagramTypeSelectorDialogvue_type_script_lang_ts_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "6c64ce80",
+  null
+  
+)
+
+/* harmony default export */ var open_DiagramTypeSelectorDialog = __webpack_exports__["default"] = (component.exports);
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+
+
+
+
+
+installComponents_default()(component, {VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardActions: components_VCard["a" /* VCardActions */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VChip: VChip["a" /* default */],VDialog: VDialog["a" /* default */],VIcon: VIcon["a" /* default */],VRadio: VRadio["a" /* default */],VRadioGroup: VRadioGroup["a" /* default */],VSpacer: VSpacer["a" /* default */],VTooltip: VTooltip["a" /* default */]})
+
+
+/***/ }),
+
+/***/ 1035:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_cad15674_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1013);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_cad15674_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_cad15674_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
+/***/ 1036:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(27);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".pane-container[data-v-cad15674]{display:flex;height:100%;width:100%;max-width:none;padding-right:0;padding-left:0;margin-right:unset;margin-left:unset}.left-pane[data-v-cad15674]{width:20%;overflow:auto;text-align:left}.right-pane[data-v-cad15674]{flex-grow:1}.slidebar[data-v-cad15674]{width:8px;background-color:grey;cursor:col-resize}", ""]);
+// Exports
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 1037:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
+var es_symbol = __webpack_require__(14);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
+var es_object_get_own_property_descriptor = __webpack_require__(18);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptors.js
+var es_object_get_own_property_descriptors = __webpack_require__(26);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
+var es_array_slice = __webpack_require__(50);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
+var es_function_name = __webpack_require__(16);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.from.js
+var es_array_from = __webpack_require__(59);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.description.js
+var es_symbol_description = __webpack_require__(44);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.iterator.js
+var es_symbol_iterator = __webpack_require__(78);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 1 modules
+var slicedToArray = __webpack_require__(48);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
+var toConsumableArray = __webpack_require__(79);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
+var defineProperty = __webpack_require__(7);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.set.js
+var es_set = __webpack_require__(593);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.iterator.js
+var es_string_iterator = __webpack_require__(43);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.add-all.js
+var esnext_set_add_all = __webpack_require__(594);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.delete-all.js
+var esnext_set_delete_all = __webpack_require__(595);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.difference.js
+var esnext_set_difference = __webpack_require__(596);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.every.js
+var esnext_set_every = __webpack_require__(597);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.filter.js
+var esnext_set_filter = __webpack_require__(598);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.find.js
+var esnext_set_find = __webpack_require__(599);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.intersection.js
+var esnext_set_intersection = __webpack_require__(600);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.is-disjoint-from.js
+var esnext_set_is_disjoint_from = __webpack_require__(601);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.is-subset-of.js
+var esnext_set_is_subset_of = __webpack_require__(602);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.is-superset-of.js
+var esnext_set_is_superset_of = __webpack_require__(603);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.join.js
+var esnext_set_join = __webpack_require__(604);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.map.js
+var esnext_set_map = __webpack_require__(605);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.reduce.js
+var esnext_set_reduce = __webpack_require__(606);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.some.js
+var esnext_set_some = __webpack_require__(607);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.symmetric-difference.js
+var esnext_set_symmetric_difference = __webpack_require__(608);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.set.union.js
+var esnext_set_union = __webpack_require__(609);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.iterator.js
+var web_dom_collections_iterator = __webpack_require__(42);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
+var es_regexp_exec = __webpack_require__(36);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.search.js
+var es_string_search = __webpack_require__(357);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
+var es_array_filter = __webpack_require__(15);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.map.js
+var es_array_map = __webpack_require__(37);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
+var es_object_keys = __webpack_require__(22);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.for-each.js
+var web_dom_collections_for_each = __webpack_require__(19);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.map.js
+var es_map = __webpack_require__(149);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.map.delete-all.js
+var esnext_map_delete_all = __webpack_require__(150);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.map.every.js
+var esnext_map_every = __webpack_require__(151);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.map.filter.js
+var esnext_map_filter = __webpack_require__(152);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.map.find.js
+var esnext_map_find = __webpack_require__(153);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.map.find-key.js
+var esnext_map_find_key = __webpack_require__(154);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.map.includes.js
+var esnext_map_includes = __webpack_require__(155);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.map.key-of.js
+var esnext_map_key_of = __webpack_require__(156);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.map.map-keys.js
+var esnext_map_map_keys = __webpack_require__(157);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.map.map-values.js
+var esnext_map_map_values = __webpack_require__(158);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.map.merge.js
+var esnext_map_merge = __webpack_require__(159);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.map.reduce.js
+var esnext_map_reduce = __webpack_require__(160);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.map.some.js
+var esnext_map_some = __webpack_require__(161);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.map.update.js
+var esnext_map_update = __webpack_require__(162);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/src/components/VTreeview/VTreeview.sass
+var VTreeview = __webpack_require__(999);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.includes.js
+var es_array_includes = __webpack_require__(45);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
+var es_number_constructor = __webpack_require__(35);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/transitions/index.js + 2 modules
+var transitions = __webpack_require__(146);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(338);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/registrable/index.js
+var registrable = __webpack_require__(171);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/colorable/index.js
+var colorable = __webpack_require__(38);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/mixins.js
+var mixins = __webpack_require__(13);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/helpers.js
+var helpers = __webpack_require__(2);
+
+// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTreeview/VTreeviewNode.js
+
+
+
+
+
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { Object(defineProperty["a" /* default */])(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+
+
+
+// Components
+
+ // Mixins
+
+
+ // Utils
+
+
+
+var baseMixins = Object(mixins["a" /* default */])(colorable["a" /* default */], Object(registrable["a" /* inject */])('treeview'));
+var VTreeviewNodeProps = {
+  activatable: Boolean,
+  activeClass: {
+    type: String,
+    default: 'v-treeview-node--active'
+  },
+  color: {
+    type: String,
+    default: 'primary'
+  },
+  disablePerNode: Boolean,
+  expandIcon: {
+    type: String,
+    default: '$subgroup'
+  },
+  indeterminateIcon: {
+    type: String,
+    default: '$checkboxIndeterminate'
+  },
+  itemChildren: {
+    type: String,
+    default: 'children'
+  },
+  itemDisabled: {
+    type: String,
+    default: 'disabled'
+  },
+  itemKey: {
+    type: String,
+    default: 'id'
+  },
+  itemText: {
+    type: String,
+    default: 'name'
+  },
+  loadChildren: Function,
+  loadingIcon: {
+    type: String,
+    default: '$loading'
+  },
+  offIcon: {
+    type: String,
+    default: '$checkboxOff'
+  },
+  onIcon: {
+    type: String,
+    default: '$checkboxOn'
+  },
+  openOnClick: Boolean,
+  rounded: Boolean,
+  selectable: Boolean,
+  selectedColor: {
+    type: String,
+    default: 'accent'
+  },
+  shaped: Boolean,
+  transition: Boolean,
+  selectionType: {
+    type: String,
+    default: 'leaf',
+    validator: function validator(v) {
+      return ['leaf', 'independent'].includes(v);
+    }
+  }
+};
+/* @vue/component */
+
+var VTreeviewNode = baseMixins.extend().extend({
+  name: 'v-treeview-node',
+  inject: {
+    treeview: {
+      default: null
+    }
+  },
+  props: _objectSpread({
+    level: Number,
+    item: {
+      type: Object,
+      default: function _default() {
+        return null;
+      }
+    },
+    parentIsDisabled: Boolean
+  }, VTreeviewNodeProps),
+  data: function data() {
+    return {
+      hasLoaded: false,
+      isActive: false,
+      isIndeterminate: false,
+      isLoading: false,
+      isOpen: false,
+      isSelected: false // Node is selected (checkbox)
+
+    };
+  },
+  computed: {
+    disabled: function disabled() {
+      return Object(helpers["n" /* getObjectValueByPath */])(this.item, this.itemDisabled) || !this.disablePerNode && this.parentIsDisabled && this.selectionType === 'leaf';
+    },
+    key: function key() {
+      return Object(helpers["n" /* getObjectValueByPath */])(this.item, this.itemKey);
+    },
+    children: function children() {
+      var _this = this;
+
+      var children = Object(helpers["n" /* getObjectValueByPath */])(this.item, this.itemChildren);
+      return children && children.filter(function (child) {
+        return !_this.treeview.isExcluded(Object(helpers["n" /* getObjectValueByPath */])(child, _this.itemKey));
+      });
+    },
+    text: function text() {
+      return Object(helpers["n" /* getObjectValueByPath */])(this.item, this.itemText);
+    },
+    scopedProps: function scopedProps() {
+      return {
+        item: this.item,
+        leaf: !this.children,
+        selected: this.isSelected,
+        indeterminate: this.isIndeterminate,
+        active: this.isActive,
+        open: this.isOpen
+      };
+    },
+    computedIcon: function computedIcon() {
+      if (this.isIndeterminate) return this.indeterminateIcon;else if (this.isSelected) return this.onIcon;else return this.offIcon;
+    },
+    hasChildren: function hasChildren() {
+      return !!this.children && (!!this.children.length || !!this.loadChildren);
+    }
+  },
+  created: function created() {
+    this.treeview.register(this);
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.treeview.unregister(this);
+  },
+  methods: {
+    checkChildren: function checkChildren() {
+      var _this2 = this;
+
+      return new Promise(function (resolve) {
+        // TODO: Potential issue with always trying
+        // to load children if response is empty?
+        if (!_this2.children || _this2.children.length || !_this2.loadChildren || _this2.hasLoaded) return resolve();
+        _this2.isLoading = true;
+        resolve(_this2.loadChildren(_this2.item));
+      }).then(function () {
+        _this2.isLoading = false;
+        _this2.hasLoaded = true;
+      });
+    },
+    open: function open() {
+      this.isOpen = !this.isOpen;
+      this.treeview.updateOpen(this.key, this.isOpen);
+      this.treeview.emitOpen();
+    },
+    genLabel: function genLabel() {
+      var children = [];
+      if (this.$scopedSlots.label) children.push(this.$scopedSlots.label(this.scopedProps));else children.push(this.text);
+      return this.$createElement('div', {
+        slot: 'label',
+        staticClass: 'v-treeview-node__label'
+      }, children);
+    },
+    genPrependSlot: function genPrependSlot() {
+      if (!this.$scopedSlots.prepend) return null;
+      return this.$createElement('div', {
+        staticClass: 'v-treeview-node__prepend'
+      }, this.$scopedSlots.prepend(this.scopedProps));
+    },
+    genAppendSlot: function genAppendSlot() {
+      if (!this.$scopedSlots.append) return null;
+      return this.$createElement('div', {
+        staticClass: 'v-treeview-node__append'
+      }, this.$scopedSlots.append(this.scopedProps));
+    },
+    genContent: function genContent() {
+      var children = [this.genPrependSlot(), this.genLabel(), this.genAppendSlot()];
+      return this.$createElement('div', {
+        staticClass: 'v-treeview-node__content'
+      }, children);
+    },
+    genToggle: function genToggle() {
+      var _this3 = this;
+
+      return this.$createElement(VIcon["a" /* default */], {
+        staticClass: 'v-treeview-node__toggle',
+        class: {
+          'v-treeview-node__toggle--open': this.isOpen,
+          'v-treeview-node__toggle--loading': this.isLoading
+        },
+        slot: 'prepend',
+        on: {
+          click: function click(e) {
+            e.stopPropagation();
+            if (_this3.isLoading) return;
+
+            _this3.checkChildren().then(function () {
+              return _this3.open();
+            });
+          }
+        }
+      }, [this.isLoading ? this.loadingIcon : this.expandIcon]);
+    },
+    genCheckbox: function genCheckbox() {
+      var _this4 = this;
+
+      return this.$createElement(VIcon["a" /* default */], {
+        staticClass: 'v-treeview-node__checkbox',
+        props: {
+          color: this.isSelected || this.isIndeterminate ? this.selectedColor : undefined,
+          disabled: this.disabled
+        },
+        on: {
+          click: function click(e) {
+            e.stopPropagation();
+            if (_this4.isLoading) return;
+
+            _this4.checkChildren().then(function () {
+              // We nextTick here so that items watch in VTreeview has a chance to run first
+              _this4.$nextTick(function () {
+                _this4.isSelected = !_this4.isSelected;
+                _this4.isIndeterminate = false;
+
+                _this4.treeview.updateSelected(_this4.key, _this4.isSelected);
+
+                _this4.treeview.emitSelected();
+              });
+            });
+          }
+        }
+      }, [this.computedIcon]);
+    },
+    genLevel: function genLevel(level) {
+      var _this5 = this;
+
+      return Object(helpers["i" /* createRange */])(level).map(function () {
+        return _this5.$createElement('div', {
+          staticClass: 'v-treeview-node__level'
+        });
+      });
+    },
+    genNode: function genNode() {
+      var _this6 = this;
+
+      var children = [this.genContent()];
+      if (this.selectable) children.unshift(this.genCheckbox());
+
+      if (this.hasChildren) {
+        children.unshift(this.genToggle());
+      } else {
+        children.unshift.apply(children, Object(toConsumableArray["a" /* default */])(this.genLevel(1)));
+      }
+
+      children.unshift.apply(children, Object(toConsumableArray["a" /* default */])(this.genLevel(this.level)));
+      return this.$createElement('div', this.setTextColor(this.isActive && this.color, {
+        staticClass: 'v-treeview-node__root',
+        class: Object(defineProperty["a" /* default */])({}, this.activeClass, this.isActive),
+        on: {
+          click: function click() {
+            if (_this6.openOnClick && _this6.hasChildren) {
+              _this6.checkChildren().then(_this6.open);
+            } else if (_this6.activatable && !_this6.disabled) {
+              _this6.isActive = !_this6.isActive;
+
+              _this6.treeview.updateActive(_this6.key, _this6.isActive);
+
+              _this6.treeview.emitActive();
+            }
+          }
+        }
+      }), children);
+    },
+    genChild: function genChild(item, parentIsDisabled) {
+      return this.$createElement(VTreeviewNode, {
+        key: Object(helpers["n" /* getObjectValueByPath */])(item, this.itemKey),
+        props: {
+          activatable: this.activatable,
+          activeClass: this.activeClass,
+          item: item,
+          selectable: this.selectable,
+          selectedColor: this.selectedColor,
+          color: this.color,
+          disablePerNode: this.disablePerNode,
+          expandIcon: this.expandIcon,
+          indeterminateIcon: this.indeterminateIcon,
+          offIcon: this.offIcon,
+          onIcon: this.onIcon,
+          loadingIcon: this.loadingIcon,
+          itemKey: this.itemKey,
+          itemText: this.itemText,
+          itemDisabled: this.itemDisabled,
+          itemChildren: this.itemChildren,
+          loadChildren: this.loadChildren,
+          transition: this.transition,
+          openOnClick: this.openOnClick,
+          rounded: this.rounded,
+          shaped: this.shaped,
+          level: this.level + 1,
+          selectionType: this.selectionType,
+          parentIsDisabled: parentIsDisabled
+        },
+        scopedSlots: this.$scopedSlots
+      });
+    },
+    genChildrenWrapper: function genChildrenWrapper() {
+      var _this7 = this;
+
+      if (!this.isOpen || !this.children) return null;
+      var children = [this.children.map(function (c) {
+        return _this7.genChild(c, _this7.disabled);
+      })];
+      return this.$createElement('div', {
+        staticClass: 'v-treeview-node__children'
+      }, children);
+    },
+    genTransition: function genTransition() {
+      return this.$createElement(transitions["a" /* VExpandTransition */], [this.genChildrenWrapper()]);
+    }
+  },
+  render: function render(h) {
+    var children = [this.genNode()];
+    if (this.transition) children.push(this.genTransition());else children.push(this.genChildrenWrapper());
+    return h('div', {
+      staticClass: 'v-treeview-node',
+      class: {
+        'v-treeview-node--leaf': !this.hasChildren,
+        'v-treeview-node--click': this.openOnClick,
+        'v-treeview-node--disabled': this.disabled,
+        'v-treeview-node--rounded': this.rounded,
+        'v-treeview-node--shaped': this.shaped,
+        'v-treeview-node--selected': this.isSelected
+      },
+      attrs: {
+        'aria-expanded': String(this.isOpen)
+      }
+    }, children);
+  }
+});
+/* harmony default export */ var VTreeview_VTreeviewNode = (VTreeviewNode);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/themeable/index.js
+var themeable = __webpack_require__(31);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/console.js
+var console = __webpack_require__(20);
+
+// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTreeview/util/filterTreeItems.js
+
+function filterTreeItem(item, search, textKey) {
+  var text = Object(helpers["n" /* getObjectValueByPath */])(item, textKey);
+  return text.toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1;
+}
+function filterTreeItems(filter, item, search, idKey, textKey, childrenKey, excluded) {
+  if (filter(item, search, textKey)) {
+    return true;
+  }
+
+  var children = Object(helpers["n" /* getObjectValueByPath */])(item, childrenKey);
+
+  if (children) {
+    var match = false;
+
+    for (var i = 0; i < children.length; i++) {
+      if (filterTreeItems(filter, children[i], search, idKey, textKey, childrenKey, excluded)) {
+        match = true;
+      }
+    }
+
+    if (match) return true;
+  }
+
+  excluded.add(Object(helpers["n" /* getObjectValueByPath */])(item, idKey));
+  return false;
+}
+// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTreeview/VTreeview.js
+
+
+
+
+
+
+
+
+
+
+
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function VTreeview_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function VTreeview_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? VTreeview_ownKeys(Object(source), !0).forEach(function (key) { Object(defineProperty["a" /* default */])(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : VTreeview_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+// Styles
+ // Components
+
+ // Mixins
+
+
+ // Utils
+
+
+
+
+
+/* harmony default export */ var VTreeview_VTreeview = __webpack_exports__["a"] = (Object(mixins["a" /* default */])(Object(registrable["b" /* provide */])('treeview'), themeable["a" /* default */]
+/* @vue/component */
+).extend({
+  name: 'v-treeview',
+  provide: function provide() {
+    return {
+      treeview: this
+    };
+  },
+  props: VTreeview_objectSpread({
+    active: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    },
+    dense: Boolean,
+    disabled: Boolean,
+    filter: Function,
+    hoverable: Boolean,
+    items: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    },
+    multipleActive: Boolean,
+    open: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    },
+    openAll: Boolean,
+    returnObject: {
+      type: Boolean,
+      default: false // TODO: Should be true in next major
+
+    },
+    search: String,
+    value: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    }
+  }, VTreeviewNodeProps),
+  data: function data() {
+    return {
+      level: -1,
+      activeCache: new Set(),
+      nodes: {},
+      openCache: new Set(),
+      selectedCache: new Set()
+    };
+  },
+  computed: {
+    excludedItems: function excludedItems() {
+      var excluded = new Set();
+      if (!this.search) return excluded;
+
+      for (var i = 0; i < this.items.length; i++) {
+        filterTreeItems(this.filter || filterTreeItem, this.items[i], this.search, this.itemKey, this.itemText, this.itemChildren, excluded);
+      }
+
+      return excluded;
+    }
+  },
+  watch: {
+    items: {
+      handler: function handler() {
+        var _this = this;
+
+        var oldKeys = Object.keys(this.nodes).map(function (k) {
+          return Object(helpers["n" /* getObjectValueByPath */])(_this.nodes[k].item, _this.itemKey);
+        });
+        var newKeys = this.getKeys(this.items);
+        var diff = Object(helpers["c" /* arrayDiff */])(newKeys, oldKeys); // We only want to do stuff if items have changed
+
+        if (!diff.length && newKeys.length < oldKeys.length) return; // If nodes are removed we need to clear them from this.nodes
+
+        diff.forEach(function (k) {
+          return delete _this.nodes[k];
+        });
+
+        var oldSelectedCache = Object(toConsumableArray["a" /* default */])(this.selectedCache);
+
+        this.selectedCache = new Set();
+        this.activeCache = new Set();
+        this.openCache = new Set();
+        this.buildTree(this.items); // Only emit selected if selection has changed
+        // as a result of items changing. This fixes a
+        // potential double emit when selecting a node
+        // with dynamic children
+
+        if (!Object(helpers["k" /* deepEqual */])(oldSelectedCache, Object(toConsumableArray["a" /* default */])(this.selectedCache))) this.emitSelected();
+      },
+      deep: true
+    },
+    active: function active(value) {
+      this.handleNodeCacheWatcher(value, this.activeCache, this.updateActive, this.emitActive);
+    },
+    value: function value(_value) {
+      this.handleNodeCacheWatcher(_value, this.selectedCache, this.updateSelected, this.emitSelected);
+    },
+    open: function open(value) {
+      this.handleNodeCacheWatcher(value, this.openCache, this.updateOpen, this.emitOpen);
+    }
+  },
+  created: function created() {
+    var _this2 = this;
+
+    var getValue = function getValue(key) {
+      return _this2.returnObject ? Object(helpers["n" /* getObjectValueByPath */])(key, _this2.itemKey) : key;
+    };
+
+    this.buildTree(this.items);
+
+    var _iterator = _createForOfIteratorHelper(this.value.map(getValue)),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var value = _step.value;
+        this.updateSelected(value, true, true);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    var _iterator2 = _createForOfIteratorHelper(this.active.map(getValue)),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var active = _step2.value;
+        this.updateActive(active, true);
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+  },
+  mounted: function mounted() {
+    var _this3 = this;
+
+    // Save the developer from themselves
+    if (this.$slots.prepend || this.$slots.append) {
+      Object(console["c" /* consoleWarn */])('The prepend and append slots require a slot-scope attribute', this);
+    }
+
+    if (this.openAll) {
+      this.updateAll(true);
+    } else {
+      this.open.forEach(function (key) {
+        return _this3.updateOpen(_this3.returnObject ? Object(helpers["n" /* getObjectValueByPath */])(key, _this3.itemKey) : key, true);
+      });
+      this.emitOpen();
+    }
+  },
+  methods: {
+    /** @public */
+    updateAll: function updateAll(value) {
+      var _this4 = this;
+
+      Object.keys(this.nodes).forEach(function (key) {
+        return _this4.updateOpen(Object(helpers["n" /* getObjectValueByPath */])(_this4.nodes[key].item, _this4.itemKey), value);
+      });
+      this.emitOpen();
+    },
+    getKeys: function getKeys(items) {
+      var keys = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+      for (var i = 0; i < items.length; i++) {
+        var key = Object(helpers["n" /* getObjectValueByPath */])(items[i], this.itemKey);
+        keys.push(key);
+        var children = Object(helpers["n" /* getObjectValueByPath */])(items[i], this.itemChildren);
+
+        if (children) {
+          keys.push.apply(keys, Object(toConsumableArray["a" /* default */])(this.getKeys(children)));
+        }
+      }
+
+      return keys;
+    },
+    buildTree: function buildTree(items) {
+      var _this5 = this;
+
+      var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+      var _a;
+
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        var key = Object(helpers["n" /* getObjectValueByPath */])(item, this.itemKey);
+        var children = (_a = Object(helpers["n" /* getObjectValueByPath */])(item, this.itemChildren)) !== null && _a !== void 0 ? _a : [];
+        var oldNode = this.nodes.hasOwnProperty(key) ? this.nodes[key] : {
+          isSelected: false,
+          isIndeterminate: false,
+          isActive: false,
+          isOpen: false,
+          vnode: null
+        };
+        var node = {
+          vnode: oldNode.vnode,
+          parent: parent,
+          children: children.map(function (c) {
+            return Object(helpers["n" /* getObjectValueByPath */])(c, _this5.itemKey);
+          }),
+          item: item
+        };
+        this.buildTree(children, key); // This fixed bug with dynamic children resetting selected parent state
+
+        if (this.selectionType !== 'independent' && parent !== null && !this.nodes.hasOwnProperty(key) && this.nodes.hasOwnProperty(parent)) {
+          node.isSelected = this.nodes[parent].isSelected;
+        } else {
+          node.isSelected = oldNode.isSelected;
+          node.isIndeterminate = oldNode.isIndeterminate;
+        }
+
+        node.isActive = oldNode.isActive;
+        node.isOpen = oldNode.isOpen;
+        this.nodes[key] = node;
+
+        if (children.length && this.selectionType !== 'independent') {
+          var _this$calculateState = this.calculateState(key, this.nodes),
+              isSelected = _this$calculateState.isSelected,
+              isIndeterminate = _this$calculateState.isIndeterminate;
+
+          node.isSelected = isSelected;
+          node.isIndeterminate = isIndeterminate;
+        } // Don't forget to rebuild cache
+
+
+        if (this.nodes[key].isSelected && (this.selectionType === 'independent' || node.children.length === 0)) this.selectedCache.add(key);
+        if (this.nodes[key].isActive) this.activeCache.add(key);
+        if (this.nodes[key].isOpen) this.openCache.add(key);
+        this.updateVnodeState(key);
+      }
+    },
+    calculateState: function calculateState(node, state) {
+      var children = state[node].children;
+      var counts = children.reduce(function (counts, child) {
+        counts[0] += +Boolean(state[child].isSelected);
+        counts[1] += +Boolean(state[child].isIndeterminate);
+        return counts;
+      }, [0, 0]);
+      var isSelected = !!children.length && counts[0] === children.length;
+      var isIndeterminate = !isSelected && (counts[0] > 0 || counts[1] > 0);
+      return {
+        isSelected: isSelected,
+        isIndeterminate: isIndeterminate
+      };
+    },
+    emitOpen: function emitOpen() {
+      this.emitNodeCache('update:open', this.openCache);
+    },
+    emitSelected: function emitSelected() {
+      this.emitNodeCache('input', this.selectedCache);
+    },
+    emitActive: function emitActive() {
+      this.emitNodeCache('update:active', this.activeCache);
+    },
+    emitNodeCache: function emitNodeCache(event, cache) {
+      var _this6 = this;
+
+      this.$emit(event, this.returnObject ? Object(toConsumableArray["a" /* default */])(cache).map(function (key) {
+        return _this6.nodes[key].item;
+      }) : Object(toConsumableArray["a" /* default */])(cache));
+    },
+    handleNodeCacheWatcher: function handleNodeCacheWatcher(value, cache, updateFn, emitFn) {
+      var _this7 = this;
+
+      value = this.returnObject ? value.map(function (v) {
+        return Object(helpers["n" /* getObjectValueByPath */])(v, _this7.itemKey);
+      }) : value;
+
+      var old = Object(toConsumableArray["a" /* default */])(cache);
+
+      if (Object(helpers["k" /* deepEqual */])(old, value)) return;
+      old.forEach(function (key) {
+        return updateFn(key, false);
+      });
+      value.forEach(function (key) {
+        return updateFn(key, true);
+      });
+      emitFn();
+    },
+    getDescendants: function getDescendants(key) {
+      var _descendants;
+
+      var descendants = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      var children = this.nodes[key].children;
+
+      (_descendants = descendants).push.apply(_descendants, Object(toConsumableArray["a" /* default */])(children));
+
+      for (var i = 0; i < children.length; i++) {
+        descendants = this.getDescendants(children[i], descendants);
+      }
+
+      return descendants;
+    },
+    getParents: function getParents(key) {
+      var parent = this.nodes[key].parent;
+      var parents = [];
+
+      while (parent !== null) {
+        parents.push(parent);
+        parent = this.nodes[parent].parent;
+      }
+
+      return parents;
+    },
+    register: function register(node) {
+      var key = Object(helpers["n" /* getObjectValueByPath */])(node.item, this.itemKey);
+      this.nodes[key].vnode = node;
+      this.updateVnodeState(key);
+    },
+    unregister: function unregister(node) {
+      var key = Object(helpers["n" /* getObjectValueByPath */])(node.item, this.itemKey);
+      if (this.nodes[key]) this.nodes[key].vnode = null;
+    },
+    isParent: function isParent(key) {
+      return this.nodes[key].children && this.nodes[key].children.length;
+    },
+    updateActive: function updateActive(key, isActive) {
+      var _this8 = this;
+
+      if (!this.nodes.hasOwnProperty(key)) return;
+
+      if (!this.multipleActive) {
+        this.activeCache.forEach(function (active) {
+          _this8.nodes[active].isActive = false;
+
+          _this8.updateVnodeState(active);
+
+          _this8.activeCache.delete(active);
+        });
+      }
+
+      var node = this.nodes[key];
+      if (!node) return;
+      if (isActive) this.activeCache.add(key);else this.activeCache.delete(key);
+      node.isActive = isActive;
+      this.updateVnodeState(key);
+    },
+    updateSelected: function updateSelected(key, isSelected) {
+      var isForced = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      if (!this.nodes.hasOwnProperty(key)) return;
+      var changed = new Map();
+
+      if (this.selectionType !== 'independent') {
+        var _iterator3 = _createForOfIteratorHelper(this.getDescendants(key)),
+            _step3;
+
+        try {
+          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+            var descendant = _step3.value;
+
+            if (!Object(helpers["n" /* getObjectValueByPath */])(this.nodes[descendant].item, this.itemDisabled) || isForced) {
+              this.nodes[descendant].isSelected = isSelected;
+              this.nodes[descendant].isIndeterminate = false;
+              changed.set(descendant, isSelected);
+            }
+          }
+        } catch (err) {
+          _iterator3.e(err);
+        } finally {
+          _iterator3.f();
+        }
+
+        var calculated = this.calculateState(key, this.nodes);
+        this.nodes[key].isSelected = isSelected;
+        this.nodes[key].isIndeterminate = calculated.isIndeterminate;
+        changed.set(key, isSelected);
+
+        var _iterator4 = _createForOfIteratorHelper(this.getParents(key)),
+            _step4;
+
+        try {
+          for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+            var parent = _step4.value;
+
+            var _calculated = this.calculateState(parent, this.nodes);
+
+            this.nodes[parent].isSelected = _calculated.isSelected;
+            this.nodes[parent].isIndeterminate = _calculated.isIndeterminate;
+            changed.set(parent, _calculated.isSelected);
+          }
+        } catch (err) {
+          _iterator4.e(err);
+        } finally {
+          _iterator4.f();
+        }
+      } else {
+        this.nodes[key].isSelected = isSelected;
+        this.nodes[key].isIndeterminate = false;
+        changed.set(key, isSelected);
+      }
+
+      var _iterator5 = _createForOfIteratorHelper(changed.entries()),
+          _step5;
+
+      try {
+        for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+          var _step5$value = Object(slicedToArray["a" /* default */])(_step5.value, 2),
+              _key = _step5$value[0],
+              value = _step5$value[1];
+
+          this.updateVnodeState(_key);
+          if (this.selectionType === 'leaf' && this.isParent(_key)) continue;
+          value === true ? this.selectedCache.add(_key) : this.selectedCache.delete(_key);
+        }
+      } catch (err) {
+        _iterator5.e(err);
+      } finally {
+        _iterator5.f();
+      }
+    },
+    updateOpen: function updateOpen(key, isOpen) {
+      var _this9 = this;
+
+      if (!this.nodes.hasOwnProperty(key)) return;
+      var node = this.nodes[key];
+      var children = Object(helpers["n" /* getObjectValueByPath */])(node.item, this.itemChildren);
+
+      if (children && !children.length && node.vnode && !node.vnode.hasLoaded) {
+        node.vnode.checkChildren().then(function () {
+          return _this9.updateOpen(key, isOpen);
+        });
+      } else if (children && children.length) {
+        node.isOpen = isOpen;
+        node.isOpen ? this.openCache.add(key) : this.openCache.delete(key);
+        this.updateVnodeState(key);
+      }
+    },
+    updateVnodeState: function updateVnodeState(key) {
+      var node = this.nodes[key];
+
+      if (node && node.vnode) {
+        node.vnode.isSelected = node.isSelected;
+        node.vnode.isIndeterminate = node.isIndeterminate;
+        node.vnode.isActive = node.isActive;
+        node.vnode.isOpen = node.isOpen;
+      }
+    },
+    isExcluded: function isExcluded(key) {
+      return !!this.search && this.excludedItems.has(key);
+    }
+  },
+  render: function render(h) {
+    var _this10 = this;
+
+    var children = this.items.length ? this.items.filter(function (item) {
+      return !_this10.isExcluded(Object(helpers["n" /* getObjectValueByPath */])(item, _this10.itemKey));
+    }).map(function (item) {
+      var genChild = VTreeview_VTreeviewNode.options.methods.genChild.bind(_this10);
+      return genChild(item, _this10.disabled || Object(helpers["n" /* getObjectValueByPath */])(item, _this10.itemDisabled));
+    })
+    /* istanbul ignore next */
+    : this.$slots.default; // TODO: remove type annotation with TS 3.2
+
+    return h('div', {
+      staticClass: 'v-treeview',
+      class: VTreeview_objectSpread({
+        'v-treeview--hoverable': this.hoverable,
+        'v-treeview--dense': this.dense
+      }, this.themeClasses)
+    }, children);
+  }
+}));
+
+/***/ }),
+
+/***/ 1043:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/pages/index.vue?vue&type=template&id=cad15674&scoped=true&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-layout',[_c('ItemRightClickMenu',{ref:"itemRightClickMenu",attrs:{"openTabs":_vm.openTabs},on:{"onAddedDiagram":_vm.onAddedDiagram,"onRemovedDiagram":_vm.onRemovedDiagram,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor}}),_vm._v(" "),_c('TwoPaneWithSlideBarLayout',{scopedSlots:_vm._u([{key:"leftPane",fn:function(){return [_c('AllOpenCloseOperationBar',{on:{"onOpenAll":_vm.onOpenAllTree,"onCloseAll":_vm.onCloseAllTree}}),_vm._v(" "),_c('DiagramsTreePane',{ref:"diagramsTreePane",on:{"onOpenDiagram":_vm.onOpenDiagram,"onDeleteDiagram":_vm.onDeleteDiagram,"onRightClick":_vm.onTreeRightClick}})]},proxy:true},{key:"rightPane",fn:function(){return [_c('DiagramsTabPane',{ref:"diagramsTabPane",attrs:{"openTabs":_vm.openTabs,"allResources":_vm.allResources,"lastPropertiesUpdatedDiagramId":_vm.lastPropertiesUpdatedDiagramId},on:{"onUpdateResoucesOnContainer":_vm.onUpdateResoucesOnContainer,"onUpdatedDiagramProperties":_vm.onUpdatedDiagramProperties,"onOpendDiagramPropertiesEditor":_vm.onOpendDiagramPropertiesEditor,"onOpenDiagramOfResourceRelate":_vm.onOpenDiagramOfResourceRelate,"onRenamedResource":_vm.onRenamedResource,"onChangeCurrentDiagram":_vm.onChangeCurrentDiagram,"onRightClick":_vm.onTabRightClick}})]},proxy:true}])}),_vm._v(" "),_c('DiagramPropertiesEditDialog',{attrs:{"diagramId":_vm.propertiesEditorDiagramId},on:{"onUpdatedDiagramProperties":_vm.onUpdatedDiagramProperties,"onClose":_vm.onCloseDiagramPropertiesEditDialog}}),_vm._v(" "),_c('DiagramTypeSelectorDialog',{ref:"diagramTypeSelectorDialog"})],1)}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/pages/index.vue?vue&type=template&id=cad15674&scoped=true&
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
+var es_reflect_construct = __webpack_require__(30);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(29);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+var classCallCheck = __webpack_require__(0);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(1);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
+var inherits = __webpack_require__(11);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
+var possibleConstructorReturn = __webpack_require__(10);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
+var getPrototypeOf = __webpack_require__(5);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
+var esm_typeof = __webpack_require__(17);
+
+// EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
+var runtime = __webpack_require__(88);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
+var es_object_get_own_property_descriptor = __webpack_require__(18);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.for-each.js
+var web_dom_collections_for_each = __webpack_require__(19);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.map.js
+var es_array_map = __webpack_require__(37);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.splice.js
+var es_array_splice = __webpack_require__(214);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
+var es_array_filter = __webpack_require__(15);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.includes.js
+var es_array_includes = __webpack_require__(45);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.includes.js
+var es_string_includes = __webpack_require__(60);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
+var es_function_name = __webpack_require__(16);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
+var es_array_concat = __webpack_require__(39);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.join.js
+var es_array_join = __webpack_require__(114);
+
+// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
+var nuxt_property_decorator_umd = __webpack_require__(76);
+
+// EXTERNAL MODULE: ./src/components/twopane/TwoPaneWithSlideBarLayout.vue + 5 modules
+var TwoPaneWithSlideBarLayout = __webpack_require__(921);
+
+// EXTERNAL MODULE: ./src/components/main/tree/DiagramsTreePane.vue + 4 modules
+var DiagramsTreePane = __webpack_require__(1016);
+
+// EXTERNAL MODULE: ./src/components/main/tab/DiagramsTabPane.vue + 13 modules
+var DiagramsTabPane = __webpack_require__(1014);
+
+// EXTERNAL MODULE: ./src/components/main/menu/ItemRightClickMenu.vue + 4 modules
+var ItemRightClickMenu = __webpack_require__(1017);
+
+// EXTERNAL MODULE: ./src/components/diagrams/editor/DiagramPropertiesEditDialog.vue + 4 modules
+var DiagramPropertiesEditDialog = __webpack_require__(1018);
+
+// EXTERNAL MODULE: ./src/components/diagrams/open/DiagramTypeSelectorDialog.vue + 4 modules
+var DiagramTypeSelectorDialog = __webpack_require__(1019);
+
+// EXTERNAL MODULE: ./src/domain/product/Product.ts + 2 modules
+var Product = __webpack_require__(176);
+
+// EXTERNAL MODULE: ./src/components/main/tool/AllOpenCloseOperationBar.vue + 4 modules
+var AllOpenCloseOperationBar = __webpack_require__(922);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/pages/index.vue?vue&type=script&lang=ts&
+
+
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+
+
+
+
+
+
+
+
+
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+  var c = arguments.length,
+      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+      d;
+  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  }
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+var pagesvue_type_script_lang_ts_default_1 = /*#__PURE__*/function (_Vue) {
+  Object(inherits["a" /* default */])(default_1, _Vue);
+
+  var _super = _createSuper(default_1);
+
+  function default_1() {
+    var _this;
+
+    Object(classCallCheck["a" /* default */])(this, default_1);
+
+    _this = _super.apply(this, arguments);
+    _this.propertiesEditorDiagramId = 0;
+    _this.lastPropertiesUpdatedDiagramId = 0;
+    _this.allResources = [];
+    _this.openTabs = [];
+    return _this;
+  }
+
+  Object(createClass["a" /* default */])(default_1, [{
+    key: "onChangeOpenTabs",
+    value: function onChangeOpenTabs(changedOpenTabs) {
+      if (changedOpenTabs.length === 0) this.clearSelectedOnTree();
+    } // propertyies.
+
+  }, {
+    key: "tabPane",
+    get: function get() {
+      return this.$refs.diagramsTabPane;
+    }
+  }, {
+    key: "treePane",
+    get: function get() {
+      return this.$refs.diagramsTreePane;
+    } // this vue lyfecycle event.
+
+  }, {
+    key: "created",
+    value: function created() {
+      var _this2 = this;
+
+      var product = this.repository.getCurrentProduct();
+      if (!product) return;
+      this.currentProduct = product;
+      product.resources.forEach(function (resource) {
+        return _this2.allResources.push(resource);
+      });
+    } // component events.
+
+  }, {
+    key: "onOpenDiagram",
+    value: function onOpenDiagram(treeItem) {
+      this.tabPane.openDiagram(treeItem);
+    }
+  }, {
+    key: "onDeleteDiagram",
+    value: function onDeleteDiagram(diagramId) {
+      this.tabPane.closeTab(diagramId);
+    }
+  }, {
+    key: "onUpdateResoucesOnContainer",
+    value: function onUpdateResoucesOnContainer() {
+      this.reloadAllResources();
+    }
+  }, {
+    key: "onUpdatedDiagramProperties",
+    value: function onUpdatedDiagramProperties(diagram) {
+      var _this3 = this;
+
+      this.reflectTreeAndTabOf([diagram]);
+      this.lastPropertiesUpdatedDiagramId = 0;
+      this.$nextTick(function () {
+        _this3.lastPropertiesUpdatedDiagramId = diagram.id;
+      });
+    }
+  }, {
+    key: "onCloseDiagramPropertiesEditDialog",
+    value: function onCloseDiagramPropertiesEditDialog() {
+      this.propertiesEditorDiagramId = 0;
+    }
+  }, {
+    key: "onOpendDiagramPropertiesEditor",
+    value: function onOpendDiagramPropertiesEditor(diagramId) {
+      this.propertiesEditorDiagramId = diagramId;
+    }
+  }, {
+    key: "onOpenDiagramOfResourceRelate",
+    value: function () {
+      var _onOpenDiagramOfResourceRelate = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(resourceId) {
+        var dialog, diagramId;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                dialog = this.$refs.diagramTypeSelectorDialog;
+                _context.next = 3;
+                return dialog.show(resourceId);
+
+              case 3:
+                diagramId = _context.sent;
+
+                if (!(diagramId === DiagramTypeSelectorDialog["default"].NOTHING_DIAGRAM_ID)) {
+                  _context.next = 6;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 6:
+                this.treePane.activeItemAndFolderOpen(diagramId);
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function onOpenDiagramOfResourceRelate(_x) {
+        return _onOpenDiagramOfResourceRelate.apply(this, arguments);
+      }
+
+      return onOpenDiagramOfResourceRelate;
+    }()
+  }, {
+    key: "onRenamedResource",
+    value: function onRenamedResource(src, dest) {
+      this.reflectResourceRenameToDiagrams(src, dest);
+    }
+  }, {
+    key: "onChangeCurrentDiagram",
+    value: function onChangeCurrentDiagram(diagramId) {
+      this.treePane.activeItemAndFolderOpen(diagramId);
+    }
+  }, {
+    key: "onTreeRightClick",
+    value: function onTreeRightClick(item, x, y) {
+      this.showRightClickMenu(item, x, y, false);
+    }
+  }, {
+    key: "onTabRightClick",
+    value: function onTabRightClick(item, x, y) {
+      this.showRightClickMenu(item, x, y, true);
+    } /// menu click events.
+
+  }, {
+    key: "onAddedDiagram",
+    value: function onAddedDiagram(diagram) {
+      this.treePane.addDiagramView(diagram);
+    }
+  }, {
+    key: "onRemovedDiagram",
+    value: function onRemovedDiagram(diagramId) {
+      this.treePane.removeDiagramView(diagramId);
+    } /// All Open or Close operation bar.
+
+  }, {
+    key: "onOpenAllTree",
+    value: function onOpenAllTree() {
+      this.treePane.openAll();
+    }
+  }, {
+    key: "onCloseAllTree",
+    value: function onCloseAllTree() {
+      this.treePane.closeAll();
+    } // private methods.
+
+  }, {
+    key: "reloadAllResources",
+    value: function reloadAllResources() {
+      var product = this.repository.getCurrentProduct();
+      if (!product) return; // 削除されていないか確認。
+
+      var nowIdDictionary = product.resources.map(function (r) {
+        return r.resourceId;
+      });
+      var alreadyResources = this.allResources;
+
+      for (var i = alreadyResources.length - 1; i >= 0; i--) {
+        var alredy = alreadyResources[i];
+        var foundIndex = nowIdDictionary.indexOf(alredy.resourceId);
+
+        if (foundIndex < 0) {
+          alreadyResources.splice(i, 1);
+        } else {
+          nowIdDictionary.splice(foundIndex, 1);
+        }
+      } // 残ったものは追加なので、追加する。
+
+
+      product.resources.filter(function (r) {
+        return nowIdDictionary.includes(r.resourceId);
+      }).forEach(function (r) {
+        return alreadyResources.push(r);
+      });
+    }
+  }, {
+    key: "reflectResourceRenameToDiagrams",
+    value: function reflectResourceRenameToDiagrams(src, dest) {
+      if (src.name === dest.name) return;
+      if (!Product["a" /* default */].hasCorrespondingDiagramTypeOf(src)) return;
+      var product = this.repository.getCurrentProduct();
+      if (!product) return;
+      var relateDaigrams = product.relateDiagramsOf(src);
+      if (relateDaigrams.isEmpty()) return;
+      if (!this.confirmDiagramRename(src, dest, relateDaigrams)) return;
+      var renameDiagrams = relateDaigrams.map(function (diagram) {
+        return diagram.renameOf(dest.name);
+      }).filter(function (d) {
+        var exists = product.diagrams.existsSameOf(d);
+        if (exists) alert("\u540D\u524D\u3092\u5909\u66F4\u3057\u3088\u3046\u3068\u3057\u305F\u56F3\n  [".concat(d.type.name, "]:").concat(d.name, "\n\u304C\u5B58\u5728\u3057\u305F\u305F\u3081\u5909\u66F4\u3067\u304D\u307E\u305B\u3093\u3067\u3057\u305F\u3002"));
+        return !exists;
+      });
+      var upProduct = product.meageDiagramsByIdOf(renameDiagrams);
+      this.repository.registerCurrentProduct(upProduct);
+      this.reflectTreeAndTabOf(renameDiagrams);
+    }
+  }, {
+    key: "confirmDiagramRename",
+    value: function confirmDiagramRename(src, dest, relateDaigrams) {
+      var message = "\u5909\u66F4\u524D\u306E\u540D\u524D [".concat(src.name, "] \u306B\u95A2\u9023\u3059\u308B\u56F3\u304C\u3042\u308A\u307E\u3059\u3002\n\n");
+      message += relateDaigrams.map(function (d) {
+        return "  [".concat(d.type.name, "]:").concat(d.name);
+      }).join("\n");
+      message += "\n\n\u5408\u308F\u305B\u3066\u540D\u524D\u3092 [".concat(dest.name, "] \u5909\u66F4\u3057\u307E\u3059\u304B\uFF1F");
+      return confirm(message);
+    }
+  }, {
+    key: "reflectTreeAndTabOf",
+    value: function reflectTreeAndTabOf(diagrams) {
+      var treePane = this.$refs.diagramsTreePane;
+      treePane.reflectTreeAndTabOf(diagrams);
+    }
+  }, {
+    key: "clearSelectedOnTree",
+    value: function clearSelectedOnTree() {
+      var treePane = this.$refs.diagramsTreePane;
+      treePane.clearSelected();
+    }
+  }, {
+    key: "showRightClickMenu",
+    value: function showRightClickMenu(item, x, y, tabClick) {
+      var menu = this.$refs.itemRightClickMenu;
+      menu.show(item, x, y, tabClick);
+    }
+  }]);
+
+  return default_1;
+}(nuxt_property_decorator_umd["Vue"]);
+
+__decorate([Object(nuxt_property_decorator_umd["Inject"])()], pagesvue_type_script_lang_ts_default_1.prototype, "repository", void 0);
+
+__decorate([Object(nuxt_property_decorator_umd["Watch"])("openTabs")], pagesvue_type_script_lang_ts_default_1.prototype, "onChangeOpenTabs", null);
+
+pagesvue_type_script_lang_ts_default_1 = __decorate([Object(nuxt_property_decorator_umd["Component"])({
+  components: {
+    TwoPaneWithSlideBarLayout: TwoPaneWithSlideBarLayout["default"],
+    DiagramsTreePane: DiagramsTreePane["default"],
+    DiagramsTabPane: DiagramsTabPane["default"],
+    AllOpenCloseOperationBar: AllOpenCloseOperationBar["default"],
+    ItemRightClickMenu: ItemRightClickMenu["default"],
+    DiagramPropertiesEditDialog: DiagramPropertiesEditDialog["default"],
+    DiagramTypeSelectorDialog: DiagramTypeSelectorDialog["default"]
+  }
+})], pagesvue_type_script_lang_ts_default_1);
+/* harmony default export */ var pagesvue_type_script_lang_ts_ = (pagesvue_type_script_lang_ts_default_1);
+// CONCATENATED MODULE: ./src/pages/index.vue?vue&type=script&lang=ts&
+ /* harmony default export */ var src_pagesvue_type_script_lang_ts_ = (pagesvue_type_script_lang_ts_); 
+// EXTERNAL MODULE: ./src/pages/index.vue?vue&type=style&index=0&id=cad15674&scoped=true&lang=css&
+var pagesvue_type_style_index_0_id_cad15674_scoped_true_lang_css_ = __webpack_require__(1035);
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(56);
+
+// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installComponents.js
+var installComponents = __webpack_require__(58);
+var installComponents_default = /*#__PURE__*/__webpack_require__.n(installComponents);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/src/components/VGrid/_grid.sass
+var _grid = __webpack_require__(358);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/grid.js
+var grid = __webpack_require__(359);
+
+// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VGrid/VLayout.js
+
+
+/* harmony default export */ var VLayout = (Object(grid["a" /* default */])('layout'));
+// CONCATENATED MODULE: ./src/pages/index.vue
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  src_pagesvue_type_script_lang_ts_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "cad15674",
+  null
+  
+)
+
+/* harmony default export */ var pages = __webpack_exports__["default"] = (component.exports);
+
+/* vuetify-loader */
+
+
+installComponents_default()(component, {VLayout: VLayout})
 
 
 /***/ }),
@@ -5415,7 +8250,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("c1d8e262", content, true, {"sourceMap":false});
+var update = add("77b93fa4", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -5470,7 +8305,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("01907af4", content, true, {"sourceMap":false});
+var update = add("5d282c82", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -6085,7 +8920,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("1d31a8d0", content, true, {"sourceMap":false});
+var update = add("11091623", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -8932,7 +11767,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("48751daa", content, true, {"sourceMap":false});
+var update = add("f2e99a00", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -11758,7 +14593,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("63c9496b", content, true, {"sourceMap":false});
+var update = add("8e0b7300", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -14752,7 +17587,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(28).default
-var update = add("effc336e", content, true, {"sourceMap":false});
+var update = add("073fb498", content, true, {"sourceMap":false});
 
 /***/ }),
 
@@ -17596,8 +20431,8 @@ var component = Object(componentNormalizer["a" /* default */])(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_7_oneOf_1_3_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ScreenTransitionView_vue_vue_type_style_index_0_id_46926c12_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(962);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_7_oneOf_1_3_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ScreenTransitionView_vue_vue_type_style_index_0_id_46926c12_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_7_oneOf_1_3_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ScreenTransitionView_vue_vue_type_style_index_0_id_46926c12_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_nuxtjs_vuetify_node_modules_sass_loader_dist_cjs_js_ref_7_oneOf_1_3_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ScreenTransitionView_vue_vue_type_style_index_0_id_46926c12_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(962);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_nuxtjs_vuetify_node_modules_sass_loader_dist_cjs_js_ref_7_oneOf_1_3_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ScreenTransitionView_vue_vue_type_style_index_0_id_46926c12_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_nuxtjs_vuetify_node_modules_sass_loader_dist_cjs_js_ref_7_oneOf_1_3_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ScreenTransitionView_vue_vue_type_style_index_0_id_46926c12_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
 
@@ -17613,6 +20448,73 @@ var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(false);
 ___CSS_LOADER_EXPORT___.push([module.i, "td[data-v-46926c12]{padding:5px 1px}table[data-v-46926c12]{padding:5px 20px}.main-area[data-v-46926c12]{overflow:auto}", ""]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 984:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Prompts; });
+/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _domain_diagram_Diagram__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(174);
+/* harmony import */ var _presentation_MessageBox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(363);
+
+
+
+
+
+
+var Prompts = /*#__PURE__*/function () {
+  function Prompts() {
+    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(this, Prompts);
+  }
+
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(Prompts, [{
+    key: "promptNewDiagramName",
+    value: function promptNewDiagramName(diagramType, diagrams) {
+      var message = "\u8FFD\u52A0\u3059\u308B ".concat(diagramType.name, " \u306E\u540D\u524D\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
+      return this.promptDiagramName(message, '', diagramType, diagrams);
+    }
+  }, {
+    key: "promptCopyDiagramName",
+    value: function promptCopyDiagramName(diagram, diagrams) {
+      var message = "".concat(diagram.name, " \u3092\u30B3\u30D4\u30FC\u3057\u307E\u3059\u3002") + "\u30B3\u30D4\u30FC\u5F8C\u306E ".concat(diagram.type.name, " \u306E\u540D\u524D\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
+      return this.promptDiagramName(message, diagram.defaultNameWhenCopy(), diagram.type, diagrams);
+    }
+  }, {
+    key: "promptDiagramName",
+    value: function promptDiagramName(message, defaultName, diagramType, diagrams) {
+      var messageBox = new _presentation_MessageBox__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]();
+      var name = messageBox.prompt(message, defaultName, function (inputText) {
+        if (inputText.length > _domain_diagram_Diagram__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].NAME_MAX_LENGTH) {
+          alert("".concat(_domain_diagram_Diagram__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].NAME_MAX_LENGTH, "\u6587\u5B57\u4EE5\u5185\u3067\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002"));
+          return false;
+        }
+
+        var exists = diagrams.existsSameTypeAndName(inputText, diagramType);
+        if (exists) alert("\u65E2\u306B\u540C\u540D\u306E ".concat(diagramType.name, " \u304C\u5728\u308A\u307E\u3059\u3002"));
+        return !exists;
+      });
+      if (name) return name;
+      return '';
+    }
+  }, {
+    key: "confirmDeleteDiagramWithIcon",
+    value: function confirmDeleteDiagramWithIcon(diagram) {
+      var message = '指定された図は編集されています。\n(アイコンが配置されています)\n' + "".concat(diagram.name, " \u3092\u524A\u9664\u3057\u3066\u3082\u3088\u308D\u3057\u3044\u3067\u3059\u304B\u3002");
+      return window.confirm(message);
+    }
+  }]);
+
+  return Prompts;
+}();
+
 
 
 /***/ }),
@@ -18518,6 +21420,54 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
+/***/ 990:
+/***/ (function(module, exports, __webpack_require__) {
+
+var $ = __webpack_require__(12);
+var isIntegralNumber = __webpack_require__(991);
+
+// `Number.isInteger` method
+// https://tc39.es/ecma262/#sec-number.isinteger
+$({ target: 'Number', stat: true }, {
+  isInteger: isIntegralNumber
+});
+
+
+/***/ }),
+
+/***/ 991:
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(67);
+
+var floor = Math.floor;
+
+// `IsIntegralNumber` abstract operation
+// https://tc39.es/ecma262/#sec-isintegralnumber
+// eslint-disable-next-line es/no-number-isinteger -- safe
+module.exports = Number.isInteger || function isInteger(it) {
+  return !isObject(it) && isFinite(it) && floor(it) === it;
+};
+
+
+/***/ }),
+
+/***/ 992:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(998);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(28).default
+var update = add("db0f2116", content, true, {"sourceMap":false});
+
+/***/ }),
+
 /***/ 993:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18726,6 +21676,527 @@ var component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* harmony default export */ var editor_DiagramEditorContainer = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 995:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/main/menu/TabClickMenu.vue?vue&type=template&id=26e15754&scoped=true&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('v-list',{attrs:{"dence":""}},[(_vm.visibleOtherClose)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickOtherClose}},[_c('v-list-item-title',[_vm._v("他のタブをすべて閉じる")])],1):_vm._e(),_vm._v(" "),(_vm.visibleSideClose)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickLeftClose}},[_c('v-list-item-title',[_vm._v("左のタブをすべて閉じる")])],1):_vm._e(),_vm._v(" "),(_vm.visibleSideClose)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickRightClose}},[_c('v-list-item-title',[_vm._v("右のタブをすべて閉じる")])],1):_vm._e(),_vm._v(" "),_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickAllClose}},[_c('v-list-item-title',[_vm._v("タブをすべて閉じる")])],1)],1)],1)}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/main/menu/TabClickMenu.vue?vue&type=template&id=26e15754&scoped=true&
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
+var es_reflect_construct = __webpack_require__(30);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+var classCallCheck = __webpack_require__(0);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(1);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
+var inherits = __webpack_require__(11);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
+var possibleConstructorReturn = __webpack_require__(10);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
+var getPrototypeOf = __webpack_require__(5);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
+var esm_typeof = __webpack_require__(17);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
+var es_object_get_own_property_descriptor = __webpack_require__(18);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.splice.js
+var es_array_splice = __webpack_require__(214);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.find-index.js
+var es_array_find_index = __webpack_require__(244);
+
+// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
+var nuxt_property_decorator_umd = __webpack_require__(76);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/main/menu/TabClickMenu.vue?vue&type=script&lang=ts&
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+
+
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+  var c = arguments.length,
+      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+      d;
+  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  }
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var TabClickMenuvue_type_script_lang_ts_TabClickMenu = /*#__PURE__*/function (_Vue) {
+  Object(inherits["a" /* default */])(TabClickMenu, _Vue);
+
+  var _super = _createSuper(TabClickMenu);
+
+  function TabClickMenu() {
+    Object(classCallCheck["a" /* default */])(this, TabClickMenu);
+
+    return _super.apply(this, arguments);
+  }
+
+  Object(createClass["a" /* default */])(TabClickMenu, [{
+    key: "visibleOtherClose",
+    get: function get() {
+      return this.openTabs.length > 1;
+    }
+  }, {
+    key: "visibleSideClose",
+    get: function get() {
+      var item = this.item;
+      var tabs = this.openTabs;
+      if (tabs.length < 3) return false;
+      return !tabs[0].equals(item) && !tabs[tabs.length - 1].equals(item);
+    }
+  }, {
+    key: "onClickOtherClose",
+    value: function onClickOtherClose() {
+      this.onClickLeftClose();
+      this.onClickRightClose();
+    }
+  }, {
+    key: "onClickLeftClose",
+    value: function onClickLeftClose() {
+      var index = this.selectedIndex();
+      if (index < 0) return;
+      this.openTabs.splice(0, index);
+    }
+  }, {
+    key: "onClickRightClose",
+    value: function onClickRightClose() {
+      var index = this.selectedIndex();
+      if (index < 0) return;
+      this.openTabs.splice(index + 1);
+    }
+  }, {
+    key: "onClickAllClose",
+    value: function onClickAllClose() {
+      this.openTabs.splice(0);
+    }
+  }, {
+    key: "selectedIndex",
+    value: function selectedIndex() {
+      var t = this.item;
+      return this.openTabs.findIndex(function (i) {
+        return i.equals(t);
+      });
+    }
+  }]);
+
+  return TabClickMenu;
+}(nuxt_property_decorator_umd["Vue"]);
+
+__decorate([Object(nuxt_property_decorator_umd["Prop"])({
+  required: true
+})], TabClickMenuvue_type_script_lang_ts_TabClickMenu.prototype, "item", void 0);
+
+__decorate([Object(nuxt_property_decorator_umd["Prop"])({
+  required: true
+})], TabClickMenuvue_type_script_lang_ts_TabClickMenu.prototype, "openTabs", void 0);
+
+TabClickMenuvue_type_script_lang_ts_TabClickMenu = __decorate([nuxt_property_decorator_umd["Component"]], TabClickMenuvue_type_script_lang_ts_TabClickMenu);
+/* harmony default export */ var TabClickMenuvue_type_script_lang_ts_ = (TabClickMenuvue_type_script_lang_ts_TabClickMenu);
+// CONCATENATED MODULE: ./src/components/main/menu/TabClickMenu.vue?vue&type=script&lang=ts&
+ /* harmony default export */ var menu_TabClickMenuvue_type_script_lang_ts_ = (TabClickMenuvue_type_script_lang_ts_); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(56);
+
+// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installComponents.js
+var installComponents = __webpack_require__(58);
+var installComponents_default = /*#__PURE__*/__webpack_require__.n(installComponents);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VList.js
+var VList = __webpack_require__(340);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItem.js
+var VListItem = __webpack_require__(234);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js + 5 modules
+var components_VList = __webpack_require__(107);
+
+// CONCATENATED MODULE: ./src/components/main/menu/TabClickMenu.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  menu_TabClickMenuvue_type_script_lang_ts_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "26e15754",
+  null
+  
+)
+
+/* harmony default export */ var menu_TabClickMenu = __webpack_exports__["default"] = (component.exports);
+
+/* vuetify-loader */
+
+
+
+
+installComponents_default()(component, {VList: VList["a" /* default */],VListItem: VListItem["a" /* default */],VListItemTitle: components_VList["b" /* VListItemTitle */]})
+
+
+/***/ }),
+
+/***/ 996:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/main/menu/DiagramOrTypeMenu.vue?vue&type=template&id=0844621c&scoped=true&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('v-list',{attrs:{"dence":""}},[(_vm.isFolder)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuAddDiagram}},[_c('v-list-item-title',[_vm._v("図の追加...")])],1):_vm._e(),_vm._v(" "),(_vm.isDiagram)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuEditDiagramProperties}},[_c('v-list-item-title',[_vm._v(_vm._s(_vm.diagramName)+" の設定...")])],1):_vm._e(),_vm._v(" "),(_vm.isDiagram)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuCopyDiagram}},[_c('v-list-item-title',[_vm._v(_vm._s(_vm.diagramName)+" のコピー...")])],1):_vm._e(),_vm._v(" "),(_vm.isDiagram)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuRemoveDiagram}},[_c('v-list-item-title',[_vm._v(_vm._s(_vm.diagramName)+" の削除")])],1):_vm._e(),_vm._v(" "),(_vm.isDiagram)?_c('v-list-item',{attrs:{"link":""},on:{"click":_vm.onClickMenuExportDiagram}},[_c('v-list-item-title',[_vm._v(_vm._s(_vm.diagramName)+" のエクスポート")])],1):_vm._e()],1)],1)}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/main/menu/DiagramOrTypeMenu.vue?vue&type=template&id=0844621c&scoped=true&
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.reflect.construct.js
+var es_reflect_construct = __webpack_require__(30);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+var classCallCheck = __webpack_require__(0);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(1);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js + 1 modules
+var inherits = __webpack_require__(11);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js + 1 modules
+var possibleConstructorReturn = __webpack_require__(10);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
+var getPrototypeOf = __webpack_require__(5);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
+var esm_typeof = __webpack_require__(17);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
+var es_object_get_own_property_descriptor = __webpack_require__(18);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
+var es_function_name = __webpack_require__(16);
+
+// EXTERNAL MODULE: ./node_modules/nuxt-property-decorator/lib/nuxt-property-decorator.umd.js
+var nuxt_property_decorator_umd = __webpack_require__(76);
+
+// EXTERNAL MODULE: ./src/components/main/Prompts.ts
+var Prompts = __webpack_require__(984);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--12-0!./node_modules/ts-loader??ref--12-1!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/main/menu/DiagramOrTypeMenu.vue?vue&type=script&lang=ts&
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Object(getPrototypeOf["a" /* default */])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(getPrototypeOf["a" /* default */])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(possibleConstructorReturn["a" /* default */])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+  var c = arguments.length,
+      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+      d;
+  if ((typeof Reflect === "undefined" ? "undefined" : Object(esm_typeof["a" /* default */])(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  }
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var DiagramOrTypeMenuvue_type_script_lang_ts_DiagramOrTypeMenu = /*#__PURE__*/function (_Vue) {
+  Object(inherits["a" /* default */])(DiagramOrTypeMenu, _Vue);
+
+  var _super = _createSuper(DiagramOrTypeMenu);
+
+  function DiagramOrTypeMenu() {
+    var _this;
+
+    Object(classCallCheck["a" /* default */])(this, DiagramOrTypeMenu);
+
+    _this = _super.apply(this, arguments);
+    _this.prompts = new Prompts["default"]();
+    return _this;
+  }
+
+  Object(createClass["a" /* default */])(DiagramOrTypeMenu, [{
+    key: "onAddedDiagram",
+    value: function onAddedDiagram(_diagram) {}
+  }, {
+    key: "onRemovedDiagram",
+    value: function onRemovedDiagram(_diagramId) {}
+  }, {
+    key: "onOpendDiagramPropertiesEditor",
+    value: function onOpendDiagramPropertiesEditor(_diagramId) {}
+  }, {
+    key: "onClickMenuAddDiagram",
+    value: function onClickMenuAddDiagram() {
+      var item = this.item;
+      var diagramType = item.isCustomDiagramTypeFolder() ? item.customDiagramType() : item.rdra20DiagramType();
+      var diagram = this.addDiagram(diagramType);
+      if (!diagram) return;
+      this.onAddedDiagram(diagram);
+    }
+  }, {
+    key: "onClickMenuCopyDiagram",
+    value: function onClickMenuCopyDiagram() {
+      var diagram = this.copyDiagram(this.item.id);
+      if (!diagram) return;
+      this.onAddedDiagram(diagram);
+    }
+  }, {
+    key: "onClickMenuRemoveDiagram",
+    value: function onClickMenuRemoveDiagram() {
+      if (!this.removeDiagram(this.item.id)) return;
+      this.onRemovedDiagram(this.item.id);
+    }
+  }, {
+    key: "onClickMenuEditDiagramProperties",
+    value: function onClickMenuEditDiagramProperties() {
+      this.onOpendDiagramPropertiesEditor(this.item.id);
+    }
+  }, {
+    key: "onClickMenuExportDiagram",
+    value: function onClickMenuExportDiagram() {
+      this.diagramExportService.downloadExportFileOnClient(this.item.id);
+    }
+  }, {
+    key: "diagramName",
+    get: function get() {
+      return this.item.name;
+    }
+  }, {
+    key: "isFolder",
+    get: function get() {
+      var item = this.item;
+      return item.isRdra20DiagramTypeFolder() || item.isCustomDiagramTypeFolder();
+    }
+  }, {
+    key: "isDiagram",
+    get: function get() {
+      return this.item.isDiagram();
+    } // private method
+
+  }, {
+    key: "addDiagram",
+    value: function addDiagram(diagramType) {
+      var product = this.repository.getCurrentProduct();
+      if (!product) return null;
+      var diagrams = product.diagrams;
+      var name = this.prompts.promptNewDiagramName(diagramType, diagrams);
+      if (!name) return null;
+      var modifiedProduct = product.createAndAddDiagram(name, diagramType);
+      var diagram = modifiedProduct.diagrams.last();
+      this.repository.registerCurrentProduct(modifiedProduct);
+      return diagram;
+    }
+  }, {
+    key: "copyDiagram",
+    value: function copyDiagram(diagramId) {
+      var _this2 = this;
+
+      var distDiagram = null;
+      var result = this.modifyDiagram(diagramId, function (srcDiagram, product) {
+        var diagrams = product.diagrams;
+
+        var name = _this2.prompts.promptCopyDiagramName(srcDiagram, diagrams);
+
+        if (!name) return null;
+        distDiagram = srcDiagram.cloneWith(diagrams.generateDiagramId(), name);
+        var addedDiagrams = diagrams.add(distDiagram);
+        return product.withDiagrams(addedDiagrams);
+      });
+      return result ? distDiagram : null;
+    }
+  }, {
+    key: "removeDiagram",
+    value: function removeDiagram(diagramId) {
+      var _this3 = this;
+
+      return this.modifyDiagram(diagramId, function (diagram, product) {
+        if (diagram.placements.length > 0) {
+          if (!_this3.prompts.confirmDeleteDiagramWithIcon(diagram)) return null;
+        }
+
+        var removedDiagrams = product.diagrams.remove(diagram);
+        return product.withDiagrams(removedDiagrams);
+      });
+    }
+  }, {
+    key: "modifyDiagram",
+    value: function modifyDiagram(diagramId, func) {
+      var product = this.repository.getCurrentProduct();
+      if (!product) return true;
+      var diagrams = product.diagrams;
+      var diagram = diagrams.of(diagramId);
+      if (!diagram) return true;
+      var modifedProduct = func(diagram, product);
+      if (!modifedProduct) return false;
+      this.repository.registerCurrentProduct(modifedProduct);
+      return true;
+    }
+  }]);
+
+  return DiagramOrTypeMenu;
+}(nuxt_property_decorator_umd["Vue"]);
+
+__decorate([Object(nuxt_property_decorator_umd["Inject"])()], DiagramOrTypeMenuvue_type_script_lang_ts_DiagramOrTypeMenu.prototype, "repository", void 0);
+
+__decorate([Object(nuxt_property_decorator_umd["Inject"])()], DiagramOrTypeMenuvue_type_script_lang_ts_DiagramOrTypeMenu.prototype, "diagramExportService", void 0);
+
+__decorate([Object(nuxt_property_decorator_umd["Prop"])()], DiagramOrTypeMenuvue_type_script_lang_ts_DiagramOrTypeMenu.prototype, "item", void 0);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onAddedDiagram')], DiagramOrTypeMenuvue_type_script_lang_ts_DiagramOrTypeMenu.prototype, "onAddedDiagram", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onRemovedDiagram')], DiagramOrTypeMenuvue_type_script_lang_ts_DiagramOrTypeMenu.prototype, "onRemovedDiagram", null);
+
+__decorate([Object(nuxt_property_decorator_umd["Emit"])('onOpendDiagramPropertiesEditor')], DiagramOrTypeMenuvue_type_script_lang_ts_DiagramOrTypeMenu.prototype, "onOpendDiagramPropertiesEditor", null);
+
+DiagramOrTypeMenuvue_type_script_lang_ts_DiagramOrTypeMenu = __decorate([nuxt_property_decorator_umd["Component"]], DiagramOrTypeMenuvue_type_script_lang_ts_DiagramOrTypeMenu);
+/* harmony default export */ var DiagramOrTypeMenuvue_type_script_lang_ts_ = (DiagramOrTypeMenuvue_type_script_lang_ts_DiagramOrTypeMenu);
+// CONCATENATED MODULE: ./src/components/main/menu/DiagramOrTypeMenu.vue?vue&type=script&lang=ts&
+ /* harmony default export */ var menu_DiagramOrTypeMenuvue_type_script_lang_ts_ = (DiagramOrTypeMenuvue_type_script_lang_ts_); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(56);
+
+// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installComponents.js
+var installComponents = __webpack_require__(58);
+var installComponents_default = /*#__PURE__*/__webpack_require__.n(installComponents);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VList.js
+var VList = __webpack_require__(340);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItem.js
+var VListItem = __webpack_require__(234);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js + 5 modules
+var components_VList = __webpack_require__(107);
+
+// CONCATENATED MODULE: ./src/components/main/menu/DiagramOrTypeMenu.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  menu_DiagramOrTypeMenuvue_type_script_lang_ts_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "0844621c",
+  null
+  
+)
+
+/* harmony default export */ var menu_DiagramOrTypeMenu = __webpack_exports__["default"] = (component.exports);
+
+/* vuetify-loader */
+
+
+
+
+installComponents_default()(component, {VList: VList["a" /* default */],VListItem: VListItem["a" /* default */],VListItemTitle: components_VList["b" /* VListItemTitle */]})
+
+
+/***/ }),
+
+/***/ 997:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramsTreePane_vue_vue_type_style_index_0_id_86a40ca0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(992);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramsTreePane_vue_vue_type_style_index_0_id_86a40ca0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DiagramsTreePane_vue_vue_type_style_index_0_id_86a40ca0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
+/***/ 998:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(27);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".treeview-container[data-v-86a40ca0]{min-height:0;height:100%;width:100%;overflow:auto}.right-click-area[data-v-86a40ca0]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}", ""]);
+// Exports
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 999:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1000);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(28).default
+var update = add("14a2e142", content, true, {"sourceMap":false});
 
 /***/ })
 
