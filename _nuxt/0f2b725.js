@@ -13321,9 +13321,9 @@ __webpack_require__.d(components_namespaceObject, "PropertiesSettingDialog", fun
 __webpack_require__.d(components_namespaceObject, "TestSample", function() { return TestSample; });
 __webpack_require__.d(components_namespaceObject, "AnalysisContainer", function() { return AnalysisContainer; });
 __webpack_require__.d(components_namespaceObject, "DebugConfirm", function() { return DebugConfirm; });
+__webpack_require__.d(components_namespaceObject, "MainPrompts", function() { return MainPrompts; });
 __webpack_require__.d(components_namespaceObject, "LocalstorageLocalStorageDestroyDialog", function() { return LocalstorageLocalStorageDestroyDialog; });
 __webpack_require__.d(components_namespaceObject, "LocalstorageLocalStorageInitializeDialog", function() { return LocalstorageLocalStorageInitializeDialog; });
-__webpack_require__.d(components_namespaceObject, "MainPrompts", function() { return MainPrompts; });
 __webpack_require__.d(components_namespaceObject, "ProductSelectorDialog", function() { return ProductSelectorDialog; });
 __webpack_require__.d(components_namespaceObject, "ResourceConditionEditDialog", function() { return ResourceConditionEditDialog; });
 __webpack_require__.d(components_namespaceObject, "ResourceCoreResourceEditDialog", function() { return ResourceCoreResourceEditDialog; });
@@ -13352,9 +13352,6 @@ __webpack_require__.d(components_namespaceObject, "DiagramsImportDiagramImportDi
 __webpack_require__.d(components_namespaceObject, "DiagramsImportDiagramImportErrorMessageConverter", function() { return DiagramsImportDiagramImportErrorMessageConverter; });
 __webpack_require__.d(components_namespaceObject, "DiagramsImportDiagramImportMessageConverter", function() { return DiagramsImportDiagramImportMessageConverter; });
 __webpack_require__.d(components_namespaceObject, "DiagramsOpenDiagramTypeSelectorDialog", function() { return DiagramsOpenDiagramTypeSelectorDialog; });
-__webpack_require__.d(components_namespaceObject, "LocalstorageImportLocalStorageImportDialog", function() { return LocalstorageImportLocalStorageImportDialog; });
-__webpack_require__.d(components_namespaceObject, "LocalstorageImportLocalStorageImportErrorMessageConverter", function() { return LocalstorageImportLocalStorageImportErrorMessageConverter; });
-__webpack_require__.d(components_namespaceObject, "LocalstorageImportLocalStorageImportMessageConverter", function() { return LocalstorageImportLocalStorageImportMessageConverter; });
 __webpack_require__.d(components_namespaceObject, "MainMenuDiagramOrTypeMenu", function() { return MainMenuDiagramOrTypeMenu; });
 __webpack_require__.d(components_namespaceObject, "MainMenuItemRightClickMenu", function() { return MainMenuItemRightClickMenu; });
 __webpack_require__.d(components_namespaceObject, "MainMenuTabClickMenu", function() { return MainMenuTabClickMenu; });
@@ -13364,6 +13361,9 @@ __webpack_require__.d(components_namespaceObject, "MainModelViewOrFoldersTemplat
 __webpack_require__.d(components_namespaceObject, "MainTabDiagramsTabPane", function() { return MainTabDiagramsTabPane; });
 __webpack_require__.d(components_namespaceObject, "MainToolAllOpenCloseOperationBar", function() { return MainToolAllOpenCloseOperationBar; });
 __webpack_require__.d(components_namespaceObject, "MainTreeDiagramsTreePane", function() { return MainTreeDiagramsTreePane; });
+__webpack_require__.d(components_namespaceObject, "LocalstorageImportLocalStorageImportDialog", function() { return LocalstorageImportLocalStorageImportDialog; });
+__webpack_require__.d(components_namespaceObject, "LocalstorageImportLocalStorageImportErrorMessageConverter", function() { return LocalstorageImportLocalStorageImportErrorMessageConverter; });
+__webpack_require__.d(components_namespaceObject, "LocalstorageImportLocalStorageImportMessageConverter", function() { return LocalstorageImportLocalStorageImportMessageConverter; });
 __webpack_require__.d(components_namespaceObject, "OtherSosialTweetButton", function() { return OtherSosialTweetButton; });
 __webpack_require__.d(components_namespaceObject, "ProductImportDialog", function() { return ProductImportDialog; });
 __webpack_require__.d(components_namespaceObject, "ProductImportErrorMessageConverter", function() { return ProductImportErrorMessageConverter; });
@@ -14389,6 +14389,11 @@ var DebugConfirm = function DebugConfirm() {
     return wrapFunctional(c.default || c);
   });
 };
+var MainPrompts = function MainPrompts() {
+  return __webpack_require__.e(/* import() | components/main-prompts */ 90).then(__webpack_require__.bind(null, 984)).then(function (c) {
+    return wrapFunctional(c.default || c);
+  });
+};
 var LocalstorageLocalStorageDestroyDialog = function LocalstorageLocalStorageDestroyDialog() {
   return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 589)).then(function (c) {
     return wrapFunctional(c.default || c);
@@ -14396,11 +14401,6 @@ var LocalstorageLocalStorageDestroyDialog = function LocalstorageLocalStorageDes
 };
 var LocalstorageLocalStorageInitializeDialog = function LocalstorageLocalStorageInitializeDialog() {
   return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 588)).then(function (c) {
-    return wrapFunctional(c.default || c);
-  });
-};
-var MainPrompts = function MainPrompts() {
-  return __webpack_require__.e(/* import() | components/main-prompts */ 90).then(__webpack_require__.bind(null, 984)).then(function (c) {
     return wrapFunctional(c.default || c);
   });
 };
@@ -14544,21 +14544,6 @@ var DiagramsOpenDiagramTypeSelectorDialog = function DiagramsOpenDiagramTypeSele
     return wrapFunctional(c.default || c);
   });
 };
-var LocalstorageImportLocalStorageImportDialog = function LocalstorageImportLocalStorageImportDialog() {
-  return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 587)).then(function (c) {
-    return wrapFunctional(c.default || c);
-  });
-};
-var LocalstorageImportLocalStorageImportErrorMessageConverter = function LocalstorageImportLocalStorageImportErrorMessageConverter() {
-  return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 580)).then(function (c) {
-    return wrapFunctional(c.default || c);
-  });
-};
-var LocalstorageImportLocalStorageImportMessageConverter = function LocalstorageImportLocalStorageImportMessageConverter() {
-  return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 579)).then(function (c) {
-    return wrapFunctional(c.default || c);
-  });
-};
 var MainMenuDiagramOrTypeMenu = function MainMenuDiagramOrTypeMenu() {
   return __webpack_require__.e(/* import() | components/main-menu-diagram-or-type-menu */ 84).then(__webpack_require__.bind(null, 996)).then(function (c) {
     return wrapFunctional(c.default || c);
@@ -14601,6 +14586,21 @@ var MainToolAllOpenCloseOperationBar = function MainToolAllOpenCloseOperationBar
 };
 var MainTreeDiagramsTreePane = function MainTreeDiagramsTreePane() {
   return Promise.all(/* import() | components/main-tree-diagrams-tree-pane */[__webpack_require__.e(111), __webpack_require__.e(93)]).then(__webpack_require__.bind(null, 1016)).then(function (c) {
+    return wrapFunctional(c.default || c);
+  });
+};
+var LocalstorageImportLocalStorageImportDialog = function LocalstorageImportLocalStorageImportDialog() {
+  return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 587)).then(function (c) {
+    return wrapFunctional(c.default || c);
+  });
+};
+var LocalstorageImportLocalStorageImportErrorMessageConverter = function LocalstorageImportLocalStorageImportErrorMessageConverter() {
+  return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 580)).then(function (c) {
+    return wrapFunctional(c.default || c);
+  });
+};
+var LocalstorageImportLocalStorageImportMessageConverter = function LocalstorageImportLocalStorageImportMessageConverter() {
+  return Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 579)).then(function (c) {
     return wrapFunctional(c.default || c);
   });
 };
