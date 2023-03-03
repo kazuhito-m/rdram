@@ -258,6 +258,7 @@ export default class DiagramCanvas extends Vue {
     this.deleteConnection(relation)
 
     this.transactionOf((diagram, _) => {
+      if (!diagram.existsRelationId(relation.id)) return null;
       return diagram.removeRelationsOf([relation.id])
     })
   }
