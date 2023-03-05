@@ -93,6 +93,9 @@ export default class DiagramCanvas extends Vue {
   private readonly lastPropertiesUpdatedDiagramId!: number
 
   @Prop({ required: true })
+  private readonly removedRelationIdsForNotify!: string[]
+
+  @Prop({ required: true })
   private readonly iconMap!: { [key: string]: IconFontAndChar }
 
   @Prop({ required: true })
@@ -214,6 +217,12 @@ export default class DiagramCanvas extends Vue {
   @Watch('usedResouceIds')
   private onChangeUsedResouceIds(): void {
     this.reverceSyncCavansDeleteThings()
+  }
+
+  @Watch('removedRelationIdsForNotify')
+  private onChangeRemovedRelationIdsForNotify() {
+    this.removedRelationIdsForNotify
+      .forEach(this.deleteConnectionOf);
   }
 
   @Watch('visibleConnectorMenu')
