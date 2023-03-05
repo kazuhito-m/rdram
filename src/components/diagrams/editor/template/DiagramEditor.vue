@@ -22,6 +22,7 @@
           :usedResouceIds="usedResouceIds"
           :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+          :removedRelationIdsForNotify="removedRelationIdsForNotify"
           :iconMap="iconMap"
           :eventAnalyzer="eventAnalyzer"
           :iconGenerators="iconGenerators"
@@ -107,6 +108,9 @@ export default class DiagramEditor extends Vue {
 
   @Prop({ required: true })
   readonly lastPropertiesUpdatedDiagramId!: number;
+
+  @Prop({ required: true })
+  readonly removedRelationIdsForNotify!: string[]
 
   @Prop({ required: true })
   readonly eventAnalyzer!: EventAnalyzer;
