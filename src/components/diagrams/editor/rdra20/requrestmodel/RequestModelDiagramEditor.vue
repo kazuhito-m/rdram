@@ -3,6 +3,7 @@
     :diagram="diagram"
     :allResources="allResources"
     :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+    :removedRelationIdsForNotify="removedRelationIdsForNotify"
     :eventAnalyzer="eventAnalyzer"
     :iconGenerators="iconGenerators"
     @onUpdateResources="onUpdateResources"
@@ -45,6 +46,9 @@ export default class RequestModelDiagramEditor extends Vue {
 
   @Prop({ required: true })
   readonly lastPropertiesUpdatedDiagramId?: number
+
+  @Prop({ required: true })
+  readonly removedRelationIdsForNotify!: string[]
 
   // This class fields;
 

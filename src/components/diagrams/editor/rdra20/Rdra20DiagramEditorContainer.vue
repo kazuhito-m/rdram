@@ -5,6 +5,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :removedRelationIdsForNotify="removedRelationIdsForNotify"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -15,6 +16,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :removedRelationIdsForNotify="removedRelationIdsForNotify"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -25,6 +27,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :removedRelationIdsForNotify="removedRelationIdsForNotify"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -35,6 +38,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :removedRelationIdsForNotify="removedRelationIdsForNotify"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -45,6 +49,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :removedRelationIdsForNotify="removedRelationIdsForNotify"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -55,6 +60,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :removedRelationIdsForNotify="removedRelationIdsForNotify"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -65,6 +71,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :removedRelationIdsForNotify="removedRelationIdsForNotify"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -75,6 +82,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :removedRelationIdsForNotify="removedRelationIdsForNotify"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -85,6 +93,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :removedRelationIdsForNotify="removedRelationIdsForNotify"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -95,6 +104,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :removedRelationIdsForNotify="removedRelationIdsForNotify"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -141,6 +151,9 @@ export default class Rdra20DiagramEditorContainer extends Vue {
 
   @Prop({ required: true })
   readonly lastPropertiesUpdatedDiagramId?: number
+
+  @Prop({ required: true })
+  readonly removedRelationIdsForNotify!: string[]
 
   @Emit('onOpendDiagramPropertiesEditor')
   onOpendDiagramPropertiesEditor(_diagramId: number): void {}
