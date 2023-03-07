@@ -40,6 +40,7 @@
           :diagramId="item.id"
           :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+          :removedRelationIdsForNotify="removedRelationIdsForNotify"
           @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
           @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
           @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -77,6 +78,7 @@ import AnalysisContainer from '@/components/analysis/AnalysisContainer.vue'
 export default class DiagramsTabPane extends Vue {
   currentTabIndex: number | null = null
   activeViewId: number = 0
+  readonly removedRelationIdsForNotify:string[] = [];
 
   // Props
 
@@ -147,6 +149,9 @@ export default class DiagramsTabPane extends Vue {
 
   onRemovedRelations(relationIds: string[]):void {
     relationIds.forEach(i => console.log('削除された関連ID:' + i))
+
+    this.removedRelationIdsForNotify.length = 0
+    this.removedRelationIdsForNotify.push(...relationIds)
   }
 
   // public methods.

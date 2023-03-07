@@ -5,6 +5,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :removedRelationIdsForNotify="removedRelationIdsForNotify"
       @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
       @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -17,6 +18,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :removedRelationIdsForNotify="removedRelationIdsForNotify"
       @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
       @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -53,6 +55,9 @@ export default class DiagramEditorContainer extends Vue {
 
   @Prop({ required: true })
   lastPropertiesUpdatedDiagramId?: number
+
+  @Prop({ required: true })
+  readonly removedRelationIdsForNotify!: string[]
 
   @Emit('onOpendDiagramPropertiesEditor')
   onOpendDiagramPropertiesEditor(_diagramId: number): void {}
