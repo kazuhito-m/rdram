@@ -221,6 +221,10 @@ export default class DiagramCanvas extends Vue {
 
   @Watch('removedRelationIdsForNotify')
   private onChangeRemovedRelationIdsForNotify() {
+    console.log('やったぜ！削除したのがウォッチで引っかかった！')
+    this.removedRelationIdsForNotify
+      .forEach(i => console.log(`id: ${i}`))
+
     this.removedRelationIdsForNotify
       .forEach(this.deleteConnectionOf);
   }
@@ -736,6 +740,7 @@ export default class DiagramCanvas extends Vue {
 
   private deleteConnectionOf(relationId: string) {
     const connection = this.canvas.getLine(relationId)
+    if (!connection) return
     this.canvas.remove(connection)
   }
 
