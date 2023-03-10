@@ -74,6 +74,7 @@ import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramC
 import ResourceParet from "@/components/diagrams/editor/template/paret/ResourceParet.vue";
 import AllOpenCloseOperationBar from "@/components/main/tool/AllOpenCloseOperationBar.vue";
 import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
+import UISyncSignal from '@/components/diagrams/editor/template/uisync/UISyncSignal'
 
 import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
 import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
@@ -110,7 +111,7 @@ export default class DiagramEditor extends Vue {
   readonly lastPropertiesUpdatedDiagramId!: number;
 
   @Prop({ required: true })
-  readonly removedRelationIdsForNotify!: string[]
+  readonly removedRelationIdsForNotify!: UISyncSignal[]
 
   @Prop({ required: true })
   readonly eventAnalyzer!: EventAnalyzer;

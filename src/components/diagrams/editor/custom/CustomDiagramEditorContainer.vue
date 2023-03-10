@@ -17,6 +17,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'nuxt-property-decorator'
 import FreestyleDiagramEditor from '@/components/diagrams/editor/custom/freestyle/FreestyleDiagramEditor.vue'
+import UISyncSignal from '@/components/diagrams/editor/template/uisync/UISyncSignal'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
 
@@ -36,7 +37,7 @@ export default class CustomDiagramEditorContainer extends Vue {
   readonly lastPropertiesUpdatedDiagramId?: number
 
   @Prop({ required: true })
-  readonly removedRelationIdsForNotify!: string[]
+  readonly removedRelationIdsForNotify!: UISyncSignal[]
 
   @Emit('onOpendDiagramPropertiesEditor')
   onOpendDiagramPropertiesEditor(_diagramId: number): void {}

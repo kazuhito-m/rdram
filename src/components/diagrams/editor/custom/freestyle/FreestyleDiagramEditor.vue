@@ -44,6 +44,8 @@ import TableTypeConditionIconGenerator from '@/components/diagrams/editor/templa
 import UseCaseIconGenerator from '@/components/diagrams/editor/template/icon/UseCaseIconGenerator'
 import VariationIconGenerator from '@/components/diagrams/editor/template/icon/VariationIconGenerator'
 
+import UISyncSignal from '@/components/diagrams/editor/template/uisync/UISyncSignal'
+
 @Component({
   components: {
     DiagramEditor,
@@ -62,7 +64,7 @@ export default class FreestyleDiagramEditor extends Vue {
   readonly lastPropertiesUpdatedDiagramId?: number
 
   @Prop({ required: true })
-  readonly removedRelationIdsForNotify!: string[]
+  readonly removedRelationIdsForNotify!: UISyncSignal[]
 
   // This class fields;
 

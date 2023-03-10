@@ -56,6 +56,8 @@ import RouterTypeDraw2dConverter from '@/components/diagrams/editor/template/Rou
 import IconGenerator from '@/components/diagrams/icon/IconGenerator'
 import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar'
 
+import UISyncSignal from '@/components/diagrams/editor/template/uisync/UISyncSignal'
+
 import Product from '@/domain/product/Product'
 import Diagram from '@/domain/diagram/Diagram'
 import Resources from '@/domain/resource/Resources'
@@ -93,7 +95,7 @@ export default class DiagramCanvas extends Vue {
   private readonly lastPropertiesUpdatedDiagramId!: number
 
   @Prop({ required: true })
-  private readonly removedRelationIdsForNotify!: string[]
+  private readonly removedRelationIdsForNotify!: UISyncSignal[]
 
   @Prop({ required: true })
   private readonly iconMap!: { [key: string]: IconFontAndChar }
@@ -221,8 +223,10 @@ export default class DiagramCanvas extends Vue {
 
   @Watch('removedRelationIdsForNotify')
   private onChangeRemovedRelationIdsForNotify() {
-    this.removedRelationIdsForNotify
-      .forEach(this.deleteConnectionOf);
+    for (const signal of this.removedRelationIdsForNotify) {
+      if (signal.target === 'connection' && signal.operation === 'delete')
+        this.deleteConnectionOf(signal.id);
+    }
   }
 
   @Watch('visibleConnectorMenu')

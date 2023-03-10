@@ -15,6 +15,7 @@
 <script lang="ts">
 import { Prop, Component, Vue, Emit } from 'nuxt-property-decorator'
 import DiagramEditor from '@/components/diagrams/editor/template/DiagramEditor.vue'
+import UISyncSignal from '@/components/diagrams/editor/template/uisync/UISyncSignal'
 
 import EventAnalyzer from '@/components/diagrams/editor/template/event/EventAnalyzer'
 import GenericConnectPortsEvents from '@/components/diagrams/editor/template/event/events/GenericConnectPortsEvents'
@@ -47,7 +48,7 @@ export default class UsageSceneDiagramEditor extends Vue {
   readonly lastPropertiesUpdatedDiagramId?: number
 
   @Prop({ required: true })
-  readonly removedRelationIdsForNotify!: string[]
+  readonly removedRelationIdsForNotify!: UISyncSignal[]
 
   // This class fields;
 

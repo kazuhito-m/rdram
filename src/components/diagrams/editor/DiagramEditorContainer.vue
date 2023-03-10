@@ -32,6 +32,7 @@
 import { Component, Vue, Prop, Inject, Emit } from 'nuxt-property-decorator'
 import Rdra20DiagramEditorContainer from '@/components/diagrams/editor/rdra20/Rdra20DiagramEditorContainer.vue'
 import CustomDiagramEditorContainer from '@/components/diagrams/editor/custom/CustomDiagramEditorContainer.vue'
+import UISyncSignal from '@/components/diagrams/editor/template/uisync/UISyncSignal'
 import StorageRepository from '@/domain/storage/StorageRepository'
 import Resource from '@/domain/resource/Resource'
 import Diagram from '@/domain/diagram/Diagram'
@@ -57,7 +58,7 @@ export default class DiagramEditorContainer extends Vue {
   lastPropertiesUpdatedDiagramId?: number
 
   @Prop({ required: true })
-  readonly removedRelationIdsForNotify!: string[]
+  readonly removedRelationIdsForNotify!: UISyncSignal[]
 
   @Emit('onOpendDiagramPropertiesEditor')
   onOpendDiagramPropertiesEditor(_diagramId: number): void {}
