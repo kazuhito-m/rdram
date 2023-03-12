@@ -223,10 +223,7 @@ export default class DiagramCanvas extends Vue {
 
   @Watch('removedRelationIdsForNotify')
   private onCatchSignalOfUISync() {
-    console.log(new Date() + ' - Signalを検出。件数:' + this.removedRelationIdsForNotify.length)
-
     for (const signal of this.removedRelationIdsForNotify) {
-      console.log(JSON.stringify(signal))
       if (signal.operation !== 'delete') break
 
       if (signal.target === 'connection') this.deleteConnectionOf(signal.id)
