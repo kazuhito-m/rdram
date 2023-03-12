@@ -224,8 +224,9 @@ export default class DiagramCanvas extends Vue {
   @Watch('removedRelationIdsForNotify')
   private onChangeRemovedRelationIdsForNotify() {
     for (const signal of this.removedRelationIdsForNotify) {
-      if (signal.target === 'connection' && signal.operation === 'delete')
-        this.deleteConnectionOf(signal.id);
+      if (signal.operation !== 'delete') break;
+
+      if (signal.target === 'connection') this.deleteConnectionOf(signal.id);
     }
   }
 
