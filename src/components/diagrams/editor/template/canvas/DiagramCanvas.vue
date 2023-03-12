@@ -221,10 +221,11 @@ export default class DiagramCanvas extends Vue {
     this.reverceSyncCavansDeleteThings()
   }
 
-  @Watch('removedRelationIdsForNotify', { deep: true, immediate: true })
+  @Watch('removedRelationIdsForNotify')
   private onCatchSignalOfUISync() {
+    console.log(new Date() + ' - Signalを検出。件数:' + this.removedRelationIdsForNotify.length)
+
     for (const signal of this.removedRelationIdsForNotify) {
-      console.log('Signalを検出。')
       console.log(JSON.stringify(signal))
       if (signal.operation !== 'delete') break
 
