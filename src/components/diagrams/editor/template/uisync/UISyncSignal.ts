@@ -14,7 +14,10 @@ export default class UISyncSignal {
         public readonly id: string
     ) { }
 
-    public static deleteConnectionOf = (id: string) =>
+    public static deleteConnectionsOf = (relationIds: string[]) =>
+        relationIds.map(UISyncSignal.deleteConnectionOf);
+
+    private static deleteConnectionOf = (id: string) =>
         new UISyncSignal("connection", "delete", id);
 
     public static deleteIconOf = (id: string) =>

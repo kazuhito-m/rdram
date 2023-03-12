@@ -68,6 +68,7 @@ import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
 import AnalysisContainer from '@/components/analysis/AnalysisContainer.vue'
+import UISyncSignal from '~/components/diagrams/editor/template/uisync/UISyncSignal'
 
 @Component({
   components: {
@@ -78,7 +79,7 @@ import AnalysisContainer from '@/components/analysis/AnalysisContainer.vue'
 export default class DiagramsTabPane extends Vue {
   currentTabIndex: number | null = null
   activeViewId: number = 0
-  readonly removedRelationIdsForNotify:string[] = [];
+  readonly removedRelationIdsForNotify: UISyncSignal[] = [];
 
   // Props
 
@@ -151,7 +152,8 @@ export default class DiagramsTabPane extends Vue {
     relationIds.forEach(i => console.log('削除された関連ID:' + i))
 
     this.removedRelationIdsForNotify.length = 0
-    this.removedRelationIdsForNotify.push(...relationIds)
+    const signals = UISyncSignal.deleteConnectionsOf(relationIds);
+    this.removedRelationIdsForNotify.push(...signals)
   }
 
   // public methods.
