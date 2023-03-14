@@ -40,7 +40,7 @@
           :diagramId="item.id"
           :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-          :removedRelationIdsForNotify="removedRelationIdsForNotify"
+          :catchedUISyncSignals="catchedUISyncSignals"
           @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
           @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
           @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -79,7 +79,7 @@ import UISyncSignal from '~/components/diagrams/editor/template/uisync/UISyncSig
 export default class DiagramsTabPane extends Vue {
   currentTabIndex: number | null = null
   activeViewId: number = 0
-  readonly removedRelationIdsForNotify: UISyncSignal[] = [];
+  readonly catchedUISyncSignals: UISyncSignal[] = [];
 
   // Props
 
@@ -151,9 +151,9 @@ export default class DiagramsTabPane extends Vue {
   onRemovedRelations(relationIds: string[]):void {
     relationIds.forEach(i => console.log('削除された関連ID:' + i))
 
-    this.removedRelationIdsForNotify.length = 0
+    this.catchedUISyncSignals.length = 0
     const signals = UISyncSignal.deleteConnectionsOf(relationIds);
-    this.removedRelationIdsForNotify.push(...signals)
+    this.catchedUISyncSignals.push(...signals)
   }
 
   // public methods.

@@ -3,7 +3,7 @@
     :diagram="diagram"
     :allResources="allResources"
     :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-    :removedRelationIdsForNotify="removedRelationIdsForNotify"
+    :catchedUISyncSignals="catchedUISyncSignals"
     :eventAnalyzer="eventAnalyzer"
     :iconGenerators="iconGenerators"
     @onUpdateResources="onUpdateResources"
@@ -48,7 +48,7 @@ export default class InfomationModelEditor extends Vue {
   readonly lastPropertiesUpdatedDiagramId?: number
 
   @Prop({ required: true })
-  readonly removedRelationIdsForNotify!: UISyncSignal[]
+  readonly catchedUISyncSignals!: UISyncSignal[]
 
   // This class fields;
 

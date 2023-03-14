@@ -95,7 +95,7 @@ export default class DiagramCanvas extends Vue {
   private readonly lastPropertiesUpdatedDiagramId!: number
 
   @Prop({ required: true })
-  private readonly removedRelationIdsForNotify!: UISyncSignal[]
+  private readonly catchedUISyncSignals!: UISyncSignal[]
 
   @Prop({ required: true })
   private readonly iconMap!: { [key: string]: IconFontAndChar }
@@ -221,9 +221,9 @@ export default class DiagramCanvas extends Vue {
     this.reverceSyncCavansDeleteThings()
   }
 
-  @Watch('removedRelationIdsForNotify')
+  @Watch('catchedUISyncSignals')
   private onCatchSignalOfUISync() {
-    for (const signal of this.removedRelationIdsForNotify) {
+    for (const signal of this.catchedUISyncSignals) {
       if (signal.operation !== 'delete') break
 
       if (signal.target === 'connection') this.deleteConnectionOf(signal.id)

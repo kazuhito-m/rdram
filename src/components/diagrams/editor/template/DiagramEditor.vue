@@ -22,7 +22,7 @@
           :usedResouceIds="usedResouceIds"
           :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
-          :removedRelationIdsForNotify="removedRelationIdsForNotify"
+          :catchedUISyncSignals="catchedUISyncSignals"
           :iconMap="iconMap"
           :eventAnalyzer="eventAnalyzer"
           :iconGenerators="iconGenerators"
@@ -111,7 +111,7 @@ export default class DiagramEditor extends Vue {
   readonly lastPropertiesUpdatedDiagramId!: number;
 
   @Prop({ required: true })
-  readonly removedRelationIdsForNotify!: UISyncSignal[]
+  readonly catchedUISyncSignals!: UISyncSignal[]
 
   @Prop({ required: true })
   readonly eventAnalyzer!: EventAnalyzer;
