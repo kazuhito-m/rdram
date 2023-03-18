@@ -515,6 +515,16 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     console.log('removeUseCaseOnDiagram() の呼び出し。')
     console.log('relate: ' + JSON.stringify(relate))
     console.log('sat(UcScreenInfoSatisfaction): ' + JSON.stringify(sat))
+
+    // TODO 削除するリソース割り出し
+    // TODO 削除する関連を割り出して、保存しておく
+
+    // TODO Diagramオブジェクトを使ってリソースを削除
+
+    this.reloadSatisfactions()
+
+    // TODO onRemoveRelateions() 呼び出し
+    // TODO onRemoveIcon() 的なやつを作成・呼び出し
   }
 
   /**
