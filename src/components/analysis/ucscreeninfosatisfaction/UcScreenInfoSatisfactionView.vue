@@ -8,6 +8,7 @@
       @onRemoveUsecaseOnProduct="onRemoveUsecaseOnProduct"
       @onOpenRelateDiagram="onOpenRelateDiagram"
       @onRemoveRelation="onRemoveRelation"
+      @onRemoveUseCaseOnDiagram="onRemoveUseCaseOnDiagram"
     />
     <ResourceEditDialog ref="resourceEditDialog" />
     <UcRelatedDiagramPropertiesEditDialog ref="diagraEditDialog" />
@@ -349,6 +350,10 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.removeRelation(relate, sat)
   }
 
+  onRemoveUseCaseOnDiagram(relate: RelatedResource, sat: UcScreenInfoSatisfaction): void {
+    this.removeUseCaseOnDiagram(relate, sat)
+  }
+
   dummyClickEvent(): void {}
 
   // public method.
@@ -504,6 +509,12 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
     this.reloadSatisfactions()
     this.onRemovedRelations(relates.map(r => r.relationId))
+  }
+
+  private removeUseCaseOnDiagram(relate: RelatedResource, sat: UcScreenInfoSatisfaction): void {
+    console.log('removeUseCaseOnDiagram() の呼び出し。')
+    console.log('relate: ' + JSON.stringify(relate))
+    console.log('sat(UcScreenInfoSatisfaction): ' + JSON.stringify(sat))
   }
 
   /**
