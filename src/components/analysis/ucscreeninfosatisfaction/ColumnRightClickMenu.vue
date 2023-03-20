@@ -92,7 +92,7 @@ export default class ColumnRightClickMenu extends Vue {
   private onOpenRelateDiagram(_relate: RelatedResource, _sat: UcScreenInfoSatisfaction) {}
 
   @Emit('onRemoveRelation')
-  private onRemoveRelation(_relate: RelatedResource, _sat: UcScreenInfoSatisfaction): void {}
+  private onRemoveRelation(_relate: RelatedResource): void {}
 
   // component events.
 
@@ -128,7 +128,7 @@ export default class ColumnRightClickMenu extends Vue {
 
   onClickRemoveRelation(): void {
     const relate = this.target as RelatedResource
-    this.onRemoveRelation(relate, this.sat)
+    this.onRemoveRelation(relate)
   }
 
   onClickNotImplement(): void {
