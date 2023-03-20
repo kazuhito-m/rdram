@@ -346,8 +346,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     await this.showNewUseCaseCompositeDiagramDialog(sat)
   }
 
-  onRemoveRelation(relate: RelatedResource, sat: UcScreenInfoSatisfaction): void {
-    this.removeRelation(relate, sat)
+  onRemoveRelation(relate: RelatedResource): void {
+    this.removeRelation(relate)
   }
 
   onRemoveUseCaseOnDiagram(relate: RelatedResource, sat: UcScreenInfoSatisfaction): void {
@@ -500,7 +500,7 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.onOpenDiagram(selected.id)
   }
 
-  private removeRelation(relate: RelatedResource, _sat: UcScreenInfoSatisfaction): void {
+  private removeRelation(relate: RelatedResource): void {
     const relates = relate.relateOnDiagrams
     const modifiedDiagrams = relates.map(r => r.diagram.removeRelationsOf([r.relationId]))
     const product = this.repository.getCurrentProduct() as Product
