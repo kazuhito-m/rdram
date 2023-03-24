@@ -319,8 +319,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.deleteResourceOnProduct(sat)
   }
 
-  onOpenRelateDiagram(relate: RelatedResource, sat: UcScreenInfoSatisfaction) {
-    this.openRelateDiagram(relate, sat)
+  async onOpenRelateDiagram(relate: RelatedResource, sat: UcScreenInfoSatisfaction): Promise<void> {
+    await this.openRelateDiagram(relate, sat)
   }
 
   onClickRelateResource(event: MouseEvent): void {
@@ -488,23 +488,23 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     relatedResource: RelatedResource,
     sat: UcScreenInfoSatisfaction
   ) {
-    if (relatedResource.relateCount === 1) {
-      const diagram = relatedResource.diagrams[0]
-      this.onOpenDiagram(diagram.id)
-      return
-    }
+    const diagram = await this.cursoredDiagramOf(relatedResource, sat)
+    this.onOpenDiagram(diagram.id)
+  }
+
+  private async cursoredDiagramOf(relatedResource: RelatedResource, sat: UcScreenInfoSatisfaction): Promise<Diagram> {
+    if (relatedResource.relateCount === 1) return relatedResource.diagrams[0]
 
     const selector = this.$refs
       .relatedDiagramsSelector as RelatedDiagramsSelector
-    const selected = await selector.showOf(relatedResource, sat)
-    this.onOpenDiagram(selected.id)
+    return await selector.showOf(relatedResource, sat)
   }
 
   private removeRelation(relate: RelatedResource): void {
     const relates = relate.relateOnDiagrams
     const modifiedDiagrams = relates.map(r => r.diagram.removeRelationsOf([r.relationId]))
     const product = this.repository.getCurrentProduct() as Product
-    const modifiedProduct =  product.meageDiagramsByIdOf(modifiedDiagrams)
+    const modifiedProduct = product.meageDiagramsByIdOf(modifiedDiagrams)
     this.repository.registerCurrentProduct(modifiedProduct)
 
     this.reloadSatisfactions()
@@ -520,6 +520,7 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     // TODO 削除する関連を割り出して、保存しておく
 
     // TODO Diagramオブジェクトを使ってリソースを削除
+
 
     this.reloadSatisfactions()
 
