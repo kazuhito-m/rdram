@@ -503,9 +503,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   private removeRelation(relate: RelatedResource): void {
     const relates = relate.relateOnDiagrams
     const modifiedDiagrams = relates.map(r => r.diagram.removeRelationsOf([r.relationId]))
-    const product = this.repository.getCurrentProduct() as Product
-    const modifiedProduct = product.meageDiagramsByIdOf(modifiedDiagrams)
-    this.repository.registerCurrentProduct(modifiedProduct)
+
+    this.registerCurrentProduct(product => product.meageDiagramsByIdOf(modifiedDiagrams))
 
     this.reloadSatisfactions()
     this.onRemovedRelations(relates.map(r => r.relationId))
@@ -520,12 +519,21 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     // TODO 削除する関連を割り出して、保存しておく
 
     // TODO Diagramオブジェクトを使ってリソースを削除
+    // TODO diagram.removeResourcesOf()
 
 
     this.reloadSatisfactions()
 
     // TODO onRemoveRelateions() 呼び出し
     // TODO onRemoveIcon() 的なやつを作成・呼び出し
+  }
+
+  private registerCurrentProduct(editAction: (product: Product) => Product): void {
+    const product = this.repository.getCurrentProduct() as Product
+
+    const modifiedProduct = editAction(product)
+
+    this.repository.registerCurrentProduct(modifiedProduct)
   }
 
   /**
