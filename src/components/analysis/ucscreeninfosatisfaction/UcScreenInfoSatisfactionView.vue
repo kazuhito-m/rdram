@@ -350,8 +350,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.removeRelation(relate)
   }
 
-  async onRemoveUseCaseOnDiagram(relate: RelatedResource, sat: UcScreenInfoSatisfaction): Promise<void> {
-    await this.removeUseCaseOnDiagram(relate, sat)
+  async onRemoveUseCaseOnDiagram(useCase: Resource, diagram: Diagram): Promise<void> {
+    await this.removeUseCaseOnDiagram(useCase, diagram)
   }
 
   dummyClickEvent(): void {}
@@ -493,6 +493,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   }
 
   private async cursoredDiagramOf(relatedResource: RelatedResource, sat: UcScreenInfoSatisfaction): Promise<Diagram> {
+    console.log('relatedResource: ' + JSON.stringify(relatedResource))
+    console.log('relatedResource.relateCount: ' + relatedResource.relateCount)
     if (relatedResource.relateCount === 1) return relatedResource.diagrams[0]
 
     const selector = this.$refs
@@ -510,14 +512,10 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.onRemovedRelations(relates.map(r => r.relationId))
   }
 
-  private async removeUseCaseOnDiagram(relate: RelatedResource, sat: UcScreenInfoSatisfaction): Promise<void> {
+  private async removeUseCaseOnDiagram(useCase: Resource, diagram: Diagram): Promise<void> {
     console.log('removeUseCaseOnDiagram() の呼び出し。')
-    console.log('relate: ' + JSON.stringify(relate))
-    console.log('sat(UcScreenInfoSatisfaction): ' + JSON.stringify(sat))
-
-    const cursoredDiagram = await this.cursoredDiagramOf(relate, sat)
-    const diagramId = cursoredDiagram.id
-    const useCaseResouceId = relate.id
+    const useCaseResouceId = useCase.resourceId
+    const diagramId = diagram.id
 
     this.registerCurrentProduct(product => {
       // TODO Produc側にロジックを持っていきたい
