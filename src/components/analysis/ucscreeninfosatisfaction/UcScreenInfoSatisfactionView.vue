@@ -350,8 +350,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.removeRelation(relate)
   }
 
-  onRemoveUseCaseOnDiagram(relate: RelatedResource, sat: UcScreenInfoSatisfaction): void {
-    this.removeUseCaseOnDiagram(relate, sat)
+  async onRemoveUseCaseOnDiagram(relate: RelatedResource, sat: UcScreenInfoSatisfaction): Promise<void> {
+    await this.removeUseCaseOnDiagram(relate, sat)
   }
 
   dummyClickEvent(): void {}
@@ -510,17 +510,22 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.onRemovedRelations(relates.map(r => r.relationId))
   }
 
-  private removeUseCaseOnDiagram(relate: RelatedResource, sat: UcScreenInfoSatisfaction): void {
+  private async removeUseCaseOnDiagram(relate: RelatedResource, sat: UcScreenInfoSatisfaction): Promise<void> {
     console.log('removeUseCaseOnDiagram() の呼び出し。')
     console.log('relate: ' + JSON.stringify(relate))
     console.log('sat(UcScreenInfoSatisfaction): ' + JSON.stringify(sat))
 
-    // TODO 削除するリソース割り出し
-    // TODO 削除する関連を割り出して、保存しておく
+    const cursoredDiagram = await this.cursoredDiagramOf(relate, sat)
+    const diagramId = cursoredDiagram.id
+    const useCaseResouceId = relate.id
 
-    // TODO Diagramオブジェクトを使ってリソースを削除
-    // TODO diagram.removeResourcesOf()
-
+    this.registerCurrentProduct(product => {
+      // TODO Produc側にロジックを持っていきたい
+      if (!product.diagrams.existsIdOf(diagramId)) return null;
+      const diagram = product.diagrams.of(diagramId)
+      const modified =  diagram?.removeResourcesOf([useCaseResouceId]) as Diagram
+      return product.meageDiagramByIdOf(modified)
+    })
 
     this.reloadSatisfactions()
 
@@ -528,10 +533,11 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     // TODO onRemoveIcon() 的なやつを作成・呼び出し
   }
 
-  private registerCurrentProduct(editAction: (product: Product) => Product): void {
+  private registerCurrentProduct(editAction: (product: Product) => Product | null): void {
     const product = this.repository.getCurrentProduct() as Product
 
     const modifiedProduct = editAction(product)
+    if (!modifiedProduct) return
 
     this.repository.registerCurrentProduct(modifiedProduct)
   }
