@@ -520,8 +520,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.registerCurrentProduct(product => {
       // TODO Produc側にロジックを持っていきたい
       if (!product.diagrams.existsIdOf(diagramId)) return null;
-      const diagram = product.diagrams.of(diagramId)
-      const modified =  diagram?.removeResourcesOf([useCaseResouceId]) as Diagram
+      const diagram = product.diagrams.of(diagramId) as Diagram
+      const modified = diagram.removeResourcesOf([useCaseResouceId])
       return product.meageDiagramByIdOf(modified)
     })
 
