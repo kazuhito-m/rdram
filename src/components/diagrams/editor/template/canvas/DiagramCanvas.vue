@@ -255,12 +255,7 @@ export default class DiagramCanvas extends Vue {
   // right click menu events.
 
   onDeleteRelation(relation: Relation): void {
-    this.deleteConnection(relation)
-
-    this.transactionOf((diagram, _) => {
-      if (!diagram.existsRelationId(relation.id)) return null;
-      return diagram.removeRelationsOf([relation.id])
-    })
+    this.deleteRelation(relation.id);
   }
 
   onUpdateRelation(relation: Relation): void {
@@ -656,6 +651,15 @@ export default class DiagramCanvas extends Vue {
     })
   }
 
+  private  deleteRelation(relationId: string) {
+    this.deleteConnectionOf(relationId)
+
+    this.transactionOf((diagram, _) => {
+      if (!diagram.existsRelationId(relationId)) return null;
+      return diagram.removeRelationsOf([relationId])
+    })
+  }
+
   public confirmResourceDelete(
     resourceIds: number[],
     diagram: Diagram
@@ -705,7 +709,7 @@ export default class DiagramCanvas extends Vue {
     const iconVM = this.iconVMOf(resource)
     if (!iconVM) return
 
-    relations.forEach((relation) => this.deleteConnection(relation))
+    relations.forEach((relation) => this.deleteConnectionOf(relation.id))
     this.canvas.remove(iconVM.icon)
 
     this.addResouceIconToCanvas(resource, placement)
@@ -721,8 +725,8 @@ export default class DiagramCanvas extends Vue {
     return this.iconVMs().find((vm) => vm.resourceId() === resource.resourceId)
   }
 
-  private deleteConnection(relation: Relation) {
-    const connection = this.canvas.getLine(relation.id)
+  private deleteConnectionOf(relationId: string) {
+    const connection = this.canvas.getLine(relationId)
     this.canvas.remove(connection)
   }
 
