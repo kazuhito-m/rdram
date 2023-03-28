@@ -11,15 +11,22 @@ export default class UISyncSignal {
     constructor(
         public readonly target: SyncTarget,
         public readonly operation: SyncOperation,
-        public readonly id: string
+        public readonly id: string,
+        public readonly diagramId: number
     ) { }
+
+    public static readonly ALL_DIAGRAM_ID = -1;
 
     public static deleteConnectionsOf = (relationIds: string[]) =>
         relationIds.map(UISyncSignal.deleteConnectionOf);
 
-    private static deleteConnectionOf = (id: string) =>
-        new UISyncSignal("connection", "delete", id);
+    private static deleteConnectionOf = (relationId: string) =>
+        new UISyncSignal("connection", "delete", relationId, UISyncSignal.ALL_DIAGRAM_ID);
 
-    public static deleteIconOf = (id: string) =>
-        new UISyncSignal("icon", "delete", id);
+    public static deleteIconOf = (resourceId: string, diagramId: number) =>
+        new UISyncSignal("icon", "delete", resourceId, diagramId);
+
+    public isTargetAllDiagram(): boolean {
+        return this.diagramId === UISyncSignal.ALL_DIAGRAM_ID;
+    }
 } 
