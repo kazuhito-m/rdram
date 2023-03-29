@@ -493,8 +493,6 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   }
 
   private async cursoredDiagramOf(relatedResource: RelatedResource, sat: UcScreenInfoSatisfaction): Promise<Diagram> {
-    console.log('relatedResource: ' + JSON.stringify(relatedResource))
-    console.log('relatedResource.relateCount: ' + relatedResource.relateCount)
     if (relatedResource.relateCount === 1) return relatedResource.diagrams[0]
 
     const selector = this.$refs
@@ -513,7 +511,6 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   }
 
   private async removeUseCaseOnDiagram(useCase: Resource, diagram: Diagram): Promise<void> {
-    console.log('removeUseCaseOnDiagram() の呼び出し。')
     const useCaseResouceId = useCase.resourceId
     const diagramId = diagram.id
 
@@ -527,7 +524,6 @@ export default class UcScreenInfoSatisfactionView extends Vue {
 
     this.reloadSatisfactions()
 
-    // TODO onRemoveRelateions() 呼び出し
     // TODO onRemoveIcon() 的なやつを作成・呼び出し
   }
 
