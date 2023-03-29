@@ -267,7 +267,7 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   onRemovedRelations(_relationIds: string[]):void {}
 
   @Emit('onRemovedResourceOnDiagram')
-  onRemovedResourceOnDiagram(_resouceId: number, _diagramId: number): void {  }
+  onRemovedResourceOnDiagram(_resouceId: number, _diagramId: number): void {}
 
   // properties.
 
