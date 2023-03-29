@@ -266,8 +266,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   @Emit('onRemovedRelations')
   onRemovedRelations(_relationIds: string[]):void {}
 
-  @Emit('onRemovedUseCaseOnDiagram')
-  onRemovedUseCaseOnDiagram(_useCaseResouceId: number, _diagramId: number): void {  }
+  @Emit('onRemovedResourceOnDiagram')
+  onRemovedResourceOnDiagram(_resouceId: number, _diagramId: number): void {  }
 
   // properties.
 
@@ -526,7 +526,7 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     })
 
     this.reloadSatisfactions()
-    this.onRemovedUseCaseOnDiagram(useCaseResouceId, diagramId);
+    this.onRemovedResourceOnDiagram(useCaseResouceId, diagramId);
   }
 
   private registerCurrentProduct(editAction: (product: Product) => Product | null): void {

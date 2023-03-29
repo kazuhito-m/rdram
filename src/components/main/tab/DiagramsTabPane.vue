@@ -56,6 +56,7 @@
           @onOpenDiagram="onOpenDiagram"
           @onUpdateResources="onUpdateResoucesOnContainer"
           @onRemovedRelations="onRemovedRelations"
+          @onRemovedResourceOnDiagram="onRemovedResourceOnDiagram"
         />
       </v-tab-item>
     </v-tabs-items>
@@ -154,6 +155,14 @@ export default class DiagramsTabPane extends Vue {
     this.catchedUISyncSignals.length = 0
     const signals = UISyncSignal.deleteConnectionsOf(relationIds);
     this.catchedUISyncSignals.push(...signals)
+  }
+
+  onRemovedResourceOnDiagram(resouceId: number, diagramId: number): void {
+    console.log('削除されたリソースID:' + resouceId + ', 削除対象の図ID:' + diagramId)
+
+    this.catchedUISyncSignals.length = 0
+    const signal = UISyncSignal.deleteIconOf(resouceId, diagramId);
+    this.catchedUISyncSignals.push(signal)
   }
 
   // public methods.

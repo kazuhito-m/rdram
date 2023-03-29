@@ -23,8 +23,8 @@ export default class UISyncSignal {
     private static deleteConnectionOf = (relationId: string) =>
         new UISyncSignal("connection", "delete", relationId, UISyncSignal.ALL_DIAGRAM_ID);
 
-    public static deleteIconOf = (resourceId: string, diagramId: number) =>
-        new UISyncSignal("icon", "delete", resourceId, diagramId);
+    public static deleteIconOf = (resourceId: number, diagramId: number) =>
+        new UISyncSignal("icon", "delete", resourceId.toString(), diagramId);
 
     public isTargetAllDiagram(): boolean {
         return this.diagramId === UISyncSignal.ALL_DIAGRAM_ID;

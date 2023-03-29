@@ -9,7 +9,7 @@
       @onOpenDiagram="onOpenDiagram"
       @onUpdateResources="onUpdateResources"
       @onRemovedRelations="onRemovedRelations"
-      @onRemovedUseCaseOnDiagram="onRemovedUseCaseOnDiagram"
+      @onRemovedResourceOnDiagram="onRemovedResourceOnDiagram"
     />
   </div>
 </template>
@@ -48,8 +48,8 @@ export default class AnalysisContainer extends Vue {
   @Emit('onRemovedRelations')
   onRemovedRelations(_relationIds: string[]):void {}
 
-  @Emit('onRemovedUseCaseOnDiagram')
-  onRemovedUseCaseOnDiagram(_useCaseResouceId: number, _diagramId: number): void {}
+  @Emit('onRemovedResourceOnDiagram')
+  onRemovedResourceOnDiagram(_resouceId: number, _diagramId: number): void {}
 
   @Watch('activeViewId')
   onChangeActiveView(): void {
