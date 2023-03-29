@@ -266,6 +266,9 @@ export default class UcScreenInfoSatisfactionView extends Vue {
   @Emit('onRemovedRelations')
   onRemovedRelations(_relationIds: string[]):void {}
 
+  @Emit('onRemovedUseCaseOnDiagram')
+  onRemovedUseCaseOnDiagram(_useCaseResouceId: number, _diagramId: number): void {  }
+
   // properties.
 
   ucIcon = () => ResourceType.ユースケース.iconKey
@@ -523,8 +526,7 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     })
 
     this.reloadSatisfactions()
-
-    // TODO onRemoveIcon() 的なやつを作成・呼び出し
+    this.onRemovedUseCaseOnDiagram(useCaseResouceId, diagramId);
   }
 
   private registerCurrentProduct(editAction: (product: Product) => Product | null): void {
