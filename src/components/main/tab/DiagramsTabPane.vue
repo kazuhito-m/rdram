@@ -150,15 +150,11 @@ export default class DiagramsTabPane extends Vue {
   }
 
   onRemovedRelations(relationIds: string[]):void {
-    this.catchedUISyncSignals.length = 0
-    const signals = UISyncSignal.deleteConnectionsOf(relationIds);
-    this.catchedUISyncSignals.push(...signals)
+    this.throwUISyncSignals(UISyncSignal.deleteConnectionsOf(relationIds))
   }
 
   onRemovedResourceOnDiagram(resourceId: number, diagramId: number): void {
-    this.catchedUISyncSignals.length = 0
-    const signal = UISyncSignal.deleteIconOf(resourceId, diagramId);
-    this.catchedUISyncSignals.push(signal)
+    this.thrwoUISyncSignal(UISyncSignal.deleteIconOf(resourceId, diagramId))
   }
 
   // public methods.
@@ -196,6 +192,15 @@ export default class DiagramsTabPane extends Vue {
     const tabItemId = parseInt(data, 10)
     const foundItem = this.openTabs.find((tab) => tab.id === tabItemId)
     return foundItem || ViewOrFolder.EMPTY
+  }
+
+  private throwUISyncSignals(signals: UISyncSignal[]): void {
+    this.catchedUISyncSignals.length = 0
+    this.catchedUISyncSignals.push(...signals)
+  }
+
+  private thrwoUISyncSignal(signal: UISyncSignal): void {
+    this.throwUISyncSignals([signal])
   }
 }
 </script>
