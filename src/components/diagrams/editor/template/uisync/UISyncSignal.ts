@@ -29,4 +29,9 @@ export default class UISyncSignal {
     public isTargetAllDiagram(): boolean {
         return this.diagramId === UISyncSignal.ALL_DIAGRAM_ID;
     }
+
+    public get resourceId(): number {
+        if (this.target !== 'icon') return 0;
+        return parseInt(this.id, 10);
+    }
 } 

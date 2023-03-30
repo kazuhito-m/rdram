@@ -157,11 +157,9 @@ export default class DiagramsTabPane extends Vue {
     this.catchedUISyncSignals.push(...signals)
   }
 
-  onRemovedResourceOnDiagram(resouceId: number, diagramId: number): void {
-    console.log('削除されたリソースID:' + resouceId + ', 削除対象の図ID:' + diagramId)
-
+  onRemovedResourceOnDiagram(resourceId: number, diagramId: number): void {
     this.catchedUISyncSignals.length = 0
-    const signal = UISyncSignal.deleteIconOf(resouceId, diagramId);
+    const signal = UISyncSignal.deleteIconOf(resourceId, diagramId);
     this.catchedUISyncSignals.push(signal)
   }
 

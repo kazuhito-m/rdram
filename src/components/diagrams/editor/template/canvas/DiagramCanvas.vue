@@ -227,6 +227,7 @@ export default class DiagramCanvas extends Vue {
       if (signal.operation !== 'delete') break
 
       if (signal.target === 'connection') this.deleteConnectionOf(signal.id)
+      if (signal.target === 'icon') this.deleteIconOf(signal.resourceId, signal.diagramId);
     }
   }
 
@@ -743,6 +744,10 @@ export default class DiagramCanvas extends Vue {
     const connection = this.canvas.getLine(relationId)
     if (!connection) return
     this.canvas.remove(connection)
+  }
+
+  private deleteIconOf(resourceId: number, diagramId: number) {
+    console.log('削除されたリソースID:' + resourceId + ', 削除対象の図ID:' + diagramId)
   }
 
   // Data change controll.
