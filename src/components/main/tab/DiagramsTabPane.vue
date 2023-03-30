@@ -150,8 +150,6 @@ export default class DiagramsTabPane extends Vue {
   }
 
   onRemovedRelations(relationIds: string[]):void {
-    relationIds.forEach(i => console.log('削除された関連ID:' + i))
-
     this.catchedUISyncSignals.length = 0
     const signals = UISyncSignal.deleteConnectionsOf(relationIds);
     this.catchedUISyncSignals.push(...signals)
