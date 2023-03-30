@@ -17,13 +17,13 @@ export default class UISyncSignal {
 
     public static readonly ALL_DIAGRAM_ID = -1;
 
-    public static deleteConnectionsOf = (relationIds: string[]) =>
+    public static deleteConnectionsOf = (relationIds: string[]): UISyncSignal[] =>
         relationIds.map(UISyncSignal.deleteConnectionOf);
 
-    private static deleteConnectionOf = (relationId: string) =>
+    private static deleteConnectionOf = (relationId: string): UISyncSignal =>
         new UISyncSignal("connection", "delete", relationId, UISyncSignal.ALL_DIAGRAM_ID);
 
-    public static deleteIconOf = (resourceId: number, diagramId: number) =>
+    public static deleteIconOf = (resourceId: number, diagramId: number): UISyncSignal =>
         new UISyncSignal("icon", "delete", resourceId.toString(), diagramId);
 
     public isTargetAllDiagram(): boolean {
