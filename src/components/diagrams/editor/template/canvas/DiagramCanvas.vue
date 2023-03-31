@@ -757,13 +757,14 @@ export default class DiagramCanvas extends Vue {
     const canvas = this.canvas
     const boolTogle: boolean[] = [false, true]
     const ports = boolTogle.map(flg => this.getPort(resourceId, canvas, flg))
-      .filter(port => port) // undifind以外
+      .filter(port =>!!port) as Port[] // undifind以外
     // in port/out portとも「同じPort」であれば、一つしかいらないので削除
     if (ports.length > 1 && ports[0] === ports[1]) ports.pop()
-    const connections = ports.flatMap(port => port?.getConnections())
-    connections.forEach(i => console.log(i))
+    const connections = ports.flatMap(port => port.getConnections())
 
-    console.log('削除されたリソースID:' + resourceId + ', 削除対象の図ID:' + diagramId + ',figure.id:' + foundIconVM.icon.getId())
+    connections.forEach(i => console.log(i))  // debug
+
+    // connections.forEach(c => canvas.remove(c))
   }
 
   // Data change controll.
