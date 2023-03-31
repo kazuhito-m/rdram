@@ -754,7 +754,7 @@ export default class DiagramCanvas extends Vue {
       .find(vm => vm.resourceId() === resourceId) // おそらくは一つしかないはずだが...
     if (!foundIconVM) return
 
-    console.log('削除されたリソースID:' + resourceId + ', 削除対象の図ID:' + diagramId + ',figure:' + JSON.stringify(foundIconVM.icon))
+    console.log('削除されたリソースID:' + resourceId + ', 削除対象の図ID:' + diagramId + ',figure.id:' + foundIconVM.icon.getId())
   }
 
   // Data change controll.
