@@ -522,7 +522,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
       if (!product.diagrams.existsIdOf(diagramId)) return null;
       const diagram = product.diagrams.of(diagramId) as Diagram
       const modified = diagram.removeResourcesOf([useCaseResouceId])
-      return product.meageDiagramByIdOf(modified)
+      // return product.meageDiagramByIdOf(modified)
+      return null
     })
 
     this.reloadSatisfactions()

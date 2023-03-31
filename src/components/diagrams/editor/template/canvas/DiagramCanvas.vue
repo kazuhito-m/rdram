@@ -765,6 +765,8 @@ export default class DiagramCanvas extends Vue {
     ports.map(port => port.getConnections())
       .flatMap(container => container.data)
       .forEach(connection => canvas.remove(connection))
+
+    canvas.remove(foundIconVM.icon)
   }
 
   // Data change controll.
