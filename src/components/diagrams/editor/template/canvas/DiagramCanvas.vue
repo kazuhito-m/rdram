@@ -755,16 +755,18 @@ export default class DiagramCanvas extends Vue {
     if (!foundIconVM) return
 
     const canvas = this.canvas
-    const boolTogle: boolean[] = [false, true]
-    const ports = boolTogle.map(flg => this.getPort(resourceId, canvas, flg))
+
+    const ports = [false, true]
+      .map(flg => this.getPort(resourceId, canvas, flg))
       .filter(port =>!!port) as Port[] // undifind以外
     // in port/out portとも「同じPort」であれば、一つしかいらないので削除
     if (ports.length > 1 && ports[0] === ports[1]) ports.pop()
-    const connections = ports.flatMap(port => port.getConnections())
+    const connections = ports.map(port => port.getConnections())
+      .flatMap(container => container.data)
 
     connections.forEach(i => console.log(i))  // debug
 
-    // connections.forEach(c => canvas.remove(c))
+    connections.forEach(c => canvas.remove(c))
   }
 
   // Data change controll.
