@@ -747,9 +747,14 @@ export default class DiagramCanvas extends Vue {
   }
 
   private deleteIconOf(resourceId: number, diagramId: number) {
-    if (this.diagramId !== diagramId) return
+    console.log('deleteIconOf()自体は呼ばれている。自身図名は ' + this.diagram.name)
 
-    console.log('削除されたリソースID:' + resourceId + ', 削除対象の図ID:' + diagramId)
+    if (this.diagramId !== diagramId) return
+    const foundIconVM = this.iconVMs()
+      .find(vm => vm.resourceId() === resourceId) // おそらくは一つしかないはずだが...
+    if (!foundIconVM) return
+
+    console.log('削除されたリソースID:' + resourceId + ', 削除対象の図ID:' + diagramId + ',figure:' + JSON.stringify(foundIconVM.icon))
   }
 
   // Data change controll.
