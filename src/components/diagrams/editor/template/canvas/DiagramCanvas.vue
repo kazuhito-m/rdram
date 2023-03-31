@@ -752,10 +752,15 @@ export default class DiagramCanvas extends Vue {
       .find(vm => vm.resourceId() === resourceId) // おそらくは一つしかないはずだが...
     if (!foundIconVM) return
 
+    this.deleteRelatedConnectionsOnCanvasOf(foundIconVM)
+    this.canvas.remove(foundIconVM.icon)
+  }
+
+  private deleteRelatedConnectionsOnCanvasOf(iconVM: IconViewModel): void {
     const canvas = this.canvas
 
     const ports = [false, true]
-      .map(flg => this.getPort(resourceId, canvas, flg))
+      .map(flg => this.getPort(iconVM.resourceId(), canvas, flg))
       .filter(port =>!!port) as Port[] // undifind以外
     // in/out portとも「同じPort」であれば、一つしかいらないので削除
     if (ports.length > 1 && ports[0] === ports[1]) ports.pop()
@@ -763,8 +768,6 @@ export default class DiagramCanvas extends Vue {
     ports.map(port => port.getConnections())
       .flatMap(container => container.data)
       .forEach(connection => canvas.remove(connection))
-
-    canvas.remove(foundIconVM.icon)
   }
 
   // Data change controll.
