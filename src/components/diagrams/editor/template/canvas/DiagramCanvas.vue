@@ -747,6 +747,8 @@ export default class DiagramCanvas extends Vue {
   }
 
   private deleteIconOf(resourceId: number, diagramId: number) {
+    if (this.diagramId !== diagramId) return
+
     console.log('削除されたリソースID:' + resourceId + ', 削除対象の図ID:' + diagramId)
   }
 
