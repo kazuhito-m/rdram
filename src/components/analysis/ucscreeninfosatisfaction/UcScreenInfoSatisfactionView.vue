@@ -353,8 +353,8 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.removeRelation(relate)
   }
 
-  async onRemoveUseCaseOnDiagram(useCase: Resource, diagram: Diagram): Promise<void> {
-    await this.removeUseCaseOnDiagram(useCase, diagram)
+  onRemoveUseCaseOnDiagram(useCase: Resource, diagram: Diagram): void {
+    this.removeUseCaseOnDiagram(useCase, diagram)
   }
 
   dummyClickEvent(): void {}
@@ -513,7 +513,7 @@ export default class UcScreenInfoSatisfactionView extends Vue {
     this.onRemovedRelations(relates.map(r => r.relationId))
   }
 
-  private async removeUseCaseOnDiagram(useCase: Resource, diagram: Diagram): Promise<void> {
+  private removeUseCaseOnDiagram(useCase: Resource, diagram: Diagram): void {
     const useCaseResouceId = useCase.resourceId
     const diagramId = diagram.id
 
