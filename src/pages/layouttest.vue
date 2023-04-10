@@ -41,6 +41,8 @@
     <v-btn color="normal" dark @click="onClickUserArrengeDialog">図/アイコンの名前の重複 Dialog Test</v-btn>
     <UserArrengeWhenNameConfrictDialog ref="userArrangeDialog"/>
 
+    <v-btn color="normal" dark @click="onClickLoadTextFromJsFile">テキストファイルを素で読むテストをしたい。</v-btn>
+
     <v-card-text>
       <v-row>
         <v-col>
@@ -87,6 +89,7 @@ import ConflictNameBehavior from "~/domain/diagram/import/conflictname/ConflictN
 import { BehaviorWhenNameConflict } from "~/domain/diagram/import/userarrange/BehaviorWhenNameConflict";
 import ResourceType from "@/domain/resource/ResourceType";
 import Rdra20DiagramType from "~/domain/diagram/rdra20/Rdra20DiagramType";
+import testJs from "raw-loader!./textImportExample.js";
 
 @Component({
   components: {
@@ -757,6 +760,12 @@ export default class extends Vue {
   private canvasZoomToSlider(zoom: number) {
     // alert(zoom);
     this.slider = 100 / zoom;
+  }
+
+  private onClickLoadTextFromJsFile(): void {
+    console.log(testJs);
+    const converted = testJs.replaceAll('__PART__', '【ここが置き換え部分だよ】');
+    eval(converted);
   }
 
   @Watch("slider")
