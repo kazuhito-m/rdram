@@ -9548,6 +9548,7 @@ var FIND = 'find';
 var SKIPS_HOLES = true;
 
 // Shouldn't skip holes
+// eslint-disable-next-line es/no-array-prototype-find -- testing
 if (FIND in []) Array(1)[FIND](function () { SKIPS_HOLES = false; });
 
 // `Array.prototype.find` method
@@ -10474,9 +10475,7 @@ module.exports = {
   add: uncurryThis(SetPrototype.add),
   has: uncurryThis(SetPrototype.has),
   remove: uncurryThis(SetPrototype['delete']),
-  proto: SetPrototype,
-  $has: SetPrototype.has,
-  $keys: SetPrototype.keys
+  proto: SetPrototype
 };
 
 
@@ -14121,10 +14120,10 @@ var store = __webpack_require__(305);
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.29.1',
+  version: '3.30.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.29.1/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.30.1/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -15095,6 +15094,7 @@ var FIND_INDEX = 'findIndex';
 var SKIPS_HOLES = true;
 
 // Shouldn't skip holes
+// eslint-disable-next-line es/no-array-prototype-findindex -- testing
 if (FIND_INDEX in []) Array(1)[FIND_INDEX](function () { SKIPS_HOLES = false; });
 
 // `Array.prototype.findIndex` method
@@ -28611,12 +28611,6 @@ var iterateSimple = __webpack_require__(142);
 var Set = SetHelpers.Set;
 var add = SetHelpers.add;
 var has = SetHelpers.has;
-var nativeHas = SetHelpers.$has;
-var nativeKeys = SetHelpers.$keys;
-
-var isNativeSetRecord = function (record) {
-  return record.has === nativeHas && record.keys === nativeKeys;
-};
 
 // `Set.prototype.intersection` method
 // https://github.com/tc39/proposal-set-methods
@@ -28625,18 +28619,9 @@ module.exports = function intersection(other) {
   var otherRec = getSetRecord(other);
   var result = new Set();
 
-  // observable side effects
-  if (!isNativeSetRecord(otherRec) && size(O) > otherRec.size) {
+  if (size(O) > otherRec.size) {
     iterateSimple(otherRec.getIterator(), function (e) {
       if (has(O, e)) add(result, e);
-    });
-
-    if (size(result) < 2) return result;
-
-    var disordered = result;
-    result = new Set();
-    iterateSet(O, function (e) {
-      if (has(disordered, e)) add(result, e);
     });
   } else {
     iterateSet(O, function (e) {
