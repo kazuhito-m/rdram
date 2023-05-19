@@ -42,7 +42,7 @@
     "@types/jest": "^27.5.0",
     "@types/jexcel": "^3.9.3",
     "@types/jquery": "^3.5.16",
-    "@types/jqueryui": "^1.12.16",
+    "@types/jqueryui": "^1.12.17",
     "@vue/test-utils": "^2.3.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^29.5.0",
