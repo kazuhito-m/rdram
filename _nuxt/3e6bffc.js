@@ -8504,7 +8504,7 @@ var toNumeric = function (value) {
 var toNumber = function (argument) {
   var it = toPrimitive(argument, 'number');
   var first, third, radix, maxCode, digits, length, index, code;
-  if (isSymbol(it)) throw TypeError('Cannot convert a Symbol value to a number');
+  if (isSymbol(it)) throw new TypeError('Cannot convert a Symbol value to a number');
   if (typeof it == 'string' && it.length > 2) {
     it = trim(it);
     first = charCodeAt(it, 0);
@@ -9245,7 +9245,7 @@ var classof = __webpack_require__(188);
 var $String = String;
 
 module.exports = function (argument) {
-  if (classof(argument) === 'Symbol') throw TypeError('Cannot convert a Symbol value to a string');
+  if (classof(argument) === 'Symbol') throw new TypeError('Cannot convert a Symbol value to a string');
   return $String(argument);
 };
 
@@ -9309,7 +9309,7 @@ var $TypeError = TypeError;
 // `Assert: Type(argument) is Object`
 module.exports = function (argument) {
   if (isObject(argument)) return argument;
-  throw $TypeError($String(argument) + ' is not an object');
+  throw new $TypeError($String(argument) + ' is not an object');
 };
 
 
@@ -10457,7 +10457,7 @@ var $TypeError = TypeError;
 // `Assert: IsCallable(argument) is true`
 module.exports = function (argument) {
   if (isCallable(argument)) return argument;
-  throw $TypeError(tryToString(argument) + ' is not a function');
+  throw new $TypeError(tryToString(argument) + ' is not a function');
 };
 
 
@@ -10532,7 +10532,7 @@ exports.f = DESCRIPTORS ? V8_PROTOTYPE_DEFINE_BUG ? function defineProperty(O, P
   if (IE8_DOM_DEFINE) try {
     return $defineProperty(O, P, Attributes);
   } catch (error) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw $TypeError('Accessors not supported');
+  if ('get' in Attributes || 'set' in Attributes) throw new $TypeError('Accessors not supported');
   if ('value' in Attributes) O[P] = Attributes.value;
   return O;
 };
@@ -10576,7 +10576,7 @@ var $TypeError = TypeError;
 // `RequireObjectCoercible` abstract operation
 // https://tc39.es/ecma262/#sec-requireobjectcoercible
 module.exports = function (it) {
-  if (isNullOrUndefined(it)) throw $TypeError("Can't call method on " + it);
+  if (isNullOrUndefined(it)) throw new $TypeError("Can't call method on " + it);
   return it;
 };
 
@@ -11362,7 +11362,7 @@ var getterFor = function (TYPE) {
   return function (it) {
     var state;
     if (!isObject(it) || (state = get(it)).type !== TYPE) {
-      throw TypeError('Incompatible receiver, ' + TYPE + ' required');
+      throw new TypeError('Incompatible receiver, ' + TYPE + ' required');
     } return state;
   };
 };
@@ -11375,7 +11375,7 @@ if (NATIVE_WEAK_MAP || shared.state) {
   store.set = store.set;
   /* eslint-enable no-self-assign -- prototype methods protection */
   set = function (it, metadata) {
-    if (store.has(it)) throw TypeError(OBJECT_ALREADY_INITIALIZED);
+    if (store.has(it)) throw new TypeError(OBJECT_ALREADY_INITIALIZED);
     metadata.facade = it;
     store.set(it, metadata);
     return metadata;
@@ -11390,7 +11390,7 @@ if (NATIVE_WEAK_MAP || shared.state) {
   var STATE = sharedKey('state');
   hiddenKeys[STATE] = true;
   set = function (it, metadata) {
-    if (hasOwn(it, STATE)) throw TypeError(OBJECT_ALREADY_INITIALIZED);
+    if (hasOwn(it, STATE)) throw new TypeError(OBJECT_ALREADY_INITIALIZED);
     metadata.facade = it;
     createNonEnumerableProperty(it, STATE, metadata);
     return metadata;
@@ -13961,7 +13961,7 @@ $({ target: 'Map', proto: true, real: true, forced: true }, {
         accumulator = callbackfn(accumulator, value, key, map);
       }
     });
-    if (noInitial) throw $TypeError('Reduce of empty map with no initial value');
+    if (noInitial) throw new $TypeError('Reduce of empty map with no initial value');
     return accumulator;
   }
 });
@@ -14016,7 +14016,7 @@ $({ target: 'Map', proto: true, real: true, forced: true }, {
     aCallable(callback);
     var isPresentInMap = has(map, key);
     if (!isPresentInMap && length < 3) {
-      throw $TypeError('Updating absent value');
+      throw new $TypeError('Updating absent value');
     }
     var value = isPresentInMap ? get(map, key) : aCallable(length > 2 ? arguments[2] : undefined)(key, map);
     set(map, key, callback(value, key, map));
@@ -14175,9 +14175,9 @@ module.exports = function (obj) {
   var numSize = +obj.size;
   // NOTE: If size is undefined, then numSize will be NaN
   // eslint-disable-next-line no-self-compare -- NaN check
-  if (numSize !== numSize) throw $TypeError(INVALID_SIZE);
+  if (numSize !== numSize) throw new $TypeError(INVALID_SIZE);
   var intSize = toIntegerOrInfinity(numSize);
-  if (intSize < 0) throw $RangeError(INVALID_SIZE);
+  if (intSize < 0) throw new $RangeError(INVALID_SIZE);
   return new SetRecord(
     obj,
     max(intSize, 0),
@@ -14269,10 +14269,10 @@ var store = __webpack_require__(304);
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.32.2',
+  version: '3.33.0',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.32.2/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.33.0/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -14852,7 +14852,7 @@ var $TypeError = TypeError;
 
 module.exports = function (it, Prototype) {
   if (isPrototypeOf(Prototype, it)) return it;
-  throw $TypeError('Incorrect invocation');
+  throw new $TypeError('Incorrect invocation');
 };
 
 
@@ -14924,7 +14924,7 @@ var $TypeError = TypeError;
 var PromiseCapability = function (C) {
   var resolve, reject;
   this.promise = new C(function ($$resolve, $$reject) {
-    if (resolve !== undefined || reject !== undefined) throw $TypeError('Bad Promise constructor');
+    if (resolve !== undefined || reject !== undefined) throw new $TypeError('Bad Promise constructor');
     resolve = $$resolve;
     reject = $$reject;
   });
@@ -14992,7 +14992,7 @@ module.exports = function (iterable, unboundFunction, options) {
     iterator = iterable;
   } else {
     iterFn = getIteratorMethod(iterable);
-    if (!iterFn) throw $TypeError(tryToString(iterable) + ' is not iterable');
+    if (!iterFn) throw new $TypeError(tryToString(iterable) + ' is not iterable');
     // optimisation for array iterators
     if (isArrayIteratorMethod(iterFn)) {
       for (index = 0, length = lengthOfArrayLike(iterable); length > index; index++) {
@@ -15545,7 +15545,7 @@ var empty = [];
 var construct = getBuiltIn('Reflect', 'construct');
 var constructorRegExp = /^\s*(?:class|function)\b/;
 var exec = uncurryThis(constructorRegExp.exec);
-var INCORRECT_TO_STRING = !constructorRegExp.exec(noop);
+var INCORRECT_TO_STRING = !constructorRegExp.test(noop);
 
 var isConstructorModern = function isConstructor(argument) {
   if (!isCallable(argument)) return false;
@@ -15717,7 +15717,7 @@ module.exports = classof(global.process) === 'process';
 var $TypeError = TypeError;
 
 module.exports = function (passed, required) {
-  if (passed < required) throw $TypeError('Not enough arguments');
+  if (passed < required) throw new $TypeError('Not enough arguments');
   return passed;
 };
 
@@ -15954,7 +15954,7 @@ module.exports = function (R, S) {
     return result;
   }
   if (classof(R) === 'RegExp') return call(regexpExec, R, S);
-  throw $TypeError('RegExp#exec called on incompatible receiver');
+  throw new $TypeError('RegExp#exec called on incompatible receiver');
 };
 
 
@@ -16144,7 +16144,7 @@ $({ target: 'Number', proto: true, forced: FORCED }, {
     var e, z, j, k;
 
     // TODO: ES2018 increased the maximum number of fraction digits to 100, need to improve the implementation
-    if (fractDigits < 0 || fractDigits > 20) throw $RangeError('Incorrect fraction digits');
+    if (fractDigits < 0 || fractDigits > 20) throw new $RangeError('Incorrect fraction digits');
     // eslint-disable-next-line no-self-compare -- NaN check
     if (number !== number) return 'NaN';
     if (number <= -1e21 || number >= 1e21) return $String(number);
@@ -16432,7 +16432,7 @@ var $TypeError = TypeError;
 module.exports = function (argument, usingIterator) {
   var iteratorMethod = arguments.length < 2 ? getIteratorMethod(argument) : usingIterator;
   if (aCallable(iteratorMethod)) return anObject(call(iteratorMethod, argument));
-  throw $TypeError(tryToString(argument) + ' is not iterable');
+  throw new $TypeError(tryToString(argument) + ' is not iterable');
 };
 
 
@@ -16830,7 +16830,7 @@ var $TypeError = TypeError;
 
 module.exports = function (it) {
   if (isRegExp(it)) {
-    throw $TypeError("The method doesn't accept regular expressions");
+    throw new $TypeError("The method doesn't accept regular expressions");
   } return it;
 };
 
@@ -20651,7 +20651,7 @@ module.exports = function (input, pref) {
     if (pref === undefined) pref = 'default';
     result = call(exoticToPrim, input, pref);
     if (!isObject(result) || isSymbol(result)) return result;
-    throw $TypeError("Can't convert object to primitive value");
+    throw new $TypeError("Can't convert object to primitive value");
   }
   if (pref === undefined) pref = 'number';
   return ordinaryToPrimitive(input, pref);
@@ -21209,7 +21209,7 @@ var $TypeError = TypeError;
 // `Assert: IsConstructor(argument) is true`
 module.exports = function (argument) {
   if (isConstructor(argument)) return argument;
-  throw $TypeError(tryToString(argument) + ' is not a constructor');
+  throw new $TypeError(tryToString(argument) + ' is not a constructor');
 };
 
 
@@ -21587,7 +21587,7 @@ var $RegExp = global.RegExp;
 
 module.exports = fails(function () {
   var re = $RegExp('.', 's');
-  return !(re.dotAll && re.exec('\n') && re.flags === 's');
+  return !(re.dotAll && re.test('\n') && re.flags === 's');
 });
 
 
@@ -21757,7 +21757,7 @@ module.exports = function repeat(count) {
   var str = toString(requireObjectCoercible(this));
   var result = '';
   var n = toIntegerOrInfinity(count);
-  if (n < 0 || n === Infinity) throw $RangeError('Wrong number of repetitions');
+  if (n < 0 || n === Infinity) throw new $RangeError('Wrong number of repetitions');
   for (;n > 0; (n >>>= 1) && (str += str)) if (n & 1) result += str;
   return result;
 };
@@ -21936,7 +21936,7 @@ URLSearchParamsState.prototype = {
           (first = call(entryNext, entryIterator)).done ||
           (second = call(entryNext, entryIterator)).done ||
           !call(entryNext, entryIterator).done
-        ) throw TypeError('Expected sequence with length 2');
+        ) throw new TypeError('Expected sequence with length 2');
         push(this.entries, { key: $toString(first.value), value: $toString(second.value) });
       }
     } else for (var key in object) if (hasOwn(object, key)) {
@@ -22366,7 +22366,7 @@ var tryToString = __webpack_require__(183);
 var $TypeError = TypeError;
 
 module.exports = function (O, P) {
-  if (!delete O[P]) throw $TypeError('Cannot delete property ' + tryToString(P) + ' of ' + tryToString(O));
+  if (!delete O[P]) throw new $TypeError('Cannot delete property ' + tryToString(P) + ' of ' + tryToString(O));
 };
 
 
@@ -25432,7 +25432,7 @@ $({ target: 'Set', proto: true, real: true, forced: true }, {
         accumulator = callbackfn(accumulator, value, value, set);
       }
     });
-    if (noInitial) throw $TypeError('Reduce of empty set with no initial value');
+    if (noInitial) throw new $TypeError('Reduce of empty set with no initial value');
     return accumulator;
   }
 });
@@ -25545,7 +25545,7 @@ module.exports = function (input, pref) {
   if (pref === 'string' && isCallable(fn = input.toString) && !isObject(val = call(fn, input))) return val;
   if (isCallable(fn = input.valueOf) && !isObject(val = call(fn, input))) return val;
   if (pref !== 'string' && isCallable(fn = input.toString) && !isObject(val = call(fn, input))) return val;
-  throw $TypeError("Can't convert object to primitive value");
+  throw new $TypeError("Can't convert object to primitive value");
 };
 
 
@@ -25654,6 +25654,7 @@ var getInternalState = InternalStateModule.getterFor(SYMBOL);
 var ObjectPrototype = Object[PROTOTYPE];
 var $Symbol = global.Symbol;
 var SymbolPrototype = $Symbol && $Symbol[PROTOTYPE];
+var RangeError = global.RangeError;
 var TypeError = global.TypeError;
 var QObject = global.QObject;
 var nativeGetOwnPropertyDescriptor = getOwnPropertyDescriptorModule.f;
@@ -25670,18 +25671,20 @@ var WellKnownSymbolsStore = shared('wks');
 var USE_SETTER = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
 
 // fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
-var setSymbolDescriptor = DESCRIPTORS && fails(function () {
-  return nativeObjectCreate(nativeDefineProperty({}, 'a', {
-    get: function () { return nativeDefineProperty(this, 'a', { value: 7 }).a; }
-  })).a !== 7;
-}) ? function (O, P, Attributes) {
+var fallbackDefineProperty = function (O, P, Attributes) {
   var ObjectPrototypeDescriptor = nativeGetOwnPropertyDescriptor(ObjectPrototype, P);
   if (ObjectPrototypeDescriptor) delete ObjectPrototype[P];
   nativeDefineProperty(O, P, Attributes);
   if (ObjectPrototypeDescriptor && O !== ObjectPrototype) {
     nativeDefineProperty(ObjectPrototype, P, ObjectPrototypeDescriptor);
   }
-} : nativeDefineProperty;
+};
+
+var setSymbolDescriptor = DESCRIPTORS && fails(function () {
+  return nativeObjectCreate(nativeDefineProperty({}, 'a', {
+    get: function () { return nativeDefineProperty(this, 'a', { value: 7 }).a; }
+  })).a !== 7;
+}) ? fallbackDefineProperty : nativeDefineProperty;
 
 var wrap = function (tag, description) {
   var symbol = AllSymbols[tag] = nativeObjectCreate(SymbolPrototype);
@@ -25768,13 +25771,19 @@ var $getOwnPropertySymbols = function (O) {
 // https://tc39.es/ecma262/#sec-symbol-constructor
 if (!NATIVE_SYMBOL) {
   $Symbol = function Symbol() {
-    if (isPrototypeOf(SymbolPrototype, this)) throw TypeError('Symbol is not a constructor');
+    if (isPrototypeOf(SymbolPrototype, this)) throw new TypeError('Symbol is not a constructor');
     var description = !arguments.length || arguments[0] === undefined ? undefined : $toString(arguments[0]);
     var tag = uid(description);
     var setter = function (value) {
       if (this === ObjectPrototype) call(setter, ObjectPrototypeSymbols, value);
       if (hasOwn(this, HIDDEN) && hasOwn(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
-      setSymbolDescriptor(this, tag, createPropertyDescriptor(1, value));
+      var descriptor = createPropertyDescriptor(1, value);
+      try {
+        setSymbolDescriptor(this, tag, descriptor);
+      } catch (error) {
+        if (!(error instanceof RangeError)) throw error;
+        fallbackDefineProperty(this, tag, descriptor);
+      }
     };
     if (DESCRIPTORS && USE_SETTER) setSymbolDescriptor(ObjectPrototype, tag, { configurable: true, set: setter });
     return wrap(tag, description);
@@ -25967,7 +25976,7 @@ var SymbolToStringRegistry = shared('symbol-to-string-registry');
 // https://tc39.es/ecma262/#sec-symbol.keyfor
 $({ target: 'Symbol', stat: true, forced: !NATIVE_SYMBOL_REGISTRY }, {
   keyFor: function keyFor(sym) {
-    if (!isSymbol(sym)) throw TypeError(tryToString(sym) + ' is not a symbol');
+    if (!isSymbol(sym)) throw new TypeError(tryToString(sym) + ' is not a symbol');
     if (hasOwn(SymbolToStringRegistry, sym)) return SymbolToStringRegistry[sym];
   }
 });
@@ -26145,7 +26154,7 @@ var $TypeError = TypeError;
 
 module.exports = function (argument) {
   if (typeof argument == 'object' || isCallable(argument)) return argument;
-  throw $TypeError("Can't set " + $String(argument) + ' as a prototype');
+  throw new $TypeError("Can't set " + $String(argument) + ' as a prototype');
 };
 
 
@@ -26250,7 +26259,7 @@ var callReaction = function (reaction, state) {
         }
       }
       if (result === reaction.promise) {
-        reject(TypeError('Promise-chain cycle'));
+        reject(new TypeError('Promise-chain cycle'));
       } else if (then = isThenable(result)) {
         call(then, result, resolve, reject);
       } else resolve(result);
@@ -26340,7 +26349,7 @@ var internalResolve = function (state, value, unwrap) {
   state.done = true;
   if (unwrap) state = unwrap;
   try {
-    if (state.facade === value) throw TypeError("Promise can't be resolved itself");
+    if (state.facade === value) throw new TypeError("Promise can't be resolved itself");
     var then = isThenable(value);
     if (then) {
       microtask(function () {
@@ -27284,7 +27293,7 @@ var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
 
 module.exports = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
   if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
-    throw $TypeError('Cannot set read only .length');
+    throw new $TypeError('Cannot set read only .length');
   } return O.length = length;
 } : function (O, length) {
   return O.length = length;
@@ -27881,12 +27890,12 @@ var URLState = function (url, isBase, base) {
   var baseState, failure, searchParams;
   if (isBase) {
     failure = this.parse(urlString);
-    if (failure) throw TypeError(failure);
+    if (failure) throw new TypeError(failure);
     this.searchParams = null;
   } else {
     if (base !== undefined) baseState = new URLState(base, true);
     failure = this.parse(urlString, null, baseState);
-    if (failure) throw TypeError(failure);
+    if (failure) throw new TypeError(failure);
     searchParams = getInternalSearchParamsState(new URLSearchParams());
     searchParams.bindURL(this);
     this.searchParams = searchParams;
@@ -28375,7 +28384,7 @@ URLState.prototype = {
   // https://url.spec.whatwg.org/#dom-url-href
   setHref: function (href) {
     var failure = this.parse(href);
-    if (failure) throw TypeError(failure);
+    if (failure) throw new TypeError(failure);
     this.searchParams.update();
   },
   // https://url.spec.whatwg.org/#dom-url-origin
@@ -28747,7 +28756,7 @@ var encode = function (input) {
     // Increase `delta` enough to advance the decoder's <n,i> state to <m,0>, but guard against overflow.
     var handledCPCountPlusOne = handledCPCount + 1;
     if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
-      throw $RangeError(OVERFLOW_ERROR);
+      throw new $RangeError(OVERFLOW_ERROR);
     }
 
     delta += (m - n) * handledCPCountPlusOne;
@@ -28756,7 +28765,7 @@ var encode = function (input) {
     for (i = 0; i < input.length; i++) {
       currentValue = input[i];
       if (currentValue < n && ++delta > maxInt) {
-        throw $RangeError(OVERFLOW_ERROR);
+        throw new $RangeError(OVERFLOW_ERROR);
       }
       if (currentValue === n) {
         // Represent delta as a generalized variable-length integer.
