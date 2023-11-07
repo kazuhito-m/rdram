@@ -5,6 +5,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :catchedUISyncSignals="catchedUISyncSignals"
       @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
       @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -17,6 +18,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :catchedUISyncSignals="catchedUISyncSignals"
       @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
       @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -30,6 +32,7 @@
 import { Component, Vue, Prop, Inject, Emit } from 'nuxt-property-decorator'
 import Rdra20DiagramEditorContainer from '@/components/diagrams/editor/rdra20/Rdra20DiagramEditorContainer.vue'
 import CustomDiagramEditorContainer from '@/components/diagrams/editor/custom/CustomDiagramEditorContainer.vue'
+import UISyncSignal from '@/components/diagrams/editor/template/uisync/UISyncSignal'
 import StorageRepository from '@/domain/storage/StorageRepository'
 import Resource from '@/domain/resource/Resource'
 import Diagram from '@/domain/diagram/Diagram'
@@ -53,6 +56,9 @@ export default class DiagramEditorContainer extends Vue {
 
   @Prop({ required: true })
   lastPropertiesUpdatedDiagramId?: number
+
+  @Prop({ required: true })
+  readonly catchedUISyncSignals!: UISyncSignal[]
 
   @Emit('onOpendDiagramPropertiesEditor')
   onOpendDiagramPropertiesEditor(_diagramId: number): void {}

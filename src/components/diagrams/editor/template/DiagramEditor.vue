@@ -22,6 +22,7 @@
           :usedResouceIds="usedResouceIds"
           :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+          :catchedUISyncSignals="catchedUISyncSignals"
           :iconMap="iconMap"
           :eventAnalyzer="eventAnalyzer"
           :iconGenerators="iconGenerators"
@@ -73,6 +74,7 @@ import DiagramCanvas from "@/components/diagrams/editor/template/canvas/DiagramC
 import ResourceParet from "@/components/diagrams/editor/template/paret/ResourceParet.vue";
 import AllOpenCloseOperationBar from "@/components/main/tool/AllOpenCloseOperationBar.vue";
 import ResourceEditDialog from "@/components/resource/ResourceEditDialog.vue";
+import UISyncSignal from '@/components/diagrams/editor/template/uisync/UISyncSignal'
 
 import IconFontAndChar from "@/components/diagrams/icon/IconFontAndChar";
 import EventAnalyzer from "@/components/diagrams/editor/template/event/EventAnalyzer";
@@ -84,6 +86,7 @@ import Product from "@/domain/product/Product";
 import Resource from "@/domain/resource/Resource";
 import ResourceType from "@/domain/resource/ResourceType";
 import Placement from "@/domain/diagram/placement/Placement";
+import Prompts from "~/components/main/Prompts";
 
 @Component({
   components: {
@@ -106,6 +109,9 @@ export default class DiagramEditor extends Vue {
 
   @Prop({ required: true })
   readonly lastPropertiesUpdatedDiagramId!: number;
+
+  @Prop({ required: true })
+  readonly catchedUISyncSignals!: UISyncSignal[]
 
   @Prop({ required: true })
   readonly eventAnalyzer!: EventAnalyzer;
@@ -134,6 +140,7 @@ export default class DiagramEditor extends Vue {
 
   readonly usedResouceIds: number[] = [];
   readonly iconMap: { [key: string]: IconFontAndChar } = {};
+  private readonly prompts = new Prompts();
 
   warnBar: boolean = false;
   warnMessage: string = "";
@@ -150,13 +157,14 @@ export default class DiagramEditor extends Vue {
   // children component events.
 
   async onEditResource(resourceId: number): Promise<void> {
-    const resource = await this.resourceEditDialog().showForModifyOf(resourceId);
-    if (resource.isEmpty()) return;
+    const product = this.getCurrentProduct();
+    const src = product.resources.of(resourceId);
+    if (!src) return;
 
-    const srcResource = this.reflectResourcesOnViewModel(resource);
-    if (!srcResource) return;
+    const dest = await this.resourceEditDialog().showForModifyOf(resourceId);
+    if (src.isEmpty()) return;
 
-    this.onRenamedResource(srcResource, resource);
+    this.onRenamedResource(src, dest);
   }
 
   onDeleteResourceOnDiagram(resourceId: number): void {
@@ -272,20 +280,8 @@ export default class DiagramEditor extends Vue {
     if (!resource) return;
 
     const usings = product.diagrams.using(resource);
-    if (usings.length > 0) {
-      let diagramInfo = `${usings.length}個の図`;
-      if (usings.length === 1) {
-        const diagram = usings.last();
-        diagramInfo = diagram.id === thisDiagram?.id
-          ? "この図のみ"
-          : `「${diagram.name}(${diagram.type.name})」`
-      }
-      const message =
-        `「${resource.name}」は現在、${diagramInfo}で参照されています。\n` +
-        "削除する場合、図のアイコンや関連のすべては削除されます。\n" +
-        `${resource.name} を削除してもよろしいですか。`;
-      if (!window.confirm(message)) return;
-    }
+    const result = this.prompts.confirmDeleteResourceOnProduct(resource, usings, thisDiagram);
+    if (!result) return;
 
     const modifiedProduct = product.removeOf(resource);
 
@@ -307,18 +303,6 @@ export default class DiagramEditor extends Vue {
       fontFamily: style.fontFamily,
       charactor: content.replace(/"/g, "")
     };
-  }
-
-  private reflectResourcesOnViewModel(resource: Resource): Resource | null {
-    const resources = this.allResources;
-    const i = resources
-      .findIndex(r => r.resourceId === resource.resourceId);
-    if (i < 0) return null;
-
-    const beforeResoruce = resources[i];
-    resources.splice(i, 1);
-    resources.push(resource);
-    return beforeResoruce;
   }
 }
 </script>

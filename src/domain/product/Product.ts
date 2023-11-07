@@ -1,4 +1,5 @@
-import UserSettings from '@/domain//setting/UserSettings';
+import DiagramType from '@/domain/diagram/type/DiagramType';
+import UserSettings from '@/domain/setting/UserSettings';
 import Resources from '@/domain/resource/Resources';
 import ProductIdentifier from '@/domain/product/ProductIdentifier';
 import Diagrams from '@/domain/diagram/Diagrams';
@@ -153,10 +154,19 @@ export default class Product {
         return this.withResources(addedResources);
     }
 
-    public createAndAddDiagram(name: string, diagramType: Rdra20DiagramType): Product {
-        const diagrams = this.diagrams;
-        const diagram = diagrams.createNewDiagram(name, diagramType, this.resources);
-        const addedDiagrams = diagrams.add(diagram);
+    public createAndAddDiagram(name: string, diagramType: DiagramType): Product {
+        const diagram = this.createNewDiagram(name, diagramType);
+        return this.addDiagram(diagram)
+    }
+
+    public createNewDiagram(name: string, diagramType: DiagramType) {
+        return this.diagrams
+            .createNewDiagram(name, diagramType, this.resources);
+    }
+
+    public addDiagram(diagram: Diagram): Product {
+        const renewDiagram = diagram.reIdOf(this.diagrams.generateDiagramId());
+        const addedDiagrams = this.diagrams.add(renewDiagram);
         return this.withDiagrams(addedDiagrams);
     }
 

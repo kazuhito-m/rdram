@@ -6,7 +6,6 @@
       background-color="primary"
       show-arrows
       dark
-      @change="onChangeActiveTab"
     >
       <v-tab
         v-for="item in openTabs"
@@ -41,6 +40,7 @@
           :diagramId="item.id"
           :allResources="allResources"
           :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+          :catchedUISyncSignals="catchedUISyncSignals"
           @onUpdateResoucesOnContainer="onUpdateResoucesOnContainer"
           @onUpdatedDiagramProperties="onUpdatedDiagramProperties"
           @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
@@ -48,21 +48,28 @@
           @onRenamedResource="onRenamedResource"
         />
 
-        <AnalysisContainer 
+        <AnalysisContainer
           v-if="item.isAnalysis()"
           :analysisViewId="item.id"
+          :activeViewId="activeViewId"
+          @onRenamedResource="onRenamedResource"
+          @onOpenDiagram="onOpenDiagram"
+          @onUpdateResources="onUpdateResoucesOnContainer"
+          @onRemovedRelations="onRemovedRelations"
+          @onRemovedResourceOnDiagram="onRemovedResourceOnDiagram"
         />
       </v-tab-item>
     </v-tabs-items>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Emit, Prop } from 'nuxt-property-decorator'
+import { Component, Vue, Emit, Prop, Watch } from 'nuxt-property-decorator'
 import DiagramEditorContainer from '@/components/diagrams/editor/DiagramEditorContainer.vue'
 import ViewOrFolder from '@/components/main/model/ViewOrFolder'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
 import AnalysisContainer from '@/components/analysis/AnalysisContainer.vue'
+import UISyncSignal from '~/components/diagrams/editor/template/uisync/UISyncSignal'
 
 @Component({
   components: {
@@ -72,6 +79,8 @@ import AnalysisContainer from '@/components/analysis/AnalysisContainer.vue'
 })
 export default class DiagramsTabPane extends Vue {
   currentTabIndex: number | null = null
+  activeViewId: number = 0
+  readonly catchedUISyncSignals: UISyncSignal[] = [];
 
   // Props
 
@@ -102,6 +111,9 @@ export default class DiagramsTabPane extends Vue {
   @Emit('onRenamedResource')
   onRenamedResource(_src: Resource, _dest: Resource): void {}
 
+  @Emit('onOpenDiagram')
+  onOpenDiagram(_diagramId: number): void {}
+
   /// open/close editor.
 
   @Emit('onChangeCurrentDiagram')
@@ -114,11 +126,14 @@ export default class DiagramsTabPane extends Vue {
 
   // component events.
 
-  onChangeActiveTab(newTabIndex: number) {
-    if (newTabIndex === undefined) return
+  @Watch('currentTabIndex')
+  onChangeActiveTab() {
+    const newTabIndex = this.currentTabIndex
+    if (newTabIndex === null) return
     const currentTabItem = this.openTabs[newTabIndex]
     if (!currentTabItem) return
 
+    this.activeViewId = currentTabItem.id
     this.onChangeCurrentDiagram(currentTabItem.id)
   }
 
@@ -134,6 +149,14 @@ export default class DiagramsTabPane extends Vue {
     this.onRightClick(clickItem, event.x, event.y)
   }
 
+  onRemovedRelations(relationIds: string[]):void {
+    this.throwUISyncSignals(UISyncSignal.deleteConnectionsOf(relationIds))
+  }
+
+  onRemovedResourceOnDiagram(resourceId: number, diagramId: number): void {
+    this.thrwoUISyncSignal(UISyncSignal.deleteIconOf(resourceId, diagramId))
+  }
+
   // public methods.
 
   openDiagram(treeItem: ViewOrFolder): void {
@@ -144,7 +167,6 @@ export default class DiagramsTabPane extends Vue {
       (tabItem) => tabItem.id === diagramId
     )
     this.currentTabIndex = newTabIndex
-    this.onChangeActiveTab(newTabIndex)
   }
 
   closeTab(tabItemId: number): boolean {
@@ -170,6 +192,15 @@ export default class DiagramsTabPane extends Vue {
     const tabItemId = parseInt(data, 10)
     const foundItem = this.openTabs.find((tab) => tab.id === tabItemId)
     return foundItem || ViewOrFolder.EMPTY
+  }
+
+  private throwUISyncSignals(signals: UISyncSignal[]): void {
+    this.catchedUISyncSignals.length = 0
+    this.catchedUISyncSignals.push(...signals)
+  }
+
+  private thrwoUISyncSignal(signal: UISyncSignal): void {
+    this.throwUISyncSignals([signal])
   }
 }
 </script>

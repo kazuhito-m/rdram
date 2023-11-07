@@ -5,6 +5,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :catchedUISyncSignals="catchedUISyncSignals"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -16,6 +17,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'nuxt-property-decorator'
 import FreestyleDiagramEditor from '@/components/diagrams/editor/custom/freestyle/FreestyleDiagramEditor.vue'
+import UISyncSignal from '@/components/diagrams/editor/template/uisync/UISyncSignal'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
 
@@ -33,6 +35,9 @@ export default class CustomDiagramEditorContainer extends Vue {
 
   @Prop({ required: true })
   readonly lastPropertiesUpdatedDiagramId?: number
+
+  @Prop({ required: true })
+  readonly catchedUISyncSignals!: UISyncSignal[]
 
   @Emit('onOpendDiagramPropertiesEditor')
   onOpendDiagramPropertiesEditor(_diagramId: number): void {}

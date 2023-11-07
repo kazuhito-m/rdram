@@ -128,7 +128,7 @@ export default class TwoPaneWithSlideBarLayout extends Vue {
   overflow: hidden;
   resize: none;
   text-align: left;
-  width: 250px;
+  width: 260px;
 }
 
 .right-pane {

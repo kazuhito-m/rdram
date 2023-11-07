@@ -1,17 +1,16 @@
 <template>
   <PropertiesSettingDialog
-    v-if="visible"
     :id="diagramId"
     :consent="consent"
     :title="title"
     :subTitle="subTitle"
     :iconKey="iconKey"
-    width="450"
+    width="400"
     @onClose="onClose"
     @onClickOk="onClickUpdateExecute"
+    @onShow="onShow"
   >
     <template #inputPart>
-      <slot name="headMessage"></slot>
       <v-container>
         <v-row>
           <v-col>
@@ -28,7 +27,7 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="w"
+              v-model="width"
               label="横幅(px)"
               type="number"
               :rules="[validateWidith]"
@@ -37,7 +36,7 @@
           </v-col>
           <v-col>
             <v-text-field
-              v-model="h"
+              v-model="height"
               label="高さ(px)"
               type="number"
               :rules="[validateHeight]"
@@ -51,7 +50,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Inject, Emit } from 'nuxt-property-decorator'
+import {
+  Component,
+  Vue,
+  Prop,
+  Inject,
+  Emit,
+  Watch,
+} from 'nuxt-property-decorator'
 import PropertiesSettingDialog from '@/components/PropertiesSettingDialog.vue'
 import StorageRepository from '@/domain/storage/StorageRepository'
 import Diagram from '@/domain/diagram/Diagram'
@@ -61,63 +67,73 @@ import Product from '@/domain/product/Product'
   components: { PropertiesSettingDialog },
 })
 export default class DiagramPropertiesEditDialog extends Vue {
-  private source!: Diagram
-  private resolve: any = null
-  visible = false
+  @Prop({ required: true })
+  readonly diagramId!: number
 
-  consent = false
-  subTitle = ''
-  title = ''
-  iconKey = ''
-
-  diagramId: number = 0
-  name = ''
-  w = ''
-  h = ''
+  @Emit('onUpdatedDiagramProperties')
+  private onUpdatedDiagramProperties(_diagram: Diagram): void {}
 
   @Emit('onClose')
-  onClose(): void {
-    this.visible = false
-    this.resolve(this.source)
+  onClose(): void {}
+
+  @Watch('diagramId')
+  onChangeDiagramId(): void {
+    if (!Number.isInteger(this.diagramId)) return
+    const id = Number(this.diagramId)
+    if (id > 0) this.onShow()
   }
 
   @Inject()
   private repository?: StorageRepository
 
-  // properties.
+  consent = false
+  subTitle = ''
+  title = ''
+  iconKey = ''
+  old!: Diagram
+
+  name = ''
+  width = ''
+  height = ''
+
+  onShow(): void {
+    this.consent = false
+    const product = this.repository?.getCurrentProduct()
+    const diagram = product?.diagrams.of(this.diagramId)
+    if (!diagram) return
+    this.old = diagram
+    this.title = `${diagram.name} の設定`
+    this.subTitle = diagram.type.name
+    this.iconKey = diagram.type.iconKey
+    this.showProperties(diagram)
+  }
+
+  private showProperties(diagram: Diagram): void {
+    this.name = diagram.name
+    this.width = diagram.width.toString()
+    this.height = diagram.height.toString()
+  }
+
+  private changed(): boolean {
+    const old = this.old!
+    return (
+      old.name !== this.name ||
+      old.width !== this.getWidth() ||
+      old.height !== this.getHeight()
+    )
+  }
 
   get nameMaxLength(): number {
     return Diagram.NAME_MAX_LENGTH
   }
 
-  get width(): number {
-    return parseInt(this.w, 10)
+  getWidth(): number {
+    return Number(this.width)
   }
 
-  get height(): number {
-    return parseInt(this.h, 10)
+  getHeight(): number {
+    return Number(this.height)
   }
-
-  // component events;
-
-  onClickUpdateExecute(): void {
-    if (!this.consent) return
-    const diagram = this.registerDiagramProperties()
-    if (!diagram) return
-    this.visible = false
-    this.resolve(diagram)
-  }
-
-  // public methods.
-
-  showOf(diagram: Diagram): Promise<Diagram> {
-    this.initializeOf(diagram)
-    this.showProperties(diagram)
-    this.visible = true
-    return new Promise((resolve) => (this.resolve = resolve))
-  }
-
-  /// validations.
 
   validateName(): string | boolean {
     this.consent = false
@@ -130,11 +146,11 @@ export default class DiagramPropertiesEditDialog extends Vue {
   }
 
   validateWidith(): string | boolean {
-    return this.validateSize(this.w, Diagram.MAX_WIDTH)
+    return this.validateSize(this.width, Diagram.MAX_WIDTH)
   }
 
   validateHeight(): string | boolean {
-    return this.validateSize(this.h, Diagram.MAX_HEIGHT)
+    return this.validateSize(this.height, Diagram.MAX_HEIGHT)
   }
 
   private validateSize(value: string, max: number): string | boolean {
@@ -149,6 +165,31 @@ export default class DiagramPropertiesEditDialog extends Vue {
     return true
   }
 
+  onClickUpdateExecute(): void {
+    if (!this.consent) return
+    const diagram = this.registerDiagramProperties()
+    if (!diagram) return
+    this.onUpdatedDiagramProperties(diagram)
+    this.onClose()
+  }
+
+  private registerDiagramProperties(): Diagram | null {
+    const product = this.repository?.getCurrentProduct()
+    const diagram = product?.diagrams.of(this.diagramId)
+    if (!product || !diagram) return null
+
+    const modified = diagram
+      .renameOf(this.name)
+      .resize(this.getWidth(), this.getHeight())
+    if (!this.logicalValidation(modified, product)) return null
+
+    const registerd = modified.fixStickOuts()
+    const modifiedProduct = product.meageDiagramByIdOf(registerd)
+    this.repository?.registerCurrentProduct(modifiedProduct)
+
+    return registerd
+  }
+
   private logicalValidation(diagram: Diagram, product: Product): boolean {
     if (product.diagrams.existsSameOf(diagram)) {
       alert('既に重複した名前の図が在ります。')
@@ -161,59 +202,6 @@ export default class DiagramPropertiesEditDialog extends Vue {
       if (!window.confirm(message)) return false
     }
     return true
-  }
-
-  // private methods.
-
-  private initializeOf(diagram: Diagram): void {
-    this.source = diagram
-    this.diagramId = diagram.id
-    this.title = diagram.isNotRegister()
-      ? `${diagram.type.name} の新規作成`
-      : `${diagram.name} の設定`
-    this.subTitle = diagram.type.name
-    this.iconKey = diagram.type.iconKey
-  }
-
-  private showProperties(diagram: Diagram): void {
-    this.name = diagram.name
-    this.w = diagram.width.toString()
-    this.h = diagram.height.toString()
-  }
-
-  private changed(): boolean {
-    const src = this.source!
-    return (
-      src.name !== this.name ||
-      src.width !== this.width ||
-      src.height !== this.height
-    )
-  }
-
-  private registerDiagramProperties(): Diagram | null {
-    const product = this.repository?.getCurrentProduct()
-    if (!product) return null
-
-    const diagram = this.source
-    const modified = diagram.renameOf(this.name).resize(this.width, this.height)
-    if (!this.logicalValidation(modified, product)) return null
-
-    const fixed = modified.fixStickOuts()
-
-    return this.register(fixed, product)
-  }
-
-  private register(diagram: Diagram, product: Product) {
-    let modifiedProduct: Product
-    let registerd = diagram
-    if (this.source.isNotRegister()) {
-      modifiedProduct = product.addDiagram(diagram)
-      registerd = modifiedProduct.diagrams.last()
-    } else {
-      modifiedProduct = product.meageDiagramByIdOf(diagram)
-    }
-    this.repository!.registerCurrentProduct(modifiedProduct)
-    return registerd
   }
 }
 </script>

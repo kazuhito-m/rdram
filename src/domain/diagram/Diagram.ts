@@ -287,6 +287,10 @@ export default abstract class Diagram {
             .replaceRelations(surviveRelations);
     }
 
+    public isNotRegister(): boolean {
+        return this.name === "";
+    }
+
     public removeResouceOf(resource: Resource): Diagram {
         const resourceId = resource.resourceId;
         return this.renew(

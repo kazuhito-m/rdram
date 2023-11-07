@@ -22,6 +22,7 @@ export default class ViewOrFolder {
 
     static readonly ICON_LIST = of(3000000000000001, "アイコン一覧", false, "mdi-format-list-bulleted-type", '分析:アイコン一覧');
     static readonly SCREEN_TRANSITION = of(3000000000000002, "画面遷移", false, "mdi-file-tree-outline", '分析:画面遷移');
+    static readonly UC_SCREEN_INFO_SATISFACTION = of(3000000000000003, "UCと画面/情報の充足", false, "mdi-checkerboard-remove", '分析:UCと画面/情報の充足');
 
     static readonly EMPTY = new ViewOrFolder(0, "(空)", [], true, false, "", "");
 

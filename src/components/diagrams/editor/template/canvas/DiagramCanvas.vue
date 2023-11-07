@@ -56,6 +56,8 @@ import RouterTypeDraw2dConverter from '@/components/diagrams/editor/template/Rou
 import IconGenerator from '@/components/diagrams/icon/IconGenerator'
 import IconFontAndChar from '@/components/diagrams/icon/IconFontAndChar'
 
+import UISyncSignal from '@/components/diagrams/editor/template/uisync/UISyncSignal'
+
 import Product from '@/domain/product/Product'
 import Diagram from '@/domain/diagram/Diagram'
 import Resources from '@/domain/resource/Resources'
@@ -91,6 +93,9 @@ export default class DiagramCanvas extends Vue {
 
   @Prop({ required: true })
   private readonly lastPropertiesUpdatedDiagramId!: number
+
+  @Prop({ required: true })
+  private readonly catchedUISyncSignals!: UISyncSignal[]
 
   @Prop({ required: true })
   private readonly iconMap!: { [key: string]: IconFontAndChar }
@@ -216,6 +221,16 @@ export default class DiagramCanvas extends Vue {
     this.reverceSyncCavansDeleteThings()
   }
 
+  @Watch('catchedUISyncSignals')
+  private onCatchSignalOfUISync() {
+    for (const signal of this.catchedUISyncSignals) {
+      if (signal.operation !== 'delete') break
+
+      if (signal.target === 'connection') this.deleteConnectionOf(signal.id)
+      if (signal.target === 'icon') this.deleteIconOf(signal.resourceId, signal.diagramId);
+    }
+  }
+
   @Watch('visibleConnectorMenu')
   private onChangeVisibleConnectorMenu(): void {
     if (this.visibleConnectorMenu) this.onShowConnectorMenu()
@@ -255,11 +270,7 @@ export default class DiagramCanvas extends Vue {
   // right click menu events.
 
   onDeleteRelation(relation: Relation): void {
-    this.deleteConnection(relation)
-
-    this.transactionOf((diagram, _) => {
-      return diagram.removeRelationsOf([relation.id])
-    })
+    this.deleteRelation(relation.id);
   }
 
   onUpdateRelation(relation: Relation): void {
@@ -655,6 +666,15 @@ export default class DiagramCanvas extends Vue {
     })
   }
 
+  private  deleteRelation(relationId: string) {
+    this.deleteConnectionOf(relationId)
+
+    this.transactionOf((diagram, _) => {
+      if (!diagram.existsRelationId(relationId)) return null;
+      return diagram.removeRelationsOf([relationId])
+    })
+  }
+
   public confirmResourceDelete(
     resourceIds: number[],
     diagram: Diagram
@@ -704,7 +724,7 @@ export default class DiagramCanvas extends Vue {
     const iconVM = this.iconVMOf(resource)
     if (!iconVM) return
 
-    relations.forEach((relation) => this.deleteConnection(relation))
+    relations.forEach((relation) => this.deleteConnectionOf(relation.id))
     this.canvas.remove(iconVM.icon)
 
     this.addResouceIconToCanvas(resource, placement)
@@ -720,9 +740,34 @@ export default class DiagramCanvas extends Vue {
     return this.iconVMs().find((vm) => vm.resourceId() === resource.resourceId)
   }
 
-  private deleteConnection(relation: Relation) {
-    const connection = this.canvas.getLine(relation.id)
+  private deleteConnectionOf(relationId: string) {
+    const connection = this.canvas.getLine(relationId)
+    if (!connection) return
     this.canvas.remove(connection)
+  }
+
+  private deleteIconOf(resourceId: number, diagramId: number): void {
+    if (this.diagramId !== diagramId) return
+    const foundIconVM = this.iconVMs()
+      .find(vm => vm.resourceId() === resourceId) // おそらくは一つしかないはずだが...
+    if (!foundIconVM) return
+
+    this.deleteRelatedConnectionsOnCanvasOf(foundIconVM)
+    this.canvas.remove(foundIconVM.icon)
+  }
+
+  private deleteRelatedConnectionsOnCanvasOf(iconVM: IconViewModel): void {
+    const canvas = this.canvas
+
+    const ports = [false, true]
+      .map(flg => this.getPort(iconVM.resourceId(), canvas, flg))
+      .filter(port =>!!port) as Port[] // undifind以外
+    // in/out portとも「同じPort」であれば、一つしかいらないので削除
+    if (ports.length > 1 && ports[0] === ports[1]) ports.pop()
+
+    ports.map(port => port.getConnections())
+      .flatMap(container => container.data)
+      .forEach(connection => canvas.remove(connection))
   }
 
   // Data change controll.

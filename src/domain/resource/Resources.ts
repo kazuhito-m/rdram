@@ -5,20 +5,9 @@ import Relation from "@/domain/relation/Relation";
 import RelationWithResources from "@/domain/relation/RelationWithResources";
 
 export default class Resources {
-    private readonly values: Resource[];
+    constructor(private readonly values: Resource[]) { }
 
-    constructor(values: Resource[]) {
-        this.values = values;
-    }
-
-    public static prototypeOf(): Resources {
-        return new Resources([]);
-    }
-
-    public createResourceOf(name: string, resourceType: ResourceType, resourceId: number): Resource {
-        const factory = new ResourceFactory();
-        return factory.create(name, resourceType, resourceId, this);
-    }
+    // search or filter methods.
 
     public prototypeResourceOf(resourceType: ResourceType): Resource {
         return this.createResourceOf("", resourceType, Resource.YET_NUMBERING_ID);
@@ -66,6 +55,24 @@ export default class Resources {
         return this.typesOf(resourceType);
     }
 
+    public sorted(): Resources {
+        const results = this.values
+            .slice()
+            .sort((l, r) => this.compareOf(l, r));
+        return new Resources(results);
+    }
+
+    private compareOf(left: Resource, right: Resource): number {
+        return this.makeSortKey(left) > this.makeSortKey(right) ? 1 : -1;
+    }
+
+    private makeSortKey(resource: Resource): string {
+        const typeId = String(resource.type.id).padStart(8, "0");
+        return `${typeId}:${resource.name}`;
+    }
+
+    // modifies.
+
     public add(resource: Resource): Resources {
         const newValues = Array.from(this.values);
         newValues.push(resource);
@@ -92,17 +99,7 @@ export default class Resources {
         return new Resources(newValues);
     }
 
-    public relationWithResourcesOf(relation: Relation): RelationWithResources | null {
-        const fromResource = this.of(relation.fromResourceId);
-        const toResource = this.of(relation.toResourceId);
-        if (!fromResource || !toResource) return null;
-
-        return RelationWithResources.of(relation, fromResource, toResource);
-    }
-
-    public static empty(): Resources {
-        return new Resources([]);
-    }
+    // stream functions.
 
     public forEach(func: (resource: Resource) => void) {
         this.values.forEach(func);
@@ -116,6 +113,33 @@ export default class Resources {
         return this.values.filter(func);
     }
 
+    // create other objects.
+
+    public relationWithResourcesOf(relation: Relation): RelationWithResources | null {
+        const fromResource = this.of(relation.fromResourceId);
+        const toResource = this.of(relation.toResourceId);
+        if (!fromResource || !toResource) return null;
+
+        return RelationWithResources.of(relation, fromResource, toResource);
+    }
+
+    // factory methods.
+
+    public static prototypeOf(): Resources {
+        return new Resources([]);
+    }
+
+    public createResourceOf(name: string, resourceType: ResourceType, resourceId: number): Resource {
+        const factory = new ResourceFactory();
+        return factory.create(name, resourceType, resourceId, this);
+    }
+
+    public static empty(): Resources {
+        return new Resources([]);
+    }
+
+    // get status.
+
     public get length(): number {
         return this.values.length;
     }
@@ -123,6 +147,8 @@ export default class Resources {
     public isEmpty(): boolean {
         return this.length === 0;
     }
+
+    // single get.
 
     public last(): Resource {
         return this.values[this.length - 1];

@@ -33,6 +33,7 @@
           @onRenamedResource="onRenamedResource"
           @onChangeCurrentDiagram="onChangeCurrentDiagram"
           @onRightClick="onTabRightClick"
+          @onOpenDiagram="onShowDiagram"
         />
       </template>
     </TwoPaneWithSlideBarLayout>
@@ -51,7 +52,7 @@ import TwoPaneWithSlideBarLayout from "@/components/twopane/TwoPaneWithSlideBarL
 import DiagramsTreePane from "@/components/main/tree/DiagramsTreePane.vue";
 import DiagramsTabPane from "@/components/main/tab/DiagramsTabPane.vue";
 import ItemRightClickMenu from "@/components/main/menu/ItemRightClickMenu.vue"
-import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialog.vue";
+import DiagramPropertiesEditDialog from "@/components/diagrams/editor/DiagramPropertiesEditDialogOld.vue";
 import DiagramTypeSelectorDialog from "@/components/diagrams/open/DiagramTypeSelectorDialog.vue";
 import ViewOrFolder from "@/components/main/model/ViewOrFolder";
 import Product from "@/domain/product/Product";
@@ -149,10 +150,11 @@ export default class extends Vue {
 
     if (diagramId === DiagramTypeSelectorDialog.NOTHING_DIAGRAM_ID) return;
 
-    this.treePane.activeItemAndFolderOpen(diagramId);
+    this.onShowDiagram(diagramId);
   }
 
   onRenamedResource(src: Resource, dest: Resource): void {
+    this.reflectResourcesOnViewModel(dest)
     this.reflectResourceRenameToDiagrams(src, dest);
   }
 
@@ -166,6 +168,10 @@ export default class extends Vue {
 
   onTabRightClick(item: ViewOrFolder, x: number, y:number): void {
     this.showRightClickMenu(item, x, y, true);
+  }
+
+  onShowDiagram(diagramId: number): void {
+       this.treePane.activeItemAndFolderOpen(diagramId); 
   }
 
   /// menu click events.
@@ -258,6 +264,18 @@ export default class extends Vue {
   private showRightClickMenu(item: ViewOrFolder, x: number, y:number, tabClick: boolean): void {
     const menu = this.$refs.itemRightClickMenu as ItemRightClickMenu
     menu.show(item, x, y, tabClick);
+  }
+
+  private reflectResourcesOnViewModel(resource: Resource): Resource | null {
+    const resources = this.allResources;
+    const i = resources
+      .findIndex(r => r.resourceId === resource.resourceId);
+    if (i < 0) return null;
+
+    const beforeResoruce = resources[i];
+    resources.splice(i, 1);
+    resources.push(resource);
+    return beforeResoruce;
   }
 }
 </script>

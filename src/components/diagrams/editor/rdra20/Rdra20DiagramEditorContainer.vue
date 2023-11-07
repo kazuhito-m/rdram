@@ -5,6 +5,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :catchedUISyncSignals="catchedUISyncSignals"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -15,6 +16,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :catchedUISyncSignals="catchedUISyncSignals"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -25,6 +27,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :catchedUISyncSignals="catchedUISyncSignals"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -35,6 +38,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :catchedUISyncSignals="catchedUISyncSignals"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -45,6 +49,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :catchedUISyncSignals="catchedUISyncSignals"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -55,6 +60,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :catchedUISyncSignals="catchedUISyncSignals"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -65,6 +71,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :catchedUISyncSignals="catchedUISyncSignals"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -75,6 +82,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :catchedUISyncSignals="catchedUISyncSignals"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -85,6 +93,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :catchedUISyncSignals="catchedUISyncSignals"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -95,6 +104,7 @@
       :diagram="diagram"
       :allResources="allResources"
       :lastPropertiesUpdatedDiagramId="lastPropertiesUpdatedDiagramId"
+      :catchedUISyncSignals="catchedUISyncSignals"
       @onUpdateResources="onUpdateResoucesOnContainer"
       @onOpendDiagramPropertiesEditor="onOpendDiagramPropertiesEditor"
       @onOpenDiagramOfResourceRelate="onOpenDiagramOfResourceRelate"
@@ -115,6 +125,7 @@ import InfomationModelEditor from '@/components/diagrams/editor/rdra20/infomatio
 import StateModelEditor from '@/components/diagrams/editor/rdra20/statemodel/StateModelEditor.vue'
 import UseCaseCompositeDiagramEditor from '@/components/diagrams/editor/rdra20/usecasecompositediagram/UseCaseCompositeDiagramEditor.vue'
 import VariationAndConditionDiagramEditor from '@/components/diagrams/editor/rdra20/variationandcondition/VariationAndConditionDiagramEditor.vue'
+import UISyncSignal from '@/components/diagrams/editor/template/uisync/UISyncSignal'
 import Diagram from '@/domain/diagram/Diagram'
 import Resource from '@/domain/resource/Resource'
 
@@ -141,6 +152,9 @@ export default class Rdra20DiagramEditorContainer extends Vue {
 
   @Prop({ required: true })
   readonly lastPropertiesUpdatedDiagramId?: number
+
+  @Prop({ required: true })
+  readonly catchedUISyncSignals!: UISyncSignal[]
 
   @Emit('onOpendDiagramPropertiesEditor')
   onOpendDiagramPropertiesEditor(_diagramId: number): void {}
